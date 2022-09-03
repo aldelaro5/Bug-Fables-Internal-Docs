@@ -7,9 +7,9 @@ ID | Description
 4 | Chapter 1 pushing the 2 pressure plates in front of the large door in Snakemouth Den
 5 | Chapter 1 cutscene of falling into the trap in front of the big door in Snakemouth Den
 6 | Chapter 1 approaching the spider web with Leif in it
-7 |
+7 | Talking to the enemy tester (Zombiant) in the Test Room
 8 | Selecting new file
-9 |
+9 | Talking to the party changer (Eetl) in the Test Room
 10 | Chapter 1 getting near Chuck (before getting Kabbu’s horn field skill)
 11 | Chapter 1 arriving on the map with the Snakemouth Den entrance
 12 | Trying to go the wrong way and have the team turn back immediately (used at multiple places)
@@ -25,14 +25,14 @@ ID | Description
 22 | Loading a save file
 23 | Chapter 1 hitting either big switch in Snakemouth Depths (for the door)
 24 | Chapter 1 unlocking the door in Snakemouth Depths
-25 |
+25 | UNUSED, likely was an event played before event 26 in the Sanakemouth Den Treasure room
 26 | Chapter 1 approaching the Ancient Mask in Snakemouth Depths
 27 | Examining the roach statue in Snakemouth Depths
 28 | Talking to Samira
 29 | Using the Ant Compass
-30 |
+30 | UNUSED, was used in the demo by talking to the Zombiant at the room behind the large door at Snakemouth Den
 31 | Talking to Leby’s brother after killing the monsters near after taking the My Brother is Gone! quest
-32 |
+32 | UNUSED, Tod's quest event in the demo
 33 | Talking to Artis to check for hard mode bosses beaten
 34 | Giving the Hearty Breakfast to Chuck after taking the I Want a New Taste quest
 35 | Talking to the merchant guy in the Theater for the first time (Green Bug Ranger cutscene)
@@ -41,8 +41,8 @@ ID | Description
 38 | Examining the Ant City Plaza statue
 39 | Practicing a play at the Theater for the Theater Help Wanted! quest
 40 | Starting a play at the Theater
-41 |
-42 |
+41 | UNUSED, asking Tristan to play a song in the demo
+42 | Taling to Mr Tester in the Test Room
 43 | Getting healed by Venus or saying Let’s Talk to her
 44 | Say We’ll help you train to Crisbee after taking the I Wanna Get Better! quest
 45 | Approaching the exit through the throne room at the Ant Palace after the end of Chapter 1 
@@ -69,7 +69,7 @@ ID | Description
 66 | Chapter 2 getting a Big Crank piece
 67 | Chapter 2 placing the Big Crank at the Golden Hills
 68 | Riding a wooden platform elevator (Golden Hills and Defiant Root/Bee Kingdom Hive entrance. Also used for the train at the Honey Factory)
-69 |
+69 | Chapter 2 talking to Zasp about the eating competition in the main room of Golden Settlement at night
 70 | Chapter 2 approaching the backside of the map with the Big Crank Bottom Half at the Golden Hills
 71 | Talking to the Fortune Teller at the Golden Settlement
 72 | Chapter 2 prompt for the offerings at the top of the Golden Hills
@@ -123,7 +123,7 @@ ID | Description
 120 | Arriving at the throne room of the Ant Palace after the end of Chapter 4 
 121 | Trying to buy something at the Termacade
 122 | Showing the Full Suit Card to the knight at the entrance of the Spy Cards tournament at Metal Island
-123 |
+123 | TO CHECK, Hitting a water crystal switch in Stream Mountain?
 124 | Approaching any bounty boss
 125 | Chapter 5 Approaching Make near the Far Grasslands entrance at the Lost Sands. Also used when approaching Maki at the Far Grasslands entrance
 126 | Talking to a broken Mender at the Honey Factory after taking the Helpers Needed At Once! quest
@@ -170,7 +170,7 @@ ID | Description
 167 | Talking to the pink spider at the Forsaken Lands
 168 | Getting kicked out of the Forsaken Lands
 169 | Hitting a switch at the Power Plant. Also used for hitting the level or any switches near the switch puzzle at Snakemouth Lab
-170 |
+170 | DOES NOT EXIST
 171 | Arriving at the Broadmother map after taking the Power Plant Investigation quest
 172 | Arriving at the firefly room after taking the Best Friend In The Fog! quest. Also used when getting past said room for the first time
 173 | Giving the Stolen Silk to Kali
@@ -187,7 +187,7 @@ ID | Description
 184 | Examining an hologram at Snakemouth Lab
 185 |
 186 | Chapter 6 hitting the east wooden lever in the room with the save point on the second floor at Rubber Prison
-187 |
+187 | UNUSED, triggers after 15 minutes of playtime if the demo timer feature is on
 188 | Arriving at the Wacka Farms after taking the Want to Relive Memories… quest
 189 | Talking to Librem in the Ant castle library
 190 | Chapter 6 examining or dashing into the computer at the Rubber Prison. Chapter 6 also used when turning on the backup power
@@ -211,11 +211,11 @@ ID | Description
 208 | Talking to Eetl under RUIGEE for levelling
 209 | Talking to Bumble’s sister after taking the They Took Her…! quest
 210 | Participating in the Spy Cards tournament at Metal Island
-211 |
+211 | DOES NOT EXIST
 212 | Talking to Vanessa II in post game for the first time
 213 | Examining the spot where The Beast was beaten for the first time in post game
 214 | Talking to the merchant on the leftmost part of Metal Island
-215 |
+215 | Giving an item to the ant in the Wasp prison
 216 | Chapter 7 approaching the oven for the first time at Giant’s Lair. Chapter 7 also used when turning a stove dial. Chapter 7 also used when destroying breakable rocks above the wind blower in the oven room at Giant’s Lair
 217 | Digging Cerise out of the soft soil at the Bandit Hideout. Also used when talked to her for the first time at the Bandit Hideout
 218 | Checking a badge in H.B’s room at the Bee Kingdom Hive
@@ -225,4 +225,4 @@ ID | Description
 222 | Loose Ends quest event
 223 | A New Hope quest event
 224 | Getting Bored quest event
-225 |
+225 | Interacting with the sign near the north exit of the Explorers's Association
