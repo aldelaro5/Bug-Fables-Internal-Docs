@@ -167,7 +167,7 @@ Each array element contains fields:
 Position | Description | Type | Additional information
 --------------------------|--------------|------------------------------------------|---------------------------
 0 | Medal ID | Int | Refer to Appendix A
-1 | Equip target | Int | -2 - Unequipped, -1 - Equipped to the party, 0 - Vi, 1 - Kabbu, 2 - Leif
+1 | Equip target | Int | -2 - Unequipped, -1 - Equipped to the party, everything else is the AnimID of whom has it equipped
 
 Line 9 (Array line) Samira songs
 
