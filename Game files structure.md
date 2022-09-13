@@ -6,9 +6,13 @@ Let's first see what a Bug Fables install looks like. If you installed the game 
 
 ## An overview of the files structure
 This is how a typical install of the game looks:
+
 ![Game install directory](Screenshots/gane-install-root.png)
+
 The Managed folder under the Data folder contains many DLL files like this:
+
 ![Game managed folder](Screenshots/gane-install-managed.png)
+
 While it might seem like there's a lot of files, most of them are actually copied from Unity and the actual game is only contained in a few files.
 
 ## A breakdown of the files
