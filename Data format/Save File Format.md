@@ -1,10 +1,7 @@
-BUG FABLES SAVE FORMAT DOCUMENTATION (1.1.x PC format)
-
-By aldelaro5 with the help of ZHugeEx, Benjee, wataniyob and Wintar
-
+# Bug Fables Save Format
 A save file in Bug Fables is a XOR encrypted regular text file. It is a very simple
 symetric encryption scheme where each bytes is XORed with a number called the key.
-This key is present in the TextAsset located at "Ressources/Data/Key" in the asset tree.
+This key is present in the TextAsset located at `Ressources/Data/Key` in the asset tree.
 
 The operation to encrypt or decrypt are identical.
 
@@ -13,16 +10,11 @@ The file is composed of exactly 18 lines. There are 3 types of line format:
 - List line: contain a list of items, separated by "," unless specified otherwise.
 - Array line: contain an array, each element is separated by "@" and each element is either a list or fields.
 
-Along this document, 3 other documents are provided for details about the ID of elements
-refferenced within the save file. One contains appendixes for any element except flags
-the second is for the three kinds of global flags (flags, flagstring and flagvar) and the
-third is for all the regionalflags per areas.
+## Format differences between 1.0.x and 1.1.x
+There were 2 changes done to the format in the 1.1.0 version of the game. Specifically, the amount of items in the flagvar and flags line have increased. When a 1.0.x save file is loaded into the game, it will load normally, but with the new items getting a default value (in this case, `false`). The game uses a specific flag (see document on [glabal flags](../Flags/Global%20flags.md) to determine if the file is in 1.0.x format or 1.1.x format. If it detects it's a 1.0.5 file, it will perform some directives to adapt it as some logic changes and flags changes impacted it. Once it is done, it will set the flag checked earlier to true which will prevent the game from performing the conversion twice. This works because the flag used is not used in 1.0.x so it will never be `true` until the conversioon is done in 1.1.x. This will only persist once a save in the game is performed at which point, the save file is permanently converted to a 1.1.x format.
 
-A note on format versions; there were 2 changes done to the format in the 1.1.0 version of the game. Specifically, the amount of items in the flagvar and flags line have increased. When a 1.0.x save file is loaded into the game, it will load normally, but with the new items getting a default value (in this case, "false"). The game uses a specific flag (see appendix on glabal flags) to determine if the file is in 1.0.x format or 1.1.x format. If it detects it's a 1.0.5 file, it will perform some directives to adapt it as some logic changes and flags changes impacted it. Once it is done, it will set the flag checked earlier to true which will prevent the game from performing the conversion twice. This works because the flag used is not used in 1.0.x so it will never be "true" until the conversioon is done in 1.1.x. This will only persist once a save in the game is performed at which point, the save file is permanently converted to a 1.1.x format.
-
-The following is the details of the format:
-
-Line 1 (Fields line) Header
+## Sections of a save file
+### Line 1 (Fields line) Header
 
 This line serves as a header.
 
@@ -37,8 +29,7 @@ Position | Description | Type | Additional information
 8 | MYSTERY? | Bool | Same as flag 681
 9 | Filename | String | Same as flagstring 10
 
-Line 2 (Array line) Party memeber stats
-
+### Line 2 (Array line) Party memeber stats
 This line corresponds to each party members stats (their BattleData).
 
 Element | Description
@@ -53,7 +44,7 @@ An array element contains the following fields:
 
 Position | Description | Type | Additional information
 ---------------|----------------|--------------|---------------------------------------------------
-0 | trueid | Int | AnimID of the party member, 0 - Vi, 1 - Kabbu and 2 - Leif
+0 | trueid | Int | [AnimID](../Enums%20and%20IDs/Anim%20IDs.md) of the party member, 0 - Vi, 1 - Kabbu and 2 - Leif
 1 | HP | Int
 2 | Max HP | Int
 3 | Base HP | Int
@@ -62,8 +53,7 @@ Position | Description | Type | Additional information
 6 | Defense | Int
 7 | Base Defense | Int
 
-Line 3 (Field line) Global information and party information
-
+### Line 3 (Field line) Global information and party information
 This line contains global information about the party and the state of the game.
 
 Position | Description | Type | Additional information
@@ -74,8 +64,8 @@ Position | Description | Type | Additional information
 3 | Max TP | Int
 4 | TP | Int
 5 | Berries count | Int
-6 | Name of the current map | String | This is a string version of the map id, refer to Appendix K
-7 | Current area's ID | Int | Refer to Appendix I
+6 | Name of the current map | String | This is a string version of the [MapIDs](../Enums%20and%20IDs/Maps%20IDs.md)
+7 | Current area's ID | Int | Refer to the [AreasIDs](../Enums%20and%20IDs/Areas%20IDs.md) document
 8 | MP | Int
 9 | Max MP | Int
 10 | Number of items allowed in inventory | Int
@@ -85,7 +75,7 @@ Position | Description | Type | Additional information
 14 | Seconds of the play time clock | Int
 15 | Save progress icons | Int | 0 - no icons, 1 - Ancient Mask, 2 - Ancient Tablet, 3 - Ancient Key, 4 - Ancient half, 5 - Elizant II, 6 - Flame Brooch and 7 - Wasp King's crown
 
-Line 4 (Array line) Medals shops pool
+### Line 4 (Array line) Medals shops pool
 
 This line corresponds to the pool of medals each shop currently offers.
 
@@ -98,14 +88,14 @@ Each array element contains a list:
 
 Position | Description | Type | Additional information
 -----------------|--------------|------------------|------------------------
-ALL | Medal ID | Int | -1 - empty slot, Refer to Appendix A
+ALL | Medal ID | Int | -1 - empty slot, Refer to the [Medals](../Enums%20and%20IDs/Medals%20IDs.md) document
 
 The way it works is this list is ordered in such a way that the first medals are going
 to be the ones displayed at the shop. For the Ant City medal shop, it's the first 3
 and for Shade's shop, it's the first 2. An empty slot means there will be no medals
 (which occurs if there isn't enough available medals).
 
-Line 5 (Array line) Medals available in medal shops
+### Line 5 (Array line) Medals available in medal shops
 
 This line corresponds the different medals available in each medal shops for purchase.
 
@@ -118,13 +108,12 @@ Each array element contains a list:
 
 Position | Description | Type | Additional information
 ------------------|-----------|-------|------------------------
-ALL | Medal ID | Int | Refer to Appendix A
+ALL | Medal ID | Int | Refer to the [Medals](../Enums%20and%20IDs/Medals%20IDs.md) document
 
 Unlike line 4, this is a list to simply indicate the medals IN STOCK for purchase.
 It does not represent the current pool offered by the shop which is in line 4.
 
-Line 6 (Array line) Quests
-
+### Line 6 (Array line) Quests
 This line contains information about the quests on the quests boards
 
 Element | Description
@@ -137,13 +126,12 @@ Each array element contains a list:
 
 Position | Description | Type | Additional information
 ------------------|-------------|-----------------|------------
-ALL | Quest ID | Int | Refer to Appendix B
+ALL | Quest ID | Int | Refer to the [Quests](../Enums%20and%20IDs/Quests%20IDs.md) document
 
 If the element is empty, there should only be one item in the list being the number 0 (No Quests).
-NOTE: this includes ALL quests including main story ones.
+> This includes ALL quests including main story ones.
 
-Line 7 (Array line) Items
-
+### Line 7 (Array line) Items
 This line contains information about the items in possession and in storage.
 
 Element | Description
@@ -156,10 +144,9 @@ Each array element contains a list:
 
 Position | Description | Type | Additional information
 ---------------|---------|---------|---------------------------
-ALL | Item ID | Int | Refer to Appendix C
+ALL | Item ID | Int | Refer to the [Items](../Enums%20and%20IDs/Items%20IDs.md) document
 
-Line 8 (Array line) Medals
-
+### Line 8 (Array line) Medals
 This line contains the medals in possession as well as how it is equipped.
 
 Each array element contains fields:
@@ -167,21 +154,19 @@ Each array element contains fields:
 Position | Description | Type | Additional information
 --------------------------|--------------|------------------------------------------|---------------------------
 0 | Medal ID | Int | Refer to Appendix A
-1 | Equip target | Int | -2 - Unequipped, -1 - Equipped to the party, everything else is the AnimID of whom has it equipped
+1 | Equip target | Int | -2 - Unequipped, -1 - Equipped to the party, everything else is the [AnimID](../Enums%20and%20IDs/Anim%20IDs.md) of whom has it equipped
 
-Line 9 (Array line) Samira songs
-
+### Line 9 (Array line) Samira songs
 This line corresponds to all the songs available for Samira as well as their status.
 
 Each array element contains fields:
 
 Position | Description | Type | Additional information
 ---------------------------|--------------|-----------|-----------
-0 | Song ID | Int | Refer to Appendix D
+0 | Music ID | Int | Refer to [Musics](../Enums%20and%20IDs/Music%20IDs.md) document
 1 | Unlock status | Int | -1 - Not bought, 1 - Bought
 
-Line 10 (Array line) Stats bonuses
-
+### Line 10 (Array line) Stats bonuses
 This line corresponds to all the stats bonus applied to the party.
 
 Each array element contains fields:
@@ -192,92 +177,77 @@ Position | Description | Type | Additional information
 1 | Bonus amount | Int
 2 | Target | Int | -1 - Party, 0 - Vi, 1 - Kabbu, 2 - Leif
 
-Line 11 (Array line) Library and map locations
-
+### Line 11 (Array line) Library and map locations
 This line correspond to each element of the library menu as well as the mmap locations.
 
 Element | Description | Additional information
 ---------------|-------------|----------------------------------------
-0 | Discoveries | Refer to Appendix E for the IDs
-1 | bestiary | Refer to Appendix F for the IDs
-2 | Recipes | Refer to Appendix G for the IDs
-3 | Records (acheivements) | Refer to Appendix H for the IDs
-4 | Seen map locations | Refer to Appendix I for the IDs
+0 | Discoveries | Refer to the [Discoveries](../Enums%20and%20IDs/Discoveries%20IDs.md) document
+1 | Bestiary | Refer to the [Bestiary](../Enums%20and%20IDs/Bestiary%20IDs.md) document
+2 | Recipes | Refer to the [Recipes](../Enums%20and%20IDs/Recipes%20IDs.md) document
+3 | Records (acheivements) | Refer to the [Records](../Enums%20and%20IDs/Records%20IDs.md) document
+4 | Seen map locations | Refer to the [Areas](../Enums%20and%20IDs/Areas%20IDs.md) document
 
 Each array element contains a list:
 
 Position | Description | Type | Additional information
 ------------------|------------|-----------------|------------------------------------
-0-255 | Unlocked | Bool | Refer to the appropriate Appendix for the ID
+0-255 | Unlocked | Bool | Refer to the appropriate document for the IDs
 
-Each unused ID has the value "False".
+Each unused ID has the value `false`.
 
-Line 12 (List line) Flags
-
+### Line 12 (List line) Flags
 This line correspond to the flags array.
 
 Position | Description | Type | Additional information
 ------------------|--------------|-------------------|--------------------
-0-749 | Value | Bool | Refer to Section 1 of global flags
+0-749 | Value | Bool | Refer to the [global flags](../Flags/Global%20flags.md) document
+> Saves before 1.1.x have 700 items making the position 0-699.
 
-NOTE: Saves before 1.1.x have 700 items making the position 0-699.
-
-Line 13 (List line) Flagstring
-
+### Line 13 (List line) Flagstring
 This line correspond to flagstring array.
-NOTE: the separator used here is "|SPLIT|", NOT ",".
+> The separator used here is "|SPLIT|", NOT ",".
 
 Position | Description | Type | Additional information
 ---------------------------|-------------|---------------|----------------
-0-14 | Value | String | Refer to Section 2 of global flags
+0-14 | Value | String | Refer to the [flagstrings](../Flags/Flagstrings.md) document
 
-Line 14 (List line) Flagvar
-
+### Line 14 (List line) Flagvar
 This line correspond to flagvar array.
 
 Position | Description | Type | Additional information
 ------------------|------------|----------------|-------------------------
-0-69 | Value | Int | Refer to Section 3 of global flags
+0-69 | Value | Int | Refer to the [flagvars](../Flags/Flagvars.md) document
+> Saves before 1.1.x have 65 items making the position 0-64.
 
-NOTE: Saves before 1.1.x have 65 items making the position 0-64.
-
-Line 15 (List Line) Regional flags
-
+### Line 15 (List Line) Regional flags
 This line correspond to the regionalflags array.
 
 Position | Description | Type | Additional information
 -----------------|------------|--------------|-----------------
-0-99 | Value | Bool | Refer to the regional flags document
+0-99 | Value | Bool | Refer to the [regionalflags](../Flags/Regional%20flags.md) document
 
-Each unused ID has the value "False".
+Each unused ID has the value `false`.
 
-Regionalflags is a special kind of flags array because unlike the other ones present
-in the save file (which are global), this one is dependant on the current area.
-This means that the meaning of each flag in this array changes completely depending on
-the current area.
-
-Line 16 (Field line) Crystal berries
-
+### Line 16 (Field line) Crystal berries
 This line to whether or not each crystal berry has been collected.
 
 Position | Description | Type | Additional information
 ----------------|-------------|---------------|----------------
-0-49 | Collected | Bool | Refer to Appendix L
+0-49 | Collected | Bool | Refer to the [crystal berries](../Enums%20and%20IDs/Crystal%20Berries%20IDs.md) document
 
-Line 17 (List line) Followers
-
+### Line 17 (List line) Followers
 This line corresponds to the extra followers of the party.
-NOTE: Each follower ID won't do anything unless the game allows them to follow the party at the current map.
+> Each follower ID won't do anything unless the game allows them to follow the party at the current map.
 
 Position | Description | Type | Additional information
 -----------------|-----------|----------------|----------------
-ALL | Follower ID | Int | Refer to Appendix M
+ALL | Follower ID | Int | Refer to the [AnimIDs](../Enums%20and%20IDs/Anim%20IDs.md) document
 
-Line 18 (Array line) Enemy encounters
-
+### Line 18 (Array line) Enemy encounters
 This line corresponds to enemy encounters information for each enemies.
 
-The index of the array corresponds to each enemy ID, refer to Appendix F for details.
+The index of the array corresponds to each enemy ID, refer to the [Enemies](../Enums%20and%20IDs/Enemies%20IDs.md) document for details.
 
 Each array element contains fields:
 

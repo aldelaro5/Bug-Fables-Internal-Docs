@@ -1,3 +1,7 @@
+# Medals
+A `medal` or sometimes internally reffered to as `badge` is a collectible in the game that can be equipped. The medals in possesion and their equipment statuses are saved in the save file. Both Shades's and Merab's shops medals available pools and stock are also saved in the save file. They are mapped directly to the badge data entries.
+
+## Medals table
 ID | Description
 ----- | -----
 0 | HP Plus

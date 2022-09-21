@@ -1,3 +1,7 @@
+# Record entry
+A record entry is a collectible bound to a `bool` that tells whether or not the specific entry for the record has been acheived in the library. Their values are saved in the save file and the array of them is located at index 0 of the `MainManager.instance.librarystuff` array and it contains 256 elements (most are not used as the array is overprosioned in size). On compatible platforms, enabling a record also unlocks its associated acheivement.
+
+## Record entries table
 ID | Name | Description
 ----- | ------ | ------
 0 | Ultimate Team! | Defeat a very powerful foe.

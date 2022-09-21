@@ -1,3 +1,7 @@
+# Maps
+A `Maps` is an enum value that represent a map (aka room) in the game. Each enum value is named after its corresponding prefab which contains the actual map. The maps prefabs are located at `Ressources/prefabs/maps` from the game's assets tree.
+
+## Maps table
 ID | Description
 ---- | -----
 0 | TestRoom

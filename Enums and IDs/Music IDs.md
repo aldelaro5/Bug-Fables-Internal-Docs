@@ -1,5 +1,10 @@
+# Musics
+A `Musics` is an enum value that represent a song in the game. They are not to be confused with sound effects. Most of them have a corresponding `int` that tells whether the song is available and bougth at Samira's. The Samira list is saved in the save file. The musics in the game are located at `Ressources/audio/music` from the game's asset tree.
+
+## Notes about the musics table
 Anything marked DOT is named ".", but is either unused or explicitly excluded under normal gameplay.
 
+## Musics table
 ID | Name
 -------- | -------
 0 | Outskirts

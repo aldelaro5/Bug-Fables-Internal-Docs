@@ -1,3 +1,7 @@
+# AnimIDs enum
+An `AnimIDs` enum value represents the ID used to identify the animation controller of a certain entity. They are used mostly for identification purposes in some scenarios.
+
+## AnimIDs table
 ID | Name
 ------ | ------
 0 | Bee

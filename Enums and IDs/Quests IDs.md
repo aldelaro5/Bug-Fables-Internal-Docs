@@ -1,3 +1,7 @@
+# Quests
+A quest is a task to be done in the game. While most of them are optionals, each chapters have one quest reserved to them which are mandatory. The quests are managed by the quests board system which tells which quests are accessible, open, taken or completed. The state of the quest board are saved on file. They are directly mapped to the quest date entry.
+
+## Quests table
 ID | Description
 ----- | -----
 0 | No Quests

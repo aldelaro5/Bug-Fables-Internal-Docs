@@ -1,12 +1,18 @@
+## Regionalflag
+A `regionalflag` is a `bool` which is a variable the game can access globally while its value is kept until an area change occurs in the game or until a reset is specifically requested by the game. When a reset occurs, all regionalflag are set to `false`. They are saved on the save files and are used to track temporary progress in an area such as defeating an enemy in the overworld. There are 100 regional flags available in the `MainManager.instance.regionalflags` array.
+
+## Notes about the regionalflags tables
+Since the meaning of the regioonal flags depends on the area, there will be one table per area in this document.
+
+The instances in which the game specifically requests a reset will be mentioned in the table of the concerned area.
+
 When an enemy is mentioned (which is most of the regional flags),
-it is implied the flag gets set to true when being defeated unless otherwise specified
+it is implied the value gets set to `true` when being defeated unless specified otherwise.
 
-The regionalflags array is of size 100, any ID not specified implies UNUSED.
+Any ID not specified implies UNUSED.
 
-The regionalflags always resets to false once the current area changes.
-
-Bugaria Outskirts
-
+## Regional flags tables
+### Bugaria Outskirts
 ID | Description
 -----------------------------------------|-----------------------------------------------------------------------------------
 0 | Rightmost Seedling at the map on the west of the Explorers Association
@@ -37,15 +43,13 @@ ID | Description
 50 | Ironnail in the tunnel near Golden Path
 51 | Belostoss in the tunnel near Golden Path
 
-Ant Kingdom City
-
+### Ant Kingdom City
 ID | Description
 ------------|------------
 1 | Talked to Fry once
 
-Snakemouth Den
-
-NOTE: when reaching the Ancien Mask room, the regional flags are programmed to reset to false
+### Snakemouth Den
+> When reaching the Ancien Mask room, the regional flags are programmed to reset to false
 
 ID | Description
 -----------------------------------------------------------------------|-------------------------------------------------
@@ -76,8 +80,7 @@ ID | Description
 31 | Depths, Jellyshroom in the room with the right door switch
 32 | Depths, got the red berry by cutting the rightmost bush in the room with the doors
 
-Lost Sands
-
+### Lost Sands
 ID | Description
 --------------------------------------------|----------------------------------------------------------------------------
 0 | Bandit at the map located northwest from the map with the blue fortk (south entrance)
@@ -120,8 +123,7 @@ ID | Description
 67 | Getting a blue berry by cutting the bush on the back left of the left side of the map located west from the map where the Caravan was ambushed by bandits and wasps
 68 | Getting a red berry by cutting the bush on the back right of the left side of the map located west from the map where the Caravan was ambushed by bandits and wasps
 
-Golden Hills
-
+### Golden Hills
 ID | Description
 -----------------------------------------------------------------------|---------------------------------------------------------------------------------------------
 0 | Got a Magic Seed by cutting the bush next to the crank on the back right part of the map located west from the map with the right angle wooden spinning bridge
@@ -138,9 +140,8 @@ ID | Description
 60 | Acornling in the map locatest east of the map with the offerings receptacle
 61 | Chomper in the map locatest east of the map with the offerings receptacle
 
-Golden Path
-
-NOTE: the regional flags are programmed to reset to false when crossing either the loading zone north of the map
+### Golden Path
+> The regional flags are programmed to reset to false when crossing either the loading zone north of the map
 with the 2 cranks next to eachother or the loading zone back to it from the north map
 
 ID | Description
@@ -161,14 +162,12 @@ ID | Description
 17 | Weevil in the map before the map where Devourer appears
 30 | Leftmost Numbnail in the map with 2 cranks next to eachother
 
-Golden Settlement
-
+### Golden Settlement
 ID | Description
 --------------|----------
 1 | Talked to Kut once
 
-Forsaken Lands
-
+### Forsaken Lands
 ID | Description
 ---------------------------------------------------------------------|--------------------------------------------------
 0 | Mimic Spider in the map with the cut CD
@@ -191,8 +190,7 @@ ID | Description
 30 | Mothfly Cluster in the map located west of the map with several wind blowers
 31 | Mothfly in the map located west of the map with several wind blowers
 
-Far Grasslands
-
+### Far Grasslands
 ID | Description
 -------------------------------------------------------------------------|-------------------------------------------------------------------
 0 | Destroyed the boulder on the back of the map located south of the map with the Ant Mines tunnel access
@@ -220,8 +218,7 @@ ID | Description
 23 | Mantidly in the map located north of the south entrance
 25 | Wild Chomper in the map located north of the south entrance
 
-Wild Swamplands
-
+### Wild Swamplands
 ID | Description
 --------------------------------------------------------------------------|-------------------------------------------------------------
 0 | Destroyed the boulder above a piece of wood in the map located south of the map with the broken wooden bridge
@@ -258,14 +255,12 @@ ID | Description
 33 | Rightmost Wild Chomper in the map with a lever surrounded by a spike pit
 34 | Got the Clear Bomb by hitting the coiled vine in the map with a lever surrounded by a spike pit
 
-Defiant Root
-
+### Defiant Root
 ID | Description
 -------------|---------------
 10 | Talked to Crisbee once
 
-Ancient Castle
-
+### Ancient Castle
 ID | Description
 ------------------------------------------|---------------------------------------
 0 | Krawler in the entrance room
@@ -285,14 +280,10 @@ ID | Description
 14 | Krawler in the room before the Ancient Half room
 15 | Warden in the room with the rolling rocks
 
-Bee Kingdom Hive
-
-ID | Description
----------------|---------------------------
+### Bee Kingdom Hive
 NO REGIONAL FLAGS ARE USED FOR THIS AREA
 
-Honey Factory
-
+### Honey Factory
 ID | Description
 -------------------------------------------|---------------------------------------------------------
 0 | Processing area, Security Turret in the first room
@@ -316,8 +307,7 @@ ID | Description
 19 | Storage area, Bee-Boop in the south room
 20 | Storage area, got the Magic Seed in the south room
 
-Rubber Prison
-
+### Rubber Prison
 ID | Description
 -----------------------------------------|----------------------------------------
 0 | Wasp Trooper in the library
@@ -341,8 +331,7 @@ ID | Description
 22 | Ruffian in the library
 24 | Wasp Driller in the warden office
 
-Giant's Lair
-
+### Giant's Lair
 ID | Description
 ------------------------------------------|------------------------------------------
 0 | Krawler in the room above the oven roomm
@@ -367,8 +356,7 @@ ID | Description
 20 | Krawler near the leftmost red spring in the oven room
 30 | Got a Magic Seed by digging in the dig spot in the oven room
 
-Metal Lake
-
+### Metal Lake
 ID | Description
 ------------------------------------------|---------------------------------
 0 | Water Strider at the bottom middle near a piece of wood
@@ -380,20 +368,13 @@ ID | Description
 6 | Water Strider closest to the bottom right Island
 7 | Water Strider between Metal Island and Bugaria Piers (bottommost one)
 
-Metal Island
-
-ID | Description
---------------|----------------------------
+### Metal Island
 NO REGIONAL FLAGS ARE USED FOR THIS AREA
 
-Termite Capitol
-
-ID | Description
--------------|----------------------------
+### Termite Capitol
 NO REGIONAL FLAGS ARE USED FOR THIS AREA
 
-Wasp Kingdom Hive
-
+### Wasp Kingdom Hive
 ID | Description
 ---------------|----------------------------------------
 0 | Destroyed the boulder in the prison cells room
@@ -401,8 +382,7 @@ ID | Description
 2 | Wasp Trooper in the prison cells room
 3 | Wasp Scout in the prison cells room
 
-Bandit Hideout
-
+### Bandit Hideout
 ID | Description
 --------------------------------------------|----------------------
 0 | Burglar in the first room from the Defiant Root well passage
@@ -415,8 +395,7 @@ ID | Description
 13 | Thief in the cafeteria
 14 | Burglar in the cafeteria
 
-Stream Mountain
-
+### Stream Mountain
 ID | Description
 -------------------------------------------|----------------------------------------------------
 4 | Belostoss in the room located east of the room where the Tydal Wyrm appears
@@ -429,8 +408,7 @@ ID | Description
 13 | Diving Spider in room with a crystal and exactly 2 tree branches
 14 | Belostoss in the first room from the east entrance
 
-Chomper Caves
-
+### Chomper Caves
 ID | Description
 --------------------------------------------|--------------------------------------
 0 | Chomper Brute in the lower part of the first room from the entrance
@@ -442,14 +420,10 @@ ID | Description
 6 | Rightmost Chomper in the room located west from the first room
 7 | Chomper Brute in the upper part of the first room from the entrance
 
-Fishing Village
-
-ID | Description
-----------------|--------------------------
+### Fishing Village
 NO REGIONAL FLAGS ARE USED FOR THIS AREA
 
-Upper Snakemouth
-
+### Upper Snakemouth
 ID | Description
 -------------------------------------------|-------------------------------------------
 0 | Got a Mushroom on top of the gears in the room located west from the center room

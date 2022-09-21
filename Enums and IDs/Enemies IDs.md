@@ -1,3 +1,8 @@
+# Enemies
+An `Enemies` enum value represents a unique identifier to an enemy in battle. They are directly mapped to each entry in the enemy data of the game.
+> They are note to be confused with [Bestary entries](Bestiary%20IDs.md).
+
+## Enemies table
 ID | Name
 ----- | -----
 0 | Zombiant

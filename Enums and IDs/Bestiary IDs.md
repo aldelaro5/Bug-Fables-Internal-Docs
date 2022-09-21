@@ -1,3 +1,8 @@
+# Bestiary entry
+A bestiary entry is a collectible bound to a `bool` that tells whether or not the specific entry for the enemy is unlocked in the library. Their values are saved in the save file and the array of them is located at index 1 of the `MainManager.instance.librarystuff` array and it contains 256 elements (most are not used as the array is overprosioned in size).
+> They are not to be confused with [Enemies](Enemies%20IDs.md).
+
+## Bestiary entries table
 ID | Name
 ------ | ------
 0 | Zombiant

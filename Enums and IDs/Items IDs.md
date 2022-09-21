@@ -1,3 +1,7 @@
+# Items
+An `Items` enum value represents an item in the game which can be collected in the overworld. The items in posessions are saved in the save file in 3 arrays corresponding to regular inventory, key items and stored items respectively. They are mapped directly to each item data entry.
+
+## Items table
 ID | Name
 ----- | -----
 0 | Crunchy Leaf

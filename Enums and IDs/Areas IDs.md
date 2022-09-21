@@ -1,3 +1,7 @@
+# Areas
+An `Areas` enum value represents a group of [Maps](Maps%20IDs.md) that belongs to a certain location in the game. Each `Maps` must belong to one `Areas` and they are important in determining the scope of any [regional flag](../Flags/Regional%20flags.md).
+
+## Areas table
 ID | Name
 ----- | -----
 0 | Bugaria Outskirts

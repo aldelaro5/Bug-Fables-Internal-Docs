@@ -1,3 +1,7 @@
+# Crystal Berry
+A crystel berry is a collectible bound to a `bool` that tells whether or not this crystal berry has been collected. They are saved in the save file and there are 50 elements available in the `MainManager.instance.crystalbflags` array which corresponds to the amount of them available in the game.
+
+## Crystal berries table
 ID | Location | Description
 ------ | ----- | ------
 0 | Bugaria Outskirts | Right outside of Snakemouth Den is a Save Crystal and to the right of that is the Crystal Berry.  

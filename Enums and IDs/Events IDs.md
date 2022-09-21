@@ -1,3 +1,21 @@
+# Event
+An event is a coroutine the game can use to execute scripted code that applies specifically to this moment. They are typically used for cutscenes, but they may be used for any general purposes so long as the code is compatible at the moment it is being executed.
+
+Each event's code is located in the `EventControl` component and it must follow this convention for its signature:
+```cs
+IEnumerator EventX()
+```
+Where X is a unique `int` value specific to this event. They are usually private because they should not be called directly. `EventControl` has all the utilities the game needs to manage the events.
+
+There are many known way to trigger an event. Here is a list of the currently known ones:
+- Manually via the `EventControl.StartEvent` method
+- `SetText`'s `event` command
+- `MapControl`'s `autoevent` system
+- A wide variety of entities can have a way to trigger a configurable event
+
+Since they are coroutines, they have the ability to wait for specific amounts of time or until certain tasks are done. This makes it perfect for any kinds of specific scripts the game may want to run if the content only applies to a specific situation. While `SetText` is very powerful, events are way more powerful since it gives direct control of the game.
+
+## Events table
 ID | Description
 ------- | -------
 0 | Chapter 1 approaching the hanged bridge in upper Snakemouth Den
