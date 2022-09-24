@@ -7,7 +7,7 @@ The reason information shouldn't be from the wiki or the discord is because the 
 
 This repos will get updates as more information is aggregated and figured out so it isn't lost in time. I may accept pull requests or issues (in case of typos or innacurate informations), but everything needs to provide a way for me to validate the infoormation.
 
-## What is allowd in this repos and what isn't
+## What is allowed in this repos and what isn't
 This repos will ONLY contain what I like to call "metadata" informations. This is what is contained and allowed in this repos:
 
 - Documentations on any data file (its format and what each lines or fields does)
