@@ -65,3 +65,6 @@ ID | Description
 58 | My Mecha Claw!
 59 | Can't Sleep...!
 60 | Kabbu's Request
+61 | Loose Ends
+62 | A New Hope 
+63 | Getting Bored 
