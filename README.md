@@ -7,6 +7,15 @@ The reason information shouldn't be from the wiki or the discord is because the 
 
 This repos will get updates as more information is aggregated and figured out so it isn't lost in time. I may accept pull requests or issues (in case of typos or innacurate informations), but everything needs to provide a way for me to validate the infoormation.
 
+## Current status on subsystems WIP docs
+The subsystems folder contains WIP docs, here are their progression status:
+Name | Completion | Comments
+------ | ------ | ------- 
+ItemList | ~95% | Just needs to cleanup a bit, mostly done
+SetText | ~20% | ~45 commands done out of ~210 refferenced ones
+
+Last push: 2022-10-29
+
 ## What is allowed in this repos and what isn't
 This repos will ONLY contain what I like to call "metadata" informations. This is what is contained and allowed in this repos:
 
