@@ -60,7 +60,7 @@ ID | Description
 7 | Depths, leftmost Zombiant in the room located west of the Spider's room
 8 | Depths, Jellyshroom on the back of the room located west of the Spider's room
 9 | Hit the coiled vine in the first room
-10 | Depths, got an Aphid Egg by cutting the bush on the back left part of the room located west of the Spider's room
+10 | Depths, got either an Aphid Egg, Honey drop or Crunchy Leaf by cutting the bush on the back left part of the room located west of the Spider's room
 11 | Depths, the closest Zombiant to the right exit of the room located west of the Spider's room
 12 | Depths, got the Magic Seed by cutting the rightmost bush in the room located east from the room with the doors
 13 | Depths, Inichas in the room located east from the room with the doors
