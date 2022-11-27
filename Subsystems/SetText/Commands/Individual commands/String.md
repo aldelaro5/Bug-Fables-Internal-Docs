@@ -57,4 +57,4 @@ The flagstring is expected to be set in code beforehand and its line endings wil
 
 If `postprocessing` is `clamp` and a clamping occurs, the flagstring text will be prepended with `|sizemulti,widthscaleclamp,1|` and appended with `|size,size.x,size.y|` where `Size` is the parameter sent to SetText.
 
-This command will cause SetText to resume processing at the same character position to accomodate the text replacement of the input string at the position this command is being processed.
+This command will cause SetText to resume processing at the same character position to accommodate the text replacement of the input string at the position this command is being processed.
