@@ -1,4 +1,4 @@
-* If `Transfer` has a value and `caller` isn't null, set the caller.interactcd to 15.0
+* If [Transfer](../Commands/Individual%20commands/Transfer.md) has a value and `caller` isn't null, set the caller.interactcd to 15.0
 * Sets the [tailtarget](../Notable%20local%20variable/tailtarget.md) to stop talking if it isn't null
 * Sets [waitinput](../Global%20vars%20used/waitinput.md) to true
 * Sets `skiptext` to false

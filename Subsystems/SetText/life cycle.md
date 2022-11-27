@@ -42,7 +42,7 @@ This phase of the loop happens if the current char is a `|` which is the delimit
 * Sets `command` to be the string between the next char and the char before the next `|` which essentially reads the whole command with its parameters
 * Sets `temp` to be `command` split by `,`. This means `temp[0]` is the command name itself while everything after is its parameters
 * Sets `com` to the parsed [Commands](Commands/Commands.md) without case sensitivity using `temp[0]` where all the `.` have been removed
-* If in [Dialogue mode](Dialogue%20mode.md) mode and `com` is among these [Commands](Commands/Commands.md): `Icon`, `Button`, `Size`, [Shaky](Commands/Individual%20commands/Shaky.md), [Wavy](Commands/Individual%20commands/Wavy.md), [Rainbow](Commands/Individual%20commands/Rainbow.md), [Glitchy](Commands/Individual%20commands/Glitchy.md), [Halfline](Commands/Individual%20commands/Halfline.md) or `Quarterline`, append the whole command call string with parameters and the `|`s to `tempdiag`
+* If in [Dialogue mode](Dialogue%20mode.md) mode and `com` is among these [Commands](Commands/Commands.md): `Icon`, [Button](Commands/Individual%20commands/Button.md), `Size`, [Shaky](Commands/Individual%20commands/Shaky.md), [Wavy](Commands/Individual%20commands/Wavy.md), [Rainbow](Commands/Individual%20commands/Rainbow.md), [Glitchy](Commands/Individual%20commands/Glitchy.md), [Halfline](Commands/Individual%20commands/Halfline.md) or `Quarterline`, append the whole command call string with parameters and the `|`s to `tempdiag`
 * Check to see if we are processing this command. The conditions are `Ignorenext` is 0 or below and we are not in [Testdiag](Commands/Individual%20commands/Testdiag.md)
   * If we are in [Testdiag](Commands/Individual%20commands/Testdiag.md), process the command only if it is allowed under dialogue test. If we are not in [Dialogue mode](Dialogue%20mode.md) mode, skips all command processing. For more information, check the [Testdiag](Commands/Individual%20commands/Testdiag.md) command documentation.
 * **Process the [Commands](Commands/Commands.md) via a switch on `com` if we decided to process it**
@@ -97,7 +97,7 @@ This phase only occurs if we are in [Dialogue mode](Dialogue%20mode.md) mode:
 
 * If we are not in [Dialogue mode](Dialogue%20mode.md) and `Minibubble` is true and parent has a `Minibubble`, call DestroyThis on the `Minibubble` component
 * Yield for a frame
-* if `Transfer` has a value, Call TransferMap with `transferti` as the map id
+* if [Transfer](Commands/Individual%20commands/Transfer.md) has a value, Call TransferMap with `transferti` as the map id
 * if `eventcall` is above -1, call StartEvent with `eventtoss` as the event id and `caller` as the caller
 * if `tokenbox` is not null, destroy it
 * Remove a Game Token from key items

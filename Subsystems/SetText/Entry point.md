@@ -48,7 +48,7 @@ Tells SetText to operate in [Dialogue mode](Dialogue%20mode.md). If false, a `|S
 
 ### `tridimensional`
 
-Seems to indicate if the [textholder](Notable%20local%20variable/textholder.md) can be angled? Used in the `Button` command and can influence the letter's layer in the character loop?
+Seems to indicate if the [textholder](Notable%20local%20variable/textholder.md) can be angled? Used in the [Button](Commands/Individual%20commands/Button.md) command and can influence the letter's layer in the character loop?
 
 ### `position`
 
