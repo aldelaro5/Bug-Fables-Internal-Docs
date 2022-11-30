@@ -14,7 +14,7 @@ Name | Completion | Comments
 ItemList | ~95% | Just needs to cleanup a bit, mostly done
 SetText | ~30% | ~62 commands done out of ~210 refferenced ones
 
-Last push: 2022-11-26
+Last push with a command added: 2022-11-26
 
 ## What is allowed in this repos and what isn't
 This repos will ONLY contain what I like to call "metadata" informations. This is what is contained and allowed in this repos:
