@@ -105,7 +105,7 @@ Once the prompt handling is complete, MainManager.Update will set `skiptext` to 
 When SetText is done yielding, the prompt will be handled immediately after:
 
 * If flagvar 0 is set to -555, [textbox](../../Notable%20local%20variable/textbox.md) will be forced to not be shrunk. This is expected to be set before this command is processed.
-* The input string will be overwritten completely with the text obtained from the corresponding `promptpointers` associated with the option prepended with `|blank|` and then [OrganiseLines](../../Notable%20Methods/OrganiseLines.md) will be called on it if `linebreak` is not null.
+* The input string will be overwritten completely with the text obtained from the corresponding `promptpointers` associated with the option prepended with `|blank|` and then [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) will be called on it if `linebreak` is not null.
 * Setup the `promptbox` to have a shrink animation.
 * Destroys the `promptbox` in 0.5 seconds.
 * Reset `promptpick` to -1.

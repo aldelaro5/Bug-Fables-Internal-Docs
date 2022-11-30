@@ -48,7 +48,7 @@ The list of dialogue lines to randomly choose from for (4). Each value must be a
 
 ## Remarks
 
-After the new input string is obtained, it will append in order the commands defined in `commands` if it's not `keep`. It will then call [OrganiseLines](../../Notable%20Methods/OrganiseLines.md) on the result and prepend a `|blank|` on the organised string if `commands` was not `keep`. The result will become the new input string.
+After the new input string is obtained, it will append in order the commands defined in `commands` if it's not `keep`. It will then call [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) on the result and prepend a `|blank|` on the organised string if `commands` was not `keep`. The result will become the new input string.
 
 After this command is done, processing will resume at the start of the new input string.
 

@@ -1,6 +1,6 @@
 # String
 
-Replaces the text from this command to a flagstring text with horizontal size clamping and [OrganiseLines](../../Notable%20Methods/OrganiseLines.md) support.
+Replaces the text from this command to a flagstring text with horizontal size clamping and [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) support.
 
 ## Syntax
 
@@ -39,7 +39,7 @@ The flagstring slot to replace this command with. This must corresponds to an in
 Specify the optional post processing step to perform after obtaining the flagstring text (this is case sensitive):
 
 * `clamp`: Before replacing the text of this command, Clamps the horizontal size of the flagstring text if it is wider than `maxwidth` .
-* `true`: After the text replacement, reorganize the lines of the input string via [OrganiseLines](../../Notable%20Methods/OrganiseLines.md) just like in the SetText [life cycle > Setup](../../life%20cycle.md#setup)
+* `true`: After the text replacement, reorganize the lines of the input string via [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) just like in the SetText [life cycle > Setup](../../life%20cycle.md#setup)
 
 Any other value of this parameter will be ignored and the behavior will be like (1). If the value is `clamp`, but no `maxwidth` is specified, an exception will be thrown.
 

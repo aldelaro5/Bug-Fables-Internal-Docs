@@ -8,7 +8,7 @@ This will describe at a high level the full processing steps of SetText when the
 * [textholder](Notable%20local%20variable/textholder.md) is initialized.
 * Replace all `\r\n` by `\n` of the input string.
 * If [fonttype](fonttype.md) is `BubblegumSans`, override it to `Uzura` if the [languageid](languageid.md) is `Japanese` and to `ONEMobilePOP` if [languageid](languageid.md) is `Korean`
-* [OrganiseLines](Notable%20Methods/OrganiseLines.md) the input string if `linebreak` has a value with.
+* [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) the input string if `linebreak` has a value with.
 
 ## Dialogue setup
 

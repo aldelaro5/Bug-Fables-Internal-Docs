@@ -36,6 +36,6 @@ The [Dialogue line id](../Dialogue%20line%20id.md) to process if the berry count
 
 ## Remarks
 
-Whenever the input string is replaced, it is done with an [OrganiseLines](../../Notable%20Methods/OrganiseLines.md) version of dialogue string prepended with `|blank|`.
+Whenever the input string is replaced, it is done with an [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of dialogue string prepended with `|blank|`.
 
 If the input string is replaced, this command will resume processing at the start of the new input string.

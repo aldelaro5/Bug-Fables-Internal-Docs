@@ -10,13 +10,13 @@ Renders a ButtonSprite inline of the text and adjust the offset accordingly to r
 |button,buttonid|
 ````
 
-(2)
+(2) (Not compatible with [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md))
 
 ````
 |button,buttonid,type|
 ````
 
-(3)
+(3) (Not compatible with [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md))
 
 ````
 |button,buttonid,type,description|
@@ -82,3 +82,11 @@ After the button has been fully setup, the `currentoffset` will be increased by 
 It should be noted that this command does not work correctly under [Single](Single.md) because the offset calculations are off which means the ButtonSprite may not render on the screen or it may render at the incorrect position.
 
 This command is accumulated for the [Backtracking](../../Related%20Systems/Backtracking.md) system.
+
+## Known issue with spacing
+
+While it is possible to place this command anywhere in the input string, it is strongly recommended to place it at the start of a line or after a space. This is because a known issue with the button rendering is that the render position is slightly off to the left and if this command is placed directly after some text, it will overlap said text by a slight amount. Putting a space before the command or ensuring the command is placed at the start of a line remedies this problem. Additionally, it also helps [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) because it increases the chance that the button will not overflow the line if it is placed at the end of it due to the method resetting the word width accumulator when encountering this command which would ignore the current word.
+
+## Compatibility with [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)
+
+Syntax (2) and (3) are not recommended to use because while they technically work, if the `linebreak` requested isn't null, this will throw an exception during [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md). The auto line breaker assumes that the command will be in syntax (1) as far as parsing the `buttonid` parameter goes. It is still possible to use these syntaxes, but care must be given to make sure [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) is never called on the input string.

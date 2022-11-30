@@ -40,7 +40,7 @@ The font to use. If `BubblegumSans`, overridden to `Uzura` when the [languageid]
 
 ### `linebreak`
 
-If not null, the input string will be its [OrganiseLines](Notable%20Methods/OrganiseLines.md) version of it passing the value as the `maxoffset`.
+If not null, the input string will be its [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of it passing the value as the `maxoffset`.
 
 ### `dialogue`
 

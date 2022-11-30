@@ -144,8 +144,8 @@ There are 217 commands as of 1.1.2.
 |135|`Setbreak`||
 |136|`Librarybook`||
 |137|`Area`||
-|138|[Sstring](Individual%20commands/Sstring.md)|UNUSED|
-|139|`Menu`||
+|138|[Sstring](Individual%20commands/Sstring.md)|PROCESSED IN [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)|
+|139|`Menu`|PROCESSED IN [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)|
 |140|`Battle`||
 |141|`Removestat`||
 |142|`Addstat`||
