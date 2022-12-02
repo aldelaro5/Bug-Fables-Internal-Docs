@@ -16,6 +16,8 @@ SetText | ~30% | ~62 commands done out of ~210 refferenced ones
 
 Last push with a command added: 2022-11-26
 
+For the Obsidian notebook version of the docs, check the [release](https://github.com/aldelaro5/Bug-Fables-Internal-Docs/releases) section of this repos.
+
 ## What is allowed in this repos and what isn't
 This repos will ONLY contain what I like to call "metadata" informations. This is what is contained and allowed in this repos:
 
