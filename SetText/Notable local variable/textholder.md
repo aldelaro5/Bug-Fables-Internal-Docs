@@ -1,0 +1,1 @@
+The GameObject that holds all the TextMesh [SetText](../SetText.md) renders. Its parent is set to [Parent](../Commands/Individual%20commands/Parent.md) with a local position of `position`. Its localEulerAngles is set to zero if `tridimensional` is false and its scales is set to Vector3.one. Its name will be `Test: ` followed by the input string and its tag will be set to `Text`.
