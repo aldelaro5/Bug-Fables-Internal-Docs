@@ -12,7 +12,7 @@ There are subsystems containing WIP docs, here are their progression status:
 Name | Completion | Comments
 ------ | ------ | ------- 
 ItemList | ~95% | Just needs to cleanup a bit, mostly done
-SetText | ~50% | ~105 commands done out of ~210 refferenced ones
+SetText | ~50% | ~100 commands done out of ~210 refferenced ones
 
 Last push with a command added: 2022-12-19
 
