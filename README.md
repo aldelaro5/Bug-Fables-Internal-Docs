@@ -12,9 +12,9 @@ The subsystems folder contains WIP docs, here are their progression status:
 Name | Completion | Comments
 ------ | ------ | ------- 
 ItemList | ~95% | Just needs to cleanup a bit, mostly done
-SetText | ~30% | ~62 commands done out of ~210 refferenced ones
+SetText | ~50% | ~105 commands done out of ~210 refferenced ones
 
-Last push with a command added: 2022-11-26
+Last push with a command added: 2022-12-19
 
 For the Obsidian notebook version of the docs, check the [release](https://github.com/aldelaro5/Bug-Fables-Internal-Docs/releases) section of this repos.
 
