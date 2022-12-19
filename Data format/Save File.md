@@ -190,7 +190,7 @@ This line correspond to each element of the library menu as well as the seen are
 
 |Element|Description|Additional information|
 |-------|-----------|----------------------|
-|0|Discoveries|Refer to the `Discovery` document|
+|0|Discoveries|Refer to the [Discovery](../SetText/Commands/Individual%20commands/Discovery.md) document|
 |1|Bestiary|Refer to the [Bestiary entry](../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md) document|
 |2|Recipes|Refer to the [Recipes entry](../Enums%20and%20IDs/librarystuff/Recipes%20entry.md) document|
 |3|Records (achievements)|Refer to the [Records entry](../Enums%20and%20IDs/librarystuff/Records%20entry.md) document|
@@ -237,13 +237,13 @@ This line correspond to flagvar array.
  > 
  > Saves before 1.1.x have 65 items making the position 0-64.
 
-### Line 15 (List Line) [Regionalflag](../Flags%20arrays/Regionalflag.md)
+### Line 15 (List Line) [Regionalflags](../Flags%20arrays/Regionalflags.md)
 
 This line correspond to the regionalflags array.
 
 |Position|Description|Type|Additional information|
 |--------|-----------|----|----------------------|
-|0-99|Value|Bool|Refer to the [Regionalflag](../Flags%20arrays/Regionalflag.md) document|
+|0-99|Value|Bool|Refer to the [Regionalflags](../Flags%20arrays/Regionalflags.md) document|
 
 Each unused ID has the value false.
 

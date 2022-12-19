@@ -13,7 +13,7 @@ Where X is a unique `int` value specific to this event. They are usually private
 There are many known way to trigger an event. Here is a list of the currently known ones:
 
 * Manually via the `EventControl.StartEvent` method
-* [SetText](../SetText/SetText.md)'s `Event` command
+* [SetText](../SetText/SetText.md)'s [Event](../SetText/Commands/Individual%20commands/Event.md) command
 * `MapControl`'s `autoevent` system
 * A wide variety of [Entity](../Data%20format/Entity.md) can have a way to trigger a configurable event
 

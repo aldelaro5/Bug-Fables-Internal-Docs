@@ -91,7 +91,7 @@ The `CapsuleCollider` component of the entity GameObject is accessible via the `
 |178|npcdata.insideid|int||
 |179-188|npcdata.emoticonflag|string\[10\]|Each element contains a comma separated tuple list where both elements are int and corresponds to each npcdata.emoticonflag.x and npcdata.emoticonflag.y|
 |189|npcdata.tattleid|int||
-|190|npcdata.regionalflag|int|The [Regionalflag](../Flags%20arrays/Regionalflag.md) slot bound to this entity|
+|190|npcdata.regionalflag|int|The [Regionalflags](../Flags%20arrays/Regionalflags.md) slot bound to this entity|
 |191|initialheight|float||
 |192|bobrange|float||
 |193|bobspeed|float||

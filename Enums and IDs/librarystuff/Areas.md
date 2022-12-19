@@ -1,6 +1,6 @@
 # Areas
 
-An `Areas` enum value represents a group of [Maps](../Maps.md) that belongs to a certain location in the game. Each map must belong to one `Areas` and they are important in determining the scope of any [Regionalflag](../../Flags%20arrays/Regionalflag.md). 
+An `Areas` enum value represents a group of [Maps](../Maps.md) that belongs to a certain location in the game. Each map must belong to one `Areas` and they are important in determining the scope of any [Regionalflags](../../Flags%20arrays/Regionalflags.md). 
 
 The current area is saved on the [Save File](../../Data%20format/Save%20File.md).
 
