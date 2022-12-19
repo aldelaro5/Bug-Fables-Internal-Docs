@@ -12,9 +12,9 @@ The text is the name of the item from itemdata or medal from badgedata unless it
 
 The sprite of the item or medal will be rendered on the leftmost side of the bar. This sprite is a gray hexagon with a ? in it if it is a medal and [flags](../../Flags%20arrays/flags.md) 681 (MYSTERY? activation) is true. The localScale of the sprite is (0.55, 0.6, 1).
 
-If there is only one instance of the item available and its corresponding purchased flags is true, [SetText](../../SetText/SetText.md) is called where the parent is the bar, the position is (1.0, -0.15) and the input string is |[sort](../../SetText/Commands/Individual%20commands/Sort.md),10||`size`,0.6,0.75||[color](../../SetText/Commands/Individual%20commands/Color.md),1| followed by MenuText 190 which is "Sold Out!".
+If there is only one instance of the item available and its corresponding purchased flags is true, [SetText](../../SetText/SetText.md) is called where the parent is the bar, the position is (1.0, -0.15) and the input string is |[sort](../../SetText/Commands/Individual%20commands/Sort.md),10||[size](../../SetText/Commands/Individual%20commands/size.md),0.6,0.75||[color](../../SetText/Commands/Individual%20commands/Color.md),1| followed by MenuText 190 which is "Sold Out!".
 
-Otherwise, [SetText](../../SetText/SetText.md) is called where the parent is the bar, the position is (1.4, -0.15) and the input string is |[sort](../../SetText/Commands/Individual%20commands/Sort.md),10||`size`,0.6,0.75| followed by the price of the items in tokens from termacadeprize. Additionally, a token sprite is rendering on the rightmost part of the bar. 
+Otherwise, [SetText](../../SetText/SetText.md) is called where the parent is the bar, the position is (1.4, -0.15) and the input string is |[sort](../../SetText/Commands/Individual%20commands/Sort.md),10||[size](../../SetText/Commands/Individual%20commands/size.md),0.6,0.75| followed by the price of the items in tokens from termacadeprize. Additionally, a token sprite is rendering on the rightmost part of the bar. 
 
 ## Description box rendering
 

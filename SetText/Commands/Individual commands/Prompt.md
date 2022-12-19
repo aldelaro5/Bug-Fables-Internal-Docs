@@ -81,7 +81,7 @@ While this command manages the creation and setup of the prompt, its handling is
   * `tridimensional` is false
   * `position` is (0.0 - `xminsize` - 0.1, `yoffset`, 0.0)
   * `cameraoffset` is Vector3.Zero
-  * `Size` is (0.85, 0.85, 1.0)
+  * [size](size.md) is (0.85, 0.85, 1.0)
   * [Parent](Parent.md) is the `promptbox` itself
   * `caller` is null
 * `prompt`: The flag tracking if a prompt is active, set to true during this command's processing and set to false by MainManager's Update once an option has been chosen.
@@ -106,6 +106,7 @@ When SetText is done yielding, the prompt will be handled immediately after:
 
 * If [flagvar](../../../Flags%20arrays/flagvar.md) 0 is set to -555, [textbox](../../Notable%20local%20variable/textbox.md) will be forced to not be shrunk. This is expected to be set before this command is processed.
 * The input string will be overwritten completely with the text obtained from the corresponding `promptpointers` associated with the option prepended with |[blank](Blank.md)\| and then [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) will be called on it if `linebreak` is not null.
+* If [Questprompt](Questprompt.md) was in effect, this will append a string to handle the confirmation of a [BoardQuests](../../../Enums%20and%20IDs/BoardQuests.md) being taken. Check the [Questprompt](Questprompt.md) page for more details on how this string is determined.
 * Setup the `promptbox` to have a shrink animation.
 * Destroys the `promptbox` in 0.5 seconds.
 * Reset `promptpick` to -1.

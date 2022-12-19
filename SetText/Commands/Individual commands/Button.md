@@ -70,8 +70,8 @@ The ButtonSprite is initialised like so:
 * `id`: `buttonid`
 * `onlyone`: `type`
 * `labeltext`: `description`
-* `tposition`: (`currentoffset` + o, `currentline` + 0.225 * `Size`.y) where o is 0.25 or 0.55 if it is a longer button than usual
-* `size`: (`Size`.x / 2.2, `Size`.y / 2.2, 1.0)
+* `tposition`: (`currentoffset` + o, `currentline` + 0.225 * [size](size.md).y) where o is 0.25 or 0.55 if it is a longer button than usual
+* `size`: ([size](size.md).x / 2.2, [size](size.md).y / 2.2, 1.0)
 * `overridesortorder`: [Sort](Sort.md)
 * `parent`: null
 * `basecolor`: pure white

@@ -20,20 +20,20 @@ The main text corresponds to a certain line from MenuText depending on the optio
 
 If the option is Spy while it is disabled or Flee while it isn't possible, the text is prepended with |[color](../../SetText/Commands/Individual%20commands/Color.md),1| and that will be the final string.
 
-Otherwise, if the option is Rotate Party, ` ` + |`size`,0.55,0.6||[button](../../SetText/Commands/Individual%20commands/Button.md),6| is appended to the MenuText line and this is the final string.
+Otherwise, if the option is Rotate Party, ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6||[button](../../SetText/Commands/Individual%20commands/Button.md),6| is appended to the MenuText line and this is the final string.
 
-Otherwise, if the option is Do Nothing, |[single](../../SetText/Commands/Individual%20commands/Single.md)\| is prepended to the main text and ` ` + |`size`,0.55,0.6| is appended to it. There are also `Icon` commands that can be appended if a certain medal is equipped which will be appended in this order if that is the case:
+Otherwise, if the option is Do Nothing, |[single](../../SetText/Commands/Individual%20commands/Single.md)\| is prepended to the main text and ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| is appended to it. There are also `Icon` commands that can be appended if a certain medal is equipped which will be appended in this order if that is the case:
 
 * Prayer, |`icon`,187|
 * Meditation, |`icon`,188|
 * Reflection, |`icon`,189|
 
-Otherwise, if the option is Flee, |[single](../../SetText/Commands/Individual%20commands/Single.md)\| is prepended to the main text and ` ` + |`size`,0.55,0.6| is appended to it. There are also `Icon` commands that can be appended if a certain medal is equipped which will be appended in this order if that is the case:
+Otherwise, if the option is Flee, |[single](../../SetText/Commands/Individual%20commands/Single.md)\| is prepended to the main text and ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| is appended to it. There are also `Icon` commands that can be appended if a certain medal is equipped which will be appended in this order if that is the case:
 
 * Secure Pouch, |`icon`,221|
 * Quick Flea, |`icon`,222|
 
-Otherwise, if the option is Spy and Spy Specs is equipped, |[single](../../SetText/Commands/Individual%20commands/Single.md)\| is prepended to the main text and ` ` + |`size`,0.55,0.6||`icon`,219| is appended to it. 
+Otherwise, if the option is Spy and Spy Specs is equipped, |[single](../../SetText/Commands/Individual%20commands/Single.md)\| is prepended to the main text and ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6||`icon`,219| is appended to it. 
 
 The x position of the main text is overridden to -2.6.
 

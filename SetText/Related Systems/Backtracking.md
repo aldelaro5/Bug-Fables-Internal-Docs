@@ -9,17 +9,17 @@ This system is mainly possible using some important static field of MainManager:
 * `tempdiag`: Accumulates a stripped version the current textbox text until it is done so it can be added to `diagstring`.
 * `backtacking`: Tracks if a backtrack is in progress.
 
-Everything starts by tracking the current textbox using `tempdiag` which serves as an accumulator.  During [dialogue setup phase](../Life%20Cycle/dialogue%20setup%20phase.md), it is set to |`size`,size.x,size.y| which serves as the starting value using the `Size` values. Then, it will accumulate every letters and spaces during processing, but only a subset of the commands will be accumulated. These commands are:
+Everything starts by tracking the current textbox using `tempdiag` which serves as an accumulator.  During [dialogue setup phase](../Life%20Cycle/dialogue%20setup%20phase.md), it is set to |[size](../Commands/Individual%20commands/size.md),size.x,size.y| which serves as the starting value using the [size](../Commands/Individual%20commands/size.md) values. Then, it will accumulate every letters and spaces during processing, but only a subset of the commands will be accumulated. These commands are:
 
 * `Icon`
 * [Button](../Commands/Individual%20commands/Button.md)
-* `Size`
+* [size](../Commands/Individual%20commands/size.md)
 * [Shaky](../Commands/Individual%20commands/Shaky.md)
 * [Wavy](../Commands/Individual%20commands/Wavy.md)
 * [Rainbow](../Commands/Individual%20commands/Rainbow.md)
 * [Glitchy](../Commands/Individual%20commands/Glitchy.md)
 * [Halfline](../Commands/Individual%20commands/Halfline.md)
-* `Quarterline`
+* [Quarterline](../Commands/Individual%20commands/Quarterline.md)
 * [Line](../Commands/Individual%20commands/Line.md) (only in [regular letter rendering](../Life%20Cycle/letter%20rendering/regular%20letter%20rendering.md))
 * `Backline`
 
@@ -27,7 +27,7 @@ Any other command will not be accumulated to this static field.
 
 The storage of the textbox in `diagstring` only happens upon a [Next](../Commands/Individual%20commands/Next.md) or [Goto](../Commands/Individual%20commands/Goto.md) command which delimits what constitutes a textbox. At the end of processing either command, `currentdialogue` is incremented and `tempdiag` added to `diagstring`. 
 
-Additionally, `tempdiag` is reset to its starting value which is |`size`,size.x,size.y|. Every time [Next](../Commands/Individual%20commands/Next.md) is processed, but before adding the textbox to `diagstring`, it will yield control to MainManager.Update by setting [waitinput](../Global%20vars%20used/waitinput.md) to true. This is where the game allows a backtracking to be initiated, but only after at least one textbox has passed. It is also possible to backtrack on the last textbox if an [End](../Commands/Individual%20commands/End.md) command has not been processed.
+Additionally, `tempdiag` is reset to its starting value which is |[size](../Commands/Individual%20commands/size.md),size.x,size.y|. Every time [Next](../Commands/Individual%20commands/Next.md) is processed, but before adding the textbox to `diagstring`, it will yield control to MainManager.Update by setting [waitinput](../Global%20vars%20used/waitinput.md) to true. This is where the game allows a backtracking to be initiated, but only after at least one textbox has passed. It is also possible to backtrack on the last textbox if an [End](../Commands/Individual%20commands/End.md) command has not been processed.
 
 Once a backtrack is initiated, the current line that SetText is waiting on [waitinput](../Global%20vars%20used/waitinput.md) to be released is added to `diagstring`, `currentdialogue` is decremented and `backtacking` is set to true. The reason adding the current is added is because since it has already been processed by SetText, [waitinput](../Global%20vars%20used/waitinput.md) can only come back to false once that current line is passed during a backtrack. The only way for this to happen is if the current line becomes a backtrack itself in `diagstring`.
 

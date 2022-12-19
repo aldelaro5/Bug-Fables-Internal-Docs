@@ -55,6 +55,6 @@ When `postprocessing` is `clamp`, specify the horizontal scale to apply to the [
 
 The [flagstring](../../../Flags%20arrays/flagstring.md) is expected to be set in code beforehand and its line endings will be normallized to LF if any CRLF is in the [flagstring](../../../Flags%20arrays/flagstring.md) text.
 
-If `postprocessing` is `clamp` and a clamping occurs, the [flagstring](../../../Flags%20arrays/flagstring.md) text will be prepended with |`sizemulti`,widthscaleclamp,1| and appended with |`size`,size.x,size.y| where `Size` is the parameter sent to SetText.
+If `postprocessing` is `clamp` and a clamping occurs, the [flagstring](../../../Flags%20arrays/flagstring.md) text will be prepended with |`sizemulti`,widthscaleclamp,1| and appended with |[size](size.md),size.x,size.y| where [size](size.md) is the parameter sent to SetText.
 
 This command will cause SetText to resume processing at the same character position to accommodate the text replacement of the input string at the position this command is being processed.

@@ -29,19 +29,19 @@ The dialogue test mode will restrict what commands will be processed from this p
 * [Wavy](Wavy.md)
 * [Goto](Goto.md)
 * `Call`
-* `Minibubble`
+* [Minibubble](Minibubble.md)
 * `Breakend`
 * Any commands that contains `line` in their name as specified in the input string (this is case sensitive). This means the following list are also processed if the command is written to satisfy this condition:
   * [Line](Line.md)
   * [Halfline](Halfline.md)
-  * `Quarterline`
+  * [Quarterline](Quarterline.md)
   * `Pauseline`
   * `Libraryline`
   * `Shopline`
   * `Backline`
   * `Unpauseline`
 
-Any other commands will not be processed. ([Tail](Tail.md) and `Tailextra` will be technically be processed too, but their command processing will break immediately under dialogue test mode).
+Any other commands will not be processed. ([Tail](Tail.md) and [Tailextra](Tailextra.md) will be technically be processed too, but their command processing will break immediately under dialogue test mode).
 
 This does not impact `Ignorenext` functionality which takes priority over deciding to process the commands or not. Additionally, there is no way to disable test mode meaning when processing this command, the rest of the input string will be processed.
 

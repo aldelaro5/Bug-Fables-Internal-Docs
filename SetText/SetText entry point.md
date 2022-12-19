@@ -58,9 +58,9 @@ Indicates the localPosition of the [textholder](Notable%20local%20variable/texth
 
 The vector to add to MainManager.instance.camoffset (TODO) in [Dialogue mode](Dialogue%20mode.md). This isn't used in non [Dialogue mode](Dialogue%20mode.md).
 
-### `Size`
+### [size](Commands/Individual%20commands/size.md)
 
-The size scaling to apply to each letter from the start. This can be overridden during \[\[life cycle#` ` proocessing\]\] with a `Size` command.
+The size scaling to apply to each letter from the start. This can be overridden during \[\[life cycle#` ` proocessing\]\] with a [size](Commands/Individual%20commands/size.md) command.
 
 ### [Parent](Commands/Individual%20commands/Parent.md)
 

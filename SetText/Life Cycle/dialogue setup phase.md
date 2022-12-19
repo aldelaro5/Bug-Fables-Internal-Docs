@@ -1,7 +1,7 @@
 * MainManager.instance.`letterprompt` is set to -1
 * MainManager.`define` is initialised with a default new constructor
-* Initializes the [Text advance](../Related%20Systems/Text%20advance.md) and the [Backtracking](../Related%20Systems/Backtracking.md) current dialogue and history to a clean state. `tempdiag` is set to |`size`,size.x,size.y| where the size param values comes from `Size`. 
-* if [languageid](../languageid.md) is `Japanese`, prepend |`size`,0.8,0.9| to the input string and set the [Speed](../Commands/Individual%20commands/Speed.md) to 0.03 (0.02 if not Japanese).
+* Initializes the [Text advance](../Related%20Systems/Text%20advance.md) and the [Backtracking](../Related%20Systems/Backtracking.md) current dialogue and history to a clean state. `tempdiag` is set to |[size](../Commands/Individual%20commands/size.md),size.x,size.y| where the size param values comes from [size](../Commands/Individual%20commands/size.md). 
+* if [languageid](../languageid.md) is `Japanese`, prepend |[size](../Commands/Individual%20commands/size.md),0.8,0.9| to the input string and set the [Speed](../Commands/Individual%20commands/Speed.md) to 0.03 (0.02 if not Japanese).
 * Release [waitinput](../Global%20vars%20used/waitinput.md).
 * Hide the HUD and the discovery HUD.
 * Apply an `inputcooldown` of 10 frames.
@@ -15,7 +15,7 @@
   * Make the player stop moving.
   * Set `tcons` to the player's rigid body's constraints
   * if the `caller` isn't null, teleport following players and chompy closer to caller? (2.55 max distance, 1.5 away?). After, yield for a frame.
-* If the `Camoffset` is effectively not Vector3.Zero, add it to MainManager.camoffset
+* If the [Camoffset](../Commands/Individual%20commands/Camoffset.md) is effectively not Vector3.Zero, add it to MainManager.camoffset
 * Initialize the [textbox](../Notable%20local%20variable/textbox.md) and its [tailtarget](../Notable%20local%20variable/tailtarget.md) to [Parent](../Commands/Individual%20commands/Parent.md)
 * Set the bleep and the bleep pitch to the ones coming from the entity of [Parent](../Commands/Individual%20commands/Parent.md) if it exists.
 * If MainManager.playerdata isn't null, take every non null and activeInHierarchy player entity EXCEPT VI (possible errata?) and have them each stop their forcemove and set their sprite to enabled.

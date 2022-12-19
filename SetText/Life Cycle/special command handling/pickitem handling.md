@@ -5,7 +5,7 @@
   - CONTINUE
   * If `listredirect` isn't -2 or -3
     * if `listredirect` isn't -1
-      * Override the input string with `OrganizeLines`(|[blank](../../Commands/Individual%20commands/Blank.md)\| + GetDialogueText(`listredirect`.Value), `linebreak`.Value, `Size`.x, [fonttype](../../fonttype.md));
+      * Override the input string with `OrganizeLines`(|[blank](../../Commands/Individual%20commands/Blank.md)\| + GetDialogueText(`listredirect`.Value), `linebreak`.Value, [size](../../Commands/Individual%20commands/size.md).x, [fonttype](../../fonttype.md));
       * Sets the current char index to -1 which will process the first one on the next loop iteration
     * Set the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to be talking
     * Set `inlist` to be false

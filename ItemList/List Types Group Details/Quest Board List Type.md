@@ -20,7 +20,7 @@ Display the list of open, taken or completed [BoardQuests](../../Enums%20and%20I
 
 ## Option's SetText input string
 
-The text is the name of the corresponding quest from boardquestdata prepended with |size,0.5,0.8,lock| in `German` or |`size`,0.6,0.8,lock| in `Japanese`.
+The text is the name of the corresponding quest from boardquestdata prepended with |size,0.5,0.8,lock| in `German` or |[size](../../SetText/Commands/Individual%20commands/size.md),0.6,0.8,lock| in `Japanese`.
 
 The x position of the text is overridden to 0.0 and the size to Vector2.one.
 
@@ -28,7 +28,7 @@ The x position of the text is overridden to 0.0 and the size to Vector2.one.
 
 `listdescbox` is rendered using a custom rendering scheme. If the quest id isn't No Quest, an image of the quest's author is rendered using librarysprites from the index obtained in boardquestdata which will have a name of `Image` and a tag of `Text` towards the top of the description box. Additionally [SetText](../../SetText/SetText.md) is called with the following in non [Dialogue mode](../../SetText/Dialogue%20mode.md):
 
-* `text`: |`size`,0.75||[sort](../../SetText/Commands/Individual%20commands/Sort.md),1| + The `By:` from MenuText line id 104 + ` ` + The author of the quest obtained from boardquestdata + |[line](../../SetText/Commands/Individual%20commands/Line.md)\||[halfline](../../SetText/Commands/Individual%20commands/Halfline.md)\| + The `Difficulty:` from MenuText line id 105 + ` ` + |`stars`, + The amount of filled in stars of the quest obtained from boardquestdata + `|`
+* `text`: |[size](../../SetText/Commands/Individual%20commands/size.md),0.75||[sort](../../SetText/Commands/Individual%20commands/Sort.md),1| + The `By:` from MenuText line id 104 + ` ` + The author of the quest obtained from boardquestdata + |[line](../../SetText/Commands/Individual%20commands/Line.md)\||[halfline](../../SetText/Commands/Individual%20commands/Halfline.md)\| + The `Difficulty:` from MenuText line id 105 + ` ` + |[Stars](../../SetText/Commands/Individual%20commands/Stars.md), + The amount of filled in stars of the quest obtained from boardquestdata + `|`
 * `position`: (12, 0.35)
 * `parent`: `listdescbox`
 
@@ -60,7 +60,7 @@ In either cases, `questboardobj` will be updated to reflect this page change and
 
 If type is the open quests board and a boardcaller exists, the quest must not be No Quest or a buzzer sound will be played and the confirmation rejected.
 
-If it is not No Quest, the `questboardobj` is closed which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false. From there, every player entity is set to face towards the entity of the boardcaller. SetText is then called in [Dialogue mode](../../SetText/Dialogue%20mode.md) with the dialogue of the boardcaller prepended with |`questprompt`\| using the entity of the board caller as the [Parent](../../SetText/Commands/Individual%20commands/Parent.md) and its NPCControl as `caller`. [Flagvar](../../Flags%20arrays/flagvar.md) 0 is set to the selected quest id and the list is finally destroyed which ends this confirmation handling.
+If it is not No Quest, the `questboardobj` is closed which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false. From there, every player entity is set to face towards the entity of the boardcaller. SetText is then called in [Dialogue mode](../../SetText/Dialogue%20mode.md) with the dialogue of the boardcaller prepended with |[Questprompt](../../SetText/Commands/Individual%20commands/Questprompt.md)\| using the entity of the board caller as the [Parent](../../SetText/Commands/Individual%20commands/Parent.md) and its NPCControl as `caller`. [Flagvar](../../Flags%20arrays/flagvar.md) 0 is set to the selected quest id and the list is finally destroyed which ends this confirmation handling.
 
 On the other hand, if the type isn't the open quest board and the current map is the TestRoom, the selected quest is removed from the corresponding board, the `questboardobj` is closed (which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false) and the list is destroyed which ends this confirmation handling.
 

@@ -18,7 +18,7 @@ Otherwise, if the quest isn't a story quest, but it is completed, a green checkm
 
 In all cases where a sprite is rendered, `\t` is prepended to the string and |`tab`,tabsize| is appended where tabsize is 6.0 except in `Japanese` where it is 3.0 (also multiplied by 0.85 if the sprite is the checkmark).
 
-If the language is set to `Japanese` and we are paused, |`size`,0.75,y,[lock](../../SetText/Commands/Individual%20commands/Lock.md)\| is prepended to the string.
+If the language is set to `Japanese` and we are paused, |[size](../../SetText/Commands/Individual%20commands/size.md),0.75,y,[lock](../../SetText/Commands/Individual%20commands/Lock.md)\| is prepended to the string.
 
 Finally, |[single](../../SetText/Commands/Individual%20commands/Single.md)\| is prepended to the string which will serve as the final string.
 

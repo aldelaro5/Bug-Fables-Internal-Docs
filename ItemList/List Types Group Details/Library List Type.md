@@ -16,7 +16,7 @@ Then, the corresponding name of the library entry is appended to the string.
 
 If the language is set to `German` and the list is the [Discoveries entry](../../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md), |`sizemulti`,0.7,1| is prepended to the string.
 
-If the language is set to `Japanese` and we are paused, |`size`,0.75,y,[lock](../../SetText/Commands/Individual%20commands/Lock.md)\| is prepended to the string.
+If the language is set to `Japanese` and we are paused, |[size](../../SetText/Commands/Individual%20commands/size.md),0.75,y,[lock](../../SetText/Commands/Individual%20commands/Lock.md)\| is prepended to the string.
 
 Finally, |[single](../../SetText/Commands/Individual%20commands/Single.md)\| is prepended to the string which will serve as the final string.
 

@@ -20,6 +20,6 @@
   * Create the `listdescbox`.
   * Render an image of the quest id `option`'s author using librarysprites from the index obtained in boardquestdata which will have a name of `Image` and a tag of `Text`.
   * Calls [SetText](../../SetText/SetText.md) with the following in non [Dialogue mode](../../SetText/Dialogue%20mode.md):
-    * `text`: |`size`,0.75||[sort](../../SetText/Commands/Individual%20commands/Sort.md),1| + The `By:` from MenuText line id 104 + ` ` + The author of the quest id `option` obtained from boardquestdata + |[line](../../SetText/Commands/Individual%20commands/Line.md)\||[halfline](../../SetText/Commands/Individual%20commands/Halfline.md)\| + The `Difficulty:` from MenuText line id 105 + ` ` + |`stars`, + The amount of filled in stars of the quest id `option` obtained from boardquestdata + `|`.
+    * `text`: |[size](../../SetText/Commands/Individual%20commands/size.md),0.75||[sort](../../SetText/Commands/Individual%20commands/Sort.md),1| + The `By:` from MenuText line id 104 + ` ` + The author of the quest id `option` obtained from boardquestdata + |[line](../../SetText/Commands/Individual%20commands/Line.md)\||[halfline](../../SetText/Commands/Individual%20commands/Halfline.md)\| + The `Difficulty:` from MenuText line id 105 + ` ` + |[Stars](../../SetText/Commands/Individual%20commands/Stars.md), + The amount of filled in stars of the quest id `option` obtained from boardquestdata + `|`.
     * `position`: (12, 0.35).
     * `parent`: `listdescbox`.

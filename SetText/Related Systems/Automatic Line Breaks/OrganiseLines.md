@@ -2,7 +2,9 @@
 
 A static method in MainManager that automatically inserts line breaks to fit inside a constrained width (typically a textbox or other GUI elements). This is mostly used in [SetText](../../SetText.md), but it is also used when calling the dialog via [Backtracking](../Backtracking.md).
 
-This method works on all languages except `Japanese` and `English` works slightly differently as the line width calculations are broken (see [OrganiseLines Known Issues > Not counting a whole word's width after the first line](OrganiseLines%20Known%20Issues.md#not-counting-a-whole-word-s-width-after-the-first-line) for more details).
+This method works on all languages except `Japanese` where it will immediately return `text`. 
+
+`English` works slightly differently as the line width calculations are broken (see [OrganiseLines Known Issues > Not counting a whole word's width after the first line](OrganiseLines%20Known%20Issues.md#not-counting-a-whole-word-s-width-after-the-first-line) for more details).
 
 ## Signature
 
@@ -22,7 +24,7 @@ The maximum width of a line. This is typically `linebreak` from SetText.
 
 ### `size`: float
 
-The width scale of the text. This is typically sent by SetText and corresponds to `Size`.
+The width scale of the text. This is typically sent by SetText and corresponds to [size](../../Commands/Individual%20commands/size.md).
 
 ### `fontid`: int
 

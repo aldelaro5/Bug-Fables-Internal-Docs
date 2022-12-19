@@ -8,7 +8,7 @@
 * Destroys the [textholder](../Notable%20local%20variable/textholder.md)
 * If `tempevent` is false and we are not in an event, sets `minipause` to false
 * Release the [message](../Global%20vars%20used/message.md) lock.
-* if `cameraoffset` is effectively not Vector3.Zero, restores the `Camoffset` to its local value
+* if `cameraoffset` is effectively not Vector3.Zero, restores the [Camoffset](../Commands/Individual%20commands/Camoffset.md) to its local value
 * `overridefollower` is restored to `tempoverf`
 * If the [textbox](../Notable%20local%20variable/textbox.md) isn't null, hide it with a shrink animation and Destroys the [textbox](../Notable%20local%20variable/textbox.md) in 1 second.
 * If the player isn't null and we are not in an event

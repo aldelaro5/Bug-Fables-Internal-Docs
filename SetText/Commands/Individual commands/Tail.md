@@ -50,3 +50,5 @@ This command will perform the following operations:
 * If `transition` was specified with a value other than `instant`, relay processing to an [Anim](Anim.md) command with the same parameters as this command. If `transition` is `instant`, this will not be done which ends this command's processing.
 
 It is technically possible to use this command in non [Dialogue mode](../../Dialogue%20mode.md) as long as `transition` isn't `instant` (otherwise, an exception will be thrown). However, doing this can cause undefined behaviors as this command was primarily made to operate in [Dialogue mode](../../Dialogue%20mode.md).
+
+This is one of the command supported by [Testdiag](Testdiag.md).
