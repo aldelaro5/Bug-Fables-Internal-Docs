@@ -12,9 +12,11 @@ There are subsystems containing WIP docs, here are their progression status:
 Name | Completion | Comments
 ------ | ------ | ------- 
 ItemList | ~95% | Just needs to cleanup a bit, mostly done
-SetText | ~50% | ~100 commands done out of ~210 refferenced ones
+SetText | ~60% | ~130 commands done out of ~210 refferenced ones
 
-Last push with a command added: 2022-12-19
+Last push with a command added: 2022-12-22
+
+All SetText commands from the 0.4.5 public demo have been documented.
 
 For the Obsidian notebook version of the docs, check the [release](https://github.com/aldelaro5/Bug-Fables-Internal-Docs/releases) section of this repos.
 
