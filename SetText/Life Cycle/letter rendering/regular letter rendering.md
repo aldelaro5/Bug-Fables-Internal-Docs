@@ -6,17 +6,17 @@
     * if `ui3d`, letter's layer is set to 15 else if `tridimensional` is false, letter's layer is set to 5, 0 otherwise
     * Set the letter's tag to `Letter`
     * Reserve the letter slot to be the current char, with a font of fonttt, with the parent being the [textholder](../../Notable%20local%20variable/textholder.md) at `currentoffset`, `currentline` - 0.1, 0.0 + letteroffset, using the current text [Color](../../Commands/Individual%20commands/Color.md), a sort of [Sort](../../Commands/Individual%20commands/Sort.md) and a size of [size](../../Commands/Individual%20commands/size.md).x, [size](../../Commands/Individual%20commands/size.md).y, 1.0) * 0.07, 0.0
-    * If `Dropshadow` is not null
+    * If [Dropshadow](../../Commands/Individual%20commands/Dropshadow.md) is not null
       * Sets `ds` to the first free slot of `letterpool` (NOTE: NO CHECK IF A SLOT IS AVAILABLE!)
       * Sets `ds`'s layer to the letter's layer
-      * Reserve the `ds` slot to be letter's text, with a font of fonttt, with the parent being [textholder](../../Notable%20local%20variable/textholder.md) at the letter's localPosition + `Dropshadow`, using a half transparent black color if `Fadeletter` is false and clear color otherwise, a sort of the current [Sort](../../Commands/Individual%20commands/Sort.md) and a size of the letter's scale.
-      * If `Fadeletter` is true, starts a fade of `ds`'s MeshRender to half transparent over the course of 200 frames
+      * Reserve the `ds` slot to be letter's text, with a font of fonttt, with the parent being [textholder](../../Notable%20local%20variable/textholder.md) at the letter's localPosition + [Dropshadow](../../Commands/Individual%20commands/Dropshadow.md), using a half transparent black color if [Fadeletter](../../Commands/Individual%20commands/Fadeletter.md) is false and clear color otherwise, a sort of the current [Sort](../../Commands/Individual%20commands/Sort.md) and a size of the letter's scale.
+      * If [Fadeletter](../../Commands/Individual%20commands/Fadeletter.md) is true, starts a fade of `ds`'s MeshRender to half transparent over the course of 200 frames
       * Increment the letter's MeshRenderer's sortingOrder
     * If any of the font effects is enabled, add a [FontEffects](../../Related%20Systems/FontEffects.md) to letter with the current effects desired (also sets `superglitch`)
     * Add GetLetterOffset of the current character with font fonttt and [size](../../Commands/Individual%20commands/size.md).x to `currentoffset`
   * Sets `maxlength` to `currentoffset` if it is larger
   * Sets `textwidth` to `maxlength`
-  * Sets `lasttextcenter` to `position`.x - `maxlenght` / 2.0
-  * If [Center](../../Commands/Individual%20commands/Center.md) is enabled, sets the [textholder](../../Notable%20local%20variable/textholder.md)'s localPosition to `position`.x - `maxlenght` / 2f, `position`.y, `position`.z
+  * Sets `lasttextcenter` to [position](../../Commands/Individual%20commands/position.md).x - `maxlenght` / 2.0
+  * If [Center](../../Commands/Individual%20commands/Center.md) is enabled, sets the [textholder](../../Notable%20local%20variable/textholder.md)'s localPosition to [position](../../Commands/Individual%20commands/position.md).x - `maxlenght` / 2f, [position](../../Commands/Individual%20commands/position.md).y, [position](../../Commands/Individual%20commands/position.md).z
   * if ([Minibubble](../../Commands/Individual%20commands/Minibubble.md) || (we are in [Dialogue mode](../../Dialogue%20mode.md) mode && (([Speed](../../Commands/Individual%20commands/Speed.md) > 0.0 && !instance.`skiptext`) || [Noskip](../../Commands/Individual%20commands/Noskip.md)))), yield for [Speed](../../Commands/Individual%20commands/Speed.md) seconds
   * `if (((dialogue && speed > 0f && !instance.skiptext) || minibubble) && char.IsPunctuation(text[i]) && i + 1 < text.Length - 1 && text[i + 1] != '|' && text[i + 1] != ')' && text[i + 1] != '¿' && text[i + 1] != '¡' && text[i] != '\'' && text[i] != '/' && text[i] != '¿' && text[i] != ')' && text[i] != '¡' && (!char.IsPunctuation(text[i + 1]) || text[i + 1] != '.' || text[i + 1] != '!' || text[i + 1] != '?' || text[i + 1] != ')' || text[i + 1] != '？' || text[i + 1] != '、' || text[i + 1] != '。' || text[i + 1] != '！' || text[i + 1] != '¿' || text[i + 1] != '¡'))`, yield for 0.15 seconds

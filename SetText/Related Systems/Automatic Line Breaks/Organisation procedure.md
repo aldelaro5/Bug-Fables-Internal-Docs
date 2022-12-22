@@ -19,7 +19,7 @@
   * Pseudo switch on the char:
     * LF: CONTINUE
     * `|`:
-      * For [Next](../../Commands/Individual%20commands/Next.md), [Blank](../../Commands/Individual%20commands/Blank.md) or any commands with `line` in it (except if paused with `Unpauseline` and when a Shopkeeper isn't in the interact range of the player for a `Shopline`):
+      * For [Next](../../Commands/Individual%20commands/Next.md), [Blank](../../Commands/Individual%20commands/Blank.md) or any commands with `line` in it (except if paused with `Unpauseline` and when a Shopkeeper isn't in the interact range of the player for a [Shopline](../../Commands/Individual%20commands/Shopline.md)):
         * Act as if a ` ` was processed, but without adding a space width to the line accumulator.
       * For [Button](../../Commands/Individual%20commands/Button.md):
         * Add 0.7 to the line accumulator. Add another 0.7 if the keyboard input text is not empty and it doesn't have `Arrow`. Reset the word accumulator to 0.

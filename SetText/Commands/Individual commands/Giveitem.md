@@ -163,5 +163,5 @@ The `itemtype` have their own specific logic:
 ### Redirection
 
 * If `itemtype` is Medal and [flags](../../../Flags%20arrays/flags.md) 31 is false (the player has yet to receive the medal tutorial):
-  * Assign a string with the value |[tail](Tail.md),null||`destroydescbox`\||[blank](Blank.md)\||[boxstyle](Boxstyle.md),4| followed by common dialogue 31 (the medal tutorial) followed by |[flag](Flag.md),31,true||[break](Break.md)\||`gettail`,`tailid`\||[boxstyle](Boxstyle.md),0| where `tailid` is the current [tailtarget](../../Notable%20local%20variable/tailtarget.md).
-* Assign the input string to an [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of `redirect` prepanded with |`destroydescbox`\||[blank](Blank.md)\| all prepanded with the medal tutorial if it was assigned above.
+  * Assign a string with the value |[tail](Tail.md),null||[Destroydescbox](Destroydescbox.md)\||[blank](Blank.md)\||[boxstyle](Boxstyle.md),4| followed by common dialogue 31 (the medal tutorial) followed by |[flag](Flag.md),31,true||[break](Break.md)\||[Gettail](Gettail.md),`tailid`\||[boxstyle](Boxstyle.md),0| where `tailid` is the current [tailtarget](../../Notable%20local%20variable/tailtarget.md).
+* Assign the input string to an [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of `redirect` prepanded with |[Destroydescbox](Destroydescbox.md)\||[blank](Blank.md)\| all prepanded with the medal tutorial if it was assigned above.

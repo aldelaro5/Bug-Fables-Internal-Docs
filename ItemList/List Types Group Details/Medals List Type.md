@@ -22,7 +22,7 @@ Additionally, there are different additional behaviors depending if we are pause
 * When unpaused, the y position of the main text is overridden to -0.2.
 * When paused, the position of the main text is overridden to (0.35, -0.3), the size to Vector2.one and the bar height used for calculating the y position of the down arrow is overridden to -0.9. There is also going to be a bar rendered at the background if the medal is equipped in any way. The color is FFC000 for Vi, 00B800 for Kabbu, 00AFE6 for Leif and FFAE00 for equipped to all. If the medal is equipped to a character, its character icon sprite will also be rendered towards the right of the bar.
 
-Finally, if this isn't a `sell` list, render the MP icon and the MP cost towards the right of the bar. The cost part is done via [SetText](../../SetText/SetText.md) in non [Dialogue mode](../../SetText/Dialogue%20mode.md) where the input string is |`font`,0| followed by the cost obtained from badgedata clamped from 0 to 999 or from 0 to 1 if the RUIGEE [flags](../../Flags%20arrays/flags.md) is active.
+Finally, if this isn't a `sell` list, render the MP icon and the MP cost towards the right of the bar. The cost part is done via [SetText](../../SetText/SetText.md) in non [Dialogue mode](../../SetText/Dialogue%20mode.md) where the input string is |[Font](../../SetText/Commands/Individual%20commands/Font.md),0| followed by the cost obtained from badgedata clamped from 0 to 999 or from 0 to 1 if the RUIGEE [flags](../../Flags%20arrays/flags.md) is active.
 
 ## Description box rendering
 

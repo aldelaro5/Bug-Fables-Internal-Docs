@@ -79,7 +79,7 @@ While this command manages the creation and setup of the prompt, its handling is
   * `linebreak` is null
   * [Dialogue mode](../../Dialogue%20mode.md) is false (this is to prevent SetText from waiting on the prompt as `prompt` will be true when this call is made)
   * `tridimensional` is false
-  * `position` is (0.0 - `xminsize` - 0.1, `yoffset`, 0.0)
+  * [position](position.md) is (0.0 - `xminsize` - 0.1, `yoffset`, 0.0)
   * `cameraoffset` is Vector3.Zero
   * [size](size.md) is (0.85, 0.85, 1.0)
   * [Parent](Parent.md) is the `promptbox` itself

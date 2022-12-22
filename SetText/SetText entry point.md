@@ -50,7 +50,7 @@ Tells SetText to operate in [Dialogue mode](Dialogue%20mode.md). If false, a `|S
 
 Seems to indicate if the [textholder](Notable%20local%20variable/textholder.md) can be angled? Used in the [Button](Commands/Individual%20commands/Button.md) command and can influence the letter's layer in the character loop?
 
-### `position`
+### [position](Commands/Individual%20commands/position.md)
 
 Indicates the localPosition of the [textholder](Notable%20local%20variable/textholder.md). This is relative to [Parent](Commands/Individual%20commands/Parent.md) in non [Dialogue mode](Dialogue%20mode.md) and relative to the [textbox](Notable%20local%20variable/textbox.md) in [Dialogue mode](Dialogue%20mode.md) which is positioned at 0.0, 3.25, 10.0 relative to the `GUICamera`. If this is effectively a zero vector, the localPosition of the [textholder](Notable%20local%20variable/textholder.md) defaults to (-5.5, 0.9, 0.0).
 

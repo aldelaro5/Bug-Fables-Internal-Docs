@@ -24,7 +24,7 @@
 * Overrides the [textholder](../Notable%20local%20variable/textholder.md)'s parent to be the [textbox](../Notable%20local%20variable/textbox.md)'s parent.
 * Sets [textbox](../Notable%20local%20variable/textbox.md) to the [textholder](../Notable%20local%20variable/textholder.md). This allows it to be globally accessed.
 * Setup the [textbox](../Notable%20local%20variable/textbox.md) by setting parent to the GUICamera, localEulerAngle to Vector3.zero and localPosition to (0.0, 3.25, 10.0)
-* If the `position` is effectively not Vector3.Zero, sets the localPosition of the [textholder](../Notable%20local%20variable/textholder.md) to it again. Otherwise, it is set to (-5.5, 0.9, 0.0)
+* If the [position](../Commands/Individual%20commands/position.md) is effectively not Vector3.Zero, sets the localPosition of the [textholder](../Notable%20local%20variable/textholder.md) to it again. Otherwise, it is set to (-5.5, 0.9, 0.0)
 * Sets the [textbox](../Notable%20local%20variable/textbox.md)'s localScale to Vector3.zero
 * Add a `DialogueAnim` to the [textbox](../Notable%20local%20variable/textbox.md)
 * Initializes the `blinker`.

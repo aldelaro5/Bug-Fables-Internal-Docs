@@ -19,7 +19,7 @@ The dialogue test mode will restrict what commands will be processed from this p
 * [Next](Next.md)
 * [Blank](Blank.md)
 * [Speed](Speed.md)
-* `Icon`
+* [Icon](Icon.md)
 * `Menu`
 * [Color](Color.md)
 * [Shaky](Shaky.md)
@@ -35,9 +35,9 @@ The dialogue test mode will restrict what commands will be processed from this p
   * [Line](Line.md)
   * [Halfline](Halfline.md)
   * [Quarterline](Quarterline.md)
-  * `Pauseline`
-  * `Libraryline`
-  * `Shopline`
+  * [Pauseline](Pauseline.md)
+  * [Libraryline](Libraryline.md)
+  * [Shopline](Shopline.md)
   * `Backline`
   * `Unpauseline`
 

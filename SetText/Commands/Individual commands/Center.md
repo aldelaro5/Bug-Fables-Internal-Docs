@@ -20,7 +20,7 @@ Toggle the `centralize` rendering method.
 
 ### `reset`:  var
 
-If specified, also go back to the first line and reposition the [textholder](../../Notable%20local%20variable/textholder.md) to `position` or (-5.5, 0.9, 0.0) if it was not specified. Any value is accepted here as the value itself does not matter, only its presence.
+If specified, also go back to the first line and reposition the [textholder](../../Notable%20local%20variable/textholder.md) to [position](position.md) or (-5.5, 0.9, 0.0) if it was not specified. Any value is accepted here as the value itself does not matter, only its presence.
 
 ## Remarks
 

@@ -1,6 +1,12 @@
 # AnimIDs
 
-An `AnimIDs` enum value represents the ID used to identify the animation controller of a certain [Entity](../Data%20format/Entity.md). They are used mostly for identification purposes in some scenarios.
+An `AnimIDs` is an int or enum value that represents the ID used to identify the animation controller of a certain [Entity](../Data%20format/Entity.md). They are used mostly for identification purposes.
+
+## About the int format vs the enum format
+
+There are 2 formats to AnimIDs: the int format and the enum format. The later is an enum defined in the game while the former is mostly defined by convention: it is assumed this format is respected throughout the codebase. The only difference is the enum format has everything shifted up by 1 because the value 0 represents `None` in the enum format while it represents the first AnimIDs `Bee` in the int format. The int format does not have a concept of a `None` value.
+
+The table below shows the int format as it is the most common, but it is important to mention not everything uses this format and there are often conversions done in game to work with either.
 
 ## AnimIDs table
 

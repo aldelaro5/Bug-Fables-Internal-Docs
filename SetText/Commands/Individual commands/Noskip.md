@@ -14,6 +14,6 @@ None
 
 ## Remarks
 
-This commands does the same actions then [Stopskip](Stopskip.md) with the addition that it sets [Noskip](Noskip.md) to false which prevents further text skip. For more information, see [Text advance](../../Related%20Systems/Text%20advance.md).
+This commands does the same actions then [Stopskip](Stopskip.md) with the addition that it sets [Noskip](Noskip.md) to false which prevents further text skip. It also sets `isholdingskip` to [Fadeletter](Fadeletter.md). For more information, see [Text advance](../../Related%20Systems/Text%20advance.md).
 
 This command does nothing in non [Dialogue mode](../../Dialogue%20mode.md) mode.

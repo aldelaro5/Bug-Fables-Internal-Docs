@@ -11,7 +11,7 @@ This system is mainly possible using some important static field of MainManager:
 
 Everything starts by tracking the current textbox using `tempdiag` which serves as an accumulator.  During [dialogue setup phase](../Life%20Cycle/dialogue%20setup%20phase.md), it is set to |[size](../Commands/Individual%20commands/size.md),size.x,size.y| which serves as the starting value using the [size](../Commands/Individual%20commands/size.md) values. Then, it will accumulate every letters and spaces during processing, but only a subset of the commands will be accumulated. These commands are:
 
-* `Icon`
+* [Icon](../Commands/Individual%20commands/Icon.md)
 * [Button](../Commands/Individual%20commands/Button.md)
 * [size](../Commands/Individual%20commands/size.md)
 * [Shaky](../Commands/Individual%20commands/Shaky.md)

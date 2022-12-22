@@ -14,7 +14,7 @@ This behavior differs depending if we were paused or unpaused.
 
 ### When paused
 
-A first SetText call is done for the tp cost in non [Dialogue mode](../../SetText/Dialogue%20mode.md) where the input string is |[sort](../../SetText/Commands/Individual%20commands/Sort.md),10||`font`,0| followed by the cost padded left to 2 characters by ` ` or `  -` if there is no cost. This is rendered towards the right of the item bar. 
+A first SetText call is done for the tp cost in non [Dialogue mode](../../SetText/Dialogue%20mode.md) where the input string is |[sort](../../SetText/Commands/Individual%20commands/Sort.md),10||[Font](../../SetText/Commands/Individual%20commands/Font.md),0| followed by the cost padded left to 2 characters by ` ` or `  -` if there is no cost. This is rendered towards the right of the item bar. 
 
 After, if the TP cost isn't 0, a TP icon (or HP icon if Life Cast is equipped) is rendered on the far right of the item bar. 
 
@@ -24,16 +24,16 @@ The position of the input string is overridden to (-0.75, -0.2) and the bar heig
 
 ### When unpaused
 
-A first [SetText](../../SetText/SetText.md) call is done for the tp cost in non [Dialogue mode](../../SetText/Dialogue%20mode.md) where the input string is |[sort](../../SetText/Commands/Individual%20commands/Sort.md),10||[size](../../SetText/Commands/Individual%20commands/size.md),0.75||`font`,0| followed by |[color](../../SetText/Commands/Individual%20commands/Color.md),1| if the player doesn't have enough TP for the skill followed by the cost padded left to 2 characters by ` `.  This is rendered towards the right of the item bar. 
+A first [SetText](../../SetText/SetText.md) call is done for the tp cost in non [Dialogue mode](../../SetText/Dialogue%20mode.md) where the input string is |[sort](../../SetText/Commands/Individual%20commands/Sort.md),10||[size](../../SetText/Commands/Individual%20commands/size.md),0.75||[Font](../../SetText/Commands/Individual%20commands/Font.md),0| followed by |[color](../../SetText/Commands/Individual%20commands/Color.md),1| if the player doesn't have enough TP for the skill followed by the cost padded left to 2 characters by ` `.  This is rendered towards the right of the item bar. 
 
 After, if the TP cost isn't 0, a TP icon (or HP icon if Life Cast is equipped) is rendered on the far right of the item bar. 
 
-Then, a string is built with `Icon` commands according to some medals being equipped (this is appended in the respective order if the medal is equipped):
+Then, a string is built with [Icon](../../SetText/Commands/Individual%20commands/Icon.md) commands according to some medals being equipped (this is appended in the respective order if the medal is equipped):
 
-* Needle Toss and Needle pincer: ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |`icon`,192| if Electric Needles, + |`icon`,191| if Sleepy Needles and + |`icon`,193| if Poison Needles + ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |`icon`,194| if A.D.B.P Enhancer
-* Tornado Toss and Hurricane Toss: ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |`icon`,194| if A.D.B.P Enhancer
-* Secret Stash and Sharing Stash: ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |`icon`,218| if Heal Plus
-* Taunt: ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |`icon`,195| if Deep Taunt
+* Needle Toss and Needle pincer: ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |[Icon](../../SetText/Commands/Individual%20commands/Icon.md),192| if Electric Needles, + |[Icon](../../SetText/Commands/Individual%20commands/Icon.md),191| if Sleepy Needles and + |[Icon](../../SetText/Commands/Individual%20commands/Icon.md),193| if Poison Needles + ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |[Icon](../../SetText/Commands/Individual%20commands/Icon.md),194| if A.D.B.P Enhancer
+* Tornado Toss and Hurricane Toss: ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |[Icon](../../SetText/Commands/Individual%20commands/Icon.md),194| if A.D.B.P Enhancer
+* Secret Stash and Sharing Stash: ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |[Icon](../../SetText/Commands/Individual%20commands/Icon.md),218| if Heal Plus
+* Taunt: ` ` + |[size](../../SetText/Commands/Individual%20commands/size.md),0.55,0.6| + |[Icon](../../SetText/Commands/Individual%20commands/Icon.md),195| if Deep Taunt
 
 Finally, the input string is set to the skill's name from skilldata prepended with |[color](../../SetText/Commands/Individual%20commands/Color.md),1| if the player doesn't have enough TP for the skill and appended with the icons string. 
 
