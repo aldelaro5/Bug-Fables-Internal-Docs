@@ -12,9 +12,9 @@ There are subsystems containing WIP docs, here are their progression status:
 Name | Completion | Comments
 ------ | ------ | ------- 
 ItemList | ~95% | Just needs to cleanup a bit, mostly done
-SetText | ~60% | ~130 commands done out of ~210 refferenced ones
+SetText | ~70% | ~160 commands done out of 217 ones + needs some cleanup
 
-Last push with a command added: 2022-12-22
+Last push with a command added: 2022-12-26
 
 All SetText commands from the 0.4.5 public demo have been documented.
 
