@@ -75,9 +75,9 @@ This line contains global information about the party and the state of the game.
 |14|Seconds of the play time clock|Int||
 |15|Save progress icons|Int|0 - no icons, 1 - Ancient Mask, 2 - Ancient Tablet, 3 - Ancient Key, 4 - Ancient half, 5 - Elizant II, 6 - Flame Brooch and 7 - Wasp King's crown|
 
-### Line 4 (Array line) [Medal](../Enums%20and%20IDs/Medal.md)s shops pool
+### Line 4 (Array line) [Medal](../Enums%20and%20IDs/Medal.md)s available in medal shops
 
-This line corresponds to the pool of medals each shop currently offers.
+This line corresponds the different medals available in each medal shops for purchase.
 
 |Element|Description|
 |-------|-----------|
@@ -95,9 +95,9 @@ to be the ones displayed at the shop. For the Ant City medal shop, it's the firs
 and for Shade's shop, it's the first 2. An empty slot means there will be no medals
 (which occurs if there isn't enough available medals).
 
-### Line 5 (Array line) [Medal](../Enums%20and%20IDs/Medal.md)s available in medal shops
+### Line 5 (Array line) [Medal](../Enums%20and%20IDs/Medal.md)s shops pool
 
-This line corresponds the different medals available in each medal shops for purchase.
+This line corresponds to the pool of medals each shop currently offers.
 
 |Element|Description|
 |-------|-----------|
@@ -110,8 +110,7 @@ Each array element contains a list:
 |--------|-----------|----|----------------------|
 |ALL|Medal ID|Int|Refer to the [Medal](../Enums%20and%20IDs/Medal.md) document|
 
-Unlike line 4, this is a list to simply indicate the medals IN STOCK for purchase.
-It does not represent the current pool offered by the shop which is in line 4.
+Unlike line 4, this represents all the medals in the pool offered by each shop, but it does not indicate which ones are on display.
 
 ### Line 6 (Array line) [BoardQuests](../Enums%20and%20IDs/BoardQuests.md)
 
