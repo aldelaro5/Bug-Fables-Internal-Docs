@@ -20,7 +20,7 @@ Go to a new line below and continue rendering at the start of the new line
 
 ### `linespacing`:  float
 
-A factor to multiply the standard line height to move below the current one. This value must be a valid float or an exception will be thrown. If this value is not specified, the default value is 1.0 (which will use the standard line spacing)
+A factor to multiply the standard line height to move below the current one. This value must be a valid float or an exception will be thrown. If this value is not specified, the default value is 1.0 (which will use the standard line spacing).
 
 ## Remarks
 

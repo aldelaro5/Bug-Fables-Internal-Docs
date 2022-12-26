@@ -19,13 +19,13 @@ Replaces the text from this command to a [flagstring](../../../Flags%20arrays/fl
 (3)
 
 ````
-|single,flagstring,clamp,maxwidth,widthscaleclamp|
+|string,flagstring,clamp,maxwidth,widthscaleclamp|
 ````
 
 (3)
 
 ````
-|single,flagstring,true|
+|string,flagstring,true|
 ````
 
 ## Parameters
@@ -53,7 +53,7 @@ When `postprocessing` is `clamp`, specify the horizontal scale to apply to the [
 
 ## Remarks
 
-The [flagstring](../../../Flags%20arrays/flagstring.md) is expected to be set in code beforehand and its line endings will be normallized to LF if any CRLF is in the [flagstring](../../../Flags%20arrays/flagstring.md) text.
+The [flagstring](../../../Flags%20arrays/flagstring.md) is expected to be set in code beforehand and its line endings will be normalized to LF if any CRLF is in the [flagstring](../../../Flags%20arrays/flagstring.md) text.
 
 If `postprocessing` is `clamp` and a clamping occurs, the [flagstring](../../../Flags%20arrays/flagstring.md) text will be prepended with |`sizemulti`,widthscaleclamp,1| and appended with |[size](size.md),size.x,size.y| where [size](size.md) is the parameter sent to SetText.
 

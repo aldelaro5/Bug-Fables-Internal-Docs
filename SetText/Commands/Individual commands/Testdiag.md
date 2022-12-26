@@ -20,7 +20,7 @@ The dialogue test mode will restrict what commands will be processed from this p
 * [Blank](Blank.md)
 * [Speed](Speed.md)
 * [Icon](Icon.md)
-* `Menu`
+* [Menu](Menu.md)
 * [Color](Color.md)
 * [Shaky](Shaky.md)
 * `Faketail`
@@ -28,9 +28,9 @@ The dialogue test mode will restrict what commands will be processed from this p
 * [Glitchy](Glitchy.md)
 * [Wavy](Wavy.md)
 * [Goto](Goto.md)
-* `Call`
+* [Call](Call.md)
 * [Minibubble](Minibubble.md)
-* `Breakend`
+* [Breakend](Breakend.md)
 * Any commands that contains `line` in their name as specified in the input string (this is case sensitive). This means the following list are also processed if the command is written to satisfy this condition:
   * [Line](Line.md)
   * [Halfline](Halfline.md)
@@ -38,7 +38,7 @@ The dialogue test mode will restrict what commands will be processed from this p
   * [Pauseline](Pauseline.md)
   * [Libraryline](Libraryline.md)
   * [Shopline](Shopline.md)
-  * `Backline`
+  * [Backline](Backline.md)
   * `Unpauseline`
 
 Any other commands will not be processed. ([Tail](Tail.md) and [Tailextra](Tailextra.md) will be technically be processed too, but their command processing will break immediately under dialogue test mode).

@@ -7,7 +7,7 @@
       * If it's not a command, append the char to the result string
       * If it is a command, gather the command text (the next iteration resumes after the command text) and if the command is:
         * [Sstring](../../Commands/Individual%20commands/Sstring.md): Append the flagstring at the index of the only parameter of the command
-        * `Menu`:
+        * [Menu](../../Commands/Individual%20commands/Menu.md):
           * If it has 1 parameter, append menutext at the index of this parameter
           * Otherwise, get the menutext at the index of the first parameter and switch on the second parameter:
             * `1`: Append the first char of the menutext + `-` + the entire menutext to the result string

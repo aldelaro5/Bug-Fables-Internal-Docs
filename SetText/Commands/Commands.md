@@ -143,35 +143,35 @@ There are 217 commands as of 1.1.2.
 |128|[Mapflag](Individual%20commands/Mapflag.md)||
 |129|[Checkmapflag](Individual%20commands/Checkmapflag.md)||
 |130|[Kinematicplayer](Individual%20commands/Kinematicplayer.md)||
-|131|`Removefollower`||
-|132|`Shoppool`||
-|133|`Optiontovar`||
+|131|[Removefollower](Individual%20commands/Removefollower.md)||
+|132|[Shoppool](Individual%20commands/Shoppool.md)||
+|133|[Optiontovar](Individual%20commands/Optiontovar.md)||
 |134|`Librarybreak`|NOT PROCESSED|
-|135|`Setbreak`||
-|136|`Librarybook`||
-|137|`Area`||
-|138|[Sstring](Individual%20commands/Sstring.md)|PROCESSED IN [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)|
-|139|`Menu`|PROCESSED IN [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)|
-|140|`Battle`||
-|141|`Removestat`||
-|142|`Addstat`||
-|143|`Checkpos`||
-|144|`Triui`||
-|145|`Backline`||
-|146|`Cardbattle`||
+|135|[Setbreak](Individual%20commands/Setbreak.md)||
+|136|[Librarybook](Individual%20commands/Librarybook.md)||
+|137|[Area](Individual%20commands/Area.md)||
+|138|[Sstring](Individual%20commands/Sstring.md)|CAN BE PROCESSED IN [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)|
+|139|[Menu](Individual%20commands/Menu.md)|CAN BE PROCESSED IN [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)|
+|140|[Battle](Individual%20commands/Battle.md)||
+|141|[Removestat](Individual%20commands/Removestat.md)||
+|142|[Addstat](Individual%20commands/Addstat.md)||
+|143|[Checkpos](Individual%20commands/Checkpos.md)||
+|144|[Triui](Individual%20commands/Triui.md)||
+|145|[Backline](Individual%20commands/Backline.md)||
+|146|[Cardbattle](Individual%20commands/Cardbattle.md)||
 |147|[Boxspeed](Individual%20commands/Boxspeed.md)||
 |148|[Battlewon](Individual%20commands/Battlewon.md)||
-|149|`Switch`||
-|150|`Checkminibubble`||
-|151|`Breakend`||
-|152|`DungeonGame`||
-|153|`BeeGame`||
-|154|`Copyvar`||
-|155|`Addvar`||
-|156|`Showtokens`||
-|157|`Call`||
-|158|`Igcolmove`||
-|159|`PartyGame`||
+|149|[Switch](Individual%20commands/Switch.md)||
+|150|[Checkminibubble](Individual%20commands/Checkminibubble.md)||
+|151|[Breakend](Individual%20commands/Breakend.md)||
+|152|[DungeonGame](Individual%20commands/DungeonGame.md)||
+|153|[BeeGame](Individual%20commands/BeeGame.md)||
+|154|[Copyvar](Individual%20commands/Copyvar.md)|UNUSED|
+|155|[Addvar](Individual%20commands/Addvar.md)||
+|156|[Showtokens](Individual%20commands/Showtokens.md)||
+|157|[Call](Individual%20commands/Call.md)||
+|158|[Igcolmove](Individual%20commands/Igcolmove.md)||
+|159|[PartyGame](Individual%20commands/PartyGame.md)|UNUSED, NOT FUNCTIONAL|
 |160|`LetterPrompt`||
 |161|`Define`||
 |162|`Loadmap`||

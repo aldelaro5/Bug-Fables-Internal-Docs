@@ -43,3 +43,7 @@ The presence of this parameter indicates to operate in syntax (3) which retrieve
 ### `flagvarvalue`: int
 
 The [flagvar](../../../Flags%20arrays/flagvar.md) slot used to retrieve the value used to calculate the new value of `flagvar`. This must be a valid [flagvar](../../../Flags%20arrays/flagvar.md) slot or an exception will be thrown.
+
+## Remarks
+
+Syntax (2) and (3) are a less flexible version of [Addvar](Addvar.md). While the functionalities are equivalent, [Addvar](Addvar.md) provides multiplication and integer division as well as the ability for the value to be the current berries amount.
