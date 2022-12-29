@@ -19,11 +19,11 @@
   * Pseudo switch on the char:
     * LF: CONTINUE
     * `|`:
-      * For [Next](../../Commands/Individual%20commands/Next.md), [Blank](../../Commands/Individual%20commands/Blank.md) or any commands with `line` in it (except if paused with `Unpauseline` and when a Shopkeeper isn't in the interact range of the player for a [Shopline](../../Commands/Individual%20commands/Shopline.md)):
+      * For [Next](../../Commands/Individual%20commands/Next.md), [Blank](../../Commands/Individual%20commands/Blank.md) or any commands with `line` in it (except if paused with [Unpauseline](../../Commands/Individual%20commands/Unpauseline.md) and when a Shopkeeper isn't in the interact range of the player for a [Shopline](../../Commands/Individual%20commands/Shopline.md)):
         * Act as if a ` ` was processed, but without adding a space width to the line accumulator.
       * For [Button](../../Commands/Individual%20commands/Button.md):
         * Add 0.7 to the line accumulator. Add another 0.7 if the keyboard input text is not empty and it doesn't have `Arrow`. Reset the word accumulator to 0.
-      * For any commands with `size` (except `Battlesize`) where the first param isn't `multi`:
+      * For any commands with `size` (except [Battlesize](../../Commands/Individual%20commands/Battlesize.md)) where the first param isn't `multi`:
         * Change the size to the x size parameter of the command
       * For [Singlebreak](../../Commands/Individual%20commands/Singlebreak.md):
         * Enable single break mode and set the maxoffset to the one sent in parameter of the command.

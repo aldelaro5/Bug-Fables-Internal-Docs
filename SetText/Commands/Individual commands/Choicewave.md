@@ -28,4 +28,4 @@ Whether to render a red `_` underneath the text once it is highlighted instead o
 
 ## Remarks
 
-This command allows a [Prompt](Prompt.md), [NumberPrompt](NumberPrompt.md) and `LetterPrompt` to highlight the currently hovered choice by applying a `PromptAnim` which apply a wave effect and a red color to the text or the `_` in (2).
+This command allows a [Prompt](Prompt.md), [NumberPrompt](NumberPrompt.md) and [LetterPrompt](LetterPrompt.md) to highlight the currently hovered choice by applying a `PromptAnim` which apply a wave effect and a red color to the text or the `_` in (2).

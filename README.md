@@ -11,12 +11,12 @@ This repos will get updates as more information is aggregated and figured out so
 There are subsystems containing WIP docs, here are their progression status:
 Name | Completion | Comments
 ------ | ------ | ------- 
-ItemList | ~95% | Just needs to cleanup a bit, mostly done
-SetText | ~70% | ~160 commands done out of 217 ones + needs some cleanup
+ItemList | ~99% | Just needs to cleanup a bit
+SetText | ~99% | 217/217 commands done, needs some cleanup
 
-Last push with a command added: 2022-12-26
+Last push with a command added: 2022-12-29
 
-All SetText commands from the 0.4.5 public demo have been documented.
+All SetText commands have been documented.
 
 For the Obsidian notebook version of the docs, check the [release](https://github.com/aldelaro5/Bug-Fables-Internal-Docs/releases) section of this repos.
 

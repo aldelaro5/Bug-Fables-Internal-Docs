@@ -34,7 +34,7 @@ The [entity](../../../Data%20format/Entity.md) to instruct to face towards `enti
 
 * `this`: Refers to the [tailtarget](../../Notable%20local%20variable/tailtarget.md). This must not be null or an exception will be thrown.
 * `caller`: Refers to the `caller`. This must not be null or an exception will be thrown.
-* Anything else: if the string is in the `Define` list, it will refer to it. Otherwise, the value will be interpreted as the int form.
+* Anything else: if the string is in the [Define](Define.md) list, it will refer to it. Otherwise, the value will be interpreted as the int form.
 
 ### `entity2`: int | string
 
@@ -42,7 +42,7 @@ The target [entity](../../../Data%20format/Entity.md) that `entity1` will face t
 
 * `this`: Refers to the [tailtarget](../../Notable%20local%20variable/tailtarget.md). This must not be null or an exception will be thrown.
 * `caller`: Refers to the `caller`. This must not be null or an exception will be thrown.
-* Anything else: if the string is in the `Define` list, it will refer to it. Otherwise, the value will be interpreted as the int form.
+* Anything else: if the string is in the [Define](Define.md) list, it will refer to it. Otherwise, the value will be interpreted as the int form.
 
 ### `true`
 

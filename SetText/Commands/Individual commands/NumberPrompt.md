@@ -38,11 +38,11 @@ Once the outcome is determined, control goes back to SetText inside the [life cy
 
 ### About the fields, [flagvar](../../../Flags%20arrays/flagvar.md) and [flagstring](../../../Flags%20arrays/flagstring.md) used
 
-The way a number prompt works is by reusing some fields used in the [Prompt](Prompt.md) and `LetterPrompt` command as well as sharing some fields used by [ItemList](../../../ItemList/ItemList.md). It's important to note that while it may shares some fields with these 2 systems, they are NOT equivalent semantically. This can in theory cause problems if they mix, but in practice, all fields mentioned here are properly reset by this command or their respective systems before usage so in practice, it's mostly safe.
+The way a number prompt works is by reusing some fields used in the [Prompt](Prompt.md) and [LetterPrompt](LetterPrompt.md) command as well as sharing some fields used by [ItemList](../../../ItemList/ItemList.md). It's important to note that while it may shares some fields with these 2 systems, they are NOT equivalent semantically. This can in theory cause problems if they mix, but in practice, all fields mentioned here are properly reset by this command or their respective systems before usage so in practice, it's mostly safe.
 
 Here are the fields in question:
 
-* `letterprompt`: Set to -1 to indicate this is not a `letterprompt` which is a superset of number prompt
+* `letterprompt`: Set to -1 to indicate this is not a [LetterPrompt](LetterPrompt.md) which is a superset of number prompt
 * `listcancelled`: Set to false during the command processing and to true if the number prompt was cancelled
 * `prompt`: Since this command uses the same lock then [Prompt](Prompt.md), it works the same way here (set to true during the command processing and to false when SetText is done yielding and handles the outcome)
 * `numberprompt`: Set to true during the command processing (it's not set to false because its value won't matter after until a [Prompt](Prompt.md) command happens which itself would set it to false anyway)
@@ -57,9 +57,9 @@ Here are the fields in question:
 As for the [flagvar](../../../Flags%20arrays/flagvar.md), this command and its handling uses the following slots:
 
 * `outflagvar`: Will be used to output the result only if the prompt is confirmed (it is not touched if the prompt is cancelled)
-* 0: Will be set to 0 if its value was -555 before. This is to prevent this prompt from being seen as a `LetterPrompt` which is a superset of number prompt.
+* 0: Will be set to 0 if its value was -555 before. This is to prevent this prompt from being seen as a [LetterPrompt](LetterPrompt.md) which is a superset of number prompt.
 * 4: Set to 0 every time the number prompt is refreshed (NOTE: why?)
-* 5: Set to -1 from this command, then changes to the button id if it's a direction input during the prompt handling. At the end of the prompt, this value will correspond to the last direction pushed during the prompt handling NOTE: why?
+* 5: Set to -1 from this command, then changes to the button id if it's a direction input during the prompt handling. At the end of the prompt, this value will correspond to the last direction pushed during the prompt handling. This is actively used by [NumberPrompt](NumberPrompt.md), but is still used here as a leftover feature without having any impact on the prompt handling.
 * 10: Set to `maxlength`
 
 This command also uses [flagstring](../../../Flags%20arrays/flagstring.md) 0 to store the number's text while the number prompt is being handled. Its integer representation is assigned to the `outflagvar` [flagvar](../../../Flags%20arrays/flagvar.md) slot when the number prompt is confirmed. This temporary storage is necessary to track the length constraint by `maxlength`.

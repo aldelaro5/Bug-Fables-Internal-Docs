@@ -16,7 +16,7 @@ The [Entity id](../Entity%20id.md) or designator to ignore collisions with the p
 
 * `this`: Refers to the [tailtarget](../../Notable%20local%20variable/tailtarget.md).
 * `caller`: Refers to the caller.
-* Anything else: Refers to a `Define` if it exists, otherwise, this is interpreted as a regular [Entity id](../Entity%20id.md) which will cause an exception to be thrown.
+* Anything else: Refers to a [Define](Define.md) if it exists, otherwise, this is interpreted as a regular [Entity id](../Entity%20id.md) which will cause an exception to be thrown.
 
 ## Remarks
 

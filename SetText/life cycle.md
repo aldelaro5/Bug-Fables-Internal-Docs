@@ -43,10 +43,10 @@ This phase of the loop happens if the current char is a `|` which is the delimit
 * Sets `temp` to be `command` split by `,`. This means `temp[0]` is the command name itself while everything after is its parameters
 * Sets `com` to the parsed [Commands](Commands/Commands.md) without case sensitivity using `temp[0]` where all the `.` have been removed
 * If in [Dialogue mode](Dialogue%20mode.md) mode and `com` is among these [Commands](Commands/Commands.md): [Icon](Commands/Individual%20commands/Icon.md), [Button](Commands/Individual%20commands/Button.md), [size](Commands/Individual%20commands/size.md), [Shaky](Commands/Individual%20commands/Shaky.md), [Wavy](Commands/Individual%20commands/Wavy.md), [Rainbow](Commands/Individual%20commands/Rainbow.md), [Glitchy](Commands/Individual%20commands/Glitchy.md), [Halfline](Commands/Individual%20commands/Halfline.md) or [Quarterline](Commands/Individual%20commands/Quarterline.md), append the whole command call string with parameters and the `|`s to `tempdiag`
-* Check to see if we are processing this command. The conditions are `Ignorenext` is 0 or below and we are not in [Testdiag](Commands/Individual%20commands/Testdiag.md)
+* Check to see if we are processing this command. The conditions are [Ignorenext](Commands/Individual%20commands/Ignorenext.md) is 0 or below and we are not in [Testdiag](Commands/Individual%20commands/Testdiag.md)
   * If we are in [Testdiag](Commands/Individual%20commands/Testdiag.md), process the command only if it is allowed under dialogue test. If we are not in [Dialogue mode](Dialogue%20mode.md) mode, skips all command processing. For more information, check the [Testdiag](Commands/Individual%20commands/Testdiag.md) command documentation.
 * **Process the [Commands](Commands/Commands.md) via a switch on `com` if we decided to process it**
-* Decrement `Ignorenext` if it is higher than 0
+* Decrement [Ignorenext](Commands/Individual%20commands/Ignorenext.md) if it is higher than 0
 * If we are resuming after the command is done, sets the current char to be the one after the command (after the second `|`). Otherwise, the command will continue at the same position (typically happens if the input string has changed).
 * Resets the processing state after a command is done.
 
@@ -71,8 +71,8 @@ This phase of the loop occurs for everything else that isn't a `\n`, `|`, ` ` or
   * [regular letter rendering](Life%20Cycle/letter%20rendering/regular%20letter%20rendering.md)
 * If we are using [Single](Commands/Individual%20commands/Single.md) rendering
   * [single letter rendering](Life%20Cycle/letter%20rendering/single%20letter%20rendering.md)
-* If `Backbox` is not null
-  * Sets the localPosition of the `Backbox` to `currentoffset` / 2.0, [size](Commands/Individual%20commands/size.md).y / 2.0 + 0.1, -5.0 and its localScale to `currentoffset` / 5.0 * [size](Commands/Individual%20commands/size.md).x, [size](Commands/Individual%20commands/size.md).y * 1.5, 1.0
+* If [Backbox](Commands/Individual%20commands/Backbox.md) is not null
+  * Sets the localPosition of the [Backbox](Commands/Individual%20commands/Backbox.md) to `currentoffset` / 2.0, [size](Commands/Individual%20commands/size.md).y / 2.0 + 0.1, -5.0 and its localScale to `currentoffset` / 5.0 * [size](Commands/Individual%20commands/size.md).x, [size](Commands/Individual%20commands/size.md).y * 1.5, 1.0
 
 ### Dialogue post-processing
 

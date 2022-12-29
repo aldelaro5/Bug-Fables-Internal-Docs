@@ -34,7 +34,7 @@ The x position of the text is overridden to 0.0 and the size to Vector2.one.
 
 Whether or not the quest was No Quest, SetText is called in non [Dialogue mode](../../SetText/Dialogue%20mode.md) with the following:
 
-* `text`: |[sort](../../SetText/Commands/Individual%20commands/Sort.md),1||[single](../../SetText/Commands/Individual%20commands/Single.md)\| + |[singlebreak](../../SetText/Commands/Individual%20commands/Singlebreak.md),10||`sizemulti`,0.8,1| on `German` or  |[singlebreak](../../SetText/Commands/Individual%20commands/Singlebreak.md),6| otherwise + the quest's description from boardquestdata before any `}` or `{`
+* `text`: |[sort](../../SetText/Commands/Individual%20commands/Sort.md),1||[single](../../SetText/Commands/Individual%20commands/Single.md)\| + |[singlebreak](../../SetText/Commands/Individual%20commands/Singlebreak.md),10||[Sizemulti](../../SetText/Commands/Individual%20commands/Sizemulti.md),0.8,1| on `German` or  |[singlebreak](../../SetText/Commands/Individual%20commands/Singlebreak.md),6| otherwise + the quest's description from boardquestdata before any `}` or `{`
 * `fonttype`: `BubblegumSans`
 * No `linebreak`
 * No `tridimensional`

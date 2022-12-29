@@ -23,7 +23,7 @@ The dialogue test mode will restrict what commands will be processed from this p
 * [Menu](Menu.md)
 * [Color](Color.md)
 * [Shaky](Shaky.md)
-* `Faketail`
+* [Faketail](Faketail.md)
 * [Rainbow](Rainbow.md)
 * [Glitchy](Glitchy.md)
 * [Wavy](Wavy.md)
@@ -39,11 +39,11 @@ The dialogue test mode will restrict what commands will be processed from this p
   * [Libraryline](Libraryline.md)
   * [Shopline](Shopline.md)
   * [Backline](Backline.md)
-  * `Unpauseline`
+  * [Unpauseline](Unpauseline.md)
 
 Any other commands will not be processed. ([Tail](Tail.md) and [Tailextra](Tailextra.md) will be technically be processed too, but their command processing will break immediately under dialogue test mode).
 
-This does not impact `Ignorenext` functionality which takes priority over deciding to process the commands or not. Additionally, there is no way to disable test mode meaning when processing this command, the rest of the input string will be processed.
+This does not impact [Ignorenext](Ignorenext.md) functionality which takes priority over deciding to process the commands or not. Additionally, there is no way to disable test mode meaning when processing this command, the rest of the input string will be processed.
 
 This command is unused under normal gameplay, but it remains functional.
 
