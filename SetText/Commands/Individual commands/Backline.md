@@ -1,6 +1,6 @@
 # Backline
 
-Does the same task than [Line](Line.md), but with a different syntax and it only works in [regular letter rendering](../../Life%20Cycle/letter%20rendering/regular%20letter%20rendering.md) while [Line](Line.md) works for both letter rendering method.
+Does the same task than [Line](Line.md), but with a different syntax and it only works in [Regular Letter Rendering](../../Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md) while [Line](Line.md) works for both letter rendering method.
 
 ## Syntax
 

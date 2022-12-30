@@ -1,6 +1,6 @@
 # Tab
 
-Set the tabsize of the current letter slot in [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md)
+Set the tabsize of the current letter slot in [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md)
 
 ## Syntax
 
@@ -16,4 +16,4 @@ The amount of spaces a `\t` character corresponds to. This must be a valid int o
 
 ## Remarks
 
-This command while functional doesn't do anything practical in [regular letter rendering](../../Life%20Cycle/letter%20rendering/regular%20letter%20rendering.md) because it only affects the letter slot used in [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md).
+This command while functional doesn't do anything practical in [Regular Letter Rendering](../../Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md) because it only affects the letter slot used in [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md).

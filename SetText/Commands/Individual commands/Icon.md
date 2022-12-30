@@ -46,7 +46,7 @@ The tag of the sprite is set to `Letter` and it is added to the same list than t
 
 If in [Dialogue mode](../../Dialogue%20mode.md), the [tailtarget](../../Notable%20local%20variable/tailtarget.md) is set to be talking at the end followed by a bleep play and a yield of the current [Speed](Speed.md) if that speed is higher than 0 and there is no [Text advance](../../Related%20Systems/Text%20advance.md)'s skiptext.
 
-It should be noted that this command does not work correctly under [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md) because the offset calculations are off which means the sprite may not render on the screen or it may render at the incorrect position. There is still a mitigation in place where the text of this command is replaced by `\t` and the char loop is set to resume at it, but the space gap is too small and it doesn't solve the rendering position of the sprite.
+It should be noted that this command does not work correctly under [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) because the offset calculations are off which means the sprite may not render on the screen or it may render at the incorrect position. There is still a mitigation in place where the text of this command is replaced by `\t` and the char loop is set to resume at it, but the space gap is too small and it doesn't solve the rendering position of the sprite.
 
 This command is accumulated for the [Backtracking](../../Related%20Systems/Backtracking.md) system.
 

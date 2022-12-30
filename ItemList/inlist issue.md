@@ -37,6 +37,6 @@ Despite all those measures, there are 2 known cases to reproduce this issue:
 
 While it is possible to apply workarounds as reproductions are found by the caller or after the ItemList is fully handled, it is possible to permanently fix this issue.
 
-The first way would be to guarantee that `inlist` is set to false during the [dialogue setup phase](../SetText/Life%20Cycle/dialogue%20setup%20phase.md) of SetText. This can work because it is not possible to make use of the value until a [Pickitem](../SetText/Commands/Individual%20commands/Pickitem.md) is processed in which case, it is dangerous to leave it dangling at a false value. While it would still leave the value dangling in the end, any potential problems will be negated immediately by the next SetText call in [Dialogue mode](../SetText/Dialogue%20mode.md).
+The first way would be to guarantee that `inlist` is set to false during the `dialogue setup phase` of SetText. This can work because it is not possible to make use of the value until a [Pickitem](../SetText/Commands/Individual%20commands/Pickitem.md) is processed in which case, it is dangerous to leave it dangling at a false value. While it would still leave the value dangling in the end, any potential problems will be negated immediately by the next SetText call in [Dialogue mode](../SetText/Dialogue%20mode.md).
 
 The second way would be to clear `listredirect` right after a redirection is performed if any. This wouldn't entirely fix the problem, but it will neuter the potential problems to a safer level.

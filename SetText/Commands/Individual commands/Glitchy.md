@@ -1,6 +1,6 @@
 # Glitchy
 
-Toggles the glitchy [FontEffects](../../Related%20Systems/FontEffects.md) that will be effective from this point in non [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md).
+Toggles the glitchy [FontEffects](../../Related%20Systems/FontEffects.md) that will be effective from this point in non [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md).
 
 ## Syntax
 
@@ -26,7 +26,7 @@ Sets this effect to use the `superglitch` version which is the more aggressive v
 
 This turns the glitchy [FontEffects](../../Related%20Systems/FontEffects.md) from false to true or from true to false depending on its existing state. The state change will affect every letter from the point this command is being processed. 
 
-This command does nothing in [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md).
+This command does nothing in [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md).
 
 This command is accumulated for the [Backtracking](../../Related%20Systems/Backtracking.md) system.
 

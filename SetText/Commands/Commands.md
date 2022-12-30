@@ -227,5 +227,5 @@ There are 217 commands as of 1.1.2.
 |212|[Maxmedals](Individual%20commands/Maxmedals.md)||
 |213|[Battlesize](Individual%20commands/Battlesize.md)||
 |214|[Pausesize](Individual%20commands/Pausesize.md)||
-|215|[GetFromMap](GetFromMap.md)||
+|215|[GetFromMap](Individual%20commands/GetFromMap.md)||
 |216|[Listsize](Individual%20commands/Listsize.md)||

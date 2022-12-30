@@ -18,7 +18,7 @@ Setup a [maps](../../../Enums%20and%20IDs/Maps.md) transfer to either a specific
 
 ## Parameters
 
-### `map`: int | string
+### `map`: int | `var`int
 
 The [maps](../../../Enums%20and%20IDs/Maps.md) to go to. The int form indicates the [maps](../../../Enums%20and%20IDs/Maps.md) id directly and it must be a non negative int or an exception will be thrown during the transfer. 
 

@@ -1,3 +1,5 @@
+# fonttype
+
 This is a parameter sent to [SetText](SetText.md) that determines the font to render.
 
 ## Font id table

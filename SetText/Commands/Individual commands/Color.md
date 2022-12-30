@@ -29,6 +29,6 @@ The colors available are:
 
 ## Remarks
 
-This commands works in [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md), but it will affect the whole line rather than each letter from now on.
+This commands works in [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), but it will affect the whole line rather than each letter from now on.
 
 This is one of the command supported by [Testdiag](Testdiag.md).

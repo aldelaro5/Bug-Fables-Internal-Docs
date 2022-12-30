@@ -1,6 +1,6 @@
 # Dialogue mode
 
-SetText has 2 main mode of operation: dialogue mode and non dialogue mode. The flag to use dialogue mode or not is sent as a parameter from the [SetText entry point](SetText%20entry%20point.md). 
+SetText has 2 main mode of operation: dialogue mode and non dialogue mode. The flag to use dialogue mode or not is sent as a parameter from the [SetText Entry Points](SetText%20Entry%20Points.md). 
 
 ## Non dialogue mode
 
@@ -24,3 +24,5 @@ To accomplish this, dialogue mode has additional phases in the [life cycle](life
 A huge disadvantage of this mode is it is not possible to have 2 SetText calls in dialogue mode running at the same time. This not only prevents recursion, but it also means that any caller cannot calls SetText in dialogue mode more than once. Failure to respect this rule will cause undefined behaviors.
 
 Generally, anything that needs these features should operate in dialogue mode as long as that call can safely be the only one in this mode at a time. Only if none of these features are needed should non dialogue mode be used such as UI text.
+
+There is an exception to the one call at a time in dialogue mode rule: during the stall in [Battle](Commands/Individual%20commands/Battle.md) and [Cardbattle](Commands/Individual%20commands/Cardbattle.md). In these commands, the [message](Global%20vars%20used/message.md) lock gets released, then it will keep yielding until the battle is over. This is done because CardBattle and BattleControl may need to use dialogue mode. Since the caller is always yielding by this point, this is a safe exception to this rule because both calls should never execute at the same time still.

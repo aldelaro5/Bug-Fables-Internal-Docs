@@ -22,4 +22,4 @@ The name that will be used to resolve the [Entity id](../Entity%20id.md) `id` fr
 
 This command allows access to a feature some commands supports which is to use the define list to resolve [Entity](../../../Data%20format/Entity.md) by a string key rather than the traditional [Entity id](../Entity%20id.md) key. Not all commands supports this feature, check the command's documentation to learn if it is supported. Other commands only supports [Entity id](../Entity%20id.md) keys.
 
-In non [Dialogue mode](../../Dialogue%20mode.md), this command technically works, but it will not clear the define list as this task is done in [dialogue setup phase](../../Life%20Cycle/dialogue%20setup%20phase.md).
+In non [Dialogue mode](../../Dialogue%20mode.md), this command technically works, but it will not clear the define list as this task is done in `dialogue setup phase`.

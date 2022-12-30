@@ -1,6 +1,6 @@
 # SetText
 
-SetText is Bug Fables's text management system. It is a hybrid between a text renderer, a script processor and a dialogue management system. Its name comes from the name given to its main [SetText entry point](SetText%20entry%20point.md) which is a static Coroutine defined in MainManager.
+SetText is Bug Fables's text management system. It is a hybrid between a text renderer, a script processor and a dialogue management system. Its name comes from the name given to its main [SetText Entry Points](SetText%20Entry%20Points.md) which is a static Coroutine defined in MainManager.
 
 Its main features are:
 
@@ -10,4 +10,4 @@ Its main features are:
 * Provides the different facilities needed to manage dialogues between entities such as a [Text advance](Related%20Systems/Text%20advance.md) system, a [Backtracking](Related%20Systems/Backtracking.md) system and the management of a [textbox](Notable%20local%20variable/textbox.md) that can optionally point to its speaker using the [tailtarget](Notable%20local%20variable/tailtarget.md).
 * Include an automatic line breaker called [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) (with some caveats, see [OrganiseLines Known Issues](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines%20Known%20Issues.md)).
 
-For a more detailed understanding of the inner workings, see [life cycle](life%20cycle.md).
+For a more detailed understanding of the inner workings, see [life cycle](life%20cycle.md) and for using it, see [SetText Entry Points](SetText%20Entry%20Points.md) and [Commands](Commands/Commands.md).

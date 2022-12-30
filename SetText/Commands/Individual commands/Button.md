@@ -81,7 +81,7 @@ After the button has been fully setup, the `currentoffset` will be increased by 
 
 This command has special logic in [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md). It adds 0.7 to the line accumulator when encountered and another 0.7 if the the keyboard input text is not empty and it doesn't have `Arrow`. Then, it reset the word accumulator to 0.
 
-It should be noted that this command does not work correctly under [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md) because the offset calculations are off which means the ButtonSprite may not render on the screen or it may render at the incorrect position.
+It should be noted that this command does not work correctly under [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) because the offset calculations are off which means the ButtonSprite may not render on the screen or it may render at the incorrect position.
 
 This command is accumulated for the [Backtracking](../../Related%20Systems/Backtracking.md) system.
 

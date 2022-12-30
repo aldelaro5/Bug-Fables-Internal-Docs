@@ -56,7 +56,7 @@ The important thing to note about a letter prompt is it is not possible to cance
 
 Due to extreme uses of SetText, it is technically possible to run SetText commands if the `flagstring` contains any prior to the prompt appearing, but it is not possible to enter any because the `|` is not available in any prompt. By the same token, this prompt does not support putting commands inside `promptmessage` as it is not handled and it will break the parser.
 
-One last thing to note: because the letter prompt consumes a lot of letter slots and nothing uses [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md), it should be noted that this UI in general is susceptible to do a lot of memory allocation and garbage collection which could be a performance concern.
+One last thing to note: because the letter prompt consumes a lot of letter slots and nothing uses [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), it should be noted that this UI in general is susceptible to do a lot of memory allocation and garbage collection which could be a performance concern.
 
 ### About the fields, [flagvar](../../../Flags%20arrays/flagvar.md) and [flagstring](../../../Flags%20arrays/flagstring.md) used
 

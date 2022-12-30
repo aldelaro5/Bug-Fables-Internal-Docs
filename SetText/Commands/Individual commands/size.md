@@ -57,7 +57,7 @@ Tells how to treat this command in regards to the size locks which tells SetText
 
 ## Remarks
 
-In [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md), this also sets the localScale of the letter slot to (size.x, size.y, 1.0) * 0.07. This essentially scales everything down to 7% of the new size.
+In [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), this also sets the localScale of the letter slot to (size.x, size.y, 1.0) * 0.07. This essentially scales everything down to 7% of the new size.
 
 Additionally, the bleep volume is adjusted to the new size's magnitude which will make bleeps go louder or softer depending on the new size.
 

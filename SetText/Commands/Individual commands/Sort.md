@@ -16,4 +16,4 @@ The sortingorder value to use. This value must be a valid int value or an except
 
 ## Remarks
 
-In [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md), this affects the whole line at once including letters rendered before this command on that line.
+In [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), this affects the whole line at once including letters rendered before this command on that line.

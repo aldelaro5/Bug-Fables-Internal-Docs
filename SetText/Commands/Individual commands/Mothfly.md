@@ -34,6 +34,6 @@ The `size` parameter to send to each [Icon](Icon.md) command. This must be a val
 
 ## Remarks
 
-If there are less than 2 rendered [Icon](Icon.md) in [Dialogue mode](../../Dialogue%20mode.md), ` ` or any letter in [regular letter rendering](../../Life%20Cycle/letter%20rendering/regular%20letter%20rendering.md), this command will also append `  ` after the first occurrence and ` ` after the second one.
+If there are less than 2 rendered [Icon](Icon.md) in [Dialogue mode](../../Dialogue%20mode.md), ` ` or any letter in [Regular Letter Rendering](../../Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md), this command will also append `  ` after the first occurrence and ` ` after the second one.
 
 Char loop processing will resume at the same position than this command to accommodate the text replacement.

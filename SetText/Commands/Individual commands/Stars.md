@@ -27,4 +27,4 @@ The sprite is the id 100 from the gui's atlas. Each sprite is childed to the [te
 
 This command will increase the current offset by the horizontal sprite's extent - 0.15 for each one rendered.
 
-It should be noted that this command does not work correctly under [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md) because the offset calculations are off which means the stars may not render on the screen or it may render at the incorrect position.
+It should be noted that this command does not work correctly under [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) because the offset calculations are off which means the stars may not render on the screen or it may render at the incorrect position.

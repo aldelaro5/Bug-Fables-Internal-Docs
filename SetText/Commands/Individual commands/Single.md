@@ -1,6 +1,6 @@
 # Single
 
-Toggle or set whether to render in [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md)
+Toggle or set whether to render in [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md)
 
 ## Syntax
 
@@ -20,14 +20,14 @@ Toggle or set whether to render in [single letter rendering](../../Life%20Cycle/
 
 ### `enable`:  `true` | `false`
 
-Whether to enable [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md) or to disable it. This must be equal to `true` or `false` without case sensitivity or an exception will be thrown.
+Whether to enable [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) or to disable it. This must be equal to `true` or `false` without case sensitivity or an exception will be thrown.
 
 ## Remarks
 
-(1) Toggles [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md) from false to true or true to false depending on its existing state.
-(2) Enables [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md) if `enable` is true, disable it if it is `false`.
+(1) Toggles [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) from false to true or true to false depending on its existing state.
+(2) Enables [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) if `enable` is true, disable it if it is `false`.
 
-[single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md) is a different text rendering method in SetText that involves rendering every line into their own letter slot rather than having one slot per letter. This is done to save a significant amount of letter slots. Visually, it mainly affects ` `'s gaps as they are no longer actual gap, but rather a ` ` that gets amended to the Text property of the TextMesh used to render the line. While the kerning is managed by Unity in this rendering method, the kerning looks very similar than in normal rendering.
+[Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) is a different text rendering method in SetText that involves rendering every line into their own letter slot rather than having one slot per letter. This is done to save a significant amount of letter slots. Visually, it mainly affects ` `'s gaps as they are no longer actual gap, but rather a ` ` that gets amended to the Text property of the TextMesh used to render the line. While the kerning is managed by Unity in this rendering method, the kerning looks very similar than in normal rendering.
 
 ### About line offset calculation
 
@@ -35,4 +35,4 @@ There is an issue where the offset to render in the current line is miscalculate
 
 ### About [FontEffects](../../Related%20Systems/FontEffects.md)
 
-Since the [FontEffects](../../Related%20Systems/FontEffects.md) component was only designed to work on one letter per mesh, they do not work in [single letter rendering](../../Life%20Cycle/letter%20rendering/single%20letter%20rendering.md).
+Since the [FontEffects](../../Related%20Systems/FontEffects.md) component was only designed to work on one letter per mesh, they do not work in [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md).

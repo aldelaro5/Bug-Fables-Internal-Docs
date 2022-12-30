@@ -26,7 +26,7 @@ A factor to multiply the standard line height to move below the current one. Thi
 
 This command functions slightly differently than the regular LF processing in [Dialogue mode](../../Dialogue%20mode.md) mode when the language is set to `Japanese`. When an LF gets processed in Japanese, it acts like this command with `linespacing` set to 1.25. In other cases, it behaves like syntax (1).
 
-In [regular letter rendering](../../Life%20Cycle/letter%20rendering/regular%20letter%20rendering.md), this command is accumulated for the [Backtracking](../../Related%20Systems/Backtracking.md) system.
+In [Regular Letter Rendering](../../Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md), this command is accumulated for the [Backtracking](../../Related%20Systems/Backtracking.md) system.
 
 This commend is treated like a manual line break by [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) since it logically resets the line to the first one and goes at the start of it.
 
