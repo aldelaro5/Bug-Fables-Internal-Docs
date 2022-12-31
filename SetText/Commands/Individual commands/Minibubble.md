@@ -99,7 +99,7 @@ While the Minibubble is active, the `tail` will track the position of `target` b
 
 Syntax (1) is a special syntax that doesn't create a Minibubble, but instead tells SetText that we are in control of an existing one created by the parent. This is how the inner SetText call can track the Minibubble created by the outer SetText call. This means that this command should not be used in syntax (1) unless the parent has a Minibubble component.
 
-Once the inner SetText call is done and it has reached the [life cycle > Cleanup](../../life%20cycle.md#cleanup) phase, the Minibubble if it exists will get automatically destroyed due to the parameterless command specified above being prepended to the input string. This destruction not only destroys the GameObject (in 1 second to let the shrink animation play) and its Minibubble component, but it also sets the `target` (if it exists) to no longer be talking.
+Once the inner SetText call is done and it has reached the [SetText Life Cycle > Cleanup](../../SetText%20Life%20Cycle.md#cleanup) phase, the Minibubble if it exists will get automatically destroyed due to the parameterless command specified above being prepended to the input string. This destruction not only destroys the GameObject (in 1 second to let the shrink animation play) and its Minibubble component, but it also sets the `target` (if it exists) to no longer be talking.
 
 ### Managing Minibbubles from the outer SetText call
 
@@ -113,7 +113,7 @@ The [Halt](Halt.md) command has a special use here: it can be used to let the ou
 
 ### Special behaviors when in control of a Minibubble
 
-As syntax (1) of the inner call is done, this also changes the [life cycle > Letter processing](../../life%20cycle.md#letter-processing) behavior: it will no longer consider [Text advance](../../Related%20Systems/Text%20advance.md) state and [Dialogue mode](../../Dialogue%20mode.md) to decide whether to yield between each iteration of the [life cycle > Char loop](../../life%20cycle.md#char-loop). Even if the [Speed](Speed.md) is set to 0, it will still do a yield of 0 seconds. Additionally, the same happens with the [Wait](Wait.md) command: it will always cause the yield to occur regardless of the [Text advance](../../Related%20Systems/Text%20advance.md) state.
+As syntax (1) of the inner call is done, this also changes the [SetText Life Cycle > Letter processing](../../SetText%20Life%20Cycle.md#letter-processing) behavior: it will no longer consider [Text advance](../../Related%20Systems/Text%20advance.md) state and [Dialogue mode](../../Dialogue%20mode.md) to decide whether to yield between each iteration of the [SetText Life Cycle > Char loop](../../SetText%20Life%20Cycle.md#char-loop). Even if the [Speed](Speed.md) is set to 0, it will still do a yield of 0 seconds. Additionally, the same happens with the [Wait](Wait.md) command: it will always cause the yield to occur regardless of the [Text advance](../../Related%20Systems/Text%20advance.md) state.
 
 ### Additional remarks
 

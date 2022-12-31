@@ -1,8 +1,8 @@
 # [listtype](listtype.md)
 
-There are 34 types of ItemLists available. Each type mainly dictates how `listvar` is generated, how its SetText input string for each options is generated (but also additional rendering on their bar sprite is done) and how its `listdescbox` is rendered. Some can have specific behaviors external to [ShowItemList](ShowItemList.md).
+There are 34 types of [ItemList](ItemList.md) available. Each type mainly dictates how `listvar` is generated, how its [SetText](../SetText/SetText.md) input string for each options is generated (but also additional rendering on their bar sprite is done) and how its `listdescbox` is rendered. Some can have specific behaviors external to [ShowItemList](ShowItemList.md).
 
-The handling of the ItemList is usually done by MainManager's Update unless in the pause menu (which includes the settings window called from StartMenu and the change loadout option on game over). In these cases, the handling is done by PauseMenu instead.
+The handling of the [ItemList](ItemList.md) is usually done by MainManager's Update unless in the pause menu (which includes the settings window called from StartMenu and the change loadout option on game over). In these cases, the handling is done by PauseMenu instead.
 
 Sending any other value than the ones mentioned will lead to undefined behaviors.
 

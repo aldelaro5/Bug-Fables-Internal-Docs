@@ -6,9 +6,9 @@ Display the list of available mini bosses or bosses to battle using the B.O.S.S 
 
 `listvar` is the return of the GetBosses method which expects `multilist` to be filled beforehand with enemy ids (-1 for Zasp and Mothiva fight). How this works is for everything that isn't -1, it is added to `listvar` if it the corresponding enemy has been seen at least once. If it is -1, it will only add it if [flags](../../Flags%20arrays/flags.md) 118 is true.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
-The text is the enemy name from enemynames of the option unless it is one of the following where it will pick a line from the current map dialogue:
+The text is the enemy name from `enemynames` of the option unless it is one of the following where it will pick a line from the current map dialogue:
 
 * -1: line 13 (Zasp and Mothiva)
 * 51: line 74 (Kali and Kabbu)
@@ -26,4 +26,4 @@ It uses the default rendering scheme described in [Description box rendering](..
 
 ## Confirmation handling
 
-Confirmation is handled by MainManager's Update. First, the [flagvar](../../Flags%20arrays/flagvar.md) of the `storeid` is set to the selected option (bug?). Then, the ItemList gets destroyed which ends its processing and resets the [ItemList State Machine](../ItemList%20State%20Machine.md).
+Confirmation is handled by MainManager's Update. First, the [flagvar](../../Flags%20arrays/flagvar.md) of the `storeid` is set to the selected option (bug?). Then, the [ItemList](../ItemList.md) gets destroyed which ends its processing and resets the [ItemList State Machine](../ItemList%20State%20Machine.md).

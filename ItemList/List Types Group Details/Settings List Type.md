@@ -40,7 +40,7 @@ Display the list of the game settings which is platform specific.
 
 `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The text string is rendered on the left side of the bar and it corresponds to the MenuText line id of the  settingindex value of the option prepended with |[single](../../SetText/Commands/Individual%20commands/Single.md)\|. Unless otherwise specified, all option will render 2 arrows on the left and right side of the value selection that is located towards the right side of the bar. All [SetText](../../SetText/SetText.md) calls done on the right side of the bar are done in non [Dialogue mode](../../SetText/Dialogue%20mode.md) where the position is (6.25, -0.15), the bar is the parent and the input string is prepended with |[center](../../SetText/Commands/Individual%20commands/Center.md)\||[size](../../SetText/Commands/Individual%20commands/size.md),0.75|.   Here are the text and UI details per settings option:
 

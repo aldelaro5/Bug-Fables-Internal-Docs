@@ -12,7 +12,7 @@ Display the list of the available languages of the game.
 
 This list will always rerender whenever a refresh is done regardless if it needs to be scrolled or not. This is done to update the help text to the option being hovered on during the selection. This prompt is refreshed by doing a [SetText](../../SetText/SetText.md) call in non [Dialogue mode](../../SetText/Dialogue%20mode.md) where the input string is the text in languagehelp of the current option prepended with |[color](../../SetText/Commands/Individual%20commands/Color.md),4||[center](../../SetText/Commands/Individual%20commands/Center.md)\||[sort](../../SetText/Commands/Individual%20commands/Sort.md),20|, the position is (1.0, 4.0) and the parent is the [ItemList](../ItemList.md). This call is done on every refresh of the list.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The text is |[sort](../../SetText/Commands/Individual%20commands/Sort.md),20||[color](../../SetText/Commands/Individual%20commands/Color.md),4| followed by the name of the language of the option in languagenames.
 

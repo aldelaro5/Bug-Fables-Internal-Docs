@@ -111,8 +111,8 @@ This command's logic behaves very differently based on the `itemtype` and the re
 A description box will be created if `itemtype` isn't berries or Crystal Berries and the caller isn't a CaravanBadge or a Shop (for key items, it also needs to not be Game Tokens and not be in an interior)
 
 * Create a pure white standard 9box of type 0 relatively positioned at (0.0, -4.4, 10.0) of the GUICamera with a size of (11.0, 3.0) with a sort order of -3 with a grow animation and assign it to descwindow
-* Sets [flagvar](../../../Flags%20arrays/flagvar.md) 10 to the buying price price of the `item` or [medal](../../../Enums%20and%20IDs/Medal.md)
-* Calls SetText in non [Dialogue mode](../../Dialogue%20mode.md) with the input string |[single](Single.md)\||[singlebreak](Singlebreak.md),`itemdescbreak`\| where `itemdescbreak` is 10.5 on `English` and 9.9 on any other language followed by the `item` or [medal](../../../Enums%20and%20IDs/Medal.md) description:
+* Sets [flagvar](../../../Flags%20arrays/flagvar.md) 10 to the buying price price of the [items](../../../Enums%20and%20IDs/Items.md) or [medal](../../../Enums%20and%20IDs/Medal.md)
+* Calls SetText in non [Dialogue mode](../../Dialogue%20mode.md) with the input string |[single](Single.md)\||[singlebreak](Singlebreak.md),`itemdescbreak`\| where `itemdescbreak` is 10.5 on `English` and 9.9 on any other language followed by the [items](../../../Enums%20and%20IDs/Items.md) or [medal](../../../Enums%20and%20IDs/Medal.md) description:
   * Font is `BubblegumSans`
   * No line breaks (this is already manually controlled via the input string)
   * No tridimensional
@@ -140,7 +140,7 @@ A description box will be created if `itemtype` isn't berries or Crystal Berries
 The `itemtype` have their own specific logic:
 
 * berries: show the berries counter HUD and increase the current amount by `itemid2` clamped from 0 to 999 and set [flagvar](../../../Flags%20arrays/flagvar.md) 0 to `itemid2`, otherwise, hide the HUD counter.
-* Standard or Key items: set [flagstring](../../../Flags%20arrays/flagstring.md) 0 to the [Items](../../../Enums%20and%20IDs/Items.md)'s name and [flagstring](../../../Flags%20arrays/flagstring.md) 1 to the `item`'s article then add the `item` to its appropriate inventory.
+* Standard or Key items: set [flagstring](../../../Flags%20arrays/flagstring.md) 0 to the [Items](../../../Enums%20and%20IDs/Items.md)'s name and [flagstring](../../../Flags%20arrays/flagstring.md) 1 to the [items](../../../Enums%20and%20IDs/Items.md)'s article then add the [items](../../../Enums%20and%20IDs/Items.md) to its appropriate inventory.
 * Medal: set [flagstring](../../../Flags%20arrays/flagstring.md) 0 to the [Medal](../../../Enums%20and%20IDs/Medal.md)'s name and [flagstring](../../../Flags%20arrays/flagstring.md) 1 to the [Medal](../../../Enums%20and%20IDs/Medal.md)'s article then add the [Medal](../../../Enums%20and%20IDs/Medal.md) as unequipped.
 * Crystal Berry: Activate the [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot of `itemid`, increment [flagvar](../../../Flags%20arrays/flagvar.md) 14 and set [flagstring](../../../Flags%20arrays/flagstring.md) 0 to menutext 112 (`Crystal Berry`).
 

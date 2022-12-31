@@ -8,7 +8,7 @@ Display the list of inputs of the game and their bound keyboard key.
 
 `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The text is |[button](../../SetText/Commands/Individual%20commands/Button.md), followed by the option followed by `,0|` followed by MenuText line 88 + the option. In practice, it means that it will show the currently bound keyboard key of the input followed by the input description as they all fall between line 88 and 98 of MenuText.
 

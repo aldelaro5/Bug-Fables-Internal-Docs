@@ -4,11 +4,11 @@ Display the list of the Termacade prizes.
 
 ## Options generation
 
-`listvar` is the integers from 0 to the length of termacadeprize -1.
+`listvar` is the integers from 0 to the length of `termacadeprize` -1.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
-The text is the name of the item from itemdata or medal from badgedata unless it is a medal and [flags](../../Flags%20arrays/flags.md) 681 (MYSTERY? activation) is true where the text is MenuText 59 which is "?????".
+The text is the name of the item from `itemdata` or medal from `badgedata` unless it is a medal and [flags](../../Flags%20arrays/flags.md) 681 (MYSTERY? activation) is true where the text is MenuText 59 which is "?????".
 
 The sprite of the item or medal will be rendered on the leftmost side of the bar. This sprite is a gray hexagon with a ? in it if it is a medal and [flags](../../Flags%20arrays/flags.md) 681 (MYSTERY? activation) is true. The localScale of the sprite is (0.55, 0.6, 1).
 

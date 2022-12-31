@@ -1,6 +1,6 @@
 # ShowItemList
 
-A static method in MainManager. This method aims to display an ItemList or refresh an existing one.
+A static method in MainManager. This method aims to display an [ItemList](ItemList.md) or refresh an existing one.
 
 ## Signature
 
@@ -10,21 +10,21 @@ public static void ShowItemList(int type, Vector2 position, bool showdescription
 
 ## Parameters
 
-### type
+### `type`
 
-The type of ItemList to display. For more details, see [listtype](listtype.md).
+The type of [ItemList](ItemList.md) to display. For more details, see [listtype](listtype.md).
 
-### position
+### `position`
 
-The position to render the ItemList relative to GUICamera.
+The position to render the [ItemList](ItemList.md) relative to GUICamera.
 
-### showdescription
+### `showdescription`
 
 Whether to show the `listdescbox` of the selected option.
 
-### sell
+### `sell`
 
-Whether to define the ItemList as an item sell list. This influences the ability to multi select and the description rendering which will have a line detailing the selling price of the item hovered on when `showdescription` is true.
+Whether to define the [ItemList](ItemList.md) as an item sell list. This influences the ability to multi select and the description rendering which will have a line detailing the selling price of the item hovered on when `showdescription` is true.
 
 ## Remarks
 

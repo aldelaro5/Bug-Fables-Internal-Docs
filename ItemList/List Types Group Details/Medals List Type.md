@@ -8,11 +8,11 @@ Display the list of [medal](../../Enums%20and%20IDs/Medal.md)s currently in poss
 
 If paused, `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 If there is no options or the option is -1, the string will be |[color](../../SetText/Commands/Individual%20commands/Color.md),1| followed by the no medals text from MenuText line id 23. Nothing else is done once the string is assigned in this case. It should be noted that if there is indeed no options, this code will never be run because `maxoptions` will also report not having anything so this phase will not have any iterations.
 
-Otherwise, the input string will be |[single](../../SetText/Commands/Individual%20commands/Single.md)\| + `  ` followed by the medal's name obtained from badgedata whose medal id is obtained from looking at the medal the player has located at the index of the option. From there a sprite of the medal is rendered on the rightmost part of the bar with different properties whether we are paused or not:
+Otherwise, the input string will be |[single](../../SetText/Commands/Individual%20commands/Single.md)\| + `  ` followed by the medal's name obtained from `badgedata` whose medal id is obtained from looking at the medal the player has located at the index of the option. From there a sprite of the medal is rendered on the rightmost part of the bar with different properties whether we are paused or not:
 
 * When unpaused, localPosition is (-2.5, 0.0) and localScale is (0.55, 0.6, 1.0)
 * When paused, localPosition is (-0.25, 0.0) and localScale is (0.7, 0.7, 1.0)

@@ -34,7 +34,7 @@ Before creating the letter prompt, this command will first assign [flagstring](.
 
 The handling of the letter prompt is done by MainManager's Update which restricts the inputs available to the 4 directions (to move the selected option), confirm, cancel (to erase the last character) and pause (to set the selected option to the confirm one). This is where the `maxlength` constraint is checked: if a letter is entered when the length of the current number text is the max, it will prevent the action. After the letter prompt is confirmed, the `flagstring` [flagstring](../../../Flags%20arrays/flagstring.md) slot will have the value of the final result upon the confirmation.
 
-Once the outcome is determined, control goes back to SetText inside the [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) where it will redirect the input string to `confirmline`.
+Once the outcome is determined, control goes back to SetText inside the [SetText Life Cycle > Dialogue post-processing](../../SetText%20Life%20Cycle.md#dialogue-post-processing) where it will redirect the input string to `confirmline`.
 
 ### How letter prompt works at a high level
 
@@ -48,7 +48,7 @@ A letter prompt is a complex system that acts as a superset of [NumberPrompt](Nu
 |3|Korean's Hangul alphabet split into 3 sections with its own logic|
 |4|Some uncommon symbols such as music note and spade|
 
-The current id can be cycled through using the Switch button and once done, it needs to recreate the whole prompt in a similar fashion than the first refresh which is the creation of the whole prompt. The Korean prompt is special as it has its own refreshing logic which is detailled in a section below.
+The current id can be cycled through using the Switch button and once done, it needs to recreate the whole prompt in a similar fashion than the first refresh which is the creation of the whole prompt. The Korean prompt is special as it has its own refreshing logic which is detailed in a section below.
 
 The actual option index works very differently than typical prompts because while it is contiguous, the navigation involves rows and columns. The first row's length is considered to be the length of every row and it is calculated as the prompt is generated on refresh which allows to determine what option should be selected when using the dpad. A prompt's data file is located at `Assets/Ressources/Data` and has the name `LetterPromptX` where `X` is the id. The file contains all the letters the prompt offers where each row is delimited by LF. It may contain spaces, but those spaces won't be selectable: they are only used for visual separations. Since this wouldn't allow to enter a space, a special option is appended after the Erase one for inputting an actual space.
 
@@ -118,7 +118,7 @@ To render each options (the letters, Erase, Space and Confirm), the following is
   * Call [SetText](../../SetText.md) in non [Dialogue mode](../../Dialogue%20mode.md) using the text with |[Center](Center.md)\|:
     * [fonttype](../../fonttype.md) is `BubblegumSans`
     * no linebreak
-    * no `tridimensional`
+    * no tridimensional
     * position is (x, y, 0.0) where x and y are the current value of the option's positions.
     * no camoffset
     * size of (1.0, 1.0)
@@ -139,7 +139,7 @@ After, the help text to the next letter prompt with the switch button is rendere
 After the initial setup, the first refresh of the letter prompt is performed. This will destroy the text in `npromptholder` and rerender using the one in [flagstring](../../../Flags%20arrays/flagstring.md) 0 which will get updated periodically as letters are added or removed during the prompt handling. This also sets [flagvar](../../../Flags%20arrays/flagvar.md) 4 to 0. As for the rendering of the number text itself, it is done via a SetText call in non [Dialogue mode](../../Dialogue%20mode.md) with the text padded to the right with `_` to fit into `maxlength` prepended with |[Center](Center.md)\|:
 - [fonttype](../../fonttype.md) is `BubblegumSans`
 - no linebreak
-- no `tridimensional`
+- no tridimensional
 - position is Vector3.zero.
 - no camoffset
 - size of Vector2.one
@@ -162,7 +162,7 @@ This refresh is then done every time the prompt refreshes if the prompt is the K
 
 ### Letter prompt handling
 
-After the command has been processed, SetText will keep yielding frames in the [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) phase until `prompt` is set to false from MainManager's Update. This Update event completely changes the input handling of the game and in general, it restricts actions to interact with the current letter prompt. Additionally, the `blinker` will be disabled. 
+After the command has been processed, SetText will keep yielding frames in the [SetText Life Cycle > Dialogue post-processing](../../SetText%20Life%20Cycle.md#dialogue-post-processing) phase until `prompt` is set to false from MainManager's Update. This Update event completely changes the input handling of the game and in general, it restricts actions to interact with the current letter prompt. Additionally, the `blinker` will be disabled. 
 
 Here are the dpad handlers:
 
@@ -202,4 +202,4 @@ When SetText is done yielding, the prompt will be handled immediately after:
 * Reset the character position of the char loop to restart at the beginning of the input string. This essentially restarts the whole char loop with the new input string within the same call then this command.
 * Yield for a frame to let the animation plays.
 
-After, processing continues as normal with a fresh input string once [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.
+After, processing continues as normal with a fresh input string once [SetText Life Cycle > Dialogue post-processing](../../SetText%20Life%20Cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.

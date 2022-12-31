@@ -8,7 +8,7 @@ Display a list of the Library content with the page being [Discoveries entry](..
 
 `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 First, the main text is set to the string representation of the option + 1 padded by 3 `0` followed by `-`.
 

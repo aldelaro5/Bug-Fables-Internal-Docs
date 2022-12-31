@@ -38,7 +38,7 @@ This may not be the only text that gets processed if the [Commands](Commands/Com
 
 ### `fonttype`
 
-The starting font to use. This can be overridden by [life cycle > Setup](life%20cycle.md#setup), [life cycle > Letter processing](life%20cycle.md#letter-processing) or [Font](Commands/Individual%20commands/Font.md).
+The starting font to use. This can be overridden by [SetText Life Cycle > Setup](SetText%20Life%20Cycle.md#setup), [SetText Life Cycle > Letter processing](SetText%20Life%20Cycle.md#letter-processing) or [Font](Commands/Individual%20commands/Font.md).
 
 ### `linebreak`
 

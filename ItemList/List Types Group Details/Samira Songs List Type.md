@@ -6,11 +6,11 @@ Display the list of the currently available [Musics](../../Enums%20and%20IDs/Mus
 
 `listvar` is the list of [Musics](../../Enums%20and%20IDs/Musics.md) id in samiramusics which contains only the songs available for purchase or have been bought already. If there is at least one song that is available, but not purchased yet, a -1 option is added first before adding all the songs from samiramusics.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 If the option is -1, the text is |[color](../../SetText/Commands/Individual%20commands/Color.md),1| followed by CommonDialogue line 152 which is "We'll buy all songs!" in English.
 
-Otherwise, the entry in samiramusics is obtained by using the index of the option (1 is subtracted from it if -1 is in `listvar`). Then, the text becomes the name of the song in musicnames using the music id. This is prepended with |[color](../../SetText/Commands/Individual%20commands/Color.md),3| if the song was bought.
+Otherwise, the entry in `samiramusics` is obtained by using the index of the option (1 is subtracted from it if -1 is in `listvar`). Then, the text becomes the name of the song in `musicnames` using the music id. This is prepended with |[color](../../SetText/Commands/Individual%20commands/Color.md),3| if the song was bought.
 
 The x position of the text is overridden to -2.65.
 

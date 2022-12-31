@@ -8,7 +8,7 @@ Display the list of the unlocked lore books.
 
 `listredirect` is overridden to -66 which, corresponds to the CommonDialogue line 65 and has the following: |[tail](../../SetText/Commands/Individual%20commands/Tail.md),null||[boxstyle](../../SetText/Commands/Individual%20commands/Boxstyle.md),3||[Bleep](../../SetText/Commands/Individual%20commands/Bleep.md),2,1,1||[Lore](../../SetText/Commands/Individual%20commands/Lore.md)\|.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The text is the name of the lore book obtained from LoreText. If the option is `option`, [flagstring](../../Flags%20arrays/flagstring.md) 0 is set to the text of the lore book from LoreText.
 

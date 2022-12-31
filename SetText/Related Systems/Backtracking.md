@@ -9,7 +9,7 @@ This system is mainly possible using some important static field of MainManager:
 * `tempdiag`: Accumulates a stripped version the current textbox text until it is done so it can be added to `diagstring`.
 * `backtacking`: Tracks if a backtrack is in progress.
 
-Everything starts by tracking the current textbox using `tempdiag` which serves as an accumulator.  During `dialogue setup phase`, it is set to |[size](../Commands/Individual%20commands/size.md),size.x,size.y| which serves as the starting value using the [size](../Commands/Individual%20commands/size.md) values. Then, it will accumulate every letters (except in [Single Letter Rendering](../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) where it's not supported) and spaces during processing, but only a subset of the commands will be accumulated. These commands are:
+Everything starts by tracking the current textbox using `tempdiag` which serves as an accumulator.  During [SetText Life Cycle > Dialogue setup](../SetText%20Life%20Cycle.md#dialogue-setup), it is set to |[size](../Commands/Individual%20commands/size.md),size.x,size.y| which serves as the starting value using the [size](../Commands/Individual%20commands/size.md) values. Then, it will accumulate every letters (except in [Single Letter Rendering](../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) where it's not supported) and spaces during processing, but only a subset of the commands will be accumulated. These commands are:
 
 * [Icon](../Commands/Individual%20commands/Icon.md)
 * [Button](../Commands/Individual%20commands/Button.md)

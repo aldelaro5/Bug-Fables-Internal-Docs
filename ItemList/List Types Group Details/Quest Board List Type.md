@@ -18,7 +18,7 @@ Display the list of open, taken or completed [BoardQuests](../../Enums%20and%20I
 
 `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The text is the name of the corresponding quest from boardquestdata prepended with |size,0.5,0.8,lock| in `German` or |[size](../../SetText/Commands/Individual%20commands/size.md),0.6,0.8,lock| in `Japanese`.
 
@@ -36,10 +36,10 @@ Whether or not the quest was No Quest, SetText is called in non [Dialogue mode](
 
 * `text`: |[sort](../../SetText/Commands/Individual%20commands/Sort.md),1||[single](../../SetText/Commands/Individual%20commands/Single.md)\| + |[singlebreak](../../SetText/Commands/Individual%20commands/Singlebreak.md),10||[Sizemulti](../../SetText/Commands/Individual%20commands/Sizemulti.md),0.8,1| on `German` or  |[singlebreak](../../SetText/Commands/Individual%20commands/Singlebreak.md),6| otherwise + the quest's description from boardquestdata before any `}` or `{`
 * `fonttype`: `BubblegumSans`
-* No `linebreak`
-* No `tridimensional`
+* No linebreak
+* No tridimensional
 * `position`: (9.9, -1.75)
-* No `cameraoffset`
+* No cameraoffset
 * `size`: (0.65, 0.75)
 * `parent`: `listdescbox`
 * No caller
@@ -58,12 +58,12 @@ In either cases, `questboardobj` will be updated to reflect this page change and
 
 ## Confirmation handling
 
-If type is the open quests board and a boardcaller exists, the quest must not be No Quest or a buzzer sound will be played and the confirmation rejected.
+If type is the open quests board and a `boardcaller` exists, the quest must not be No Quest or a buzzer sound will be played and the confirmation rejected.
 
-If it is not No Quest, the `questboardobj` is closed which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false. From there, every player entity is set to face towards the entity of the boardcaller. SetText is then called in [Dialogue mode](../../SetText/Dialogue%20mode.md) with the dialogue of the boardcaller prepended with |[Questprompt](../../SetText/Commands/Individual%20commands/Questprompt.md)\| using the entity of the board caller as the [Parent](../../SetText/Commands/Individual%20commands/Parent.md) and its NPCControl as caller. [Flagvar](../../Flags%20arrays/flagvar.md) 0 is set to the selected quest id and the list is finally destroyed which ends this confirmation handling.
+If it is not No Quest, the `questboardobj` is closed which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false. From there, every player entity is set to face towards the entity of the boardcaller. SetText is then called in [Dialogue mode](../../SetText/Dialogue%20mode.md) with the dialogue of the boardcaller prepended with |[Questprompt](../../SetText/Commands/Individual%20commands/Questprompt.md)\| using the entity of the board caller as the parent and its NPCControl as caller. [Flagvar](../../Flags%20arrays/flagvar.md) 0 is set to the selected quest id and the list is finally destroyed which ends this confirmation handling.
 
 On the other hand, if the type isn't the open quest board and the current map is the TestRoom, the selected quest is removed from the corresponding board, the `questboardobj` is closed (which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false) and the list is destroyed which ends this confirmation handling.
 
 ## Other Behaviors
 
-The parent of [ItemList](../ItemList.md) is set to the questboardobj instead of the GUICamera for this listtype as it is expected to not be null under normal gameplay. This means the list is rendered on the board rather than on the root of the GUI.
+The parent of [ItemList](../ItemList.md) is set to the `questboardobj` instead of the GUICamera for this [listtype](../listtype.md) as it is expected to not be null under normal gameplay. This means the list is rendered on the board rather than on the root of the GUI.

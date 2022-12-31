@@ -34,7 +34,7 @@ This command will first setup a number prompt to be displayed and yield until it
 
 The handling of the number prompt is done by MainManager's Update which restricts the inputs available to the 4 directions (to move the selected), confirm, cancel and pause (to set the selected option to the confirm one). This is where the `maxlength` constraint is checked: if a number is entered when the length of the current number text is the max, it will prevent the action. If the number prompt is confirmed, the `outflagvar` [flagvar](../../../Flags%20arrays/flagvar.md) slot is assigned to the result before releasing the prompt lock. 
 
-Once the outcome is determined, control goes back to SetText inside the [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) where it will redirect the input string to `cancelline` if cancelled and to `confirmline` if confirmed.
+Once the outcome is determined, control goes back to SetText inside the [SetText Life Cycle > Dialogue post-processing](../../SetText%20Life%20Cycle.md#dialogue-post-processing) where it will redirect the input string to `cancelline` if cancelled and to `confirmline` if confirmed.
 
 ### About the fields, [flagvar](../../../Flags%20arrays/flagvar.md) and [flagstring](../../../Flags%20arrays/flagstring.md) used
 
@@ -78,7 +78,7 @@ To render each 12 options (the 10 digits, Confirm and Erase), the following is d
   * Call [SetText](../../SetText.md) in non [Dialogue mode](../../Dialogue%20mode.md) using the text prepanded with |[Center](Center.md)\|:
     * [fonttype](../../fonttype.md) is `BubblegumSans`
     * no linebreak
-    * no `tridimensional`
+    * no tridimensional
     * position is (x, y, 0.0) where x and y are the current value of the option's positions.
     * no camoffset
     * size of (0.85, 0.85)
@@ -93,7 +93,7 @@ To render each 12 options (the 10 digits, Confirm and Erase), the following is d
 After the initial setup, the first refresh of the number prompt is perform. This will destroy the text in `npromptholder` and rerender using the one in [flagstring](../../../Flags%20arrays/flagstring.md) 0 which will get updated periodically as digits are added in removed during the prompt handling. This also sets [flagvar](../../../Flags%20arrays/flagvar.md) 4 to 0. As for the rendering of the number text itself, it is done via a SetText call in non [Dialogue mode](../../Dialogue%20mode.md) with the text padded to the right with `_` to fit into `maxlength` prepended with |[Center](Center.md)\|:
 - [fonttype](../../fonttype.md) is `BubblegumSans`
 - no linebreak
-- no `tridimensional`
+- no tridimensional
 - position is Vector3.zero.
 - no camoffset
 - size of Vector2.one
@@ -104,7 +104,7 @@ After the first refresh is done, a refresh will only get done after a digit is a
 
 ### Number prompt handling
 
-Just before ending the command processing, a 5 frame input cooldown is applied which allows the number prompt to appear on the screen. After the command has been processed, SetText will keep yielding frames in the [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) phase until `prompt` is set to false from MainManager's Update. This Update event completely changes the input handling of the game and in general, it restricts actions to interact with the current number prompt. Additionally, the `blinker` will be disabled. 
+Just before ending the command processing, a 5 frame input cooldown is applied which allows the number prompt to appear on the screen. After the command has been processed, SetText will keep yielding frames in the [SetText Life Cycle > Dialogue post-processing](../../SetText%20Life%20Cycle.md#dialogue-post-processing) phase until `prompt` is set to false from MainManager's Update. This Update event completely changes the input handling of the game and in general, it restricts actions to interact with the current number prompt. Additionally, the `blinker` will be disabled. 
 
 The actions will be restricted to the following:
 
@@ -123,6 +123,6 @@ The actions will be restricted to the following:
 
 ### Handling the number prompt outcome
 
-When SetText is done yielding, the prompt will be handled immediately after in [life cycle > Prompt handling](../../life%20cycle.md#prompt-handling).
+When SetText is done yielding, the prompt will be handled immediately after in [SetText Life Cycle > Prompt handling](../../SetText%20Life%20Cycle.md#prompt-handling).
 
-After, processing continues as normal with a fresh input string once [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.
+After, processing continues as normal with a fresh input string once [SetText Life Cycle > Dialogue post-processing](../../SetText%20Life%20Cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.

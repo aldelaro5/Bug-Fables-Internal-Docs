@@ -8,7 +8,7 @@ Display the battle strategy options during battle.
 
 `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The main text corresponds to a certain line from MenuText depending on the options (it is 65 + the option with the exception of anything larger than 3 which is the line id itself):
 

@@ -6,7 +6,7 @@ Display the list of items, key items or storage items.
 
 `listvar` will be the list of [items](../../Enums%20and%20IDs/Items.md) in that specific item type or a single element with -1 as its value if there is no items.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 If the [items](../../Enums%20and%20IDs/Items.md) id in question is -1, the string will be |[color](../../SetText/Commands/Individual%20commands/Color.md),1| followed by the no items message from MenuText line id 20.
 
@@ -24,7 +24,7 @@ If it isn't, It uses the default rendering scheme described in [Description box 
 
 First, [flagvar](../../Flags%20arrays/flagvar.md) of the `storeid` is set to the item id selected. If the item id selected is -1, immediately destroy the list which ends this list's processing.
 
-Otherwise, the [flagstring](../../Flags%20arrays/flagstring.md) 0 is set to the selected item's name from itemdata. If `listsell`, the behaviour depends if we were using `multiselect`:
+Otherwise, the [flagstring](../../Flags%20arrays/flagstring.md) 0 is set to the selected item's name from `itemdata`. If `listsell`, the behaviour depends if we were using `multiselect`:
 
 * If we are, [flagstring](../../Flags%20arrays/flagstring.md) 0 is overridden to the MenuText line id 279 (which is "Lot of Items" in English), [flagvar](../../Flags%20arrays/flagvar.md) 10 is now the sum of each selected item's buying price / 2 floored clamped from 1 to 999. [Flags](../../Flags%20arrays/flags.md) 349 is now true
 * If we aren't, [flagvar](../../Flags%20arrays/flagvar.md) 10 is the buying price of the selected item / 2 floored clamped from 1 to 999.

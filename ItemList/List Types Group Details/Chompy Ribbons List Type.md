@@ -10,7 +10,7 @@ They type is overridden to the standard [Items List Type](Items%20List%20Type.md
 
 `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The behavior is the same then the overridden standard [Items List Type](Items%20List%20Type.md).
 

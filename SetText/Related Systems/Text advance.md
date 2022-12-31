@@ -6,12 +6,12 @@ There are ways to skip the wait times on demand such as from the input string it
 
 ## Text skip
 
-[SetText](../SetText.md) allows to skip the wait time that would normally happen at the end of the [life cycle > Dialogue post-processing](../life%20cycle.md#dialogue-post-processing) in [Dialogue mode](../Dialogue%20mode.md).
+[SetText](../SetText.md) allows to skip the wait time that would normally happen at the end of the [SetText Life Cycle > Dialogue post-processing](../SetText%20Life%20Cycle.md#dialogue-post-processing) in [Dialogue mode](../Dialogue%20mode.md).
 
 There are 2 instance fields of MainManager involved in this feature:
 
-* `skiptext`: Tells if a text skip was requested by either pressing the confirm input or the cancel input without holding it. Initialized to false in [life cycle > Dialogue setup](../life%20cycle.md#dialogue-setup) and overridden to false in multiple [Commands](../Commands/Commands.md) if applicable.
-* `isholdingskip`: Tells if the cancel input is held which implies that `skiptext` is true as this is a super set of the `skiptext`. Initialized to false in [life cycle > Dialogue setup](../life%20cycle.md#dialogue-setup)
+* `skiptext`: Tells if a text skip was requested by either pressing the confirm input or the cancel input without holding it. Initialized to false in [SetText Life Cycle > Dialogue setup](../SetText%20Life%20Cycle.md#dialogue-setup) and overridden to false in multiple [Commands](../Commands/Commands.md) if applicable.
+* `isholdingskip`: Tells if the cancel input is held which implies that `skiptext` is true as this is a super set of the `skiptext`. Initialized to false in [SetText Life Cycle > Dialogue setup](../SetText%20Life%20Cycle.md#dialogue-setup)
 
 When `skiptext` turns to true, SetText will process every letter without yielding until some conditions happens. For example, if a [Next](../Commands/Individual%20commands/Next.md) command is processed, it will force the text skip to stop before yielding for the next textbox, but there are other [Commands](../Commands/Commands.md) that stops it.
 

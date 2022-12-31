@@ -8,7 +8,7 @@ Display a sanitized version of the taken and completed quests. This is not to be
 
 `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The text is the name of the name of the quest corresponding to the absolute value of the option. If the language is set to `German`, |[Sizemulti](../../SetText/Commands/Individual%20commands/Sizemulti.md),0.7,1| is prepended to the string.
 

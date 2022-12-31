@@ -24,4 +24,4 @@ If specified, also go back to the first line and reposition the [textholder](../
 
 ## Remarks
 
-This will toggle the centralize rendering from either false to true or true to false depending on its existing state. This rendering will reposition the [textholder](../../Notable%20local%20variable/textholder.md) to the center in [life cycle > Letter processing](../../life%20cycle.md#letter-processing) during rendering each time. This allows the text to be rendered in the center of the parent.
+This will toggle the centralize rendering from either false to true or true to false depending on its existing state. This rendering will reposition the [textholder](../../Notable%20local%20variable/textholder.md) to the center in [SetText Life Cycle > Letter processing](../../SetText%20Life%20Cycle.md#letter-processing) during rendering each time. This allows the text to be rendered in the center of the parent.

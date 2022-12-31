@@ -4,7 +4,7 @@ See [ItemList State Machine](ItemList%20State%20Machine.md) to learn about the f
 
 ## Setup
 
-* Sets `listy` to -1 and `multiselect` to a new list if we are creating a new ItemList.
+* Sets `listy` to -1 and `multiselect` to a new list if we are creating a new [ItemList](ItemList.md).
 * Sets `listpos` to `position`.
 * Sets `listcanceled` to false.
 
@@ -14,7 +14,7 @@ Check the individual [listtype](listtype.md) to learn more.
 
 ## Rerendering after scroll
 
-* if `listlow` isn't `listy` (meaning the list needs to be scrolled or it's a new ItemList) or [listtype](listtype.md) is the language selection list: 
+* if `listlow` isn't `listy` (meaning the list needs to be scrolled or it's a new [ItemList](ItemList.md)) or [listtype](listtype.md) is the language selection list: 
   * [Rerendering after scroll](ShowItemList%20Life%20Cycle/Rerendering%20after%20scroll.md)
 
 ## `listdescbox` rendering

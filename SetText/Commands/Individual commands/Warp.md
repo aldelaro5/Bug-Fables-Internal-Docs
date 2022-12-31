@@ -40,6 +40,6 @@ The z position to move the party after the new [maps](../../../Enums%20and%20IDs
 
 ## Remarks
 
-The [maps](../../../Enums%20and%20IDs/Maps.md) transfer won't occur during this commands's processing, but rather during [life cycle > Cleanup](../../life%20cycle.md#cleanup) at end of the SetText call. This only setup the transfer to happen at that moment.
+The [maps](../../../Enums%20and%20IDs/Maps.md) transfer won't occur during this commands's processing, but rather during [SetText Life Cycle > Cleanup](../../SetText%20Life%20Cycle.md#cleanup) at end of the SetText call. This only setup the transfer to happen at that moment.
 
 This commands also sets [End](End.md) to true.

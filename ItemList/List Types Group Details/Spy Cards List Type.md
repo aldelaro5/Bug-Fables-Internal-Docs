@@ -6,7 +6,7 @@ Display a list of spy cards provided by `multilist`. This is intended to display
 
 `listvar` will set to `multilist` which is implied to have been set after the list's creation before a refresh ordered by the cards order from the game data.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The text is set to the enemy name of the enemy id associated with the card id from carddata. After, [flagvar](../../Flags%20arrays/flagvar.md) 6 is set to `option`.
 

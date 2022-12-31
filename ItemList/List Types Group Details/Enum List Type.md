@@ -8,7 +8,7 @@ Display a list of enums values for a given type, but render as if it was the cor
 
 Additionally, the list type is overridden to be the one that corresponds to the enum. For Items, it's standard [Items List Type](Items%20List%20Type.md) (but it will include all standard and key items values), for BadgeType, it's [Medals List Type](Medals%20List%20Type.md), for Skills, it's the first party member's [Skills List Type](Skills%20List%20Type.md) (but it will include all skills) and for [Maps](../../Enums%20and%20IDs/Maps.md), it's its own list type.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 If the list type has not been overridden, this is assumed to be the [Maps](../../Enums%20and%20IDs/Maps.md) enum list type in which case, the text is the textual representation of the enum value and the x position of the text is overridden to -2.65.
 

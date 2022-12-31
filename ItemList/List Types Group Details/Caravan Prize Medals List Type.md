@@ -8,7 +8,7 @@ Display the list of available prize medals to purchase from the Caravan shop.
 
 `showdescription` is overridden to false if flags 681 is true (MYSTERY? is active) or to true if that flags is false.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 If the option is -1 or lower, the text won't be changed and nothing will happen in this phase.
 

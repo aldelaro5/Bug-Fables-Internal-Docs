@@ -8,7 +8,7 @@ Display the list of all the stat bonuses applied.
 
 Otherwise, `listvar` is all the bonus types of the statbonus in order. The amount and target are stored in a separate local 2 dimensional array where each element contains the amount and type respectively.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 If the option is -1, the text is |[color](../../SetText/Commands/Individual%20commands/Color.md),1| followed by MenuText line 20 which is "No Items" in English and [flagvar](../../Flags%20arrays/flagvar.md) 0 is set to -1.
 

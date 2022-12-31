@@ -10,4 +10,4 @@ Its main features are:
 * Provides the different facilities needed to manage dialogues between entities such as a [Text advance](Related%20Systems/Text%20advance.md) system, a [Backtracking](Related%20Systems/Backtracking.md) system and the management of a [textbox](Notable%20local%20variable/textbox.md) that can optionally point to its speaker using the [tailtarget](Notable%20local%20variable/tailtarget.md).
 * Include an automatic line breaker called [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) (with some caveats, see [OrganiseLines Known Issues](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines%20Known%20Issues.md)).
 
-For a more detailed understanding of the inner workings, see [life cycle](life%20cycle.md) and for using it, see [SetText Entry Points](SetText%20Entry%20Points.md) and [Commands](Commands/Commands.md).
+For a more detailed understanding of the inner workings, see [SetText Life Cycle](SetText%20Life%20Cycle.md) and for using it, see [SetText Entry Points](SetText%20Entry%20Points.md) and [Commands](Commands/Commands.md).

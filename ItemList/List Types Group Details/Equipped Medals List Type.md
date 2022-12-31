@@ -10,7 +10,7 @@ The list type is overridden to [Medals List Type](Medals%20List%20Type.md).
 
 `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 The behavior is the same then the overridden [Medals List Type](Medals%20List%20Type.md).
 

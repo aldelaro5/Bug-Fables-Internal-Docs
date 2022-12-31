@@ -8,7 +8,7 @@ Display the list of skills that a party member has access to.
 
 `listredirect` is overridden to null.
 
-## Option's SetText input string
+## Option's [SetText](../../SetText/SetText.md) input string
 
 This behavior differs depending if we were paused or unpaused.
 
@@ -18,7 +18,7 @@ A first SetText call is done for the tp cost in non [Dialogue mode](../../SetTex
 
 After, if the TP cost isn't 0, a TP icon (or HP icon if Life Cast is equipped) is rendered on the far right of the item bar. 
 
-Finally, the input string is set to |[single](../../SetText/Commands/Individual%20commands/Single.md)\| followed by the skill's name from skilldata. 
+Finally, the input string is set to |[single](../../SetText/Commands/Individual%20commands/Single.md)\| followed by the skill's name from `skilldata`. 
 
 The position of the input string is overridden to (-0.75, -0.2) and the bar height used for calculating the y position of the down arrow is overridden to -0.9.
 

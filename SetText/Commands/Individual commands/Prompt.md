@@ -86,13 +86,13 @@ While this command manages the creation and setup of the prompt, its handling is
   * parent is the `promptbox` itself
   * caller is null
 * `prompt`: The flag tracking if a prompt is active, set to true during this command's processing and set to false by MainManager's Update once an option has been chosen.
-* `promptpick`: The option index chosen, already been set to -1 from the [life cycle > Setup](../../life%20cycle.md#setup) phase and set by MainManager's Update when an option has been chosen to `option` (if a cancel was performed, `listcancel` will be used instead).
+* `promptpick`: The option index chosen, already been set to -1 from the [SetText Life Cycle > Setup](../../SetText%20Life%20Cycle.md#setup) phase and set by MainManager's Update when an option has been chosen to `option` (if a cancel was performed, `listcancel` will be used instead).
 * `promptpointers`: The pointers specified by `promptpointers` which are set during the processing of this command.
 * `maxoptions`: The amount of option the prompt has which is set from this command's `maxoptions` during processing.
 * `option`: The option index the cursor is currently at, initialized to 0 from this command's processing.
 * `listcancel`: The option index that will be the promptpick if a cancel is performed or -1 if cancelling is disabled, set by `canceloption` during this command's processing (-1 is set if the value is `-1` or `none`).
 
-Just before ending the command processing, a 5 frame input cooldown is applied which allows the prompt to appear on the screen. After the command has been processed, SetText will keep yielding frames in the [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) phase until `prompt` is set to false from MainManager's Update. This Update event completely changes the input handling of the game and in general, it restricts actions to interact with the current prompt. Additionally, the `blinker` will be disabled. The actions will be restricted to the following:
+Just before ending the command processing, a 5 frame input cooldown is applied which allows the prompt to appear on the screen. After the command has been processed, SetText will keep yielding frames in the [SetText Life Cycle > Dialogue post-processing](../../SetText%20Life%20Cycle.md#dialogue-post-processing) phase until `prompt` is set to false from MainManager's Update. This Update event completely changes the input handling of the game and in general, it restricts actions to interact with the current prompt. Additionally, the `blinker` will be disabled. The actions will be restricted to the following:
 
 * Up: Moves the cursor to the option above or to the last option if it was on the first one (also sets `option` accordingly).
 * Down: Moves the cursor to the option below or to the first option if it was on the last one (also sets `option` accordingly).
@@ -103,6 +103,6 @@ Once the prompt handling is complete, MainManager.Update will set [Text advance]
 
 ### Handling the chosen option
 
-When SetText is done yielding, the prompt will be handled immediately after in [life cycle > Dialogue post-processing#Prompt handling](../../life%20cycle.md#dialogue-post-processing-prompt-handling). To note, [flagvar](../../../Flags%20arrays/flagvar.md) 0 being -555 is supposed to be false because this is the way the game can know it was a [LetterPrompt](LetterPrompt.md), but its value isn't written by this command. This may cause the [textbox](../../Notable%20local%20variable/textbox.md) to unhide itself if a [LetterPrompt](LetterPrompt.md) was processed before.
+When SetText is done yielding, the prompt will be handled immediately after in [SetText Life Cycle > Dialogue post-processing#Prompt handling](../../SetText%20Life%20Cycle.md#dialogue-post-processing-prompt-handling). To note, [flagvar](../../../Flags%20arrays/flagvar.md) 0 being -555 is supposed to be false because this is the way the game can know it was a [LetterPrompt](LetterPrompt.md), but its value isn't written by this command. This may cause the [textbox](../../Notable%20local%20variable/textbox.md) to unhide itself if a [LetterPrompt](LetterPrompt.md) was processed before.
 
-After, processing continues as normal with a fresh input string once [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.
+After, processing continues as normal with a fresh input string once [SetText Life Cycle > Dialogue post-processing](../../SetText%20Life%20Cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.
