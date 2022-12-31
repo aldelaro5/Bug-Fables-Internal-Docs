@@ -7,17 +7,6 @@ The reason information shouldn't be from the wiki or the discord is because the 
 
 This repos will get updates as more information is aggregated and figured out so it isn't lost in time. I may accept pull requests or issues (in case of typos or innacurate informations), but everything needs to provide a way for me to validate the infoormation.
 
-## Current status on subsystems WIP docs
-There are subsystems containing WIP docs, here are their progression status:
-Name | Completion | Comments
------- | ------ | ------- 
-ItemList | ~99% | Just needs to cleanup a bit
-SetText | ~99% | 217/217 commands done, needs some cleanup
-
-Last push with a command added: 2022-12-29
-
-All SetText commands have been documented.
-
 For the Obsidian notebook version of the docs, check the [release](https://github.com/aldelaro5/Bug-Fables-Internal-Docs/releases) section of this repos.
 
 ## What is allowed in this repos and what isn't
