@@ -63,15 +63,12 @@ The `listammount`. This must be a valid int value or an exception will be thrown
 
 This command will first reset `multiselect` to a new list and an `inputcooldown` of 5 frames is applied. It will then set all the [ItemList State Machine](../../../ItemList/ItemList%20State%20Machine.md) fields mentioned above to each of their respective parameter value.
 
-After, it will call [ShowItemList](../../../ItemList/ShowItemList.md) with [listtype](../../../ItemList/listtype.md) as the type, (4.0, 0.5) as the position, `listdesc` as the showdescription and `listsell` as the sell.
+After, it will call [ShowItemList](../../../ItemList/ShowItemList.md) with [listtype](../../../ItemList/listtype.md) as the type, (4.0, 0.5) as the position, `listdesc` as the `showdescription` and `listsell` as the sell.
 
 This command requires [Dialogue mode](../../Dialogue%20mode.md) otherwise, SetText will not wait for the [ItemList](../../../ItemList/ItemList.md) to finish processing and as such, it will not get handled.
 
 ## Post ItemList handler
 
-After the call is made, the regular [ItemList](../../../ItemList/ItemList.md) system kicks in just like it would without SetText. For more information on how this system and its state machine works, consult the [ItemList](../../../ItemList/ItemList.md) document. The key difference is SetText will handle the outcome of the ItemList which is `listredirect` in the case of a confirmation and `listcancel` in the case of a cancellation. This is done in 2 parts during the [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) phase:
+After the call is made, the regular [ItemList](../../../ItemList/ItemList.md) system kicks in just like it would without SetText. For more information on how this system and its state machine works, consult the [ItemList](../../../ItemList/ItemList.md) document. The key difference is SetText will handle the outcome of the [ItemList](../../../ItemList/ItemList.md) which is `listredirect` in the case of a confirmation and `listcancel` in the case of a cancellation. This is done in 2 parts during the [life cycle > Dialogue post-processing#ItemList handling](../../life%20cycle.md#dialogue-post-processing-itemlist-handling)
 
-1. Yield until [ItemList](../../../ItemList/ItemList.md) goes to null. This will wait until the ItemList goes inactive.
-1. Once getting out of the yield loop, handle the outcome if `inlist` is true. This will set `inlist` to false, reset the player's npc list, set the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to be talking and perform the operations needed according to the outcome. NOTE: there is a known issue with this check known as the [inlist issue](../../../ItemList/inlist%20issue.md).
-
-Additionally, if -2 or -3 was the outcome, [End](End.md) is set to true, `listredirect` is set to null, an actioncooldown of 30 frames is applied and `eventcall` is set to the one determined from the [Additemtoss](Additemtoss.md) command processing.
+Additionally, if -2 or -3 was the outcome, [End](End.md) is set to true, `listredirect` is set to null, an `actioncooldown` of 30 frames is applied and `eventcall` is set to the one determined from the [Additemtoss](Additemtoss.md) command processing.

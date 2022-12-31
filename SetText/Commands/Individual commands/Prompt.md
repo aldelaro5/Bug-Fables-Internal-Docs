@@ -28,20 +28,20 @@ Display a prompt offering multiple options with cancellation support, then wait 
 
 The type of the prompt to use which dictates what `promptpointers` and `prompttexts` (in int form) refers to (this is case sensitive):
 
-* `yesno`: An alias for (3) where the `type` is `map`, `xminsizeypos` is 0.5 (which is a dummy value), `maxoptions` is 2, `promptpointers` are the `yespointer` and `nopointer` values respectively, `prompttexts` are the yes and no line ids from MenuText respectively and `canceloption` will be the one provided in (2) or default to 1 in (1) which is the no option.
-* `map`: The `promptpointers` and the int form of `prompttexts` refers to [Dialogue line id](../Dialogue%20line%20id.md)s. If any pointer is an invalid id, an exception will be thrown.
-* `card`: The `promptpointers` refers to a CardDialogue line id and the int form of `prompttexts` refers to a [Dialogue line id](../Dialogue%20line%20id.md)s. If any pointer is an invalid id or a cardgame isn't in progress, an exception will be thrown.
+* `yesno`: An alias for syntax (3) where the `type` is `map`, `xminsizeypos` is 0.5 (which is a dummy value), `maxoptions` is 2, `promptpointers` are the `yespointer` and `nopointer` values respectively, `prompttexts` are the yes and no line ids from MenuText respectively and `canceloption` will be the one provided in syntax (2) or default to 1 in syntax (1) which is the no option.
+* `map`: The `promptpointers` and the int form of `prompttexts` refers to [Dialogue line id](../Dialogue%20line%20id.md)s. If any pointer is an invalid [Dialogue line id](../Dialogue%20line%20id.md), an exception will be thrown.
+* `card`: The `promptpointers` refers to a CardDialogue line id and the int form of `prompttexts` refers to a [Dialogue line id](../Dialogue%20line%20id.md)s. If any pointer is an invalid id or a Spy Cards battle isn't in progress, an exception will be thrown.
 * `main`, `menu`: The `promptpointers` and the int form of `prompttexts` refers to a MenuText line id. If any pointer is an invalid id, an exception will be thrown.
 
 Any other value will default to `map`.
 
 ### `yespointer`: int
 
-The [Dialogue line id](../Dialogue%20line%20id.md) for the yes option in (1) or (2). This parameter is not applicable to (3). This value must be a valid [Dialogue line id](../Dialogue%20line%20id.md) or an exception will be thrown.
+The [Dialogue line id](../Dialogue%20line%20id.md) for the yes option in syntax (1) and (2). This value must be a valid [Dialogue line id](../Dialogue%20line%20id.md) or an exception will be thrown.
 
 ### `nopointer`: int
 
-The [Dialogue line id](../Dialogue%20line%20id.md) for the no option in (1) or (2). This parameter is not applicable to (3). This value must be a valid [Dialogue line id](../Dialogue%20line%20id.md) or an exception will be thrown.
+The [Dialogue line id](../Dialogue%20line%20id.md) for the no option in syntax (1) and (2). This value must be a valid [Dialogue line id](../Dialogue%20line%20id.md) or an exception will be thrown.
 
 ### `xminsizeyoffset`: array split by `;`: `x`float | `$`float
 
@@ -57,7 +57,9 @@ The line ids of each of the prompt options. The amount to specify must be equal 
 
 ### `prompttexts`: `@`string... | int
 
-The displayed texts or [Dialogue line id](../Dialogue%20line%20id.md) of each of the prompt options. The amount to specify must be equal or higher than `maxoptions` and each int form must be a valid [Dialogue line id](../Dialogue%20line%20id.md) value or an exception will be thrown. For the `@`string form, this supplies the text directly with inline commands support. Every `}` will be replaced by `,` and every `{` will be replaced by `|` which allows the command parser to process commands from a separate SetText after parsing this prompt one. This form takes priority over the int one and any other prefix of the string will be ignored and the value will be taken as an int.
+The displayed texts or [Dialogue line id](../Dialogue%20line%20id.md) of each of the prompt options. The amount to specify must be equal or higher than `maxoptions` and each int form must be a valid [Dialogue line id](../Dialogue%20line%20id.md) value or an exception will be thrown. 
+
+For the `@`string form, this specifies the text directly with inline commands support. Every `}` will be replaced by `,` and every `{` will be replaced by `|` which allows the command parser to process commands from a separate SetText after parsing this prompt one. This form takes priority over the int one and any other prefix of the string will be ignored and the value will be taken as an int.
 
 ### `canceloption`: `none` | `-1` | `$`int
 
@@ -73,17 +75,16 @@ For the `xminsize` part of `xminsizeyoffset`, the horizontal length of the promp
 
 While this command manages the creation and setup of the prompt, its handling is left to be handled in MainManager's Update. There are several MainManager instance fields in this command to make this possible:
 
-* `promptbox`: The 9box containing the prompt, created during processing using `xminsizeyoffset` and the texts obtained from `prompttexts` using separate SetText calls for each. These calls are done with the following parameters:
+* `promptbox`: The 9box containing the prompt, created during processing using `xminsizeyoffset` and the texts obtained from `prompttexts` using separate SetText calls for each in non [Dialogue mode](../../Dialogue%20mode.md). These calls are done with the following parameters:
   * The input string is the text value appended with |[choicewave](Choicewave.md),o| where o is the corresponding option index. 
   * [fonttype](../../fonttype.md) is `BubblegumSans`
-  * `linebreak` is null
-  * [Dialogue mode](../../Dialogue%20mode.md) is false (this is to prevent SetText from waiting on the prompt as `prompt` will be true when this call is made)
-  * `tridimensional` is false
-  * [position](position.md) is (0.0 - `xminsize` - 0.1, `yoffset`, 0.0)
-  * `cameraoffset` is Vector3.Zero
+  * No line break
+  * No tridimensional
+  * position is (0.0 - `xminsize` - 0.1, `yoffset`, 0.0)
+  * No camera offset
   * [size](size.md) is (0.85, 0.85, 1.0)
-  * [Parent](Parent.md) is the `promptbox` itself
-  * `caller` is null
+  * parent is the `promptbox` itself
+  * caller is null
 * `prompt`: The flag tracking if a prompt is active, set to true during this command's processing and set to false by MainManager's Update once an option has been chosen.
 * `promptpick`: The option index chosen, already been set to -1 from the [life cycle > Setup](../../life%20cycle.md#setup) phase and set by MainManager's Update when an option has been chosen to `option` (if a cancel was performed, `listcancel` will be used instead).
 * `promptpointers`: The pointers specified by `promptpointers` which are set during the processing of this command.
@@ -98,19 +99,10 @@ Just before ending the command processing, a 5 frame input cooldown is applied w
 * Cancel: If `listcancel` is not -1, sets `prompt` to false with `listcancel` as the `promptpick` and play the cancel sound, otherwise, nothing happens.
 * Confirm: Sets `prompt` to false and `promptpick` to `option` and play the confirm sound.
 
-Once the prompt handling is complete, MainManager.Update will set `skiptext` to false, apply an input cooldown of 10 frames on cancel or 5 frames on confirm. revert its input processing to the standard method when [message](../../Global%20vars%20used/message.md) is true.
+Once the prompt handling is complete, MainManager.Update will set [Text advance](../../Related%20Systems/Text%20advance.md)'s `skiptext` to false, apply an input cooldown of 10 frames on cancel or 5 frames on confirm and revert its input processing to the standard method.
 
 ### Handling the chosen option
 
-When SetText is done yielding, the prompt will be handled immediately after:
-
-* If [flagvar](../../../Flags%20arrays/flagvar.md) 0 is set to -555, [textbox](../../Notable%20local%20variable/textbox.md) will be forced to not be shrunk. This is expected to be set before this command is processed.
-* The input string will be overwritten completely with the text obtained from the corresponding `promptpointers` associated with the option prepended with |[blank](Blank.md)\| and then [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) will be called on it if `linebreak` is not null.
-* If [Questprompt](Questprompt.md) was in effect, this will append a string to handle the confirmation of a [BoardQuests](../../../Enums%20and%20IDs/BoardQuests.md) being taken. Check the [Questprompt](Questprompt.md) page for more details on how this string is determined.
-* Setup the `promptbox` to have a shrink animation.
-* Destroys the `promptbox` in 0.5 seconds.
-* Reset `promptpick` to -1.
-* Reset the character position of the char loop to restart at the beginning of the input string. This essentially restarts the whole char loop with the new input string within the same call then this command.
-* Yield for a frame to let the animation plays.
+When SetText is done yielding, the prompt will be handled immediately after in [life cycle > Dialogue post-processing#Prompt handling](../../life%20cycle.md#dialogue-post-processing-prompt-handling). To note, [flagvar](../../../Flags%20arrays/flagvar.md) 0 being -555 is supposed to be false because this is the way the game can know it was a [LetterPrompt](LetterPrompt.md), but its value isn't written by this command. This may cause the [textbox](../../Notable%20local%20variable/textbox.md) to unhide itself if a [LetterPrompt](LetterPrompt.md) was processed before.
 
 After, processing continues as normal with a fresh input string once [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.

@@ -42,7 +42,7 @@ Whether or not the quest was No Quest, SetText is called in non [Dialogue mode](
 * No `cameraoffset`
 * `size`: (0.65, 0.75)
 * `parent`: `listdescbox`
-* No `caller`
+* No caller
 
 ## Input handling
 
@@ -60,7 +60,7 @@ In either cases, `questboardobj` will be updated to reflect this page change and
 
 If type is the open quests board and a boardcaller exists, the quest must not be No Quest or a buzzer sound will be played and the confirmation rejected.
 
-If it is not No Quest, the `questboardobj` is closed which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false. From there, every player entity is set to face towards the entity of the boardcaller. SetText is then called in [Dialogue mode](../../SetText/Dialogue%20mode.md) with the dialogue of the boardcaller prepended with |[Questprompt](../../SetText/Commands/Individual%20commands/Questprompt.md)\| using the entity of the board caller as the [Parent](../../SetText/Commands/Individual%20commands/Parent.md) and its NPCControl as `caller`. [Flagvar](../../Flags%20arrays/flagvar.md) 0 is set to the selected quest id and the list is finally destroyed which ends this confirmation handling.
+If it is not No Quest, the `questboardobj` is closed which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false. From there, every player entity is set to face towards the entity of the boardcaller. SetText is then called in [Dialogue mode](../../SetText/Dialogue%20mode.md) with the dialogue of the boardcaller prepended with |[Questprompt](../../SetText/Commands/Individual%20commands/Questprompt.md)\| using the entity of the board caller as the [Parent](../../SetText/Commands/Individual%20commands/Parent.md) and its NPCControl as caller. [Flagvar](../../Flags%20arrays/flagvar.md) 0 is set to the selected quest id and the list is finally destroyed which ends this confirmation handling.
 
 On the other hand, if the type isn't the open quest board and the current map is the TestRoom, the selected quest is removed from the corresponding board, the `questboardobj` is closed (which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false) and the list is destroyed which ends this confirmation handling.
 

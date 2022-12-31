@@ -20,4 +20,4 @@ When toggled on, this will overwrite the layer that each letter renders at. Norm
 
 When toggled off, the text after will render using the GUICamera again.
 
-TODO: why use this over tridimensional?
+This is different than passing tridimensional at true because it renders on a camera that is above the game while tridimensional renders using the main game's camera. Unless in very specific scenario, this command is preferred over tridimensional.

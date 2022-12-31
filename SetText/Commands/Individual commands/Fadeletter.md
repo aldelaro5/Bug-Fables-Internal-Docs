@@ -16,4 +16,4 @@ None.
 
 Fade letter is a font effect that will have every letter initially render fully transparent, but slowly fade into their target color.
 
-This font effect only works in [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) and doing this command in that rendering method will effectively do nothing.
+This font effect only works in [Regular Letter Rendering](../../Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md) in conjunction with [Dropshadow](Dropshadow.md).

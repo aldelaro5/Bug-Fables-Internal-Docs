@@ -40,11 +40,11 @@ This is just what determines how the [Items](../../../Enums%20and%20IDs/Items.md
 
 ### `itemid`: int
 
-The [Items](../../../Enums%20and%20IDs/Items.md) id to attempt to give. This must be a valid int value or an exception will be thrown.
+The [Items](../../../Enums%20and%20IDs/Items.md) id to attempt to give. This must be a valid int or an exception will be thrown.
 
 ### `flagvar`:  int
 
-The [flagvar](../../../Flags%20arrays/flagvar.md) slot containing the item id. This must corresponds to an int of a valid [flagvar](../../../Flags%20arrays/flagvar.md) slot or an exception will be thrown.
+The [flagvar](../../../Flags%20arrays/flagvar.md) slot containing the item id. This must corresponds to a valid [flagvar](../../../Flags%20arrays/flagvar.md) slot or an exception will be thrown.
 
 ## Remarks
 

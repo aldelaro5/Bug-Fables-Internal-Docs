@@ -14,6 +14,6 @@ None
 
 ## Remarks
 
-This command sets `skiptext` to false and `isholdingskip` to [Fadeletter](Fadeletter.md). For more information on how text skip works, see [Text advance](../../Related%20Systems/Text%20advance.md).
+This command sets `skiptext` to false and `isholdingskip` to the current state of [Fadeletter](Fadeletter.md). For more information on how text skip works, see [Text advance](../../Related%20Systems/Text%20advance.md).
 
 This command does nothing in non [Dialogue mode](../../Dialogue%20mode.md) mode.

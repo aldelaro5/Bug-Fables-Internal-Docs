@@ -8,7 +8,7 @@ Each event's code is located in the `EventControl` component and it must follow 
 IEnumerator EventX()
 ````
 
-Where X is a unique `int` value specific to this event. They are usually private because they should not be called directly. `EventControl` has all the utilities the game needs to manage the events.
+Where X is a unique int value specific to this event. They are usually private because they should not be called directly. `EventControl` has all the utilities the game needs to manage the events.
 
 There are many known way to trigger an event. Here is a list of the currently known ones:
 

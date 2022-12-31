@@ -16,9 +16,9 @@ The [entity](../../../Data%20format/Entity.md) to change the animation state:
 
 * `this`: Refers to [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (This only reliably works in [Dialogue mode](../../Dialogue%20mode.md) otherwise, it will take the last value of [tailtarget](../../Notable%20local%20variable/tailtarget.md) which is potentially undefined behavior).
 * `party`: Refers to each of the party's entities.
-* `caller`: Refers to the `caller` if it is not null. If it is, this command does nothing.
+* `caller`: Refers to the caller if it is not null. If it is, this command does nothing.
 * `parent`: This value is not fully implemented and will cause this command to do nothing, but it was intended to refer to the [Parent](Parent.md)'s entity.
-* int: Refers to any other entity index.
+* int: Refers to an [Entity id](../Entity%20id.md).
 
 Any non int value that isn't in one of the predefined values above will cause an exception to be thrown.
 

@@ -7,27 +7,28 @@ Replaces the text from this command to a [medal](../../../Enums%20and%20IDs/Meda
 (1)
 
 ````
-|string,id|
+|anstring,item|
 ````
 
 (2)
 
 ````
-|single,id,ismedal|
+|anstring,medal,ismedal|
 ````
 
 ## Parameters
 
-### `id`:  int | `var`int
+### `item`:  int | `var`int
 
-The [items](../../../Enums%20and%20IDs/Items.md) (1) or [medal](../../../Enums%20and%20IDs/Medal.md) (2) id to obtain the prepend string from:
+The [Items](../../../Enums%20and%20IDs/Items.md) to obtain the prepend string from. The int form must be a valid [Items](../../../Enums%20and%20IDs/Items.md) id or an exception will be thrown. The `var`int form must have an int portion be a valid [flagvar](../../../Flags%20arrays/flagvar.md) slot containing a valid [Items](../../../Enums%20and%20IDs/Items.md) is or an exception will be thrown.
 
-* `int`: The item (1) or medal (2) id. This must be a valid `int` value of a valid item (1) or medal (2) id or an exception will be thrown.
-* `var`int: The [flagvar](../../../Flags%20arrays/flagvar.md) slot that contains the item (1) or medal (2) id. The `int` part must be a valid `int` value of a valid [flagvar](../../../Flags%20arrays/flagvar.md) slot or an exception will be thrown. Any other prefix is not allowed and will cause an exception to be thrown. The [flagvar](../../../Flags%20arrays/flagvar.md) must contain a valid item (1) or medal (2) id or an exception will be thrown.
+### `medal`:  int | `var`int
+
+The [medal](../../../Enums%20and%20IDs/Medal.md) to obtain the prepend string from. The int form must be a valid [Medal](../../../Enums%20and%20IDs/Medal.md) id or an exception will be thrown. The `var`int form must have an int portion be a valid [flagvar](../../../Flags%20arrays/flagvar.md) slot containing a valid [Medal](../../../Enums%20and%20IDs/Medal.md) is or an exception will be thrown.
 
 ### `ismedal`: int
 
-When a non zero value is specified, `id` refers to a [medal](../../../Enums%20and%20IDs/Medal.md) id. If the value is 0 or not specified, `id` is an [items](../../../Enums%20and%20IDs/Items.md) id. This must corresponds to a valid `int` value or an exception will be thrown.
+When a non zero value is specified, syntax (2) is used. If the value is 0 or not specified, syntax (1) is used. This must corresponds to a valid int value or an exception will be thrown.
 
 ## Remarks
 

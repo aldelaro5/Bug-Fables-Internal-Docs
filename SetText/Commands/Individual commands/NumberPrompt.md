@@ -123,13 +123,6 @@ The actions will be restricted to the following:
 
 ### Handling the number prompt outcome
 
-When SetText is done yielding, the prompt will be handled immediately after:
-
-* The input string will be overwritten completely with the text obtained from the corresponding `promptpointers` associated with the option prepended with |[blank](Blank.md)\| and then [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) will be called on using the linebreak value if it isn't null.
-* Setup the `promptbox` to have a shrink animation.
-* Destroys the `promptbox` in 0.5 seconds.
-* Reset `promptpick` to -1.
-* Reset the character position of the char loop to restart at the beginning of the input string. This essentially restarts the whole char loop with the new input string within the same call then this command.
-* Yield for a frame to let the animation plays.
+When SetText is done yielding, the prompt will be handled immediately after in [life cycle > Prompt handling](../../life%20cycle.md#prompt-handling).
 
 After, processing continues as normal with a fresh input string once [life cycle > Dialogue post-processing](../../life%20cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.

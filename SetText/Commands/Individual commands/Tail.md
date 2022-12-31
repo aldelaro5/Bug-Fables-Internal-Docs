@@ -23,8 +23,8 @@ Set the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to an [enti
 The [entity](../../../Data%20format/Entity.md) to set the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to (the predefined values are case sensitive):
 
 * `this`: Refers to [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (This only reliably works in [Dialogue mode](../../Dialogue%20mode.md) otherwise, it will take the last value of [tailtarget](../../Notable%20local%20variable/tailtarget.md) which is potentially undefined behavior) Since it is setting the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to its current entity, this effectively doesn't change it.
-* `caller`: Refers to the `caller` if it is not null. If it is, the value is interpreted as an int which will cause an exception to be thrown.
-* `parent`:  Refers to the [Parent](Parent.md) If it is, the value is interpreted as an int which will cause an exception to be thrown.
+* `caller`: Refers to the caller if it is not null. If it is, the value is interpreted as an int which will cause an exception to be thrown.
+* `parent`:  Refers to the parent If it is, the value is interpreted as an int which will cause an exception to be thrown.
 * `null`:  Refers to the null value. This makes the textbox not point to anyone. Usage of this value mandates that `transition` is `instant` or not specified due to an incompatibility with the [Anim](Anim.md) command that will cause an exception to be thrown. See the `transition` parameter section for more details.
 * int: Refers to any other [Entity id](../Entity%20id.md).
 

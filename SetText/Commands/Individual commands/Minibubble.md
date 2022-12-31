@@ -41,7 +41,7 @@ The string form supports having commands without interfering the main parser. To
 The [Entity](../../../Data%20format/Entity.md) that the Minibubble's tail will point to. The int form refers to an [Entity id](../Entity%20id.md) which must be a valid int or an exception will be thrown. This form is valid no matter if caller is null or not. If the caller isn't null however, additional values are possible:
 
 * `this`: Refers to [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (This only reliably works in [Dialogue mode](../../Dialogue%20mode.md) otherwise, it will take the last value of [tailtarget](../../Notable%20local%20variable/tailtarget.md) which is potentially undefined behavior) Since it is setting the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to its current entity, this effectively doesn't change it.
-* `caller`: Refers to the `caller`'s entity.
+* `caller`: Refers to the caller's entity.
 
 Any non int value that isn't in one of the predefined values above will be interpreted as an int which will cause an exception to be thrown. Additionally,  if the caller is null, the int form must be specified as any other value will be interpreted as an int which will cause an exception to be thrown.
 

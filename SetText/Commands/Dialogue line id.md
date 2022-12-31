@@ -12,4 +12,4 @@ To refer to a CommonDialogue line id instead of a current map line id, the value
 
 ## What about MenuText?
 
-This format does not cover MenuText. Each commands must specifically support it.
+This format does not cover MenuText. To use menu text, it must be done by code, using [Menu](Individual%20commands/Menu.md) or [Prompt](Individual%20commands/Prompt.md) which supports specifying one.

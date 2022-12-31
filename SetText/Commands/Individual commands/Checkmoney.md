@@ -1,6 +1,6 @@
 # Checkmoney
 
-Check that the berry count is less than a specific value or a value contained in a [flagvar](../../../Flags%20arrays/flagvar.md). If it is, replaces the input string by another dialogue line.
+Check that the berry count is less than a specific value or a value contained in a [flagvar](../../../Flags%20arrays/flagvar.md). If it is, redirect to another dialogue line.
 
 ## Syntax
 
@@ -20,7 +20,7 @@ Check that the berry count is less than a specific value or a value contained in
 
 ### `value`:  int
 
-The value to compare the berry count against. This must corresponds to a valid `int` value or an exception will be thrown.
+The value to compare the berry count against. This must corresponds to a valid int value or an exception will be thrown.
 
 ### `var`
 
@@ -28,7 +28,7 @@ This is what determines how to obtain the value to compare the berry count again
 
 ### `flagvar`: int
 
-The [flagvar](../../../Flags%20arrays/flagvar.md) slot containing the value to compare the berry count against. This must corresponds to an `int` of a valid [flagvar](../../../Flags%20arrays/flagvar.md) slot or an exception will be thrown.
+The [flagvar](../../../Flags%20arrays/flagvar.md) slot containing the value to compare the berry count against. This must corresponds to an int of a valid [flagvar](../../../Flags%20arrays/flagvar.md) slot or an exception will be thrown.
 
 ### `dialogue`: int
 

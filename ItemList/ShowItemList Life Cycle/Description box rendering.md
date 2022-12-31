@@ -14,7 +14,7 @@
     * no `cameraoffset`
     * size at (0.75, 0.75)
     * parent is the 9Box created earlier
-    * no `caller`
+    * no caller
   * Set `listdescbox` as the 9Box created earlier.
 * If the currently selected quest isn't None:
   * Create the `listdescbox`.

@@ -15,7 +15,7 @@ Kills an [entity](../../../Data%20format/Entity.md) by calling Death(true) on it
 The [entity](../../../Data%20format/Entity.md) to kill:
 
 * `this`: Refers to [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (This only reliably works in [Dialogue mode](../../Dialogue%20mode.md) otherwise, it will take the last value of [tailtarget](../../Notable%20local%20variable/tailtarget.md) which is potentially undefined behavior).
-* `caller`: Refers to the `caller` if it is not null. If it is, this command does nothing.
+* `caller`: Refers to the caller if it is not null. If it is, this command does nothing.
 * int: Refers to any other [Entity id](../Entity%20id.md). If it resolves to null, an exception will be thrown.
 
 Any non int value that isn't in one of the predefined values above will cause an exception to be thrown.

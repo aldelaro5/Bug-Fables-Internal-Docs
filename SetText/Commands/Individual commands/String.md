@@ -1,6 +1,6 @@
 # String
 
-Replaces the text from this command to a [flagstring](../../../Flags%20arrays/flagstring.md) text with horizontal size clamping and [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) support.
+Replaces the text from this command to a [flagstring](../../../Flags%20arrays/flagstring.md) text with horizontal size clamping support.
 
 ## Syntax
 
@@ -13,7 +13,7 @@ Replaces the text from this command to a [flagstring](../../../Flags%20arrays/fl
 (2)
 
 ````
-|single,flagstring,clamp,maxwidth|
+|string,flagstring,clamp,maxwidth|
 ````
 
 (3)
@@ -32,7 +32,7 @@ Replaces the text from this command to a [flagstring](../../../Flags%20arrays/fl
 
 ### `flagstring`:  int
 
-The [flagstring](../../../Flags%20arrays/flagstring.md) slot to replace this command with. This must corresponds to an integer of a valid [flagstring](../../../Flags%20arrays/flagstring.md) slot or an exception will be thrown.
+The [flagstring](../../../Flags%20arrays/flagstring.md) slot to replace this command with. This must be a valid [flagstring](../../../Flags%20arrays/flagstring.md) slot or an exception will be thrown.
 
 ### `postprocessing`: `clamp` | `true`
 
@@ -45,16 +45,16 @@ Any other value of this parameter will be ignored and the behavior will be like 
 
 ### `maxwidth`: float
 
-When `postprocessing` is `clamp`, specify the maximum length allowed for the [flagstring](../../../Flags%20arrays/flagstring.md) text to take horizontally. The value must a valid `float` value or an Exception will be thrown.
+When `postprocessing` is `clamp`, specify the maximum length allowed for the [flagstring](../../../Flags%20arrays/flagstring.md) text to take horizontally. The value must a valid float or an Exception will be thrown.
 
 ### `widthscaleclamp`: float
 
-When `postprocessing` is `clamp`, specify the horizontal scale to apply to the [flagstring](../../../Flags%20arrays/flagstring.md) text if its width exceeds `maxwidth`. If this value is not specified, the default is 0.5. The value must a valid `float` value or an Exception will be thrown.
+When `postprocessing` is `clamp`, specify the horizontal scale to apply to the [flagstring](../../../Flags%20arrays/flagstring.md) text if its width exceeds `maxwidth`. If this value is not specified, the default is 0.5. The value must a valid float or an Exception will be thrown.
 
 ## Remarks
 
 The [flagstring](../../../Flags%20arrays/flagstring.md) is expected to be set in code beforehand and its line endings will be normalized to LF if any CRLF is in the [flagstring](../../../Flags%20arrays/flagstring.md) text.
 
-If `postprocessing` is `clamp` and a clamping occurs, the [flagstring](../../../Flags%20arrays/flagstring.md) text will be prepended with |[Sizemulti](Sizemulti.md),widthscaleclamp,1| and appended with |[size](size.md),size.x,size.y| where [size](size.md) is the parameter sent to SetText.
+If `postprocessing` is `clamp` and a clamping occurs, the [flagstring](../../../Flags%20arrays/flagstring.md) text will be prepended with |[Sizemulti](Sizemulti.md),`widthscaleclamp`,1| and appended with |[size](size.md),size.x,size.y| where [size](size.md) is the parameter sent to SetText. This resizes the text using `widhscaleclamp`, but turns the [size](size.md) value back to its normal one.
 
-This command will cause SetText to resume processing at the same character position to accommodate the text replacement of the input string at the position this command is being processed.
+This command will cause SetText to resume processing at the same character position to accommodate the text replacement.

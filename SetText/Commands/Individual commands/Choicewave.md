@@ -20,7 +20,7 @@ Enable a PromptAnim on the [textholder](../../Notable%20local%20variable/texthol
 
 ### `optionindex`: int
 
-The index of the concerned [Prompt](Prompt.md) option. If the current [Prompt](Prompt.md) option is this value, the text will be rendered with the highlight effect enabled and disabled otherwise. This must corresponds to a valid `int` value or an exception will be thrown.
+The index of the concerned [Prompt](Prompt.md) option. If the current [Prompt](Prompt.md) option is this value, the text will be rendered with the highlight effect enabled and disabled otherwise. This must corresponds to a valid int value or an exception will be thrown.
 
 ### `underline`: var
 
@@ -28,4 +28,4 @@ Whether to render a red `_` underneath the text once it is highlighted instead o
 
 ## Remarks
 
-This command allows a [Prompt](Prompt.md), [NumberPrompt](NumberPrompt.md) and [LetterPrompt](LetterPrompt.md) to highlight the currently hovered choice by applying a `PromptAnim` which apply a wave effect and a red color to the text or the `_` in (2).
+This command allows a [Prompt](Prompt.md), [NumberPrompt](NumberPrompt.md) and [LetterPrompt](LetterPrompt.md) to highlight the currently hovered choice by applying a PromptAnim which apply a wave effect and a red color to the text or the `_` in syntax (2).

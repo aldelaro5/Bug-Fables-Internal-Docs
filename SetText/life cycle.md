@@ -56,7 +56,7 @@ Additionally, this phase includes some logic about the HUD: all of them are hidd
 
 Some special logic also happens if the player isn't null and we're not in an event: 
 
-* Make the player face the `caller` (or the `caller`'s shopkeeper if its  `interacttype` is `Shop` or `CaravanBadge`)
+* Make the player face the caller (or the caller's shopkeeper if its  `interacttype` is `Shop` or `CaravanBadge`)
 * Set `initialflip` to the player's flip.
 * Saves the player's rigid body's constraints to a temporary variable.
 * if the caller's parameter isn't null, teleport following players and chompy closer to caller? (2.55 max distance, 1.5 away?). After, yield for a frame.

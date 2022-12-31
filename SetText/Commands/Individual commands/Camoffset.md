@@ -24,4 +24,4 @@ The z base position to set. This must be a valid float or an exception will be t
 
 ## Remarks
 
-This doesn't entirely change the camera's position: it only sets the camoffset field while the actual position is camoffset + camoffset2. The later is by default Vector3.zero, but it is possible to change its value from code.
+This doesn't entirely change the camera's position: it only sets the `camoffset` field while the actual position is `camoffset` + `camoffset2`. The later is by default Vector3.zero, but it is possible to change its value from code.

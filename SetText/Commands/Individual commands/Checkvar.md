@@ -35,6 +35,7 @@ This value determines which syntax to use. Any other value will be interpreted a
 * no value: redirect only if `flagvar` is equal to `value`
 * `atleast`: redirect only if `flagvar` \< `varvalue`
 * `moreand`: redirect only if `flagvar` >= `varvalue`
+* 
 
 ### `value`: int
 

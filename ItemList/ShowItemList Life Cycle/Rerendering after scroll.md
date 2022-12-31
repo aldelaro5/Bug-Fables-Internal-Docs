@@ -11,7 +11,7 @@
   * Setup the SpriteRenderer that will contain the option as child of the [ItemList](../ItemList.md). A 75% opaque rectangle will be rendered as background if we aren't paused and the [listtype](../listtype.md) isn't one about quests, settings, language list or input lists (color is green if it is in `multiselect` or white otherwise). The layer is set to 5, scaled by 1.15 in x when not paused and the position is relative to its index.
   * Set the default rendering param to send to [SetText](../../SetText/SetText.md) that can be overridden by [listtype](../listtype.md): x is -2, y is -0.15 and size is (0.75, 0.75).
   * **Obtain the text of the option according to [listtype](../listtype.md)**.
-  * Calls [SetText](../../SetText/SetText.md) in non [Dialogue mode](../../SetText/Dialogue%20mode.md) using the `BubblegumSans` font in non `tridimensional` at the position and size determined earlier without a [Camoffset](../../SetText/Commands/Individual%20commands/Camoffset.md) with the SpriteRenderer as the [Parent](../../SetText/Commands/Individual%20commands/Parent.md) and without a `caller` with the text prepended with:
+  * Calls [SetText](../../SetText/SetText.md) in non [Dialogue mode](../../SetText/Dialogue%20mode.md) using the `BubblegumSans` font in non `tridimensional` at the position and size determined earlier without a [Camoffset](../../SetText/Commands/Individual%20commands/Camoffset.md) with the SpriteRenderer as the [Parent](../../SetText/Commands/Individual%20commands/Parent.md) and without a caller with the text prepended with:
     * \|[size](../../SetText/Commands/Individual%20commands/size.md),0.6,0.8| when unpaused 
     * Nothing if paused and [listtype](../listtype.md) is not the current medals list 
     * `  ` otherwise.

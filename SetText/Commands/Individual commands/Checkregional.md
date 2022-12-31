@@ -32,6 +32,6 @@ The state to compare the regional slot against. This must be `true` or `false` o
 
 ## Remarks
 
-The redirect is done using an [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of the dialogue line resolved using `lineidredirect` prepended with |[Blank](Blank.md)\|. This also ends the [Text advance](../../Related%20Systems/Text%20advance.md)'s skiptext.
+The redirect is done using an [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of the dialogue line resolved using `lineidredirect` prepended with |[Blank](Blank.md)\|. This also ends the [Text advance](../../Related%20Systems/Text%20advance.md)'s `skiptext`.
 
 If a redirection happens, processing will resume at the start of the new input string.

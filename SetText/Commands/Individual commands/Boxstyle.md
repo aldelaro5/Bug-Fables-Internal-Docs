@@ -14,7 +14,7 @@ Sets the textbox's sprite or disable its rendering from now on in [Dialogue mode
 
 The textbox style index to use from now on:
 
-* -1: Disables the rendering of the textbox
+* -1: Disables the rendering of the [textbox](../../Notable%20local%20variable/textbox.md)
 * 0: The default rounded border style.
 * 1: A jagged border rectangular style.
 * 2: The same as style 1, but with rounded corners.

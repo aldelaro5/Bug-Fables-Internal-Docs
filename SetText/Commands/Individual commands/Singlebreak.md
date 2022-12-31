@@ -12,7 +12,7 @@ Instruct [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/Organ
 
 ### `maxoffset`: float
 
-The max offset a line can grow until inserting a line break. The value must a valid `float` value or an Exception will be thrown.
+The max offset a line can grow until inserting a line break. The value must a valid float value or an Exception will be thrown.
 
 ## Remarks
 

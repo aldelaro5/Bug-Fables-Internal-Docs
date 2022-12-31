@@ -1,6 +1,6 @@
 # Entity ID
 
-An entity id is an int value sent to the GetEntity method in MainManager which is used often when parsing [SetText](../SetText.md) parameters. This page explains how this format works.
+An entity id is an int value sent to the GetEntity method in MainManager which is used often when parsing [SetText](../SetText.md) parameters. This page explains how this format works. Please note it only concerns the int form as every [Commands](Commands.md) supports this form, but not all of them supports other designator such as [Define](Individual%20commands/Define.md), refer to each [Commands](Commands.md) documentation to learn more.
 
 ## When not in battle
 
@@ -8,7 +8,7 @@ An entity index is one of the following when not in battle:
 
 * 
    > 
-   > = 1000: Refers to a map's tempfollower whose index is the index - 1000. If no such tempfollower exist at that index, an exception will be thrown.
+   > = 1000: Refers to a temporary non party follower whose index is the index - 1000. If no such follower exist at that index, an exception will be thrown.
 
 * -1: Refers to the first player's entity if it exist, otherwise, this is null.
 * -2: Refers to the second player's entity if it exist, otherwise,  this is null.

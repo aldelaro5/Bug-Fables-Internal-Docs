@@ -1,6 +1,6 @@
 # Goto
 
-Replace the input string by a particular dialogue line or a randomly selected one from a list and continue processing at the start of the new string. This has support for appending commands and to not blank the textbox before the replacement.
+Redirect to a particular dialogue line or a randomly selected one from a list. This has support for appending commands and to not blank the textbox before the replacement.
 
 ## Syntax
 

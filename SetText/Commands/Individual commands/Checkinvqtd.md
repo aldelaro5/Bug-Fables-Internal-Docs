@@ -28,7 +28,7 @@ The quantity to compare against. If it is `full`, the quantity depends on `invty
 * 1: N/A (will never report to exceed the quantity)
 * 2: The amount of maximum storage items allowed (this is always 35 under normal gameplay).
 
-If it is an int, this refers to a specific quantity and it must corresponds to a valid `int` value or an exception will be thrown.
+If it is an int, this refers to a specific quantity and it must corresponds to a valid int value or an exception will be thrown.
 
 ### `dialogue`: int
 

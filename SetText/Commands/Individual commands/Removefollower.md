@@ -26,4 +26,4 @@ The follower's [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) to remove. This 
 
 For syntax (2), Only the first occurrence of the follower will be removed if multiple exists with the same [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md). If no such follower exists, this command does nothing.
 
-Since this only removes the follower(s) from the extrafollowers list, a map change needs to be done for the removal to take effect because the follower(s) is still in the `map.tempfollowers` list if it was allowed by the `canfollowID` whitelist.
+Since this only removes the follower(s) from the `extrafollowers` list, a map change needs to be done for the removal to take effect because the follower(s) is still in the `map.tempfollowers` list if it was allowed by the `canfollowID` whitelist.
