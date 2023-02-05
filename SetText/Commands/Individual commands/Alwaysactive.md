@@ -1,6 +1,6 @@
 # Alwaysactive
 
-Set the `alwaysactive` field of an [Entity](../../../Data%20format/Entity.md) to a value.
+Set the `alwaysactive` field of an [Entity data](../../../TextAsset%20Data/Entity%20data.md) to a value.
 
 ## Syntax
 
@@ -12,7 +12,7 @@ Set the `alwaysactive` field of an [Entity](../../../Data%20format/Entity.md) to
 
 ### `entity`: int | string
 
-The [Entity](../../../Data%20format/Entity.md) that this command refers to. The int form is a regular [Entity id](../Entity%20id.md) and it must not resolve to null or an exception will be thrown. The string form can be one of the following when not in battle (if in battle, this is interpreted as an int which will cause an exception to be thrown):
+The [Entity data](../../../TextAsset%20Data/Entity%20data.md) that this command refers to. The int form is a regular [Entity id](../Entity%20id.md) and it must not resolve to null or an exception will be thrown. The string form can be one of the following when not in battle (if in battle, this is interpreted as an int which will cause an exception to be thrown):
 
 * `this`: Refers to the [tailtarget](../../Notable%20local%20variable/tailtarget.md). This must not be null or an exception will be thrown.
 * `caller`: Refers to the caller. This must not be null or an exception will be thrown.

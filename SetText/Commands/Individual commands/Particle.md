@@ -1,6 +1,6 @@
 # Particle
 
-Play a particle effect at an [Entity](../../../Data%20format/Entity.md)'s position + a specific offset.
+Play a particle effect at an [Entity data](../../../TextAsset%20Data/Entity%20data.md)'s position + a specific offset.
 
 ## Syntax
 

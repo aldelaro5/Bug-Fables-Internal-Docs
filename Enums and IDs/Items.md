@@ -1,6 +1,6 @@
 # Items
 
-An `Items` enum value represents an item in the game which can be collected in the overworld. The items in possessions are saved in the [Save File](../Data%20format/Save%20File.md) in 3 arrays corresponding to regular inventory, key items and stored items respectively. They are mapped directly to each item data entry.
+An `Items` enum value represents an item in the game which can be collected in the overworld. The items in possessions are saved in the [Save File](../Save%20File.md) in 3 arrays corresponding to regular inventory, key items and stored items respectively. They are mapped directly to each item data entry.
 
 ## Items table
 

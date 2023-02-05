@@ -1,6 +1,6 @@
 # BoardQuests
 
-A `BoardQuests` is a task to be done in the game. While most of them are optional, each chapters have one quest reserved to them which are mandatory. The quests are managed by the quests board system which tells which quests are accessible, open, taken or completed. The state of the quest board are saved on the [Save File](../Data%20format/Save%20File.md). They are directly mapped to the quest date entry.
+A `BoardQuests` is a task to be done in the game. While most of them are optional, each chapters have one quest reserved to them which are mandatory. The quests are managed by the quests board system which tells which quests are accessible, open, taken or completed. The state of the quest board are saved on the [Save File](../Save%20File.md). They are directly mapped to the quest date entry.
 
 ## Quests table
 

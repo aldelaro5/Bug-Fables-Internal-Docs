@@ -1,6 +1,6 @@
 # Flagstring
 
-A `flagstring` is a string which is a global variable the game can access for any purpose. They are saved on the [Save File](../Data%20format/Save%20File.md) and typically have one reserved use, but some can be used temporarily notably in [SetText](../SetText/SetText.md) operations. There are 15 flagstrings available to the game in the `MainManager.instance.flagstring` array.
+A `flagstring` is a string which is a global variable the game can access for any purpose. They are saved on the [Save File](../Save%20File.md) and typically have one reserved use, but some can be used temporarily notably in [SetText](../SetText/SetText.md) operations. There are 15 flagstrings available to the game in the `MainManager.instance.flagstring` array.
 
 ## Notes about the flagstrings table
 

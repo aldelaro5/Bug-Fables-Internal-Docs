@@ -38,7 +38,7 @@ The [Medal](../../../Enums%20and%20IDs/Medal.md) is to add to the shop pool or a
 
 ## Remarks
 
-This manages the shop pools which is saved at line 5 on the [Save File](../../../Data%20format/Save%20File.md), it does not deal with the available pools (which is line 4 on the [Save File](../../../Data%20format/Save%20File.md)). This means that it will not immediately cause changes to the displayed [Medal](../../../Enums%20and%20IDs/Medal.md)s until the available pool is updated. Removing a [Medal](../../../Enums%20and%20IDs/Medal.md) from a medal shop from both lists after purchasing it can be done with [Removebadgeshop](Removebadgeshop.md).
+This manages the shop pools which is saved at line 5 on the [Save File](../../../Save%20File.md), it does not deal with the available pools (which is line 4 on the [Save File](../../../Save%20File.md)). This means that it will not immediately cause changes to the displayed [Medal](../../../Enums%20and%20IDs/Medal.md)s until the available pool is updated. Removing a [Medal](../../../Enums%20and%20IDs/Medal.md) from a medal shop from both lists after purchasing it can be done with [Removebadgeshop](Removebadgeshop.md).
 
 This command is only used for testing purposes in the TestRoom.
 

@@ -1,6 +1,6 @@
 # Flip
 
-Toggle or set the flip state of an [entity](../../../Data%20format/Entity.md) or the party.
+Toggle or set the flip state of an [Entity data](../../../TextAsset%20Data/Entity%20data.md) or the party.
 
 ## Syntax
 
@@ -32,11 +32,11 @@ Toggle or set the flip state of an [entity](../../../Data%20format/Entity.md) or
 
 ### `party`
 
-This value indicates to operate with syntax (1) / (2) and will have each party [entity](../../../Data%20format/Entity.md)'s flip state be affected. Any other value will be interpreted as `entity`.
+This value indicates to operate with syntax (1) / (2) and will have each party [Entity data](../../../TextAsset%20Data/Entity%20data.md)'s flip state be affected. Any other value will be interpreted as `entity`.
 
 ### `entity`: int | string
 
-The [entity](../../../Data%20format/Entity.md) to set its flip state. The int form is a regular [Entity id](../Entity%20id.md) and its restriction for valid values applies. The string is only applicable if caller isn't null and it will be interpreted as the int form otherwise. This form can be one of the following:
+The [Entity data](../../../TextAsset%20Data/Entity%20data.md) to set its flip state. The int form is a regular [Entity id](../Entity%20id.md) and its restriction for valid values applies. The string is only applicable if caller isn't null and it will be interpreted as the int form otherwise. This form can be one of the following:
 
 * `this`: Refers to the [tailtarget](../../Notable%20local%20variable/tailtarget.md). This must not be null or an exception will be thrown.
 * `caller`: Refers to the caller. This must not be null or an exception will be thrown.

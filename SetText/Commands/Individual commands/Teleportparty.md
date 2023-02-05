@@ -1,6 +1,6 @@
 # Teleportparty
 
-Teleports the party's entities near the player's [entity](../../../Data%20format/Entity.md) which optionally includes any temporary non party follower or teleport just the party entities at a specified distance and direction from the player's [entity](../../../Data%20format/Entity.md).
+Teleports the party's entities near the player's [Entity data](../../../TextAsset%20Data/Entity%20data.md) which optionally includes any temporary non party follower or teleport just the party entities at a specified distance and direction from the player's [Entity data](../../../TextAsset%20Data/Entity%20data.md).
 
 ## Syntax
 
@@ -46,7 +46,7 @@ int | string
 
 ## Remarks
 
-For syntax (1) and (2), the party entities are teleported so they match the position of the player with removal of velocity, but each party [entity](../../../Data%20format/Entity.md) is offset forward to the camera by 0.025 from each other and the player. This is done to combat possible Z fighting.
+For syntax (1) and (2), the party entities are teleported so they match the position of the player with removal of velocity, but each party [Entity data](../../../TextAsset%20Data/Entity%20data.md) is offset forward to the camera by 0.025 from each other and the player. This is done to combat possible Z fighting.
 
 For syntax (2), it does the same than (1), but it also teleports the temporary non party followers at the player's position. Unlike the party teleport, there is no Z fighting mitigation here. 
 

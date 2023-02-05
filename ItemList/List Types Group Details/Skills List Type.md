@@ -6,6 +6,8 @@ Display the list of skills that a party member has access to.
 
 `listvar` will be the skills array field of the corresponding playerdata (-1, -2 and -3 means 0, 1 and 2 respectively). They corresponds the skills id of skilldata.
 
+The playerdata's skills are expected to be refreshed by using RefreshSkills which takes into account the party's rank and [Medal](../../Enums%20and%20IDs/Medal.md)s equipped.
+
 `listredirect` is overridden to null.
 
 ## Option's [SetText](../../SetText/SetText.md) input string

@@ -1,4 +1,4 @@
-# Event
+# Events
 
 An event is a coroutine the game can use to execute scripted code that applies specifically to this moment. They are typically used for cutscenes, but they may be used for any general purposes so long as the code is compatible at the moment it is being executed.
 
@@ -15,7 +15,7 @@ There are many known way to trigger an event. Here is a list of the currently kn
 * Manually via the `EventControl.StartEvent` method
 * [SetText](../SetText/SetText.md)'s [Event](../SetText/Commands/Individual%20commands/Event.md) command
 * `MapControl`'s `autoevent` system
-* A wide variety of [Entity](../Data%20format/Entity.md) can have a way to trigger a configurable event
+* A wide variety of [Entity data](../TextAsset%20Data/Entity%20data.md) can have a way to trigger a configurable event
 
 Since they are coroutines, they have the ability to wait for specific amounts of time or until certain tasks are done. This makes it perfect for any kinds of specific scripts the game may want to run if the content only applies to a specific situation. While [SetText](../SetText/SetText.md) is very powerful, events are way more powerful since it gives direct control of the game.
 

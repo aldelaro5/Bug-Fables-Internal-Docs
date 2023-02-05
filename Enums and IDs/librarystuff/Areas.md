@@ -2,13 +2,13 @@
 
 An `Areas` enum value represents a group of [Maps](../Maps.md) that belongs to a certain location in the game. Each map must belong to one `Areas` and they are important in determining the scope of any [Regionalflags](../../Flags%20arrays/Regionalflags.md). 
 
-The current area is saved on the [Save File](../../Data%20format/Save%20File.md).
+The current area is saved on the [Save File](../../Save%20File.md).
 
 ## Remarks about `librarystuff`
 
-Each area is bound to a bool value stored in an array located at index 0 of the `MainManager.instance.librarystuff` array that indicates whether or not the area was seen. This allows the game to track which areas to show on the world map. The subarray of `librarystuff` contains 256 elements (most are not used as the array is overprosioned in size). 
+Each area is bound to a bool value stored in an array located at index 4 of the `MainManager.instance.librarystuff` array that indicates whether or not the area was seen. This allows the game to track which areas to show on the world map. The subarray of `librarystuff` contains 256 elements (most are not used as the array is overprosioned in size). 
 
-The entire `librarystuff` two dimensional array is saved on the [Save File](../../Data%20format/Save%20File.md).
+The entire `librarystuff` two dimensional array is saved on the [Save File](../../Save%20File.md).
 
 ## Areas table
 

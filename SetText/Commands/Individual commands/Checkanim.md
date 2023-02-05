@@ -1,6 +1,6 @@
 # Checkanim
 
-Redirect to a different dialogue line if an [Entity](../../../Data%20format/Entity.md)'s anim state is a specific value.
+Redirect to a different dialogue line if an [Entity data](../../../TextAsset%20Data/Entity%20data.md)'s anim state is a specific value.
 
 ## Syntax
 

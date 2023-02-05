@@ -1,6 +1,6 @@
 # Flags
 
-A global `flags` (not to be confused with the generic programming term) is a bool which is a global variable the game can access for any purpose. They are saved on the [Save File](../Data%20format/Save%20File.md) and typically have one reserved use, but some can be used temporarily notably number 400 and number 0 (reserved for debugging). There are 750 global flags available to the game in the `MainManager.instance.flags` array.
+A global `flags` (not to be confused with the generic programming term) is a bool which is a global variable the game can access for any purpose. They are saved on the [Save File](../Save%20File.md) and typically have one reserved use, but some can be used temporarily notably number 400 and number 0 (reserved for debugging). There are 750 global flags available to the game in the `MainManager.instance.flags` array.
 
  > 
  > Before 1.1.0, there were 700 available flags instead.

@@ -1,6 +1,6 @@
 # AnimIDs
 
-An `AnimIDs` is an int or enum value that represents the ID used to identify the animation controller of a certain [Entity](../Data%20format/Entity.md). They are used mostly for identification purposes.
+An `AnimIDs` is an int or enum value that represents the ID used to identify the animation controller of a certain [Entity data](../TextAsset%20Data/Entity%20data.md). They are used mostly for identification purposes.
 
 ## About the int format vs the enum format
 

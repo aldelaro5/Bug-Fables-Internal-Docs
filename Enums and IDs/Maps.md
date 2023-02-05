@@ -4,7 +4,7 @@ A `Maps` is an enum value that represent a map (aka room) in the game. Each enum
 
 The maps prefabs are located at `Ressources/prefabs/maps` from the game's assets tree. 
 
-The current map is saved on the [Save File](../Data%20format/Save%20File.md).
+The current map is saved on the [Save File](../Save%20File.md).
 
 ## Maps table
 

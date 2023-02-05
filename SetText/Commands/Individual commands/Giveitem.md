@@ -66,7 +66,7 @@ The [Dialogue line id](../Dialogue%20line%20id.md) to continue processing at aft
 
 ### `entityid`: int
 
-The [Entity id](../Entity%20id.md) used to perform the animation of getting the item and to determine where to render the item sprite. This must be a valid [Entity id](../Entity%20id.md) or an exception will be thrown. The default value is -1 (the first player's [Entity](../../../Data%20format/Entity.md) which is the current lead).
+The [Entity id](../Entity%20id.md) used to perform the animation of getting the item and to determine where to render the item sprite. This must be a valid [Entity id](../Entity%20id.md) or an exception will be thrown. The default value is -1 (the first player's [Entity data](../../../TextAsset%20Data/Entity%20data.md) which is the current lead).
 
 ### `var`
 

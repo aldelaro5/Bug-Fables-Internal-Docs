@@ -119,3 +119,6 @@ An `Enemies` enum value represents a unique identifier to an enemy in battle. Th
 |107|FireCape|
 |108|IceKrawler|
 |109|IceWarden|
+|110|TANGYBUG|
+|111|Stratos|
+|112|Delilah|

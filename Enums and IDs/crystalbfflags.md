@@ -1,6 +1,6 @@
 # Crystalbflags
 
-A crystel berry is a collectible bound to a bool that tells whether or not this crystal berry has been collected. They are saved in the [Save File](../Data%20format/Save%20File.md) and there are 50 elements available in the `MainManager.instance.crystalbflags` array which corresponds to the amount of them available in the game.
+A crystel berry is a collectible bound to a bool that tells whether or not this crystal berry has been collected. They are saved in the [Save File](../Save%20File.md) and there are 50 elements available in the `MainManager.instance.crystalbflags` array which corresponds to the amount of them available in the game.
 
 ## Crystal berries table
 

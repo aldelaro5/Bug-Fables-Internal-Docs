@@ -1,6 +1,6 @@
 # Regionalflags
 
-A `regionalflag` is a bool which is a variable the game can access globally while its value is kept until an [Area](../SetText/Commands/Individual%20commands/Area.md) change occurs in the game or until a reset is specifically requested by the game. When a reset occurs, all regionalflag are set to false. They are saved on the [Save File](../Data%20format/Save%20File.md) and are used to track temporary progress in an area such as defeating an enemy in the overworld. There are 100 regional flags available in the `MainManager.instance.regionalflags` array.
+A `regionalflag` is a bool which is a variable the game can access globally while its value is kept until an [Area](../SetText/Commands/Individual%20commands/Area.md) change occurs in the game or until a reset is specifically requested by the game. When a reset occurs, all regionalflag are set to false. They are saved on the [Save File](../Save%20File.md) and are used to track temporary progress in an area such as defeating an enemy in the overworld. There are 100 regional flags available in the `MainManager.instance.regionalflags` array.
 
 ## Notes about the regionalflags tables
 

@@ -16,7 +16,7 @@ The amount of white stars sprites to render. This must be a valid int or an exce
 
 ## Remarks
 
-The sprite is the id 100 from the gui's atlas. Each sprite is childed to the [textholder](../../Notable%20local%20variable/textholder.md) and rendered with the following properties:
+The sprite is the id 100 from the gui's sprite sheet. Each sprite is childed to the [textholder](../../Notable%20local%20variable/textholder.md) and rendered with the following properties:
 
 * localScale: (0.5, 0.5, 0.5) or (0.5, 0.25, 0.5) when in a battle
 * No angles

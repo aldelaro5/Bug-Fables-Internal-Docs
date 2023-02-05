@@ -1,6 +1,6 @@
 # Igcolmove
 
-Ignore all collision with the player to a specific [Entity](../../../Data%20format/Entity.md) during this SetText call in [Dialogue mode](../../Dialogue%20mode.md).
+Ignore all collision with the player to a specific [Entity data](../../../TextAsset%20Data/Entity%20data.md) during this SetText call in [Dialogue mode](../../Dialogue%20mode.md).
 
 ## Syntax
 
@@ -22,6 +22,6 @@ The [Entity id](../Entity%20id.md) or designator to ignore collisions with the p
 
 This command does nothing if the player is null.
 
-Specifically, the collisions ignored concern the [Entity](../../../Data%20format/Entity.md)'s ccol, pusher, scol and boxcol if each exists. This also set the hitwall field of the player's [Entity](../../../Data%20format/Entity.md) to false.
+Specifically, the collisions ignored concern the [Entity data](../../../TextAsset%20Data/Entity%20data.md)'s ccol, pusher, scol and boxcol if each exists. This also set the hitwall field of the player's [Entity data](../../../TextAsset%20Data/Entity%20data.md) to false.
 
 In [Dialogue mode](../../Dialogue%20mode.md), the collisions are restored in the [SetText Life Cycle > Dialogue Cleanup](../../SetText%20Life%20Cycle.md#dialogue-cleanup) phase if the player is still not null and the game isn't in an event, but in non [Dialogue mode](../../Dialogue%20mode.md), they won't be restored after the SetText call.

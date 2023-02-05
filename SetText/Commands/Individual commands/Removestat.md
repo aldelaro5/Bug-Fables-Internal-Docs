@@ -28,7 +28,7 @@ This parameter indicates to operate in syntax (2) which will also recalculate th
 
 ## Remarks
 
-For more information about how stat bonuses work and how they are saved on the [Save File](../../../Data%20format/Save%20File.md), check [Save File > Line 10 (Array line) Stats bonuses](../../../Data%20format/Save%20File.md#line-10-array-line-stats-bonuses).
+For more information about how stat bonuses work and how they are saved on the [Save File](../../../Save%20File.md), check [Save File > Line 10 (Array line) Stats bonuses](../../../Save%20File.md#line-10-array-line-stats-bonuses).
 
 Syntax (2) is recommended over syntax (1) because it allows the removal to take immediate effect while syntax (1) will need to wait the next recalculation to take the removal into effect.
 

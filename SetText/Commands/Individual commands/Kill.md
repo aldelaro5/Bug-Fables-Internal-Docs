@@ -1,6 +1,6 @@
 # Kill
 
-Kills an [entity](../../../Data%20format/Entity.md) by calling Death(true) on it.
+Kills an [Entity data](../../../TextAsset%20Data/Entity%20data.md) by calling Death(true) on it.
 
 ## Syntax
 
@@ -12,7 +12,7 @@ Kills an [entity](../../../Data%20format/Entity.md) by calling Death(true) on it
 
 ### `entity`:  `this` | `caller` | int
 
-The [entity](../../../Data%20format/Entity.md) to kill:
+The [Entity data](../../../TextAsset%20Data/Entity%20data.md) to kill:
 
 * `this`: Refers to [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (This only reliably works in [Dialogue mode](../../Dialogue%20mode.md) otherwise, it will take the last value of [tailtarget](../../Notable%20local%20variable/tailtarget.md) which is potentially undefined behavior).
 * `caller`: Refers to the caller if it is not null. If it is, this command does nothing.

@@ -1,6 +1,6 @@
 # Jump
 
-Make an [Entity](../../../Data%20format/Entity.md) jump up with a configurable velocity.
+Make an [Entity data](../../../TextAsset%20Data/Entity%20data.md) jump up with a configurable velocity.
 
 ## Syntax
 

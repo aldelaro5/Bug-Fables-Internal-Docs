@@ -54,7 +54,7 @@ Indicate to operate in syntax (2) which, after the caller is added as follower, 
 
 The way followers work is there are 3 lists/arrays involved:
 
-* `extrafollowers`: The list saved on the [Save File](../../../Data%20format/Save%20File.md) that dictates which followers to consider following the last member of the party.
+* `extrafollowers`: The list saved on the [Save File](../../../Save%20File.md) that dictates which followers to consider following the last member of the party.
 * `map.canfollowID`: An array generated on a map's `Start` (specifically `AreaSpecific`) that acts as a whitelist to `extrafollowers`. This whitelist enforces who can follow the party on the first iteration of the map's `LateUpdate`. The TestRoom is however exempt from this.
 * `map.tempfollowers`: The list of non party followers currently following the party. This represents all the non party active followers.
 

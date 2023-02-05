@@ -2,9 +2,9 @@
 
 A medal or sometimes internally refereed to as `badge` is a collectible in the game that can be equipped. 
 
-The medals in possession and their equipment statuses are saved in the [Save File](../Data%20format/Save%20File.md). 
+The medals in possession and their equipment statuses are saved in the [Save File](../Save%20File.md). 
 
-Both Shades's and Merab's shops medals available pools and stock are also saved in the [Save File](../Data%20format/Save%20File.md). 
+Both Shades's and Merab's shops medals available pools and stock are also saved in the [Save File](../Save%20File.md). 
 
 The IDs are mapped directly to the badge data entries.
 

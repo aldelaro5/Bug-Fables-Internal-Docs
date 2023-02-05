@@ -1,6 +1,6 @@
 # Bleep
 
-Change the current dialogue bleep sound and its pitch in [Dialogue mode](../../Dialogue%20mode.md) from an [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) data, [Entity](../../../Data%20format/Entity.md) field or specified directly.
+Change the current dialogue bleep sound and its pitch in [Dialogue mode](../../Dialogue%20mode.md) from an [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) data, [Entity data](../../../TextAsset%20Data/Entity%20data.md) field or specified directly.
 
 ## Syntax
 
@@ -80,6 +80,6 @@ The pitch volume to set the dialogue bleep. This must be a valid float or an exc
 
 ## Remarks
 
-This command allows to override the normal behavior of the dialogue bleep, pitch and volume done during the [SetText Life Cycle > Dialogue setup](../../SetText%20Life%20Cycle.md#dialogue-setup) phase where the properties will be set using the [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) data of the parent's [Entity](../../../Data%20format/Entity.md) and the volume to the size's magnitude. Once this command is processed, every automatic bleep sound done in [SetText Life Cycle > Letter processing](../../SetText%20Life%20Cycle.md#letter-processing) will be using the new values.
+This command allows to override the normal behavior of the dialogue bleep, pitch and volume done during the [SetText Life Cycle > Dialogue setup](../../SetText%20Life%20Cycle.md#dialogue-setup) phase where the properties will be set using the [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) data of the parent's [Entity data](../../../TextAsset%20Data/Entity%20data.md) and the volume to the size's magnitude. Once this command is processed, every automatic bleep sound done in [SetText Life Cycle > Letter processing](../../SetText%20Life%20Cycle.md#letter-processing) will be using the new values.
 
 It is not possible to change the volume using syntax (1) and (2).

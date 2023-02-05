@@ -20,6 +20,6 @@ The [Dialogue line id](../Dialogue%20line%20id.md) to redirect to if `mapflag`'s
 
 ## Remarks
 
-`map.mapflags` is an array of 10 bools that belongs to the current map, but is reset explicitly on the map's Start and unlike other flags arrays, this one is never saved on the [Save File](../../../Data%20format/Save%20File.md). This gives it a very ephemeral and temporary usage because all their values are reset on every map loads.
+`map.mapflags` is an array of 10 bools that belongs to the current map, but is reset explicitly on the map's Start and unlike other flags arrays, this one is never saved on the [Save File](../../../Save%20File.md). This gives it a very ephemeral and temporary usage because all their values are reset on every map loads.
 
 Their value can be set using [Mapflag](Mapflag.md).

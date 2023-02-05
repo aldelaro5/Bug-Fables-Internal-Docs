@@ -1,6 +1,6 @@
 # Anim
 
-Change the animation state of the party or a specific [entity](../../../Data%20format/Entity.md).
+Change the animation state of the party or a specific [Entity data](../../../TextAsset%20Data/Entity%20data.md).
 
 ## Syntax
 
@@ -12,7 +12,7 @@ Change the animation state of the party or a specific [entity](../../../Data%20f
 
 ### `entity`:  `this` | `party` | `caller` | `parent` | int
 
-The [entity](../../../Data%20format/Entity.md) to change the animation state:
+The [Entity data](../../../TextAsset%20Data/Entity%20data.md) to change the animation state:
 
 * `this`: Refers to [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (This only reliably works in [Dialogue mode](../../Dialogue%20mode.md) otherwise, it will take the last value of [tailtarget](../../Notable%20local%20variable/tailtarget.md) which is potentially undefined behavior).
 * `party`: Refers to each of the party's entities.
