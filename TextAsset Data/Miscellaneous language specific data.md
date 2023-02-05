@@ -10,17 +10,9 @@ This page contains documentations about some minor [languageid](../SetText/langu
 
 There are 2 TextAsset that describes each [Areas](../Enums%20and%20IDs/librarystuff/Areas.md): `AreaNames` and `AreaDesc`. `AreaNames` is loaded on boot by SetVariables into the `areanames` array and it contains an area name whose line index corresponds to an [Areas](../Enums%20and%20IDs/librarystuff/Areas.md) id. `AreaDesc` is loaded by PauseMenu's MapSetup into the `enemydata` array and it contains an area description whose line index corresponds to an [Areas](../Enums%20and%20IDs/librarystuff/Areas.md) id.
 
-# Common dialogue lines
-
-Some [SetText](../SetText/SetText.md) lines are shared across [Maps](../Enums%20and%20IDs/Maps.md) in the game and needs global access via the standard [Dialogue line id](../SetText/Commands/Dialogue%20line%20id.md) system. These lines are located in the `CommonDialogue` TextAsset which is loaded on boot by SetVariables into `commondialogue`.
-
 # Credits
 
 `Credits` contains the text rendered in the credits which has its own rendering scheme. It is loaded on [Event](../SetText/Commands/Individual%20commands/Event.md) 204 (credits) and it gets rendered using lists of TextMesh in rich text mode. It is the only notable textual information not rendered using [SetText](../SetText/SetText.md).
-
-# Menu dialogue lines
-
-`MenuText` behaves similarly to `CommonDialogue`, but the lines cannot be resolved using a standard [Dialogue line id](../SetText/Commands/Dialogue%20line%20id.md) as each [SetText](../SetText/SetText.md) [Commands](../SetText/Commands/Commands.md) have to specifically support them. They are mainly intended for UI rendering. The asset is loaded on boot by SetVariables into `menutext`.
 
 # Unused
 

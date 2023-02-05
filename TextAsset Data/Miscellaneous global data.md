@@ -18,10 +18,6 @@ For more information on each letter prompt id, consult the details of the [Lette
 * `LetterPrompt3`
 * `LetterPrompt4`
 
-## Dialogue lines in the TestRoom
-
-The TestRoom is a special [Maps](../Enums%20and%20IDs/Maps.md) in the game because it is the only one whose dialogue data is language agnostic (but mostly in `English`). The asset is located at `Ressources/data/TestRoom` from the asset tree. The file is loaded on MapControl's Start if it is the TestRoom.
-
 ## Leaves destination positions during battle transition
 
 `LeafPos` is a TextAsset in `Ressources/data` loaded on boot by LoadEssentials into the `leafpos` array that tells where the leaves in the standard battle transitions will end up on the screen once they are done moving. While their starting position and final rotation are random, their destination position aren't and they are determined by this data. It is possible to add or remove leaves by changing the amount of lines as each leaf corresponds to one line.
