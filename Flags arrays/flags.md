@@ -597,7 +597,7 @@ An empty description means unknown.
 |581|Talked to Patton for the first time in post game at Forsaken Lands (right when the cutscene starts)|
 |582|Chapter 6, got the red History Book at the Rubber Prison|
 |583|Chapter 6, broke the bridge on the second floor of Rubber Prison|
-|584|Chapter 6, beat ULTIMAX Tank (after the cutscene)|
+|584|Chapter 6, got the Prison Key from the Wasp Driller on the first floor of Rubber Prison|
 |585|Got spotted by an eye at Giant’s Lair for the first time|
 |586|Chapter 7, arrived at the Roach Village for the first time at Giant’s Lair (after all the cutscenes)|
 |587|Bought all medals at the shop at Ant Kingdom City commercial area|
