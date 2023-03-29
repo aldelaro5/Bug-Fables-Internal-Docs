@@ -30,6 +30,6 @@ In its simplest form, this command will evaluate the following:
   * If it is 0 or below, take the absolute value and check if the corresponding [flags](../../../Flags%20arrays/flags.md) slot is true
 * If Syntax (2), check that the [flagvar](../../../Flags%20arrays/flagvar.md) slot `flagvar` is NOT equal to `value`
 
-If all the applicable conditions are true, this command will do nothing and processing resumes as normal.
+If any of the applicable conditions are false, this command will do nothing and processing resumes as normal.
 
-If any of the applicable conditions is false however, the input string will be overwritten to an [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of the dialogue line at id `lineidfalse`. This will reset the character position of the [SetText Life Cycle > Char loop](../../SetText%20Life%20Cycle.md#char-loop) to restart at the beginning of the input string which will cause processing to resume at the start of the new input string. This will also disable `skiptext` if it was enabled by the [Text advance](../../Related%20Systems/Text%20advance.md) system.
+If all of the applicable conditions are true however, the input string will be overwritten to an [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of the dialogue line at id `lineidfalse`. This will reset the character position of the [SetText Life Cycle > Char loop](../../SetText%20Life%20Cycle.md#char-loop) to restart at the beginning of the input string which will cause processing to resume at the start of the new input string. This will also disable `skiptext` if it was enabled by the [Text advance](../../Related%20Systems/Text%20advance.md) system.
