@@ -22,7 +22,7 @@ An empty description means unknown.
 |6|Talked to Samira for the first time|
 |7|Chapter 1, fixed the bridge in Snakemouth Den by hitting the switch|
 |8|Examined the Underground Bar entrance for the first time at Ant Kingdom City commercial area|
-|9|UNKNOWN|
+|9|UNUSED (Had an unimplemented use in the public demo involving solving a riddle by Reed to enter the Underground Bar)|
 |10|Chapter 1, received tattle tutorial~Set to false in Chapter 3 when the Overseer is following you at the Honey Factory, set to true afterwards|
 |11|Chapter 1, got Vi’s Beemerang Toss|
 |12|Set to true when giving the first of the 2 ingredients to a chef, set to false afterwards (confirming or talking after cancelling)|
@@ -157,11 +157,11 @@ An empty description means unknown.
 |141|Talked to Shades for the first time at the Underground Bar|
 |142|Got the Lore Book behind a wooden box at Defiant Root|
 |143|Got the Crystal Fruit after beating the Seedling King|
-|144|UNKNOWN|
-|145|UNKNOWN|
+|144|UNUSED (Genow: broodmother quest start)|
+|145|UNUSED (Genow: mother chomper quest start)|
 |146|Took the Peacock Spider bounty quest|
-|147|UNKNOWN|
-|148|UNKNOWN|
+|147|UNUSED (Genow: sandwyrm miniboss quest start)|
+|148|UNUSED (Genow: centipede quest start)|
 |149|Got the Fortify medal at Defiant Root|
 |150|Rented a Bed Bug at Defiant Root, set to false after using it|
 |151|Talked to the Fuzzo at Defiant Root for the first time|
@@ -223,7 +223,7 @@ An empty description means unknown.
 |207|hit the tree leading northeast near the west exit at the platforming map of Lost Sands|
 |208|hit the tree leading south near the west exit at the platforming map of Lost Sands|
 |209|hit the second tree leading west from the south exit at the platforming map of Lost Sands|
-|210|UKNOWN|
+|210|Got the Succulent Berry dropped from the bush near the cactus at the map located west of the merchant rescue map|
 |211|Chapter 3, rescued Malbee at the Honey Factory|
 |212|Chapter 3, got the Factory Pass in the room on the upper north side of the Honey Factory|
 |213|Chapter 3, got the Factory Pass in the room with Gen & Eri using the switch at the Honey Factory|
@@ -290,7 +290,7 @@ An empty description means unknown.
 |274|Gave the Orange Horn to Tanjerin after taking the Huuuuuuuuuu…!!! quest|
 |275|Completed the Huuuuuuuuuu…!!! quest|
 |276|Got introduced to the Whack-A-Worm minigame at the Whacka Farms for the first time|
-|277|UNKNOWN|
+|277|UNUSED (Genow: reward from wackaworm highscore)|
 |278|Talked to a healing Venus Bud for the first time|
 |279|Talked to Team Slacker in front of the Ancient Castle’s receptacle|
 |280|Chapter 4, placed the Sand Castle Key in its receptacle at Lost Sands|
@@ -346,7 +346,7 @@ An empty description means unknown.
 |330|Completed the Helpers Needed At Once! quest|
 |331|Got the Lore Book at the Fishing Village|
 |332|Destroyed the breakable rock at the entrance of the Power Plant / Far Grasslands passage at Far Grasslands|
-|333|UNKNOWN|
+|333|UNUSED (Genow: far grasslands cave wasp side)|
 |334|Chapter 5, beaten the Leafbug tribes at the north exit of the second map at Wild Swamplands|
 |335|Chapter 5, used Kabbu’s horn on a rock that falls to open a path at Wild Swamplands|
 |336|Chapter 5, got ambushed by the Leafbug tribes at the wooden bridge at Wild Swamplands|
@@ -362,7 +362,7 @@ An empty description means unknown.
 |346|Chapter 6, got the Flame Brooch from Queen Vanessa II at Rubber Prison (after all the cutscenes)|
 |347|Start of Chapter 6 (after all the cutscenes)|
 |348|Start of Chapter 5 (same as 304???)|
-|349|UNUSED checked in event 155|
+|349|Currently using the Ant Storage Service (used in the multi select logic)|
 |350|Chapter 6, dropped off Queen Elizant II at the Bugaria Outskirts (after all the cutscenes)|
 |351|Talked to the person in front of the Termacade for the first time|
 |352|Got the A.D.B.P Enhancer medal from Professor Honeycomb at Bee Hive Kingdom (set when receiving it)|
@@ -411,7 +411,7 @@ An empty description means unknown.
 |395|Talked to Isau for the first time after taking the Rare Item Wanted! quest|
 |396|Gave the Sophie Petal to Isau, completing the Rare Item Wanted! quest|
 |397|Got the Dark Cherries at Golden Path|
-|398|UNKNOWN|
+|398|Grabbed the Dark Cherries underneath a breakable rock on the map located east of the Defiant Root map with the save point.|
 |399|UNUSED|
 |400|Gave the correct ingredients to Crisbee after taking the I Wanna Get Better! quest, set to false after the cutscene~Also used similarly with Fry after taking the A Smiling Dish quest~Also for Chapter 3, when it is possible to signal Gen & Eri to use a switch at the Honey Factory~Also set to true then false when talking to Crow about Spy Cards~Also used in the Spy Cards tournament (true after the first match, false when the tournament is over)~Chapter 6, also used when the fight against Zasp & Mothiva starts at the Colosseum (set to false when the fight is won)~Chapter 7, also used when the Wasp King is about to turn into Everlasting King (set to false when the transformation is complete)|
 |401|Chapter 4, arrived at the map south of the prison for the first time at Bandit Hideout, set to false when exiting the map~Chapter 5, also used after arriving at the first room of Wasp Kingdom Hive (set to false after leaving Wasp Kingdom HiveChapter 7, also used when arriving in a room with an eye at Giant’s Lair (set to false when leaving to a room with no eyes)|
@@ -466,7 +466,7 @@ An empty description means unknown.
 |450|Talked to The Wizard at the Wizard Tower for the first time at Far Grasslands|
 |451|Got the Crystal Berry from the pink spider at Forsaken Lands|
 |452|Arrived at the map located east from the pumpkin map for the first time at Forsaken Lands (the crate disappears when this turns on)|
-|453|UNKNOWN|
+|453|UNUSED (Genow: layna following)|
 |454|Got the Crystal Crown by beating the False Monarch|
 |455|Got the Lore Book at the map with the wind blowers at Forsaken Lands|
 |456|Unlocked the door at the Power Plant after taking the Power Plant Investigation quest|
@@ -506,7 +506,7 @@ An empty description means unknown.
 |490|Got the Dark Cherries in the locked room at Defiant Root|
 |491|Hit the tree in the map before Tidal Wyrm at Stream Mountain|
 |492|The water crystal switch on the way to the Tidal Wyrm at Stream Mountain is activated|
-|493|UNKNOWN|
+|493|Got the Clear Water on the map located east of the Tidal Wyrm map|
 |494|Got the Crystal Fang by beating the Devourer|
 |495|Talked to Team Slacker about the Tidal Wyrm at Lost Sands for the first time|
 |496|Got the Coal Crystal by beating Tidal Wyrm|
@@ -597,20 +597,20 @@ An empty description means unknown.
 |581|Talked to Patton for the first time in post game at Forsaken Lands (right when the cutscene starts)|
 |582|Chapter 6, got the red History Book at the Rubber Prison|
 |583|Chapter 6, broke the bridge on the second floor of Rubber Prison|
-|584|Chapter 6, got the Prison Key from the Wasp Driller on the first floor of Rubber Prison|
+|584|Chapter 6, beat ULTIMAX Tank (after the cutscene)|
 |585|Got spotted by an eye at Giant’s Lair for the first time|
 |586|Chapter 7, arrived at the Roach Village for the first time at Giant’s Lair (after all the cutscenes)|
 |587|Bought all medals at the shop at Ant Kingdom City commercial area|
 |588|Bought all of Shades’s medals|
-|589|UNKNOWN|
+|589|Broke the breakable rock on the lowest floor at the Rubber Prison pier|
 |590|Bought the Venom Ribbon at the Termacade|
 |591|Bought the Shocking Ribbon at the Termacade|
 |592|Bought the Drowsy Ribbon at the Termacade|
 |593|Chapter 7, beat the Dead Landers trio near the refrigerator at Giant’s Lair|
 |594|Chapter 7, approached the refrigerator for the first time at Giant’s Lair (as soon as the cutscene starts, set to false after the fight)~Chapter 7, also used similarly with the fire constructs|
 |595|Chapter 7, convinced the roach elder to destroy the Everlasting Sapling at Giant’s Lair|
-|596|UNKNOWN checked in UpdateArea|
-|597|UNKNONW used in UpdateArea|
+|596|Spoke to the Roach Elder during the postgame at Giant's Lair|
+|597|Went to another area then came back to Giant's Lair after speaking with the Roach Elder during the postgame|
 |598|Talked to Kenny at Golden Settlement|
 |599|Talked to Kenny at Bee Kingdom Hive residential area|
 |600|Talked to Kenny at Defiant Root|
@@ -646,7 +646,7 @@ An empty description means unknown.
 |630|Reached a balance of 500 or above at the Bugaria Bank for the first time|
 |631|Got the Dry Bread at Rubber Prison|
 |632|Got the Dark Cherries at the map located south of the Wasp Kingdom Hive entrance at Far Grasslands|
-|633|UNKNOWN|
+|633|Got the Dark Cherries in a dig spot at the map located east from the Explorers Associations|
 |634|Took the My Mecha Claw! quest|
 |635|Talked to Engira for the first time after taking the My Mecha Claw! quest|
 |636|Completed the Mecha Claw! quest|
@@ -666,7 +666,7 @@ An empty description means unknown.
 |650|Talked to Neolith after the start of Chapter 5|
 |651|Got the mushroom in the first room of Snakemouth Den|
 |652|It is now possible to quick travel to Snakemouth Den from the mines|
-|653|UNKNOWN|
+|653|Got the Dark Cherries in a dig spot at the Mystery Island|
 |654|Examined the steering wheel statue at the Outskirt Piers|
 |655|Examined the view of the Colosseum for the first time at Termite Capitol|
 |656|MOREFARM code active|
@@ -682,7 +682,7 @@ An empty description means unknown.
 |666|Chapter 7, turned the dial on the right stove at Giant’s Lair|
 |667|Chapter 7, turned the right dial on the left stove at Giant’s Lair|
 |668|Chapter 7, turned the left dial on the left stove at Giant’s Lair|
-|669|UNKNOWN|
+|669|Got the Tangy Berry in a dig spot at the map located west from Bugaria Outskirt Pier|
 |670|Chapter 7, turned all the dials in the oven room at Giant’s Lair (after all the cutscenes)|
 |671|Completed all quests|
 |672|Talked to Venus in post game for the first time at Golden Hills|
@@ -721,13 +721,13 @@ An empty description means unknown.
 |705|Took the Getting Bored quest|
 |706|Talked to Team Slacker for the first time after taking the Getting Bored quest at the Underground Bar|
 |707|Completed the Getting Bored quest|
-|708|Ancient Castle puzzle?|
+|708|Set to true when the rightmost pillar becomes active in the pressure plates room at the Ancient Castle (this is an earlier implementation of the 1.1.x puzzle changes)|
 |709|Completed the Loose Ends quest (when the prompt to come back to the Ant Kingdom appears)|
-|710|Beat Stratos and Delilah at the Underground Bar|
-|711|Completed a Cave of Trials run in Random Mode|
-|712|Beat TANGYBUG at the Cave of Trials|
-|713|UNUSED|
-|714|UNUSED|
+|710|Defeated Stratos and Delilah|
+|711|Completed the Cave of Trials on Random Mode for the first time|
+|712|Defeated TANGYBUG for the first time|
+|713|Obtained the Agaric Shroom at the map located west of the Lost Sands entrance from the Bugaria Outskirt side|
+|714|Obtained the Burly Berry on the first map in the way of the Devourer (note: this Burly berry is located behind branches out of bounds))|
 |715|UNUSED|
 |716|UNUSED|
 |717|UNUSED|
