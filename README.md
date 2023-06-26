@@ -30,3 +30,6 @@ This isn't just for obvious legal reasons (mainly the code part), but also becau
 - For data files, it's simply because there's no point: the formats are not made to be human readable because automated tools generated them. The goal of this repos is to allow them to be readable by external tools or by a human manually. As for why not providing formatted versions of them, it's because they arguably don't belong in a docs repos which should only contain the specification of the data, but not its implementation. I rather decouple the 2 since the data won't change, but the knowledge of it can.
 - For Unity assets, it's just because the actual instances (mainly the maps prefabs) don't matter as much for this repos. What matters is how they work so one can pick an actual instance and understand what it is telling the game to do.
 - For anything else, it's not needed + the less files I share from the game, the better.
+
+## About deprecated documentation
+The OLD directory contains documents that were made in the pas, but are scheduled to be rewritten from scratch. Information within are provided for convenience, but should be taken with a grain of salt while they are being rewritten.
