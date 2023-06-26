@@ -38,7 +38,7 @@ Play a sound effect music from its file path with a configurable pitch and volum
 
 ### `soundname`: string
 
-The file path of the sound effect file without extensions to play relative from the `audio/sounds` resources directory. This must be a valid sound file path or an exception will be thrown. TODO: document these?
+The file path of the sound effect file without extensions to play relative from the `audio/sounds` resources directory. This must be a valid sound file path or an exception will be thrown.
 
 ### `audiosourceid`: int
 

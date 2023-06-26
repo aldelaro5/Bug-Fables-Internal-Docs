@@ -23,13 +23,14 @@ Add a stat bonus by specifying its properties directly or by specifying [flagvar
 The stat bonus type to add to the stat bonuses list or the [flagvar](../../../Flags%20arrays/flagvar.md) slot containing it. The int form be a valid stat bonus type or an exception will be thrown. The [flagvar](../../../Flags%20arrays/flagvar.md) string form must contain `var` or `v` only once with an integer portion corresponding to a valid [flagvar](../../../Flags%20arrays/flagvar.md) slot or an exception will be thrown. The `money` value is allowed, but is not recommended because it will read the current berry count as a stat bonus type which is likely to cause an exception to be thrown.
 
 Here are the valid stat bonus type:
-Value | Stat increase
--------- | ---------
-0 | HP
-1 | Attack
-2 | Defense
-3 | TP
-4 | MP
+
+|Value|Stat increase|
+|-----|-------------|
+|0|HP|
+|1|Attack|
+|2|Defense|
+|3|TP|
+|4|MP|
 
 ### `amount`: int | `var`int | `v`int | `money`
 

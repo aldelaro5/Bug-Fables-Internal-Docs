@@ -1,6 +1,6 @@
 # Tail
 
-Set the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to an [Entity data](../../../TextAsset%20Data/Entity%20data.md) and optionally change the animation state of the new target [Entity data](../../../TextAsset%20Data/Entity%20data.md)  with a hide/unhide of the textbox in [Dialogue mode](../../Dialogue%20mode.md).
+Set the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to an [Entity](../../../Entities/Entity.md) and optionally change the animation state of the new target [Entity](../../../Entities/Entity.md)  with a hide/unhide of the textbox in [Dialogue mode](../../Dialogue%20mode.md).
 
 ## Syntax
 
@@ -20,7 +20,7 @@ Set the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to an [Enti
 
 ### `entity`: `caller` | `parent` | `null` | `this` | int
 
-The [Entity data](../../../TextAsset%20Data/Entity%20data.md) to set the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to (the predefined values are case sensitive):
+The [Entity](../../../Entities/Entity.md) to set the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to (the predefined values are case sensitive):
 
 * `this`: Refers to [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (This only reliably works in [Dialogue mode](../../Dialogue%20mode.md) otherwise, it will take the last value of [tailtarget](../../Notable%20local%20variable/tailtarget.md) which is potentially undefined behavior) Since it is setting the [tailtarget](../../Notable%20local%20variable/tailtarget.md) to its current entity, this effectively doesn't change it.
 * `caller`: Refers to the caller if it is not null. If it is, the value is interpreted as an int which will cause an exception to be thrown.
@@ -41,7 +41,7 @@ Any other value will cause a relay to an [Anim](Anim.md) command in the form |[a
 This command will perform the following operations:
 
 * Resets the state of the [Backtracking](../../Related%20Systems/Backtracking.md) system effectively clearing the history, current accumulator and set the current dialogue to the start. 
-* Sets the existing [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s [Entity data](../../../TextAsset%20Data/Entity%20data.md) to stop talking.
+* Sets the existing [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s [Entity](../../../Entities/Entity.md) to stop talking.
 * Obtains the new entity of the [tailtarget](../../Notable%20local%20variable/tailtarget.md) is obtained, but it will only be set immediately if `entity` is null or `transition` is `instant`. Otherwise, it will first set the [textbox](../../Notable%20local%20variable/textbox.md) to hide itself and yield for 0.035 seconds. Only after this yield is completed will the [tailtarget](../../Notable%20local%20variable/tailtarget.md) change entity. An exception to this rule is if the [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity is the same than the one to set it to in which case, the yield and hiding of the textbox are skipped.
 * Yields a frame.
 * Change the bleep sound and pitch according to the new [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (the sound is set to null if the new entity is null).

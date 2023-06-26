@@ -7,25 +7,25 @@ Alias to [String](String.md) if processed by SetText directly where `flagstring`
 (1)
 
 ````
-|string,menutext|
+|menu,menutext|
 ````
 
 (2)
 
 ````
-|single,menutext,clamp,maxwidth|
+|menu,menutext,clamp,maxwidth|
 ````
 
 (3)
 
 ````
-|single,menutext,clamp,maxwidth,widthscaleclamp|
+|menu,menutext,clamp,maxwidth,widthscaleclamp|
 ````
 
 (3)
 
 ````
-|single,menutext,true|
+|menu,menutext,true|
 ````
 
 ## Parameters

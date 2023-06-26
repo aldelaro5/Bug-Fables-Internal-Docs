@@ -1,6 +1,6 @@
 # Movewait
 
-Yield until a specific [Entity data](../../../TextAsset%20Data/Entity%20data.md)'s forcemove lock is released.
+Yield until a specific [Entity](../../../Entities/Entity.md)'s forcemove lock is released.
 
 ## Syntax
 
@@ -12,7 +12,7 @@ Yield until a specific [Entity data](../../../TextAsset%20Data/Entity%20data.md)
 
 ### `entity`: int | string
 
-The [Entity data](../../../TextAsset%20Data/Entity%20data.md) that this command refers to. The int form is a regular [Entity id](../Entity%20id.md) and its restriction for valid values applies. The string form can be one of the following:
+The [Entity](../../../Entities/Entity.md) that this command refers to. The int form is a regular [Entity id](../Entity%20id.md) and its restriction for valid values applies. The string form can be one of the following:
 
 * `this`: Refers to the [tailtarget](../../Notable%20local%20variable/tailtarget.md). This must not be null or an exception will be thrown.
 * `caller`: Refers to the caller's entity. This must not be null or an exception will be thrown.

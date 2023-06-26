@@ -1,6 +1,6 @@
 # Anim
 
-Change the animation state of the party or a specific [Entity data](../../../TextAsset%20Data/Entity%20data.md).
+Change the [animstate](../../../Entities/EntityControl/Animations/animstate.md) of the party or a specific [Entity](../../../Entities/Entity.md).
 
 ## Syntax
 
@@ -12,7 +12,7 @@ Change the animation state of the party or a specific [Entity data](../../../Tex
 
 ### `entity`:  `this` | `party` | `caller` | `parent` | int
 
-The [Entity data](../../../TextAsset%20Data/Entity%20data.md) to change the animation state:
+The [Entity](../../../Entities/Entity.md) to change the animation state:
 
 * `this`: Refers to [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (This only reliably works in [Dialogue mode](../../Dialogue%20mode.md) otherwise, it will take the last value of [tailtarget](../../Notable%20local%20variable/tailtarget.md) which is potentially undefined behavior).
 * `party`: Refers to each of the party's entities.
@@ -26,45 +26,7 @@ Any other value is treated like a regular [Entity id](../Entity%20id.md). If it 
 
 ### `anim`: string | int
 
-The animation state to set. The string form must be one of these which have an int form equivalent (this is case sensitive):
-
-|int|string|
-|---|------|
-|0|`Idle`|
-|1|`Walk`|
-|2|`Jump`|
-|3|`Fall`|
-|4|`ItemGet`|
-|5|`Angry`|
-|6|`Sad`|
-|7|`Upset`|
-|8|`Happy`|
-|9|`Surprized`|
-|10|`Flustered`|
-|11|`Hurt`|
-|12|`Death`|
-|13|`BattleIdle`|
-|14|`Sleep`|
-|15|`Fallen`|
-|16|`HurtFallen`|
-|17|`WeakBattleIdle`|
-|18|`KO`|
-|19|`PickAction`|
-|20|`WeakPickAction`|
-|21|`Woobly`|
-|22|`HurtWooble`|
-|23|`Chase`|
-|24|`Block`|
-|25|`SleepFallen`|
-|26|`AirTackle`|
-|27|`ItemWalk`|
-|28|`TossItem`|
-|29|`Sit`|
-|30|`FakeHurt`|
-|31|`Dig`|
-|32|`DigMove`|
-
-Any non int value that isn't on this list will be interpreted as an int which will cause an exception to be thrown. Any int value is valid.
+The animation state to set. The string form must be a [animstate > Standard animation clips base name](../../../Entities/EntityControl/Animations/animstate.md#standard-animation-clips-base-name). Any non int value that isn't on this list will be interpreted as an int which will cause an exception to be thrown. Any int value is valid.
 
 ## Remarks
 

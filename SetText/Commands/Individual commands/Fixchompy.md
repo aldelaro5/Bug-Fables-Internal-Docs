@@ -1,6 +1,6 @@
 # Fixchompy
 
-Set Chompy's `following` to the last party's [Entity data](../../../TextAsset%20Data/Entity%20data.md).
+Set Chompy's `following` to the last party's [Entity](../../../Entities/Entity.md).
 
 ## Syntax
 

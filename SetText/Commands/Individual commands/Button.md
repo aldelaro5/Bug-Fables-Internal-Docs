@@ -27,18 +27,19 @@ Renders a ButtonSprite inline of the text and adjust the offset accordingly to r
 ### `buttonid`: int
 
 The button id to render. This must be a valid integer or an exception will be thrown. If it is not a valid button id, this is undefined behavior which may lead to an exception being thrown. Here are the different button ids available:
-id | name
----------- | ---------
-0 | Up
-1 | Down
-2 | Left
-3 | Right
-4 | Confirm / Jump / Interact
-5 | Cancel / Field Action
-6 | Scroll Faster / Switch Party
-7 | Show / Hide HUD
-8 | Pause
-9 | Help
+
+|id|name|
+|--|----|
+|0|Up|
+|1|Down|
+|2|Left|
+|3|Right|
+|4|Confirm / Jump / Interact|
+|5|Cancel / Field Action|
+|6|Scroll Faster / Switch Party|
+|7|Show / Hide HUD|
+|8|Pause|
+|9|Help|
 
 ### `type`: int
 

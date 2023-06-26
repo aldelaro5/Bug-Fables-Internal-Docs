@@ -20,6 +20,6 @@ The [Dialogue line id](../Dialogue%20line%20id.md) to redirect to if applicable.
 
 ## Remarks
 
-The actual check is performed using the activeInHierarchy field of the entity's GameObject. This means that not only the [Entity data](../../../TextAsset%20Data/Entity%20data.md) needs to be active to redirect, but all of its parent too.
+The actual check is performed using the activeInHierarchy field of the entity's GameObject. This means that not only the [Entity](../../../Entities/Entity.md) needs to be active to redirect, but all of its parent too.
 
 If a redirection happen, the input string is replaced by an [OrganiseLines](../../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of the resolved `redirect` dialogue line and processing resumes at the start of the input string to accommodate its replacement.

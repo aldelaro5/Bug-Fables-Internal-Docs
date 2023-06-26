@@ -9,18 +9,20 @@
 ## `FortuneTeller0` data
 
 The asset contains one line per [crystalbfflags](../Enums%20and%20IDs/crystalbfflags.md) slot which contains 1 field per line:
-Name | Type |  Description
-------- | ------- |  -------
-Hint | [SetText](../SetText/SetText.md) string | The hint given for the corresponding [crystalbfflags](../Enums%20and%20IDs/crystalbfflags.md)
+
+|Name|Type|Description|
+|----|----|-----------|
+|Hint|[SetText](../SetText/SetText.md) string|The hint given for the corresponding [crystalbfflags](../Enums%20and%20IDs/crystalbfflags.md)|
 
 The hint is selected randomly among every [crystalbfflags](../Enums%20and%20IDs/crystalbfflags.md) slots whose value is false. None is given if all of them are true.
 
 ## `FortuneTeller1` data
 
 The asset contains one line per Lore Book which contains 1 field per line:
-Name | Type |  Description
-------- | ------- |  -------
-Hint | [SetText](../SetText/SetText.md) string | The hint given for the corresponding Lore Book
+
+|Name|Type|Description|
+|----|----|-----------|
+|Hint|[SetText](../SetText/SetText.md) string|The hint given for the corresponding Lore Book|
 
 Each Lore Book is expected to be bound to a specific [flags](../Flags%20arrays/flags.md) slot which are hardcoded. Here are the [flags](../Flags%20arrays/flags.md) slot expected for each line index:
 
@@ -58,9 +60,10 @@ The hint can only be selected if the [flags](../Flags%20arrays/flags.md) slot is
 ## `FortuneTeller2` data
 
 The asset contains one line per [Medal](../Enums%20and%20IDs/Medal.md) that has a hint which contains 1 field per line:
-Name | Type |  Description
-------- | ------- |  -------
-Hint | [SetText](../SetText/SetText.md) string | The hint given for the corresponding [Medal](../Enums%20and%20IDs/Medal.md)
+
+|Name|Type|Description|
+|----|----|-----------|
+|Hint|[SetText](../SetText/SetText.md) string|The hint given for the corresponding [Medal](../Enums%20and%20IDs/Medal.md)|
 
 Each of these hints is expected to be a [Medal](../Enums%20and%20IDs/Medal.md) be bound to a specific [flags](../Flags%20arrays/flags.md) slot which are hardcoded. Here are the [flags](../Flags%20arrays/flags.md) slot expected for each line index:
 

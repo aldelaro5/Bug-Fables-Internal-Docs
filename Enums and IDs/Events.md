@@ -15,7 +15,7 @@ There are many known way to trigger an event. Here is a list of the currently kn
 * Manually via the `EventControl.StartEvent` method
 * [SetText](../SetText/SetText.md)'s [Event](../SetText/Commands/Individual%20commands/Event.md) command
 * `MapControl`'s `autoevent` system
-* A wide variety of [Entity data](../TextAsset%20Data/Entity%20data.md) can have a way to trigger a configurable event
+* A wide variety of [Entity](../Entities/Entity.md) can have a way to trigger a configurable event
 
 Since they are coroutines, they have the ability to wait for specific amounts of time or until certain tasks are done. This makes it perfect for any kinds of specific scripts the game may want to run if the content only applies to a specific situation. While [SetText](../SetText/SetText.md) is very powerful, events are way more powerful since it gives direct control of the game.
 

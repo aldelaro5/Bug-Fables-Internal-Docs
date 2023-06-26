@@ -7,31 +7,31 @@ An alias of [size](size.md) or [Sizemulti](Sizemulti.md) that is only processed 
 (1)
 
 ````
-|battlesize,sizeuniform|
+|listsize,sizeuniform|
 ````
 
 (2)
 
 ````
-|battlesize,sizex,sizey|
+|listsize,sizex,sizey|
 ````
 
 (3)
 
 ````
-|battlesize,unpause,sizex,sizey|
+|listsize,unpause,sizex,sizey|
 ````
 
 (4)
 
 ````
-|battlesize,sizex,sizey,lockcontrol|
+|listsize,sizex,sizey,lockcontrol|
 ````
 
 (5) (Alias of [Sizemulti](Sizemulti.md))
 
 ````
-|battlesize,multi,sizex,sizey|
+|listsize,multi,sizex,sizey|
 ````
 
 ## Parameters

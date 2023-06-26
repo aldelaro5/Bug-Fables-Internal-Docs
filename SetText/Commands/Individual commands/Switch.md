@@ -1,6 +1,6 @@
 # Switch
 
-Toggle or set the hit field of an [Entity data](../../../TextAsset%20Data/Entity%20data.md)'s npc (this is meant to toggle or set the state of an [Entity data](../../../TextAsset%20Data/Entity%20data.md) of type switch).
+Toggle or set the hit field of an [Entity](../../../Entities/Entity.md)'s npc (this is meant to toggle or set the state of an [Entity](../../../Entities/Entity.md) of type switch).
 
 ## Syntax
 

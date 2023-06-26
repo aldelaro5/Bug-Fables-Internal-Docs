@@ -8,10 +8,11 @@
 ## `DiscoveryOrder` data
 
 The asset contains one line per [Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md) which contains the ordered list of the entries shown in game where each entry is one line. Each line contains 2 fields separated by `,`:
-Name | Type |  Description
-------- | ------- |  -------
-Id | [Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md) id | The id this line refers to
-Icon | int | Index of the sprite in `Sprites/Items/EnemyPortraits`
+
+|Name|Type|Description|
+|----|----|-----------|
+|Id|[Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md) id|The id this line refers to|
+|Icon|int|Index of the sprite in `Sprites/Items/EnemyPortraits`|
 
 The id is loaded into `libraryorder[0, id]`  and the icon is loaded into `discoveryicons[id]` where `id` is the [Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md) id.
 
@@ -20,10 +21,11 @@ The ordering is managed by PauseMenu and the [Library List Type](../ItemList/Lis
 ## `Discoveries` language specific data
 
 The asset contains one line per [Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md) whose id corresponds to the line index. Each line contains 2 fields separated by `@`:
-Loaded index | Name | Type |  Description
------ | ------- | ------- |  -------
-0 | Name | [SetText](../SetText/SetText.md) string | The name of the [Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md)
-1 | Description | [SetText](../SetText/SetText.md) string | The paginated description of the [Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md)
+
+|Loaded index|Name|Type|Description|
+|------------|----|----|-----------|
+|0|Name|[SetText](../SetText/SetText.md) string|The name of the [Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md)|
+|1|Description|[SetText](../SetText/SetText.md) string|The paginated description of the [Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md)|
 
 The data will be loaded into `librarydata[0, id, x]` where `id` is the [Discoveries entry](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md) id and `x` is the loaded index.
 

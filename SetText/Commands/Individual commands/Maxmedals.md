@@ -5,7 +5,7 @@ Replace this command's text by the number of collectible medals in the game (har
 ## Syntax
 
 ````
-|rerollshops|
+|maxmedals|
 ````
 
 ## Parameters

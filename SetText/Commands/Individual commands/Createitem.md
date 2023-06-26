@@ -1,6 +1,6 @@
 # Createitem
 
-Create an item [Entity data](../../../TextAsset%20Data/Entity%20data.md) of a specific [Items](../../../Enums%20and%20IDs/Items.md), [Medal](../../../Enums%20and%20IDs/Medal.md) or a Crystal Berry with configurable position and timer before disappearing.
+Create an item [Entity](../../../Entities/Entity.md) of a specific [Items](../../../Enums%20and%20IDs/Items.md), [Medal](../../../Enums%20and%20IDs/Medal.md) or a Crystal Berry with configurable position and timer before disappearing.
 
 ## Syntax
 
@@ -36,19 +36,19 @@ The type of the item. This must be a valid int or an exception will be thrown. H
 
 ### `itemid`: int
 
-The [Items](../../../Enums%20and%20IDs/Items.md) or [Medal](../../../Enums%20and%20IDs/Medal.md) id. This must be a valid [Items](../../../Enums%20and%20IDs/Items.md) or [Medal](../../../Enums%20and%20IDs/Medal.md) id or an exception will be thrown when rendering the [Entity data](../../../TextAsset%20Data/Entity%20data.md).
+The [Items](../../../Enums%20and%20IDs/Items.md) or [Medal](../../../Enums%20and%20IDs/Medal.md) id. This must be a valid [Items](../../../Enums%20and%20IDs/Items.md) or [Medal](../../../Enums%20and%20IDs/Medal.md) id or an exception will be thrown when rendering the [Entity](../../../Entities/Entity.md).
 
 ### `xposition`: float
 
-The x position of where to place the [Entity data](../../../TextAsset%20Data/Entity%20data.md). This must be a valid float or an exception will be thrown. The default value is the x position of the player.
+The x position of where to place the [Entity](../../../Entities/Entity.md). This must be a valid float or an exception will be thrown. The default value is the x position of the player.
 
 ### `xposition`: float
 
-The y position of where to place the [Entity data](../../../TextAsset%20Data/Entity%20data.md). This must be a valid float or an exception will be thrown. The default value is the y position of the player.
+The y position of where to place the [Entity](../../../Entities/Entity.md). This must be a valid float or an exception will be thrown. The default value is the y position of the player.
 
 ### `xposition`: float
 
-The z position of where to place the [Entity data](../../../TextAsset%20Data/Entity%20data.md). This must be a valid float or an exception will be thrown. The default value is the z position of the player.
+The z position of where to place the [Entity](../../../Entities/Entity.md). This must be a valid float or an exception will be thrown. The default value is the z position of the player.
 
 ### `timer`: int
 
@@ -56,4 +56,4 @@ The amount of frames before the item disappear. This must be a valid int or an e
 
 ## Remarks
 
-This will create the item without a velocity and it will also prepend the name with `Fixed` which gives the [Entity data](../../../TextAsset%20Data/Entity%20data.md) the Fixed modifier. Additionally, the RigidBody's constraints of the [Entity data](../../../TextAsset%20Data/Entity%20data.md) are frozen and the insideid field set to the current one.
+This will create the item without a velocity and it will also prepend the name with `Fixed` which gives the [Entity](../../../Entities/Entity.md) the Fixed modifier. Additionally, the RigidBody's constraints of the [Entity](../../../Entities/Entity.md) are frozen and the insideid field set to the current one.

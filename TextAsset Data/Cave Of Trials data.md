@@ -3,9 +3,10 @@
 The game contains a TextAsset located at `Ressources/data/Trials` from the root of the assets tree that contains data about Cave of Trials. It is only loaded during the course of [Event](../SetText/Commands/Individual%20commands/Event.md) 156 (Cave of Trials event) to gather the enemies ids used to start the battle for each round using StartBattle directly.
 
 The asset contains a list of battles of a standard run in order, one for each line. Each lines contains one field:
-Name | Type | Description
------- | ------- | --------
-Enemy list | `,` separated list of [Enemies](../Enums%20and%20IDs/Enemies.md) id | The list of [Enemies](../Enums%20and%20IDs/Enemies.md) for the fight
+
+|Name|Type|Description|
+|----|----|-----------|
+|Enemy list|`,` separated list of [Enemies](../Enums%20and%20IDs/Enemies.md) id|The list of [Enemies](../Enums%20and%20IDs/Enemies.md) for the fight|
 
 ## About the amount of fights
 
@@ -20,10 +21,11 @@ Random mode still loads this asset, but the difference is that the actual battle
 ## Hardcoded rewards data
 
 Here are the hardcoded rewards data present in the event:
-Fight block | GiveItem's id | GiveItem's type | Reward description | flags slot
--------- | -------- | --------- | -------- | ------
-0 | 77 | 0 | Tangy Berry | 503 
-1 | 121 | 0 | Dark Cherries | 504
-2 | 50 | 2 | Defense Exchange | 505
-3 | 25 | 2 | TP Saver | 506
-4 | 185 | 1 | Team Ribbon | 673
+
+|Fight block|GiveItem's id|GiveItem's type|Reward description|flags slot|
+|-----------|-------------|---------------|------------------|----------|
+|0|77|0|Tangy Berry|503|
+|1|121|0|Dark Cherries|504|
+|2|50|2|Defense Exchange|505|
+|3|25|2|TP Saver|506|
+|4|185|1|Team Ribbon|673|

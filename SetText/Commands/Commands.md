@@ -81,7 +81,7 @@ There are 217 commands as of 1.1.2.
 |46|[Getstorage](Individual%20commands/Getstorage.md)|REPLACE|
 |47|[Button](Individual%20commands/Button.md)|REGULAR RENDERING, INFLUENCE ORGANISELINES, BACKTRACK|
 |48|[Movewait](Individual%20commands/Movewait.md)||
-|49|[Move](Individual%20commands/Move.md)||
+|49|[SetText/Commands/Individual commands/Move](Individual%20commands/Move.md)||
 |50|[Forcewait](Individual%20commands/Forcewait.md)||
 |51|[Wait](Individual%20commands/Wait.md)||
 |52|[Face](Individual%20commands/Face.md)||
@@ -111,7 +111,7 @@ There are 217 commands as of 1.1.2.
 |76|[Checkregional](Individual%20commands/Checkregional.md)|REDIRECT|
 |77|[Checkflag](Individual%20commands/Checkflag.md)|REDIRECT|
 |78|[Regionalflag](Individual%20commands/Regionalflag.md)||
-|79|[Createitem](Individual%20commands/Createitem.md)||
+|79|[SetText/Commands/Individual commands/Createitem](Individual%20commands/Createitem.md)||
 |80|[Addboard](Individual%20commands/Addboard.md)|UNUSED|
 |81|`Openboard`|NOT REFERENCED|
 |82|[Camangle](Individual%20commands/Camangle.md)||
@@ -211,7 +211,7 @@ There are 217 commands as of 1.1.2.
 |176|[Backbox](Individual%20commands/Backbox.md)||
 |177|[Testdiag](Individual%20commands/Testdiag.md)|UNUSED|
 |178|[Lore](Individual%20commands/Lore.md)|REPLACE|
-|179|[Follow](Individual%20commands/Follow.md)||
+|179|[SetText/Commands/Individual commands/Follow](Individual%20commands/Follow.md)||
 |180|[Transitionsort](Individual%20commands/Transitionsort.md)||
 |181|[Moveahead](Individual%20commands/Moveahead.md)||
 |182|[Addquest](Individual%20commands/Addquest.md)||

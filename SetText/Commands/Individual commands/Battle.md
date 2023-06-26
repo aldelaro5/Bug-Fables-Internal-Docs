@@ -13,13 +13,13 @@ Starts an inescapable enemy battle with all or a specific list of [Enemies](../.
 (2)
 
 ````
-|single,enemies,music|
+|battle,enemies,music|
 ````
 
 (3)
 
 ````
-|single,enemies,music,map|
+|battle,enemies,music,map|
 ````
 
 ## Parameters

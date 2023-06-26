@@ -1,6 +1,6 @@
 # Checkanim
 
-Redirect to a different dialogue line if an [Entity data](../../../TextAsset%20Data/Entity%20data.md)'s anim state is a specific value.
+Redirect to a different dialogue line if an [Entity](../../../Entities/Entity.md)'s [animstate](../../../Entities/EntityControl/Animations/animstate.md) is a specific value.
 
 ## Syntax
 
@@ -12,7 +12,7 @@ Redirect to a different dialogue line if an [Entity data](../../../TextAsset%20D
 
 ### `entity`: int | `this` | `caller` | string
 
-The [Entity id](../Entity%20id.md) or designator to check the anim state. The int form represents an [Entity id](../Entity%20id.md) and it must be a valid int or an exception will be thrown. If the entity resolves to null, an exception will be thrown. This also supports other values:
+The [Entity id](../Entity%20id.md) or designator to check the [animstate](../../../Entities/EntityControl/Animations/animstate.md). The int form represents an [Entity id](../Entity%20id.md) and it must be a valid int or an exception will be thrown. If the entity resolves to null, an exception will be thrown. This also supports other values:
 
 * `this`: Refers to the [tailtarget](../../Notable%20local%20variable/tailtarget.md).
 * `caller`: Refers to the caller.
@@ -20,7 +20,7 @@ The [Entity id](../Entity%20id.md) or designator to check the anim state. The in
 
 ### `animstate`: int | `!`int
 
-The anim state to check for equality that `entity` has. The int portion must be a valid int or an exception will be thrown. The `!` prefix indicates to always redirect (NOTE: it is likely a bug because it is safe to assume it was supposed to invert the condition, but it instead always redirect due to the command's implementation).
+The [animstate](../../../Entities/EntityControl/Animations/animstate.md) to check for equality that `entity` has. The int portion must be a valid int or an exception will be thrown. The `!` prefix indicates to always redirect (NOTE: it is likely a bug because it is safe to assume it was supposed to invert the condition, but it instead always redirect due to the command's implementation).
 
 ### `redirect`: int
 

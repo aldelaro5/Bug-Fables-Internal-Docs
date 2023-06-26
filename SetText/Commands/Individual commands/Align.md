@@ -1,6 +1,6 @@
 # Align
 
-Move the party and Chompy if present to be aligned in a row to the right or left of the caller via a forcemove.
+Move the party and Chompy's [Entity](../../../Entities/Entity.md) if present to be aligned in a row to the right or left of the caller via a forcemove.
 
 ## Syntax
 
@@ -50,7 +50,7 @@ First, the overridefollower flag is set to true while making sure to save its ol
 
 ### Party's forcemove
 
-Then, the player entities are setup for the forcemove. Their forcejump are set to true except for the lead and backsprite to false. The forcemove is then setup so that each player entity will move at the desired position determined via `direction` (multiplied by the offset) * 1.3 * index  where the index is the order of the player entities starting from 0 and offset is the float form of `offsetorflipback` or its default value. This essentially will move the party so they are 1.3 apart at the position which is the `direction` combined with the offset. This is all done without speed multiplier or consideration of the y position. The animation state during the move is `1` and `0` when done. After the move, the player entities will face towards the caller. Finally, the collisions the ccol of the player entities with the ccol of the caller are disabled.
+Then, the player entities are setup for the forcemove. Their forcejump are set to true except for the lead and backsprite to false. The forcemove is then setup so that each player entity will move at the desired position determined via `direction` (multiplied by the offset) * 1.3 * index  where the index is the order of the player entities starting from 0 and offset is the float form of `offsetorflipback` or its default value. This essentially will move the party so they are 1.3 apart at the position which is the `direction` combined with the offset. This is all done without speed multiplier or consideration of the y position. The animation state during the move are the default Walk and Idle when done. After the move, the player entities will face towards the caller. Finally, the collisions the ccol of the player entities with the ccol of the caller are disabled.
 
 ### Chompy's forcemove
 
@@ -60,11 +60,11 @@ After everyone's forcemove is setup, this is where the textbox's hide/reveal ani
 
 ### Monitoring the party's forcemove
 
-After, the command will monitor when the party stops moving. Every frame where the move is still ongoing, every player entity's backsprite is set to false, every entity whose forcemove is complete will be set to face the caller and a frame is yielded. There is also an additional failsafe that can trigger here: If it's been more than 300 frames that the forcemove is ongoing, the position of each player entities will be set to their target. This failsafe is an addition to the regular forcemove one described in the [Move](Move.md) command. The lowest timeout will be used in practice.
+After, the command will monitor when the party stops moving. Every frame where the move is still ongoing, every player entity's backsprite is set to false, every entity whose forcemove is complete will be set to face the caller and a frame is yielded. There is also an additional failsafe that can trigger here: If it's been more than 300 frames that the forcemove is ongoing, the position of each player entities will be set to their target. This failsafe is an addition to the regular forcemove one described in the [SetText/Commands/Individual commands/Move](Move.md) command. The lowest timeout will be used in practice.
 
 ### Monitoring the Chompy's forcemove
 
-Once the player entities moves are complete, If Chompy is present and is still moving, the command will yield until she isn't. The failsafe however still applies here and the framecount is cumulated meaning if the party's move have triggered the failsafe, it will be immediately triggered for Chompy as well. It also means that Chompy can trigger it alone even if the party does not trigger it. Once done, her ccol collision with the caller's are enabled back, she will be facing the caller and her anim state reset to `0`.
+Once the player entities moves are complete, If Chompy is present and is still moving, the command will yield until she isn't. The failsafe however still applies here and the framecount is cumulated meaning if the party's move have triggered the failsafe, it will be immediately triggered for Chompy as well. It also means that Chompy can trigger it alone even if the party does not trigger it. Once done, her ccol collision with the caller's are enabled back, she will be facing the caller and her anim state reset to Idle.
 
 ### Cleanups
 

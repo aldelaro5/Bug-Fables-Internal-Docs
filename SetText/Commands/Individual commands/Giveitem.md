@@ -41,13 +41,14 @@ Give an [items](../../../Enums%20and%20IDs/Items.md), [Medal](../../../Enums%20a
 The type of the item to add. This must be a valid int or an exception will be thrown.
 
 Here are the different values available:
-Value | Type
---------- | --------
--1 | Berries
-0 | Standard item
-1 | Key item
-2 | Medal
-3 | Crystal Berry
+
+|Value|Type|
+|-----|----|
+|-1|Berries|
+|0|Standard item|
+|1|Key item|
+|2|Medal|
+|3|Crystal Berry|
 
 Any other value will cause undefined behaviors.
 
@@ -66,7 +67,7 @@ The [Dialogue line id](../Dialogue%20line%20id.md) to continue processing at aft
 
 ### `entityid`: int
 
-The [Entity id](../Entity%20id.md) used to perform the animation of getting the item and to determine where to render the item sprite. This must be a valid [Entity id](../Entity%20id.md) or an exception will be thrown. The default value is -1 (the first player's [Entity data](../../../TextAsset%20Data/Entity%20data.md) which is the current lead).
+The [Entity id](../Entity%20id.md) used to perform the animation of getting the item and to determine where to render the item sprite. This must be a valid [Entity id](../Entity%20id.md) or an exception will be thrown. The default value is -1 (the first player's [Entity](../../../Entities/Entity.md) which is the current lead).
 
 ### `var`
 

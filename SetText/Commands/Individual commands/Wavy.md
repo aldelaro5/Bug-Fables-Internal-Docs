@@ -16,6 +16,8 @@ None
 
 This turns the wavy [FontEffects](../../Related%20Systems/FontEffects.md) from false to true or from true to false depending on its existing state. The state change will affect every letter from the point this command is being processed.
 
+This command can be overridden by [Shaky](Shaky.md), if it is issued while wavy is active, it will remain active, but the effect will not render, only shaky.
+
 This command does nothing in [Single Letter Rendering](../../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md).
 
 This command is accumulated for the [Backtracking](../../Related%20Systems/Backtracking.md) system.

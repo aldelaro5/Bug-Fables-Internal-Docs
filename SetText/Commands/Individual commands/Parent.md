@@ -1,6 +1,6 @@
 # Parent
 
-Change the caller to an [Entity data](../../../TextAsset%20Data/Entity%20data.md)'s NPCControl.
+Change the caller to an [Entity](../../../Entities/Entity.md)'s NPCControl.
 
 ## Syntax
 

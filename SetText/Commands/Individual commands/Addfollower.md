@@ -1,6 +1,6 @@
 # Addfollower
 
-Add the caller as a follower to a new entity or add a new one via an [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) or a [flagvar](../../../Flags%20arrays/flagvar.md) slot containing it.
+Add the caller as a follower to a new [entity](../../../Entities/Entity.md) or add a new one via an [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) or a [flagvar](../../../Flags%20arrays/flagvar.md) slot containing it.
 
 ## Syntax
 
@@ -60,5 +60,5 @@ The way followers work is there are 3 lists/arrays involved:
 
 Adding a follower is done in 2 ways:
 
-* Adding from an existing entity: This is what syntax (3) and (4) does. How it works is it destroys the caller's entity, but creates it back this time following the last member of the follower chain (in the order player, party members and existing `map.tempfollowers`). This also adds the follower to `extrafollowers` and `map.tempfollowers`. which makes the follower active immediately.
+* Adding from an existing [entity](../../../Entities/Entity.md): This is what syntax (3) and (4) does. How it works is it destroys the caller's [entity](../../../Entities/Entity.md), but creates it back this time following the last member of the follower chain (in the order player, party members and existing `map.tempfollowers`). This also adds the follower to `extrafollowers` and `map.tempfollowers`. which makes the follower active immediately.
 * Adding from [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md): This is what syntax (1) and (2) does. All this do is add the [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) to `extrafollowers`, but nothing else. This means the follower isn't going to be active until a map load is performed which implies the whitelisting of `map.canfollowID` needs to allow the follower. This is only used for troubleshooting purposes in the TestRoom.

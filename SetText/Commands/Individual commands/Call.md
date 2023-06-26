@@ -7,25 +7,25 @@ An alias of [String](String.md) where `flagstring` is a [Dialogue line id](../Di
 (1)
 
 ````
-|string,lineid|
+|call,lineid|
 ````
 
 (2)
 
 ````
-|single,lineid,clamp,maxwidth|
+|call,lineid,clamp,maxwidth|
 ````
 
 (3)
 
 ````
-|string,lineid,clamp,maxwidth,widthscaleclamp|
+|call,lineid,clamp,maxwidth,widthscaleclamp|
 ````
 
 (3)
 
 ````
-|string,lineid,true|
+|call,lineid,true|
 ````
 
 ## Parameters

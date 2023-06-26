@@ -1,6 +1,6 @@
 # Kill
 
-Kills an [Entity data](../../../TextAsset%20Data/Entity%20data.md) by calling Death(true) on it.
+Kills an [Entity](../../../Entities/Entity.md) by calling [Death](../../../Entities/EntityControl/Notable%20methods/Death.md) (with `activatekill` true) on it.
 
 ## Syntax
 
@@ -12,7 +12,7 @@ Kills an [Entity data](../../../TextAsset%20Data/Entity%20data.md) by calling De
 
 ### `entity`:  `this` | `caller` | int
 
-The [Entity data](../../../TextAsset%20Data/Entity%20data.md) to kill:
+The [Entity](../../../Entities/Entity.md) to kill:
 
 * `this`: Refers to [tailtarget](../../Notable%20local%20variable/tailtarget.md)'s entity (This only reliably works in [Dialogue mode](../../Dialogue%20mode.md) otherwise, it will take the last value of [tailtarget](../../Notable%20local%20variable/tailtarget.md) which is potentially undefined behavior).
 * `caller`: Refers to the caller if it is not null. If it is, this command does nothing.
@@ -22,8 +22,8 @@ Any non int value that isn't in one of the predefined values above will cause an
 
 ## Remarks
 
-There is a special case for Shop and CaravanBadge entities where it will call SetBadgeShop(true) on the entity's NPCControl for the former and on the shopkeeper of the entity's NPCControl for the later.
+There is a special case for Shop and CaravanBadge entities where it will call SetBadgeShop(true) on the entity's [NPCControl](../../../Entities/NPCControl/NPCControl.md) for the former and on the shopkeeper of the [entity](../../../Entities/Entity.md)'s [NPCControl](../../../Entities/NPCControl/NPCControl.md) for the later.
 
-This command only kills the entity if its NPCControl isn't null and it's not a CaravanBadge.
+This command only kills the entity if its [NPCControl](../../../Entities/NPCControl/NPCControl.md) isn't null and it's not a CaravanBadge.
 
-Once the entity has been killed if applicable, the player's list of NPCControl is reset to a new list.
+Once the [entity](../../../Entities/Entity.md) has been killed if applicable, the player's list of [NPCControl](../../../Entities/NPCControl/NPCControl.md) is reset to a new list.
