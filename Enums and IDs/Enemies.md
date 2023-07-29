@@ -7,118 +7,118 @@ An `Enemies` enum value represents a unique identifier to an enemy in battle. Th
 
 ## Enemies table
 
-|ID|Name|
-|--|----|
-|0|Zombiant|
-|1|Jellyshroom|
-|2|Spider|
-|3|Zasp|
-|4|Cactiling|
-|5|Psicorp|
-|6|Thief|
-|7|Bandit|
-|8|Inichas|
-|9|Seedling|
-|10|Flying Seedling|
-|11|Maki|
-|12|Web|
-|13|Spider|
-|14|Numbnail|
-|15|Mothiva|
-|16|Acornling|
-|17|Weevil|
-|18|Mr. Tester|
-|19|Venus' Bud|
-|20|Chomper|
-|21|Acolyte Aria|
-|22|Vine|
-|23|Kabbu|
-|24|Venus' Guardian|
-|25|Wasp Trooper|
-|26|Wasp Bomber|
-|27|Wasp Driller|
-|28|Wasp Scout|
-|29|Midge|
-|30|Underling|
-|31|Monsieur Scarlet|
-|32|Golden Seedling|
-|33|Arrow Worm|
-|34|Carmina|
-|35|Seedling King|
-|36|Broodmother|
-|37|Plumpling|
-|38|Flowerling|
-|39|Burglar|
-|40|Astotheles|
-|41|Mother Chomper|
-|42|Ahoneynation|
-|43|Bee-Boop|
-|44|Security Turret|
-|45|Denmuki|
-|46|Heavy Drone B-33|
-|47|Mender|
-|48|Abomihoney|
-|49|Dune Scorpion|
-|50|Tidal Wyrm|
-|51|Kali|
-|52|Zombee|
-|53|Zombeetle|
-|54|The Watcher|
-|55|Peacock Spider|
-|56|Bloatshroom|
-|57|Krawler|
-|58|Haunted Cloth|
-|59|Sand Wall|
-|60|Ice Wall|
-|61|Warden|
-|62|Wasp King|
-|63|Jumping Spider|
-|64|Mimic Spider|
-|65|Leafbug Ninja|
-|66|Leafbug Archer|
-|67|Leafbug Clubber|
-|68|Madesphy|
-|69|The Beast|
-|70|Chomper Brute|
-|71|Mantidfly|
-|72|General Ultimax|
-|73|Wild Chomper|
-|74|Cross|
-|75|Poi|
-|76|Primal Weevil|
-|77|False Monarch|
-|78|Mothfly|
-|79|Mothfly Cluster|
-|80|Ironnail|
-|81|Belostoss|
-|82|Ruffian|
-|83|Water Strider|
-|84|Diving Spider|
-|85|Cenn|
-|86|Pisci|
-|87|Dead Lander α|
-|88|Dead Lander β|
-|89|Dead Lander γ|
-|90|Wasp King|
-|91|The Everlasting King|
-|92|Maki|
-|93|Kina|
-|94|Yin|
-|95|ULTIMAX Tank|
-|96|Zommoth|
-|97|Riz|
-|98|Devourer|
-|99|Tail|
-|100|Rock Wall|
-|101|Ancient Key|
-|102|Ancient Key|
-|103|Ancient Tablet|
-|104|Flytrap|
-|105|FireKrawler|
-|106|FireWarden|
-|107|FireCape|
-|108|IceKrawler|
-|109|IceWarden|
-|110|TANGYBUG|
-|111|Stratos|
-|112|Delilah|
+|ID|Name|Enum Name|
+|--|----|---------|
+|0|Zombiant|CordycepsAnt|
+|1|Jellyshroom|Mushroom|
+|2|Spider|Spuder|
+|3|Zasp|Zasp|
+|4|Cactiling|Cactus|
+|5|Psicorp|Pseudoscorpion|
+|6|Thief|Thief|
+|7|Bandit|Bandit|
+|8|Inichas|ArmoredPoly|
+|9|Seedling|Seedling|
+|10|Flying Seedling|FlyingSeedling|
+|11|Maki|MakiTutorial|
+|12|Web|MothWeb|
+|13|Spider|SpuderReal|
+|14|Numbnail|Sneil|
+|15|Mothiva|Mothiva1|
+|16|Acornling|Acornling|
+|17|Weevil|Weevil|
+|18|Mr. Tester|MrTester|
+|19|Venus' Bud|AngryPlant|
+|20|Chomper|FlyTrap|
+|21|Acolyte Aria|Acolyte|
+|22|Vine|AcolyteVine|
+|23|Kabbu|Beetle|
+|24|Venus' Guardian|VenusBoss|
+|25|Wasp Trooper|WaspTrooper|
+|26|Wasp Bomber|WaspBomber|
+|27|Wasp Driller|WaspDriller|
+|28|Wasp Scout|WaspHealer|
+|29|Midge|Midge|
+|30|Underling|Underling|
+|31|Monsieur Scarlet|Scarlet|
+|32|Golden Seedling|GoldenSeedling|
+|33|Arrow Worm|Sandworm|
+|34|Carmina|Carmina|
+|35|Seedling King|SeedlingKing|
+|36|Broodmother|MidgeBroodmother|
+|37|Plumpling|Plumpling|
+|38|Flowerling|Flowering|
+|39|Burglar|Burglar|
+|40|Astotheles|BanditLeader|
+|41|Mother Chomper|MotherChomper|
+|42|Ahoneynation|Ahoneynation|
+|43|Bee-Boop|BeeBot|
+|44|Security Turret|BeeTurret|
+|45|Denmuki|ShockWorm|
+|46|Heavy Drone B-33|BeeBoss|
+|47|Mender|MenderBot|
+|48|Abomihoney|Abomihoney|
+|49|Dune Scorpion|Scorpion|
+|50|Tidal Wyrm|SandWyrm|
+|51|Kali|Kali|
+|52|Zombee|Zombee|
+|53|Zombeetle|Zombeetle|
+|54|The Watcher|ZombieRoach|
+|55|Peacock Spider|PeacockSpider|
+|56|Bloatshroom|Bloatshroom|
+|57|Krawler|Krawler|
+|58|Haunted Cloth|Cape|
+|59|Sand Wall|SandWall|
+|60|Ice Wall|IceWall|
+|61|Warden|CursedSkull|
+|62|Wasp King|WaspKingIntermission|
+|63|Jumping Spider|JumpingSpider|
+|64|Mimic Spider|MimicSpider|
+|65|Leafbug Ninja|LeafbugNinja|
+|66|Leafbug Archer|LeafbugArcher|
+|67|Leafbug Clubber|LeafbugClubber|
+|68|Madesphy|SkullCaterpillar|
+|69|The Beast|Centipede|
+|70|Chomper Brute|ChomperBrute|
+|71|Mantidfly|Mantidfly|
+|72|General Ultimax|WaspGeneral|
+|73|Wild Chomper|WildChomper|
+|74|Cross|TermiteSoldier|
+|75|Poi|TermiteNasute|
+|76|Primal Weevil|PrimalWeevil|
+|77|False Monarch|FalseMonarch|
+|78|Mothfly|Mothfly|
+|79|Mothfly Cluster|MothflyCluster|
+|80|Ironnail|Ironclad|
+|81|Belostoss|ToeBiter|
+|82|Ruffian|Ruffian|
+|83|Water Strider|Strider|
+|84|Diving Spider|DivingSpider|
+|85|Cenn|Cenn|
+|86|Pisci|Pisci|
+|87|Dead Lander α|DeadLanderA|
+|88|Dead Lander β|DeadLanderB|
+|89|Dead Lander γ|DeadLanderG|
+|90|Wasp King|WaspKing|
+|91|The Everlasting King|EverlastingKing|
+|92|Maki|Maki|
+|93|Kina|Kina|
+|94|Yin|Yin|
+|95|ULTIMAX Tank|UltimaxTank|
+|96|Zommoth|Zommoth|
+|97|Riz|Fisherman|
+|98|Devourer|Pitcher|
+|99|Tail|SandWyrmTail|
+|100|Rock Wall|PisciWall|
+|101|Ancient Key|KeyR|
+|102|Ancient Key|KeyL|
+|103|Ancient Tablet|Tablet|
+|104|Flytrap|PitcherFlytrap|
+|105|FireKrawler|FireKrawler|
+|106|FireWarden|FireWarden|
+|107|FireCape|FireCape|
+|108|IceKrawler|IceKrawler|
+|109|IceWarden|IceWarden|
+|110|TANGYBUG|TANGYBUG|
+|111|Stratos|Stratos|
+|112|Delilah|Delilah|
