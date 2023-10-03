@@ -2,7 +2,6 @@
 
 A `flagvar` is an int which is a global variable the game can access for any purpose. They are saved on the [Save File](../Save%20File.md) and typically have one reserved use, but some can be used temporarily notably in [SetText](../SetText/SetText.md) operations. There are 70 flagvars available to the game in the `MainManager.instance.flagvar` array.
 
- > 
  > Before 1.1.0, there were 65 slots instead
 
 ## Notes about the flagvars table
@@ -10,7 +9,7 @@ A `flagvar` is an int which is a global variable the game can access for any pur
 If a flagvar mentions "Prize medal", it means that the flagvar corresponds to the state of a [medal](../Enums%20and%20IDs/Medal.md) given by Artis with Hard Mode on or bought in the medal shop without Hard Mode (not to be confused with the regular medal shops in the game). The possible values of a prize medal flagvar are as follows:
 
 |Value|Description|
-|-----|-----------|
+|-----:|-----------|
 |0|not available|
 |1|available from Artis|
 |2|available from the caravan|
@@ -21,7 +20,7 @@ A flagvar with the mention "TEMP" means its value in the save is only used for t
 ## Flagvars table
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|TEMP|
 |1|TEMP|
 |2|TEMP|

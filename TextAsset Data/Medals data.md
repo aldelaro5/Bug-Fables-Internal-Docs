@@ -11,7 +11,7 @@
 The asset contains one line per [Medal](../Enums%20and%20IDs/Medal.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
 |Loaded index|Name|Type|Description|
-|------------|----|----|-----------|
+|------------:|----|----|-----------|
 |2|MP cost|int|The cost of the medal in MP to equip|
 |3|Party equipable|bool|Tells if this medal can be equipped to the whole party or not.|
 |4|Item effects|`;` separated list of ItemUse|The list of item effects this medal has (see below for details)|
@@ -30,7 +30,7 @@ An ItemUse is defined by 2 fields separated by `,`:
 The usetype must be specified as a string or int representation of an ItemUsage enum value. Here are the valid values, anything else is considered invalid:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|None|
 |1|HPRecover|
 |2|TPRecover|
@@ -78,7 +78,7 @@ The usetype must be specified as a string or int representation of an ItemUsage 
 The asset contains one line per [Medal](../Enums%20and%20IDs/Medal.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
 |Loaded index|Name|Type|Description|
-|------------|----|----|-----------|
+|------------:|----|----|-----------|
 |0|Name|[SetText](../SetText/SetText.md) string|The name of the medal|
 |1|Description|[SetText](../SetText/SetText.md) string|The description of the medal|
 |6|Prepender|[SetText](../SetText/SetText.md) string|The prepender string used with the [Anstring](../SetText/Commands/Individual%20commands/Anstring.md) command for this medal|

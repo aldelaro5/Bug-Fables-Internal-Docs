@@ -8,11 +8,11 @@ This page contains documentations about some minor [languageid](../SetText/langu
 
 # Areas
 
-There are 2 TextAsset that describes each [Areas](../Enums%20and%20IDs/librarystuff/Areas.md): `AreaNames` and `AreaDesc`. `AreaNames` is loaded on boot by SetVariables into the `areanames` array and it contains an area name whose line index corresponds to an [Areas](../Enums%20and%20IDs/librarystuff/Areas.md) id. `AreaDesc` is loaded by PauseMenu's MapSetup into the `enemydata` array and it contains an area description whose line index corresponds to an [Areas](../Enums%20and%20IDs/librarystuff/Areas.md) id.
+There are 2 TextAsset that describes each [Areas](../Enums%20and%20IDs/librarystuff/Areas.md): `AreaNames` and `AreaDesc`. `AreaNames` is loaded on boot by SetVariables into the `areanames` array and it contains an area name whose line index corresponds to an [Area](../Enums%20and%20IDs/librarystuff/Areas.md) id. `AreaDesc` is loaded by PauseMenu's MapSetup into the `enemydata` array and it contains an area description whose line index corresponds to an [Area](../Enums%20and%20IDs/librarystuff/Areas.md) id.
 
 # Credits
 
-`Credits` contains the text rendered in the credits which has its own rendering scheme. It is loaded on [Event](../SetText/Commands/Individual%20commands/Event.md) 204 (credits) and it gets rendered using lists of TextMesh in rich text mode. It is the only notable textual information not rendered using [SetText](../SetText/SetText.md).
+`Credits` contains the text rendered in the credits which has its own rendering scheme. It is loaded on [Event](../SetText/Commands/Individual%20commands/Event.md) 204 (credits) and it gets rendered using a list of TextMesh in rich text mode. It is the only notable textual information not rendered using [SetText](../SetText/SetText.md).
 
 # Unused
 

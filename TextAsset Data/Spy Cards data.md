@@ -18,7 +18,7 @@ The asset contains one line per Spy Card whose id corresponds to the line index.
 |----|----|-----------|
 |tp|int|The cost of the card in TP|
 |attack|int|The attack value of the card|
-|enemyid|int|The [Enemies](../Enums%20and%20IDs/Enemies.md) id this card is bound to|
+|enemyid|int|The [Enemy](../Enums%20and%20IDs/Enemies.md) id this card is bound to|
 |namesizeX (unused)|float|The unused version of namesizeX|
 |type|Type (int only)|The type of the card|
 |effects|`@` separated list of effects|The effects of the card (see below for details)|
@@ -29,7 +29,7 @@ The data will be loaded into `carddata[id]`, where `id` is the Spy Card id using
 A Type can be one of the following values:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|Attacker|
 |1|Effect|
 |2|Miniboss|
@@ -38,7 +38,7 @@ A Type can be one of the following values:
 A Tribe can be one of the following values:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|Seedling|
 |1|Wasp|
 |2|Fungi|
@@ -65,7 +65,7 @@ A card effect contains 3 fields separated by `#`:
 The first and second parameters's meaning depends on the effect. Here are the valid values for an Effects:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|Attack|
 |1|Defense|
 |2|RandomMiniboss|
@@ -119,11 +119,11 @@ The asset contains one line per Spy Card whose id corresponds to the line index.
 |Name|Type|Description|
 |----|----|-----------|
 |Description|[SetText](../SetText/SetText.md) string|The description of the card|
-|namesizeX|float|The horizontal scaling to apply to the [SetText](../SetText/SetText.md) string of the [Enemies](../Enums%20and%20IDs/Enemies.md) name|
+|namesizeX|float|The horizontal scaling to apply to the [SetText](../SetText/SetText.md) string of the [Enemy](../Enums%20and%20IDs/Enemies.md)'s name|
 
 The data will be loaded into `carddata[id]`, where `id` is the Spy Card id using the respective fields of a CardData struct.
 
-It should be noted that `namesizeX` is ignored when the [languageid](../SetText/languageid.md) is set to `Japanese`. Under that language, there is no scaling applied horizontally if the [Enemies](../Enums%20and%20IDs/Enemies.md) name is at most 3 characters. If the name is longer, then it's a Lerp from 0.45 to 1.0 where the value is 1 - the length of the name string / 10.0.
+It should be noted that `namesizeX` is ignored when the [languageid](../SetText/languageid.md) is set to `Japanese`. Under that language, there is no scaling applied horizontally if the [Enemy](../Enums%20and%20IDs/Enemies.md) name is at most 3 characters. If the name is longer, then it's a Lerp from 0.45 to 1.0 where the value is 1 - the length of the name string / 10.0.
 
 How the `namesizeX` work is normally, the [SetText](../SetText/SetText.md) call for the enemy name is sent with a size parameter of (0.5, 0.5), but the field is multiplied by the horizontal component. A value of 1.0 means 0.5 while a value of 0.5 means 0.25. It does not change the vertical component, only the horizontal one.
 

@@ -7,20 +7,20 @@
 
 ## `ItemData` data
 
-The asset contains one line per [Items](../Enums%20and%20IDs/Items.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
+The asset contains one line per [Item](../Enums%20and%20IDs/Items.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
-Loaded | index | Name | Type |  Description
------ | ------- | ------- |  -------
-4 | Value | int | The buying price of the item in berries (the selling price is half of it)
-5 | Effects | `;` separated list of ItemUse | The list of effects this item has (see below for details)
-6 | Target | AttackArea | The target this item can be used on
+|Loaded index|Name|Type|Description|
+|-----:|-------|-------|-------|
+|4|Value|int|The buying price of the item in berries (the selling price is half of it)|
+|5|Effects|`;` separated list of ItemUse|The list of effects this item has (see below for details)|
+|6|Target|AttackArea|The target this item can be used on|
 
-The data will be loaded into `itemdata[0, id, x]` where `id` is the [Items](../Enums%20and%20IDs/Items.md) id and `x` is the loaded index. It should be noted that the id dimension of the array is overprovisioned to exactly 256 elements, this is hardcoded. The first dimension is hardcoded to only have one element, this is also hardcoded.
+The data will be loaded into `itemdata[0, id, x]` where `id` is the [Item](../Enums%20and%20IDs/Items.md) id and `x` is the loaded index. It should be noted that the id dimension of the array is overprovisioned to exactly 256 elements, this is hardcoded. The first dimension is hardcoded to only have one element, this is also hardcoded.
 
 The attack area must be specified as a string or int representation of an AttackArea enum value. Here are the valid values, anything else is considered invalid:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|SingleEnemy|
 |1|AllEnemy|
 |2|SingleAlly|
@@ -39,7 +39,7 @@ An ItemUse is defined by 2 fields separated by `,`:
 The usetype must be specified as a string or int representation of an ItemUsage enum value. Here are the valid values, anything else is considered invalid:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|None|
 |1|HPRecover|
 |2|TPRecover|
@@ -84,7 +84,7 @@ The usetype must be specified as a string or int representation of an ItemUsage 
 
 ## `Items` data
 
-The asset contains one line per [Items](../Enums%20and%20IDs/Items.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
+The asset contains one line per [Item](../Enums%20and%20IDs/Items.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
 |Loaded index|Name|Type|Description|
 |------------|----|----|-----------|

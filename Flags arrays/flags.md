@@ -2,7 +2,6 @@
 
 A global `flags` (not to be confused with the generic programming term) is a bool which is a global variable the game can access for any purpose. They are saved on the [Save File](../Save%20File.md) and typically have one reserved use, but some can be used temporarily notably number 400 and number 0 (reserved for debugging). There are 750 global flags available to the game in the `MainManager.instance.flags` array.
 
- > 
  > Before 1.1.0, there were 700 available flags instead.
 
 ## Notes about the global flags table
@@ -12,7 +11,7 @@ An empty description means unknown.
 ## Global Flags table
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Chapter 1, went northwest on the map with Chuck at the Outskirt~Set to false at the start of Chapter 2, then to true when getting into the mines|
 |1|Talked to Utter for the first time in the City plaza|
 |2|False when new unchecked quests are available, set to true when talking to Utter about new quests or checking the board|

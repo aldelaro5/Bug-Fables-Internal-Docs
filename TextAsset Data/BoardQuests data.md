@@ -27,7 +27,7 @@ It should be noted that a prerequisite of 0 is only supported as it being the on
 The asset contains one line per [BoardQuests](../Enums%20and%20IDs/BoardQuests.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
 |Loaded index|Name|Type|Description|
-|------------|----|----|-----------|
+|------------:|----|----|-----------|
 |3|Taken flags|int|The [flags](../Flags%20arrays/flags.md) slot telling if the quest was taken|
 |4|Icon|int|Index of the sprite in `Sprites/Items/EnemyPortraits` to render using the [Quest Board List Type](../ItemList/List%20Types%20Group%20Details/Quest%20Board%20List%20Type.md)|
 |5|Difficulty|int|The amount of stars to render as a difficulty indicator using the [Quest Board List Type](../ItemList/List%20Types%20Group%20Details/Quest%20Board%20List%20Type.md)|
@@ -39,7 +39,7 @@ The data will be loaded into `boardquestdata[id, x]` where `id` is the [BoardQue
 The asset contains one line per [BoardQuests](../Enums%20and%20IDs/BoardQuests.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
 |Loaded index|Name|Type|Description|
-|------------|----|----|-----------|
+|------------:|----|----|-----------|
 |0|Name|[SetText](../SetText/SetText.md) string|The name of the quest|
 |1|Description|[SetText](../SetText/SetText.md) string|The description of the quest|
 |2|Sender|[SetText](../SetText/SetText.md) string|The name of the sender of the quest|

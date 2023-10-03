@@ -15,8 +15,8 @@
 The asset contains one line per [Medal](../Enums%20and%20IDs/Medal.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
 |Loaded index|Name|Type|Description|
-|------------|----|----|-----------|
-|0|battleentity.animid|int|The [AnimIDs](../Enums%20and%20IDs/AnimIDs.md) of the entity bound to this enemy|
+|------------:|----|----|-----------|
+|0|battleentity.animid|int|The [AnimID](../Enums%20and%20IDs/AnimIDs.md) of the entity bound to this enemy|
 |1|hp|int|The base max HP of the enemy|
 |2|def|int|The base defense of the enemy|
 |3|exp|int|The base amount of exploration points this enemy gives|
@@ -41,7 +41,7 @@ The asset contains one line per [Medal](../Enums%20and%20IDs/Medal.md) whose id 
 |22|battleentity.bobrange|float|By how much the entity bobs|
 |23|weakness|`{` separated list of AttackProperty (int or string)|The list of attack properties the enemy is weak to|
 |24|weight|float|???|
-|25|Base [Enemies](../Enums%20and%20IDs/Enemies.md) id (loaded as animid)|int|The [Enemies](../Enums%20and%20IDs/Enemies.md) id to load most of the fields from (this is used for an enemy variation, see below for details), can be omitted by putting any negative number|
+|25|Base [Enemy](../Enums%20and%20IDs/Enemies.md) id (loaded as animid)|int|The [Enemy](../Enums%20and%20IDs/Enemies.md) id to load most of the fields from (this is used for an enemy variation, see below for details), can be omitted by putting any negative number|
 |26|eventondeath|int|The EventDialogue to trigger when the enemy dies?|
 |27|moves|int|The amount of actions the enemy has normally each turn during the enemy phase|
 |28|notaunt|bool|Tells if the enemy can be taunted?|
@@ -71,7 +71,7 @@ The data will be loaded by `GetEnemyData` into `enemydata[id, x]`, where `id` is
 Here are the valid BattlePosition:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|Ground|
 |1|Flying|
 |2|OutOfReach|
@@ -81,7 +81,7 @@ Here are the valid BattlePosition:
 Here are the valid AttackProperty:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|Pierce|
 |1|Flip|
 |2|Freeze|
@@ -115,11 +115,11 @@ Here are the valid AttackProperty:
 
 All `battleentity` fields are loaded only when the `createentity` parameter is true. Additionally, some fields have special loading logic:
 
-* `exp`: The field is left at 0 if the party's level is 27 or if RUIGEE is active ([flags](../Flags%20arrays/flags.md) 613). It will be loaded, but overridden to 0 if the `noexp` parameter is true. Additionally, the actual amount loaded is scaled using the current level, but there are special cases with WaspTrooper and WaspHealer depending on the current map and area which can increase by 1.65x or 2.5x (floored) the amount of exp before scaling it. Additionally, the final amount after scaling if applicable is decreased by 80% floored and then clamped from 0 to 5 if [flags](../Flags%20arrays/flags.md) 162 is true (during a B.O.S.S or Cave Of Trials session). This number than gets decreased by 90% floored if it is TANGYBUG or an unseen enemy during Cave Of Trials.
+* `exp`: The field is left at 0 if the party's level is 27 or if RUIGEE is active ([flag](../Flags%20arrays/flags.md) 613). It will be loaded, but overridden to 0 if the `noexp` parameter is true. Additionally, the actual amount loaded is scaled using the current level, but there are special cases with WaspTrooper and WaspHealer depending on the current map and area which can increase by 1.65x or 2.5x (floored) the amount of exp before scaling it. Additionally, the final amount after scaling if applicable is decreased by 80% floored and then clamped from 0 to 5 if [flag](../Flags%20arrays/flags.md) 162 is true (during a B.O.S.S or Cave Of Trials session). This number then gets decreased by 90% floored if it is TANGYBUG or an unseen enemy during Cave Of Trials.
 * `sizeonfreeze` If the loaded vector is not long enough (0.1 magnitude), it will default to be `size` * 0.25.
 * `hardatk`, `harddef`, `hardhp`, `hp`, `def`: see the section below detailing how enemy stats difficulty scaling works.
-* `position`: If its value is Random, then it will be determined randomly and uniformly between Ground and Flying, but there's an exception if the enemy is a Mushroom and [flags](../Flags%20arrays/flags.md) 24 is true (received the Turn Relay tutorial) in which case, the position field is Flying.
-* Portrait sprite index: This field is overridden to 225 for a Cape, 226 for a Krawler and 227 for a CursedSkull if [flags](../Flags%20arrays/flags.md) 664 is true (Approached the oven during Chapter 7).
+* `position`: If its value is Random, then it will be determined randomly and uniformly between Ground and Flying, but there's an exception if the enemy is a Mushroom and [flag](../Flags%20arrays/flags.md) 24 is true (received the Turn Relay tutorial) in which case, the position field is Flying.
+* Portrait sprite index: This field is overridden to 225 for a Cape, 226 for a Krawler and 227 for a CursedSkull if [flag](../Flags%20arrays/flags.md) 664 is true (Approached the oven during Chapter 7). This overrides the portrait sprite to include the fire variants of the enemy
 
 ### Stats difficulty scaling
 
@@ -137,9 +137,9 @@ On top of this, if HARDEST is active:
 
 * `hardatk` is incremented once
 * `hp` is increased by 15% ceiled
-* `def` is incremented if it wasn't negative and [flags](../Flags%20arrays/flags.md) 300 is true (start of Chapter 4)
+* `def` is incremented if it wasn't negative and [flag](../Flags%20arrays/flags.md) 300 is true (start of Chapter 4)
 
-On top of all this, if EX mode is active ([flags](../Flags%20arrays/flags.md) 166), then there are additional effects if the enemy isn't WaspGeneral, KeyR, KeyL or Tablet:
+On top of all this, if EX mode is active ([flag](../Flags%20arrays/flags.md) 166), then there are additional effects if the enemy isn't WaspGeneral, KeyR, KeyL or Tablet:
 
 * `hp` is increased by 15% ceiled. If this ends up above 90, it is then decreased by 15% ceiled.
 * `hardatk` is increased by 15% ceiled
@@ -147,7 +147,7 @@ On top of all this, if EX mode is active ([flags](../Flags%20arrays/flags.md) 16
 
 ### Enemy variant
 
-The base [Enemies](../Enums%20and%20IDs/Enemies.md) id field uses a feature to redirect most of the fields loaded to be the ones belonging to another enemy entirely. It is used to add an enemy variant which only shares some fields with its base enemy, but it has its own id. Here are the list of fields that are shared:
+The base [Enemy](../Enums%20and%20IDs/Enemies.md) id field uses a feature to redirect most of the fields loaded to be the ones belonging to another enemy entirely. It is used to add an enemy variant which only shares some fields with its base enemy, but it has its own id. Here are the list of fields that are shared:
 
 * `eventondeath`
 * `battleentity.height`
@@ -159,7 +159,9 @@ The base [Enemies](../Enums%20and%20IDs/Enemies.md) id field uses a feature to r
 * `notired`
 * `fixedexp`
 * `position`
-  There are however some fields that are excluded from this if the original [Enemies](../Enums%20and%20IDs/Enemies.md) id is FireKrawler, FireWarden, FireCape, IceKrawler or IceWarden and they will have the value of the base enemy instead of the actual one being loaded:
+  
+There are however some fields that are excluded from this if the original [Enemies](../Enums%20and%20IDs/Enemies.md) id is FireKrawler, FireWarden, FireCape, IceKrawler or IceWarden and they will have the value of the base enemy instead of the actual one being loaded:
+
 * `moves`
 * `notaunt`
 * `cantfall`
@@ -167,25 +169,25 @@ The base [Enemies](../Enums%20and%20IDs/Enemies.md) id field uses a feature to r
 * `fixedexp`
 * `position`
 
-Every other loading logic or fields will be loaded as if it was the enemy of the corresponding base [Enemies](../Enums%20and%20IDs/Enemies.md) id. This imply that every other field of the actual enemy will be ignored and they can be left as dummy values.
+Every other loading logic or fields will be loaded as if it was the enemy of the corresponding base [Enemy](../Enums%20and%20IDs/Enemies.md) id. This imply that every other field of the actual enemy will be ignored and they can be left as dummy values.
 
 ## `EnemyTattle` data
 
-The asset contains one line per [Enemies](../Enums%20and%20IDs/Enemies.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
+The asset contains one line per [Enemy](../Enums%20and%20IDs/Enemies.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
 |Loaded index|Name|Type|Description|
-|------------|----|----|-----------|
+|------------:|----|----|-----------|
 |0|Name|[SetText](../SetText/SetText.md) string|The name of the enemy|
 |1|Biography|[SetText](../SetText/SetText.md) string|The biography of the enemy|
 |2|Vi's spy|[SetText](../SetText/SetText.md) string|Vi's Spy dialogue|
 |3|Kabbu's spy|[SetText](../SetText/SetText.md) string|Kabbu's Spy dialogue|
 |4|Leif's spy|[SetText](../SetText/SetText.md) string|Leif's Spy dialogue|
 
-The data will be loaded into `librarydata[1, id, x]` where `id` is the [Enemies](../Enums%20and%20IDs/Enemies.md) id and `x` is the loaded index. The name is also loaded into `enemynames`.
+The data will be loaded into `librarydata[1, id, x]` where `id` is the [Enemy](../Enums%20and%20IDs/Enemies.md) id and `x` is the loaded index. The name is also loaded into `enemynames`.
 
 Enemies not meant to have a [Bestiary entry](../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md) by convention have only the name field defined and the rest are dummy fields. The biography's dummy value is typically "biotattle" as well as the spy text fields being "beetattle", "beetletattle" and "mothtattle" respectively.
 
-During `GetEnemyData`, the typical value is the one loaded into `enemynames` but it will be menutext 59 (?????) during Cave Of Trials for an unseen enemy or if the enemy is FireKrawler, FireCape or FireWarden while [flags](../Flags%20arrays/flags.md) 664 is false (not yet approached the oven during Chapter 7).
+During `GetEnemyData`, the typical value is the one loaded into `enemynames` but it will be menutext 59 (?????) during Cave Of Trials for an unseen enemy or if the enemy is FireKrawler, FireCape or FireWarden while [flag](../Flags%20arrays/flags.md) 664 is false (not yet approached the oven during Chapter 7).
 
 ## `TattleList` data
 

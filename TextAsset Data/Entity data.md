@@ -7,7 +7,7 @@ Entity data are split into 2 TextAssets in the game loaded on boot:
 
 ## `EntityValues` data
 
-The TextAsset `Resources/data/EntityValues` from the root of the asset tree contains data that apply to every entities of a given [AnimIDs](../Enums%20and%20IDs/AnimIDs.md). Each line id of the data corresponds to the matching [AnimIDs](../Enums%20and%20IDs/AnimIDs.md). The data is loaded on boot during LoadEssentials in the `endata` static field of MainManager. The field is an array of struct of type `Entity_Data`.
+The TextAsset `Resources/data/EntityValues` from the root of the asset tree contains data that apply to every entities of a given [AnimID](../Enums%20and%20IDs/AnimIDs.md). Each line id of the data corresponds to the matching [AnimID](../Enums%20and%20IDs/AnimIDs.md). The data is loaded on boot during LoadEssentials in the `endata` static field of MainManager. The field is an array of struct of type `Entity_Data`.
 
 NOTE: This asset uses the enum form of the [AnimIDs](../Enums%20and%20IDs/AnimIDs.md), NOT the int form which means the first line represents `None`.
 
@@ -25,7 +25,7 @@ This format is very unique in the game: it is not encoded in a similar fashion t
 Here is the layout of the data and the fields associated with this struct (NOTE: the position is given according to the TextAsset which means `Vector3` are treated as one position):
 
 |Position|Description|Type|Additional information|
-|--------|-----------|----|----------------------|
+|--------:|-----------|----|----------------------|
 |0|shadowsize|float|The default value is 1.0 if the [AnimIDs](../Enums%20and%20IDs/AnimIDs.md) is higher than the max line id contained in the asset|
 |1|startscale|Vector3|The default value is Vector3.one if the [AnimIDs](../Enums%20and%20IDs/AnimIDs.md) is higher than the max line id contained in the asset|
 |2|bleeppitch|float|The default value is 1.0 if the [AnimIDs](../Enums%20and%20IDs/AnimIDs.md) is higher than the max line id contained in the asset|
@@ -61,29 +61,29 @@ NOTE: Fields 24, 25 and 26 must be omitted TOGETHER if any are to be omitted. Fa
 Here are the possible values for a WalkType enum value:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|Normal|
 |1|Jump|
 
 ## `entitydata` directory
 
-The `entitydata` directory contains the names and details that applies to each specific entities that should be loaded upon a specific [Maps](../Enums%20and%20IDs/Maps.md) load. The data only gets loaded during MapControl's `CreateEntities` for the concerned [Maps](../Enums%20and%20IDs/Maps.md) which happens on the MapControl's Start. The data ends up in the `entities` field of the MapControl which is an array of EntityControl.
+The `entitydata` directory contains the names and details that applies to each specific entities that should be loaded upon a specific [Map](../Enums%20and%20IDs/Maps.md) load. The data only gets loaded during MapControl's `CreateEntities` for the concerned [Maps](../Enums%20and%20IDs/Maps.md) which happens on the MapControl's Start. The data ends up in the `entities` field of the MapControl which is an array of EntityControl.
 
-Each line of an entity map asset contains one line per entity. It contains fields about its `EntityControl` and its `NPCControl` (via the `npcdata` field) separated by `}`. Each asset corresponds to each map in the game where its asset's filename is the [Maps](../Enums%20and%20IDs/Maps.md)'s id.
+Each line of an entity map asset contains one line per entity. It contains fields about its `EntityControl` and its `NPCControl` (via the `npcdata` field) separated by `}`. Each asset corresponds to each map in the game where its asset's filename is the [Map](../Enums%20and%20IDs/Maps.md)'s id.
 
-The names of each entity are not contained in the data assets. They are contained in a `names` directory next to the data assets. An entity name asset contains one string per line that corresponds to the name of entity of the matching line in the matching data asset. The names asset filename is the [Maps](../Enums%20and%20IDs/Maps.md) followed by `names`.
+The names of each entity are not contained in the data assets. They are contained in a `names` directory next to the data assets. An entity name asset contains one string per line that corresponds to the name of entity of the matching line in the matching data asset. The names asset filename is `Xnames` where X is the [Map](../Enums%20and%20IDs/Maps.md) id.
 
 This gives the following layout:
 
-* Path to the entity data files from the asset tree: `Resources/data/entitydata`
-* Path to the entity name files from the asset tree: `Resources/data/entitydata/names`
+* Path to the entity data files: `Resources/data/entitydata`
+* Path to the entity name files: `Resources/data/entitydata/names`
 
-The name of an entity can contain special strings to act as modifiers on it which means the name is both used for debugging purposes as well as to modify its behavior.
+The name of an entity can contain special strings to act as [modifiers](../Entities/EntityControl/Modifiers.md) on it which means the name is both used for debugging purposes as well as to modify its behavior.
 
 ### Entity Data File Fields
 
 |Position|Description|Type|Additional information|
-|--------|-----------|----|----------------------|
+|--------:|-----------|----|----------------------|
 |0|npcdata.entitytype|NPCControl.NPCType||
 |1|npcdata.objecttype|NPCControl.ObjectTypes||
 |2|npcdata.behaviors\[0\]|NPCControl.ActionBehaviors||

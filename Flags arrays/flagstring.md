@@ -9,7 +9,7 @@ A flagstring with the mention "TEMP" means its value in the save is meaningless 
 ## Flagstrings table
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|TEMP|
 |1|TEMP|
 |2|TEMP Only used for letter prompts|

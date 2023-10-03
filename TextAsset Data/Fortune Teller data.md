@@ -1,6 +1,6 @@
 # Fortune teller data
 
-[Musics](../Enums%20and%20IDs/Musics.md) data are split in 3 TextAssets in the game loaded in [Events](../Enums%20and%20IDs/Events.md)  71 (talking to the Fortune Teller) and located in the corresponding dialogue directory of the current [languageid](../SetText/languageid.md):
+[Musics](../Enums%20and%20IDs/Musics.md) data are split in 3 TextAssets in the game loaded in [Event](../Enums%20and%20IDs/Events.md) 71 (talking to the Fortune Teller) and located in the corresponding dialogue directory of the current [languageid](../SetText/languageid.md):
 
 * `FortuneTeller0`
 * `FortuneTeller1`
@@ -24,10 +24,10 @@ The asset contains one line per Lore Book which contains 1 field per line:
 |----|----|-----------|
 |Hint|[SetText](../SetText/SetText.md) string|The hint given for the corresponding Lore Book|
 
-Each Lore Book is expected to be bound to a specific [flags](../Flags%20arrays/flags.md) slot which are hardcoded. Here are the [flags](../Flags%20arrays/flags.md) slot expected for each line index:
+Each Lore Book is expected to be bound to a specific [flag](../Flags%20arrays/flags.md) slot which are hardcoded. Here are the [flags](../Flags%20arrays/flags.md) slots expected for each line index:
 
 |Line|Flags slot|
-|----|----------|
+|----:|----------|
 |0|71|
 |1|87|
 |2|142|
@@ -55,7 +55,7 @@ Each Lore Book is expected to be bound to a specific [flags](../Flags%20arrays/f
 |24|604|
 |25|603|
 
-The hint can only be selected if the [flags](../Flags%20arrays/flags.md) slot is false. No hints will be given if they are all true.
+The hint can only be selected if the [flag](../Flags%20arrays/flags.md) slot is false. No hints will be given if they are all true.
 
 ## `FortuneTeller2` data
 
@@ -65,10 +65,10 @@ The asset contains one line per [Medal](../Enums%20and%20IDs/Medal.md) that has 
 |----|----|-----------|
 |Hint|[SetText](../SetText/SetText.md) string|The hint given for the corresponding [Medal](../Enums%20and%20IDs/Medal.md)|
 
-Each of these hints is expected to be a [Medal](../Enums%20and%20IDs/Medal.md) be bound to a specific [flags](../Flags%20arrays/flags.md) slot which are hardcoded. Here are the [flags](../Flags%20arrays/flags.md) slot expected for each line index:
+Each of these hints is expected to be a [Medal](../Enums%20and%20IDs/Medal.md) bound to a specific [flag](../Flags%20arrays/flags.md) slot which are hardcoded. Here are the [flags](../Flags%20arrays/flags.md) slots expected for each line index:
 
 |Line|Flags slot|
-|----|----------|
+|----:|----------|
 |0|338|
 |1|121|
 |2|230|
@@ -86,4 +86,4 @@ Each of these hints is expected to be a [Medal](../Enums%20and%20IDs/Medal.md) b
 |14|23|
 |15|60|
 
-The hint can only be selected if the [flags](../Flags%20arrays/flags.md) slot is false. No hints will be given if they are all true.
+The hint can only be selected if the [flag](../Flags%20arrays/flags.md) slot is false. No hints will be given if they are all true.

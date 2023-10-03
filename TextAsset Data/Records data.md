@@ -23,7 +23,7 @@ The ordering is managed by PauseMenu and the [Library List Type](../ItemList/Lis
 The asset contains one line per [Records entry](../Enums%20and%20IDs/librarystuff/Records%20entry.md) whose id corresponds to the line index. Each line contains 2 fields separated by `@`:
 
 |Loaded index|Name|Type|Description|
-|------------|----|----|-----------|
+|------------:|----|----|-----------|
 |0|Name|[SetText](../SetText/SetText.md) string|The name of the [Records entry](../Enums%20and%20IDs/librarystuff/Records%20entry.md)|
 |1|Description|[SetText](../SetText/SetText.md) string|The description of the [Records entry](../Enums%20and%20IDs/librarystuff/Records%20entry.md)|
 

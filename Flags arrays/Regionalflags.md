@@ -18,7 +18,7 @@ Any ID not specified implies UNUSED.
 ### Bugaria Outskirts
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Rightmost Seedling at the map on the west of the Explorers Association|
 |1|Second Seedling from the right at the map on the west of the Explorers Association|
 |2|Leftmost Seedling from the right at the map on the west of the Explorers Association|
@@ -50,16 +50,15 @@ Any ID not specified implies UNUSED.
 ### Ant Kingdom City
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |1|Talked to Fry once|
 
 ### Snakemouth Den
 
- > 
  > When reaching the Ancien Mask room, the regional flags are programmed to reset to false
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |2|Depths, Zombiant in the center of the room located west of the Spider's room|
 |3|Depths, leftmost Inichas in the room located west of the Spider's room|
 |4|Depths, Inichas on the back right part in the room located west of the Spider's room|
@@ -90,7 +89,7 @@ Any ID not specified implies UNUSED.
 ### Lost Sands
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Bandit at the map located northwest from the map with the blue fortk (south entrance)|
 |1|Cactiling located south at the large sand pit map|
 |2|Psicorp located south at the large sand pit map|
@@ -134,7 +133,7 @@ Any ID not specified implies UNUSED.
 ### Golden Hills
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Got a Magic Seed by cutting the bush next to the crank on the back right part of the map located west from the map with the right angle wooden spinning bridge|
 |1|Weevil in the map located west from the map with the right angle wooden spinning bridge|
 |2|Acornling in the map located west from the map with the right angle wooden spinning bridge|
@@ -151,12 +150,11 @@ Any ID not specified implies UNUSED.
 
 ### Golden Path
 
- > 
  > The regional flags are programmed to reset to false when crossing either the loading zone north of the map
  > with the 2 cranks next to eachother or the loading zone back to it from the north map
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Got a Clear Water by cutting the bush closest to the green spring next to the sign in the first map from Bugaria Outskirts|
 |1|Acornling in the map located east from the map with the shop|
 |3|Weevil in the map located east from the map with the shop|
@@ -176,13 +174,13 @@ Any ID not specified implies UNUSED.
 ### Golden Settlement
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |1|Talked to Kut once|
 
 ### Forsaken Lands
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Mimic Spider in the map with the cut CD|
 |1|Ironnail in the map with a pencil pointing towards the correct path|
 |2|Plumpling in the map with a pencil pointing towards the correct path|
@@ -206,7 +204,7 @@ Any ID not specified implies UNUSED.
 ### Far Grasslands
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Destroyed the boulder on the back of the map located south of the map with the Ant Mines tunnel access|
 |1|Destroyed the boulder on the front of the map located south of the map with the Ant Mines tunnel access|
 |3|Flowerling in the map located north of the south entrance|
@@ -235,7 +233,7 @@ Any ID not specified implies UNUSED.
 ### Wild Swamplands
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Destroyed the boulder above a piece of wood in the map located south of the map with the broken wooden bridge|
 |1|Destroyed the rightmost boulder of the map located south of the map with the broken wooden bridge|
 |2|Madesphy in the south entrance|
@@ -273,13 +271,13 @@ Any ID not specified implies UNUSED.
 ### Defiant Root
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |10|Talked to Crisbee once|
 
 ### Ancient Castle
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Krawler in the entrance room|
 |1|Leftmost Warden in the room located east from the central room first floor|
 |2|Rightmost Warden in the room located east from the central room first floor|
@@ -304,7 +302,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 ### Honey Factory
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Processing area, Security Turret in the first room|
 |1|Processing area, Denmuki in the first room|
 |2|Processing area, Bee-Boop in the room located east from the central room|
@@ -329,7 +327,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 ### Rubber Prison
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Wasp Trooper in the library|
 |1|Ruffian in a cage with a grey lever neat a save point|
 |2|Burglar in the room located north of the room with Venus and some cages|
@@ -354,7 +352,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 ### Giant's Lair
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Krawler in the room above the oven roomm|
 |1|Dead Lander α in the room located west from the refrigirator entrance|
 |2|Dead Lander β in the room located west from the refrigirator entrance|
@@ -380,7 +378,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 ### Metal Lake
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Water Strider at the bottom middle near a piece of wood|
 |1|Wasp Scout near the green carton box|
 |2|Wasp Scout closest to Rubber Prison|
@@ -401,7 +399,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 ### Wasp Kingdom Hive
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Destroyed the boulder in the prison cells room|
 |1|Wasp Trooper in the room with the blue save point|
 |2|Wasp Trooper in the prison cells room|
@@ -410,7 +408,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 ### Bandit Hideout
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Burglar in the first room from the Defiant Root well passage|
 |1|Bandit in the first room from the Defiant Root well passage|
 |2|Thief in the first room from the Defiant Root well passage|
@@ -424,7 +422,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 ### Stream Mountain
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |4|Belostoss in the room located east of the room where the Tydal Wyrm appears|
 |5|Rightmost Water Strider in the room located east of the room where the Tydal Wyrm appears|
 |6|Leftmost Water Strider in the room located east of the room where the Tydal Wyrm appears|
@@ -438,7 +436,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 ### Chomper Caves
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Chomper Brute in the lower part of the first room from the entrance|
 |1|Chomper in the first room from the entrance|
 |2|Middle Chomper in the room located west from the first room|
@@ -455,7 +453,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 ### Upper Snakemouth
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Got a Mushroom on top of the gears in the room located west from the center room|
 |1|Bloatshroom in the first room from the entrance|
 |2|Bloatshroom in the center room|

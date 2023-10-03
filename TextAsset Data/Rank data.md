@@ -15,11 +15,11 @@ The asset contains a list of bonuses to apply given a rank reached, one per line
 The available bonus types are the followings along with their parameters meaning:
 
 |Id|Description|Parameters|
-|--|-----------|----------|
-|0|Grants a skill to a party member|First: [AnimIDs](../Enums%20and%20IDs/AnimIDs.md) of the recipient of the skill|
+|--:|-----------|----------|
+|0|Grants a skill to a party member|First: [AnimID](../Enums%20and%20IDs/AnimIDs.md) of the recipient of the skill|
 |--|--|Second: Skill id to grant|
 |--|--|Third: NOT USED|
-|1|Grant a stat bonus to a party member|First: [AnimIDs](../Enums%20and%20IDs/AnimIDs.md) of the recipient of the stat bonus|
+|1|Grant a stat bonus to a party member|First: [AnimID](../Enums%20and%20IDs/AnimIDs.md) of the recipient of the stat bonus|
 |--|--|Second: Stat to increase (0 = Attack, 1 = Defense, 2 = HP)|
 |--|--|Third: Amount to increase the stat|
 |2|Grants a stat bonus to the whole party|First: The stat to increase (0 = TP, MP otherwise)|
@@ -31,8 +31,8 @@ The available bonus types are the followings along with their parameters meaning
 
 ## A few notes about how the data is handled
 
-For bonus type 0 and 1, the [AnimIDs](../Enums%20and%20IDs/AnimIDs.md) can only be 0 (Vi), 1 (Kabbu) or 2 (Leif) because not doing so can lead to undefined behaviors. Specifically, the game will not be able to get the correct member's name as it is expected to be at menutext 46, 47 and 48 respectively. Any other will resolve to the wrong menutext as it will go past them.
+For bonus type 0 and 1, the [AnimID](../Enums%20and%20IDs/AnimIDs.md) can only be 0 (Vi), 1 (Kabbu) or 2 (Leif) because not doing so can lead to undefined behaviors. Specifically, the game will not be able to get the correct member's name as it is expected to be at menutext 46, 47 and 48 respectively. Any other will resolve to the wrong menutext as it will go past them.
 
-Additionally, the game has a provision that disallow showing the rank up upgrade message if no member with the [AnimIDs](../Enums%20and%20IDs/AnimIDs.md) exists in the party. The bonus will be applied regardless, but the [SetText](../SetText/SetText.md) command will not be done.
+Additionally, the game has a provision that disallow showing the rank up upgrade message if no member with the [AnimID](../Enums%20and%20IDs/AnimIDs.md) exists in the party. The bonus will be applied regardless, but the [SetText](../SetText/SetText.md) command will not be done.
 
 Bonus type 1 and 2 are ignored under RUIGEE.
