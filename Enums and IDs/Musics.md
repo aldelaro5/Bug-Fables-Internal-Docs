@@ -11,7 +11,7 @@ Anything marked DOT is named ".", but is either unused or explicitly excluded un
 ## Musics table
 
 |ID|Name|
-|--|----|
+|--:|----|
 |0|Outskirts|
 |1|Let's fight, team!|
 |2|Snakemouth Den|

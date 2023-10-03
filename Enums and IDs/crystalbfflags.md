@@ -5,7 +5,7 @@ A crystel berry is a collectible bound to a bool that tells whether or not this 
 ## Crystal berries table
 
 |ID|Location|Description|
-|--|--------|-----------|
+|--:|--------|-----------|
 |0|Bugaria Outskirts|Right outside of Snakemouth Den is a Save Crystal and to the right of that is the Crystal Berry.|
 |1|Snakemouth Den|Same as the room with the HP Plus there is a Crystal Berry on the far left platform. It is inside of a weed that needs to be cut down by Kabbu.|
 |2|Snakemouth Den|In the 3-way room with the giant door in the middle and a Save Crystal infront of that there is a Crystal Berry behind a small wall on the back left part of the room.|

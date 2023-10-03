@@ -1,13 +1,13 @@
 # Record entry
 
-A record entry is a collectible bound to a bool that tells whether or not the specific entry for the record has been achieved in the library. Their values are saved in the [Save File](../../Save%20File.md) and the array of them is located at index 3 of the `MainManager.instance.librarystuff` array and it contains 256 elements (most are not used as the array is overprosioned in size). On compatible platforms, enabling a record also unlocks its associated achievement.
+A record entry is a collectible bound to a bool that tells whether or not the specific entry for the record has been achieved in the library. Their values are saved in the [Save File](../../Save%20File.md) and the array of them is located at index 3 of the `MainManager.instance.librarystuff` 2 dimensional jagged array and it contains 256 elements (most are not used as the array is overprosioned in size). On compatible platforms, enabling a record also unlocks its associated achievement.
 
 The entire `librarystuff` two dimensional array is saved on the [Save File](../../Save%20File.md).
 
 ## Record entries table
 
 |ID|Name|Description|
-|--|----|-----------|
+|--:|----|-----------|
 |0|Ultimate Team!|Defeat a very powerful foe.|
 |1|Crystal Collector|Find all Crystal Berries.|
 |2|Medal Collector|Find all Medals.|

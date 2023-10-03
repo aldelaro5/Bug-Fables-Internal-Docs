@@ -1,6 +1,6 @@
 # Medal / badge
 
-A medal or sometimes internally refereed to as `badge` is a collectible in the game that can be equipped. 
+A medal or sometimes internally refered to as `badge` is a collectible in the game that can be equipped. 
 
 The medals in possession and their equipment statuses are saved in the [Save File](../Save%20File.md). 
 
@@ -11,7 +11,7 @@ The IDs are mapped directly to the badge data entries.
 ## Medals table
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|HP Plus|
 |1|TP Plus|
 |2|Detector|

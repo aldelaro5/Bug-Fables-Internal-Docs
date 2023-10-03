@@ -1,13 +1,13 @@
 # Discovery entry
 
-A discovery entry is a collectible bound to a bool that tells whether or not the specific entry for the discovery is unlocked in the library. Their values are saved in the [Save File](../../Save%20File.md) and the array of them is located at index 0 of the `MainManager.instance.librarystuff` array and it contains 256 elements (most are not used as the array is overprosioned in size).
+A discovery entry is a collectible bound to a bool that tells whether or not the specific entry for the discovery is unlocked in the library. Their values are saved in the [Save File](../../Save%20File.md) and the array of them is located at index 0 of the `MainManager.instance.librarystuff` 2 dimensional jagged array and it contains 256 elements (most are not used as the array is overprosioned in size).
 
 The entire `librarystuff` two dimensional array is saved on the [Save File](../../Save%20File.md).
 
 ## Discovery entries table
 
 |ID|Name|
-|--|----|
+|--:|----|
 |0|Snakemouth Den|
 |1|Snakemouth Depths|
 |2|Explorer's Message|

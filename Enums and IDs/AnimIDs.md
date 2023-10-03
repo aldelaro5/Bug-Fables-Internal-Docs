@@ -11,7 +11,7 @@ The table below shows the int format as it is the most common, but it is importa
 ## AnimIDs table
 
 |ID|Name|
-|--|----|
+|--:|----|
 |0|Bee|
 |1|Beetle|
 |2|Moth|

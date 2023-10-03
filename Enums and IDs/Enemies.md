@@ -2,13 +2,12 @@
 
 An `Enemies` enum value represents a unique identifier to an enemy in battle. They are directly mapped to each entry in the enemy data of the game.
 
- > 
  > They are note to be confused with [Bestiary entry](librarystuff/Bestiary%20entry.md).
 
 ## Enemies table
 
 |ID|Name|
-|--|----|
+|--:|----|
 |0|CordycepsAnt|
 |1|Mushroom|
 |2|Spuder|

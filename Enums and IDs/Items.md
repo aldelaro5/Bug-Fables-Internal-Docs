@@ -5,7 +5,7 @@ An `Items` enum value represents an item in the game which can be collected in t
 ## Items table
 
 |ID|Name|
-|--|----|
+|--:|----|
 |0|CrunchyLeaf|
 |1|HoneyDrop|
 |2|VitalitySeed|

@@ -9,7 +9,7 @@ The current map is saved on the [Save File](../Save%20File.md).
 ## Maps table
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|TestRoom|
 |1|NearSnakemouth|
 |2|OutsideSnakemouth|

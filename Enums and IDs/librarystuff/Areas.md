@@ -6,14 +6,14 @@ The current area is saved on the [Save File](../../Save%20File.md).
 
 ## Remarks about `librarystuff`
 
-Each area is bound to a bool value stored in an array located at index 4 of the `MainManager.instance.librarystuff` array that indicates whether or not the area was seen. This allows the game to track which areas to show on the world map. The subarray of `librarystuff` contains 256 elements (most are not used as the array is overprosioned in size). 
+Each area is bound to a bool value stored in a 2 dimensional jagged array located at index 4 of the `MainManager.instance.librarystuff` array that indicates whether or not the area was seen. This allows the game to track which areas to show on the world map. The subarray of `librarystuff` contains 256 elements (most are not used as the array is overprosioned in size). 
 
 The entire `librarystuff` two dimensional array is saved on the [Save File](../../Save%20File.md).
 
 ## Areas table
 
 |ID|Name|
-|--|----|
+|--:|----|
 |0|Bugaria Outskirts|
 |1|Ant Kingdom City|
 |2|Snakemouth Den|

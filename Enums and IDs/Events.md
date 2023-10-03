@@ -4,9 +4,9 @@ An event is a coroutine the game can use to execute scripted code that applies s
 
 Each event's code is located in the `EventControl` component and it must follow this convention for its signature:
 
-````cs
+```cs
 IEnumerator EventX()
-````
+```
 
 Where X is a unique int value specific to this event. They are usually private because they should not be called directly. `EventControl` has all the utilities the game needs to manage the events.
 
@@ -22,11 +22,11 @@ Since they are coroutines, they have the ability to wait for specific amounts of
 ## Events table
 
 |ID|Description|
-|--|-----------|
+|--:|-----------|
 |0|Chapter 1 approaching the hanged bridge in upper Snakemouth Den|
 |1|Chapter 1 cutscene after hitting the bridge switch in Snakemouth Den|
 |2|Chapter 1 getting in the first map of Snakemouth Den (tattle tutorial)|
-|3|Asking a chef to cook. Also used for each of the special recipes quest)|
+|3|Asking a chef to cook. Also used for each of the special recipes quest|
 |4|Chapter 1 pushing the 2 pressure plates in front of the large door in Snakemouth Den|
 |5|Chapter 1 cutscene of falling into the trap in front of the big door in Snakemouth Den|
 |6|Chapter 1 approaching the spider web with Leif in it|

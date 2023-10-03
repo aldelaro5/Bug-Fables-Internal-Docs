@@ -1,13 +1,13 @@
 # Recipe entry
 
-A recipe entry is a collectible bound to a bool that tells whether or not the specific entry for the recipe is unlocked in the library. Their values are saved in the [Save File](../../Save%20File.md) and the array of them is located at index 2 of the `MainManager.instance.librarystuff` array and it contains 256 elements (most are not used as the array is overprosioned in size).
+A recipe entry is a collectible bound to a bool that tells whether or not the specific entry for the recipe is unlocked in the library. Their values are saved in the [Save File](../../Save%20File.md) and the array of them is located at index 2 of the `MainManager.instance.librarystuff` 2 dimensional jagged array and it contains 256 elements (most are not used as the array is overprosioned in size).
 
 The entire `librarystuff` two dimensional array is saved on the [Save File](../../Save%20File.md).
 
 ## Recipe entries table
 
 |ID|Name|
-|--|----|
+|--:|----|
 |0|Mistake|
 |1|Leaf Salad|
 |2|Glazed Honey|
