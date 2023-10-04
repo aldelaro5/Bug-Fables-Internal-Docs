@@ -22,4 +22,4 @@ The behavior is the same then the overridden [Medals List Type](Medals%20List%20
 
 Under normal gameplay, this list is only reachable via PauseMenu after pressing the show HUD input on the medals window. When pressing that input, the handler in PauseMenu's Update will be the one that sets `multilist` to the medals of the equipped bug. Then, UpdateText is called which is the one that calls the appropriate [ShowItemList](../ShowItemList.md) with this list type.
 
-It behaves exactly the same than [Medals List Type](Medals%20List%20Type.md) with the only differences that it uses the [medal](../../Enums%20and%20IDs/Medal.md)s only in `multilist` instead of all the ones the player has.
+It behaves exactly the same than [Medals List Type](Medals%20List%20Type.md) with the only differences that it uses the [medals](../../Enums%20and%20IDs/Medal.md) only in `multilist` instead of all the ones the player has.

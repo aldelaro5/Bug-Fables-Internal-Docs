@@ -22,7 +22,7 @@ If it isn't, It uses the default rendering scheme described in [Description box 
 
 ## Confirmation handling (when unpaused)
 
-First, [flagvar](../../Flags%20arrays/flagvar.md) of the `storeid` is set to the item id selected. If the item id selected is -1, immediately destroy the list which ends this list's processing.
+First, [flagvar](../../Flags%20arrays/flagvar.md) of the `storeid` is set to the item id selected. If the item id selected is -1, the list is immediately destroyed which ends this list's processing.
 
 Otherwise, the [flagstring](../../Flags%20arrays/flagstring.md) 0 is set to the selected item's name from `itemdata`. If `listsell`, the behaviour depends if we were using `multiselect`:
 

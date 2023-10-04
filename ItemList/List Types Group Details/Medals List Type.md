@@ -1,10 +1,10 @@
 # [Medal](../../Enums%20and%20IDs/Medal.md)s list type
 
-Display the list of [medal](../../Enums%20and%20IDs/Medal.md)s currently in possession, not to be confused with [Equipped Medals List Type](Equipped%20Medals%20List%20Type.md).
+Display the list of [medals](../../Enums%20and%20IDs/Medal.md) currently in possession, not to be confused with [Equipped Medals List Type](Equipped%20Medals%20List%20Type.md).
 
 ## Options generation
 
-`listvar` will be all the numbers from 0 to the amount of [medal](../../Enums%20and%20IDs/Medal.md)s in possession - 1.
+`listvar` will be all the numbers from 0 to the amount of [medals](../../Enums%20and%20IDs/Medal.md) in possession - 1.
 
 If paused, `listredirect` is overridden to null.
 

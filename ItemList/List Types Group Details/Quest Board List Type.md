@@ -14,7 +14,8 @@ Display the list of open, taken or completed [BoardQuests](../../Enums%20and%20I
   * Bounty: Devourer
   * Bounty: Tidal Wyrm
   * Bounty: Peacock Spider
-    If the end result has no quests, add quest id 0 (No Quests) as the only quest offered as option.
+    
+If the end result has no quests, add quest id 0 (No Quests) as the only quest offered as option.
 
 `listredirect` is overridden to null.
 
@@ -26,7 +27,7 @@ The x position of the text is overridden to 0.0 and the size to Vector2.one.
 
 ## Description box rendering
 
-`listdescbox` is rendered using a custom rendering scheme. If the quest id isn't No Quest, an image of the quest's author is rendered using librarysprites from the index obtained in boardquestdata which will have a name of `Image` and a tag of `Text` towards the top of the description box. Additionally [SetText](../../SetText/SetText.md) is called with the following in non [Dialogue mode](../../SetText/Dialogue%20mode.md):
+`listdescbox` is rendered using a custom rendering scheme. If the quest id isn't No Quest, an image of the quest's author is rendered using `librarysprites` from the index obtained in [boardquestdata](../../TextAsset%20Data/BoardQuests%20data.md#BoardQuests%20data) which will have a name of `Image` and a tag of `Text` towards the top of the description box. Additionally [SetText](../../SetText/SetText.md) is called with the following in non [Dialogue mode](../../SetText/Dialogue%20mode.md):
 
 * `text`: |[size](../../SetText/Commands/Individual%20commands/size.md),0.75||[sort](../../SetText/Commands/Individual%20commands/Sort.md),1| + The `By:` from MenuText line id 104 + ` ` + The author of the quest obtained from boardquestdata + |[line](../../SetText/Commands/Individual%20commands/Line.md)\||[halfline](../../SetText/Commands/Individual%20commands/Halfline.md)\| + The `Difficulty:` from MenuText line id 105 + ` ` + |[Stars](../../SetText/Commands/Individual%20commands/Stars.md), + The amount of filled in stars of the quest obtained from boardquestdata + `|`
 * `position`: (12, 0.35)

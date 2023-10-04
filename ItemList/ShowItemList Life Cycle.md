@@ -14,7 +14,7 @@ Check the individual [listtype](listtype.md) to learn more.
 
 ## Rerendering after scroll
 
-* if `listlow` isn't `listy` (meaning the list needs to be scrolled or it's a new [ItemList](ItemList.md)) or [listtype](listtype.md) is the language selection list: 
+* if `listlow` isn't `listy` (meaning the list needs to be scrolled or it's a new ItemList) or [listtype](listtype.md) is the language selection list: 
   * [Rerendering after scroll](ShowItemList%20Life%20Cycle/Rerendering%20after%20scroll.md)
 
 ## `listdescbox` rendering
@@ -22,4 +22,4 @@ Check the individual [listtype](listtype.md) to learn more.
 * if `showdescription` and `listvar` isn't empty.
   * Destroys the existing `listdescbox` if it isn't null.
   * [Description box rendering](ShowItemList%20Life%20Cycle/Description%20box%20rendering.md)
-* Sets the [ItemList](ItemList.md)'s localEulerAngle to Vector3.zero.
+* Sets the ItemList's localEulerAngle to Vector3.zero.
