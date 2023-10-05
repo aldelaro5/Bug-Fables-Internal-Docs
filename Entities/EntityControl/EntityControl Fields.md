@@ -8,25 +8,25 @@ These fields are intended to ease the navigation and accesses of the different k
 
 |Name|Type|Description|
 |----|----|-----------|
-|transform|Transform|The transform of the root object of the entity, assigned on [EntityControl Creation > CreateNewEntity](EntityControl%20Creation.md#createnewentity) and [Start](Start.md)|
+|transform|Transform|The transform of the root object of the entity, assigned on [CreateNewEntity](EntityControl%20Creation.md#createnewentity) and [Start](Start.md)|
 |npcdata|NPCControl|The optional [NPCControl](../NPCControl/NPCControl.md) of the entity. This must be set externally or on [CreateEntities](CreateEntities.md)|
-|ccol|CapsuleCollider|The capsule collider of the root object, assigned on [EntityControl Creation > CreateNewEntity](EntityControl%20Creation.md#createnewentity) and [Start](Start.md). The height and radius are loaded on [CreateEntities](CreateEntities.md)|
+|ccol|CapsuleCollider|The capsule collider of the root object, assigned on [CreateNewEntity](EntityControl%20Creation.md#createnewentity) and [Start](Start.md). The height and radius are loaded on [CreateEntities](CreateEntities.md)|
 |rigid|RigidBody|The rigid body of the root object, assigned on [Start](Start.md)|
 |rotater|Transform|The transform of the Rotater object which controls alignement, the first child of the root object, assigned on [Start](Start.md)|
-|sprite|SpriteRenderer|The sprite renderer of the sprite object, assigned on [EntityControl Creation > CreateNewEntity](EntityControl%20Creation.md#createnewentity)|
-|spritetransform|Transform|The transform of the Sprite object, a child of the Rotater object, assigned on [EntityControl Creation > CreateNewEntity](EntityControl%20Creation.md#createnewentity)|
+|sprite|SpriteRenderer|The sprite renderer of the sprite object, assigned on [CreateNewEntity](EntityControl%20Creation.md#createnewentity)|
+|spritetransform|Transform|The transform of the Sprite object, a child of the Rotater object, assigned on [CreateNewEntity](EntityControl%20Creation.md#createnewentity)|
 |emoticon|Animator|The animator component of the Emoticon object which is an icon that appears at the top of the entity for interactions, a child of the Rotater object, assigned on [Start](Start.md)|
 |emoticonsprite|SpriteRender|The sprite renderer component of the Emoticon object, a child of the Rotater object, assigned on [Start](Start.md)|
-|moverotater|Transform|The transform of the MoveRotater object which is used for movement alignment, a child of the root object, assigned on [EntityControl Creation > CreateNewEntity](EntityControl%20Creation.md#createnewentity) and [Start](Start.md)|
+|moverotater|Transform|The transform of the MoveRotater object which is used for movement alignment, a child of the root object, assigned on [CreateNewEntity](EntityControl%20Creation.md#createnewentity) and [Start](Start.md)|
 |shadow|SpriteRender|The sprite renderer of the shadow object, a child of the root object. Assigned on [Start](Start.md) during CreateShadow|
 |shadowtransform|Transform|The transform of the shadow object, a child of the root object. Assigned on [Start](Start.md) during CreateShadow|
 |hpbar|Transform|The transform of the hp bar when applicable, a child of the root object. Assigned on CreateHPBar|
 |hpbarfont|DynamicFont|A DynamicFont of the hpbar that shows the HP, Assigned on CreateHPBar|
 |defstat|DynamicFont|A DynamicFont of the hpbar that shows the defense, Assigned on CreateHPBar|
-|icecube|GameObject|The object of an ice cube when the entity is frozen, a child of the root object. Assigned on [Freeze handling > Freeze](Notable%20methods/Freeze%20handling.md#freeze)|
+|icecube|GameObject|The object of an ice cube when the entity is frozen, a child of the root object. Assigned on [Freeze](Notable%20methods/Freeze%20handling.md#freeze)|
 |movesmoke|Transform|The transform of an instance of `Prefabs/Particles/WalkDust` a child of the root object. Assigned when applicable on [LateStart](Notable%20methods/LateStart.md)|
-|detect|BoxCollider|The BoxCollider of the Detector object with a RayDetector that is used to detect walls via hitwall, a child of the root object. Assigned by [EntityControl Methods > CreateDetector](EntityControl%20Methods.md#createdetector)|
-|feet|GroundDetector|The GroundDetector of an instance of `Prefabs/GroundDetector` a child of the root object used to detect being on the ground via onground. Assigned on [EntityControl Methods > CreateFeet](EntityControl%20Methods.md#createfeet) with this entity as the parent|
+|detect|BoxCollider|The BoxCollider of the Detector object with a RayDetector that is used to detect walls via hitwall, a child of the root object. Assigned by [CreateDetector](EntityControl%20Methods.md#createdetector)|
+|feet|GroundDetector|The GroundDetector of an instance of `Prefabs/GroundDetector` a child of the root object used to detect being on the ground via onground. Assigned on [CreateFeet](EntityControl%20Methods.md#createfeet) with this entity as the parent|
 |flowerbed|GameObject|An instance of `Prefabs/Particles/flowerbed`, a child of of the root object. Assigned during [OnTriggerStay](Update%20process/Unity%20events/OnTriggerStay.md) when the other collider has the `FlowerBed` tag|
 |sound|AudioSource|The audio source of the root object, assigned on [Start](Start.md), but can be reassigned externally|
 
@@ -36,41 +36,41 @@ These fields manages the animations according to the animid.
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
-|animid|int|Yes|The [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) of the entity, dictates the animation controller to use via the anim field. Can be set via [CreateEntities](CreateEntities.md)|
-|originalid|int|No|The [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) at the start of [CheckSpecialID](Notable%20methods/CheckSpecialID.md) which may not be the same then the effective value from the animid field|
+|animid|int|Yes|The [AnimID](../../Enums%20and%20IDs/AnimIDs.md) of the entity, dictates the animation controller to use via the anim field. Can be set via [CreateEntities](CreateEntities.md)|
+|originalid|int|No|The [AnimID](../../Enums%20and%20IDs/AnimIDs.md) at the start of [CheckSpecialID](Notable%20methods/CheckSpecialID.md) which may not be the same then the effective value from the animid field|
 |animstate|int|Yes|The [animstate](Animations/animstate.md) of the entity, dictates the animation clip to play on the controller of the anim field, set via [CreateEntities](CreateEntities.md) if it is an item|
 |basestate|int|Yes|The [animstate](Animations/animstate.md) to consider as the `Idle` one which overrides the default of 0, assigned during [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when applicable|
 |walkstate|int|Yes|The [animstate](Animations/animstate.md) to consider as the `Walk` one which overrides the default of 1, assigned during [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when applicable|
-|changedstate|bool|Yes|Determines if the [animstate](Animations/animstate.md) was changed externally and thus should bypass the landing on ground logic of [UpdateAirAnim](Update%20process/UpdateAirAnim.md) for all entities with an npcdata. This is only used in the [Anim](../../SetText/Commands/Individual%20commands/Anim.md) command.|
+|changedstate|bool|Yes|Determines if the [animstate](Animations/animstate.md) was changed externally and thus should bypass the landing on ground logic of [UpdateAirAnim](Update%20process/UpdateAirAnim.md) for all entities with an npcdata. This is only used in the [Anim](../../SetText/Commands/Individual%20commands/Anim.md) SetText command.|
 |animspeed|float|Yes|The time in second to transition between animations during [SetAnim](Animations/SetAnim.md)|
-|anim|Animator|No|The animator the entity uses. This will use the controller of the animid field. This is first assigned on [Start](Start.md) or [AddModel](Notable%20methods/AddModel.md) , but it can be changed later via ForceAnimator (more details at [EntityControl Methods > Animator change](EntityControl%20Methods.md#animator-change))|
+|anim|Animator|No|The animator the entity uses. This will use the controller of the animid field. This is first assigned on [Start](Start.md) or [AddModel](Notable%20methods/AddModel.md) , but it can be changed later via ForceAnimator (more details at [Animator change](EntityControl%20Methods.md#animator-change))|
 |hasiceanim|bool|No|Whether or not the entity has an ice animation clip present to play when the inice field is true. Assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
 |diganim|bool|No|Determines if this entity has animations when digging, assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
 |flyinganim|bool|Yes|Determines if the entity should be playing the flying version of the current [animstate](Animations/animstate.md)|
 |forcefire|bool|No|Forces the fire variant of the entity's animid if it exist. This is only assigned to true during [Enemies data](../../TextAsset%20Data/Enemies%20data.md) loading for FireCape, FireWarden and FireKrawler. Enforced in [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when applicable|
 |talking|bool|Yes|Determines if the entity is currently talking. This must be set externally to have an effect during [UpdateSprite](Update%20process/UpdateSprite.md)|
-|notalk|bool|No|Determines if this entity should never have [SetAnim](Animations/SetAnim.md) called with a t (talking) argument assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when `endata`'s Object is true|
+|notalk|bool|No|Determines if this entity should never have [SetAnim](Animations/SetAnim.md) called with a `t` (talking) argument assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when `endata`'s Object is true|
 |bounceanim|Coroutine|Yes|Exposes a way to store the BounceAnim call to know if the entity is currently in a BounceAnim, set to null before a yield break or return|
 |specialanim|Coroutine|Yes|Exposes a way to store a coroutine call to know if the entity is currently in a special animations requiring a coroutine, set to null before a yield break or return|
 
 ## Force move
 
-These fields manages both the process of [EntityControl Methods > ForceMove](EntityControl%20Methods.md#forcemove) and [EntityControl Methods > MoveTowards](EntityControl%20Methods.md#movetowards) which are considered force move as they are game controlled movement of the entity to a specific target.
+These fields manages both the process of [ForceMove](EntityControl%20Methods.md#forcemove) and [MoveTowards](EntityControl%20Methods.md#movetowards) which are considered force move as they are game controlled movement of the entity to a specific target.
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
-|forcemoving|Coroutine|Yes|Exposes a way to store a [EntityControl Methods > ForceMove](EntityControl%20Methods.md#forcemove) call to know if the entity is currently in a ForceMove, set to null before a yield break or return|
-|forcemove|bool|Yes|Determines if the entity is currently in a force move process via [EntityControl Methods > MoveTowards](EntityControl%20Methods.md#movetowards)|
-|forcetarget|Vector3|Yes|The target position of a forcemove via [EntityControl Methods > MoveTowards](EntityControl%20Methods.md#movetowards)|
-|forcemultiplier|float|No|The multiplier to the speed when moving during a forcemove via [EntityControl Methods > MoveTowards](EntityControl%20Methods.md#movetowards) if the caller specified one. This defaults to 1.0|
-|forceanim|int|No|The [animstate](Animations/animstate.md) to use during the forcemove via [EntityControl Methods > MoveTowards](EntityControl%20Methods.md#movetowards) if the caller specified one. This defaults to walkstate|
-|forcestop|int|No|The [animstate](Animations/animstate.md) to use when the forcemove via [EntityControl Methods > MoveTowards](EntityControl%20Methods.md#movetowards) is completed if the caller specified one. This defaults to basestate|
-|forcetimer|float|No|The time remaining in frames before triggering the forcemove failsafe via [EntityControl Methods > MoveTowards](EntityControl%20Methods.md#movetowards), decreased on [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) when applicable unless disabletimer is true|
+|forcemoving|Coroutine|Yes|Exposes a way to store a [ForceMove](EntityControl%20Methods.md#forcemove) call to know if the entity is currently in a ForceMove, set to null before a yield break or return|
+|forcemove|bool|Yes|Determines if the entity is currently in a force move process via [MoveTowards](EntityControl%20Methods.md#movetowards)|
+|forcetarget|Vector3|Yes|The target position of a forcemove via [MoveTowards](EntityControl%20Methods.md#movetowards)|
+|forcemultiplier|float|No|The multiplier to the speed when moving during a forcemove via [MoveTowards](EntityControl%20Methods.md#movetowards) if the caller specified one. This defaults to 1.0|
+|forceanim|int|No|The [animstate](Animations/animstate.md) to use during the forcemove via [MoveTowards](EntityControl%20Methods.md#movetowards) if the caller specified one. This defaults to walkstate|
+|forcestop|int|No|The [animstate](Animations/animstate.md) to use when the forcemove via [MoveTowards](EntityControl%20Methods.md#movetowards) is completed if the caller specified one. This defaults to basestate|
+|forcetimer|float|No|The time remaining in frames before triggering the forcemove failsafe via [MoveTowards](EntityControl%20Methods.md#movetowards), decreased on [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) when applicable unless disabletimer is true|
 |disabletimer|bool|Yes|Determines if the forcetimer should decrease on [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) if applicable|
-|looktowards|Vector3|No|The position the entity looks at during a forcemove via [EntityControl Methods > MoveTowards](EntityControl%20Methods.md#movetowards), null if not applicable|
+|looktowards|Vector3|No|The position the entity looks at during a forcemove via [MoveTowards](EntityControl%20Methods.md#movetowards), null if not applicable|
 |extratimer|bool|No|Determines if the forcetimer should be doubled when a forcemove is started which gives more time before triggering the failsafe. This can be assigned to true on Start with the `TIME` [Modifiers](Modifiers.md)|
 |forcejump|bool|Yes|Determines if the entity should attempt to jump during a force move when hitwall and onground are true and jumpcooldown is expired. This must be set externally|
-|ignorey|bool|Yes|Determines if the entity should ignore the y axis during the forcemove via [EntityControl Methods > MoveTowards](EntityControl%20Methods.md#movetowards) if the caller specified one.|
+|ignorey|bool|Yes|Determines if the entity should ignore the y axis during the forcemove via [MoveTowards](EntityControl%20Methods.md#movetowards) if the caller specified one.|
 
 ## Height management
 
@@ -84,8 +84,8 @@ These fields operate with the concept of height which is a visual vertical offse
 |tempheightoverride|bool|No|This is only used during [Drop](Notable%20methods/Drop.md) when the entity is frozen in the air and therefore should drop to 0.0 instead of minheight|
 |bobrange|float|Yes|The range of the oscillation done during [UpdateHeight](Update%20process/UpdateHeight.md) when the height is higher than 0.1, assigned on [CreateEntities](CreateEntities.md) or on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
 |bobspeed|float|Yes|The speed of the oscillation done during [UpdateHeight](Update%20process/UpdateHeight.md) when the height is higher than 0.1, assigned on [CreateEntities](CreateEntities.md) or on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
-|startbf|float|No|The initial bobrange, assigned to bobrange on [LateStart](Notable%20methods/LateStart.md) but also on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and [AnimSpecific > AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) when applicable. The bobrange is restored to this on [Drop](Notable%20methods/Drop.md) and BreakIce, but it is possible to do so externally|
-|startbs|float|No|The initial bobspeed, assigned to bobspeed on [LateStart](Notable%20methods/LateStart.md) but also on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and [AnimSpecific > AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) when applicable. The bobspeed is restored to this on [Drop](Notable%20methods/Drop.md) and BreakIce, but it is possible to do so externally|
+|startbf|float|No|The initial bobrange, assigned to bobrange on [LateStart](Notable%20methods/LateStart.md) but also on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) when applicable. The bobrange is restored to this on [Drop](Notable%20methods/Drop.md) and BreakIce, but it is possible to do so externally|
+|startbs|float|No|The initial bobspeed, assigned to bobspeed on [LateStart](Notable%20methods/LateStart.md) but also on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) when applicable. The bobspeed is restored to this on [Drop](Notable%20methods/Drop.md) and [BreakIce](Notable%20methods/Freeze%20handling.md#BreakIce), but it is possible to do so externally|
 
 ## Logic overrides
 
@@ -102,23 +102,23 @@ These fields allows to bypass common logic of the entity during its lifecycle. T
 |overrideonlyflip|bool|Yes|Determines if the entity should skip regular flip handling in the [UpdateFlip](Update%20process/UpdateFlip.md) cycle (this means any updates other than digging when spin is zero)|
 |overrideheight|bool|Yes|Determines if the entity should skip any [UpdateHeight](Update%20process/UpdateHeight.md) cycle even if it isn't the player and not an npcdata of type Object|
 |overrideanimspeed|bool|Yes|Determines if the standard animation speed logic should be bypassed on Update, must be set externally or by [EntityControl Methods > Overrides](EntityControl%20Methods.md#overrides)|
-|overridefollow|bool|Yes|Determines if the entity should not be controlled by the \[\[Entities/EntityControl/Follow|
+|overridefollow|bool|Yes|Determines if the entity should not be controlled by the [Follow](Notable%20methods/Follow.md) logic|
 |overrideshieldpos|Vector3?|Yes|Overrides the default bubbleshield position if assigned. This must be set externally|
 |overridefly|bool|No|Determines if the entity will never attempt to play a fly animation or receive [UpdateAirAnim](Update%20process/UpdateAirAnim.md) cycles, assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
 
 ## Extras and optional objects
 
-These fields manages optional objects that the entity maintains. They are usually created and used on a per [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) needs.
+These fields manages optional objects that the entity maintains. They are usually created and used on a per [AnimID](../../Enums%20and%20IDs/AnimIDs.md) needs.
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
 |extras|GameObject|No|An array of extra objects to keep track of. Assigned with a variable length on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and during the [AnimSpecific](Animations/AnimSpecific.md) updates|
-|spinextra|Vector3\[\]|No|An array of extra angles to add to the extras and extralines assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and [AnimSpecific > AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) when applicable|
-|extraanims|Animator\[\]|No|An array of extra animator to use which is required for certain [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md). Assigned if applicable on [AnimSpecific > UpdateAnimSpecific](Animations/AnimSpecific.md#updateanimspecific)|
-|extrasprites|SprtiteRender\[\]|No|An array of extra sprite render to use which is required for certain [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md). Assigned if applicable on [AnimSpecific > AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks)|
-|extralines|LineRenderer\[\]|No|A set of extra lines the entity can use, only used for DeadLanderB during [AnimSpecific > AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks)|
-|line|LineRenderer|No|The line renderer of the Line object, childed to the parent sent to AddLine or to the spritetransform if null. AddLine must be called to have this assigned which it is on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) for RizGrandpa|
-|subentity|EntityControl\[\]|No|An array of sub entities that this entity has access to. This is specifically used for SeedlingKing|
+|spinextra|Vector3\[\]|No|An array of extra angles to add to the extras and extralines assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) when applicable|
+|extraanims|Animator\[\]|No|An array of extra animator to use which is required for certain [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md). Assigned if applicable on [UpdateAnimSpecific](Animations/AnimSpecific.md#updateanimspecific)|
+|extrasprites|SprtiteRender\[\]|No|An array of extra sprite render to use which is required for certain [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md). Assigned if applicable on [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks)|
+|extralines|LineRenderer\[\]|No|A set of extra lines the entity can use, only used for DeadLanderB during [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks)|
+|line|LineRenderer|No|The line renderer of the Line object, childed to the parent sent to AddLine or to the spritetransform if null. AddLine must be called to have this assigned which it is on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) for `RizGrandpa`|
+|subentity|EntityControl\[\]|No|An array of sub entities that this entity has access to. This is specifically used for `SeedlingKing`|
 |firepart|Transform|Yes|This is not used internally and is left to null. This must be set and used externally|
 
 ## Ice
@@ -166,13 +166,13 @@ These fields manages any physics related tasks, particularly movement, but also 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
 |startvelocity|Vector3|No|The starting velocity of the rigid, assigned on [Start](Start.md)|
-|deltavelocity|Vector3|No|The last velocity observed since the last \[\[Entities/EntityControl/Move|
+|deltavelocity|Vector3|No|The last velocity observed since the last [Move](Notable%20methods/Move.md)|
 |startpos|Vector3|Yes|The last starting position of the entity. Initially set on [CreateEntities](CreateEntities.md) or to the transform's position on Start or to the point a raycast will hit from the transform heading down with the `COG` [Modifiers](Modifiers.md) or on [LateStart](Notable%20methods/LateStart.md) to the transform position if it still isn't set. This is also set on SetPosition and it is used to restore the transform position if needed, but it can be done externally|
 |onground|bool|Yes|The result of the feet's GroundDetector which determines if the entity is on the ground. It it can be forced externally to force the result. The default value is true, but it is overridden to false on Start with the `NGS` [Modifiers](Modifiers.md)|
 |hitwall|bool|Yes|The result of the detect's RayDetector which determines if the entity has hit a wall, but it can be set externally to force the result.|
-|walktype|WalkType|No|The type of walking of this entity during \[\[Entities/EntityControl/Move|
-|jumpheight|float|Yes|The height of a [EntityControl Methods > Jump](EntityControl%20Methods.md#jump) for this entity. Also used to clamp the y velocity in [UpdateVelocity](Update%20process/UpdateVelocity.md), set to 10.0 by default|
-|jumpcooldown|float|No|The time in frames to wait before the entity is allowed to jump again since the last [EntityControl Methods > Jump](EntityControl%20Methods.md#jump), decreased towards 0 by [UpdateGround](Update%20process/UpdateGround.md)|
+|walktype|WalkType|No|The type of walking of this entity during [Move](Notable%20methods/Move.md)|
+|jumpheight|float|Yes|The height of a [Jump](EntityControl%20Methods.md#jump) for this entity. Also used to clamp the y velocity in [UpdateVelocity](Update%20process/UpdateVelocity.md), set to 10.0 by default|
+|jumpcooldown|float|No|The time in frames to wait before the entity is allowed to jump again since the last [Jump](EntityControl%20Methods.md#jump), decreased towards 0 by [UpdateGround](Update%20process/UpdateGround.md)|
 |springcooldown|bool|No|Determines if the entity is currently in ascension after touching a JumpSpring|
 |offgroundframes|float|Yes|The amount of time in frames this entity observed onground being false, updated on [LateUpdate](Update%20process/Unity%20events/LateUpdate.md), but reset to 0.0 if it reaches 1000.0|
 |initialcenter|Vector3|No|The center of the ccol initially when [Start](Start.md) occurs|
@@ -212,7 +212,7 @@ These fields manages the process of digging underground.
 |digtime|float|Yes|The time in frames since the entity started digging underground|
 |digscale|Vector3|Yes|The scale to render digpart\[1\] which is the digging object when fully underground. The default is Vector3.one|
 |digpart|GameObject\[\]|No|An array of 2 objects which are both children of the root object. The first is an instance of `Prefabs/Particles/DirtFlying` when starting a dig and the second is an instance of `Prefabs/Particles/Digging` when fully digging. Assigned to a length of 2 on [Start](Start.md)|
-|nodigpart|bool|No|Determines if digpart should be created and handled while digging during [UpdateFlip](Update%20process/UpdateFlip.md). Set to true during \[\[Entities/EntityControl/Follow|
+|nodigpart|bool|No|Determines if digpart should be created and handled while digging during [UpdateFlip](Update%20process/UpdateFlip.md). Set to true during [Follow](Notable%20methods/Follow.md)|
 |instdig|bool|No|Determines if the entity should immediately start digging??? TODO: this might not be practically used because the only possible usage implies a throw during UpdateFlip|
 
 ## Identification
@@ -222,7 +222,7 @@ These fields provides more information about who this entity is.
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
 |isplayer|bool|No|Determine if this is the player entity with the PlayerControl, assigned to true on [LateStart](Notable%20methods/LateStart.md) if the entity has the `Player` tag|
-|mainparty|bool|Yes|Determines if the entity is part of the main party when created which means the party members that follow the player excluding the player itself. Must be set externally and is only used in CloseMove during a \[\[Entities/EntityControl/Follow|
+|mainparty|bool|Yes|Determines if the entity is part of the main party when created which means the party members that follow the player excluding the player itself. Must be set externally and is only used in CloseMove during a [Follow](Notable%20methods/Follow.md)|
 |playerentity|bool|No|Determines if this entity is related or is the player, assigned to true on [Start](Start.md) if the entity has the `Player` or `PFollower` tag|
 |isfollower|bool|No|Determines if the entity is a follower, assigned on [LateStart](Notable%20methods/LateStart.md) when the entity has the `PFollower` tag|
 |tempfollower|bool|No|Determines if the entity is a temporary follower, set to true when the entity was created using [AddFollower](../../SetText/Commands/Individual%20commands/Addfollower.md)|
@@ -249,7 +249,7 @@ These fields configures the [Follow](Notable%20methods/Follow.md) system and all
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
-|following|EntityControl|Yes|The [Entity](../Entity.md) to follow which involves physically moving it such that it follows it during \[\[Entities/EntityControl/Follow|
+|following|EntityControl|Yes|The [Entity](../Entity.md) to follow which involves physically moving it such that it follows it during [Follow](Notable%20methods/Follow.md)|
 |followedby|Transform|Yes|The entity that follows this one, null if not followed by anyone. This must be set externally which is typically by MainManager|
 |followoffset|float|Yes|The distance to be away from the following entity|
 |tempfollowerid|int|Yes|This is specific to Chompy to determine who she follows. This must be set externally|
@@ -290,7 +290,7 @@ These fields manages the concept of [Death](Notable%20methods/Death.md) and also
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
-|dead|bool|Yes|Determines if the entity is currently dead which is assigned to true at the start of [Death](Notable%20methods/Death.md).|
+|dead|bool|Yes|Determines if the entity is currently dead which is assigned to true at the start of [Death](Notable%20methods/Death.md)|
 |iskill|bool|Yes|Determines if the entity is killed, similar to death, but is only optionally set during [Death](Notable%20methods/Death.md) when requested.|
 |spitexp|int|Yes|The amount of EXP orb to drop when [Death](Notable%20methods/Death.md) occur. This must be set externally|
 |spitmoney|int|Yes|The amount of berries to drop when [Death](Notable%20methods/Death.md) occur. This must be set externally|
@@ -304,7 +304,7 @@ These fields are specific to item entities.
 |item|bool|No|Determines if this entity is an item. This must be set internally when applicable or on [CreateEntities](CreateEntities.md) if it is an item|
 |showitem|bool|No|Indicates that this entity must render an item sprite. This can be set to true on Start using the `shwKEY` [Modifiers](Modifiers.md)|
 |itemstate|int|Yes|The [Items](../../Enums%20and%20IDs/Items.md) or [Medal](../../Enums%20and%20IDs/Medal.md) id, only applicable when item is true|
-|destroytype|DeathType|Yes|The type of death process used for [Death](Notable%20methods/Death.md). This is normally loaded from \[\[TextAsset Data/Entity data#`entitydata` directory|
+|destroytype|DeathType|Yes|The type of death process used for [Death](Notable%20methods/Death.md). This is normally loaded from [entitydata directory](../TextAsset%20Data/Entity%20data.md#`entitydata`%20directory)|
 
 ## Drop
 
@@ -322,7 +322,7 @@ These fields are related to the use of the bubble shield.
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
 |shieldenabled|bool|Yes|Determines if the entity has an active bubble shield which will grow bubbleshield to its scale. This must be set externally|
-|bubbleshield|DialogueAnim|No|The DialogueAnim of an instance of `Prefabs/Objects/BubbleShield` from the root of the asset tree childed to the Rotater object when battle and isplayer are both true on Start|
+|bubbleshield|DialogueAnim|No|The DialogueAnim of an instance of `Prefabs/Objects/BubbleShield` childed to the Rotater object when battle and isplayer are both true on Start|
 
 ## Dialogue bleep
 
@@ -377,10 +377,10 @@ These fields are present, but they do not have any practical uses in the game. T
 |mapentity|bool|Presumably, this would indicate that the entity is from a map, but this is covered by npcdata not being null|
 |flipspeed|float|The speed to flip the angles of the sprite during a regular flip handling of [UpdateFlip](Update%20process/UpdateFlip.md). This is left to its default value which is 0.2|
 |extraoffset|Vector3|An additional offset to apply on [UpdateHeight](Update%20process/UpdateHeight.md), [UpdateEmoticon](Update%20process/UpdateEmoticon.md) and the ShakeSprite Coroutine. This is left to its default value of Vector3.zero|
-|speedbuffer|float\[\]|This is only used for DeadLanderB during [AnimSpecific > AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) with a value always being `{ 0.5, 0.34, 0.15, 0.3, 0.6 }`|
-|followlimit|float|The maximum square distance in units of a \[\[Entities/EntityControl/Follow|
-|followdistance|float|The minimum square distance in units of a \[\[Entities/EntityControl/Follow|
-|followjump|float|The minimum square distance in units of a \[\[Entities/EntityControl/Follow|
+|speedbuffer|float\[\]|This is only used for DeadLanderB during [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) with a value always being `{ 0.5, 0.34, 0.15, 0.3, 0.6 }`|
+|followlimit|float|The maximum square distance in units of a [Follow](Notable%20methods/Follow.md)|
+|followdistance|float|The minimum square distance in units of a [Follow](Notable%20methods/Follow.md)|
+|followjump|float|The minimum square distance in units of a [Follow](Notable%20methods/Follow.md)|
 |soundidstance|float|The maximum distance in units where the new volume of sound during [UpdateSound](Update%20process/UpdateSound.md) will be 0 when reached or exceeded from the camdistance. This is left to the default value of 25.0|
 |lockback|bool|Determines if the entity shouldn't change its backsprite on FaceTowards unless it is forced. This is functional, but never set to true|
 |usebuffer|bool|This is never set to true, but it has an unknown usage in DoFollow|

@@ -1,6 +1,6 @@
 # LateUpdate
 
-This is the LateUpdate of [EntityControl Creation](../../EntityControl%20Creation.md). This is the main update loop of the component and it is done on late due to the guarantee that coroutines have all ran by then so anything that could have edited the fields like the [animstate](../../Animations/animstate.md) have done so already.
+This is the LateUpdate of EntityControl. This is the main update loop of the component and it is done on late due to the guarantee that coroutines have all ran by then so anything that could have edited the fields like the [animstate](../../Animations/animstate.md) have done so already.
 
 * Every 3 frames
   * If paused, ensure the `transform`'s position is `pausepos` unless `activeonpause` is true, we are in an event, `iskill` is true or `dead` is true
@@ -21,7 +21,7 @@ This is the LateUpdate of [EntityControl Creation](../../EntityControl%20Creatio
 * If `alwaysflip` is true, call [UpdateFlip](../UpdateFlip.md)
 * If the game is unpaused and `incamera`, the `incamera` update will happen if we are in an event OR that the `campos` z is less than 25.0 OR less than 30.0 only if the `npcdata`'s `startlife` is smaller than 50.0 / not present
   * Assign `truescale` to `startscale`
-  * If the `icecube` is present, set its scale by a lerp of its current scale to `freezesize` with a factor of framestep * 0.25 and set its position by `freezeoffset` + Vector3.up * `height` or by (`freezeoffset`.x + Random.Range(-0.1, 0.1), `freezeoffset`.y + `height`, `freezeoffset`.z + Random.Range(-0.1, 0.1) if `shakeice`
+  * If the `icecube` is present, set its scale by a lerp of its current scale to `freezesize` with a factor of framestep * 0.25 and set its position by `freezeoffset` + Vector3.up * `height` or by (`freezeoffset`.x + Random.Range(-0.1, 0.1), `freezeoffset`.y + `height`, `freezeoffset`.z + Random.Range(-0.1, 0.1)) if `shakeice`
   * If `springcooldown` is active while the `rigid`'s velocity is descending on the y axis or `onground` is true, deactivate the cooldown
   * General update methods are called under conditions:
     * [UpdateGround](../UpdateGround.md), [UpdateAirAnim](../UpdateAirAnim.md) and [UpdateVelocity](../UpdateVelocity.md) are called every 2 frames except for `battle` entity or the `npcdata` is not NPC / not present where they will be called regardless of the current frame
@@ -39,7 +39,7 @@ This is the LateUpdate of [EntityControl Creation](../../EntityControl%20Creatio
   * Every 3 frames, `UpdateRotater` is called which will make sure the `rotater`'s y angle matches the main camera one unless `lockrotater` is true. If we were not in an event [UpdateCollider](../UpdateCollider.md) is called before it, but because this one only process every 2 frames, it will actually only process every 6 frames effectively.
   * Rendering updates happen if the entity is `incamera`, it is a `battle` entity or that we are in an event
     * [UpdateHeight](../UpdateHeight.md) is called when it's a battle entity or we are in an event or `alwaysactive` is true or it has no `npcdata` or it has one, but it's not an NPC or it is an NPC, but the `startlife` is below 50.0
-    * [AnimSpecific > AnimSpecificQuirks](../../Animations/AnimSpecific.md#animspecificquirks) and [UpdateSprite](../UpdateSprite.md) are called
+    * [AnimSpecificQuirks](../../Animations/AnimSpecific.md#animspecificquirks) and [UpdateSprite](../UpdateSprite.md) are called
     * `flyinganim` is set to true if the `height` is higher than 0.1 unless `overridefly` is true which forces it to false
   * If we aren't in an event, then `offgroundframes` is increased by framestep if it hasn't reached 1000.0 and that `onground` is false, otherwise, it is set to 0.0. If we are in an event, that it is decreased by framestep if `onground` is true and it hasn't gone below 0.0
   * If the `jumpcooldown` has expired and `stopspinonground` is true, it is set to false on top of zeroing out `spin`

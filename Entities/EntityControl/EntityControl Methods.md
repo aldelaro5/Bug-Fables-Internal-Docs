@@ -4,15 +4,15 @@ There are all the methods in [EntityControl Creation](EntityControl%20Creation.m
 
 ## Unity Events
 
-This component implements `Start`, `OnEable` `Update`, `LateUpdate`, `FixedUpdate`, `OnTriggerStay` and `OnTriggerExit`. You can lean more about them in [EntityControl Creation > Entity startup](EntityControl%20Creation.md#entity-startup), [Update](Update%20process/Unity%20events/Update.md), [LateUpdate](Update%20process/Unity%20events/LateUpdate.md), [FixedUpdate](Update%20process/Unity%20events/FixedUpdate.md), [OnTriggerStay](Update%20process/Unity%20events/OnTriggerStay.md) and [OnTriggerExit](Update%20process/Unity%20events/OnTriggerExit.md). Notably, `Start`, `OnEnable` and the 3 updates one are an integral part of the startup and update process of the entity.
+This component implements `Start`, `OnEable` `Update`, `LateUpdate`, `FixedUpdate`, `OnTriggerStay` and `OnTriggerExit`. You can lean more about them in [Start](Start.md), [Update](Update%20process/Unity%20events/Update.md), [LateUpdate](Update%20process/Unity%20events/LateUpdate.md), [FixedUpdate](Update%20process/Unity%20events/FixedUpdate.md), [OnTriggerStay](Update%20process/Unity%20events/OnTriggerStay.md) and [OnTriggerExit](Update%20process/Unity%20events/OnTriggerExit.md). Notably, `Start`, `OnEnable` and the 3 updates ones are an integral part of the startup and update process of the entity.
 
 ## Creation
 
-These methods are the gateway to initialise entities. As such, they are static and returns an [EntityControl Creation](EntityControl%20Creation.md) except for items which gives an [NPCControl](../NPCControl/NPCControl.md). No matter the context to create the entity, it has to go through one of these
+These methods are the gateway to initialise entities. As such, they are static and returns an EntityControl except for items which gives an [NPCControl](../NPCControl/NPCControl.md). No matter the context to create the entity, it has to go through one of these
 
 ### CreateNewEntity
 
-These overloads are fully documented at [EntityControl Creation > Creating an entity](EntityControl%20Creation.md#creating-an-entity)
+These overloads are fully documented at [EntityControl Creation > Creating an entity](EntityControl%20Creation.md)
 
 ````cs
 public static EntityControl CreateNewEntity(string name)
@@ -50,13 +50,13 @@ private void LateStart()
 
 These methods were eventually called by [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) and they each manage different parts of the update process. Since they are essential, dedicated pages are made for them.
 
-[AnimSpecific > UpdateAnimSpecific](Animations/AnimSpecific.md#updateanimspecific)
+[UpdateAnimSpecific](Animations/AnimSpecific.md#updateanimspecific)
 
 ````cs
 public void UpdateAnimSpecific()
 ````
 
-[AnimSpecific > AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks)
+[AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks)
 
 ````cs
 private void AnimSpecificQuirks()
@@ -483,7 +483,7 @@ The actual value of `spin` during the deceleration is a lerp from the `spinamoun
 
 ## Sounds
 
-Play a sound named `clipname` from the `Audio/Sounds` directory from the root of the ressources tree using the `sound` audio source if it can be heard at pitch `pitch` before calling [UpdateSound](Update%20process/UpdateSound.md) and setting `soundvolume` to `volume` (which only sets the volume for the NEXT clip, not this one).
+Play a sound named `clipname` from the `Audio/Sounds` directory using the `sound` audio source if it can be heard at pitch `pitch` before calling [UpdateSound](Update%20process/UpdateSound.md) and setting `soundvolume` to `volume` (which only sets the volume for the NEXT clip, not this one).
 
 ````cs
 public void PlaySound(string clipname)
@@ -511,7 +511,7 @@ The sound will only be played if all of the following conditions are met:
 * `campos`.z is less than 25.0 which means the entity must not be 25.0 or more units away from the camera
 * The game's globalcooldown expired
 * `campos` is in the camera's range
-* Either this is the beemerang, there is no `npcdata` or there is one with a `startlife` of 15.0 or more
+* Either this is the `beemerang`, there is no `npcdata` or there is one with a `startlife` of 15.0 or more
 
 This is an alias of the first overload.
 
@@ -573,7 +573,7 @@ public void ExtraAnimPlay(string arg)
 
 ### SpecialAnimation
 
-Plays a specific animation routine named `animation` case insensitive with the call stored in `specialanim` (turns to null on return). This only supports one named `levelup` that will set specific routines for the Bee, Beetle and Moth [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md). Before the animation plays, `overrideanim` is set to true and `overridejump` is set to true with the old value saved. Once the animation is done, a frame is yielded, `overrideanim` goes back to false and `overridejump` is restored to its old value.
+Plays a specific animation routine named `animation` case insensitive with the call stored in `specialanim` (turns to null on return). This only supports one named `levelup` that will set specific routines for the `Bee`, `Beetle` and `Moth` [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md). Before the animation plays, `overrideanim` is set to true and `overridejump` is set to true with the old value saved. Once the animation is done, a frame is yielded, `overrideanim` goes back to false and `overridejump` is restored to its old value.
 
 ````cs
 public IEnumerator SpecialAnimation(string animation)
@@ -581,13 +581,13 @@ public IEnumerator SpecialAnimation(string animation)
 
 ### Animator change
 
-Sets the runtimeAnimatorController of `anim` depending on the [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) with special handling for PUSHROCK and Hard Mode equipped on HARDEST. More details is at [UpdateSprite > SetAnimator](Update%20process/UpdateSprite.md#setanimator)
+Sets the runtimeAnimatorController of `anim` depending on the [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) with special handling for PUSHROCK and Hard Mode equipped on HARDEST. More details is at [SetAnimator](Update%20process/UpdateSprite.md#setanimator)
 
 ````cs
 public void SetAnimator()
 ````
 
-Wraps SetAnimator by first ensuring `anim` is created if it wasn't and calls [AnimSpecific > UpdateAnimSpecific](Animations/AnimSpecific.md#updateanimspecific) after the call.
+Wraps SetAnimator by first ensuring `anim` is created if it wasn't and calls [UpdateAnimSpecific](Animations/AnimSpecific.md#updateanimspecific) after the call.
 
 ````cs
 public void ForceAnimator()
@@ -597,13 +597,13 @@ public void ForceAnimator()
 
 These methods are never called directly, but rather by an animation event. 
 
-This one only applies only to the CordycepsAnt [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) where for `chance` % change when called, it will play the animation `Idle0` or `Idle1` with a 50/50 chance.
+This one only applies only to the `CordycepsAnt` [AnimID](../../Enums%20and%20IDs/AnimIDs.md) where for `chance` % change when called, it will play the animation `Idle0` or `Idle1` with a 50/50 chance.
 
 ````cs
 private void RandomAnimationEvent(int chance)
 ````
 
-This only applies to Bee [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) and the `BattleIdle` [animstate](Animations/animstate.md). It will play the ParticleSystem on `animspecific` at index `index` if either are present after setting the angles of the `animspecific` object according to `flip`
+This only applies to `Bee` [AnimID](../../Enums%20and%20IDs/AnimIDs.md) and the `BattleIdle` [animstate](Animations/animstate.md). It will play the ParticleSystem on `animspecific` at index `index` if either are present after setting the angles of the `animspecific` object according to `flip`
 
 ````cs
 public void PlayAnimSpecific(int index)
@@ -623,7 +623,7 @@ public void EnableCol()
 
 ### SetFixed
 
-Apply most of the `Fixed` [Modifiers](Modifiers.md) after `fixedentity` is set to true on [EntityControl Creation > Entity startup](EntityControl%20Creation.md#entity-startup)
+Apply most of the `Fixed` [Modifiers](Modifiers.md) after `fixedentity` is set to true on [Start](Start.md)
 
 ````cs
 private void SetFixed()
@@ -631,7 +631,7 @@ private void SetFixed()
 
 ### SetFixedCollider
 
-Apply most of the `FxdCol` [Modifiers](Modifiers.md) after `fixedentity` is set to true on [EntityControl Creation > Entity startup](EntityControl%20Creation.md#entity-startup)
+Apply most of the `FxdCol` [Modifiers](Modifiers.md) after `fixedentity` is set to true on [Start](Start.md)
 
 ````cs
 private void SetFixedCollider()
@@ -1053,7 +1053,7 @@ public void ForceCOT()
 
 ## Dialogue bleep
 
-If an `endata` for the [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) `animid` exists, set `dialoguebleepid` and `bleeppitch` from it unless `originalid` is -1 or below (None) in which case, they are set to 0 and 1.0 respectively.
+If an `endata` for the [AnimID](../../Enums%20and%20IDs/AnimIDs.md) `animid` exists, set `dialoguebleepid` and `bleeppitch` from it unless `originalid` is -1 or below (None) in which case, they are set to 0 and 1.0 respectively.
 
 ````cs
 public void SetDialogueBleep()
@@ -1117,7 +1117,7 @@ Returns true only if the entity has the `Follower`, `NPC`, `Enemy`, `PFollower` 
 private bool CheckForCharacterEntity()
 ````
 
-Sets the color of the Chompy's ribbon (stored in `extrasprites` 0) depending on [flags](../../Flags%20arrays/flags.md) 56 (the [Items](../../Enums%20and%20IDs/Items.md) id equipped to Chompy)
+Sets the color of the Chompy's ribbon (stored in `extrasprites` 0) depending on [flag](../../Flags%20arrays/flags.md) 56 (the [Items](../../Enums%20and%20IDs/Items.md) id equipped to Chompy)
 
 ````cs
 public void ChompyRibbon()

@@ -4,7 +4,7 @@ LateStart is a method that is only called on the first [LateUpdate](../Update%20
 
 * Check the tag of the entity
   * For `Follower`, `PFollower`, `Player`, `NPC` and `Enemy`, `movesmoke` is initialised unless it is an item. Either way, the `anim`'s cullingMode is set to CullCompletely which disabled animations when not visible
-  * For `Follower` and `PFollower`, `CreateDetector` is called with a size of (0.0, 0.7, 0.3) and a center of (0.0, 0.5, 0.65). This method will initialize `detect`, add the RayDetector to it and ingnore all collisions with itself and `ccol`. Collisions between `detect` and the `following` entity are ignored before setting `isfollower` to true.
+  * For `Follower` and `PFollower`, [CreateDetector](../EntityControl%20Methods.md#CreateDetector) is called with a size of (0.0, 0.7, 0.3) and a center of (0.0, 0.5, 0.65). Collisions between `detect` and the `following` entity are ignored before setting `isfollower` to true.
   * For `Player`, `isplayer` is set to true and CreateShield called if it is the battle entity version of the player which initializes `bubbleshield` if it hasn't been already
 * If it's an `item`, set `overrideanim` and `overrridejump` as well as `oldstate` to -1 (none) and call `CreateFeet` which will initialise `feet` and set this entity as its parent
 * Set `originalmap` to the current map

@@ -10,9 +10,9 @@ The `digging` one happens whenever `digging` is true and the entity isn't `dead`
 
 Next is the `digpart` update which happens unless `nodigpart` is true which will just have the `digtime` be increased by the framestep and `instdig` being set to false. 
 
-In that segment, if the `digtime` hasn't reached 30 frames yet, then the `digpart` 0 is initialised if it wasn't present so long as `insdig` is false and `digpart` 1 is moved offscreen if it exists followed by increasing `digtime` by framestep. The way `digpart` 0 is created involves instantiating `Prefabs/Particles/DirtFlying` from the root of the asset three rotated by -90.0 degrees on the x axis and childed to the `transform` with a position of zero. On top of this, if it has an Enemy `npcdata`, the material's renderqueue of that object is set to 3000.
+In that segment, if the `digtime` hasn't reached 30 frames yet, then the `digpart` 0 is initialised if it wasn't present so long as `insdig` is false and `digpart` 1 is moved offscreen if it exists followed by increasing `digtime` by framestep. The way `digpart` 0 is created involves instantiating `Prefabs/Particles/DirtFlying` rotated by -90.0 degrees on the x axis and childed to the `transform` with a position of zero. On top of this, if it has an Enemy `npcdata`, the material's renderqueue of that object is set to 3000.
 
-Otherwise, if the `digtime` had reached 30 frames, then `digpart` 0 is put offscreen while `digpart` 1 is ensured to be initialised. The creation process is very similar than `digpart` 0 on the other `digtime` branch, but the 2 differences is that the object instantiated is at `Prefabs/Particles/Digging` from the root of the asset tree and the scale is `digscale`. Finally, `instdig` is set to false.
+Otherwise, if the `digtime` had reached 30 frames, then `digpart` 0 is put offscreen while `digpart` 1 is ensured to be initialised. The creation process is very similar than `digpart` 0 on the other `digtime` branch, but the 2 differences is that the object instantiated is at `Prefabs/Particles/Digging` and the scale is `digscale`. Finally, `instdig` is set to false.
 
 ## Regular flip update
 

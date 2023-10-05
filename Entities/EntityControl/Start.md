@@ -1,6 +1,6 @@
 # Start
 
-EntityControl defines a Start which performs several important steps. This will be run at the start of the next frame after the creation occurred, but also after being enabled if the entity started disabled:
+EntityControl defines a Start Unity event which performs several important steps. This will be run at the start of the next frame after the creation occurred, but also after being enabled if the entity started disabled:
 
 * Ensure `transofrm` and `spritetransform` are set correctly
 * Ensure `icecubeprefab` is set to the `Prefabs/Objects/icecube` object from the root of the asset tree and set the object's layer to 13 (`NoDigGround`)
@@ -20,7 +20,7 @@ EntityControl defines a Start which performs several important steps. This will 
 * Unless `noemoticon` is set to true, setup the `emoticon` object which is a new object with an Animator named `Emoticon` childed to the `rotater`, a local position of `emoticonoffset`, and a layer of 15 (`3DUI`). Also set `emoticonsprite` to a new SpriteRenderer added to `emoticon` and set its material to Unity's default sprite material
 * Ensure an AudioSource is added and assigned to `sound` without playOnAwake
 * If `startvelocity` is set, set the `rigid`'s velocity to it
-* Call [CheckSpecialID](Notable%20methods/CheckSpecialID.md) which loads the \[\[TextAsset Data/Entity data#`EntityValues` data|Entity data\]\]
+* Call [CheckSpecialID](Notable%20methods/CheckSpecialID.md) which loads the [EntityValues data](../../TextAsset%20Data/Entity%20data#`EntityValues`%20data.md)
 * Set the entity's bleep. For more information on the bleep system, check [Bleep](../../SetText/Commands/Individual%20commands/Bleep.md). The bleep id and pitch are expected to be set beforehand in `dialoguebleepid` and `bleeppitch` respectively.
 * If `hasshadow` is true, ensure a an object named `shadow` with a SpriteRenderer is created and assigned to the field of the same name and childed to the entity's transform at (0.0, -999.0, 0.0). The transform of the new object is assigned to `shadowtransform`. The sprite of the shadow is set to the game's shadow sprite with a color of pure white with 40% transparency. The angles of the object are set to (90.0, 0.0, 0.0) and the material's renderQueue is set to 2900
 * If the entity is an item, assign `itemstate` to the `animstate`

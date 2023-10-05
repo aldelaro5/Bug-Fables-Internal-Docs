@@ -23,4 +23,4 @@ This is the Update of EntityControl. It doesn't do as much as [LateUpdate](LateU
     * gravity is disabled on the `rigid`
     * The `sound` is muted
     * The `rigid`'s velocity is zeroed
-  * If not in a battle, ensure the animation speed is set to 0.0 and then call StopMoving with the current [animstate](../../Animations/animstate.md) which will zero the `rigid`'s velocity and the `deltavelocity`. Otherwise, ensure the animation speed is 1.0
+  * If not in a battle, ensure the animation speed is set to 0.0 and then call [StopMoving](../../EntityControl%20Methods.md#StopMoving) with the current [animstate](../../Animations/animstate.md) which will zero the `rigid`'s velocity and the `deltavelocity`. Otherwise, ensure the animation speed is 1.0

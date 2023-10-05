@@ -1,6 +1,6 @@
 # FixedUpdate
 
-This is the FixedUpdate of [EntityControl Creation](../../EntityControl%20Creation.md). It only applies when the game isn't paused. Only 2 updates happens here: `forcemove` updates and Leif's position when `leiffly` is true.
+This is the FixedUpdate of EntityControl. It only applies when the game isn't paused. Only 2 updates happens here: `forcemove` updates and Leif's position when `leiffly` is true.
 
 ## Force move updates
 
@@ -12,7 +12,7 @@ If it has yet to complete, [Move](../../Notable%20methods/Move.md) is called tow
 
 After, if `forcejump` is true, the entity will check to see if it should call `Jump`. To do so, `detect` is created via `CreateDetector` if it wasn't already and it is set to look at `forcetarget` with the x and z angles zeroed out and then verify that `hitwall` is true, the entity is `onground` and `jumpcooldown` has already expired. Only if all these conditions are met that Jump is called.
 
-If the whole `forcemove` was instead completed, `forcemove`, `forcejump` and `ignorey` are set to false before calling StopMoving with the `forcestop` as the target state.
+If the whole `forcemove` was instead completed, `forcemove`, `forcejump` and `ignorey` are set to false before calling [StopMoving](../../EntityControl%20Methods.md#StopMoving) with the `forcestop` as the target state.
 
 ## Leif fly update
 

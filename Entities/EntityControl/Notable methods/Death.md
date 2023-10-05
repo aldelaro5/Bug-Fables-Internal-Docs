@@ -4,7 +4,7 @@ Death is a coroutine in EntityControl that handles the process of essentially re
 
 ## Destroy prepations
 
-First, `nocondition` and `dead` are set to true. [Freeze handling > BreakIce](Freeze%20handling.md#breakice) is called and [EntityControl Methods > StopForceMove](../EntityControl%20Methods.md#stopforcemove) is too without smoothing and default state which not only unfreezes the entity if it was, but also stops any coroutine force move that was running. After, the `rigid`'s velocity is zeroed out and the `digpart` destroyed if there were any left.
+First, `nocondition` and `dead` are set to true. [BreakIce](Freeze%20handling.md#breakice) is called and [StopForceMove](../EntityControl%20Methods.md#stopforcemove) is too without smoothing and default state. This not only unfreezes the entity if it was, but also stops any coroutine force move that was running. After, the `rigid`'s velocity is zeroed out and the `digpart` destroyed if there were any left.
 
 From there, if the entity had an `npcdata`, it is handled in its own section. TODO: Come back to this when [NPCControl](../../NPCControl/NPCControl.md) is documented.
 

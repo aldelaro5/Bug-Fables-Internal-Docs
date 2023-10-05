@@ -15,7 +15,7 @@ The base name can be defined in 2 ways: either it is a predefined animation name
 A predefined animation is any animstate below 100 (exclusive). However, while this means 100 animations can in theory predefined, this amount is overprovisioned: only the states ranging from 0 to 32 are valid states. This is because predefined animations are defined in an enum called MainManager.Animations which is defined like the following:
 
 |Value|Name|
-|-----|----|
+|-----:|----|
 |0|Idle|
 |1|Walk|
 |2|Jump|
@@ -50,7 +50,7 @@ A predefined animation is any animstate below 100 (exclusive). However, while th
 |31|Dig|
 |32|DigMove|
 
-The enum name here is important: to define a predefined animations on a given controller, the clip MUST be named by the enum's name, NOT the value. The animstate will hold the value, but it won't load a clip named AS the value, it will load one named as the name of the enum value.
+The enum name here is important: to define a predefined animations on a given controller, the clip MUST be named by the enum's name, NOT the value. The animstate will hold the value, but it won't load a clip named AS the value, it will load one named as the NAME of the enum value.
 
 Because this is enforced by anything that attempts to set the animation, it can be safely assumed that those CAN exists, but they don't all have to. It's more a guarantee by the game that any animstate of 0 corresponds to "Idle" for example.
 
@@ -65,7 +65,7 @@ The base name of an animation clip in this range is the animstate value directly
 Any standard animations can contain optional arguments which is represented by letters appended at the end of a clip's base name. The arguments available are the following:
 
 |Letter|Description|
-|------|-----------|
+|------:|-----------|
 |b|back, refers to an entity's back sprite if applicable for the animation|
 |t|talking, refers to an entity's equivalent animation when they are talking (This can be controlled by [SetText](../../../SetText/SetText.md))|
 |f|flying, refers to an entity's equivalent animation when they are in the air|
@@ -80,4 +80,4 @@ It should be noted that naming a clip with these arguments does NOT necessarily 
 
 Any animation clips of an [Entity](../../Entity.md)'s animation controller not named in a standard way cannot be played directly by the standard animation state system.
 
-However, it is still possible to play clips that have a non standard name through various ways. One is by simply let Unity do it via a transition from a standard named clip to a non standard one. Another is via the [AnimSpecific](AnimSpecific.md) systems which allows to extend the standard animation state system to do anything beyond its capabilities including non standard animation names.
+However, it is still possible to play clips that have a non standard name through various ways. One is by simply letting Unity do it via a transition from a standard named clip to a non standard one. Another is via the [AnimSpecific](AnimSpecific.md) systems which allows to extend the standard animation state system to do anything beyond its capabilities including non standard animation names.
