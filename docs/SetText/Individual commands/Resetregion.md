@@ -1,6 +1,6 @@
 # Resetregion
 
-Reset all [Regionalflags](Regionalflag.md) slot to false.
+Reset all [Regionalflags](../../Flags%20arrays/Regionalflags.md) slot to false.
 
 ## Syntax
 

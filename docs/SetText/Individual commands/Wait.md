@@ -1,6 +1,6 @@
 # Wait
 
-Yields for a certain amount of seconds if a [Text advance](../Related%20Systems/Text%20advance.md) skiptext isn't in progress.
+Yields for a certain amount of seconds if a [Text advance](../Related%20Systems/Text%20advance.md) `skiptext` isn't in progress.
 
 ## Syntax
 

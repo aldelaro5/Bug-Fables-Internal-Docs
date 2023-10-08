@@ -1,6 +1,6 @@
 # Backtracking
 
-[SetText](../SetText.md) supports a system called dialogue backtracking which allows in [Dialogue mode](../Dialogue%20mode.md) mode to see previous textbox that have been passed in the same SetText call. This system only works correctly in [Regular Letter Rendering](../Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md) because in [Single Letter Rendering](../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), it will not accumulate any letters to the history.
+[SetText](../SetText.md) supports a system called dialogue backtracking which allows in [Dialogue mode](../Dialogue%20mode.md) to see previous textbox that have been passed in the same SetText call. This system only works correctly in [Regular Letter Rendering](../Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md) because in [Single Letter Rendering](../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), it will not accumulate any letters to the history.
 
 This system is mainly possible using some important static field of MainManager:
 

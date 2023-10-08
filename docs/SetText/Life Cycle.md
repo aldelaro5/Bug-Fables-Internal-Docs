@@ -20,7 +20,7 @@ Then, the [textholder](Notable%20states.md#textholder.md) is initialized where i
 
 ## Dialogue setup
 
-This phase only occurs if we are in [Dialogue mode](Dialogue%20mode.md) mode, otherwise,  a |[spd](Individual%20commands/Spd.md),0| is prepended to the input string which disables the wait times by default
+This phase only occurs if we are in [Dialogue mode](Dialogue%20mode.md), otherwise,  a |[spd](Individual%20commands/Spd.md),0| is prepended to the input string which disables the wait times by default
 
 This phase is where all the initialization logic needed for [Dialogue mode](Dialogue%20mode.md) are done as well as some defaults values logic. The nature of this phase is why only a single [Dialogue mode](Dialogue%20mode.md) call can be running at a given time with the narrow exception of the [battle](Individual%20commands/Battle.md) and [cardbattle](Individual%20commands/Cardbattle.md) commands during the yield. 
 
@@ -74,7 +74,7 @@ The char loop is the heart of SetText. It's a for loop on each char of the input
 
 ### Dialogue preprocessing
 
-This phase of the char loop only occurs in [Dialogue mode](Dialogue%20mode.md) mode. This is where the current horizontal size, the [fonttype](Notable%20states.md#fonttype) and the line break values are saved into MainManager's fields. This is needed by the [backtracking](Related%20Systems/Backtracking.md) system to add the [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of the current accumulator if we initiate a backtracking because OrganiseLines needs the values at the start of the char loop, not the ones once a [next](Individual%20commands/Next.md) is yielding because they could have changed.
+This phase of the char loop only occurs in [Dialogue mode](Dialogue%20mode.md). This is where the current horizontal size, the [fonttype](Notable%20states.md#fonttype) and the line break values are saved into MainManager's fields. This is needed by the [backtracking](Related%20Systems/Backtracking.md) system to add the [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of the current accumulator if we initiate a backtracking because OrganiseLines needs the values at the start of the char loop, not the ones once a [next](Individual%20commands/Next.md) is yielding because they could have changed.
 
 if we are processing one of the first 10 characters, the player isn't null and we are not in an event, sets the player's entity's `flip` to its initial value that was set during the dialogue setup or the last [align](Individual%20commands/Align.md) command (TODO: why the first 10?)
 
@@ -118,7 +118,7 @@ After the render is done, if a [backbox](Individual%20commands/Backbox.md) was p
 
 ### Dialogue post-processing
 
-This phase of the loop only occurs in [Dialogue mode](Dialogue%20mode.md) mode. It mainly includes special handling logic which mostly takes effect after specific commands as well as interact with with the [tailtarget](Notable%20states.md#tailtarget):
+This phase of the loop only occurs in [Dialogue mode](Dialogue%20mode.md). It mainly includes special handling logic which mostly takes effect after specific commands as well as interact with with the [tailtarget](Notable%20states.md#tailtarget):
 
 * Sets the tailtarget to no longer be talking
 * As long as we are in a [Prompt](Individual%20commands/Prompt.md), [NumberPrompt](Individual%20commands/NumberPrompt.md), [LetterPrompt](Individual%20commands/LetterPrompt.md) or [ItemList](../ItemList/ItemList.md) yield a frame (this waits it goes inactive)
@@ -168,7 +168,7 @@ There is a special case if `listredirect` is -2 or -3 which should only happens 
 
 ## Dialogue Cleanup
 
-This phase only occurs if we are in [Dialogue mode](Dialogue%20mode.md) mode. It tries to mostly do the reverse of dialogue setup, but with some added logic.
+This phase only occurs if we are in [Dialogue mode](Dialogue%20mode.md). It tries to mostly do the reverse of dialogue setup, but with some added logic.
 
 The first thing it will do is If we are using a [transfer](Individual%20commands/Transfer.md) or a [Warp](Individual%20commands/Warp.md) command and the current caller isn't null, set the caller.interactcd to 15.0. After, it will set the [tailtarget](Notable%20states.md#tailtarget) to stop talking if it isn't null and remove the [Text advance](Related%20Systems/Text%20advance.md)'s `skiptext`.
 

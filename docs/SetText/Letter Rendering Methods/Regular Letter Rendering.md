@@ -8,8 +8,8 @@ Its main problem is its inefficiency because it renders each letter in its own o
 
 ## Rendering process
 
-* In [Dialogue mode](../Dialogue%20mode.md) mode, sets [tailtarget](../Notable%20states.md#tailtarget) to be talking
-* If in [Dialogue mode](../Dialogue%20mode.md) mode and the current letter isn't the last one, play the current bleep sound with the current pitch and volume settings and accumulate the letter in the [backtracking](../Related%20Systems/Backtracking.md) system.
+* In [Dialogue mode](../Dialogue%20mode.md), sets [tailtarget](../Notable%20states.md#tailtarget) to be talking
+* If in [Dialogue mode](../Dialogue%20mode.md) and the current letter isn't the last one, play the current bleep sound with the current pitch and volume settings and accumulate the letter in the [backtracking](../Related%20Systems/Backtracking.md) system.
 * Get the first free letter slot and store it in letter
 * If a slot was available
   * Set the appropriate layer of the letter (this changes the camera that renders the letter):

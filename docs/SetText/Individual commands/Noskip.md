@@ -1,6 +1,6 @@
 # Noskip
 
-Forces a stop on the text skip if one was in progress and also prevents any text skip to occur from this point until it is allowed again in [Dialogue mode](../Dialogue%20mode.md) mode.
+Forces a stop on the text skip if one was in progress and also prevents any text skip to occur from this point until it is allowed again in [Dialogue mode](../Dialogue%20mode.md).
 
 ## Syntax
 

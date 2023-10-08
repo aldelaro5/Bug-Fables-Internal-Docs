@@ -1,6 +1,6 @@
 # Limit
 
-Changes the [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)'s line break value.
+Changes the [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)'s `linebreak` value.
 
 ## Syntax
 

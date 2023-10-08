@@ -67,7 +67,7 @@ The cancel option index for the `$`int form or disables the ability to cancel wi
 
 ## Remarks
 
-This command requires to be in [Dialogue mode](../Dialogue%20mode.md) mode or SetText will not wait for the prompt to finish and resume processing as normal which can cause undefined behaviors.
+This command requires to be in [Dialogue mode](../Dialogue%20mode.md) or SetText will not wait for the prompt to finish and resume processing as normal which can cause undefined behaviors.
 
 For the `xminsize` part of `xminsizeyoffset`, the horizontal length of the prompt is calculated by taking the longest among the `prompttexts` text. If that length is smaller than the `xminsize`, the `xminsize` will be the horizontal length of the prompt. Otherwise, the calculated length takes precedence.
 

@@ -28,7 +28,7 @@ This is the desired [Dialogue line id](../Common%20commands%20id%20schemes/Dialo
 
 ## Remarks
 
-This command requires to be in [Dialogue mode](../Dialogue%20mode.md) mode or SetText will not wait for the prompt to finish and resume processing as normal which can cause undefined behaviors.
+This command requires to be in [Dialogue mode](../Dialogue%20mode.md) or SetText will not wait for the prompt to finish and resume processing as normal which can cause undefined behaviors.
 
 This command will first setup a number prompt to be displayed and yield until its outcome is determined using the same prompt lock used by [prompt](Prompt.md). 
 

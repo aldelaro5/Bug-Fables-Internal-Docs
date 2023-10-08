@@ -28,7 +28,7 @@ The maximum amount of letters allowed to be entered. This must be a valid int or
 
 ## Remarks
 
-This command requires to be in [Dialogue mode](../Dialogue%20mode.md) mode or SetText will not wait for the prompt to finish and resume processing as normal which can cause undefined behaviors.
+This command requires to be in [Dialogue mode](../Dialogue%20mode.md) or SetText will not wait for the prompt to finish and resume processing as normal which can cause undefined behaviors.
 
 Before creating the letter prompt, this command will first assign [flagstring](../../Flags%20arrays/flagstring.md) 2 to this command's text, assign [flagvar](../../Flags%20arrays/flagvar.md) 5 to -1 and hide the current textbox with a shrink animation. Only then is the letter prompt created.
 

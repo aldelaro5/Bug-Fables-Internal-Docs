@@ -1,6 +1,6 @@
 # Setbreak
 
-Changes the [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)'s line break value with the option to run [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) again after the change.
+Changes the [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)'s `linebreak` value with the option to run [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) again after the change.
 
 ## Syntax
 

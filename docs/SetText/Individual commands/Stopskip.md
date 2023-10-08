@@ -1,6 +1,6 @@
 # Stopskip
 
-Forces a stop on the text skip if one was in progress in [Dialogue mode](../Dialogue%20mode.md) mode.
+Forces a stop on the text skip if one was in progress in [Dialogue mode](../Dialogue%20mode.md).
 
 ## Syntax
 

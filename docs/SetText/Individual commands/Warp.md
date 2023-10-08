@@ -1,6 +1,6 @@
 # Warp
 
-Setup a [maps](../../Enums%20and%20IDs/Maps.md) transfer to either a specific [maps](../../Enums%20and%20IDs/Maps.md) id or one that is contained in a [flagvar](../../Flags%20arrays/flagvar.md) with the optional ability to set where to move the party after the new [maps](../../Enums%20and%20IDs/Maps.md) is loaded.
+Setup a [map](../../Enums%20and%20IDs/Maps.md) transfer to either a specific [map](../../Enums%20and%20IDs/Maps.md) id or one that is contained in a [flagvar](../../Flags%20arrays/flagvar.md) with the optional ability to set where to move the party after the new [map](../../Enums%20and%20IDs/Maps.md) is loaded.
 
 ## Syntax
 

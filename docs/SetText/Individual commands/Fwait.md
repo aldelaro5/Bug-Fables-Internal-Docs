@@ -1,6 +1,6 @@
 # Fwait
 
-An alias to [forcewait](Forcewait.md)
+An alias of [forcewait](Forcewait.md)
 
 ## Syntax
 

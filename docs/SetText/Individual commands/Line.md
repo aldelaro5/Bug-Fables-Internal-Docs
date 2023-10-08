@@ -24,7 +24,7 @@ A factor to multiply the standard line height to move below the current one. Thi
 
 ## Remarks
 
-This command functions slightly differently than the regular LF processing in [Dialogue mode](../Dialogue%20mode.md) mode when the language is set to `Japanese`. When an LF gets processed in Japanese, it acts like this command with `linespacing` set to 1.25. In other cases, it behaves like syntax (1).
+This command functions slightly differently than the regular LF processing in [Dialogue mode](../Dialogue%20mode.md) when the language is set to `Japanese`. When an LF gets processed in Japanese, it acts like this command with `linespacing` set to 1.25. In other cases, it behaves like syntax (1).
 
 In [Regular Letter Rendering](../Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md), this command is accumulated for the [Backtracking](../Related%20Systems/Backtracking.md) system.
 

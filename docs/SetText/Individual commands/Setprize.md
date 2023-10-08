@@ -1,6 +1,6 @@
 # Setprize
 
-Mark a Caravan prize medal as obtained via its [Medal](../../Enums%20and%20IDs/Medal.md) id or the caller's anim state which also removes it from the caravan list. This can also mark any prize medal as obtained via its prize id.
+Mark a Caravan prize medal as obtained via its [Medal](../../Enums%20and%20IDs/Medal.md) id or the caller's [animstate](../../Entities/EntityControl/Animations/animstate.md) which also removes it from the caravan list. This can also mark any prize medal as obtained via its prize id.
 
 ## Syntax
 

@@ -1,7 +1,6 @@
 # Forcewait
 
-Yields for a certain amount of seconds if unpaused and stop a 
-[Text advance](../Related%20Systems/Text%20advance.md) skiptext if one was in progress.
+Yields for a certain amount of seconds if unpaused and stop a [Text advance](../Related%20Systems/Text%20advance.md) `skiptext` if one was in progress.
 
 ## Syntax
 
