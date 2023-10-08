@@ -1,0 +1,43 @@
+site_name: Bug Fables internal docs
+site_url: https://aldelaro5.github.io/Bug-Fables-Internal-Docs
+site_description: The technical documentation of the internals of Bug Fable
+site_author: aldelaro5
+
+repo_url: https://github.com/aldelaro5/Bug-Fables-Internal-Docs
+edit_uri: edit/reorganize/docs/
+
+strict: true
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+
+markdown_extensions:
+  - toc:
+      permalink: true
+
+theme:
+  name: material
+
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil 
+    view: material/eye
+
+  features:
+    - content.action.view
+    - content.action.edit
+    - search.suggest
+    - navigation.tracking
+
+  palette:
+    - scheme: slate
+      primary: green
+      toggle:
+        icon: material/brightness-3
+        name: Switch to light mode
+    - scheme: default
+      primary: green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
