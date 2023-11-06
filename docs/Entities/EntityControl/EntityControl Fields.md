@@ -384,3 +384,4 @@ These fields are present, but they do not have any practical uses in the game. T
 |soundidstance|float|The maximum distance in units where the new volume of sound during [UpdateSound](Update%20process/UpdateSound.md) will be 0 when reached or exceeded from the camdistance. This is left to the default value of 25.0|
 |lockback|bool|Determines if the entity shouldn't change its backsprite on FaceTowards unless it is forced. This is functional, but never set to true|
 |usebuffer|bool|This is never set to true, but it has an unknown usage in DoFollow|
+|soundfix|bool|This is set to true during a [ScrewSwitch](../NPCControl/ObjectTypes/ScrewSwitch.md) update, but it is never read from|

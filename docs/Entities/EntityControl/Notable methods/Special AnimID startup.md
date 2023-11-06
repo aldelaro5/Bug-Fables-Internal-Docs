@@ -8,7 +8,7 @@ This is the part of [CheckSpecialID](CheckSpecialID.md) that deals with specific
 * `Midge`: Setups 2 wings in the `extra` array with their sprite set to `Sprites/Entities/Midge`
 * `Cape`: setups the `Prefabs/Particles/Snowflakes` if it's an ice variant or `Prefabs/Particles/Flame` if it's a fire one to the only `extra`. The fire variant is in effect only if `forefire` is true OR that the current map is in Giant's Lair except for GiantLairFridgeInside. Finally, the fire variant has its `animid` overriden to FireCape
 * `Watcher`: setup the `extra` to be 2 elements and setup the first one to be `Prefabs/Objects/WatcherBook`. The materials of the pages of the models is adjusted to the holosprite one if `hologram` is true. Finally, `nodigpart` is overridden to true
-* `Krawler`: Very similar to Cape, except the `animid` to override on the fire variant is FireKrawler and if it's the ice variant AND it is not `inice` TODO: what?, then the particle are stopped with playOnAwake turned off
+* `Krawler`: Very similar to `Cape`, except the `animid` to override on the fire variant is `FireKrawler` and if it's the ice variant AND it is not `inice`, then the particle are stopped with playOnAwake turned off
 * `CursedSkull`: Same than `Krawler` except the `animid` overridden on the fire variant is FireWarden
 * `Ahoneynation`: The `rotater` gets a SpriteBounce setup with 0.03 as the frequency and 9.0 as the speed
 * `WaspTwinA`: `basestate` is set to Sad if they are following an entity

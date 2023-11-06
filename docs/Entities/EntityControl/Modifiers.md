@@ -21,8 +21,11 @@ Here are all the modifiers that are known:
 |ShwEm|Sets `alwaysemoticon` to true on [Start](Start.md) TODO: mostly involves [NPCControl](../NPCControl/NPCControl.md)|
 |COG|Sets `startpos` to the point a raycast will hit from the transform heading down on [Start](Start.md)|
 |NGS|Sets `onground` to false which forces the GroundDetector to report the entity being in the air on [Start](Start.md)|
+|NGF|If this has an [NPCControl](../NPCControl/NPCControl.md) of type `Enemy` and it is cleared for being enabled on its Start, the [GravityFix](../NPCControl/GravityFix.md) coroutine is called at the end of its Start (this does nothing otherwise)|
 |ITHD|Calls npcdata's SetHitInteract with HornDash on [Start](Start.md) if the entity has an npcdata|
 |ITAH|Calls npcdata's SetHitInteract with AnyHorn on [Start](Start.md) if the entity has an npcdata|
 |NEAR|When CheckNear is called, the entity is destroyed if it is further away than 30.0 units from the player|
+|NDTCT|[HasHiddenItem](../NPCControl/Notable%20methods/HasHiddenItem.md) always returns false making this entity never trigger the Detector [medal](../../Enums%20and%20IDs/Medal.md) if the player has it equipped|
+|DDIST|[HasHiddenItem](../NPCControl/Notable%20methods/HasHiddenItem.md) always returns false if the distance between this entity and the player is 20.0 or above making this entity never trigger the Detector [medal](../../Enums%20and%20IDs/Medal.md) if the player has it equipped|
 
 TODO: this isn't exhaustive, add those seen on [NPCControl](../NPCControl/NPCControl.md) or elsewhere as they are found

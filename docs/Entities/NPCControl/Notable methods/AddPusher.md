@@ -1,0 +1,3 @@
+# AddPusher
+
+This initialises `pusher` which is a trigger capsule collider that's twice as narrow as the entity's `ccol`, but also twice as long vertically with a tag of `Pusher`. This is primarily used to push the PlayerControl away should it collide with it and helps mitigate the possibility to remain on top of the NPC. It should be noted however that even were it not for it, it is hard to remain on top because of the uneven surfaces of the capsule's top and bottom.

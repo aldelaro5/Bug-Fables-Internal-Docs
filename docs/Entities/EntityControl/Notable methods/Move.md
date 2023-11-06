@@ -6,7 +6,7 @@ First, the entity is unifixed if `fixedentity` is true with the `rigid` constrai
 
 This is where the facing logic occurs which involves having `moverotater` look at the target position sent in and call [FaceTowards](../EntityControl%20Methods.md#FaceTowards) with the same position (this sets `flip` and `backsprite` accordingly).
 
-From there, the `rigid`'s velocity is set to a vector where each component is towards the target * `speed` * the multiplier sent in. However, the y component is exempted from this if `ignorey` or the `rigid` has its gravity enabled. In such case, the y component is the existing one.
+From there, the `rigid`'s velocity is set to a vector where each component is towards the target (uses `moverotater.forward.normalized` which was aligned earlier) * `speed` * the multiplier sent in. However, the y component is exempted from this if `ignorey` or the `rigid` has its gravity enabled. In such case, the y component is the existing one.
 
 Then, the special case where the `walktype` is Jump is handled here. What happens is if the entity is `onground` and the `jumpcooldown` expired, it will also jump on top of that. This is further enhanced by playing the sound `AhoneynationHopJump` for a `Ahoneynation` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md) and by playing `Jump` at 0.85 pitch for a `JumpingSpider`.
 

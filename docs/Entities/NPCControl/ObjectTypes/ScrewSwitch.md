@@ -1,0 +1,39 @@
+# ScrewSwitch
+A crank switch actuated by Vi's Beemerang Toss which will increment `actioncooldown` as the actuation is held until a value with configurable rates and visual angles.
+
+## Data Arrays
+- `vectordata[0].x`: The rate at which `actioncooldown` increments per update cycle when the crank is actuated
+- `vectordata[0].y`: The rate at which `actioncooldown` decrements per update cycle when the crank is not actuated
+- `vectordata[0].z`: The maximum value of `actioncooldown` allowed where the crank is considered fully actuated when reached
+- `vectordata[1]`: The base angle vector to rotate the crank every update cycles that it is actuated
+
+## Setup
+First, the entity's `rigid` gets effectively fixed by placing it in kinematic mode without gravity and all constraints frozen. Then, the entity's `alwaysactive` is set to true.
+
+`nointeract` is set to true and if the `activationflag` [flags](../../../Flags%20arrays/flags.md) slot is true, `hit` is also set to true.
+
+From there some adjustements happens based on the `originalid`'s [AnimID](../../../Enums%20and%20IDs/AnimIDs.md)(nothing happens if it doesn't match any of them):
+- `SwitchCrystal` and `BigCrystalSwitch`: A GlowTrigger is added to the entity's `model`'s first child with its `parent` set to this object and the `glowparts` set to a single element corresponding to the MeshRender already attached to the first `model` child. 
+- `WoodenSwitch` and `SteelSwitch`: `internaldata` is intiialised to a single element being -60 if it's a `WoodenSwitch` or -100 if it's a `SteelSwitch`, Then, the `moveobj` is set to the entity's `model` first child and if `hit` was set to true earlier, its angles are set to (0.0, `internaldata[0]`, 0.0)
+
+After, if the player is present, all collision between the `boxcol` and the player's wall detector are ignored.
+
+Then, if the `originalid` is not among `BigCrystalSwitch`, `WoodenSwitch` or `SteelSwitch`, [AddPushder](../AddPusher.md) is called.
+
+## Update
+Updates are disabled if the player is null.
+
+First, `hit` is set to true if the player's `beemerang` is present and the distance between it and this object is less than 1.75. Otherwise, it is set to false.
+
+If `hit` is true then `actioncooldown` is incremented by the game's frametime * `vectordata[0].x`, but only if the `actioncooldown` is less than `vectordata[0].z` otherwise, nothing happens.
+
+If `hit` is false and the `actioncooldown` is above 0.0, it is decremented by the game's frametime * `vectordata[0].y`
+
+From there, the ratio of the switch actuation is calculated by multiplying the game's frametime with (`actioncooldown` / `vectordata[0].z`) which is then clamped from 0.0 to 1.0.
+
+The entity's `model` angles are set to the actuation ratio * `vectordata[1]`.
+
+If the ratio is 0 or lower, the entity's `sound` is set to stop looping. Otherwise, [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called with the `SpinSwitch0` clip at half volume if the entity's `sound` wasn't playing already. It also sets the clip to loop at 0.5 + the actuation ratio as the pitch.
+
+## OnTriggerEnter
+If the other gameObject tag is `BeetleHorn`, `hit` is set to true and `actioncooldown` is set incremented by `vectordata[0].x` * 10.0 then clamped from 0.0 to `vectordata[0].z`. This slightly actuate the crank the moment Kabbu's horn collides with it.
