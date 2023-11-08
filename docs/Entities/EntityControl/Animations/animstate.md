@@ -1,6 +1,7 @@
 # Animstate
-
 The animstate of an [Entity](../../Entity.md) represents the current animation the entity should be on. It is an integer that allows most animations to be identified by. The system dictates a standard way to operate with animation clips while offering the ability to extend this standard via the [AnimSpecific](AnimSpecific.md) system. This allows to operate in Unity in such a way that the animstate system can track.
+
+> NOTE: this field means something completely different for an [item entity](../Item%20entity.md).
 
 ## Standard animations
 

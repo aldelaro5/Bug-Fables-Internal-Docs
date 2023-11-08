@@ -297,13 +297,13 @@ These fields manages the concept of [Death](Notable%20methods/Death.md) and also
 
 ## Item
 
-These fields are specific to item entities.
+These fields are specific to [item entities](Item%20entity.md).
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
-|item|bool|No|Determines if this entity is an item. This must be set internally when applicable or on [CreateEntities](CreateEntities.md) if it is an item|
+|item|bool|Yes|Determines if this entity is an [item entity](Item%20entity.md). This should be set before [Start](Start.md) alongside `animstate`. If not, `itemstate` must also be set to the `animstate`|
 |showitem|bool|No|Indicates that this entity must render an item sprite. This can be set to true on Start using the `shwKEY` [Modifiers](Modifiers.md)|
-|itemstate|int|Yes|The [Items](../../Enums%20and%20IDs/Items.md) or [Medal](../../Enums%20and%20IDs/Medal.md) id, only applicable when item is true|
+|itemstate|int|Yes|The item id, only applicable for [item entity](Item%20entity.md) and should have the same value as the `animstate`|
 |destroytype|DeathType|Yes|The type of death process used for [Death](Notable%20methods/Death.md). This is normally loaded from [entitydata directory](../../TextAsset%20Data/Entity%20data.md#`entitydata`%20directory)|
 
 ## Drop
