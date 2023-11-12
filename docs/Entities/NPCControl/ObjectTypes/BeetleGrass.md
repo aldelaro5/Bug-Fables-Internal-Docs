@@ -14,7 +14,7 @@ A grass that can be cut by Kabbu's Horn Slash ??? Can either be bound to a [crys
 - `vectordata`: The list of [items](../../../Enums%20and%20IDs/Items.md) ids (in the x component after flooring) to potentially drop. Only applicable if `data[1]` isn't.
 
 ## Additional data
-- `boxcol`: Required to be present with valid data as a trigger collider. This will replace the `scol` as that one gets disabled
+- `boxcol`: Required to be present with valid data
 - `regaionalflag`: The [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot turned to true when the bush is cut while `data[1]` isn't present or is negative (if an item is dropped, it's attached to the item created).
 - `activationflag`: The [flag](../../../Flags%20arrays/flags.md) slot turned to true when the bush is cut while `data[1]` isn't present or is negative (if an item is dropped, it's attached to the item created).
 
