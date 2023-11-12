@@ -7,7 +7,7 @@ A trigger zone to change the camera ???
 - `data[2]`: If 1, the `camspeed` is changed by this object when triggered
 - `data[3]`: If 1, the `camangleoffset` is changed by this object when triggered
 - `data[4]`: If 1, the `camtarget` is changed by this object when triggered
-- `data[5]`: The [entity id](../../../SetText/Common%20commands%20id%20schemes/Entity%20id.md) whose entity is the value the `camtarget` will be set to when `data[4]` is 1
+- `data[5]`: The [entity id](../../../SetText/Common%20commands%20id%20schemes/Entity%20id.md) whose entity's transform is the value the `camtarget` will be set to when `data[4]` is 1
 - `data[6]`: If 1, the `camtargetpos` is changed by this object when triggered
 - `data[7]`: If 1, the `camanglespeed` is changed by this object when triggered. This is optional
 - `vectordata[0]`: The `camoffset` to set if `data[0]` is 1
@@ -20,9 +20,9 @@ A trigger zone to change the camera ???
 
 ## Setup
 A few adjustements occurs:
-- The entity's `alwaysactive` is set to true
+- The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
-- The entity's `rigid` is placed in kinematic mode without gravity
+- The entity.`rigid` is placed in kinematic mode without gravity
 - `nointeract` is set to true
 - The layer is set to 0 (default)
 - The `scol` is disabled
