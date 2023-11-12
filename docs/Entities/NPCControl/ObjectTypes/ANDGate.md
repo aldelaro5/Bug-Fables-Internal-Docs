@@ -4,6 +4,9 @@ A multipurpose condition checker that can be operated in 4 distinct modes involv
 ## Data Arrays
 - `data`: Control the mode of operations and data to check. See the table below for details.
 
+## Additional data
+- `activationflag`: When configured as such, the `hit` value is set to the value of this [flag](../../../Flags%20arrays/flags.md) slot. See the table below for details.
+
 ## Setup
 A few adjustements occurs:
 - The entity.`alwaysactive` is set to true
