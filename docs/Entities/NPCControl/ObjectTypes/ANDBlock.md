@@ -7,6 +7,9 @@ A multipurpose condition checker that can be operated in 3 distinct modes involv
 - `vectordata[1].x`: The factor of the lerp to use after setting this object's `hit` during Update
 - `vectordata[2]`: The entity.`startscale` and the local scale of the entity.`sprite`. This is optional, neither are changed if the magnitude is \<= 0.1 or does not exist.
 
+## Additional data
+- `activationflag`: When configured as such, the `hit` value is set to the value of this [flag](../../../Flags%20arrays/flags.md) slot. See the table below for details.
+
 ## Setup
 A few adjustements occurs:
 - The entity/`alwaysactive` is set to true
