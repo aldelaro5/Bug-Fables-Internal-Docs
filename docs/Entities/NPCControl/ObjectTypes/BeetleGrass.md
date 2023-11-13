@@ -1,5 +1,5 @@
 # BeetleGrass
-A grass that can be cut by Kabbu's Horn Slash ??? Can either be bound to a [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot which will be dropped, or a list of [items](../../../Enums%20and%20IDs/Items.md) that will dropped alongside the activation of a [flag](../../../Flags%20arrays/flags.md) and [regionalflag](../../../Flags%20arrays/Regionalflags.md) slots. 
+A grass that can be cut by Kabbu's Horn Slash. Can either be bound to a [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot which will be dropped, or a list of [items](../../../Enums%20and%20IDs/Items.md) that will dropped alongside the activation of a [flag](../../../Flags%20arrays/flags.md) and [regionalflag](../../../Flags%20arrays/Regionalflags.md) slots. 
 
 ## Data Arrays
 - `data[0]`: The id of the grass sprite to use (NOTE: any other value than the ones below when `data[1]` doesn't apply will cause an exception to be thrown):
