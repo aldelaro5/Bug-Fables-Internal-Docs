@@ -6,7 +6,7 @@ A switch that can be turned on or off offering a wide variety of actuation flow 
 - `data[1]`: Controls the actuation flow, see the section below for details
 - `data[2]`: If `data[1]` is 0, this the the amount of frames that must pass after an actuation for the switch to automatically turn itself off. This is optional, this feature isn't used when it doesn't exist or is negative. As a side effect of enabling this feature, the `hit` value is continuously set to true if the `activationflag` [flag](../../../Flags%20arrays/flags.md) slot is true
 - `data[3]`: UNUSED (The value is used in an if statement in Update, but the if leads to no code)
-- `data[4]`: If it's 1, the entity's `rotater` tag is set to `Hornable` (allows PlayerControl to get a green ! emoticon when getting 2.5 or lower distance from the grass for 5 frames) and disallows the switch to be actuated using Leif's Icicle or Vi's [beemerang](Beemerang.md). This is optional, no change happens if it's 0 or not present. NOTE: anything other than 0 or 1 is considered invalid and will prevent the switch from being actuated under any circumstances
+- `data[4]`: If it's 1, the entity's `rotater` tag is set to `Hornable` (allows PlayerControl to get a green ! emoticon when getting 2.5 or lower distance from the switch for 5 frames) and disallows the switch to be actuated using Leif's Icicle or Vi's [beemerang](Beemerang.md). This is optional, no change happens if it's 0 or not present. NOTE: anything other than 0 or 1 is considered invalid and will prevent the switch from being actuated under any circumstances
 
 ## Additional data
 - `boxcol`: Required to be present with valid data
