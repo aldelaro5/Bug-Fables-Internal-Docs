@@ -8,8 +8,8 @@ An object where the entity is left in a fixed [animstate](../../EntityControl/An
 ## Setup
 - The entity.`ccol` gets disabled or enabled depending on `data[0]`
 - The entity.`rigid`'s gravity gets disabled if `data[0]` is 1
-- `overridejump` is set to true
-- `overrideanim` is set to true
+- entity.`overridejump` is set to true
+- entity.`overrideanim` is set to true
 - entity.[animstate](../../EntityControl/Animations/animstate.md) is set to `data[1]`
 - The `scol` gets disabled.
 

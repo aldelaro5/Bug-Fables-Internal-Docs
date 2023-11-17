@@ -27,6 +27,6 @@ If the cooldown has expired, then this update will only occur if the `spawned` d
 
 If the `spawned` enemy still doesn't exist, it is set to the NPCControl of the `Enemy` whose map entity id is `data[0]`.
 
-Here, as long as the `spawned`'s entity exists, [RespawnEnemy](../RespawnEnemy.md) is called with the `spawned` enemy at the position `vectordata[0]` + RandomVector(`vectodata[1]`) + (0.0, 0.5, 0.0). The random vector portion is from -`vectordata[1]` to `vectordata[1]`.
+Here, as long as the `spawned`'s entity exists, [RespawnEnemy](../Notable%20methods/RespawnEnemy.md) is called with the `spawned` enemy at the position `vectordata[0]` + RandomVector(`vectodata[1]`) + (0.0, 0.5, 0.0). The random vector portion is from -`vectordata[1]` to `vectordata[1]`.
 
 Finally, the `actioncooldown` is reset to `data[4]`.
