@@ -73,7 +73,7 @@ A special case can happen if `data[3]` is 1: it allows the ice cube to move in t
 - `internalvector` is initialised to have 2 elements (kept at default values)
 - `internaldata` is initialised to have 1 element (kept at default value)
 - `internalcollider` is initialised to have 1 element with the value being the entity.`model`'s Collider
-- The tags of the gameObject, the entity.`model` and its child with a Collider are set to `PushRock` which allows this object to actuate a [PressurePlate](PressurePlate.md) and it also allows a DeadLanderOmega to ForceLook if the object collides with a DeadLanderZones whose `onlyrock` is set to true
+- The tags of the gameObject (which gets overriden later to `Object`), the entity.`model` and its child with a Collider are set to `PushRock` which allows this object to actuate a [PressurePlate](PressurePlate.md) and it also allows a DeadLanderOmega to ForceLook if the object collides with a DeadLanderZones whose `onlyrock` is set to true
 - The NPCControl's `rotater` is initialised to a new GameObject named `rotater` childed to this object with a local position of Vector3.zero.
 - If `data[1]` is 1, the entity.`rigid` have all its constraints removed (this never happens under normal gameplay).
 - If `data[2]` is present and above 0, the following happens:

@@ -108,7 +108,7 @@ The following occurs:
 - `actionfrequency[2]` is set to `data[0]`
 
 ## OnTriggerEnter if the other gameObject layer is `Ground` or `NoDigGround`
-This does nothing if the other gameObject tag is `DroppletPass` (This only happens with a [BreakableRock](BreakableRock.md)).
+This does nothing if the other gameObject tag is `DroppletPass` (This would have happened with a [BreakableRock](BreakableRock.md), but the tag gets overriden to `Object` later so in practice, this can't happen under normal gameplay).
 
 - `actionfrequency[1]` is set to 600.0
 - If the entity.`rigid` is not in kinematic mode, the following depends on `internalparticle[0]`:
