@@ -1,31 +1,32 @@
 # RotatingPlatform
-A platform that rotates based on a set path defined by multiple angles vectors called nodes and can conditionally be stopped depending on the `hit` value of other NPCControl present on the map. Can be operated in loop mode using only 2 nodes or with multiple nodes in path nodes with more options.
+The same than [PathPlatform](PathPlatform.md), but path mode will have the nodes be euler angles vectors instead and the platform will rotate through these angles instead of moving. Loop mode is left unchanged, but is considered invalid.
+
+> NOTE: While it is possible to use loop mode on an object of this type, this isn't considered valid because on SetUp, the angles of the platform are set to the first node so they can't be position vectors in loop mode. It also excludes the `Lilypad` exclusive logic on SetUp. Use [PathPlatform](PathPlatform.md) in loop mode for this instead and only use this type in path mode when rotating is desired instead of movement.
 
 ## Data Arrays
-- `data`: The map entities index to check for their `hit` being true and if any are, it will tell the platform to set its `hit` to true and to start moving along its path in nodes mode. This is optional, the platform is considered as continually moving as normal without any elements
-- `vectordata`: The nodes the platform will travel in absolute positioning.
-- `dialogues[0].x`: The starting node after truncating to int. This can only be 0 or 1 in loop mode.
-- `dialogues[0].y`: The speed multiplier at which the platform moves.
-- `dialogues[0].z`: ???
-- `dialogues[1].x`: if it's 1, it means to only loop between the first 2 `vectordata` and disregard the `currentnode` logic.
-- `dialogues[1].y`: The `actioncooldown` to apply when the platform has reached the end of its path and it should go inactive.
-- `dialogues[1].z`: ???
-- `dialogues[2].x`: The local scale of the entity's `model` will be multiplied by the 1/10 of this, but this is optional and the scale will not change if it is 0.1 or below
-- `dialogues[2].y`: The `electime` of the GlowTrigger. This is optional and the value defaults to 260.0 if it's 0.
-- `dialogues[2].z`: ???
+- `data`: The same than [PathPlatform](PathPlatform.md)
+- `vectordata`: The nodes the platform will rotate in euler angles
+- `dialogues[0].x`: In path mode, this isn't used because the starting node is always the first one (0). In loop mode, the same than [PathPlatform](PathPlatform.md)
+- `dialogues[0].y`: The same than [PathPlatform](PathPlatform.md)
+- `dialogues[1].x`: The same than [PathPlatform](PathPlatform.md)
+- `dialogues[1].y`: The same than [PathPlatform](PathPlatform.md)
+- `dialogues[2].x`: The same than [PathPlatform](PathPlatform.md)
+- `dialogues[2].y`: The same than [PathPlatform](PathPlatform.md)
 
 ## Setup
-First, the entity's `rigid` gets effectively locked by disabling gravity, making it kinematic and freezing all constraints. The isStatic on the gameObject is set to false, the `nointeract` to true and the entity's `soundonpause` to true.
-
-From there, the model's scale is modified according to the value of `dialogues[2].x`.
-
-After, the entity's `alwaysactive` is set to true and its `model`'s tag to `PlatformNoClock`.
-
-If the entity's `originalid` is the `ElectroPlatform` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md), a GlowTrigger is added on the first child of the `model`:
-- `getactivecolorfromstart` is set to true
-- `parent` is set to this NPCControl
-- `glowparts` is initialised to a single element corresponding to the MeshRenderer of the first child of the `model`
-- `electimr` is initialised according to the value of `dialogues[2].y` described in the previous section
+- entity.`rigid` gets effectively locked by disabling gravity, making it kinematic and freezing all constraints
+- isStatic on the gameObject is set to false
+- `nointeract` is set to true
+- entity.`soundonpause` is set to true
+- entity.`model` angles are set to `vectordata[0]` (It is assumed to be in path mode)
+- entity.`model` scale is multiplied by a 1/10 of `dialogues[2].x`
+- entity.`alwaysactive` is set to true
+- entity.`model` tag is set to `PlatformNoClock`
+- If entity.`originalid` is the `ElectroPlatform` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md), a GlowTrigger is added on the first child of the `model`:
+  - `getactivecolorfromstart` is set to true
+  - `parent` is set to this NPCControl
+  - `glowparts` is initialised to a single element corresponding to the MeshRenderer of the first child of the `model`
+  - `electime` is initialised to 260.0 unless `dialogues[2].y` exists and isn't 0 where it will take that value instead
 
 ## Update
 First, if the [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) is a `Lilypad`, the `boxcol` if present is kept enabled, otherwise, its enabled will bet set to the `hit` value.
@@ -33,35 +34,13 @@ First, if the [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) is a `Lilypad`, th
 From there, the platform can operate in 2 distinct modes: forever move in a loop between the first 2 `vectordata` or rotate by following a series of nodes defined in `vectordata` which are angles vectors. The former is done if `dialogues[1].x` is 1, the latter is done otherwise.
 
 ### Loop mode
-This is a much simpler mode where only the first 2 `vectordata` are used as nodes.
-
-In this mode, `hit` is set to true and it is never toggled back. This means the platform will continually move according to the `speedmultiplier` field which servers as the factor of the position lerp to perform between `vectordata[0]` and `vectordata[1]`.
-
-On the first update, if `dialogues[0].x` isn't negative, it will be the starting value of `speedmultiplier`. This is a one off: after setting the field, it is reset to -1. It should be noted that the value set is a cast to int meaning it can only be 0 or 1 which coresponds to the starting node chosen among the 2.
-
-The platform is considered active when either `data` is empty or any of its elements refers to a map NPCControl whose `hit` is true. If it is active, `speedmultiplier` gets incremented by the game's frametime * `dialogues[0].y` / 1000.0. If it's inactive, it gets decremented instead. Basically, the platform moves forward when active and backward when inactive.
-
-The position set portion starts by clamping `speedmultiplier` from 0.0 to 1.0 and then setting the position using a Vector3.Lerp from `vectordata[0]` to `vectordata[1]` with a factor of `speedmultiplier`.
-
-Finally, Unless the [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) is a `Lilypad`, `speedmultiplier` is below 1.0 and the entity's `sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called on the entity with the `PlatformMove` clip set to loop.
+The same logic than [PathPlatform](PathPlatform.md) occurs here with no changes.
 
 ### Path mode
-What happens each updates depends on the value of `hit` which gets toggled on and off in a very systematic manner. The details involves many different fields that interacts with each other:
-- `actioncooldown`: The cooldown used to stop rotation whenever the platform reaches its last node AND it is considered deactivated. This is refreshed to be `dialogues[1].y` each time the platform rotates to a new node with `hit` being set to true.
-- `speedmultiplier`: The factor to use when lerping the platform angles between nodes. It's set to 0.0 when rotating to a new node until it reaches 1.0+. It progressively increases by the frametime of the game * `dialogues[0].y` / 1000.0.
-- `bounces`: The previous node index visited which will be used as the `from` angles vector when lerping.
-- `currentnode`: The next node index to visit which will be used as the `to` angles vector when lerping.
+The same logic than [PathPlatform](PathPlatform.md) occurs here, but with one change. If `hit` is true and `bounces` isn't `currennode` then the angles of the platform are lerped instead of its position with a regular lerp (SmoothLerp isn't called even with only 2 nodes). The same parameters are sent to Lerp so the only changes is `vectordata` are euler angles vector instead of positions.
 
-#### When `hit` is false
-Before anything happens, the entity's `sound` is set to not loop and its `model` tag is set to `Platform`.
+## Hazards.OnObjectStay
+Unlike [PathPlatform](PathPlatform.md), this object will return false which disallows it to stay in collision with the Hazards.
 
-The platform is considered active when either `data` is empty or any of its elements refers to a map NPCControl whose `hit` is true. When a platform is active, it will have its `hit` set to true on the first update in which it was false. This will cause the fields to be set in such a way that `bounces` will always lag behind by 1 from `currentnode` when rotating forward in the nodes list. When the platform reaches the last angle and it's still active, it will set `currentnode` to 0 which will make the platform rotate back to its starting angle, but ignoring all the nodes, it simply rotates straight towards the start angles and continues from there.
-
-But it is possible for the platform to go inactive during its forward path. When this happens, this is where the `actioncooldown` comes into play if one was defined (the platform doesn't rotate if it's 0.0 or below). It will be exhausted which will make the platform stationnary until it expires. When it does expire, if the platform's `currentnode` is higher 0 (its angles wasn't at the starting ones already), it will decrement it, but have `bounces` be one node above. This essentially makes the platform rotates backwards, but following its angles path until the start (with cooldown applied) and it also sets `hit` to true.
-
-#### When `hit` is true
-There is a special case before anything happens: whenever `hit` goes to true, it is possible that `currentnode` and `bounces` points to the same node. It can happen if there's only one node defined in `vectordata`. If this occurs, the update logic just ends abrutply because there is no need to rotate the platform and it will remain stationnary forever.
-
-Then, the entity's `model` tag is set to `PlatformNoClock`. Unless the [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) is a `Lilypad` and the entity's `sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called on the entity with the `PlatformMove` clip set to loop.
-
-From there, this is where the rotation is done until `speedmultipiler` reaches 1.0 or above in which case, it's reset to 0.0 and `hit` is set to false again. The angles applies to the entity's `model` with a lerp from the `vectordata` at `bounces` to the `vectordata` at `currentnode` with a factor of `speedmultiplier`.
+## Effects of the `Platform` and `PlatformNoClock`
+The same then [PathPlatform](PathPlatform.md).

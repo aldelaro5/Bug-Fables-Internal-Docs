@@ -32,7 +32,7 @@ A platform that moves on a set path defined by multiple absolute position vector
   - The `scol` is disabled
   - the `boxcol` is recreated with trigger and a size of (5.0, 1.0, 5.0) which overrides all the `boxcol` fields obtained when loading the data.
 - entity.`alwaysactive` is set to true
-- entity.`model` tag is set to `PlatformNoClock` TODO ???
+- entity.`model` tag is set to `PlatformNoClock`
 - If entity.`originalid` is the `ElectroPlatform` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md), a GlowTrigger is added on the first child of the `model`:
   - `getactivecolorfromstart` is set to true
   - `parent` is set to this NPCControl
