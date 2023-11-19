@@ -1,14 +1,14 @@
 # ResetCamera
-A reset camera zone ???
+A zone where the camera is reset to default via MainManager.ResetCamera when the player enters it.
 
 ## Data Arrays
-
+None.
 
 ## Setup
 A few adjustements occurs:
-- The entity's `alwaysactive` is set to true
+- The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
-- The entity's `rigid` is placed in kinematic mode without gravity
+- The entity.`rigid` is placed in kinematic mode without gravity
 - `nointeract` is set to true
 - The layer is set to 0 (default)
 - The `scol` is disabled
