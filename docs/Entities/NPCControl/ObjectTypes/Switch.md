@@ -69,11 +69,11 @@ Nothing happens if any of the following is true:
 The following occurs:
 - `collisionammount` is incremented
 - A HitPart particle is played at this position + (0.0, 0.5, 0.0)
-- The main logic section occurs, see the section below for details
+- The main logic section occurs, see below for details
 - If the other gameObject was the player `beemerang`, its `hit` is set to true and the `WoodHit` sound is played on the entity
 - If the entity `originalid` isn't -1 (`None`), [SwitchSound](../SwitchSound.md) is called indicating a press
 
-What happens first depends on `data[0]`. 
+What happens in the main logic depends on `data[0]`. 
 
 ### `data[0]` is 1
 This does nothing if `hit` is true and the `TOG` [modifier](../../EntityControl/Modifiers.md) is not active:
