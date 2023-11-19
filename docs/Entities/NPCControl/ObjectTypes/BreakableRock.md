@@ -59,7 +59,7 @@ If the method finds out that a map entity of this object type exists less than 4
 When a RollingRock receives a collision from a BreakableRock, BreakRock is called on the breakbale one.
 
 ## BreakRock
-This is a public method that had logic specific to this object type.
+This is a public method that has logic specific to this object type.
 
 If the player is less than 15.0 away from this object and the `RockBreak` sound wasn't playing, it is played at 0.5 volume.
 
