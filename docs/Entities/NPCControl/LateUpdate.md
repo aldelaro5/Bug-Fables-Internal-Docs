@@ -30,6 +30,7 @@ After this whole logic, the rest of this section only happens if the entity is `
 - If the `behaviorcooldown` hasn't expired yet, it is decreased by the game's frametime
 - The `tattleid` is set to a value if there's a specific [Interaction](Interaction.md).
 - Some [Shop](Interaction/Shop.md) and [CaravanBadge](Interaction/CaravanBadge.md) exclusive logic occurs here when applicable
+- Some [Geizer](ObjectTypes/Geizer.md) exclusive logic occurs here when applicable
 - If the entity `iskill` is false:
   - If the y position is less than the map `ylimit`, then the position is set to the entity `startpos`. On top of this, DeathSmoke particles are played at the entity `sprite` position if the entity is `incamera`, it isn't `dead` and the [animid](../../Enums%20and%20IDs/AnimIDs.md) isn't negative (it is defined). An exception to this logic is if it's a [Dropplet](ObjectTypes/Dropplet.md) object
   - Some [WanderOnWater](ActionBehaviors/WanderOnWater.md) and [ChaseOnWater](ActionBehaviors/ChaseOnWater.md) exclusive logic occurs here when applicable

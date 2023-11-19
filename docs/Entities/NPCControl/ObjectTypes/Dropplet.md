@@ -159,6 +159,15 @@ On its LateUpdate, the main things that happens are:
 On its OnTriggerEnter, there are multiple possible interactions depending on the other collider tag:
 - `BeetleHorn`: This means the cube will be launched. The launch is done by using pushammount.x for the x and z axises and pushammount.y for the y axis as the new velocity adjusted by the actual direction the player is at so it launches away from it. However, this can be skewed if `data[4]` exists and is 1 where the actual direction is snapped to the closest 8 cardinal directions relative to the camera (this is done using the rotater object as it's set to look at the player)
 - `IceBreak`: the player.entity.`hitwall` is set to true and ShatterDroppletIce is called on the NPCControl
-- `Platform` or `PlatformNoClock`: The ice cube can get childed to the platform so it moves with it. This is also done in OnCollisionEnter. This is undone in OnTriggerExit when applicable
+- `Platform` or `PlatformNoClock`: The ice cube can get childed to the platform (or [Geizer](Geizer.md)) so it moves with it. This is also done in OnCollisionEnter. This is undone in OnTriggerExit when applicable
 
 On its OnTriggerStay, any `Pusher` collider is enforced here and the ground state is reset when the other collider is layer 8 or 13 (`Ground` or `NoDigGround`). This is also done in OnCollisionEnter and OnCollisionStay
+
+### ServerGeizer
+This public method of the component is important because it setup some changes when the ice cube gets on a [Geizer](Geizer.md). It does nothing however if `ingeizer` is null.
+
+- The collisions between the root collider or the actual ice cube collider and the ingeizer.`boxcol` are temporarilly ignored for 5.0 seconds
+- The ice cube is childed to the map
+- The root RigidBody velocity is zeroed out with gravity and without kinematic mode
+- ingeizer.`moveobj` is set to null
+- ingeizer is set to null
