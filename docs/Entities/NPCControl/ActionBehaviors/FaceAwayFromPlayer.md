@@ -1,10 +1,12 @@
 # FaceAwayFromPlayer
-Stops any force move on the entity and causes the entity `flip` to be set such that it faces the opposite direction than the player horizontally.
+Stops any force move on the entity and causes the entity.`flip` to be set such that the sprite faces the opposite direction of the player horizontally.
 
 ## Frequency meaning
-None ???
+None.
 
 ## DoBehavior
-First, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove).
+[StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on the entity.
 
-Then, if the player is present, the entity's `flip` is set to true if this entity x position is strictly higher than the player's. It is set to false otherwise.
+If the player is not present, no changes occur on the `flip` value.
+
+The entity.`flip` is set to false when the entity x position is strictly higher than the player. It is set to true otherwise.
