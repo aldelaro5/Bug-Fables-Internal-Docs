@@ -2,7 +2,7 @@
 This is an alias of [FleeFromPlayer](FleeFromPlayer.md).
 
 ## Frequency meaning
-None ???
+None.
 
 ## DoBehavior
 The same than [FleeFromPlayer](FleeFromPlayer.md).
