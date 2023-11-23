@@ -10,7 +10,7 @@ If `returntoheight` is true, the entity.`height` is set to a lerp from the exist
 Finally, a ChargeAtPlayer coroutine is started and set to `behaviorroutine`.
 
 ## ChargeAtPlayer
-This is a private coroutine specific to this behavior. It receives the behavior type (which is always this type) and a cooldown time (the `actioncooldown`) in frames that would have been used to smoothly return the entity.`height` to entity.`initialheight`, but in practice, it's always 0.0 which disables this feature. The coroutine call is assigned to `behaviorroutine` which allows the NPCControl to stop it if needed.
+This is a private coroutine specific to this behavior. It receives the behavior type and a cooldown time (the `actioncooldown`) in frames that would have been used to smoothly return the entity.`height` to entity.`initialheight`, but in practice, it's always 0.0 which disables this feature. The coroutine call is assigned to `behaviorroutine` which allows the NPCControl to stop it if needed.
 
 - entity.`rigid` is unlocked with [LockRigid(false)](../../EntityControl/EntityControl%20Methods.md#lockrigid)
 - The `Find` sound is played on the entity
