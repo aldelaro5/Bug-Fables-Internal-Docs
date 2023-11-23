@@ -1,23 +1,35 @@
 # ChargeAndAttack
-The same than [ChasePlayer](ChasePlayer.md), but also attack the player depending on the [AnimID](../../../Enums%20and%20IDs/AnimIDs.md) when getting closer than a configurable threshold.
+The same than [ChasePlayer](ChasePlayer.md), but also attacks the player where the actions depends on the [AnimID](../../../Enums%20and%20IDs/AnimIDs.md) when getting closer than a configurable threshold.
 
 ## Frequency meaning
 The minimum distance to the player at which no attacks will occur. If the distance falls below this number, a ChargeAndAttack coroutine will be started. NOTE: if it is above 10.0 or negative, the value is overriden to 2.0.
 
 ## DoBehavior
-The following occurs on the entity:
-- If the NPCControl `returntoheight` is true, `height` is set to a lerp from the existing one to `initialheight` with a factor of 0.1
-- The `sprite` is enabled
-- `forcemove` is set to false
-- [FaceTowards](../../EntityControl/EntityControl%20Methods.md#facetowards) is called with the player position
-- `emoticonid` is set to 2 (!) and `emoticoncooldown` is set to 2.0
-- If [HasGroundAhead](../../EntityControl/EntityControl%20Methods.md#hasgroundahead) returns true, [Move](../../EntityControl/Notable%20methods/Move.md) is called to the player with the `speedmultiplier` speed and the `Chase` [animstate](../../EntityControl/Animations/animstate.md). Otherwise, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called
-- `oldstate` is set to -1
-- `oldfly` is set to false
-- The `animstate` is set to `Chase`
-- The position is limited to a radius of `radiuslimit` where the center is `startpos` ignoring the y component
+The logic starts with the same than [ChasePlayer](ChasePlayer.md).
 
-From there, if the distance between this and the player is less than `frequency` (after overriding it as described above), `behaviorroutine` is set to a ChargeAndAttack coroutine that is started.
+After, if the distance between the NPCControl and the player is less than the frequency (after overriding it as described above), `behaviorroutine` is set to a ChargeAndAttack coroutine that is started.
 
 ## ChargeAndAttack
+This is a private coroutine specific to this behavior. The call is assigned to `behaviorroutine` which allows the NPCControl to stop it if needed.
+
+- [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on the entity
+- entity.`overrideanim` is set to true
+- From there, the charge and attack is done depending on entity.[animid](../../../Enums%20and%20IDs/AnimIDs.md#animids). See the section below for more details.
+- If we are in a `pause`, `minipause`, `inevent` or we are in a battle and the battle is `inevent`, all frames are yielded until that is no longer the case
+- If we aren't `inrange`, [Emoticon](../../EntityControl/EntityControl%20Methods.md#emoticon) is called on the entity with id 1 (? mark) for 60 frames
+- entity.`overrideanim` is set to false
+- `attacking` is set to false
+- [StopForceBehavior](../Notable%20methods/StopForceBehavior.md) is called
+
+### Charge and attack logic
+`LeafbugClubber`:
+TODO
+
+`FlyTrap`:
+TODO
+
+`Underling`:
+TODO
+
+`Sandworm`:
 TODO
