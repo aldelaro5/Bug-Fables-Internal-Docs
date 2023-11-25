@@ -22,7 +22,7 @@ From there, there is an early exit path if the entity is in a `forcemove` and an
 - entity.`onground` is false
 - entity.`detect` is present and [HasGroundAhead](../../EntityControl/EntityControl%20Methods.md#hasgroundahead) from the entity.`forcetarget` returns false
 
-When the above is fufilled, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove)  is called with the `basestate` and this DoBehavior cycle is ended early. This is because the game concluded it is no longer possible to move further towards this position.
+When the above is fufilled, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called with the `basestate` and this DoBehavior cycle is ended early. This is because the game concluded it is no longer possible to move further towards this position.
 
 If we are cleared to continue, there are 4 possible branches this DoBehavior can takes (only the first one that applies is taken checked in this order):
 - `actioncooldown` expired (the main wandering logic)
