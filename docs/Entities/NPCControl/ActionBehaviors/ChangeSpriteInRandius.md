@@ -1,8 +1,8 @@
 # ChangeSpriteInRandius
-When the player is present, the entity [animstate](../../EntityControl/Animations/animstate.md) is set to `actionfrequency[0]` when the distance between this and the player is less than the `wanderradius`, it is set to `actionfrequency[1]` otherwise.
+When the player is present, the entity.[animstate](../../EntityControl/Animations/animstate.md) is set to `actionfrequency[0]` when the distance between this and the player is less than the `wanderradius`, it is set to `actionfrequency[1]` otherwise.
 
 ## Frequency meaning
-Each of the 2 frequencies corresponds to an [animstate](../../EntityControl/Animations/animstate.md) to set the entity depending on the distance between it and the player in regards to the `wanderradius`.
+Each of the 2 frequencies corresponds to an [animstate](../../EntityControl/Animations/animstate.md) to set the entity depending on the distance between it and the player in regards to the `wanderradius`. The first one applies when the distance is strictly lower than the `wanderradius` and the second one applies otherwise.
 
 NOTE: this behavior does NOT read the frequency passed in DoBehavior
 
