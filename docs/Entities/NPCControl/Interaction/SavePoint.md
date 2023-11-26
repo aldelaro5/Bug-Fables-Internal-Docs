@@ -1,11 +1,14 @@
 # SavePoint
-Interaction to save the game using a [SavePoint](../ObjectTypes/SavePoint.md) object.
+The same than [Talk](Talk.md), but the [SetText](../../../SetText/SetText.md) input string is hardcoded. The string contains a [prompt](../../../SetText/Individual%20commands/Prompt.md) command where the confirm option leads to a line with a [save](../../../SetText/Individual%20commands/Save.md) command which will actually saves the game.
 
 ## args meaning
 None.
 
+## SetUp
+The [SavePoint](../ObjectTypes/SavePoint.md) object is the only object where an interaction is possible and it is this interaction which is set to its `interacttype`. Check the `SavePoint` object documention to learn more about how it can triggers this interaction.
+
 ## Interact
-Calls [SetText](../../../SetText/SetText.md) in [dialogue mode](../../../SetText/Dialogue%20mode.md) with the input string being `|boxstyle,4||bleep,2,1,1|` + `menutext[4]` (the save prompt text) + `|prompt,menu,0.7,2,7,78,5,6|`:
+Calls [SetText](../../../SetText/SetText.md) in [dialogue mode](../../../SetText/Dialogue%20mode.md) with the input string being `|`[boxstyle](../../../SetText/Individual%20commands/Boxstyle.md)`,4||`[bleep](../../../SetText/Individual%20commands/Bleep.md)`,2,1,1|` + `menutext[4]` (the save prompt text) + `|`[prompt](../../../SetText/Individual%20commands/Prompt.md)`,menu,0.7,2,7,78,5,6|`:
 - The [fonttype](../../../SetText/Notable%20states.md#fonttype) is `BubblegumSans`
 - The default `messagebreak` is used as the linebreak
 - No tridimensional
