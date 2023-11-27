@@ -4,8 +4,12 @@ A collectable [item](../../../Enums%20and%20IDs/Items.md) or crystal berry bound
 ## Data Arrays
 - `data[0]`: The [item type](../../EntityControl/Item%20entity.md#item-types). NOTE: if the `animid` is a money item id (`MoneySmall`, `MoneyMedium` or `MoneyBig`), this should always be 0 or 1 (standard or key item) because if it's not, the collection logic won't work as expected
 - `data[1]`: If it's not negative, an [event](../../../Enums%20and%20IDs/Events.md) id that will be processed in an [event command](../../../SetText/Individual%20commands/Event.md) at the end of the input string when collecting the item. This is optional, nothing happens if it doesn't exist
-- `data[2]`: If it's not 0, the item cannot be caught using the player `beemerang`
+- `data[2]`: If it's not 0, the item cannot be caught using the player `beemerang`. This is optional, the item can be caught if it doesn't exist.
 - `data[3]`: The [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot if applicable (the `animid` is 3)
+
+## Additional data
+- `activationflag`: If `data[0]` isn't 3 (it's not a Crystal Berry) and the value is above 0, the [flag](../../../Flags%20arrays/flags.md) whose slot is the value will be set to true when collecting the item
+- `regaionalflag`: If `data[0]` isn't 3 (it's not a Crystal Berry) and the value isn't negative, the [regionalflag](../../../Flags%20arrays/Regionalflags.md) whose slot is the value will be set to true when collecting the item
 
 ## HasHiddenItem
 For an entity.`animid` of 1 or 2 (key item or medal), the return value is the `activationflag` being positive and the coresponding [flag](../../../Flags%20arrays/flags.md) slot being false.
@@ -17,7 +21,7 @@ For an entity.`animid` of 1 or 2 (key item or medal), the return value is the `a
 - entity.`sprite` local position is set to (0.0, 0.5, 0.0)
 
 ## EntityControl.CreateItem
-This is a special way to create an [EntityControl](../../EntityControl/EntityControl.md) that will also give it this object type and set it as an [item entity](../../EntityControl/Item%20entity.md). It's a public static method on EntityControl meaning it can be called by anyone to create an item object out of thin air. It returns the newly created NPCControl. It takes in the starting position, the item type, the item id, the starting velocity and the amount of time in frames this should be collectable.
+This is a special way to create an [EntityControl](../../EntityControl/EntityControl.md) that will also give it this object type and set it as an [item entity](../../EntityControl/Item%20entity.md). It's a public static method on EntityControl meaning it can be called by anyone to create an item object out of thin air. It returns the newly created NPCControl and it takes in the starting position, the item type, the item id, the starting velocity and the amount of time in frames this should be collectable.
 
 The very first thing this does is call [CreateNewEntity](../../EntityControl/EntityControl%20Methods.md#createnewentity) with the name `tempitem` and add an NPCControl to it.
 
@@ -33,7 +37,7 @@ The rest is logic specific to CreateItem:
 - The NPCControl gets childed to the map
 - `insideid` is set to the current one
 - `timer` is set to the timer sent
-- `tempobject` is set to true (prevents the item from working correctly when it's a Crystal Berry TODO: ???)
+- `tempobject` is set to true (prevents the Crystal Berry SetUp logic from applying as this method already does it partially and EntityControl's startup will do the rest via [CheckSpecialID](../../EntityControl/Notable%20methods/CheckSpecialID.md)) 
 - `data[0]` is set to the item type
 - `bounces` is set to 0
 - entity.`onground` is set to true
@@ -55,8 +59,8 @@ Also, just like `SemiNPC` items, no changes to the entity.`rigid` mass happens s
   - Any other Item objects (excludes `SemiNPC`)
   - Any playerdata except the first one
 
-Then, if the entity.`animid` is 3 (which means it's a crystal berry) and `tempobject` is false, then this is setup as a crystal berry. If it was obtained (the id is contained in `data[3]`), then the entity.`iskill` is set to true. Otherwise, adjustements on the entity are performed:
-- entity.`animstate` is set to the `regionaflag` TODO: ???
+If the entity.`animid` is 3 (which means it's a crystal berry) and `tempobject` is false, then this is setup as a crystal berry which starts by setting `data[0]` to `data[3]` (meaning `data[0]` is now the Crystal Berry id which is fine because entity.`animid` already tells it's a Crystal Berry). If it was obtained (the id is contained in `data[3]`), then the entity.`iskill` is set to true. Otherwise, adjustements on the entity are performed:
+- entity.`animstate` is set to the `regionaflag` NOTE: this is likely an error, but it doesn't matter because the [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot is already saved in `data[0]` and it is that value that will be used
 - entity.`sprite` local position is set to Vector3.zero
 - AddModel is called with path `Prefabs/Objects/CrystalBerry` without offset
 - entity.`spin` is set to (0.0, 2.0, 0.0)
@@ -75,9 +79,9 @@ If the `beerang` isn't null (meaning the [beemerang](Beemerang.md) caught this i
 - The absolute position is set to the `beerang` one + Vector3.Up
 - The entity's Unifx gets called if it was a `fixedentity`
 
-All collisions gets ignored between the `secondcoll` and the player.entity.`ccol` if the player is present and the `touchcooldown` hasn't expired yet. On the other hand, if the `touchcooldown` isn't exactly -9999.0 (TODO: what does this mean???), the collisions gets unignored and `toochcooldown` gets set to -9999.0. If neither happened, but the the `interacttype` isn't `Shop`, then the `ccol` is enabled. TODO: revisit this, it might be a debounce measure when tossing an item, but it's unclear ???
+All collisions gets ignored between the `secondcoll` and the player.entity.`ccol` if the player is present and the `touchcooldown` hasn't expired yet. Otherwise, if the `touchcooldown` isn't exactly -9999.0, the collisions gets unignored and `toochcooldown` gets set to -9999.0 (so it doesn't unignore again). If neither happened, the `ccol` is enabled.
 
-If the entity.`onground` is true, [Jump](../EntityControl/EntityControl%20Methods.md#jump) is called on it with the absolute value of its current `rigid` y velocity. It will also increment `bounces` if it hasn't reached 3 yet on top of playing the `ItemBounce0` sound effect (or `ItemBounce1` if it's a Crystal Berry) if the `interacttype` isn't `Shop` and the `startlife` is above 15 frames.
+If the entity.`onground` is true, [Jump](../EntityControl/EntityControl%20Methods.md#jump) is called on it with the absolute value of its current `rigid` y velocity. It will also increment `bounces` if it hasn't reached 3 yet on top of playing the `ItemBounce0` sound effect (or `ItemBounce1` if it's a Crystal Berry) if the `startlife` is above 15 frames.
 
 If by then, `bounces` has reached 3, [StopForceMove](../EntityControl/EntityControl%20Methods.md#StopForceMove) is called on the entity.
 
@@ -86,7 +90,7 @@ If the entity.`sprite` is present, then the `timer` logic proceeds:
 - If the `timer` is between -1.0 and 100.0 exclusive and we aren't in a `minipause` or `inevent`, the entity.`sprite` enablement gets toggled. Otherwise, the entity.`sprite` is enabled. This logic blinks the sprite when less than 100 frames are left on the `timer`
 
 ## OnTriggerEnter if the other collider is the player
-If we aren't in a `pause` or `minipause`, the `insideid` matches the current one and the `timer` is exactly -1.0 or above 1.0, a [CheckItem](../CheckItem.md) coroutine is started and `collisionammount` is incremented
+If we aren't in a `pause` or `minipause`, the `insideid` matches the current one and the `timer` is exactly -1.0 or above 1.0, a [CheckItem](../CheckItem.md) coroutine is started and `collisionammount` is incremented.
 
 ## OnTriggerEnter main segment
 The `beerang` is set to the other transform if all of the following are true (this makes the `Beemerang` catch the item):
@@ -109,9 +113,10 @@ This is a private coroutine that is only involved with this object type. Its job
 - instance.`itempicked` is set to true (controls some logic related to [JumpSpring](JumpSpring.md) objects and [Shop](../Interaction/Shop.md) / [CaravanBadge](../Interaction/CaravanBadge.md) interactions)
 - If it's not a money item, player.entity.`icooldown` is set to 0.0 (removes any invicibily frames)
 - `hit` is set to true (indicating the item is being collected)
-- `tossed` is set to false (TODO: ???)
+- `tossed` is set to false
 - The current player.entity.`flip` is saved locally as it may be restored later
-- The item collection occurs if the `touchcooldown` expired, the item isn't `trapped` and we aren't in a `minipause`. See the sections below for more details. The collection logic depends on if the item is a standard or key money item. TODO: if we don't collect here, this seems dangerous because `hit` isn't set back to false ???
+- All collisions between the item entity and the player.entity are ignored for any colliders
+- The item collection occurs if the `touchcooldown` expired, the item isn't `trapped` and we aren't in a `minipause`. NOTE: this seems like a bug because if we don't collect here, the colliders aren't unignored, but in practice, MainManager.IgnoreColliders doesn't work correctly meaning this isn't an issue in practice. See the sections below for more details. The collection logic depends on if the item is a standard or key money item.
 - instance.`itempicked` is set to false
 
 ### Standard or key money items collection
@@ -122,7 +127,7 @@ This is a private coroutine that is only involved with this object type. Its job
 - instance.`showmoney` is set to 150.0 frames which shows the berry count HUD temporarily
 - The `Money` sound is played
 - entity.`spin` is set to (0.0, 30.0, 0.0)
-- A BerryBounce coroutine is tarted. This just renders the visual effect of collecting the berry by making its sprite go up and scale down
+- A BerryBounce coroutine is started. This just renders the visual effect of collecting the berry by making its sprite go up and scale down
 - `dummy` is set to true (disables most update cycles logic as BerryBounce needs some time before destroying the item so most updates needs to not run while this happens)
 - instance.`money` is clamped from 0 to 999
 - entity.`iskill` is set to true
@@ -176,30 +181,31 @@ What happens next depends on entity.`animid` (the item type) and it mainly sets 
 
 After this, for any type other than Crystal Berry, [CreateDescWindow](../Notable%20methods/CreateDescWindow.md) without shop is called.
 
+For any type, the `ItemGetX` sound is played where X is the entity.`animid` (the item type).
+
 #### [SetText](../../../SetText/SetText.md) call
-The next portion setups a SetText call to actually receive the item:
-- The `ItemGetX` sound is played where X is the entity.`animid` (the item type)
-- The SetText string is built with the following concatenated in order:
-  - `|lockmovement||boxstyle,4||halfline||spd,0||anim,-1,4||center|`
-  - `menutext[2]` (`You found |string,1| |color,1||string,0||color,1|!`)
-  - `|stopskip||fwait,0.45||break|`
-  - If it's not a Crystal Berry and `activationflag` is above 0, `|flag,activationflag,true|` is appended
-  - If it's not a Crystal Berry and `regionalflag` is not negative, `|regionalflag,regionalflag,true|` is appended
-  - `|additemtoss,`
-  - entity.`animid` (the item type)
-  - `,var,0|`
-  - If `flags` 31 is false and it's a medal (haven't received the medal tutorial while getting one), `|flag,31,true||tail,null||center,true||destroydescbox||goto,-32,break,end|` is appended
-  - If `flags` 108 is false and it's a Crystal Berry (haven't received the Crystal Berry tutorial while getting one), `|flag,108,true||tail,null||center,true||destroydescbox||goto,-88,break,end|` is appended
-  - If `data[1]` exists and isn't negative, `|event,` + `data[1]` + `|` is appended (a [break](../../../SetText/Individual%20commands/Break.md) command appears before the event one if any of the tutorial strings were appended)
-- SetText is called with the generated string in [dialogue mode](../../../SetText/Dialogue%20mode.md):
-  - [fonttype](../../../SetText/Notable%20states.md#fonttype) of `BubblegumSans`
-  - linebreak of instance.`messagebreak`
-  - No tridimensional
-  - No position offset
-  - No camera offset
-  - Size of Vector2.one
-  - No parent
-  - This NPCControl as the caller
+The next portion setups a SetText call to actually receive the item. The SetText string is built with the following concatenated in order:
+- `|lockmovement||boxstyle,4||halfline||spd,0||anim,-1,4||center|`
+- `menutext[2]` (`You found |string,1| |color,1||string,0||color,1|!`)
+- `|stopskip||fwait,0.45||break|`
+- If it's not a Crystal Berry and `activationflag` is above 0, `|flag,activationflag,true|` is appended
+- If it's not a Crystal Berry and `regionalflag` is not negative, `|regionalflag,regionalflag,true|` is appended
+- `|additemtoss,`
+- entity.`animid` (the item type)
+- `,var,0|`
+- If `flags` 31 is false and it's a medal (haven't received the medal tutorial while getting one), `|flag,31,true||tail,null||center,true||destroydescbox||goto,-32,break,end|` is appended
+- If `flags` 108 is false and it's a Crystal Berry (haven't received the Crystal Berry tutorial while getting one), `|flag,108,true||tail,null||center,true||destroydescbox||goto,-88,break,end|` is appended
+- If `data[1]` exists and isn't negative, `|event,` + `data[1]` + `|` is appended (a [break](../../../SetText/Individual%20commands/Break.md) command appears before the event one if any of the tutorial strings were appended)
+
+SetText is called with the generated string in [dialogue mode](../../../SetText/Dialogue%20mode.md):
+- [fonttype](../../../SetText/Notable%20states.md#fonttype) of `BubblegumSans`
+- linebreak of instance.`messagebreak`
+- No tridimensional
+- No position offset
+- No camera offset
+- Size of Vector2.one
+- No parent
+- This NPCControl as the caller
 
 #### SetText yield
 This is the final part part of the collection phase:
