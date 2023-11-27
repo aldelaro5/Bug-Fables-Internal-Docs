@@ -21,3 +21,15 @@ The following is the values `animid` can have when we are dealing with an `item`
 In practice, both the `itemstate` should always have the same value than the `animstate` because on [Start](Start.md), this is enforced by setting `itemstate` to `animstate` when `item` is true. On several (but not all) occasions, the caller also sets the `basestate` to the same value. This is relatively safe because it prevents the entity `animstate` to revert to the to default `Idle` animstate.
 
 All of this allows a dedicated update method called[UpdateItem](Update%20process/UpdateItem.md) to resolve the correct `sprite` or to disable it in the case of a Crystal Berry (since only a model is rendered).
+
+## Additional effects
+Item entities have their own special logic outside of EntityControl. This section will detail them.
+
+### MainManager.RefreshEntities
+All item entities gets [UpdateItem](Update%20process/UpdateItem.md) called on them.
+
+### MainManager.FixEntities
+Item entities are exempt from the logic of this method which mean they don't fixed in place.
+
+### Hazards.OnTriggerEnter
+If the other entity has no `npcdata` or there's one, but its `beerang` is null (it's not caught in the player beemerang) while `animid` is above 0 (it's not a standard item) or `animstate` isn't 6 or 7 (`MoneySmall` or `MoneyMedium`), ReturnEntity is called. NOTE: this doesn't exclude `MoneyBig` which seems like a bug as it can cause the destruction of the item when it wasn't intended.
