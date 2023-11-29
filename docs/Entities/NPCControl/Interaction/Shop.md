@@ -1,8 +1,10 @@
 # Shop
-Interacting with a shop related entity (not to be confused with the [ShopKeeper](ShopKeeper.md))
+Interacting with a shop related entity.
 
 ## args meaning
 None.
+
+
 
 ## SetUp
 - If this is an `NPC`, the `pusher`, [GetDialogue](../Notable%20methods/GetDialogue.md) call and [SetInitialBehavior](../Notable%20methods/SetInitialBehavior.md) call does not happen.
@@ -46,3 +48,24 @@ From there, the rest acts as if we interacted with the same logic than [ShopKeep
 
 ## [GetDialogue](../Notable%20methods/GetDialogue.md)
 This method should never be called on an `NPC` with this interaction because doing so will cause the error message to appear no matter the circumstances.
+
+## EntityControl.[Unfix](../../EntityControl/EntityControl%20Methods.md#unfix)
+Any NPCControl with this interaction will block the unifixing unless force is true.
+
+## [SetText](../../../SetText/SetText.md)
+This interactions affects SetText in several ways:
+- [ShopLine](../../../SetText/Individual%20commands/Shopline.md) commands are only processed by [OrganizeLines](../../../SetText/Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md#organiselines) if the first NPCControl in the player.`npc` list has this interaction
+- In [dialogue setup](../../../SetText/Life%20Cycle.md#dialogue-setup), if the caller has this interaction while its `shopkeeper.dialogues[1].y` isn't 1, the berry count HUD will be shown at the start of the call
+- In [dialogue setup](../../../SetText/Life%20Cycle.md#dialogue-setup), if the caller has this interaction while we aren't `inevent`, [FaceTowards](../../EntityControl/EntityControl%20Methods.md#facetowards) will be called on player.entity to face towards the caller.`shopkeeper` instead of the caller
+- [Destroydescbox](../../../SetText/Individual%20commands/Destroydescbox.md) won't call DestroyDescWindow if the caller has this interaction unless the command is used in syntax (2)
+- [GiveItem](../../../SetText/Individual%20commands/Giveitem.md) will not call CreateDescWindow if the caller has this interaction
+- [Kill](../../../SetText/Individual%20commands/Kill.md) will cause SetBadgeShop with refresh to be called on the `shopkeeper` of the entity to kill if the caller has this interaction and the entity to kill's `animid` is 2 (meaning it's a [medal](../../../Enums%20and%20IDs/Medal.md) as it's assumed that this is an `item` entity)
+
+## PlayerControl.LateUpdate
+entity.`emoticonid` gets set to 1 (a blue ?) and entity.`emoticoncooldown` gets set to 2.0 if all of the following conditions are met:
+- We aren't in a `pause` or `minipause`
+- The [message](../../../SetText/Notable%20states.md#message) lock is released
+- The player isn't `digging`, `flying`, `startdig` or in `shield`
+- This is the closest NPC in the `npc` list as of the last 3 frames
+
+Additionally, if all of the above are met, the berry count HUD is shown if `shopkeeper.dialogues[1].y` isn't 1 (it's hidden if it is).

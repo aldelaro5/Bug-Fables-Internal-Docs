@@ -21,18 +21,18 @@ The following tables includes different columns to better illustrate the main pr
   - The current `insideid` matches this entity
 TODO: interesting, but unsure if it works because EntityControl also manages this
 
-|Value|Name|Tag|Behaviors?|Dialogues?|Interaction?|Emotes?|`ccol`|`scol`|`pusher`|`rigid` mass<sup>1</sup>|Far fading?|
+|Value|Name|Tag|Behaviors?|Dialogues?|Interaction?|Emotes?|entity.`ccol`|`scol`|`pusher`|entity.`rigid`.mass<sup>1</sup>|Far fading?|
 |----:|----|---|----------|---------|------------|-------|------|------|--------|-----------------------|-----------|
 |0|NPC|NPC|Yes<sup>5</sup>|Yes|Yes|Yes|Enabled|Disabled|Yes<sup>5</sup>|10000.0|Yes|
 |1|Enemy|Enemy|Yes|No|No|No|Enabled<sup>2</sup>|Disabled<sup>2</sup>|No|100.0|Yes|
 |2|Object|Object|No|No|No|No|disabled<sup>4</sup>|Enabled<sup>3</sup>|No|10000.0|No|
-|3|SemiNPC|NPC|Yes|No|Yes|No|Enabled|Enabled<sup>3</sup>|No|10000.0|Yes|
+|3|SemiNPC|NPC|Yes<sup>5</sup>|No|Yes|No|Enabled<sup>6</sup>|Enabled<sup>3</sup>|No|10000.0|Yes|
 
 1: The mass is 1.0 if the entity.`item` is true regardless of the type.
 
 2: The `secondcoll` replaces it with the same attributes than the `ccol` and the player `ccol` and `detect` (its wall detector) ignores any enemy `ccol` meaning the player can only collide with the `secondcoll`, but other RigidBody can collide with both. Additionally, the player `detect` ignores the `secondcoll`.
 
-3: The `scol` is disabled if entity.`item` is true. Also, it is left to null (not even added as a component) if it's The player [Beemerang](ObjectTypes/Beemerang.md).
+3: The `scol` is disabled if entity.`item` is true (which is always the case in practice for a `SemiNPC`). Also, it is left to null (not even added as a component) if it's The player [Beemerang](ObjectTypes/Beemerang.md).
 
 4: Exceptions applies where the `ccol` remains enabled depending on `objecttype`:
 - [SavePoint](ObjectTypes/SavePoint.md)
@@ -41,10 +41,12 @@ TODO: interesting, but unsure if it works because EntityControl also manages thi
 - [Item](ObjectTypes/Item.md)
 - The player [Beemerang](ObjectTypes/Beemerang.md) (only remains enabled if the entity `fixedentity` is false)
 
-5: These features are excluded for any of the following cases apply (Behaviors are always enabled, but [SetInitialBehavior](SetInitialBehavior.md) is not called under these cases):
-- entity.`item` is true (TODO: what is an item NPC ???)
+5: These features are excluded for any of the following cases (Behaviors are always enabled, but [SetInitialBehavior](SetInitialBehavior.md) is not called under these cases):
+- This is an [item entity](../EntityControl/Item%20entity.md). This is always the case in practice for a `SemiNPC` meaning behaviors don't actually do anything useful on them
 - entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is negative
 - `interacttype` is [Shop](Interaction/Shop.md) or [CaravanBadge](Interaction/CaravanBadge.md)
+
+6: While the general initialisation process don't leave them disabled, the only cases where `SemiNPC` are used comes with a disabling of the entity.`ccol` making it disabled in practice.
 
 While a lot of the logic of an NPCControl is shared regardless of its `entitytype`, the vast majority is dictated to a specific one that the others only partially have or do not have at all.
 
@@ -228,8 +230,6 @@ There are a couple of special logic to mention:
 - This is the only type with logic in OnTriggerStay and OnTriggerExit for specific `objecttype`
 
 ## SemiNPC
-Most of the logic depends entirely on the `objecttype` field. For more information, consult the documentation about its type, [ObjectTypes](ObjectTypes.md).
+This is a type specifically reserved for the [shop system](Shop%20system.md) with shelved items. More info can be found in its documentation. This should never be loaded from entity data as it's not considered valid (the shop system creates them when needed).
 
 One thing to mention, OnTriggerEnter is completely excluded from this type and it has no logic in there.
-
-TODO
