@@ -3,10 +3,10 @@
 [Enemies](../Enums%20and%20IDs/Enemies.md) data are split in 3 TextAssets in the game loaded on boot:
 
 * By LoadEssentials:
-  * `Ressources/data/EnemyData`
+    * `Ressources/data/EnemyData`
 * By SetVariables:
-  * `Ressources/data/TattleList`
-  * `EnemyTattle` from the corresponding dialogue directory of the current [languageid](../SetText/languageid.md)
+    * `Ressources/data/TattleList`
+    * `EnemyTattle` from the corresponding dialogue directory of the current [languageid](../SetText/languageid.md)
 
 `EnemyData` is also loaded on the Start and Update of the PauseMenu.
 

@@ -4,9 +4,9 @@ A trigger zone that controls either its own `hit` value when the player enters o
 ## Data Arrays
 - `data[0]`: If it's -1, the trigger manages its own `hit` value when the player enters or exits the zone. If it's 0 or above, it manages the `hit` value of the map entity whose id is that value when the player enters the zone (not when they exit it). NOTE: any values below -1 are considered invalid because while this trigger `hit` will be set when the player enters the zone, it will not be set when the player exits the zone
 - `data[1]`: This has 3 possible valid values (any other values is invalid and causes illogical behaviors):
-  - -1: the `hit` value of the refered entity will be toggled when entered. If `data[0]` is -1 on top of this, the `hit` value will always be set to false when the player exits the zone
-  - 0: the `hit` value of the refered entity will be set to false when the player enters the zone. If `data[0]` is -1, it will be set to true when the player exits the zone
-  - 1: the `hit` value of the refered entity will be set to true when the player enters the zone. If `data[0]` is -1, it will be set to false when the player exits the zone
+    - -1: the `hit` value of the refered entity will be toggled when entered. If `data[0]` is -1 on top of this, the `hit` value will always be set to false when the player exits the zone
+    - 0: the `hit` value of the refered entity will be set to false when the player enters the zone. If `data[0]` is -1, it will be set to true when the player exits the zone
+    - 1: the `hit` value of the refered entity will be set to true when the player enters the zone. If `data[0]` is -1, it will be set to false when the player exits the zone
 - `data[2]`: If it's 1, the player.`beemerang` is destroyed when entering the zone
 
 ## Additional data
@@ -15,6 +15,7 @@ A trigger zone that controls either its own `hit` value when the player enters o
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity
@@ -27,6 +28,7 @@ If the `timer` hasn't expired yet, it is decremented by the game's frametime cla
 
 ## OnTriggerStay
 This does nothing if any of the following is true:
+
 - The player isn't present
 - The other gameObject isn't the player
 - We are `inevent`

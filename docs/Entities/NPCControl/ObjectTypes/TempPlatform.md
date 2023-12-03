@@ -10,6 +10,7 @@ A platform that can only be stood on by the player for a limited amount of time 
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity
@@ -24,10 +25,12 @@ The player.entity.`forceclosemove` is set to `hit` (whether or not the player is
 What happens after depends on the `hit` value
 
 If it is true:
+
 - If the `actioncooldown` hasn't expired yet, it is decremented by the game's frametime and if `data[3]` is 0, the entity.`model` local position is set to (Random.Range(-0.05, 0.05), 0.0, 0.0) (this makes it shake horizontally)
 - If the `actioncooldown` expired on the last update cycle (checked by being above -99999.0), it is set to -100000.0 and if `data[1]` and `data[2]` are both 1, the RespawnPlayer coroutine is started (see its section section for details).
 
 If it is false:
+
 - `actioncooldown` is set to `data[0]`
 - The entity.`model` local position is set to Vector3.zero
 
@@ -55,6 +58,7 @@ Finally, a fade in from black is done with a speed of 0.1 and all playerdata ent
 
 ## OnTriggerEnter
 If the other collider is the player.entity.`feet` (its ground detector) then 2 things occurs:
+
 - If `data[3]` is 1, the `Shaking` animation clip will play on the entity.`anim` when the player.entity.`feet` (the ground detector) collides with the platform. This is a [non standard animation](../../EntityControl/Animations/animstate.md#non-standard-animations)
 - `hit` is set to true
 

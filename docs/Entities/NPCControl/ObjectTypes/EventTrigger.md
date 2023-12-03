@@ -12,6 +12,7 @@ An [event](../../../Enums%20and%20IDs/Events.md) trigger zone. It can either unc
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity
@@ -28,6 +29,7 @@ Finally, this object gets destroyed.
 
 ## OnTriggerStay
 This does nothing if any of the following is true:
+
 - The other gameObject isn't the player
 - We are `inevent`
 - We are in a `pause`
@@ -36,6 +38,7 @@ This does nothing if any of the following is true:
 The [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot at `regionalflags` and the [flag](../../../Flags%20arrays/flags.md) slot at `activationflag` are set to true.
 
 If we aren't in a `minipause`, a WaitForEvent coroutine starts which does the following:
+
 - `hit` is set to true (this prevents a second trigger)
 - We enter a `minipause`
 - Yield frames until `switchcooldown` expires

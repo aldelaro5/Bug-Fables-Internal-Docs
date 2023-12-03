@@ -14,6 +14,7 @@ A spring that makes an entity jump up high via [Jump](../../EntityControl/Entity
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`activeonpause` is set to true
 - `internalvector` is initialised to 2 elements with the first being `boxcol`.center and the second being (0.0, 555.0, 999.0) which is an offscreen position.
 - The entity.`alwaysactive` is set to true
@@ -24,10 +25,11 @@ A few adjustements occurs:
 - The `scol` is disabled
 
 ## Update
-The `boxcol`.center is set to the first `internalvector` (the original `boxcol`.center) if the instance's `itempicked` is false or to the second one (the offscreen position) if it's true. This just places the `boxcol`.center at an hardcoded offscreen position if we are in the process of a [CheckItem](../Notable%20methods/CheckItem.md).
+The `boxcol`.center is set to the first `internalvector` (the original `boxcol`.center) if the instance's `itempicked` is false or to the second one (the offscreen position) if it's true. This just places the `boxcol`.center at an hardcoded offscreen position if we are in the process of a [CheckItem](Item.md#checkitem).
 
 ## OnTriggerStay
 This does nothing if any of the following are true:
+
 - We are in a `pause`
 - The current [map](../../../Enums%20and%20IDs/Maps.md) is `RubberPrisonGym` while the other gameObject y position is not higher than this object y position
 - The other gameObject is the player and it is not free (ignoring fly)
@@ -35,6 +37,7 @@ This does nothing if any of the following are true:
 The entity.`overrideflip` is set to true and the other gameObject's entity is obtained.
 
 For an actual jump to be registered on the spring, the following must all be true:
+
 - The other entity exists 
 - The other entity is not `iskill`
 - `data[1]` is 0 or `data[1]` is 1 and the other entity isn't `onground` and its `rigid` has a negative y velocity
@@ -49,6 +52,7 @@ From there, the logic differs depending on `data[0]`. At the end of either branc
 
 #### `data[0]` is 1 ([JumpTo](../../EntityControl/EntityControl%20Methods.md#JumpTo) logic)
 If the other gameObject is the player, nothing happens here if the `collisionammount` is 100 or above (meaning we already entered this since the last LateUpdate). If it's less than 100 however:
+
 - The player position is set to this object position + (0.0, 0.75, 0.0)
 - [JumpTo](../../EntityControl/EntityControl%20Methods.md#JumpTo) is called on the player with the position being `vectordata[1]`, the height being `vectordata[0].x` and the multiplier being 1.0 unless `vectordata[2].x` exists which will make it be the multiplier instead clamped from 1.0 to 99.0.
 - If `data[2]` isn't negative, MoveInside will be called on the map with the NPCControl that resolves to the map entity id of `data[2]` as the caller without move (this implies that NPCControl is a [DoorSameMap](DoorSameMap.md))
@@ -57,10 +61,10 @@ If the other gameObject is the player, nothing happens here if the `collisionamm
 #### `data[0]` isn't 1 ([Jump](../../EntityControl/EntityControl%20Methods.md#Jump) logic)
 - The other entity.`springcooldown` is set to true
 - The other entity.`jumpcooldown` is set to 30.0
-- If the other gameObject is the player, CancelAction is called on the player keeping the beemerang. On top of this, if `itempicked` is true (we are in a [CheckItem](../Notable%20methods/CheckItem.md) process), the player entity.`onground` is set to true
+- If the other gameObject is the player, CancelAction is called on the player keeping the beemerang. On top of this, if `itempicked` is true (we are in a [CheckItem](Item.md#checkitem) process), the player entity.`onground` is set to true
 - Unless we set.`onground` to true earlier, the following occurs:
-  - The entity.`springcooldown` is set to true
-  - [Jump](../../EntityControl/EntityControl%20Methods.md#Jump) is called on the other entity with the height being its `jumpheight` unless `vectordata[0].x` is above 1.0 and the other doesn't have an `npcdata` that is a [RollingRock](RollingRock.md) where `vectordata[0].x` is used as the height instead
+    - The entity.`springcooldown` is set to true
+    - [Jump](../../EntityControl/EntityControl%20Methods.md#Jump) is called on the other entity with the height being its `jumpheight` unless `vectordata[0].x` is above 1.0 and the other doesn't have an `npcdata` that is a [RollingRock](RollingRock.md) where `vectordata[0].x` is used as the height instead
 
 ## Hazards.OnObjectStay
 If the NPCControl passed has this type, it returns true which allows it to stay in collision with the Hazards.

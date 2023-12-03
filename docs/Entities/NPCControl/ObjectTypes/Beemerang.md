@@ -31,12 +31,14 @@ The `hit` value tracks on which half of the path the beemerang is on. If it's fa
 If the distance between this object and `vectordata[0]` is higher than 0.2, this object's position is set to a lerp from the existing one to `vectordata[0]` with a factor of the game's frametime * the entity's `speed`. This basically moves the beemerang to its destination.
 
 Otherwise (meaning the Beemerang reached its destination), if the ability key is held, [flag](../../../Flags%20arrays/flags.md) 21 is true (got Beemerang Halt), `heldonce` is false and `WackaWorm.disablehold` is false:
+
 - The entity.`sound` pitch is set to 1.25
 - The entity.`spin` is set to (0.0, 0.0, 30.0)
 - `timer` is set to 99.0 (which gives it access to a new destination on the first Update cycle when the ability button is released)
 - If `particles` is null, it's initialised to an instance of `Prefabs/Particles/ContinuousSmokeCloud` childed to this object at this object's position + Vector3.up * 0.2 with angles (-90.0, 0.0, 0.0)
 
 Otherwise, if the `timer` is exactly 99.0 (meaning we were using Beemerang Halt, but released the ability input):
+
 - `particles` is put offscreen at (0.0, -9999.0, 0.0) then destroyed in one second and set to null
 - The entity.`sound` pitch is set to 1.25
 - `heldonce` is set to true
@@ -52,12 +54,14 @@ If the `timer` is higher than -2.0, it is decremented by framestep.
 If the distance between this object position and the player is higher than 0.45 the following section occurs (otherwise, this object is destroyed because it means the Beemerang completed its full travel).
 
 If the `timer` is less than -2.0 (meaning the Beemerang collided with a wall), the ability key is held, [flag](../../../Flags%20arrays/flags.md) 21 is true (got Beemerang Halt), `heldonce` is false and `WackaWorm.disablehold` is false, the following happens (this whole logic allows the beemerang to stall in place even if its path got cut short by a collider):
+
 - The entity.`sound` pitch is set to 1.25
 - The entity.`spin` is set to (0.0, 0.0, 30.0)
 - `timer` is set to -50.0
 - If `particles` is null, it's initialised to an instance of `Prefabs/Particles/ContinuousSmokeCloud` childed to this object at this object's position + Vector3.up * 0.2 with angles (-90.0, 0.0, 0.0)
 
 Otherwise, if the ability key isn't held or the `timer` is exactly -50.0 (meaning the beemerang is ready to go back to the player):
+
 - `particles` is put offscreen at (0.0, -9999.0, 0.0) then destroyed in one second and set to null
 - `heldonce` is set to true
 - `timer` is set to -100.0

@@ -1,3 +1,4 @@
+# SetText lifecycle
 This will describe at a high level the full processing steps of [SetText](SetText.md) when the last [entry point](Entry%20Points.md) executes.
 
 ## Setup
@@ -42,13 +43,13 @@ This phase also sets some values as defaults:
 * [tailtarget](Notable%20states.md#tailtarget): Set to the parent's parameter.
 * [bleep](Individual%20commands/Bleep.md): The pitch and type are set from the parent's paremeter if it exists.
 * [textbox](Notable%20states.md#textbox): It is initialized here with the default [boxstyle](Individual%20commands/Boxstyle.md) with the ability to be hidden/shrunk and revealed/grown using `DialogueAnim`:
-  * Parent: the GUICamera
-  * No angle and scale
-  * Position at (0.0, 3.25, 10.0)
+    * Parent: the GUICamera
+    * No angle and scale
+    * Position at (0.0, 3.25, 10.0)
 * [textholder](Notable%20states.md#textholder): Has different defaults than setup:
-  * Parent: [textbox](Notable%20states.md#textbox)
-  * No angles and scale
-  * Position at (-5.5, 0.9, 0.0) or the position parameter if its magnitude is large enough (0.1)
+    * Parent: [textbox](Notable%20states.md#textbox)
+    * No angles and scale
+    * Position at (-5.5, 0.9, 0.0) or the position parameter if its magnitude is large enough (0.1)
 * The MainManager's version of [textbox](Notable%20states.md#textbox): The [textholder](Notable%20states.md#textholder) which allows global access.
 * `blinker`: Initialized here.
 
@@ -110,9 +111,9 @@ Next, the [fonttype](Notable%20states.md#fonttype) is overridden again when in [
 From there, the rendering of the letter occurs. There are 2 rendering methods and it depends on the current state of [single](Individual%20commands/Single.md). Each method is documented in its own page:
 
 * If not using single rendering
-  * Render the letter using [Regular Letter Rendering](Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md)
+    * Render the letter using [Regular Letter Rendering](Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md)
 * If we are using single rendering
-  * Render the letter using [Single Letter Rendering](Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md)
+    * Render the letter using [Single Letter Rendering](Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md)
 
 After the render is done, if a [backbox](Individual%20commands/Backbox.md) was processed, the position of the backbox is set to (current offset / 2.0, size.y / 2.0 + 0.1, -5.0) and its scale to (current offset / 5.0 * size.x, size.y * 1.5, 1.0)
 
@@ -158,9 +159,9 @@ There is a special case if `listredirect` is -2 or -3 which should only happens 
 * Destroys the first child of the caller's entity's sprite
 * Force unfix the caller's entity, apply a touchcooldown on it of 70 frames, set its `tossed` to true and is timer to 600 frames (which is the time it takes before the item disappears)
 * If `listredirect` is -2 (The toss was confirmed to swap the item, -3 has this part omitted as it means the toss was cancelled which means to not swap the item)
-  * Set the caller's entity's animstate, itemstate and basestate to [flagvar](../Flags%20arrays/flagvar.md) 1 (this changes what the caller's item is to the swapped one)
-  * Remove the item from the inventory matching the `listtype` used whose id is in [flagvar](../Flags%20arrays/flagvar.md) 1
-  * Add the item to the inventory matching the `listtype` used whose id is in [flagvar](../Flags%20arrays/flagvar.md) 0
+    * Set the caller's entity's animstate, itemstate and basestate to [flagvar](../Flags%20arrays/flagvar.md) 1 (this changes what the caller's item is to the swapped one)
+    * Remove the item from the inventory matching the `listtype` used whose id is in [flagvar](../Flags%20arrays/flagvar.md) 1
+    * Add the item to the inventory matching the `listtype` used whose id is in [flagvar](../Flags%20arrays/flagvar.md) 0
 * Set [end](Individual%20commands/End.md) to true
 * Reset `listredirect` to null
 * Apply an `actioncooldown` of 30 frames

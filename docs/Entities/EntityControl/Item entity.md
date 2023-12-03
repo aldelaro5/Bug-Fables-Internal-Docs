@@ -2,6 +2,7 @@
 An item entity is an entity that has its `item` field set to true. It completely changes the rendering and updates of that entity.
 
 The summary as far as the fields are concerned:
+
 - `item` is true
 - `animid` is the item type, not an [animid](../../Enums%20and%20IDs/AnimIDs.md)
 - `animstate` and `itemstate` are both the item id, the former is not an [animstate](Animations/animstate.md) and the latter is assigned on [Start](Start.md) and is used in [UpdateItem](Update%20process/UpdateItem.md)
@@ -10,6 +11,7 @@ Additionally, [UpdateItem](Update%20process/UpdateItem.md) is now part of the up
 
 ## Item types
 The following is the values `animid` can have when we are dealing with an `item` entity. The value also dictates what `animstate` and `itemstate` mean.
+
 |Value|`itemstate` meaning|Description|
 |----:|------------------|----------|
 |0|An [item](../../Enums%20and%20IDs/Items.md) id|Standard item|

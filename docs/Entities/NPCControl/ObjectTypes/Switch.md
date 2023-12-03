@@ -41,8 +41,8 @@ Unless stated otheriwse, `activationflag` and `regionalflag` only applies when t
 - `nointeract` is set to true
 - if the `activationflag` [flags](../../../Flags%20arrays/flags.md) slot is true, `hit` is also set to true.
 - From there some adjustements happens based on the `originalid`'s [AnimID](../../../Enums%20and%20IDs/AnimIDs.md)(nothing happens if it doesn't match any of them):
-  - `SwitchCrystal` and `BigCrystalSwitch`: A GlowTrigger is added to the entity.`model`'s first child with its `parent` set to this object and the `glowparts` set to a single element corresponding to the MeshRender already attached to the first `model` child.
-  - `WoodenSwitch` and `SteelSwitch`: `internaldata` is initialised to a single element being -60 if it's a `WoodenSwitch` or -100 if it's a `SteelSwitch`, Then, the `moveobj` is set to the entity's `model` first child and if `hit` was set to true earlier, its angles are set to (0.0, `internaldata[0]`, 0.0)
+    - `SwitchCrystal` and `BigCrystalSwitch`: A GlowTrigger is added to the entity.`model`'s first child with its `parent` set to this object and the `glowparts` set to a single element corresponding to the MeshRender already attached to the first `model` child.
+    - `WoodenSwitch` and `SteelSwitch`: `internaldata` is initialised to a single element being -60 if it's a `WoodenSwitch` or -100 if it's a `SteelSwitch`, Then, the `moveobj` is set to the entity's `model` first child and if `hit` was set to true earlier, its angles are set to (0.0, `internaldata[0]`, 0.0)
 - If the player is present, all collision between the `boxcol` and the player's wall detector are ignored.
 - If the `originalid` is not among `BigCrystalSwitch`, `WoodenSwitch` or `SteelSwitch`, [AddPushder](../Notable%20methods/AddPusher.md) is called.
 - If `data[4]` is 1 the entity's `rotater` tag gets set to `Hornable` (allows PlayerControl to get a green ! emoticon when getting 2.5 or lower distance from the switch for 5 frames).
@@ -51,6 +51,7 @@ Unless stated otheriwse, `activationflag` and `regionalflag` only applies when t
 What happens at the start depends on `data[1]` and `data[2]`.
 
 If `data[1]` is 0 and `data[2]` is present and not negative:
+
 - If the `actioncooldown` hasn't expired, it is decremented by the game's frametime. Otherwise, if the `actioncooldown` expired on the last update cycle (checked by being above -1000.0), `hit` is set to false and `actioncooldown` is set to -1100.0 so it doesn't perform this logic on further updates (this is the autooff feature taking effect)
 - If the `activationflag` isn't negative and the [flag](../../../Flags%20arrays/flags.md) slot of it is true, `hit` is set to true.
 
@@ -60,6 +61,7 @@ In all cases, if the entity.`originalid` is the `WoodenSwitch` or `SteelSwitch` 
 
 ## OnTriggerEnter
 Nothing happens if any of the following is true:
+
 - We are in a `pause` or `minipause`
 - [message](../../../SetText/Notable%20states.md#message) is grabbed
 - `collisionammount` is higher than 1 (this is a debounce protection)
@@ -67,16 +69,18 @@ Nothing happens if any of the following is true:
 - `data[4]` is not present or it is and its value is 1 while the other gameObject tag is `BeetleHorn` or `BeetleDash` (This basically enforces that `data[4]` being 1 means that only Kabbu's horn can actuate the switch)
 
 The following occurs:
+
 - `collisionammount` is incremented
 - A HitPart particle is played at this position + (0.0, 0.5, 0.0)
 - The main logic section occurs, see below for details
 - If the other gameObject was the player `beemerang`, its `hit` is set to true and the `WoodHit` sound is played on the entity
-- If the entity `originalid` isn't -1 (`None`), [SwitchSound](../SwitchSound.md) is called indicating a press
+- If the entity `originalid` isn't -1 (`None`), [SwitchSound](../Notable%20methods/SwitchSound.md#switchsound) is called indicating a press
 
 What happens in the main logic depends on `data[0]`. 
 
 ### `data[0]` is 1
 This does nothing if `hit` is true and the `TOG` [modifier](../../EntityControl/Modifiers.md) is not active:
+
 - If `data[1]` isn't negative, the [event](../../../Enums%20and%20IDs/Events.md) at its id is started which this being the caller. Otherwise, the [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot at `regionalflags` and the [flag](../../../Flags%20arrays/flags.md) slot at `activationflag` are set to true
 - `hit` is set to true unless the `TOG` [modifier](../../EntityControl/Modifiers.md) is active in which case, the value is toggled instead
 - If the entity `originalid` is -1 (`None`), its `iskill` is set to true
@@ -84,6 +88,7 @@ This does nothing if `hit` is true and the `TOG` [modifier](../../EntityControl/
 
 ### `data[0]` is 0
 This depends on `data[1]`. If it's not 1, then `hit` is set to true and the [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot at `regionalflags` and the [flag](../../../Flags%20arrays/flags.md) slot at `activationflag` are set to true. If it's 1 and the `actioncooldown` expired:
+
 - `hit` is toggled
 - `actioncooldown` is set to 30.0
 - If the `activationflag` isn't negative, the corresponding [flag](../../../Flags%20arrays/flags.md) slot is set to `hit`

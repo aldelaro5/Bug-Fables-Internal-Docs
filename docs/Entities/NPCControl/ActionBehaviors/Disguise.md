@@ -19,14 +19,16 @@ Due to this complex management of the `disguiseobj`, this behavior's logic is ve
 
 ## Start / SetUp
 On SetUp:
+
 - entity.`alwaysactive` is set to true
-- `disguiseobj` is initialised to the transform of `prefabs/Disguises/x` prefab where x is the entity.[AnimID](../../Enums%20and%20IDs/AnimIDs.md). It gets childed to the entity.`sprite` which also gets disabled making only the disguise visible instead of the sprite. The local position is ensured to be Vector3.zero, but the angles and the scales depends on the AnimID (anything not mentioned is left default):
-  - `Cactus`: scale of (70.0, 25.0, 70.0)
-  - `Mushroom`: scale of (20.0, 15.0, 25.0)
-  - `CursedSkull`: scale of 0.5 uniform, local position of (0.0, 0.0, -0.5) and angles of (-90.0, 0.0, 0.0)
-  - `Plumpling`: scale of 0.2 uniform and angles of (-90.0, 0.0, 180.0)
+- `disguiseobj` is initialised to the transform of `prefabs/Disguises/x` prefab where x is the entity.[AnimID](../../../Enums%20and%20IDs/AnimIDs.md). It gets childed to the entity.`sprite` which also gets disabled making only the disguise visible instead of the sprite. The local position is ensured to be Vector3.zero, but the angles and the scales depends on the AnimID (anything not mentioned is left default):
+    - `Cactus`: scale of (70.0, 25.0, 70.0)
+    - `Mushroom`: scale of (20.0, 15.0, 25.0)
+    - `CursedSkull`: scale of 0.5 uniform, local position of (0.0, 0.0, -0.5) and angles of (-90.0, 0.0, 0.0)
+    - `Plumpling`: scale of 0.2 uniform and angles of (-90.0, 0.0, 180.0)
 
 After SetUp returned on Start:
+
 - `disguiseobj` is enabled
 - `disguisecooldown` is set to -1 (meaning it simulates an already expired disguise cooldown)
 - entity.`sprite` is disabled 
@@ -56,12 +58,13 @@ The main logic depends on the `disguisecooldown` which is an int countdown of th
 - The entity.[animstate](../../EntityControl/Animations/animstate.md) is set to the entity.`walkstate`
 - The entity.`oldstate` is set to -1 (which forces a sprite update)
 - If entity.`hitwall` is true:
- - The NPCControl position is set to entity.`startpos`
- - entity.`rigid` velocity is zeroed out
- - DeathSmoke particles are played at the NPCControl position if the entity is `incamera`
+  - The NPCControl position is set to entity.`startpos`
+  - entity.`rigid` velocity is zeroed out
+  - DeathSmoke particles are played at the NPCControl position if the entity is `incamera`
 
 ## Update (Inactive)
 If the `disguisecooldown` is fully expired (it's -1):
+
 - `disguiseobj` is enabled
 - The entity.`sprite` gets disabled if entity.`campos` z is above 5.0 (meaning it's too far forward from the camera), it remains enabled otherwise
 - `overrideminheight` is set to true
@@ -91,6 +94,7 @@ This update method is disallowed to change the `sprite` enablement on an [Enemy]
 
 ## MainManager.RefreshEntities
 This logic only matters if the method was called as a result of MapControl.Start, MapControl.RefreshInsides and BattleControl.ReturnToOverworld:
+
 - `disguisecooldown` is set to -1 (fully expired)
 - `disguiseobj` is disabled
 - entity.`sprite` being enabled.
@@ -109,6 +113,7 @@ This will get further handled by DoBehavior, see the section below for details
 
 ## DoBehavior (behavior no longer exists)
 A special case is handled where this behavior no longer exists, but the `disguiseobj` still does. The only way for this case to happen is if a destroy of the `disguiseobj` was requested by [RespawnEnemy](../Notable%20methods/RespawnEnemy.md) because not only it destroys it, but it also changes the default behavior to [Wander](Wander.md). If this was the previous one and it wasn't the `inrange` one, then it no longer exists after the respawn which makes it fall into this special case. The handling goes as follow:
+
 - TempSpin is called on the entity which sets its `spin` to (0.0, 20.0, 0.0) and then zerored out in 0.2 seconds
 - The `disguisecooldown` is set to 120.0
 - The entity.`overridehright` is set to false

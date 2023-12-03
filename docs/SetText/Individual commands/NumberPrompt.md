@@ -74,23 +74,24 @@ To render each 12 options (the 10 digits, Confirm and Erase), the following is d
 
 * Start with the x and y position of the options be -2.25 and -0.25 respectively
 * Render the options such that for each options:
-  * Have each text be |[choicewave](Choicewave.md),n,true| where n is the option index from 0 to 11. This is prepanded with menutext 42 (`Confirm`) for option 10 and menutext 74 (`Erase`) for option 11. Option 0-9 are the digits.
-  * Call [SetText](../SetText.md) in [non Dialogue mode](../Dialogue%20mode.md#non-dialoguie-mode) using the text prepanded with |[center](Center.md)\|:
-    * [fonttype](../Notable%20states.md#fonttype) is `BubblegumSans`
-    * no `linebreak`
-    * no `tridimensional`
-    * `position` is (x, y, 0.0) where x and y are the current value of the option's positions.
-    * no `camoffset`
-    * `size` of (0.85, 0.85)
-    * `parent` is the promptbox
-    * no `caller`
-  * Add 0.5 to x
-  * if we had just rendered option 9
-    * Remove -1.5 to x and 0.75 to y
-  * If we had just rendered option 10
-    * Set x to 1.5
+    * Have each text be |[choicewave](Choicewave.md),n,true| where n is the option index from 0 to 11. This is prepanded with menutext 42 (`Confirm`) for option 10 and menutext 74 (`Erase`) for option 11. Option 0-9 are the digits.
+    * Call [SetText](../SetText.md) in [non Dialogue mode](../Dialogue%20mode.md#non-dialoguie-mode) using the text prepanded with |[center](Center.md)\|:
+        * [fonttype](../Notable%20states.md#fonttype) is `BubblegumSans`
+        * no `linebreak`
+        * no `tridimensional`
+        * `position` is (x, y, 0.0) where x and y are the current value of the option's positions.
+        * no `camoffset`
+        * `size` of (0.85, 0.85)
+        * `parent` is the promptbox
+        * no `caller`
+    * Add 0.5 to x
+    * if we had just rendered option 9
+        * Remove -1.5 to x and 0.75 to y
+    * If we had just rendered option 10
+        * Set x to 1.5
 
 After the initial setup, the first refresh of the number prompt is performed. This will destroy the text in `npromptholder` and rerender using the one in [flagstring](../../Flags%20arrays/flagstring.md) 0 which will get updated periodically as digits are added in removed during the prompt handling. This also sets [flagvar](../../Flags%20arrays/flagvar.md) 4 to 0. As for the rendering of the number text itself, it is done via a SetText call in non [Dialogue mode](../Dialogue%20mode.md) with the text padded to the right with `_` to fit into `maxlength` prepended with |[center](Center.md)\|:
+
 - [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
 - no `linebreak`
 - no `tridimensional`
@@ -115,11 +116,11 @@ The actions will be restricted to the following:
 * Pause: Move the cursor to the confirm option
 * Cancel: Sets `listcancelled` to true, `promptpick` to 0, `promptpointers` to be one element containing `cancelline` fetched from `listcancel` and [Text advance](../Related%20Systems/Text%20advance.md)'s `skiptext` to false. This will also apply a 15 frames inputcooldown, reset the [Backtracking](../Related%20Systems/Backtracking.md) system and finally, release the `prompt` lock
 * Confirm: A 5 frames input cooldown is applied and it also set `promptpick` to 0. The rest depends on the option currently selected before resetting the [Backtracking](../Related%20Systems/Backtracking.md) system:
-  * A number: Add the entered digit to [flagstring](../../Flags%20arrays/flagstring.md) 0 (current number text) and refresh the number prompt unless the length is `maxlength` from [flagvar](../../Flags%20arrays/flagvar.md) 10 in which case, the buzzer plays
-  * Erase: Remove the last entered digit from [flagstring](../../Flags%20arrays/flagstring.md) 0 (current number text) and refresh the number prompt unless the text was empty in which case, the buzzer plays
-  * Confirm: If [flagstring](../../Flags%20arrays/flagstring.md) 0 (current number text) is empty
-    * This is treated the same way than if cancel was pressed with the exception that the input cooldown is 5 frames instead of 15 and `listcancelled` isn't set to false. 
-    * If it wasn't empty, the `outflagvar` [flagvar](../../Flags%20arrays/flagvar.md) slot is set to the integer version of [flagstring](../../Flags%20arrays/flagstring.md) 0 (the current number text), `promptpointers` is set to one element containing `confirmline` fetched from `listredirect`, [Text advance](../Related%20Systems/Text%20advance.md)'s `skiptext` is set to false, the [Backtracking](../Related%20Systems/Backtracking.md) system is reset and finally, the `prompt` lock is released
+    * A number: Add the entered digit to [flagstring](../../Flags%20arrays/flagstring.md) 0 (current number text) and refresh the number prompt unless the length is `maxlength` from [flagvar](../../Flags%20arrays/flagvar.md) 10 in which case, the buzzer plays
+    * Erase: Remove the last entered digit from [flagstring](../../Flags%20arrays/flagstring.md) 0 (current number text) and refresh the number prompt unless the text was empty in which case, the buzzer plays
+    * Confirm: If [flagstring](../../Flags%20arrays/flagstring.md) 0 (current number text) is empty
+        * This is treated the same way than if cancel was pressed with the exception that the input cooldown is 5 frames instead of 15 and `listcancelled` isn't set to false. 
+        * If it wasn't empty, the `outflagvar` [flagvar](../../Flags%20arrays/flagvar.md) slot is set to the integer version of [flagstring](../../Flags%20arrays/flagstring.md) 0 (the current number text), `promptpointers` is set to one element containing `confirmline` fetched from `listredirect`, [Text advance](../Related%20Systems/Text%20advance.md)'s `skiptext` is set to false, the [Backtracking](../Related%20Systems/Backtracking.md) system is reset and finally, the `prompt` lock is released
 
 ### Handling the number prompt outcome
 

@@ -53,9 +53,9 @@ From there, we can now check the if entity should not move or move towards `foll
 
 * The player is present and not dashing
 * One or more of the following is true:
-  * We are currently in a stealth section ([flags](../../../Flags%20arrays/flags.md) 401), the map's closemove is true and this entity is part of the `mainparty`
-  * This entity is part of the `mainparty` and the player has a parent
-  * The player has forceclosemove to true
+    * We are currently in a stealth section ([flags](../../../Flags%20arrays/flags.md) 401), the map's closemove is true and this entity is part of the `mainparty`
+    * This entity is part of the `mainparty` and the player has a parent
+    * The player has forceclosemove to true
 
 The result is that the entity will attempt to be twice as close than normal under these conditions.
 

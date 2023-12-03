@@ -19,13 +19,13 @@ The same than [SetPath](SetPath.md), but with the addition that if it's 5555, th
 The same than [SetPath](SetPath.md), but with the addition that if the frequency is 5555, the entity.[animstate](../../EntityControl/Animations/animstate.md) is set to `Sleep` at the start of the DoBehavior cycle (right after the `returntoheight` logic).
 
 ## Update (Inactive, every 3 frames)
-Normally, when an entity is in a [forcemove](../EntityControl/EntityControl%20Methods.md#forcemove), [StopForceMove](../EntityControl/EntityControl%20Methods.md#StopForceMove) is called on it, but this behavior is an exception to this where it will not be called here.
+Normally, when an entity is in a `forcemove`, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on it, but this behavior is an exception to this where it will not be called here.
 
 ## Update (Common, end)
-As long as the behavior exist on the NPCControl, `actioncooldown` is set to 1.0 if the player is present and not `digging` while the [message](../../SetText/Notable%20states.md#message) lock is active. This has the overall effect to have the underlying [SetPath](SetPath.md) logic operate as if it has a frequency of 1.0 meaning 1.0 frames of cooldown between movement.
+As long as the behavior exist on the NPCControl, `actioncooldown` is set to 1.0 if the player is present and not `digging` while the [message](../../../SetText/Notable%20states.md#message) lock is active. This has the overall effect to have the underlying [SetPath](SetPath.md) logic operate as if it has a frequency of 1.0 meaning 1.0 frames of cooldown between movement.
 
 ## LateUpdate (RefreshPlayer)
-After the new `inrange` value is set and the new value is true a [StealthSpot](ActionBehaviors/StealthAI.md#stealthspot) coroutine is called. There is an exception where this doesn't happen if this is an [Enemy](../NPCType.md#enemy) when the `freezecooldown` or `dizzytime` hasn't expired yet.
+After the new `inrange` value is set and the new value is true a StealthSpot coroutine is called. There is an exception where this doesn't happen if this is an [Enemy](../NPCType.md#enemy) when the `freezecooldown` or `dizzytime` hasn't expired yet.
 
 ## OnTriggerEnter (If this is an [NPC](../NPCType.md#npc))
 A StealthSpot coroutine starts if the other collider is the player.`beemerang` and the square distance between this NPCControl and the player is less than 30.0
@@ -39,6 +39,7 @@ This is a public coroutine specific to this behavior (the only reason it's publi
 A Linecast will be performed from this NPCControl position + Vector3.up to the player position + Vector3.up for only layers `Ground`, `NoDigGround` and `Player`.
 
 For the spotting to register, all of the following conditions must be true:
+
 - `startlife` is above 20.0
 - The Linecast hit any `playerdata` entity
 - The player is free (ignoring flying)
@@ -53,12 +54,14 @@ No matter if the spotting was processed or not, a frame is yielded.
 This is a component specifically involved with this behavior as it is attached to the entity.`detect` on SetUp. Its job is to be the way the NPCControl can spot the player with 2 trigger colliders.
 
 These colliders are added on the component's Start:
+
 - A trigger SphereCollider with radius 1.5 and default position (meaning at the entity.`detect`'s position)
 - A trigger BoxCollider with size (2.5, 2.0, NPCControl's `battleids[1]`) and center (0.0, 1.5, half of NPCControl's `battleids[1]` floored)
 
 The Start also puts the entity.`detect` GameObject in layer 2, the built in layer of Unity to ignore raycasts.
 
 From there, the only interesting logic this component has is an OnTriggerEnter where the method will call StealthSpot under the following conditions:
+
 - The player must be present and free (flying counts as not free)
 - If the other collider is the player.`beemerang`, it must be less than 30.0 away from the entity.`detect`
 - If it's the player, the internal cooldown of the component must be expired

@@ -18,6 +18,7 @@ The entity.`rigid` is unlocked with [LockRigid(false)](../../EntityControl/Entit
 If `returntoheight` is true, entity.`height` is set to a lerp from the existing one to entity.`initialheight` with a factor of 0.1
 
 From there, there is an early exit path if the entity is in a `forcemove` and any of the following is true:
+
 - entity.`hitwall` is true
 - entity.`onground` is false
 - entity.`detect` is present and [HasGroundAhead](../../EntityControl/EntityControl%20Methods.md#hasgroundahead) from the entity.`forcetarget` returns false
@@ -25,12 +26,14 @@ From there, there is an early exit path if the entity is in a `forcemove` and an
 When the above is fufilled, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called with the `basestate` and this DoBehavior cycle is ended early. This is because the game concluded it is no longer possible to move further towards this position.
 
 If we are cleared to continue, there are 4 possible branches this DoBehavior can takes (only the first one that applies is taken checked in this order):
+
 - `actioncooldown` expired (the main wandering logic)
 - `maxtries` is exactly 10
 - The distance between entity.`startpos` and this position is higher than the `teleportradius` or `maxtries` is 20 or above (meaning it went too far away or there's too much failed wander attempts)
 - The entity is in a `forcemove`
 
 If none of the branches above are taken, it means to wait before the next wander:
+
 - `walkcooldown` is set to 0.0
 - `trycount` is set to 0
 - `actioncooldown` is decremented by the game's frametime
@@ -42,6 +45,7 @@ This branch is essentially the main logic that manages the movement to the next 
 The attempted next vector is 1/3 of a random one between (-`wanderradius`, 0.5, -`wanderradius`) and (`wanderradius`, 0.5, `wanderradius`) which is then added to the entity.`startpos` as the `wanderradius` is relative to it. When generated, the entity.`moverotater` is set to look at it regardless if it's accepted or not.
 
 If the vector is less than `radiuslimit` away from the current position (meaning it's not too far to move to), then it is accepted which makes the following happen:
+
 - [MoveTowards](../../EntityControl/EntityControl%20Methods.md#movetowards) is called on the entity to move to the vector at default everything with the exception that the y component is ignored
 - The entity.`detect` is set to LookAt the vector
 - `actioncooldown` is set to be random between 1/3 of the frequency and the frequency itself
@@ -56,6 +60,7 @@ The purpose of this field and `maxtries` is to regulate the timeout logic. If it
 
 ### Too far or too much failed wander attempts
 This is basically a warp to force the entity to teleport to its `startpos`:
+
 - DeathSmoke particles are played at this position if the entity is `incamera`
 - The position is set to the entity.`startpos`
 - The entity.`rigid` velocity is zeroed out

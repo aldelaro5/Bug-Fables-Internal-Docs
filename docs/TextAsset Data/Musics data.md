@@ -3,9 +3,9 @@
 [Musics](../Enums%20and%20IDs/Musics.md) data are split in 2 TextAssets in the game:
 
 * Loaded by LoopPoint which will only run on the first FixedUpdate after LoadEverything:
-  * `Ressources/data/LoopPoints`
+    * `Ressources/data/LoopPoints`
 * Loaded on boot by SetVariables
-  * `MusicList` from the corresponding dialogue directory of the current [languageid](../SetText/languageid.md)
+    * `MusicList` from the corresponding dialogue directory of the current [languageid](../SetText/languageid.md)
 
 ## `LoopPoints` data
 

@@ -23,10 +23,10 @@ The same than [PathPlatform](PathPlatform.md), but path mode will have the nodes
 - entity.`alwaysactive` is set to true
 - entity.`model` tag is set to `PlatformNoClock`
 - If entity.`originalid` is the `ElectroPlatform` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md), a GlowTrigger is added on the first child of the `model`:
-  - `getactivecolorfromstart` is set to true
-  - `parent` is set to this NPCControl
-  - `glowparts` is initialised to a single element corresponding to the MeshRenderer of the first child of the `model`
-  - `electime` is initialised to 260.0 unless `dialogues[2].y` exists and isn't 0 where it will take that value instead
+    - `getactivecolorfromstart` is set to true
+    - `parent` is set to this NPCControl
+    - `glowparts` is initialised to a single element corresponding to the MeshRenderer of the first child of the `model`
+    - `electime` is initialised to 260.0 unless `dialogues[2].y` exists and isn't 0 where it will take that value instead
 
 ## Update
 If the [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) is a `Lilypad`, the `boxcol` if present is kept enabled, otherwise, its enabled will bet set to the `hit` value.

@@ -6,6 +6,7 @@ None.
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity

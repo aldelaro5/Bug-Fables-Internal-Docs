@@ -1,5 +1,5 @@
 # Enemy
-An enemy is a non interactable entity that supports [ActionBehaviors](ActionBehaviors.md) with the ability to initiate a battle encounter with the player consisting of up to 4 [enemy](../../Enums%20and%20IDs/Enemies.md). It also features special logic to handle all of this including cases where it's frozen or dizzy. It is the NPCType with the most exclusive logic available.
+An enemy is a non interactable entity that supports [ActionBehaviors](ActionBehaviors.md) with the ability to initiate a battle encounter with the player consisting of up to 4 [enemies](../../Enums%20and%20IDs/Enemies.md). It also features special logic to handle all of this including cases where it's frozen or dizzy. It is the NPCType with the most exclusive logic available.
 
 ## Data arrays
 - `vectordata`: The list of random standard [item](../../Enums%20and%20IDs/Items.md) the enemy can potentially drop in the x components of each element when EntityControl.[Death](../EntityControl/Notable%20methods/Death.md) is called on the entity. For the drop to happen on a given element, its y component (if it's not negative) must correspond to a [flag](../../Flags%20arrays/flags.md) slot whose value is true. If any element's y component is -2 however, the first occurence where this is the case will override the drop as it means this will dropped as a key item and it will also bypass the random check performed by EntityControl.Death
@@ -19,6 +19,7 @@ The `lockcooldown` of the `arrow` is set to true only if `freezecooldown` is abo
 
 ## Update (Active, main logic, overrides)
 Only 1 of 3 cases happens here (checked in order):
+
 - This is a frozen enemy (the `freezecooldown` hasn't expired yet)
 - This is a frozen entity of any kind (it has an `icecube`, but in practice, this can only happen if an enemy is frozen because it's only on them that [Freeze](../EntityControl/Notable%20methods/Freeze%20handling.md#Freeze) is called)
 - This is a dizzy enemy (the `dizzytime` is above 0.0)
@@ -31,6 +32,7 @@ If the entity.`rigid` y velocity is not between -0.1 and 0.1 inclusive, its x an
 The absolute position is clamped to be within a radius of `radiuslimit` where the center is at the entity.`startpos` ignoring the y component.
 
 The following occurs:
+
 - The `pusher` is disabled if it was present
 - The `dizzytime` is set to -1000.0
 - The entity.`spin` is zeroed out
@@ -59,6 +61,7 @@ If the player is present and it is `standingon` this `boxcol`, then the player.e
 The layer is set to `templayer` if it wasn't -1 before it is set to -1. This restores the value it had when the entity was frozen previously.
 
 The following occurs:
+
 - entity.`shadow` is enabled if `hasshadow` was true
 - entity.`ccol` is enabled
 - entity.`boxcol` is disabled if it was present
@@ -70,12 +73,14 @@ The following occurs:
 ### Dizzy enemy
 The `disguiseobj` is disabled if present.
 
-[StartBattle](StartBattle.md) is called if all of the following are true:
+[StartBattle](Notable%20methods/StartBattle.md) is called if all of the following are true:
+
 - It's been more than 20 frames since the `startlife`
 - We aren't in a `pause`, `minipause` or [message](../../SetText/Notable%20states.md#message)
-- The player is present and the distance between it and this enemey is \<= the entity.`ccol` radius + 1.1
+- The player is present and the distance between it and this enemey is <= the entity.`ccol` radius + 1.1
 
 The following occurs:
+
 - entity.`height` is decreased by - 0.075 clamped from 0.0 to 999.0
 - entity.`spin` is set to (0, `dizzytime` / 5 clamped from 0.0 to 15.0, 0.0)
 - entity.`overrideanim` is set to true
@@ -89,11 +94,13 @@ The following occurs:
 These logic can happen as part of a standard active Update if none of the above cases applied and we aren't `trapped`.
 
 If the `dizzytime` is above -999.0, it is set to -1000.0 with the following adjustements being done on the entity which essentially ends the dizzyness:
+
 - enity.`spin` gets zeroed out
 - enity.[animstate](../EntityControl/Animations/animstate.md) gets set back to entity.`basestate`
 - enity.`overrideanim` is set to false
 
-[StartBattle](StartBattle.md) is called if all of the following are true:
+[StartBattle](Notable%20methods/StartBattle.md) is called if all of the following are true:
+
 - It's been more than 20 frames since the `startlife`
 - We aren't in a `pause`, `minipause` or [message](../../SetText/Notable%20states.md#message)
 - The player is present and the distance between it and this enemey is \<= the entity.`ccol` radius + 1.1
@@ -103,19 +110,21 @@ For every 3 frames, if the entity is in a [forcemove](../EntityControl/EntityCon
 
 ## LateUpdate (Non `dummy` and entity is `incamera`)
 If the `eventid` is 0 and the entity `iskill` while we aren't in `pause`, `minipause` and `inevent`, some logic occurs depending on the `respawntimer`:
+
 - If it is -100.0 or less, it is set to `eventid`,
 - If it is above 0.0, it is decreased by the game's frametime
-- If it's negative, but above -100.0, [RespawnEnemy](RespawnEnemy.md) is called using the entity `spawnpoint`, the entity `iskill` is set to false and `respawntimer` is set to -110.0
+- If it's negative, but above -100.0, [RespawnEnemy](Notable%20methods/RespawnEnemy.md) is called using the entity `spawnpoint`, the entity `iskill` is set to false and `respawntimer` is set to -110.0
 
 ## LateUpdate (Every 3 frames during RefreshPlayer)
 When the `inrange` value changes:
+
 - If the new `inrange` is true, the change is only accepted if both the `freezecooldown` and the `dizzytime` expired. If they have, the `Find` sound is played if the player wasn't `digging`
 - If the new `inrange` is false and both `freezecooldown` and `dizzytime` expired while `behaviorroutine` isn't in progress:
-  - entity.`emoticonid` is set to 1 (?)
-  - entity.`emoticoncooldown` is set to 70.0
-  - [StopForceMove](../EntityControl/EntityControl%20Methods.md#stopforcemove) is called with the `Idle` target state
-  - The `Lost` sound is played
-  - entity.`overrideonlyflip` is set to false
+    - entity.`emoticonid` is set to 1 (?)
+    - entity.`emoticoncooldown` is set to 70.0
+    - [StopForceMove](../EntityControl/EntityControl%20Methods.md#stopforcemove) is called with the `Idle` target state
+    - The `Lost` sound is played
+    - entity.`overrideonlyflip` is set to false
 
 ## OnTriggerEnter
 What happens here depends on the other collider, only one branches is ran and if it doesn't apply, nothing happens.
@@ -125,12 +134,12 @@ This does nothing if the entity is `digging` or its [animid](../../Enums%20and%2
 
 - The other gameObject is destroyed if it had a RigidBody
 - The `freezecooldown` is set to 300.0 with some exceptions:
-  - It is set to 30.0 if the current [map](../../Enums%20and%20IDs/Maps.md) is `GiantLairDeadLands1` or `GiantLairDeadLands2`
-  - It is set to `freezetime` clamped from 600.0 to infinity if the Extra Freeze [medal](../../Enums%20and%20IDs/Medal.md) is equipped or `extrafreeze` is true
+    - It is set to 30.0 if the current [map](../../Enums%20and%20IDs/Maps.md) is `GiantLairDeadLands1` or `GiantLairDeadLands2`
+    - It is set to `freezetime` clamped from 600.0 to infinity if the Extra Freeze [medal](../../Enums%20and%20IDs/Medal.md) is equipped or `extrafreeze` is true
 - If it's a `ToeBiter` and `internaltransform[0]` (his boulder) is present, it is destroyed
 - entity.`rigid` x and z velocity are zeroed out
 - entity.`onground` is set to true
-- [StopForceBehavior](StopForceBehavior.md) is called
+- [StopForceBehavior](Notable%20methods/StopForceBehavior.md) is called
 
 ### The other tag is `BeetleDash` or `BeetleHorn`
 The `BeetleHorn` tag only counts here if the player isn't `dashing`. This does nothing if `collisionammount` is 0, the entity is `dead` or `digging` or the `touchcooldown` hasn't expired yet.
@@ -138,15 +147,15 @@ The `BeetleHorn` tag only counts here if the player isn't `dashing`. This does n
 - TempIgnoreColision is called on the entity with the other collider which ignores all collision between the entity.`ccol` / entity.`detect` and the other collider for 0.5 seconds
 - The `Damage0` sound is played
 - If the other collider tag was `BeetleDash`, the `freezecooldown` is set to 0.0
-- A [Dizzy](Dizzy.md) coroutine is started for 120.0 frames with force launch with the direction being the normalized direction from this enemy to the player * 5.0
+- A [Dizzy](Notable%20methods/Dizzy.md) coroutine is started for 120.0 frames with force launch with the direction being the normalized direction from this enemy to the player * 5.0
 - `collisionammount` is incremented
 
 ### The other tag is `BeeRang`
 This does nothing if `collisionammount` is 0, the entity is `dead` or `digging` or the `touchcooldown` hasn't expired yet.
 
 - The `WoodHit` sound is played on the entity
-- A [Dizzy](Dizzy.md) coroutine is started for 80.0 frames with no pushforce or force launch
+- A [Dizzy](Notable%20methods/Dizzy.md) coroutine is started for 80.0 frames with no pushforce or force launch
 - `collisionammount` is incremented
 
 ### The other collider is owned by the player
-If we aren't in a `minipause`, `pause` or `inevent`, [StartBattle](StartBattle.md) is called TODO: this seems contradictory with the Update logic ???.
+If we aren't in a `minipause`, `pause` or `inevent`, [StartBattle](Notable%20methods/StartBattle.md) is called TODO: this seems contradictory with the Update logic ???.

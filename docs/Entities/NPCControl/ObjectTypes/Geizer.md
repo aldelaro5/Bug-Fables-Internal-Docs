@@ -21,24 +21,24 @@ A water or honey geizer that can be frozen using Leif's Freeze and it can elevat
 - The gameObject layer to 0 (Default).
 - The `scol` is disabled
 - `actionfrequency`: is initialised to 2 elemenst :
-  - 0: Random.Range(1.0, 10.0) (this is a random phase shift to the geizer oscillation)
-  - 1: 0.0 (this is a DeltaTime accumulator for use in the geizer oscillation)
+    - 0: Random.Range(1.0, 10.0) (this is a random phase shift to the geizer oscillation)
+    - 1: 0.0 (this is a DeltaTime accumulator for use in the geizer oscillation)
 - `actioncooldown`: set to -1100.0 (meaning the first update cycle will be treated as if we had an expired cooldown since more than 1 update cycle)
 - A geizer prefab is instantiated from the path `Prefabs/Objects/Geizer` followed by `data[0]` if applicable. The geizer is childed to the entity's `sprite` and has its local position set to Vector3.zero.
 - `internaltransform` is initialised to 5 elements:
-  - 0: The first child of the geizer's root (The root of the main geizer object)
-  - 1: The second child of the geizer's root (the root of the frozen geizer object)
-  - 2: The first child of the geizer's first child (the top of the main geizer object)
-  - 3: The second child of the geizer's first child (the spout at the bottom of the main geizer's object)
-  - 4: The first child of the geizer's second child (the frozen spout at the bottom of the frozen geizer object)
+    - 0: The first child of the geizer's root (The root of the main geizer object)
+    - 1: The second child of the geizer's root (the root of the frozen geizer object)
+    - 2: The first child of the geizer's first child (the top of the main geizer object)
+    - 3: The second child of the geizer's first child (the spout at the bottom of the main geizer's object)
+    - 4: The first child of the geizer's second child (the frozen spout at the bottom of the frozen geizer object)
 - entity.`model` scale is multiplied by a 1/10 of `dialogues[2].x`
 - entity.`alwaysactive` is set to true
 - entity.`model` tag is set to `PlatformNoClock`
 - If entity.`originalid` is the `ElectroPlatform` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md), a GlowTrigger is added on the first child of the `model`:
-  - `getactivecolorfromstart` is set to true
-  - `parent` is set to this NPCControl
-  - `glowparts` is initialised to a single element corresponding to the MeshRenderer of the first child of the `model`
-  - `electime` is initialised to 260.0 unless `dialogues[2].y` exists and isn't 0 where it will take that value instead
+    - `getactivecolorfromstart` is set to true
+    - `parent` is set to this NPCControl
+    - `glowparts` is initialised to a single element corresponding to the MeshRenderer of the first child of the `model`
+    - `electime` is initialised to 260.0 unless `dialogues[2].y` exists and isn't 0 where it will take that value instead
 
 ## Update
 The `internaltransform[3]` (the bottom spout of the main geizer object) gets its local scale set to Vector3.one. If this is the first Update, `initialrender` is initialised to a single element being the MeshRenderer of the spout of the geizer object. This MeshRenderer is then disabled.
@@ -46,7 +46,7 @@ The `internaltransform[3]` (the bottom spout of the main geizer object) gets its
 From there, the geizer can be active or inactive. It's active if `data[1]` doesn't exist, is -1 or the map entity with the id being `data[1]` exists with a `hit` value of true. It is inactive otherwise. This changes the rest of the update cycle.
 
 ### Inactive updates
-In the case where the geizer shouldn't be active, [GeizerBreak](../GeizerBreak.md) is called if the `actioncooldown` hasn't expired yet (it is also set to 0.0 in this case). This is followed by the position being set to a lerp from the existing one to the entity's `startpos` - the transform's up vector * 10.0 with a factor of 0.025 * the game's frametime. This basically makes the geizer slowly retract itself such that it's not visible because it would be under the floor or inside a wall.
+In the case where the geizer shouldn't be active, GeizerBreak is called if the `actioncooldown` hasn't expired yet (it is also set to 0.0 in this case). This is followed by the position being set to a lerp from the existing one to the entity's `startpos` - the transform's up vector * 10.0 with a factor of 0.025 * the game's frametime. This basically makes the geizer slowly retract itself such that it's not visible because it would be under the floor or inside a wall.
 
 ### Active update
 If the `startlife` is above 20.0 frames and `hit` is false, `hit` is set to true and the ParticleSystem of `internaltransform[3]` (the spout of the main geizer) is set to play which is some water splashing.
@@ -63,25 +63,27 @@ From there, there are 3 cases: the `actioncooldown` hasn't expired, it expired l
 
 #### `actioncooldown` expired since the last Update cycle
 If the `actioncooldown` expired since the last cycle (tested by checking it is 0.0 or below, but above -1000.0):
+
 - `internaltransform[0]` is activated (the main geizer object)
 - `internaltransform[1]` is deactivated (the frozen geizer object)
 - `internaltransform[3]` is activated (the spout at the bottom of main geizer object)
 - The `boxcol` is enabled if it is present
-- If `startlife` is 15.0 or above, [GeizerBreak](../GeizerBreak.md) is called
+- If `startlife` is 15.0 or above, GeizerBreak is called
 - The ParticleSystem of `internaltransform[3]` (the spout at the bottom of the water object) is set to play which is some water splashing.
 - The entity.`sound` is set to no longer loop
 - `actioncooldown` is set to -1100.0 which changes further update cycles to have the cooldown expired since more than 1 cycle.
 
 #### `actioncooldown` expired more than 1 Update cycle ago
 If the `actioncooldown` expired more than 1 cycle ago (checked by being below -1000.0):
+
 - `internaltransform[2]` (the top of the main geizer object) is set to rotate by 5.0 degrees in the z axis (this is the vertical one due to the pivot point being rotated)
 - `internaltransform[3]` (the spout at the bottom of the water object) is set to rotate by -5.0 degrees in the y axis
 - The `boxcol` center is set to (0.0, 3.0 + the root geizer main object y position, 0.0) which elevates it slightly above its position
 - The geizer's root position (the parent of `internaltransform[0]`) is set to a lerp from the existing one to the entity. `startpos` + the normalized up vector of the transform * Mathf.Sin(`actionfrequency[1]` * `vectordata[0].x` + `actionfrequency[0]`) * `vectordata[0].y` with a factor of the 1/10 of the game's frametime. This oscillates the geizer's:
-  - `vectordata[0].y` is the magnitude of the sine wave, it tells half of the full range between the lowest point the geizer will go and the higest
-  - `actionfrequency[1]` is the time in seconds accumulated since SetUp so this scales the Sin through time
-  - `actionfrequency[2]` is a phase shift that's been determined randomly on SetUp
-  - `vectordata[0].x` is 1/6 of the frequency
+    - `vectordata[0].y` is the magnitude of the sine wave, it tells half of the full range between the lowest point the geizer will go and the higest
+    - `actionfrequency[1]` is the time in seconds accumulated since SetUp so this scales the Sin through time
+    - `actionfrequency[2]` is a phase shift that's been determined randomly on SetUp
+    - `vectordata[0].x` is 1/6 of the frequency
 - `actionfrequency[1]` is incremented by Time.deltaTime
 - If the entity's `sound` wasn't playing, [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called with the `Waterfall1` clip at 0.075 volume and the entity.`sound` is set to loop
 - If `data[2]` is present and 1 and there is a map.lastwater, the y component of the `internaltransform[3]` position (the spout at the bottom of the main geizer object) is set to map.`lastwater` y position. This basically means the spout will be positioned on the map's water Hazards level.
@@ -91,15 +93,16 @@ If the `actioncooldown` expired more than 1 cycle ago (checked by being below -1
 - `internaltransform[3]` (the spout of the main geizer object) has its scale set to Vector3.One
 - A Raycast is performed from the geizer position + (0.0, 10.0, 0.0) headed down with max 10.0 distance only accepting layers of `Ground` or `NoDigGround`.
 - If `attacking` is false (this is the first applicable LateUpdate cycle), it is set to true after a Fader component is added to the gameObject with:
-  - forcestayonpause to true
-  - childtied to true
-  - fadedistance to 0.0
-  - pivotoffset to (0.0, the point.y of the collision done earlier or 0.0 if there wasn't a collision - entity.`startpos`, 0.0)
+    - forcestayonpause to true
+    - childtied to true
+    - fadedistance to 0.0
+    - pivotoffset to (0.0, the point.y of the collision done earlier or 0.0 if there wasn't a collision - entity.`startpos`, 0.0)
 - If `data[3]` is 1 and `startlife` is less than 20.0, the position is set to the entity.`startpos` - the up vector of the geizer * 10.0. This places the geizer such that it will be under the floor / inside its wall very soon after map load
 - If there was a collision with the raycast earlier, the position of `internaltransform[3]` (the spout of the main geizer object) is set to the hit point of the raycast and it also gets childed to the entity.`sprite`. This basically ensures the spout is placed where the ground actually is and to ensure it doesn't move with the geizer, it's childed in such a way that it is a sibling of the geizer so it stays there independently of the geizer movements
 
 ## OnTriggerEnter
 There are 4 branches here:
+
 - The other gameObject tag is `Icecle`, `Icefall` or `IceRadius` and `data[4]` doesn't exist or is 0
 - The other gameObject tag is `BeetleHorn` or `BeetleDash` and the `actioncooldown` hasn't expired yet (meaning the geizer is frozen)
 - The other gameObject tag is `DroppletCube` and the `actioncooldown`  expired (meaning the geizer isn't frozen)
@@ -107,29 +110,29 @@ There are 4 branches here:
 
 ### Ice collider logic
 - If the `moveobj` is present (meaning a [Dropplet](Dropplet.md) ice cube is on the geizer):
-  - LaunchObject is called with it using a random vector between (0.0, -15.0, 0.0) and (0.0, 15.0, 0.0)
-  - The parent of the ice cube is set to the current map
-  - [ServerGeizer](Dropplet.md#servergeizer) is called onm the `moveobj` Hornable which setups the cube to be on the geizer snapped to it
+    - LaunchObject is called with it using a random vector between (0.0, -15.0, 0.0) and (0.0, 15.0, 0.0)
+    - The parent of the ice cube is set to the current map
+    - [ServerGeizer](Dropplet.md#servergeizer) is called onm the `moveobj` Hornable which setups the cube to be on the geizer snapped to it
 - If the `actioncooldown` expired (meaning the geizer isn't frozen):
-  - The `boxcol` is disabled if present
-  - `internaltransform[0]` (the main geizer object) gets disabled
-  - `internaltransform[3]` (the spout of the main geizer object) gets disabled
-  - `internaltransform[1]` (the frozen geizer object) gets enabled
-  - `internaltransform[4]` (the spout of the frozen geizer object) gets enabled except if the current [map](../../../Enums%20and%20IDs/Maps.md) is `UpperSnekGeizerRoom` where it is disabled
-  - The entity.`sound` is stopped and placed at the begining of the playback
-  - The `Freeze` sound is played at 0.5 volume
+    - The `boxcol` is disabled if present
+    - `internaltransform[0]` (the main geizer object) gets disabled
+    - `internaltransform[3]` (the spout of the main geizer object) gets disabled
+    - `internaltransform[1]` (the frozen geizer object) gets enabled
+    - `internaltransform[4]` (the spout of the frozen geizer object) gets enabled except if the current [map](../../../Enums%20and%20IDs/Maps.md) is `UpperSnekGeizerRoom` where it is disabled
+    - The entity.`sound` is stopped and placed at the begining of the playback
+    - The `Freeze` sound is played at 0.5 volume
 - The `actioncooldown` gets set to `vectordata[0].z`, but if the Extra Freeze [medal](../../../Enums%20and%20IDs/Medal.md) is equipped, the value is multiplied by 3 before assigning it
 
 ### Kabbu collider logic while the geizer is frozen
 - The player entity `hitwall` is set to true
 - The `actioncooldown` is set to 0.0
-- [GeizerBreak](../GeizerBreak.md) is called
+- GeizerBreak is called
 - The `boxcol` is disabled if it is present
 
 ### [Dropplet](Dropplet.md) cube collider logic while the geizer isn't frozen
 - If the `moveobj` is present (there was already a dropplet ice cube on the geizer):
-  - LaunchObject is called with it using a random vector between (-5.0, -10.0, 0.0) and (5.0, 10.0, 0.0) 
-  - [ServerGeizer](Dropplet.md#servergeizer) is called onm the `moveobj` Hornable which setups the cube to be on the geizer snapped to it
+    - LaunchObject is called with it using a random vector between (-5.0, -10.0, 0.0) and (5.0, 10.0, 0.0) 
+    - [ServerGeizer](Dropplet.md#servergeizer) is called onm the `moveobj` Hornable which setups the cube to be on the geizer snapped to it
 - The RigidBody of the other's parent gets its velocity zeroed out without gravity in kinematic mode
 - The parent of the other dropplet is set to `internaltransform[0]` (The main geizer object)
 - `moveobj` is assigned to the other dropplet

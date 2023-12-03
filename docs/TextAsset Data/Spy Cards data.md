@@ -3,10 +3,10 @@
 Spy Cards data are split in 4 TextAssets in the game only loaded during the course of a CardGame (everything is handled independently by CardGame, not MainManager):
 
 * By LoadCardData:
-  * `Ressources/data/CardData`
-  * `CardText` from the corresponding dialogue directory of the current [languageid](../SetText/languageid.md)
+    * `Ressources/data/CardData`
+    * `CardText` from the corresponding dialogue directory of the current [languageid](../SetText/languageid.md)
 * By CardStart:
-  * `Ressources/data/CardOrder`
+    * `Ressources/data/CardOrder`
 
 The `CardData` is also loaded during the course of [Events](../Enums%20and%20IDs/Events.md) 210 (Spy Card tournament event).
 

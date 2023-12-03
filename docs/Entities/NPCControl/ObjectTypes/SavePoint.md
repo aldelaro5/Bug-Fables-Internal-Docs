@@ -22,6 +22,7 @@ A save crystal that can be hit using field abilities. It can be blue which only 
 `internaltransform` is initialised to be 2 elements and the first one is set as the entity.`model`'s second child (the crystal GameObject) and the second is left default for now.
 
 If `data[0]` is 1, the PolySphere is setup from a `Prefabs/Objects/PolySphere` prefab:
+
 - childed to to `internaltransform[0]`
 - local position of (0.0, 0.0, 0.01)
 - Local scale of (8.0, 8.0, 5.0)
@@ -37,6 +38,7 @@ The only thing that occurs here is the `internaltransform[0]` (the crystal game 
 
 ## OnTriggerEnter
 This does nothing when any of the following are true:
+
 - We are in a `pause` or `minipause`
 - The [message](../../../SetText/Notable%20states.md#message) lock is grabbed
 - The other gameObject tag isn't `BeetleHorn`, `BeetleDash` or `Icecle` while it's also not the player `beemerang`
@@ -53,4 +55,4 @@ If the other gameObject is the player.`beemerang`, its `hit` is set to true.
 
 If `data[1]` is 10 or above and `hit` is false, the game will find a DeadLanderOmega whose `thisid` is `data[1]` - 10 and call ForceLook on it using `vectordata[0]` as the vector. After, `hit` is set to true making it a one time event.
 
-Otherwise, if we aren't in a `timeddemo` (we never are under normal gameplay) and the square distance between this and the player is 30.0 or less, [Interact("save")](../Interact.md) is called.
+Otherwise, if we aren't in a `timeddemo` (we never are under normal gameplay) and the square distance between this and the player is 30.0 or less, [Interact("save")](../Notable%20methods/Interact.md) is called.

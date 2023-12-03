@@ -13,6 +13,7 @@ It can be used as the `inrange` behavior while [WalkWhenAnim](WalkWhenAnim.md) i
 If the entity.`animstate` is `Chase`, this acts as an alias to [ChasePlayer](ChasePlayer.md).
 
 Otherwise, if the current entity.`animstate` isn't the `frequency`:
+
 - The `behaviorcooldown` is set to 20.0 (prevents a [WalkWhenAnim](WalkWhenAnim.md) doing a [Wander](Wander.md) DoBehavior cycle to process for 20.0 frames when entity.`animstate` is `Idle`)
 - [StopForceMove](../../EntityControl/EntityControl%20Methods.md#StopForceMove) is called on the entity
 - The entity.`animstate` is set to frequency

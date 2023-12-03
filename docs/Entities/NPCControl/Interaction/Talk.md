@@ -5,7 +5,8 @@ Calls [SetText](../../../SetText/SetText.md) in [Dialogue mode](../../../SetText
 None.
 
 ## Interact
-Calls [SetText](../../../SetText/SetText.md) in [dialogue mode](../../../SetText/Dialogue%20mode.md) with the input string being the current one obtained with [GetDialogue](../GetDialogue.md):
+Calls [SetText](../../../SetText/SetText.md) in [dialogue mode](../../../SetText/Dialogue%20mode.md) with the input string being the current one obtained with [GetDialogue](../Notable%20methods/GetDialogue.md):
+
 - The [fonttype](../../../SetText/Notable%20states.md#fonttype) is `BubblegumSans`
 - The default `messagebreak` is used as the linebreak
 - No tridimensional
@@ -24,6 +25,7 @@ TODO: Need to revisit this when MapControl docs is done
 
 ## PlayerControl.LateUpdate
 entity.`emoticonid` gets set to 0 (the chatting icon) and entity.`emoticoncooldown` gets set to 2.0 if all of the following conditions are met:
+
 - We aren't in a `pause` or `minipause`
 - The [message](../../../SetText/Notable%20states.md#message) lock is released
 - The player isn't `digging`, `flying`, `startdig` or in `shield`

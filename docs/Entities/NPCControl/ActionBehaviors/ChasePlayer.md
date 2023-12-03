@@ -19,4 +19,4 @@ None, overriden to 2.0 if it's not between 0.0 and 10.0 inclusive.
 - The position is limited to a radius of `radiuslimit` where the center is `startpos` ignoring the y component
 
 ## Update (Common end logic)
-If this is the current behavior (according to `inrange`) and we are in `minipause` or `inevent`, then [StopForceMove](../EntityControl/EntityControl%20Methods.md#StopForceMove) is called on the entity.
+If this is the current behavior (according to `inrange`) and we are in `minipause` or `inevent`, then [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on the entity.

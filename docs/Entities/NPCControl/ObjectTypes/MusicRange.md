@@ -16,6 +16,7 @@ The `musicrangeanim` of the map is set to the map entity id being created here. 
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity
@@ -25,10 +26,10 @@ A few adjustements occurs:
 - entity.`activeonpause` is set to true
 - `data[0]` is overriden to `data[1]`
 - entity.`sound` properties are initialised:
-  - The clip is set to one loaded using the [Music](../../../Enums%20and%20IDs/Musics.md)'s name at id `data[2]`
-  - The volume to 0.0
-  - The loop to true
-  - Play is called on it
+    - The clip is set to one loaded using the [Music](../../../Enums%20and%20IDs/Musics.md)'s name at id `data[2]`
+    - The volume to 0.0
+    - The loop to true
+    - Play is called on it
 - `vectordata[1]` is overriden to have its x be 0.0 and its y / z be the end and begin loop points respectively of the corresponding [music data](../../../TextAsset%20Data/Musics%20data.md#musics-data) whose music id is `data[2]`
 
 ## Update

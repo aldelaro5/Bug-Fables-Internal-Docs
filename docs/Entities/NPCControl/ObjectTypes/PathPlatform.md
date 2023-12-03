@@ -5,8 +5,8 @@ A platform that moves on a set path defined by multiple absolute position vector
 - `data`: The map entities ids to check for their `hit` being true and if any are, it will tell the platform to set its `hit` to true and to start moving along its path in path mode. This is optional, the platform is considered as continually moving as normal without any elements
 - `vectordata`: The nodes the platform will travel in absolute positioning
 - `dialogues[0].x`:The meaning depends on the mode:
-  - In path mode, this is the starting node after truncating to int
-  - In loop mode, this is the starting `speedmultiplier` (the starting node index) after truncating to int. This means only \[0.0, 2.0\[ are valid values
+    - In path mode, this is the starting node after truncating to int
+    - In loop mode, this is the starting `speedmultiplier` (the starting node index) after truncating to int. This means only \[0.0, 2.0\[ are valid values
 - `dialogues[0].y`: The speed multiplier at which the platform moves.
 - `dialogues[1].x`: if it's 1, it means to place the platform in loop mode by only using the first 2 `vectordata` and disregard the `currentnode` logic
 - `dialogues[1].y`: The `actioncooldown` to apply when the platform has reached the end of its path and it should go inactive.
@@ -25,19 +25,19 @@ A platform that moves on a set path defined by multiple absolute position vector
 - entity.`model` scale is multiplied by a 1/10 of `dialogues[2].x`
 - If `dialogues[1].x` is 1 (loop mode) and `dialogues[0].x` is 1 (the starting node is the second one), the `speedmultiplier` is set to 1.0
 - If `dialogues[1].x` is 0 (path mode):
-  - `currentnode` is set to `dialogues[0].x`
-  - The position is set to the `vectordata` at the `currentnode`
-  - entity.`startpos` is set to the new position
+    - `currentnode` is set to `dialogues[0].x`
+    - The position is set to the `vectordata` at the `currentnode`
+    - entity.`startpos` is set to the new position
 - If the entity.`originalid` is the `Lilypad` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md):
-  - The `scol` is disabled
-  - the `boxcol` is recreated with trigger and a size of (5.0, 1.0, 5.0) which overrides all the `boxcol` fields obtained when loading the data.
+    - The `scol` is disabled
+    - the `boxcol` is recreated with trigger and a size of (5.0, 1.0, 5.0) which overrides all the `boxcol` fields obtained when loading the data.
 - entity.`alwaysactive` is set to true
 - entity.`model` tag is set to `PlatformNoClock`
 - If entity.`originalid` is the `ElectroPlatform` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md), a GlowTrigger is added on the first child of the `model`:
-  - `getactivecolorfromstart` is set to true
-  - `parent` is set to this NPCControl
-  - `glowparts` is initialised to a single element corresponding to the MeshRenderer of the first child of the `model`
-  - `electime` is initialised to 260.0 unless `dialogues[2].y` exists and isn't 0 where it will take that value instead
+    - `getactivecolorfromstart` is set to true
+    - `parent` is set to this NPCControl
+    - `glowparts` is initialised to a single element corresponding to the MeshRenderer of the first child of the `model`
+    - `electime` is initialised to 260.0 unless `dialogues[2].y` exists and isn't 0 where it will take that value instead
 
 ## Update
 If entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/AnimIDs.md), the `boxcol` if present is kept enabled, otherwise, its enabled will bet set to the `hit` value.
@@ -59,6 +59,7 @@ Unless entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/
 
 ### Path mode
 What happens each updates depends on the value of `hit` which gets toggled on and off in a very systematic manner. The details involves many different fields that interacts with each other:
+
 - `actioncooldown`: The cooldown used to stop movement whenever the platform reaches its last node AND it is considered deactivated. This is refreshed to be `dialogues[1].y` each time the platform goes to a new node with `hit` being set to true.
 - `speedmultiplier`: The factor to use when lerping the platform positions between nodes. It's set to 0.0 when going to a new node until it reaches 1.0+. It progressively increases by the frametime of the game * `dialogues[0].y` / 1000.0.
 - `bounces`: The previous node index visited which will be used as the `from` vector when lerping.
@@ -82,6 +83,7 @@ When moving the platform, the lerping using will be the standard Vector3.Lerp, b
 
 ## OnTriggerEnter if the other collider is the player
 There is some dead logic here where nothing happens, but the conditions are all of these being true:
+
 - The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `WildGrasslands`
 - The entity `originalid` is the `Lilypad` [animid](../../../Enums%20and%20IDs/AnimIDs.md)
 - The player entity is `onground`
@@ -97,4 +99,3 @@ Specififcally, the GroundDetector's OnTriggerStay will check if the other collid
 The Hornable component also does this which is related to the ice cube of a [Dropplet](Dropplet.md). If the other collider has either tag, OnTriggerEnter / OnCollisionEnter will child the other transform to the platform. This is undone on the component's OnTriggerExit if the other collider has either of the tags.
 
 As for what the entity.`noclock` does, normally, on MainManager.DoClock, the method RefreshPlayer is called when the player is free and it would normally set the `onground` to false and root all playerdata entities (this incidentally has a known issue where the frictions gets toggled off for one frame every second). `noclock` is a field that will prevent this logic from happening so it prevents the rooting of the player to the scene. In the case of the PathPlatform, it means that this logic doesn't happen as long as the player is on the platform AND it is active (the logic is free to do its thing when the platform goes inactive).
-

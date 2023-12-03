@@ -9,13 +9,13 @@ This is a helper method to respawn an [Enemy](../NPCType.md#enemy) at a certain 
 - entity.`spin` is zeroed out
 - entity.`rigid` gravity is enabled without kinematic and with the velocity zeroed out
 - entity.`sprite` is enabled and its angles set to zero
-- entity.[animstate](../EntityControl/Animations/animstate.md) is set to the `basestate`
+- entity.[animstate](../../EntityControl/Animations/animstate.md) is set to the `basestate`
 - entity.`overrideanim` is set to false
 - entity.`onground` is set to false
 - entity.`bobspeed` and entity.`bobrange` are reset to their start fields counterparts
 - entity.`lastpos` is set to the position passed as parameter
 - entity.`pausepos` is set to null unless we are `paused` in which case, it is also set to the passed position
-- [StopForceMove](../EntityControl/EntityControl%20Methods.md#StopForceMove) is called
+- [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called
 - `dizzytime` is set to 0.0
 - `respawntimer` is set to -100.0
 - `freezecooldown` is set to 0.0
@@ -24,6 +24,6 @@ This is a helper method to respawn an [Enemy](../NPCType.md#enemy) at a certain 
 - `hit` is set to false
 - The position and the entity's `startpos` are set to the passed parameter
 - Some logic happens if the default behavior is a disguise one
-- [LockRigid(false)](../EntityControl/EntityControl%20Methods.md#LockRigid) is called on the entity which unlocks its `rigid`
+- [LockRigid(false)](../../EntityControl/EntityControl%20Methods.md#lockrigid) is called on the entity which unlocks its `rigid`
 - The `pusher` is enabled if it exist. NOTE: normally, enemies do not have one
 - DeathSmoke is called on the entity.`sprite`'s position

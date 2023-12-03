@@ -22,6 +22,7 @@ This has the implications that the NPCControl will always wander if all of the c
 If they aren't in a `movemove`, the player needs to not be `tattling` while we aren't in a `pause` to wander on this cycle.
 
 If they are in a `forcemove`, the above applies on top of all of the following needing to be true:
+
 - entity.`hitwall` is false
 - entity.`onground` is true
 - entity.`detect` is absent or [HasGroundAhead](../../EntityControl/EntityControl%20Methods.md#hasgroundahead) from the entity.`forcetarget` returns true

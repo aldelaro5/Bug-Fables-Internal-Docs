@@ -3,6 +3,7 @@ This is an enum that dictates the main capabilities of an NPCControl using the `
 
 ## Enum table
 The following tables includes different columns to better illustrate the main properties differences between the different enum value:
+
 - Tag: The gameObject tag assigned on Start
 - Behaviors?: Whether or not [ActionBehaviors](ActionBehaviors.md) are enabled
 - Dialogues?: Whether or not [GetDialogue](Notable%20methods/GetDialogue.md) gets called which initialises a standard system to have the NPCControl call [SetText](../../SetText/SetText.md) conditionally with the lines coming from the `dialogues` field.
@@ -12,14 +13,14 @@ The following tables includes different columns to better illustrate the main pr
 - `scol`: The state of the `scol` which is a trigger SphereCollider NPCControl manages.
 - `pusher`: The state of the `pusher` which is a trigger CapsuleCollider with a height twice the `ccol` and a raidus of twice as narrow. This is specifically present to have the player be pushed away if they collide with it. Its enablement is updated in LateUpdate while `dummy` is false and entity.`incamera` is true which keeps it enabled as long as we aren't `inevent`, [message](../../SetText/Notable%20states.md#message) is released and we aren't in a `minipause`, it is disabled otherwise. LateUpdate also ensures its center is set to (0.0, `colliderheight` + the entity `height`, 0.0).
 - `rigid` mass: The mass of the entity.`rigid`.
-- Far fading?: This is some logic in LateUpdate when `dummy` is false and entity.`incamera` is true where it will slightly fade out NPCControl too far away from the camera and fade them back in when getting close enough again. The logic adjusts the alpha of the `sprite` so that it is a lerp from the existing one to either 1.0 (opaque) or 0.3 (30% visible) with a factor of a 1/10 of the game's frametime. This fades in the entity or fades it out and what determines this is the entity `compos.z`: if it's 2.5 or above, we are fading in and fading out otherwise. The specific logic happens if all of the following are true:
-  - `startlife` is above 20.0
-  - The entity [animid](../../Enums%20and%20IDs/AnimIDs.md) isn't `None`
-  - There is no `model`
-  - The `sprite` is present
-  - It's not a `hologram`
-  - The current `insideid` matches this entity
-TODO: interesting, but unsure if it works because EntityControl also manages this
+- Far fading?: This is some logic in LateUpdate when `dummy` is false and entity.`incamera` is true where it will slightly fade out NPCControl too far away from the camera and fade them back in when getting close enough again. The logic adjusts the alpha of the `sprite` so that it is a lerp from the existing one to either 1.0 (opaque) or 0.3 (30% visible) with a factor of a 1/10 of the game's frametime. This fades in the entity or fades it out and what determines this is the entity `compos.z`: if it's 2.5 or above, we are fading in and fading out otherwise (
+TODO: unsure if it works because EntityControl also seems to manage this). The specific logic happens if all of the following are true:
+    - `startlife` is above 20.0
+    - The entity [animid](../../Enums%20and%20IDs/AnimIDs.md) isn't `None`
+    - There is no `model`
+    - The `sprite` is present
+    - It's not a `hologram`
+    - The current `insideid` matches this entity
 
 |Value|Name|Tag|Behaviors?|Dialogues?|Interaction?|Emotes?|entity.`ccol`|`scol`|`pusher`|entity.`rigid`.mass<sup>1</sup>|Far fading?|
 |----:|----|---|----------|---------|------------|-------|------|------|--------|-----------------------|-----------|
@@ -35,13 +36,15 @@ TODO: interesting, but unsure if it works because EntityControl also manages thi
 3: The `scol` is disabled if it's an [item entity](../EntityControl/Item%20entity.md)  (which is always the case in practice for a `SemiNPC`). Also, it is left to null (not even added as a component) if it's The player [Beemerang](ObjectTypes/Beemerang.md).
 
 4: Exceptions applies where the `ccol` remains enabled depending on `objecttype`:
+
 - [SavePoint](ObjectTypes/SavePoint.md)
 - [RollingRock](ObjectTypes/RollingRock.md)
 - [FixedAnim](ObjectTypes/FixedAnim.md) (managed by a data field)
 - [Item](ObjectTypes/Item.md)
 - The player [Beemerang](ObjectTypes/Beemerang.md) (only remains enabled if the entity `fixedentity` is false)
 
-5: These features are excluded for any of the following cases (Behaviors are always enabled, but [SetInitialBehavior](SetInitialBehavior.md) is not called under these cases):
+5: These features are excluded for any of the following cases (Behaviors are always enabled, but [SetInitialBehavior](Notable%20methods/SetInitialBehavior.md) is not called under these cases):
+
 - This is an [item entity](../EntityControl/Item%20entity.md). This is always the case in practice for a `SemiNPC` meaning behaviors don't actually do anything useful on them
 - entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is negative
 - `interacttype` is [Shop](Interaction/Shop.md) or [CaravanBadge](Interaction/CaravanBadge.md)

@@ -12,6 +12,7 @@ A coil that can trap another map entity within using a configurable local positi
 
 ## Setup
 A few adjustements occurs:
+
 - entity.`alwaysactive` is set to true
 - gameObject's isStatic is set to true
 - entity.`rigid` is placed in kinematic mode without gravity
@@ -37,14 +38,15 @@ NOTE: it is unknown why the game seems to specifically care about a NaN positive
 
 ## LateUpdate (Not a `dummy` and the entity is `incamera`)
 - If `moveobj` isn't initialised yet, `hit` is false and the entity isn't `iskill`, then `moveobj` is initialised to the NPCControl at `data[0]` as `mapid` with some adjustements:
-  - Its `trapped` is set to true
-  - Its entity.`rigid` is locked via [LockRigid(true)](../EntityControl/EntityControl%20Methods.md#lockrigid)
-  - It gets childed to this entity.`sprite`
-  - Its scale is set to Vector3.one
-  - Its local position is set to `vectordata[0]`
+    - Its `trapped` is set to true
+    - Its entity.`rigid` is locked via [LockRigid(true)](../../EntityControl/EntityControl%20Methods.md#lockrigid)
+    - It gets childed to this entity.`sprite`
+    - Its scale is set to Vector3.one
+    - Its local position is set to `vectordata[0]`
 
 ## OnTriggerEnter
 Nothing happens if all of the following are true:
+
 - We are in a `pause` or `minipause`
 - [message](../../../SetText/Notable%20states.md#message) is grabbed
 - The other gameObject tag isn't `BeetleHorn`, `BeetleDash` and `Icecle` while it's not the player `beemerang`
@@ -54,6 +56,7 @@ Nothing happens if all of the following are true:
 The `Coiled` sound is played on this entity and HitPart particles are played at this position + (0.0, 0.5, 0.0).
 
 The following occurs on the entity of the `moveobj` (the trapped object):
+
 - The `rigid` is unlocked via [LockRigid(false)](../../EntityControl/EntityControl%20Methods.md#lockrigid), but its velocity gets zeroed out
 - The `npcdata.trapped` is set to false
 - The `onground` is set to false
@@ -70,8 +73,9 @@ Finally, `hit` is set to true.
 
 ## Effects of being `trapped`
 This field is specific to this object and the object being `trapped` receives some specific effects:
+
 - If it's a [PushRock](PushRock.md), OnTriggerEnter becomes disabled preventing the rock to be moved by Kabbu's Horn Slash
-- [CheckItem](../Notable%20methods/CheckItem.md) prevents any `trapped` [Item](Item.md) from being obtained by the player.
+- [CheckItem](Item.md#checkitem) prevents any `trapped` [Item](Item.md) from being obtained by the player.
 - It won't receive active NPCControl updates unless entity.`activeonpause` is true (and even if it is, it can only receive updates if it's an [Enemy](../NPCType.md#enemy) with one of the 3 active update override cases)
 - Any inactive updates will skip setting the position to entity.`startpos`
 - The entity's [UpdateVelocity](../../EntityControl/Update%20process/UpdateVelocity.md) effects are only active every 2 frames when the npcdata.`entitytype` isn't [NPC](../NPC.md)

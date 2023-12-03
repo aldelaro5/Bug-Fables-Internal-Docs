@@ -26,10 +26,10 @@ This is a private coroutine specific to this behavior. It receives the behavior 
 - entity.`detect` is ensured to be created
 - [DetectDirection](../../EntityControl/EntityControl%20Methods.md#detectdirection) is called on the entity using the player position
 - As long as the entity.`forcemove` is ongoing and the entity.`hitwall` is false:
-  - entity.`emoticonid` is set to 2 (the red !)
-  - entity.`emoticoncolldown` is set to 5.0
-  - If entity.`initialheight` is above 0.1, entity.`height` is set to a lerp from entity.`initialheight` to 0.25 with a factor of (the x/z square distance between this NPCControl and entity.`forcetarget`) / (the x/z square distance between entity.`startpos` and entity.`forcetarget`). NOTE: the math is likely incorrect, but the main point here is the NPCControl lowers faster as the player is further away from it and slows down as it gets closer
-  - A frame is yieled
+    - entity.`emoticonid` is set to 2 (the red !)
+    - entity.`emoticoncolldown` is set to 5.0
+    - If entity.`initialheight` is above 0.1, entity.`height` is set to a lerp from entity.`initialheight` to 0.25 with a factor of (the x/z square distance between this NPCControl and entity.`forcetarget`) / (the x/z square distance between entity.`startpos` and entity.`forcetarget`). NOTE: the math is likely incorrect, but the main point here is the NPCControl lowers faster as the player is further away from it and slows down as it gets closer
+    - A frame is yieled
 - A frame is yieled
 - entity.`sprite` angles are set to the return of a FlipAngle call on the entity
 - `attacking` is set to false

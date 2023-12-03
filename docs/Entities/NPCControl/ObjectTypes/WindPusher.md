@@ -21,12 +21,13 @@ The method then determines if we should operate the windpusher vertically or hor
 The wind pusher y angle (not the x and z ones) is then set to face `vectordata[0]` which alignes the wind pusher horizontally with its wind end position (no vertical alignement is needed because the `boxcol` will be adjusted accordinginly and the wind particles gets their own rotation when operating vertically).
 
 The `boxcol` is created by adding a fresh trigger one. This implies that all fields pertaining to the `boxcol` when loading the entity data are overriden and they are not honored. The `boxcol` size and center depends on whether we operate horizontall or vertically:
+
 - horizontally:
-  - size of (`vectordata[1].y`, `vectordata[1].z`, distance between the root transform and `vectordata[0]`) 
-  - center of (0.0, 0.0, hald of the distance between the root transform and `vectordata[0]`)
+    - size of (`vectordata[1].y`, `vectordata[1].z`, distance between the root transform and `vectordata[0]`) 
+    - center of (0.0, 0.0, hald of the distance between the root transform and `vectordata[0]`)
 - vertically: 
-  - size of (`vectordata[1].y`, distance between the root transform and `vectordata[0]`, `vectordata[1].z`) 
-  - center of (0.0, hald of the distance between the root transform and `vectordata[0]`, 0.0)
+    - size of (`vectordata[1].y`, distance between the root transform and `vectordata[0]`, `vectordata[1].z`) 
+    - center of (0.0, hald of the distance between the root transform and `vectordata[0]`, 0.0)
 
 `internalvector` is initialised to a single element containing the up vector of the transform if operated vertically or the forward one if operated horizontally. This is supposed to indicate the normalised wind flow direction.
 

@@ -15,19 +15,20 @@ The same than [Shop](Shop.md), but CaravanMedalSet features extended logic.
 
 ### CaravanMedalSet
 The logic for this interaction changes as it doesn't follow the usual [Shop system](../Shop%20system.md) workflow:
+
 - `shopkeeper` is set to the entity resolved using `data[0]` as the [entity id](../../../SetText/Common%20commands%20id%20schemes/Entity%20id.md)
 - The array of the currently available prize medals at the caravan is obtained via PrizeBadges(true)
 - If the array is empty, this object gets destroyed as there's no need to have it
 - Otherwise:
-  - The prize [medals](../../../Enums%20and%20IDs/Medal.md) array is shuffled
-  - MainManager.`caravanorder` is set to the shuffled array
-  - entity.`item` is set to true making it an [item entity](../../EntityControl/Item%20entity.md)
-  - entity.`animid` is set to 2 (medal)
-  - entity.`animstate` is set to the first element of the shuffled array (this is the first prize medal id of the array)
-  - entity.`itemstate` is set to entity.`animstate`
-  - [entitytype](../NPCType.md) is set to [SemiNPC](../Shop%20system.md#seminpc) which behaves the same than the ones used in the shop system
-  - If we are rerolling (which only happens if we are calling from a [kill](../../../SetText/Individual%20commands/Kill.md) or [rerollshops](../../../SetText/Individual%20commands/Rerollshops.md) commands), DeathSmoke particles are played at this NPCControl position
-  - The first element of MainManager.`caravanorder` is removed
+    - The prize [medals](../../../Enums%20and%20IDs/Medal.md) array is shuffled
+    - MainManager.`caravanorder` is set to the shuffled array
+    - entity.`item` is set to true making it an [item entity](../../EntityControl/Item%20entity.md)
+    - entity.`animid` is set to 2 (medal)
+    - entity.`animstate` is set to the first element of the shuffled array (this is the first prize medal id of the array)
+    - entity.`itemstate` is set to entity.`animstate`
+    - [entitytype](../NPCType.md) is set to [SemiNPC](../Shop%20system.md#seminpc) which behaves the same than the ones used in the shop system
+    - If we are rerolling (which only happens if we are calling from a [kill](../../../SetText/Individual%20commands/Kill.md) or [rerollshops](../../../SetText/Individual%20commands/Rerollshops.md) commands), DeathSmoke particles are played at this NPCControl position
+    - The first element of MainManager.`caravanorder` is removed
 - entity.`rigid` gets its gravity disabled with all constraints frozen
 - The position is set to entity.`startpos`
 - entity.`ccol` is disabled
@@ -43,14 +44,14 @@ The same than [Shop](Shop.md).
 - [flagvar](../../../Flags%20arrays/flagvar.md) 1 is set to the buying price of the [medal](../../../Enums%20and%20IDs/Medal.md) whose id is the entity `animstate` unless [flag](../../../Flags%20arrays/flags.md) 681 (MYSTERY? is active) which forces it to 35
 - [flagstring](../../../Flags%20arrays/flagstring.md) 0 to be the name of the [medal](../../../Enums%20and%20IDs/Medal.md) whose id is the entity `animstate` unless [flag](../../../Flags%20arrays/flags.md) 681 (MYSTERY? is active) which forces it to `menutext[59]` (?????)
 - Call [SetText](../../../SetText/SetText.md) in [dialogue mode](../../../SetText/Dialogue%20mode.md) using `data[1]` as the [dialogue line id](../../../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md) for the input string (the shop keeper's caravan medal dialogue line) with the following:
-  - [fonttype](../../../SetText/Notable%20states.md#fonttype) of `BubblegumSans`
-  - `messagebreak` as the linebreak
-  - No tridimensional
-  - No position offset
-  - No camera offset
-  - size of Vector3.one
-  - The parent is the entity resolved using `data[0]` (the shop keeper map entity id) as the [entity id](../../../SetText/Common%20commands%20id%20schemes/Entity%20id.md)
-  - This NPCControl as the caller
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype) of `BubblegumSans`
+    - `messagebreak` as the linebreak
+    - No tridimensional
+    - No position offset
+    - No camera offset
+    - size of Vector3.one
+    - The parent is the entity resolved using `data[0]` (the shop keeper map entity id) as the [entity id](../../../SetText/Common%20commands%20id%20schemes/Entity%20id.md)
+    - This NPCControl as the caller
 - All `playerdata` entities have [FaceTowards](../../EntityControl/EntityControl%20Methods.md) call on them to face the entity resolved using `data[0]`(the shop keeper map entity id) as the [entity id](../../../SetText/Common%20commands%20id%20schemes/Entity%20id.md)
 
 ## SetBadgeShop

@@ -14,6 +14,7 @@ The entity.`alwaysactive` is set to true.
 If `returntoheight` is true entity.`height` is set to a lerp from the existing one to entity.`initialheight` with a factor of 0.1.
 
 What happens next depends if all of the following are true:
+
 - The entity isn't in a `forcemove`
 - The entity `hitwall` is false
 - `vectordata` exists and isn't empty
@@ -32,7 +33,7 @@ If it has expired, then [MoveTowards](../../EntityControl/EntityControl%20Method
 Finally, `actioncooldown` is set to the frequency and the cycle continues.
 
 ## Update (Inactive, every 3 frames)
-Normally, when the entity is in a [forcemove](../EntityControl/EntityControl%20Methods.md#forcemove), [StopForceMove](../EntityControl/EntityControl%20Methods.md#StopForceMove) is called on it, but this behavior is an exception to this where it will not be called here.
+Normally, when the entity is in a `forcemove`, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on it, but this behavior is an exception to this where it will not be called here.
 
 ## EntityControl.[Death](../../EntityControl/Notable%20methods/Death.md)
 This behavior forbids an [Enemy](../NPCType.md#enemy) with it to drop an item because the behavior uses `vectordata` for its own purposes which interferes with the enemy item drop system.

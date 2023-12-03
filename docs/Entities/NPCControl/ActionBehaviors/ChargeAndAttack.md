@@ -35,10 +35,10 @@ These are the different attacks an NPCControl can do with this behavior, but onl
 - 0.1 seconds are yielded
 - All frames are yielded as long as we are in a `pause`, `minipause`, `inevent` or we are in a `battle` that is `inevent`
 - If the distance between the NPCControl and the player is less than 2.0:
-  - NPCControl.[StartBattle](../Notable%20methods/StartBattle.md) is called
-  - entity.`overrideanim` is set to false
-  - [StopForceBehavior](../Notable%20methods/StopForceBehavior.md) is called
-  - The coroutine ends early with a yield break
+    - NPCControl.[StartBattle](../Notable%20methods/StartBattle.md) is called
+    - entity.`overrideanim` is set to false
+    - [StopForceBehavior](../Notable%20methods/StopForceBehavior.md) is called
+    - The coroutine ends early with a yield break
 - Otherwise, 0.5 seconds are yielded
 - entity.`animstate` is set to 0 (`Idle`)
 
@@ -58,23 +58,23 @@ The same than `LeafbugClubber`, but with the difference that instead of the `Tos
 - `dirtcd` is set to 30.0
 - [FlipSpriteAngleAt](../../EntityControl/EntityControl%20Methods.md#flipspriteangleat) is called on the entity with the player at the position and (0.0, 90.0, 0.0) as the offset
 - From there, there is a loop that goes on for up to 40.0 frames, but counted by a local variable which only gets incremented towards the end of the loop by the game's frametime (meaning there may be more frames yielded during the loop, but it will stop after 40.0 frames are counted using the local variable):
-  - The position is set to be on a quadratic Bezier curve with the following:
-    - The start is the NPCControl position before this attack started
-    - The end is where the player is, but undershot by 1.5 from the direction of the NPCControl. This point is limited to be in a radius where the center is entity.`startpos` and the radius being `radiuslimit`
-    - The y of the midpoint is 4.0
-    - The t factor is the ratio of the current amount of frames ellpsed since the start of the loop over 40.0. This essentially means the curve will last for a total of 40.0 counted frames and each position is interpolated over the course of those 40.0 frames
-  - `attacking` is set to true
-  - If the distance between the player and this NPCControl is less than 1.5 and we aren't in a `minipause`:
-    - NPCControl.[StartBattle](../Notable%20methods/StartBattle.md) is called
-    - entity.`overrideanim` is set to false
-    - [StopForceBehavior](../Notable%20methods/StopForceBehavior.md) is called
-    - entity.`overrideflip` is set to false
-    - This coroutines ends early with a yield break
-  - [DetectDirection](../../EntityControl/EntityControl%20Methods.md#detectdirection) is called with the NPCControl position - the normalised direction from the player to this NPCControl
-  - If entity.`hitwall` the loop is exited early (but the coroutine still continues). Essentially, it prevents movement when the entity.`detect` goes off
-  - Otherwise, a frame is yielded
-  - This is where the local variable controling this loop is incremented by the game's frametime. Only this increment counts (no other yields counts)
-  - All frames are yielded as long as we are in a `pause`, `minipause`, `inevent` or we are in a `battle` that is `inevent`
+    - The position is set to be on a quadratic Bezier curve with the following:
+        - The start is the NPCControl position before this attack started
+        - The end is where the player is, but undershot by 1.5 from the direction of the NPCControl. This point is limited to be in a radius where the center is entity.`startpos` and the radius being `radiuslimit`
+        - The y of the midpoint is 4.0
+        - The t factor is the ratio of the current amount of frames ellpsed since the start of the loop over 40.0. This essentially means the curve will last for a total of 40.0 counted frames and each position is interpolated over the course of those 40.0 frames
+    - `attacking` is set to true
+    - If the distance between the player and this NPCControl is less than 1.5 and we aren't in a `minipause`:
+        - NPCControl.[StartBattle](../Notable%20methods/StartBattle.md) is called
+        - entity.`overrideanim` is set to false
+        - [StopForceBehavior](../Notable%20methods/StopForceBehavior.md) is called
+        - entity.`overrideflip` is set to false
+        - This coroutines ends early with a yield break
+    - [DetectDirection](../../EntityControl/EntityControl%20Methods.md#detectdirection) is called with the NPCControl position - the normalised direction from the player to this NPCControl
+    - If entity.`hitwall` the loop is exited early (but the coroutine still continues). Essentially, it prevents movement when the entity.`detect` goes off
+    - Otherwise, a frame is yielded
+    - This is where the local variable controling this loop is incremented by the game's frametime. Only this increment counts (no other yields counts)
+    - All frames are yielded as long as we are in a `pause`, `minipause`, `inevent` or we are in a `battle` that is `inevent`
 - When the loop is done, if `dirtcd` expired, `DirtExplodeLight` are played at the NPCControl position for 1 seconds with 0.75 uniform scaling
 - `dirtcd` is set to 30.0
 - entity.`overrideflip` is set to false

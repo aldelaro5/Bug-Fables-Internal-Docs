@@ -31,8 +31,8 @@ A rolling rock that either appears and rolls on its own or is shot from a canon.
 ### When we are shooting from a canon (`data[2]` is 1)
 - `actioncooldown` is set to `vectordata[1].z`
 - `internaltransform` is initialised to have 2 transforms:
-  - The first is an instance of the `Prefabs/Objects/Cannon` prefab childed to the current map with a scale of Vector3.one * (`vectordata[1].y` / 2.0), a position of the entity.`startpos` and with angles incremented by (0f, 0f, -90f).
-  - The second is the first child from the root of the canon instance (the cylinder nozzle)
+    - The first is an instance of the `Prefabs/Objects/Cannon` prefab childed to the current map with a scale of Vector3.one * (`vectordata[1].y` / 2.0), a position of the entity.`startpos` and with angles incremented by (0f, 0f, -90f).
+    - The second is the first child from the root of the canon instance (the cylinder nozzle)
 - The canon is set to rotate its y angle (not its x and z) to face the canon's current position + `vectordata[0]`. This aligns it horizontally to its target
 - The entity.`rigid` is locked via [LockRigid(true)](../../EntityControl/EntityControl%20Methods.md#lockrigid)
 - The position of the the rolling rock is set to (0.0, 999.0, 0.0) which is offscreen in the air
@@ -46,6 +46,7 @@ This section involves 2 countdown timer: `internaldata[0]` and `actioncooldown`.
 On the first update, `internaldata[0]` is expired, but not `actioncooldown` which will cause this object to be continuously positioned offscreen (0.0, 999.0, 0.0). If this happens while the `data[3]` `hit` check condition is fufilled or not applicable, this is where the `actioncooldown` is decremented by the game's frametime. On top of this, if less than 60.0 frames is left on the `actioncooldown`, the local scale of the nozzle is set to a lerp from the existing one to (0.5, 1.25, 1.25) with a factor of the 1/20 of the game's frametime. This scale signals that the canon is about to shoot by warping it mostly from the side for a brief moment.
 
 Eventually, the `actioncooldown` expires and this is detected by going below 0.0, but remaining above -1000.0. When this happens:
+
 - The entity.`rigid` gets its velocity zeroed out
 - This object's position is set to the entity.`startpos` + the normalized version of `vectordata[0]` * `vectordata[1].y` + Vector3.up * 0.25 (this places the rock back to its original position)
 - [LockRigid(false)](../../EntityControl/EntityControl%20Methods.md#LockRigid) is called on the entity to unlock its `rigid`
@@ -58,6 +59,7 @@ As a result of this, `actioncooldown` is frozen below -1000.0, but this causes o
 From there `internaldata[0]` hasn't expired which causes further updates to decrement it by the game's frametime. Eventually, it will expire which means we are back to where we started on the first update and the cycle repeats itself.
 
 Overall, it means that:
+
 - Every time `actioncooldown` has 60.0 or less left, the scale of the nozzle is warped to be a bit smaller horizontally
 - When `actioncooldown` expires, the shooting logic happens with a position set and a scale of the nozzle set to be larger horizontally
 - The nozzle scale slowly gets back to normal
@@ -67,6 +69,7 @@ This repeates over and over until the `data[3]` check is violated which freezes 
 
 ### Main logic
 After the section above if applicable, a check is done if the rock should have its `hit` set to true. It is set to true if any of the following conditions is true:
+
 - We aren't shooting from a canon and `data[0]` is 0 or the entity is `onground`
 - We are shooting from a canon and `actioncooldown` expired.
 
@@ -76,6 +79,7 @@ If we are setting `hit` to true, a special case happens when if it was false bef
 From there, what happens depends on the value of `hit`.
 
 If it is true:
+
 - The x and z components of the entity.`rigid` velocity are set to `vectordata[0].x` and `vectordata[0].z` respectively
 - The entity.`model` angles are incremented by `vectordata[2]` * framestep
 - If `data[3]` is present and the NPCControl at the map entity id of its value has its `hit` set to true, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called with the `RollingRock` clip looped. If `data[3]` is present, but the `hit` check is violated, the entity.`sound` is stopped. NOTE: see the note on the data arrays section above for a caveat with this
@@ -90,7 +94,7 @@ This does nothing if we are in a `pause`, `minipause` or `inevent` and that if a
 
 If the other gameObject is the player and it's not `digging`, the [event](../../../Enums%20and%20IDs/Events.md) 116 (Getting crushed by a `RollingRock`) is called with this as the caller.
 
-Otherwise, if the other gameObject tag is `RockLimit`, [BreakRock](../BreakRock.md) is called.
+Otherwise, if the other gameObject tag is `RockLimit`, BreakRock is called.
 
 ## OnCollisionEnter
 If the other gameObject is an [Object](../Object.md) NPCControl of type [BreakableRock](BreakableRock.md), [BreakRock](BreakableRock.md#breakrock) is called on the other's NPCControl.
@@ -105,9 +109,9 @@ This is a public method that has logic specific to this object type.
 - entity.`rigid` has its velocity zeroed out
 - entity.`onground` is set to false
 - If `data[2]` is 1 (we are shooting from a canon) the following occurs (if not, WarpRock is called instead, see the section below for details):
-  - The rolling rock position is offscreen in the air at (0.0, 999.0, 0.0)
-  - The entity.`rigid` is locked via [LockRigid(true)](../../EntityControl/EntityControl%20Methods.md#lockrigid)
-  - `actioncooldown` is reset to `vectordata[1].z`
+    - The rolling rock position is offscreen in the air at (0.0, 999.0, 0.0)
+    - The entity.`rigid` is locked via [LockRigid(true)](../../EntityControl/EntityControl%20Methods.md#lockrigid)
+    - `actioncooldown` is reset to `vectordata[1].z`
 
 ## WarpRock
 This is a private method specific to this object type that prepares to respawn the rock.
@@ -115,6 +119,7 @@ This is a private method specific to this object type that prepares to respawn t
 If we are shooting from a canon (`data[2]` is 1), [LockRigid(true)](../../EntityControl/EntityControl%20Methods.md#LockRigid) is called on the entity and the `actioncooldown` is reset to `vectordata[1].z`.
 
 If we aren't shooting from a canon:
+
 - This object's transform is set to (0.0, 999.0, 0.0) which is offscreen in the air
 - LatePos is called which sets the position of the entity to its `startpos` in `vectordata[1].z` seconds.
 - `hit` is set to false

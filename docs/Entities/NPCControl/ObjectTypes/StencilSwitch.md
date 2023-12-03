@@ -19,8 +19,8 @@ A switch that, when activated, causes a frozen area range to appear or to disapp
 - `nointeract` is set to true
 - if the `activationflag` [flags](../../../Flags%20arrays/flags.md) slot is true, `hit` is also set to true.
 - From there some adjustements happens based on the `originalid`'s [AnimID](../../../Enums%20and%20IDs/AnimIDs.md)(nothing happens if it doesn't match any of them):
-  - `SwitchCrystal` and `BigCrystalSwitch`: A GlowTrigger is added to the entity's `model`'s first child with its `parent` set to this object and the `glowparts` set to a single element corresponding to the MeshRender already attached to the first `model` child.
-  - `WoodenSwitch` and `SteelSwitch`: `internaldata` is initialised to a single element being -60 if it's a `WoodenSwitch` or -100 if it's a `SteelSwitch`, Then, the `moveobj` is set to the entity's `model` first child and if `hit` was set to true earlier, its angles are set to (0.0, `internaldata[0]`, 0.0)
+    - `SwitchCrystal` and `BigCrystalSwitch`: A GlowTrigger is added to the entity's `model`'s first child with its `parent` set to this object and the `glowparts` set to a single element corresponding to the MeshRender already attached to the first `model` child.
+    - `WoodenSwitch` and `SteelSwitch`: `internaldata` is initialised to a single element being -60 if it's a `WoodenSwitch` or -100 if it's a `SteelSwitch`, Then, the `moveobj` is set to the entity's `model` first child and if `hit` was set to true earlier, its angles are set to (0.0, `internaldata[0]`, 0.0)
 - If the player is present, all collision between the `boxcol` and the player's wall detector are ignored.
 - If the `originalid` is not among `BigCrystalSwitch`, `WoodenSwitch` or `SteelSwitch`, [AddPushder](../Notable%20methods/AddPusher.md) is called.
 
@@ -33,9 +33,9 @@ If the entity is allowed to exist according to its `limit`, `requires` and `regi
 - `hit` is set to true if `data[1]` is 1.
 - All collisions between the `boxcol` and the SphereCollider addeed on the `internaltransform[0]` are ignored.
 - If `data[1]` isn't negative, the map entity whose id is this value is resolved and the following occurs:
-  - This stencil switch gets childed to the resolved entity.`model` if it's present or the entity itself if it's not
-  - This stencil switch position is set to the resolved entity position + `vectordata[1]`
-  - This stencil switch entity.`startpos` is set to its position
+    - This stencil switch gets childed to the resolved entity.`model` if it's present or the entity itself if it's not
+    - This stencil switch position is set to the resolved entity position + `vectordata[1]`
+    - This stencil switch entity.`startpos` is set to its position
 - If `data[3]` is 1 and the entity has a `model`, the collider on that `model` if it exist gets disabled and DisableAllColliders is invoked in 0.1 seconds which disables the entity.`ccol`, the `scol`, the `boxcol` and the `pusher` if any were present
 - `internaltransform[0]` gets childed to the map and its position is set to this stencil switch position
 
@@ -50,6 +50,7 @@ If `data[1]` isn't negative (another map entity is the parent of this stencil sw
 This method specifically targets any NPCControl of this object type. It is called for any MapControl LateUpdate after the first one.
 
 If any exists in the map where their entity isn't `iskill` and their `hit` value is true, it will select the first one. With it, 2 shaders global properties are set:
+
 - `GlobalIceRadius`: Half of the magnitude of the `internfaltransform[0]` (the ice radius object) scale
 - `CentralIcePoint`: the sencil switch position
 
@@ -59,12 +60,14 @@ If no actuated stencil switches are found, the `stencilid` remains at -1 and the
 
 ## OnTriggerEnter
 Nothing happens if any of the following is true:
+
 - We are in a `pause` or `minipause`
 - [message](../../../SetText/Notable%20states.md#message) is grabbed
 - `collisionammount` is higher than 1 (this is a debounce protection)
 - The other gameObject tag isn't `BeetleHorn`, `BeetleDash`, `Icefall` and `Icecle` while it's not the player `beemerang`
 
 The following occurs if we the above is fufilled:
+
 - `collisionammount` is incremented
 - A HitPart particle is played at this position + (0.0, 0.5, 0.0)
 - All collisions between the entity.`ccol` and the SphereCollider of `internaltransform[0]` (the ice radius) are ignored
@@ -74,7 +77,7 @@ The following occurs if we the above is fufilled:
 - If `hit` is true, the corresponding [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot of `regionalflag` when it isn't negative is set to true the corresponding [flag](../../../Flags%20arrays/flags.md) slot of `activationflag` when it isn't negative is set to true
 - DeactivateOtherStencil is called which deactivates all other `StencilSwitch` in the current map whose entity aren't `iskill` by having their `hit` set to false
 - If the other gameObject was the player `beemerang`, its `hit` is set to true and the `WoodHit` sound is played on the entity
-- If the entity `originalid` isn't -1 (`None`), [SwitchSound](../SwitchSound.md) is called indicating a press
+- If the entity `originalid` isn't -1 (`None`), [SwitchSound](../Notable%20methods/SwitchSound.md#switchsound) is called indicating a press
 
 ## EntityControl.OnTriggerStay
 Due to the `IceRadius` tag of the ice radius object, any entities that collides with it has their `inice` set to true which update thier sprites and animation accordingly.

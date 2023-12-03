@@ -1,5 +1,5 @@
 # Item
-A collectable [item](../../../Enums%20and%20IDs/Items.md) or crystal berry bound to a [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot whose item id is the entity.`animid` field. This extends the logic of an [item entity](../../EntityControl/Item%20entity.md).
+A collectable [item](../../../Enums%20and%20IDs/Items.md), [medal](../../../Enums%20and%20IDs/Medal.md) or crystal berry bound to a [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot whose item id is the entity.`animid` field. This extends the logic of an [item entity](../../EntityControl/Item%20entity.md).
 
 ## Data Arrays
 - `data[0]`: The [item type](../../EntityControl/Item%20entity.md#item-types). NOTE: if the `animid` is a money item id (`MoneySmall`, `MoneyMedium` or `MoneyBig`), this should always be 0 or 1 (standard or key item) because if it's not, the collection logic won't work as expected
@@ -26,6 +26,7 @@ This is a special way to create an [EntityControl](../../EntityControl/EntityCon
 The very first thing this does is call [CreateNewEntity](../../EntityControl/EntityControl%20Methods.md#createnewentity) with the name `tempitem` and add an NPCControl to it.
 
 The rest is logic specific to CreateItem:
+
 - `objecttype` is set to `Item`
 - `entitytype` is set to `Object`
 - entity.`item` is set to true making it an [item entity](../../EntityControl/Item%20entity.md)
@@ -55,11 +56,12 @@ Also, just like `SemiNPC` items, no changes to the entity.`rigid` mass happens s
 - entity.`ccol` bounciness is set to 0.75
 - The layer is set to 0 (default)
 - All collisions between entity.`ccol` and these entity's `ccol` are ignored:
-  - Objects with tag `PFollower`
-  - Any other Item objects (excludes `SemiNPC`)
-  - Any playerdata except the first one
+    - Objects with tag `PFollower`
+    - Any other Item objects (excludes `SemiNPC`)
+    - Any playerdata except the first one
 
 If the entity.`animid` is 3 (which means it's a crystal berry) and `tempobject` is false, then this is setup as a crystal berry which starts by setting `data[0]` to `data[3]` (meaning `data[0]` is now the Crystal Berry id which is fine because entity.`animid` already tells it's a Crystal Berry). If it was obtained (the id is contained in `data[3]`), then the entity.`iskill` is set to true. Otherwise, adjustements on the entity are performed:
+
 - entity.`animstate` is set to the `regionaflag` NOTE: this is likely an error, but it doesn't matter because the [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot is already saved in `data[0]` and it is that value that will be used
 - entity.`sprite` local position is set to Vector3.zero
 - AddModel is called with path `Prefabs/Objects/CrystalBerry` without offset
@@ -75,25 +77,28 @@ Just like `SemiNPC` items, the `colliderheight` is set to 1.0 and the entity.`cc
 This section applies for any [item entity](../../EntityControl/Item%20entity.md), but it effectively apply to this object type. Unlike `SemiNPC` items however, this gets the full version of the logic.
 
 If the `beerang` isn't null (meaning the [beemerang](Beemerang.md) caught this item), the following occurs:
+
 - The `timer` is set to 300.0 if it was -1
 - The absolute position is set to the `beerang` one + Vector3.Up
 - The entity's Unifx gets called if it was a `fixedentity`
 
 All collisions gets ignored between the `secondcoll` and the player.entity.`ccol` if the player is present and the `touchcooldown` hasn't expired yet. Otherwise, if the `touchcooldown` isn't exactly -9999.0, the collisions gets unignored and `toochcooldown` gets set to -9999.0 (so it doesn't unignore again). If neither happened, the entity.`ccol` is enabled.
 
-If the entity.`onground` is true, [Jump](../EntityControl/EntityControl%20Methods.md#jump) is called on it with the absolute value of its current `rigid` y velocity. It will also increment `bounces` if it hasn't reached 3 yet on top of playing the `ItemBounce0` sound effect (or `ItemBounce1` if it's a Crystal Berry) if the `startlife` is above 15 frames.
+If the entity.`onground` is true, [Jump](../../EntityControl/EntityControl%20Methods.md#jump) is called on it with the absolute value of its current `rigid` y velocity. It will also increment `bounces` if it hasn't reached 3 yet on top of playing the `ItemBounce0` sound effect (or `ItemBounce1` if it's a Crystal Berry) if the `startlife` is above 15 frames.
 
-If by then, `bounces` has reached 3, [StopForceMove](../EntityControl/EntityControl%20Methods.md#StopForceMove) is called on the entity.
+If by then, `bounces` has reached 3, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on the entity.
 
 If the entity.`sprite` is present, then the `timer` logic proceeds:
+
 - If the `timer` has yet to expire and we aren't in a `minipause` or `pause`, the timer is decremented according to the frametime, but it is clamped from 0.0 to infinity. Otherwise, if the `timer` expired, this GameObject gets destroyed
 - If the `timer` is between -1.0 and 100.0 exclusive and we aren't in a `minipause` or `inevent`, the entity.`sprite` enablement gets toggled. Otherwise, the entity.`sprite` is enabled. This logic blinks the sprite when less than 100 frames are left on the `timer`
 
 ## OnTriggerEnter if the other collider is the player
-If we aren't in a `pause` or `minipause`, the `insideid` matches the current one and the `timer` is exactly -1.0 or above 1.0, a [CheckItem](../CheckItem.md) coroutine is started and `collisionammount` is incremented.
+If we aren't in a `pause` or `minipause`, the `insideid` matches the current one and the `timer` is exactly -1.0 or above 1.0, a CheckItem coroutine is started and `collisionammount` is incremented.
 
 ## OnTriggerEnter main segment
 The `beerang` is set to the other transform if all of the following are true (this makes the `Beemerang` catch the item):
+
 - The other gameObject tag is `BeeRang` (meaning the other collider is the [Beemerang](Beemerang.md))
 - `data[2]` is either not present or it is and it's value is 0 (meaning it's a standard item)
 - `beerang` was null (the `Beemerang` didn't already caught an item)
@@ -137,18 +142,20 @@ This logic is quite complex and has different behaviors depending on the entity.
 
 #### Hold the player until they get `onground`
 The logic first starts to handle the case where the player is still in the air:
+
 - player.`lockkeys` is set to true (disable most input processing on PlayerControl)
 - As long as player.entity.`onground` is false:
-  - player.entity.`rigid` x/z velocity is zeroed out
-  - instance.`minipause` is set to true
-  - The position of the item is set to offscreen at (0.0, 999.0, 0.0)
-  - If we have been on this yield loop for 300.0 frames or more, we force exit it by setting the player position to its `lastpos` with DeathSmoke particle playing at the player position
-  - A local framecounter is incremented by `framestep` which only takes effect once it reaches 300.0 as outlined in the step above
-  - A frame is yielded
+    - player.entity.`rigid` x/z velocity is zeroed out
+    - instance.`minipause` is set to true
+    - The position of the item is set to offscreen at (0.0, 999.0, 0.0)
+    - If we have been on this yield loop for 300.0 frames or more, we force exit it by setting the player position to its `lastpos` with DeathSmoke particle playing at the player position
+    - A local framecounter is incremented by `framestep` which only takes effect once it reaches 300.0 as outlined in the step above
+    - A frame is yielded
 - player.`lockkeys` is set to false (unlocks most input processing of PlayerControl)
 
 #### Item collection perparation
 From there, the actual item collection can now take place:
+
 - `beerang` is set to null (detaches the item off the [Beemerang](Beemerang.md) if it was attached)
 - entity.`spin` gets zeroed out
 - entity.`sprite` angles gets set to Vector3.zero
@@ -162,22 +169,23 @@ From there, the actual item collection can now take place:
 
 #### Item type specifics
 What happens next depends on entity.`animid` (the item type) and it mainly sets the `back` material color, sets `flagstring` 0, `flagstring` 1 and other exclusive logic to an item type:
+
 - 0 or 1 (standard or key [item](../../../Enums%20and%20IDs/Items.md)): 
-  - `flagstring` 0 is set to the name and `flagstring` 1 to the prepender of the corresponding item defined in [items data](../../../TextAsset%20Data/Items%20data.md#items-data) using the entity.`animstate` as the item id. 
-  - It also sets the `back`'s material color to 00B2B2 (cyan) if it's a standard item, FF4C66 (bright red) if it's a key item
+    - `flagstring` 0 is set to the name and `flagstring` 1 to the prepender of the corresponding item defined in [items data](../../../TextAsset%20Data/Items%20data.md#items-data) using the entity.`animstate` as the item id. 
+    - It also sets the `back`'s material color to 00B2B2 (cyan) if it's a standard item, FF4C66 (bright red) if it's a key item
 - 2 ([medal](../../../Enums%20and%20IDs/Medal.md)):
-  - If `flags` 681 (MYSTERY? is enabled) and entity.`animstate` isn't 59 (it's not `Extra Freeze`) or it is, but `flags` 696 (MYSTERY? file started on 1.1.x) is false:
-    - The next mystery medal id is obtained and the value is set to entity.`basestate`, entity.`itemstate`, entity.`animstate` and `flagvar` 0
-    - entity.`overridemovesmoke` is set to true and UpdateItem is called on the entity (to ensure the actual sprite gets updated)
-  - The `back` material color gets set to FF7F00 (bright orange)
-  - `flagstring` 0 is set to a string obtained from taking `menutext[268]` and replacing `i` by the corresponding medal name from [medal data](../../../TextAsset%20Data/Medals%20data.md#badgename-data) using entity.`animstate` as the medal id and by replacing `m` by `menutext[159]` (`Medal`)
-  - `flagstring` 1 is set to the corresponding prepander from [medal data](../../../TextAsset%20Data/Medals%20data.md#badgename-data) using entity.`animstate` as the medal id
+    - If `flags` 681 (MYSTERY? is enabled) and entity.`animstate` isn't 59 (it's not `Extra Freeze`) or it is, but `flags` 696 (MYSTERY? file started on 1.1.x) is false:
+        - The next mystery medal id is obtained and the value is set to entity.`basestate`, entity.`itemstate`, entity.`animstate` and `flagvar` 0
+        - entity.`overridemovesmoke` is set to true and UpdateItem is called on the entity (to ensure the actual sprite gets updated)
+    - The `back` material color gets set to FF7F00 (bright orange)
+    - `flagstring` 0 is set to a string obtained from taking `menutext[268]` and replacing `i` by the corresponding medal name from [medal data](../../../TextAsset%20Data/Medals%20data.md#badgename-data) using entity.`animstate` as the medal id and by replacing `m` by `menutext[159]` (`Medal`)
+    - `flagstring` 1 is set to the corresponding prepander from [medal data](../../../TextAsset%20Data/Medals%20data.md#badgename-data) using entity.`animstate` as the medal id
 - 3 (Crystal Berry):
-  - The `back` local position is set to (0.0, 0.5, 0.0) and its material color to cyan
-  - entity.`model` y scale is set to 0.1
-  - [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) whose slot is `data[0]` (used to be `data[3]` which is the slot number) is set to true
-  - `flagstring` 0 is set to `menutext[112]` (`Crystal Berry`)
-  - `flagvar` 14 (amount of Crystal Berries obtained) gets incremented
+    - The `back` local position is set to (0.0, 0.5, 0.0) and its material color to cyan
+    - entity.`model` y scale is set to 0.1
+    - [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) whose slot is `data[0]` (used to be `data[3]` which is the slot number) is set to true
+    - `flagstring` 0 is set to `menutext[112]` (`Crystal Berry`)
+    - `flagvar` 14 (amount of Crystal Berries obtained) gets incremented
 
 After this, for any type other than Crystal Berry, [CreateDescWindow](../Notable%20methods/CreateDescWindow.md) without shop is called.
 
@@ -185,6 +193,7 @@ For any type, the `ItemGetX` sound is played where X is the entity.`animid` (the
 
 #### [SetText](../../../SetText/SetText.md) call
 The next portion setups a SetText call to actually receive the item. The SetText string is built with the following concatenated in order:
+
 - `|lockmovement||boxstyle,4||halfline||spd,0||anim,-1,4||center|`
 - `menutext[2]` (`You found |string,1| |color,1||string,0||color,1|!`)
 - `|stopskip||fwait,0.45||break|`
@@ -198,6 +207,7 @@ The next portion setups a SetText call to actually receive the item. The SetText
 - If `data[1]` exists and isn't negative, `|event,` + `data[1]` + `|` is appended (a [break](../../../SetText/Individual%20commands/Break.md) command appears before the event one if any of the tutorial strings were appended)
 
 SetText is called with the generated string in [dialogue mode](../../../SetText/Dialogue%20mode.md):
+
 - [fonttype](../../../SetText/Notable%20states.md#fonttype) of `BubblegumSans`
 - linebreak of instance.`messagebreak`
 - No tridimensional
@@ -209,12 +219,13 @@ SetText is called with the generated string in [dialogue mode](../../../SetText/
 
 #### SetText yield
 This is the final part part of the collection phase:
+
 - `timer` is set to -1 (so it never times out)
 - entity.`overrideflip` is set to true
 - As long as the [message](../../../SetText/Notable%20states.md#message) lock is active:
-  - player.entity.`flip` is set to the value it had before this entire collection phase at the start of CheckItem
-  - player.entity.[animsate](../../EntityControl/Animations/animstate.md) is set to 4 (`ItemGet`)
-  - A frame is yielded
+    - player.entity.`flip` is set to the value it had before this entire collection phase at the start of CheckItem
+    - player.entity.[animsate](../../EntityControl/Animations/animstate.md) is set to 4 (`ItemGet`)
+    - A frame is yielded
 - If the item isn't `tossed` (it is only when [additemtoss](../../../SetText/Individual%20commands/Additemtoss.md) concluded the player wanted to toss the item), this gameObject is destroyed
 
 ## EntityControl.LateStart
@@ -225,5 +236,6 @@ If the NPCControl passed has this type, it returns true which allows it to stay 
 
 ## [SetText](../../../SetText/SetText.md)
 This object type affects SetText if it's the caller:
+
 - In an [end](../../../SetText/Individual%20commands/End.md) command, if the caller is an `Item`, [Death](../../EntityControl/Notable%20methods/Death.md) is called on the entity
 - In the [cleanup phase](../../../SetText/Life%20Cycle.md#cleanup), if the caller is an object of this type and its `hit` is true (meaning it's been collected), its gameObject is destroyed.

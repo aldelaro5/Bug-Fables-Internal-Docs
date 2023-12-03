@@ -3,10 +3,10 @@
 [BoardQuests](../Enums%20and%20IDs/BoardQuests.md) are split in 3 TextAssets in the game loaded on boot: 
 
 * By LoadEssentials:
-  * `Ressources/data/QuestChecks`
+    * `Ressources/data/QuestChecks`
 * By SetVariables:
-  * `Ressources/data/BoardData`
-  * `BoardQuests` from the corresponding dialogue directory of the current [languageid](../SetText/languageid.md)
+    * `Ressources/data/BoardData`
+    * `BoardQuests` from the corresponding dialogue directory of the current [languageid](../SetText/languageid.md)
 
 ## `QuestChecks` data
 

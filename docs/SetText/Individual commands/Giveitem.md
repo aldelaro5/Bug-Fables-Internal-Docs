@@ -115,14 +115,14 @@ A description box will be created if `itemtype` isn't berries or Crystal Berries
 * Create a pure white standard 9box of type 0 relatively positioned at (0.0, -4.4, 10.0) of the GUICamera with a size of (11.0, 3.0) with a sort order of -3 with a grow animation and assign it to descwindow
 * Sets [flagvar](../../Flags%20arrays/flagvar.md) 10 to the buying price price of the [item](../../Enums%20and%20IDs/Items.md) or [medal](../../Enums%20and%20IDs/Medal.md)
 * Calls SetText in [non Dialogue mode](../Dialogue%20mode.md#non-dialogue-mode) with the input string |[single](Single.md)\||[singlebreak](Singlebreak.md),`itemdescbreak`\| where `itemdescbreak` is 10.5 on `English` and 9.9 on any other language followed by the [item](../../Enums%20and%20IDs/Items.md) or [medal](../../Enums%20and%20IDs/Medal.md) description:
-  * Font is `BubblegumSans`
-  * No line breaks (this is already manually controlled via the input string)
-  * No tridimensional
-  * Position is (-5.2, 0.65, 1.0)
-  * No camera offset
-  * Size is (0.675, 0.675)
-  * Parent is the descwindow created earlier
-  * No caller
+    * Font is `BubblegumSans`
+    * No line breaks (this is already manually controlled via the input string)
+    * No tridimensional
+    * Position is (-5.2, 0.65, 1.0)
+    * No camera offset
+    * Size is (0.675, 0.675)
+    * Parent is the descwindow created earlier
+    * No caller
 
 ### Other rendering setup
 
@@ -130,8 +130,8 @@ A description box will be created if `itemtype` isn't berries or Crystal Berries
 * Stop the `entity` rigidBody's velocity
 * Setup an array of 3 SpriteRender
 * Assign the first element of the array to the sprite of the item named `tempitem` (the sprite is gui sprite 83 (the Crystal Berry icon) if `itemtype` is Crystal Berry and for berries, it's the berry sprite with the highest value that fits in the amount from `itemid`)
-  * This is positioned at the `entity`'s location + (0.0, 2.75, -0.1) at the same angles than the camera.
-  * The layer is set to 14
+    * This is positioned at the `entity`'s location + (0.0, 2.75, -0.1) at the same angles than the camera.
+    * The layer is set to 14
 * Assign the second element of the array to a new object named `fauxmessage` at (0.0, 3.0, 10.0) from the GUICamera using the [boxstyle](Boxstyle.md) 4
 * Create a new SpriteRender named `back` childed to `tempitem` at (0.0, 0.0, 0.2) with no rotation using gui sprite 85 (this is the star shaped background rendered behind the item)
 * Set the layer of `back` to 14 and its scale to Vector3.zero with a grow animation (this effectively setup a grow while the sprite is hidden at first).
@@ -165,5 +165,5 @@ The `itemtype` have their own specific logic:
 ### Redirection
 
 * If `itemtype` is Medal and [flag](../../Flags%20arrays/flags.md) 31 is false (the player has yet to receive the medal tutorial):
-  * Assign a string with the value |[tail](Tail.md),null||[destroydescbox](Destroydescbox.md)\||[blank](Blank.md)\||[boxstyle](Boxstyle.md),4| followed by common dialogue 31 (the medal tutorial) followed by |[flag](Flag.md),31,true||[break](Break.md)\||[gettail](Gettail.md),`tailid`\||[boxstyle](Boxstyle.md),0| where `tailid` is the current [tailtarget](../Notable%20states.md#tailtarget).
+    * Assign a string with the value |[tail](Tail.md),null||[destroydescbox](Destroydescbox.md)\||[blank](Blank.md)\||[boxstyle](Boxstyle.md),4| followed by common dialogue 31 (the medal tutorial) followed by |[flag](Flag.md),31,true||[break](Break.md)\||[gettail](Gettail.md),`tailid`\||[boxstyle](Boxstyle.md),0| where `tailid` is the current [tailtarget](../Notable%20states.md#tailtarget).
 * Assign the input string to an [OrganiseLines](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) version of `redirect` prepanded with |[destroydescbox](Destroydescbox.md)\||[blank](Blank.md)\| all prepanded with the medal tutorial if it was assigned above.

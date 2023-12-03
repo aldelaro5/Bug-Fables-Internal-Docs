@@ -10,7 +10,7 @@ This interaction is heavily involved in the building of the shop structure. See 
 - `buy`: The input string will be overriden to `dialogues[6].y` (the shop keeper's buying [dialogue line id](../../../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md)) and the parent becomes the `shopkeeper` transform. This only happens during the course of a [Shop](Shop.md) interaction, but not in this interaction.
 
 ## SetUp
-If `dialogues[10].x` floored is 1 (this is a medal shop), [SetBadgeShop](../Notable%20methods/SetBadgeShop.md) is called.
+If `dialogues[10].x` floored is 1 (this is a medal shop), SetBadgeShop(false) is called. For more information, check the [shop system](../Shop%20system.md) documentation
 
 ## Interact
 The same as [talk](Talk.md), but the input string of the [SetText](../../../SetText/SetText.md) call is the one resolved from `dialogues[0].y` as the [dialogue line id](../../../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md) which is shop keeper's selling line (or `dialogues[6].y` which is the buying one if `args` is `buy`). 

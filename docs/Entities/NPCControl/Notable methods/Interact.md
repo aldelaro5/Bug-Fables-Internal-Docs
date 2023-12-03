@@ -4,8 +4,9 @@ This public method is one of the few that is fully intended to be called externa
 The method takes a string argument named `args`, but only a few `Interaction` uses it.
 
 There is some common logic that precedes any `Interaction` specific logic and it goes as follows:
-- [StopForceMove](../EntityControl/EntityControl%20Methods.md#StopForceMove) is called on the entity
-- [StopMoving](../EntityControl/EntityControl%20Methods.md#StopMoving) is called on the player entity
+
+- [StopForceMove](../../EntityControl/EntityControl%20Methods.md) is called on the entity
+- [StopMoving](../../EntityControl/EntityControl%20Methods.md#stopmoving) is called on the player entity
 - CancelAction is called on the player
 
 After, the logic is specific to each `Interaction`. Consult each's documentation to learn more.

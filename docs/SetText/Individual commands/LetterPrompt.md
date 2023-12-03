@@ -107,24 +107,24 @@ To render each options (the letters, Erase, Space and Confirm), the following is
 
 * Start with the x and y position of the options be -6.35 and 1.8 respectively
 * Render the options such that for each character in the letter prompt data (which is the value of [flagstring](../../Flags%20arrays/flagstring.md) 1 at this point):
-  * If we encounter an LF:
-    * Reset the x position to -6.35
-    * Remove a certain amount from the y position. This amount is 0.75 if we aren't in the Korean letter prompt or 1.1 if we are and it's not the 4th line.
-    * Set to no longer increment [flagvar](../../Flags%20arrays/flagvar.md) 1.
-  * If we have yet to encounter the first LF:
-    * Increment [flagvar](../../Flags%20arrays/flagvar.md) 1 (this means each row must have the same amount of options max than the first row as this value is going to be the number of options per row)
-  * Have the option text be |[choicewave](Choicewave.md),n,true| where n is `maxoptions`.
-  * Increment `maxoptions`.
-  * Call [SetText](../SetText.md) in non [Dialogue mode](../Dialogue%20mode.md) using the text with |[center](Center.md)\|:
-    * [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
-    * no `linebreak`
-    * no `tridimensional`
-    * `position` is (x, y, 0.0) where x and y are the current value of the option's positions.
-    * no `camoffset`
-    * `size` of (1.0, 1.0)
-    * `parent` is the `promptbox`
-    * no `caller`
-  * Add 0.65 to x
+    * If we encounter an LF:
+        * Reset the x position to -6.35
+        * Remove a certain amount from the y position. This amount is 0.75 if we aren't in the Korean letter prompt or 1.1 if we are and it's not the 4th line.
+        * Set to no longer increment [flagvar](../../Flags%20arrays/flagvar.md) 1.
+    * If we have yet to encounter the first LF:
+        * Increment [flagvar](../../Flags%20arrays/flagvar.md) 1 (this means each row must have the same amount of options max than the first row as this value is going to be the number of options per row)
+    * Have the option text be |[choicewave](Choicewave.md),n,true| where n is `maxoptions`.
+    * Increment `maxoptions`.
+    * Call [SetText](../SetText.md) in non [Dialogue mode](../Dialogue%20mode.md) using the text with |[center](Center.md)\|:
+        * [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
+        * no `linebreak`
+        * no `tridimensional`
+        * `position` is (x, y, 0.0) where x and y are the current value of the option's positions.
+        * no `camoffset`
+        * `size` of (1.0, 1.0)
+        * `parent` is the `promptbox`
+        * no `caller`
+    * Add 0.65 to x
 
 After all the letters have been rendered, [flagstring](../../Flags%20arrays/flagstring.md) 1 will have its LF and { removed.
 
@@ -137,6 +137,7 @@ After all the letters have been rendered, [flagstring](../../Flags%20arrays/flag
 After, the help text to the next letter prompt with the switch button is rendered by creating a new GameObject parented to the `promptbox` called `button` with a ButtonSprite set to `Scroll Faster / Switch Party` whose label is the corresponding letterPromptHelp at the current id at (-2.25, -1.9) and a size of (0.5, 0.5).
 
 After the initial setup, the first refresh of the letter prompt is performed. This will destroy the text in `npromptholder` and rerender using the one in [flagstring](../../Flags%20arrays/flagstring.md) 0 which will get updated periodically as letters are added or removed during the prompt handling. This also sets [flagvar](../../Flags%20arrays/flagvar.md) 4 to 0. As for the rendering of the text itself, it is done via a SetText call in non [Dialogue mode](../Dialogue%20mode.md) with the text padded to the right with `_` to fit into `maxlength` prepended with |[center](Center.md)\|:
+
 - [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
 - no linebreak
 - no tridimensional
@@ -179,16 +180,16 @@ For other inputs, they are restricted to the following:
 * Switch: Rerender the letter prompt, but the id is now the current one + 1 or go back to 0 on the last one
 * Cancel: Sets `listcancelled` to true. Then, if there are no letters entered, play the buzzer. Otherwise, the last character of the `flagstring` is removed and the letter prompt refreshed. This also resets the Korean prompt to its original state if we are in it
 * Confirm: `listcancelled` is set to false, a 5 frames input cooldown is applied and it also set `promptpick` to 0. The rest depends on the option currently selected before resetting the [Backtracking](../Related%20Systems/Backtracking.md) system:
-  * A letter: Add the entered letter to [flagstring](../../Flags%20arrays/flagstring.md) 0 (current text) and refresh the letter prompt unless the length is `maxlength` from [flagvar](../../Flags%20arrays/flagvar.md) 10 in which case, the buzzer plays. 
-    * For the Korean prompt, the option must be within the current accepted section's range or the buzzer will play ([flagvar](../../Flags%20arrays/flagvar.md) 6 tells the current one, the accepted options ranges per sections are hardcoded). If it is in the valid range, then it depends on the current section:
-      * Not last: [flagvar](../../Flags%20arrays/flagvar.md) 6 is incremented.
-      * Last: [flagvar](../../Flags%20arrays/flagvar.md) 6 is reset to 0, the cumulation of all the letter selected in each sections is appended to [flagstring](../../Flags%20arrays/flagstring.md) 0, the current letter selections is cleared and the option index is reset to 0.
-    * No matter what, if the selection was accepted, the prompt is refreshed and the Korean prompt logic is also refreshed
-  * Erase: Remove the last entered letter from [flagstring](../../Flags%20arrays/flagstring.md) 0 (current text) and refresh the letter prompt unless the text was empty in which case, the buzzer plays.
-    * For the Korean prompt, it also resets [flagvar](../../Flags%20arrays/flagvar.md) 6 (current section) to 0, clears the current selection and refresh the Korean prompt logic.
-  * Space: Add a ` ` to [flagstring](../../Flags%20arrays/flagstring.md) 0 (current text) and refresh the letter prompt unless the length is `maxlength` from [flagvar](../../Flags%20arrays/flagvar.md) 10 or we are during a Korean prompt character selection ([flagvar](../../Flags%20arrays/flagvar.md) 6 is higher than 0) in which case, the buzzer plays.
-  * Confirm: If [flagstring](../../Flags%20arrays/flagstring.md) 0 (current text) is empty, the buzzer is played, otherwise:
-    * `promptpointers` is set to one element containing `confirmline` fetched from `listredirect`, [Text advance](../Related%20Systems/Text%20advance.md)'s `skiptext` is set to false and finally, the `prompt` lock is released
+    * A letter: Add the entered letter to [flagstring](../../Flags%20arrays/flagstring.md) 0 (current text) and refresh the letter prompt unless the length is `maxlength` from [flagvar](../../Flags%20arrays/flagvar.md) 10 in which case, the buzzer plays. 
+        * For the Korean prompt, the option must be within the current accepted section's range or the buzzer will play ([flagvar](../../Flags%20arrays/flagvar.md) 6 tells the current one, the accepted options ranges per sections are hardcoded). If it is in the valid range, then it depends on the current section:
+          * Not last: [flagvar](../../Flags%20arrays/flagvar.md) 6 is incremented.
+          * Last: [flagvar](../../Flags%20arrays/flagvar.md) 6 is reset to 0, the cumulation of all the letter selected in each sections is appended to [flagstring](../../Flags%20arrays/flagstring.md) 0, the current letter selections is cleared and the option index is reset to 0.
+        * No matter what, if the selection was accepted, the prompt is refreshed and the Korean prompt logic is also refreshed
+    * Erase: Remove the last entered letter from [flagstring](../../Flags%20arrays/flagstring.md) 0 (current text) and refresh the letter prompt unless the text was empty in which case, the buzzer plays.
+        * For the Korean prompt, it also resets [flagvar](../../Flags%20arrays/flagvar.md) 6 (current section) to 0, clears the current selection and refresh the Korean prompt logic.
+    * Space: Add a ` ` to [flagstring](../../Flags%20arrays/flagstring.md) 0 (current text) and refresh the letter prompt unless the length is `maxlength` from [flagvar](../../Flags%20arrays/flagvar.md) 10 or we are during a Korean prompt character selection ([flagvar](../../Flags%20arrays/flagvar.md) 6 is higher than 0) in which case, the buzzer plays.
+    * Confirm: If [flagstring](../../Flags%20arrays/flagstring.md) 0 (current text) is empty, the buzzer is played, otherwise:
+        * `promptpointers` is set to one element containing `confirmline` fetched from `listredirect`, [Text advance](../Related%20Systems/Text%20advance.md)'s `skiptext` is set to false and finally, the `prompt` lock is released
 
 ### Handling the letter prompt outcome
 

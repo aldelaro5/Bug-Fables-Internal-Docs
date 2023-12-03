@@ -9,11 +9,11 @@ Display the list of open, taken or completed [BoardQuests](../../Enums%20and%20I
 * Leif's Request and Vi's Request are excluded (NOTE: Kabbu's Request should have been excluded, but its exclusion was forgotten).
 * Any story request (id between 11 and 17) are excluded.
 * Any of the following bounty requests are excluded if the current map isn't UndergroundBar and the board type of the list is the open quests:
-  * Bounty: Seedling King
-  * Bounty: False Monarch
-  * Bounty: Devourer
-  * Bounty: Tidal Wyrm
-  * Bounty: Peacock Spider
+    * Bounty: Seedling King
+    * Bounty: False Monarch
+    * Bounty: Devourer
+    * Bounty: Tidal Wyrm
+    * Bounty: Peacock Spider
     
 If the end result has no quests, add quest id 0 (No Quests) as the only quest offered as option.
 

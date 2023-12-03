@@ -3,13 +3,13 @@ A grass that can be cut by Kabbu's Horn Slash. Can either be bound to a [crystal
 
 ## Data Arrays
 - `data[0]`: The id of the grass sprite to use (NOTE: any other value than the ones below when `data[1]` doesn't apply will cause an exception to be thrown):
-  - 0: a standard green grass
-  - 1: a branch looking grass
-  - 2: an orange grass
-  - 3: a brown grass
-  - 4: a dense dark green grass
-  - 5: a purple grass
-  - 6: a beige and gray grass
+    - 0: a standard green grass
+    - 1: a branch looking grass
+    - 2: an orange grass
+    - 3: a brown grass
+    - 4: a dense dark green grass
+    - 5: a purple grass
+    - 6: a beige and gray grass
 - `data[1]`: If it's not negative, the [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) id that will be dropped when the bush is cut. This is optional: no Crystal Berry is dropped if it doesn't exist
 - `vectordata`: The list of [items](../../../Enums%20and%20IDs/Items.md) ids (in the x component after flooring) to potentially drop. Only applicable if `data[1]` doesn't apply
 
@@ -19,10 +19,11 @@ A grass that can be cut by Kabbu's Horn Slash. Can either be bound to a [crystal
 - `activationflag`: The [flag](../../../Flags%20arrays/flags.md) slot turned to true when the bush is cut while `data[1]` isn't present or is negative (if an item is dropped, it's attached to the item created).
 
 ## HasHiddenItem conditions
-If `data[1]` is present and not negative, the [crystalbflags](../../Enums%20and%20IDs/crystalbfflags.md) whose id is that value must not have been obtained yet.
+If `data[1]` is present and not negative, the [crystalbflags](../../../Enums%20and%20IDs/crystalbfflags.md) whose id is that value must not have been obtained yet.
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity
@@ -33,6 +34,7 @@ A few adjustements occurs:
 If `data[1]` is present and not negative and the crystal berry corresponding to its id has been obtained, the entity.`iskill` is set to true which ends this object setup as the grass will not appear.
 
 Otherwise:
+
 - The layer is set to 8 (Ground) 
 - The `boxcol`'s material is set to the defaultpmat. 
 - The entity.`rotater` tag is set to `Hornable` which allows PlayerControl to get a green ! emoticon when getting 2.5 or lower distance from the grass for 5 frames
@@ -40,9 +42,9 @@ Otherwise:
 - entity.`overrideanim` is set to true
 - entity.`sprite` is enabled and set to the corresponding sprite from grasssprite mentioned above and its shadowCastingMode is set to TwoSided
 - Unless nowindeffect is true (meaning Wind Effects in the settings is Off), the entity.`sprite` material is set to the windShader and RefreshWind is called on the entity.`sprite` which sets the shader property to be:
-  - `_ShakeDisplacement`: random betweent half the map.`windspeed` and it's actual value
-  - `_ShakeBending`: random betweent half the map.`windintensity` and it's actual value
-  - `_ShakeTime`: random betweent 0.075 and 0.25
+    - `_ShakeDisplacement`: random betweent half the map.`windspeed` and it's actual value
+    - `_ShakeBending`: random betweent half the map.`windintensity` and it's actual value
+    - `_ShakeTime`: random betweent 0.075 and 0.25
 
 ## Update
 If the `timer` hasn't expired yet, it is decremented by the game's frametime clamped from 0.0 to infinity. Otherwise, if it is 0.0 and the entity isn't `dead`, a [Death](../../EntityControl/Notable%20methods/Death.md) coroutine is started with the entity.
@@ -52,6 +54,7 @@ If the other gameObject tag is `BeetleHorn` or `BeetleDash` while `hit` is false
 
 ### CutGrass
 A number of steps occurs:
+
 - The `rustling1` is played on entity
 - The entity.`rotater` tag is set to `Object` (this removes its Hornable property).
 - `hit` gets set to true (which prevents OnTriggerEnter to act again)
@@ -62,6 +65,7 @@ From there, this is where the potential item drop and flag slots edits occurs.
 
 #### Crystal Berry drop
 If `data[1]` is present and not negative, [CreateItem](Item.md#entitycontrolcreateitem) is called with the following:
+
 - starpos of this transform + (0.0, 0.5, 0.0)
 - itemtype of 3 (Crystal Berry)
 - itemid of `data[1]`
@@ -70,6 +74,7 @@ If `data[1]` is present and not negative, [CreateItem](Item.md#entitycontrolcrea
 
 #### Potential Item Drop
 If `data[1]` isn't present or is negative, `vectordata` is checked to see if we are going to drop an item. The way this is done is selecting a uniform random valid index of a `vectordata` element. It is valid if it's not negative. If it is valid, [CreateItem](Item.md#entitycontrolcreateitem) is called which creates an [Item](Item.md) object with the following:
+
 - starpos of this transform + (0.0, 0.5, 0.0)
 - itemtype of 0 (Standard item)
 - itemid of `vectordata[i].x` floored where `i` is the random index generated earlier
@@ -81,6 +86,7 @@ Once the creation is done, the `regionalflag` and `activationflag` of the new it
 In the case where `vectordata` is empty or the generated index leads to a negative value of the element x component, the logic is limited to set the flag and regionalflag slots of this object's `regionalflag` and `activationflag` to true.
 
 No matter which cases we land into, there is always a 13% chance to call [CreateItem](Item.md#entitycontrolcreateitem) a second time with the following:
+
 - starpos of this transform + (0.0, 0.5, 0.0)
 - itemtype of 0 (Standard item)
 - itemid of 6 (`MoneySmall`)
@@ -91,6 +97,7 @@ No matter which cases we land into, there is always a 13% chance to call [Create
 For any cases at the end of the method, if we dropped any item or Crystal Berry, all collisions between the item and this object's entity are ignored.
 
 Finally, a GrassFade coroutine is started. The purpose of that coroutine is only for rendering the cut part of the grass which is done by creating a new gameObject named `grass` with a SpriteRenderer, SphereCollider, BoxCollider and RigidBody where the sprite is the cut grass version according to `data[0]`. For brevety, the full details of this effect won't be detailed, but a couple of things is worth to mention:
+
 - The grass layer is set to 9 (Follower)
 - A torque is applied on the grass of RandomItemBounce(5.0, 0.0)
 - The starting velocity is (0.0, 10.0, 0.0)

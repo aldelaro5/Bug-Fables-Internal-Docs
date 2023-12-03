@@ -12,12 +12,14 @@ There are 2 modes this object can operate on:
 In the case of NPCControl management, the `boxcol`'s layer is set to 0 (default) which ends this object's setup.
 
 In the case of independant management by recreating `boxcol` a new GameObject named `Respawner` with a new trigger BoxCollider that is childed to the map with the following properties: 
+
 - position is set to the entity.`startpos`
 - angles is set to this transform's angles
 - tag is set to `Respawn` (which allows it to be detected by PlayerControl and others) 
 - isStatic is set to true
 
 Finally, the gameObject gets destroyed. From now on, this NPCControl cease to exist because the entire logic is managed by an independant GameObject. The tag gives it special behaviors:
+
 - The [Beemerang](Beemerang.md) entity.`ccol` and `scol` have their collisions ignored with the collider
 - OnTriggerStay of PlayerControl: if the other collider has the tag with a `vectordata[0]` above 0.1, `lastpos` is set to it.
 - OnTriggerExit of PlayerControl: `respawncount` is set to 0.0 which resets a failsafe to prevent too much infinite respawns.

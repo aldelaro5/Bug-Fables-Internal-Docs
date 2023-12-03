@@ -50,11 +50,11 @@ Finally, this is where the [SetAnim](../Animations/SetAnim.md) call happens. The
 * The `f` argument is sent if `overridefly` is false, the `height` is higher than 0.1 and the [animstate](../Animations/animstate.md) is among the following: `Idle`, `Walk`, `ItemGet`, `Chase`, `ItemWalk`, `Sleep`, `Hurt`, `BattleIdle` or `Woobly`. The `ft` argument is sent if on top of this if `notalk` is false and the entity is `talking`.
 * Only the `t` argument is sent if the [animstate](../Animations/animstate.md) is a [Predefined animations names](../Animations/animstate.md#predefined-animations-names), the entity is `talking` while `notalk` is false. This also set `backsprite` to false.
 * Only the `b` argument is sent under the following conditions:
-  * We aren't in PUSHROCK
-  * We either aren't in a battle or we are in a battle event
-  * `backsprite` is true
-  * The [animstate](../Animations/animstate.md) is `Idle`, `Walk` or `Jump`
-  * The `originalid` is `Bee`, `Beetle`, `Moth`, `Madeleine` or `BLANK`
+    * We aren't in PUSHROCK
+    * We either aren't in a battle or we are in a battle event
+    * `backsprite` is true
+    * The [animstate](../Animations/animstate.md) is `Idle`, `Walk` or `Jump`
+    * The `originalid` is `Bee`, `Beetle`, `Moth`, `Madeleine` or `BLANK`
 * If none of the above applies, no arguments are sent
 
 After the [SetAnim](../Animations/SetAnim.md) call, `backsprite` is set to false for any [animstate](../Animations/animstate.md) that isn't `Idle`, `Walk`, `Jump` or `Fall`.

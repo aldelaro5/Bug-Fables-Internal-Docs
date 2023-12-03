@@ -24,6 +24,7 @@ This is also where if `data[1]` exists with a [music](../../../Enums%20and%20IDs
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity
@@ -41,6 +42,7 @@ This object type is excluded from this logic meaning it will never get deactivat
 
 ## OnTriggerStay
 This does nothing if any of the following is true:
+
 - The other gameObject isn't the player
 - We are `inevent`
 - We are in a `pause`

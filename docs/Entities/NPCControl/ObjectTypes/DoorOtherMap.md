@@ -25,6 +25,7 @@ The `insideid` is set to -2 which excludes it from the MapControl.RefreshInsides
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity
@@ -45,6 +46,7 @@ After 20 frames has passed since the load of the map and every 2 frames, this ob
 
 ## OnTriggerStay
 This does nothing if any of the following is true:
+
 - The other gameObject isn't the player
 - We are `inevent`
 - We are in a `pause`

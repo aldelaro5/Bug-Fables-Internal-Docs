@@ -9,6 +9,7 @@ A multipurpose condition checker that can be operated in 4 distinct modes involv
 
 ## Setup
 A few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity
@@ -18,6 +19,7 @@ A few adjustements occurs:
 
 ## Update
 This is where the logic depending on the mode of operation occurs. There are 4 modes in which this object can operate in:
+
 1. Set `hit` based on the `activationflag` [flag](../../../Flags%20arrays/flags.md) slot
 2. Set `hit` to `true` if other [flags](../../../Flags%20arrays/flags.md) slots have a desired value (set to false otherwise)
 3. Set `hit` to `true` if other `hit` value of other NPCControl have a desired value (set to false otherwise)
@@ -26,6 +28,7 @@ This is where the logic depending on the mode of operation occurs. There are 4 m
 When checking a data value, it is possible to invert its checked value by sepcifying its negative version, but this means the value 0 cannot be checked for its inverted version. This means for example that if the value is a [flag](../../../Flags%20arrays/flags.md) slot, it will check that it is false instead of checking for being true, but it is not possible to do this for flag slot 0.
 
 Consult the following table for clarity on each mode (one must apply and it will be the first where the required condition is fufilled):
+
 |Mode|Condition|Value(s) checked|Result|
 |----:|--------------------|------------|------| 
 |1|`data[1]` is -1 and it is the last element|`activationflag`|`hit` is set to the [flag](../../../Flags%20arrays/flags.md) slot of the value.|

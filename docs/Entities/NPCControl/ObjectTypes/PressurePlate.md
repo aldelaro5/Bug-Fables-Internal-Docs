@@ -18,6 +18,7 @@ If the entity.`originalid` is `AncientPressurePlate`, a GlowTrigger is added on 
 If the `activationflag` [flags](../../../Flags%20arrays/flags.md) slot is true, the `hit` is set to true and the `moveobj`'s local position to `vectordata[0]` which sets the plate as pressed and visually renders it so.
 
 Finally, a few adjustements occurs:
+
 - The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
 - The entity.`rigid` is placed in kinematic mode without gravity
@@ -34,13 +35,14 @@ From there, if `hit` is true, the `moveobj` local position is set to a lerp from
 
 ## OnTriggerStay
 This does nothing if any of these are true:
+
 - The other gameObject is the player `beemerang`
 - The `activationflag` (if it's not -1) refers to a [flag](../../../Flags%20arrays/flags.md) slot whose value is true
 - All of the following are false:
-  - The other gameObject's Hornable doesn't exist (meaning this isn't an entity.`icecube`)
-  - The other gameObject tag is `PushRock`
-  - `data[0]` is 1 and the other gameObject is the player
-  - `data[1]` is 1 and the other gameObject is an NPCControl with its `icecube` not null
+    - The other gameObject's Hornable doesn't exist (meaning this isn't an entity.`icecube`)
+    - The other gameObject tag is `PushRock`
+    - `data[0]` is 1 and the other gameObject is the player
+    - `data[1]` is 1 and the other gameObject is an NPCControl with its `icecube` not null
 
 - If `hit` is false, [SwitchSound(true)](../Notable%20methods/SwitchSound.md) is called
 - The other gameObject's Hornable `onground` is set to true (the entity.`icecube`)
@@ -50,12 +52,14 @@ This does nothing if any of these are true:
 
 ## OnTriggerExit
 This does nothing if the other gameObject is the player `beemerang`, or if none of the following are true:
+
 - The other gameObject has a Hornable (it's an entity.`icecube`)
 - The other gameObject tag is `PushRock`
 - `data[1]` is 1 and the other gameObject has an NPCControl
 - `data[0]` is 1 and the other gameObject is the player
 
 The following occurs if the conditions above are met:
+
 - `hit` is set to false
 - `actioncooldown` is set to 0.0
 - [SwitchSound(false)](../Notable%20methods/SwitchSound.md) is called
