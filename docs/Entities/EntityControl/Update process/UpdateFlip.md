@@ -1,11 +1,9 @@
 # UpdateFlip
-
 This update method is called by [LateUpdate](Unity%20events/LateUpdate.md). It will update the digging states as well as the `spritetransform` angles as long as `overrideflip` is false.
 
 The method can either perform a `digging` update or a regular flip update, but it will only do the latter when the former doesn't apply.
 
 ## Digging update
-
 The `digging` one happens whenever `digging` is true and the entity isn't `dead`, `iskill` and `deathcoroutine` isn't in progress. In that case, a regular digging update happens when `diganim` is false (otherwise, `instdig` is set to false and the method ends). In such an update, the angles and scale of the `spritetransform` are adjusted such that the scale is the lerp between Vector3.zero and `startscale` with a factor of `digtime` / 30.0, and the angle is incremented by 15.0 on the y axis. 
 
 Next is the `digpart` update which happens unless `nodigpart` is true which will just have the `digtime` be increased by the framestep and `instdig` being set to false. 
@@ -15,7 +13,6 @@ In that segment, if the `digtime` hasn't reached 30 frames yet, then the `digpar
 Otherwise, if the `digtime` had reached 30 frames, then `digpart` 0 is put offscreen while `digpart` 1 is ensured to be initialised. The creation process is very similar than `digpart` 0 on the other `digtime` branch, but the 2 differences is that the object instantiated is at `Prefabs/Particles/Digging` and the scale is `digscale`. Finally, `instdig` is set to false.
 
 ## Regular flip update
-
 In this update, since it's established the entity isn't digging, `digtime` is set to 0.0 and both `digpart`s are moved offscreen if they were present.
 
 Next either `spritetransform` is rotated by `spin` if it has a non zero vector or regular flipping occurs as long as `overrideonlyflip` is false.

@@ -1,5 +1,4 @@
 # Start
-
 EntityControl defines a Start Unity event which performs several important steps. This will be run at the start of the next frame after the creation occurred, but also after being enabled if the entity started disabled:
 
 * Ensure `transofrm` and `spritetransform` are set correctly

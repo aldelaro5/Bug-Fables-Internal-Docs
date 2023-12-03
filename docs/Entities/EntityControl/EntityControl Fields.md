@@ -1,9 +1,7 @@
 # EntityControl Fields
-
 This page aims to document the different fields available to EntityControl and their expected usage. Note: internal here means both EntityControl and NPCControl's concerns, not just EntityControl. A field being public doesn't necessarily mean it can safely be used externally. This document will clarify when a field can safely be set externally.
 
 ## Object hiearchy
-
 These fields are intended to ease the navigation and accesses of the different key components and objects of the [Entity](../Entity.md). They can be as simple as avoiding a GetComponent call or just a way to verify the presence of an optional structure like a model. They are not intended to be set externally unless otherwise stated, but their properties can be set.
 
 |Name|Type|Description|
@@ -31,14 +29,13 @@ These fields are intended to ease the navigation and accesses of the different k
 |sound|AudioSource|The audio source of the root object, assigned on [Start](Start.md), but can be reassigned externally|
 
 ## Animations and [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md)
-
 These fields manages the animations according to the animid.
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
-|animid|int|Yes|The [AnimID](../../Enums%20and%20IDs/AnimIDs.md) of the entity, dictates the animation controller to use via the anim field. Can be set via [CreateEntities](CreateEntities.md)|
+|animid|int|Yes|The [AnimID](../../Enums%20and%20IDs/AnimIDs.md) of the entity, dictates the animation controller to use via the anim field. Can be set via [CreateEntities](CreateEntities.md). For an [item entity](Item%20entity.md), this is the item type|
 |originalid|int|No|The [AnimID](../../Enums%20and%20IDs/AnimIDs.md) at the start of [CheckSpecialID](Notable%20methods/CheckSpecialID.md) which may not be the same then the effective value from the animid field|
-|animstate|int|Yes|The [animstate](Animations/animstate.md) of the entity, dictates the animation clip to play on the controller of the anim field, set via [CreateEntities](CreateEntities.md) if it is an item|
+|animstate|int|Yes|The [animstate](Animations/animstate.md) of the entity, dictates the animation clip to play on the controller of the anim field. For an [item entity](Item%20entity.md), this is the item id and set via [CreateEntities](CreateEntities.md)|
 |basestate|int|Yes|The [animstate](Animations/animstate.md) to consider as the `Idle` one which overrides the default of 0, assigned during [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when applicable|
 |walkstate|int|Yes|The [animstate](Animations/animstate.md) to consider as the `Walk` one which overrides the default of 1, assigned during [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when applicable|
 |changedstate|bool|Yes|Determines if the [animstate](Animations/animstate.md) was changed externally and thus should bypass the landing on ground logic of [UpdateAirAnim](Update%20process/UpdateAirAnim.md) for all entities with an npcdata. This is only used in the [Anim](../../SetText/Individual%20commands/Anim.md) SetText command.|
@@ -54,7 +51,6 @@ These fields manages the animations according to the animid.
 |specialanim|Coroutine|Yes|Exposes a way to store a coroutine call to know if the entity is currently in a special animations requiring a coroutine, set to null before a yield break or return|
 
 ## Force move
-
 These fields manages both the process of [ForceMove](EntityControl%20Methods.md#forcemove) and [MoveTowards](EntityControl%20Methods.md#movetowards) which are considered force move as they are game controlled movement of the entity to a specific target.
 
 |Name|Type|External set?|Description|
@@ -73,7 +69,6 @@ These fields manages both the process of [ForceMove](EntityControl%20Methods.md#
 |ignorey|bool|Yes|Determines if the entity should ignore the y axis during the forcemove via [MoveTowards](EntityControl%20Methods.md#movetowards) if the caller specified one.|
 
 ## Height management
-
 These fields operate with the concept of height which is a visual vertical offset between the root `transform` and the `spritetransform`. This is accomplished by setting the local position of the latter upwards which won't affect physics, but affects visual rendering.
 
 |Name|Type|External set?|Description|
@@ -88,7 +83,6 @@ These fields operate with the concept of height which is a visual vertical offse
 |startbs|float|No|The initial bobspeed, assigned to bobspeed on [LateStart](Notable%20methods/LateStart.md) but also on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) when applicable. The bobspeed is restored to this on [Drop](Notable%20methods/Drop.md) and [BreakIce](Notable%20methods/Freeze%20handling.md#BreakIce), but it is possible to do so externally|
 
 ## Logic overrides
-
 These fields allows to bypass common logic of the entity during its lifecycle. They act as toggles and most of them can be operated externally which allows to gain more control over the entity from outside EntityControl.
 
 |Name|Type|External set?|Description|
@@ -107,7 +101,6 @@ These fields allows to bypass common logic of the entity during its lifecycle. T
 |overridefly|bool|No|Determines if the entity will never attempt to play a fly animation or receive [UpdateAirAnim](Update%20process/UpdateAirAnim.md) cycles, assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
 
 ## Extras and optional objects
-
 These fields manages optional objects that the entity maintains. They are usually created and used on a per [AnimID](../../Enums%20and%20IDs/AnimIDs.md) needs.
 
 |Name|Type|External set?|Description|
@@ -122,7 +115,6 @@ These fields manages optional objects that the entity maintains. They are usuall
 |firepart|Transform|Yes|This is not used internally and is left to null. This must be set and used externally|
 
 ## Ice
-
 These fields manages any ice related event, particularly during [Freeze handling](Notable%20methods/Freeze%20handling.md).
 
 |Name|Type|External set?|Description|
@@ -136,7 +128,6 @@ These fields manages any ice related event, particularly during [Freeze handling
 |shakeice|bool|Yes|Determines if the icecube should shake when being rendered if applicable|
 
 ## Rendering and alignment
-
 These fields changes the way the entity is rendered or aligned horizontally.
 
 |Name|Type|External set?|Description|
@@ -160,7 +151,6 @@ These fields changes the way the entity is rendered or aligned horizontally.
 |traildata|TrailData|No|The data of the trails if applicable, managed by [RefreshTrail](Update%20process/RefreshTrail.md)|
 
 ## Physics and movement handling
-
 These fields manages any physics related tasks, particularly movement, but also collisions.
 
 |Name|Type|External set?|Description|
@@ -182,7 +172,6 @@ These fields manages any physics related tasks, particularly movement, but also 
 |leiffly|bool|No|Determines if the entity is Moth and he is currently in his flying animation. Used during [FixedUpdate](Update%20process/Unity%20events/FixedUpdate.md) to set his position as he flies|
 
 ## Previous values
-
 These fields stores the previous values of other fields observed at particular points in the entity lifecycle. Most of them shouldn't be set externally, but some can be set to force some kind of update.
 
 |Name|Type|External set?|Description|
@@ -203,7 +192,6 @@ These fields stores the previous values of other fields observed at particular p
 |oldtalk|bool|Yes|The last value of talking observed during the last [UpdateSprite](Update%20process/UpdateSprite.md)|
 
 ## Digging
-
 These fields manages the process of digging underground.
 
 |Name|Type|External set?|Description|
@@ -216,7 +204,6 @@ These fields manages the process of digging underground.
 |instdig|bool|No|Determines if the entity should immediately start digging??? TODO: this might not be practically used because the only possible usage implies a throw during UpdateFlip|
 
 ## Identification
-
 These fields provides more information about who this entity is.
 
 |Name|Type|External set?|Description|
@@ -230,7 +217,6 @@ These fields provides more information about who this entity is.
 |battleid|int|Yes|The index of the entity in the current battle's enemydata, -1 when not applicable|
 
 ## Emoticon and status icons
-
 These fields manages both the emoticon to show in `emoticon` or the status condition / medal icon to show during battle.
 
 |Name|Type|External set?|Description|
@@ -244,7 +230,6 @@ These fields manages both the emoticon to show in `emoticon` or the status condi
 |nocondition|bool|Yes|Determines if the entity shouldn't render any condition icons during [UpdateStatusIcons](Update%20process/UpdateStatusIcons.md). Set to true at the start of [Death](Notable%20methods/Death.md) and to false in Revive|
 
 ## Follow
-
 These fields configures the [Follow](Notable%20methods/Follow.md) system and allow access to the follow chain.
 
 |Name|Type|External set?|Description|
@@ -255,7 +240,6 @@ These fields configures the [Follow](Notable%20methods/Follow.md) system and all
 |tempfollowerid|int|Yes|This is specific to Chompy to determine who she follows. This must be set externally|
 
 ## Camera active range info
-
 These fields manages the concept of an entity being "active" which means they receive more attention during the update cycle. This is typically due to being in the range of the camera, but it can be forced on.
 
 |Name|Type|External set?|Description|
@@ -267,7 +251,6 @@ These fields manages the concept of an entity being "active" which means they re
 |activeonpause|bool|Yes|Determines if this entity should receive updates and late updates when paused, minipaused, [message](../../SetText/Notable%20states.md#message) lock being active or dead, assigned to true on [Start](Start.md) with the `PAU` [Modifiers](Modifiers.md)|
 
 ## Shadow
-
 These fields handles the `shadow` object.
 
 |Name|Type|External set?|Description|
@@ -276,7 +259,6 @@ These fields handles the `shadow` object.
 |shadowsize|float|Yes|The maximum base scale of the shadow object assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
 
 ## Sound
-
 These fields configure the sounds to play using `sound`.
 
 |Name|Type|External set?|Description|
@@ -285,7 +267,6 @@ These fields configure the sounds to play using `sound`.
 |soundvolume|float|No|The volume to play the next sounds clips from the sound AudioSource. PlaySound must be called to set this|
 
 ## Death
-
 These fields manages the concept of [Death](Notable%20methods/Death.md) and also configures it when it occur.
 
 |Name|Type|External set?|Description|
@@ -296,7 +277,6 @@ These fields manages the concept of [Death](Notable%20methods/Death.md) and also
 |spitmoney|int|Yes|The amount of berries to drop when [Death](Notable%20methods/Death.md) occur. This must be set externally|
 
 ## Item
-
 These fields are specific to [item entities](Item%20entity.md).
 
 |Name|Type|External set?|Description|
@@ -304,10 +284,8 @@ These fields are specific to [item entities](Item%20entity.md).
 |item|bool|Yes|Determines if this entity is an [item entity](Item%20entity.md). This should be set before [Start](Start.md) alongside `animstate`. If not, `itemstate` must also be set to the `animstate`|
 |showitem|bool|No|Indicates that this entity must render an item sprite. This can be set to true on Start using the `shwKEY` [Modifiers](Modifiers.md)|
 |itemstate|int|Yes|The item id, only applicable for [item entity](Item%20entity.md) and should have the same value as the `animstate`|
-|destroytype|DeathType|Yes|The type of death process used for [Death](Notable%20methods/Death.md). This is normally loaded from [entitydata directory](../../TextAsset%20Data/Entity%20data.md#`entitydata`%20directory)|
 
 ## Drop
-
 These fields are related to the [Drop](Notable%20methods/Drop.md) procedure.
 
 |Name|Type|External set?|Description|
@@ -316,7 +294,6 @@ These fields are related to the [Drop](Notable%20methods/Drop.md) procedure.
 |droproutine|Coroutine|Yes|Exposes a way to store the [Drop](Notable%20methods/Drop.md) call to know if the entity is dropping, set to null before a yield break or return|
 
 ## Bubble shield
-
 These fields are related to the use of the bubble shield.
 
 |Name|Type|External set?|Description|
@@ -325,7 +302,6 @@ These fields are related to the use of the bubble shield.
 |bubbleshield|DialogueAnim|No|The DialogueAnim of an instance of `Prefabs/Objects/BubbleShield` childed to the Rotater object when battle and isplayer are both true on Start|
 
 ## Dialogue bleep
-
 These fields dictate the default sound to use during [SetText](../../SetText/SetText.md)'s bleep and its [Bleep](../../SetText/Individual%20commands/Bleep.md) command.
 
 |Name|Type|External set?|Description|
@@ -334,7 +310,6 @@ These fields dictate the default sound to use during [SetText](../../SetText/Set
 |bleeppitch|int|Yes|The bleep pitch to use in the [Bleep](../../SetText/Individual%20commands/Bleep.md) [SetText](../../SetText/SetText.md) command, assigned from `endata` on [Start](Start.md) during SetDialogueBleep|
 
 ## Late transform
-
 The late transform is a special transform the entity has available that lives completely separately to the regular update cycle. These fields manages that concept.
 
 |Name|Type|External set?|Description|
@@ -343,16 +318,15 @@ The late transform is a special transform the entity has available that lives co
 |latepos|Vector3|Yes|The position to set latetrans on [LateUpdate](Update%20process/Unity%20events/LateUpdate.md)|
 
 ## Miscellaneous
-
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
 |originalmap|Transform|No|The transform of the current map observed on [LateStart](Notable%20methods/LateStart.md)|
 |setup|bool|No|Determines if [LateStart](Notable%20methods/LateStart.md) has executed. Assigned to true at the end of it.|
 |icooldown|float|Yes|The period in frames left to the invulnerability|
 |noclock|bool|Yes|Related to PlatformNoClock ??? This must be set externally|
+|destroytype|DeathType|Yes|The type of death process used for [Death](Notable%20methods/Death.md). This is normally loaded from [map entity data](../../TextAsset%20Data/Entity%20data.md#map-entity-data)|
 
 ## Used only by [NPCControl](../NPCControl/NPCControl.md)
-
 These fields are declared in [EntityControl Creation](EntityControl%20Creation.md), but aren't actually used there outside of declaration with optional initialization.They are only useful in [NPCControl](../NPCControl/NPCControl.md), only what happens on [EntityControl Creation](EntityControl%20Creation.md) is documented here.
 
 |Name|Type|Description|
@@ -365,7 +339,6 @@ These fields are declared in [EntityControl Creation](EntityControl%20Creation.m
 |killonfall|bool|Left to default (false)|
 
 ## Practically unused fields
-
 These fields are present, but they do not have any practical uses in the game. They can still impact logic if they are changed externally or they are used as constant value meaning they should never be changed.
 
 |Name|Type|Description|

@@ -1,5 +1,4 @@
 # LateUpdate
-
 This is the LateUpdate of EntityControl. This is the main update loop of the component and it is done on late due to the guarantee that coroutines have all ran by then so anything that could have edited the fields like the [animstate](../../Animations/animstate.md) have done so already.
 
 * Every 3 frames
@@ -14,7 +13,7 @@ This is the LateUpdate of EntityControl. This is the main update loop of the com
   * If the scale's magnitude is higher than 0.15, the default is to set the local position of the `bubbleshield` to (0.0, `height` + 1.25, 0.0), but `overrideshieldpos` being true can change this to be (`overrideshieldpos`.x, `height` + `overrideshieldpos`.y, `overrideshieldpos`.z)
   * Otherwise, the local position is set offscreen to (0.0, -999.0, 0.0)
 * If the `hpbar` is present and active, ensure its local position is at (0.0, -0.5 + camoffset.y - battlecampos.y, 0.0) unless it's a `KeyR` which changes the x to 0.5 or a `Pitcher` which changes the x to -0.5
-* If the `sprite` is present and the `animid` isn't none (-1), [RefreshTrail](../RefreshTrail.md) is called which will update the `traildata` according to `trail`
+* If the `sprite` is present and the `animid` isn't `None` (-1), [RefreshTrail](../RefreshTrail.md) is called which will update the `traildata` according to `trail`
 * Ensure the `transform` is childed to the map if it's a `tempfollower` and the `transform` doesn't have a parent already
 * If `setup` is false, call [LateStart](../../Notable%20methods/LateStart.md)
 * As long as the game isn't paused, call [Follow](../../Notable%20methods/Follow.md) which updates the following procedure

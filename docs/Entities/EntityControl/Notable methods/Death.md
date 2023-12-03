@@ -1,11 +1,9 @@
 # Death
-
-Death is a coroutine in EntityControl that handles the process of essentially rendering an entity effectively dead. It doesn't disable or destroy the entity, it only does the necessary logic to effectively render it non functional. It comes with a parameterless overload that has `activatekill` sent to true, that parameter tells if `iskill` should be set to true alongside `dead` (however, the game never calls it with false under normal gameplay). The coroutine is meant to be stored by the caller using `deathcoroutine` which is set to null when this coroutine ends.
+Death is a coroutine in EntityControl that handles the process of essentially rendering an entity effectively dead. For most cases, it leads to its destruction. It comes with a parameterless overload that has `activatekill` sent to true, that parameter tells if `iskill` should be set to true alongside `dead` (however, the game never calls it with false under normal gameplay). The coroutine is meant to be stored by the caller using `deathcoroutine` which is set to null when this coroutine ends.
 
 Essentially, `dead` means the Death process started while `iskill` means it is about to end (it's done just before the `spitexp` logic). It will also in most cases leads to the destruction of the entity, but these 2 fields can be set externally without calling Death which will reduce their updating logic throughout the game, but not cause destructions.
 
 ## Destroy prepations
-
 First, `nocondition` and `dead` are set to true. [BreakIce](Freeze%20handling.md#breakice) is called and [StopForceMove](../EntityControl%20Methods.md#stopforcemove) is too without smoothing and default state. This not only unfreezes the entity if it was, but also stops any coroutine force move that was running. After, the `rigid`'s velocity is zeroed out and the `digpart` destroyed if there were any left.
 
 From there, if the entity had an `npcdata`, it is handled in its own section:
@@ -20,7 +18,6 @@ From there, if the entity had an `npcdata`, it is handled in its own section:
 After, `overrideflip` is set to false, the `sprite` gets enabled, the `rigid` gets locked with a LockRigid(true) and the `icooldown`, `bobrange` and `bobspeed` all get set to 0.0.
 
 ## The destroy
-
 This part depends on the `destroytype`.
 
 ### None
@@ -115,9 +112,9 @@ The same than Shrink, but no DeathSmoke particles are played.
 
 ## After the `destroytype` specific logic (doesn't occur for `PlayeDeath`)
 - All frames are yielded while in a `pause` or it's not a `battle` entity while we are in a battle
-- For anything except an `npcdata` of type [enemy](../../NPCControl/NPCType.md#enemy) with an `eventid` of 0 or below:
+- For anything except an `npcdata` of type [Enemy](../../NPCControl/Enemy.md) with an `eventid` of 0 or below (meaning no `respawntimer` feature):
   - If `spitmoney` is above 0, the berries drop logic is performed (see the section below for details)
-  - If `npcdata` is an [enemy](../../NPCControl/NPCType.md#enemy) with a non empty `vectordata` without a [SetPath](../../NPCControl/ActionBehaviors/SetPath.md) or [SetPathJump](../../NPCControl/ActionBehaviors/SetPathJump.md) behaviors, the item drop logic is performed (see the section below for details)
+  - If `npcdata` has a non empty `vectordata` without a [SetPath](../../NPCControl/ActionBehaviors/SetPath.md) or [SetPathJump](../../NPCControl/ActionBehaviors/SetPathJump.md) behaviors, the item drop logic is performed (see the section below for details)
 - A frame is yielded
 - If this GameObject is null (which shouldn't happen), the coroutine is exited early with a yield break
 - If the `destroytype` isn't `KO`, `SpinKO` or `None`, the entity position is set offscreen at (0.0, 9999.0, 0.0) followed by the destruction of the object (only if we aren't in a battle)
@@ -125,13 +122,13 @@ The same than Shrink, but no DeathSmoke particles are played.
 
 ### Berries drop logic
 The following is performed until `spitmoney` amount of berries worth total have been dropped:
-- CreateItem is called which creates an [Item](../../NPCControl/ObjectTypes/Item.md) NPCControl object at `spritetansform` position + (0.0, 0.5, 0.0) with the item type being 0 (standard item), the direction being RandomItemBounce(4.0, 10.0) for 600 frames. The [item](../../../Enums%20and%20IDs/Items.md) id is `MoneyBig` if there's strictly more than 20 berries left to drop, `MoneyMedum` if there's 5 or less left and `MoneySmall` otherwise (this means the last 20 berries if exactly 20 are left will be dropped by 4 `MoneyMedum` instead of one `MoneyBig`)
+- [CreateItem](../../NPCControl/ObjectTypes/Item.md#entitycontrolcreateitem) is called which creates an [Item](../../NPCControl/ObjectTypes/Item.md) NPCControl object at `spritetansform` position + (0.0, 0.5, 0.0) with the item type being 0 (standard item), the direction being RandomItemBounce(4.0, 10.0) for 600 frames. The [item](../../../Enums%20and%20IDs/Items.md) id is `MoneyBig` if there's strictly more than 20 berries left to drop, `MoneyMedum` if there's 5 or less left and `MoneySmall` otherwise (this means the last 20 berries if exactly 20 are left will be dropped by 4 `MoneyMedum` instead of one `MoneyBig`)
 - The collisions between the item's entity.`ccol` and the item's entity.`detect` or itself are ignored for 5.0 seconds
 - The same RandomBounce vector obtined earlier is set to the item's entity.`rigid` vecity on the next frame
 - The amount of money dropped is increased by 20 if there was more than 20 left to drop. Otherwise, if there's more than 5 left, it's increased by 5 (this means the last 5 berries if exactly 5 are left drops 5 `MoneySmall` instead of one `MoneyMedum`)
 
 ### Item drop logic
-The `specialenemy` cases are handled. These are hardcoded [enemy](../../../Enums%20and%20IDs/Enemies.md) ids with hardcoded odds to drop an [item](../../../Enums%20and%20IDs/Items.md) from an harcoded list of ids with uniform probability each. The way it works is the first occurence of a special enemy in `lastdefeated` (if one exists) will test for a potential drop. If multiple exists, only the first is tested once so if it fails, others will not be attempted to drop. Here are the the hardcoded ids in question as well as their odds:
+The `specialenemy` cases are handled. These are hardcoded [enemy](../../../Enums%20and%20IDs/Enemies.md) ids with hardcoded odds to drop an [item](../../../Enums%20and%20IDs/Items.md) from an hardcoded list of ids with uniform probability each. The way it works is the first occurence of a special enemy in `lastdefeated` (if one exists) will test for a potential drop. If multiple exists, only the first is tested once so if it fails, others will not be attempted to drop. Here are the the hardcoded ids in question as well as their odds:
 |Enemy|% to drop|Possible item drops|
 |-----|---------|-------------------|
 |`GoldenSeedling`|100|`TangyBerry`|
@@ -139,7 +136,7 @@ The `specialenemy` cases are handled. These are hardcoded [enemy](../../../Enums
 |`ToeBiter`|40|`HoneydLeaf`, `GlazedHoney`, `HeartyBreakfast`, `YamBread`, `BakedYam`, `Pudding`, `RoastBerry`, `ClearBomb`, `SleepBomb`, `LeafSalad`, `FrozenSalad`, `MushroomStick`, `ShavedIce`, `BurlyChips`|
 
 If a drop occurs:
-- CreateItem is called which creates an [Item](../../NPCControl/ObjectTypes/Item.md) NPCControl object at `spritetansform` position + (0.0, 0.5, 0.0) with the item type being 0 (standard item), the item id being a randomly chosen (uniform odds) element from the applicable possible drop list, the direction being RandomItemBounce(4.0, 10.0) for 600 frames.
+- [CreateItem](../../NPCControl/ObjectTypes/Item.md#entitycontrolcreateitem) is called which creates an [Item](../../NPCControl/ObjectTypes/Item.md) NPCControl object at `spritetansform` position + (0.0, 0.5, 0.0) with the item type being 0 (standard item), the item id being a randomly chosen (uniform odds) element from the applicable possible drop list, the direction being RandomItemBounce(4.0, 10.0) for 600 frames.
 - The collisions between the item's entity.`ccol` and the item's entity.`detect` or itself are ignored for 5.0 seconds
 - The same RandomBounce vector obtined earlier is set to the item's entity.`rigid` vecity on the next frame
 
@@ -155,17 +152,16 @@ However, that index gets overriden if `vectordata` contains at least one element
 This index is used for a potential item drop. If the index is negative, no drops happen. If it's positive, but the y component of the corresponding npcdata.`vectordata` isn't negative, then the drop only happens if that y component floored corresponds to a [flag](../../../Flags%20arrays/flags.md) slot whose value is true. If it's false, the drop doesn't happen.
 
 If the drop happens:
-- CreateItem is called which creates an [Item](../../NPCControl/ObjectTypes/Item.md) NPCControl object at `spritetansform` position + (0.0, 0.5, 0.0) with the item type being 0 (standard item), the item id being the chosen npcdata.`vectordata` x component using the index generated earlier, the direction being RandomItemBounce(4.0, 10.0) for 600 frames.
+- [CreateItem](../../NPCControl/ObjectTypes/Item.md#entitycontrolcreateitem) is called which creates an [Item](../../NPCControl/ObjectTypes/Item.md) NPCControl object at `spritetansform` position + (0.0, 0.5, 0.0) with the item type being 0 (standard item), the item id being the chosen npcdata.`vectordata` x component using the index generated earlier, the direction being RandomItemBounce(4.0, 10.0) for 600 frames.
 - The collisions between the item's entity.`ccol` and the item's entity.`detect` or itself are ignored for 5.0 seconds
 - The same RandomBounce vector obtined earlier is set to the item's entity.`rigid` vecity on the next frame
 
 However, if the corresponding npcdata.`vectordata` y component is -2 (meaning its index was overriden earlier), then it means this is a special key item drop that will always be dropped. The procedure to drop it is the same, but with a few changes:
 - The item type is 1 (key item) instead of 0 (standard item)
 - -1 is the timer value which means the [Item](../../NPCControl/ObjectTypes/Item.md) never expires even after 600 frames
-- After the CreateItem call, the item's `activationflag` is set to npcdata.`limit[0]`
+- After the [CreateItem](../../NPCControl/ObjectTypes/Item.md#entitycontrolcreateitem) call, the item's `activationflag` is set to npcdata.`limit[0]`
 
 ## Common end logic
-
 The following happens no matter the `destroytype`.
 
 A frame is yielded.

@@ -1,5 +1,4 @@
 # UpdateCollider
-
 This update methods is called by [LateUpdate](Unity%20events/LateUpdate.md). It only applies for `npcdata` being present and every 2 frames, but because [LateUpdate](Unity%20events/LateUpdate.md) only calls it every 3 frames when applicable, it's actually only going to process every 6 frames when `npcdata` is present.
 
 First, if the entity `iskill` is false and the `npcdata`'s `colliderheight` is 0.0, the height and radius of the `ccol` goes back to their `initialcolliderdata` and `colliderheight` is initialised to the `initialcolliderdata`.x which is the initial height of the `ccol`.

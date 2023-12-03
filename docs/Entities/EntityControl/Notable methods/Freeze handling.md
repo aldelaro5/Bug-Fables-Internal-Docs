@@ -1,9 +1,7 @@
 # FreezeHandling
-
 Entities can get frozen which involves the entity being put in the `icecube` and unfrozen which involves breaking the cube and restoring the entity's functions. This is done by 2 methods called Freeze and BreakIce respectively.
 
 ## Freeze
-
 First, `freezeoffset` is set to `initialoffset`, but the x component is multiplied by -1 if `flip` is true. Unless it is a `battle` entity, the `Freeze` sound will play unless it was already playing.
 
 From there, this is where the `icecube` is prepared to be frozen. The `icecube` is instantiated from `icecubeprefab` childed to the root `transform` with a local scale of zero. The scale is left handled by [LateUpdate](../Update%20process/Unity%20events/LateUpdate.md) which will grow it to `freezesize`.
@@ -13,7 +11,6 @@ For the entity, its `onground` is forced to true, [StopForceMove](../EntityContr
 Before returning, [UpdateAnimSpecific](../Animations/AnimSpecific.md#updateanimspecific) is called since some [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) have special handling when the entity is frozen.
 
 ## BreakIce
-
 This undo everything that happened on Freeze with some more logic related to it.
 
 First, the destruction of `icecube` if it was still present. This occurs by first playing the `Prefabs/Particles/IceShatter` particles from the root of the resources tree at the `icecube`'s position along with the `IceBreak` sound with 0.65 of pitch. The cube is now destroyed with the entity's [animstate](../Animations/animstate.md) set to `basestate`, the `anim`'s speed to 1.0 and `onground` being set back to false with a Jump.

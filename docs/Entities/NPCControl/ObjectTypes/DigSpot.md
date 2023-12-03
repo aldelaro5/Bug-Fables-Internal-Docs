@@ -56,7 +56,7 @@ If `data[0]` is 2 or above, a WaitForEvent coroutine starts which does the follo
 - `hit` is set to false
 
 Otherwise (meaning there is an item or a Crystal Berry hidden in this spot):
-- CreateItem is called with:
+- [CreateItem](Item.md#entitycontrolcreateitem) is called with:
   - This object's position as the startpos, 
   - If `data[0]` is 1, 3 (Crystal Berry) is the itemtype, it's `data[1]` otherwise
   - If `data[0]` is 1, `data[1]` is the itemid (which is a [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot), it's `data[2]` otherwise

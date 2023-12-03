@@ -61,7 +61,7 @@ A number of steps occurs:
 From there, this is where the potential item drop and flag slots edits occurs.
 
 #### Crystal Berry drop
-If `data[1]` is present and not negative, [CreateItem](../../EntityControl/Notable%20methods/CreateItem.md) is called with the following:
+If `data[1]` is present and not negative, [CreateItem](Item.md#entitycontrolcreateitem) is called with the following:
 - starpos of this transform + (0.0, 0.5, 0.0)
 - itemtype of 3 (Crystal Berry)
 - itemid of `data[1]`
@@ -69,7 +69,7 @@ If `data[1]` is present and not negative, [CreateItem](../../EntityControl/Notab
 - No timer
 
 #### Potential Item Drop
-If `data[1]` isn't present or is negative, `vectordata` is checked to see if we are going to drop an item. The way this is done is selecting a uniform random valid index of a `vectordata` element. It is valid if it's not negative. If it is valid, CreateItem is called which creates an [Item](Item.md) object with the following:
+If `data[1]` isn't present or is negative, `vectordata` is checked to see if we are going to drop an item. The way this is done is selecting a uniform random valid index of a `vectordata` element. It is valid if it's not negative. If it is valid, [CreateItem](Item.md#entitycontrolcreateitem) is called which creates an [Item](Item.md) object with the following:
 - starpos of this transform + (0.0, 0.5, 0.0)
 - itemtype of 0 (Standard item)
 - itemid of `vectordata[i].x` floored where `i` is the random index generated earlier
@@ -80,7 +80,7 @@ Once the creation is done, the `regionalflag` and `activationflag` of the new it
 
 In the case where `vectordata` is empty or the generated index leads to a negative value of the element x component, the logic is limited to set the flag and regionalflag slots of this object's `regionalflag` and `activationflag` to true.
 
-No matter which cases we land into, there is always a 13% chance to call CreateItem a second time with the following:
+No matter which cases we land into, there is always a 13% chance to call [CreateItem](Item.md#entitycontrolcreateitem) a second time with the following:
 - starpos of this transform + (0.0, 0.5, 0.0)
 - itemtype of 0 (Standard item)
 - itemid of 6 (`MoneySmall`)

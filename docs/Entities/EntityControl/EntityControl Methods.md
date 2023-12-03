@@ -1,17 +1,13 @@
 # EntityControl Methods
-
 There are all the methods in [EntityControl Creation](EntityControl%20Creation.md).
 
 ## Unity Events
-
 This component implements `Start`, `OnEable` `Update`, `LateUpdate`, `FixedUpdate`, `OnTriggerStay` and `OnTriggerExit`. You can lean more about them in [Start](Start.md), [Update](Update%20process/Unity%20events/Update.md), [LateUpdate](Update%20process/Unity%20events/LateUpdate.md), [FixedUpdate](Update%20process/Unity%20events/FixedUpdate.md), [OnTriggerStay](Update%20process/Unity%20events/OnTriggerStay.md) and [OnTriggerExit](Update%20process/Unity%20events/OnTriggerExit.md). Notably, `Start`, `OnEnable` and the 3 updates ones are an integral part of the startup and update process of the entity.
 
 ## Creation
-
 These methods are the gateway to initialise entities. As such, they are static and returns an EntityControl except for items which gives an [NPCControl](../NPCControl/NPCControl.md). No matter the context to create the entity, it has to go through one of these
 
 ### CreateNewEntity
-
 These overloads are fully documented at [EntityControl Creation > Creating an entity](EntityControl%20Creation.md)
 
 ````cs
@@ -27,19 +23,16 @@ public static EntityControl CreateNewEntity(string name, int anim_id, Vector3 po
 ````
 
 ### CreateItem
-
-Items uses a different method which is more a helper to create an item as an NPC. TODO: this will be documented at a later time since most of this involves [NPCControl](../NPCControl/NPCControl.md)
+Items uses a different method which is more a helper to create an [Item](../NPCControl/ObjectTypes/Item.md) object as an map entity. This is the one of the few ways that creating an [NPCControl](../NPCControl/NPCControl.md) dynamically is supported. For more information, check [CreateItem](../NPCControl/ObjectTypes/Item.md#entitycontrolcreateitem).
 
 ````cs
 public static NPCControl CreateItem(Vector3 startpos, int itemtype, int itemid, Vector3 direction, int timer)
 ````
 
 ## Lifecycle methods
-
 These methods are called by Unity events during key moments in the entity lifecycle. Some of them can be called outside of them, but being part of the lifecycle is their main purpose.
 
 ### LateStart
-
 This method uses the `setup` field as a fire and forget which means it will only be called once during the first [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) and then never called again. More details at [LateStart](Notable%20methods/LateStart.md).
 
 ````cs
@@ -47,7 +40,6 @@ private void LateStart()
 ````
 
 ### Update methods
-
 These methods were eventually called by [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) and they each manage different parts of the update process. Since they are essential, dedicated pages are made for them.
 
 [UpdateAnimSpecific](Animations/AnimSpecific.md#updateanimspecific)
@@ -171,11 +163,9 @@ private void UpdateGround()
 ````
 
 ## Movement
-
 These methods manages movement of the entity. Whether it is through `forcemove` or moving in general, they manage their movement taking into account animations and colliders.
 
 ### SetPosition
-
 Sets the `transform`'s position, `startpos` and `lastpos` to `pos`.
 
 ````cs
@@ -183,7 +173,6 @@ public void SetPosition(Vector3 pos)
 ````
 
 ### DelayedPosition
-
 Sets the entity's position to be `pos` after `time` seconds have passed.
 
 ````cs
@@ -205,7 +194,6 @@ private IEnumerator SetLatePos(Vector3 pos, float time)
 The coroutine will yield for the amount of `time` in seconds (or a frame if it was 0 or below) before setting the `transform`'s position to `pos`. Unlike SetPosition, this does not set `startpos` and `lastpos`.
 
 ### Jump
-
 Process a jump with velocity `h`
 
 ````cs
@@ -223,7 +211,6 @@ This will first call Unfix if it's not an `item` and we aren't in a battle. Afte
 As a special case, if a `flowerbed` is present, the `FlowerJump` particle is played.
 
 ### ForceMove
-
 Forces the entity to move to `target` after `frametime` amount of frames has passed maintaining the `movestate` [animstate](Animations/animstate.md) during the move and `stopstate` when it is completed
 
 ````cs
@@ -249,7 +236,6 @@ The actual move is done by setting the `transform`'s position to a lerp between 
 Basically, this is a much more aggressive version than MoveTowards because this will always succeed in moving the entity even if it might not physically make sense. This is best used if the game can guarantee that moving to the desired position will make sense.
 
 ### StopForceMove
-
 Completely halts any ongoing ForceMove or MoveTowards process of force moving either by completely stopping the velocity in x and z or by decelerating at half the current one if `smooth` is false. The [animstate](Animations/animstate.md) is set to `targetstate` if above -1 once this is done and the entity is at rest.
 
 ````cs
@@ -271,7 +257,6 @@ private IEnumerator DelayedLook(Vector3 target, float delay)
 ````
 
 ### Move
-
 More details available at [Move](Notable%20methods/Move.md), this manages the velocity and angles during an instant of a movement respecting `walktype` during the move.
 
 ````cs
@@ -279,7 +264,6 @@ public void Move(Vector3 pos, float multiplier, int state)
 ````
 
 ### StopMoving
-
 Stops the x and z velocity, stops any acceleration (`deltavelocity`) and set the [animstate](Animations/animstate.md) to `targetstate` if it is above -1 (otherwise, it is set to `basestate` if it was matching `walkstate`)
 
 ````cs
@@ -287,7 +271,6 @@ public void StopMoving(int targetstate)
 ````
 
 ### MoveTowards
-
 Setup a `forcemove` through [FixedUpdate](Update%20process/Unity%20events/FixedUpdate.md) to go to `pos` with a speed multiplier of `multiplier` setting the [animstate](Animations/animstate.md) to `state` during the move and `stopstate` once it is completed where the y axis is ignored if `ignore_y` is true.
 
 ````cs
@@ -347,11 +330,9 @@ Here are the actual values that will be set to the force move fields:
 Finally, `forcemove` is set to true which activates it.
 
 ## Flip and angles adjustments
-
 These methods adjusts the angles of the `rotater` which can either be due to the need to look somewhere or to spin or simple `flip` logic.
 
 ### FaceTowards
-
 Changes the `flip` and `backsprite` accordingly to the entity facing towards `other`. `backsprite` will not be changed if `noback` is true unless `forceback` is true.
 
 ````cs
@@ -380,7 +361,6 @@ For `backsprite`, the assignment happens regardless if `forceback` is true, but 
 As for the new value of `backsprite`, it's the value of the z viewpoint of `other` + -0.5 > the z viewpoint of the `transform`. Basically, it's true if after placing `other` 0.5 units towards the camera, it remains positioned more away from the camera than the entity, false otherwise.
 
 ### FaceTowards helper methods
-
 These methods just calls FaceTowards with a specific `pos` as the only parameter.
 
 Faces towards the player if it is present
@@ -414,7 +394,6 @@ public void FaceDown()
 ````
 
 ### FlipSpriteAngleAt
-
 Set the `spritetransform` to look at `target` and set its angle to (0.0, current y angles, 0.0) + `offset`. This also sets `overrideflip` to true.
 
 ````cs
@@ -428,7 +407,6 @@ public void FlipSpriteAngleAt(Vector3 target, Vector3 offset)
 The default `offset` is zero.
 
 ### Flipping methods
-
 These methods manages the `flip` field which controls which side the sprite is rendered.
 
 Toggles `flip`
@@ -456,7 +434,6 @@ private float GetFlipSpeed()
 ````
 
 ### Spinning methods
-
 These methods manages the `spin` value which is an angle vector to spin the entity each [UpdateFlip](Update%20process/UpdateFlip.md)
 
 Set `spin` to zero which stops the entity from spinning
@@ -482,7 +459,6 @@ Before all this happens, the `spritetransform` scale is set to `startscale`. If 
 The actual value of `spin` during the deceleration is a lerp from the `spinamount` to zero with a factor of 1.0 - frames left / `frametime` with a yield of one frame between each iteration.
 
 ## Sounds
-
 Play a sound named `clipname` from the `Audio/Sounds` directory using the `sound` audio source if it can be heard at pitch `pitch` before calling [UpdateSound](Update%20process/UpdateSound.md) and setting `soundvolume` to `volume` (which only sets the volume for the NEXT clip, not this one).
 
 ````cs
@@ -526,11 +502,9 @@ public float GetSoundDistance()
 ````
 
 ## Animations
-
 These methods handles [animstate](Animations/animstate.md) and `animid` [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) changes.
 
 ### SetAnim
-
 More details at [SetAnim](Animations/SetAnim.md)
 
 ````cs
@@ -548,7 +522,6 @@ public void SetAnimForce()
 ````
 
 ### SetState
-
 Set the [animstate](Animations/animstate.md) to `state`
 
 ````cs
@@ -556,7 +529,6 @@ public void SetState(int state)
 ````
 
 ### ReturnToIdle
-
 Set the [animstate](Animations/animstate.md) to `basestate`
 
 ````cs
@@ -564,7 +536,6 @@ public void ReturnToIdle()
 ````
 
 ### ExtraAnimPlay
-
 If `extraanims` is present and not empty, either play an animation named `arg` to all the `extraanims` or play a specific one for each by having `arg` contain all the animation clip names separated by `,`. If the later is done, `arg` split by `,` MUST contain at least the amount of `extraanims` or an exception will be thrown.
 
 ````cs
@@ -572,7 +543,6 @@ public void ExtraAnimPlay(string arg)
 ````
 
 ### SpecialAnimation
-
 Plays a specific animation routine named `animation` case insensitive with the call stored in `specialanim` (turns to null on return). This only supports one named `levelup` that will set specific routines for the `Bee`, `Beetle` and `Moth` [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md). Before the animation plays, `overrideanim` is set to true and `overridejump` is set to true with the old value saved. Once the animation is done, a frame is yielded, `overrideanim` goes back to false and `overridejump` is restored to its old value.
 
 ````cs
@@ -580,7 +550,6 @@ public IEnumerator SpecialAnimation(string animation)
 ````
 
 ### Animator change
-
 Sets the runtimeAnimatorController of `anim` depending on the [AnimIDs](../../Enums%20and%20IDs/AnimIDs.md) with special handling for PUSHROCK and Hard Mode equipped on HARDEST. More details is at [SetAnimator](Update%20process/UpdateSprite.md#setanimator)
 
 ````cs
@@ -594,7 +563,6 @@ public void ForceAnimator()
 ````
 
 ### Animation event
-
 These methods are never called directly, but rather by an animation event. 
 
 This one only applies only to the `CordycepsAnt` [AnimID](../../Enums%20and%20IDs/AnimIDs.md) where for `chance` % change when called, it will play the animation `Idle0` or `Idle1` with a 50/50 chance.
@@ -610,11 +578,9 @@ public void PlayAnimSpecific(int index)
 ````
 
 ## Rigid and ccol management
-
 These methods manages physics with the `rigid` and `ccol` fields.
 
 ### EnableCol
-
 Enables the `ccol`
 
 ````cs
@@ -622,7 +588,6 @@ public void EnableCol()
 ````
 
 ### SetFixed
-
 Apply most of the `Fixed` [Modifiers](Modifiers.md) after `fixedentity` is set to true on [Start](Start.md)
 
 ````cs
@@ -630,7 +595,6 @@ private void SetFixed()
 ````
 
 ### SetFixedCollider
-
 Apply most of the `FxdCol` [Modifiers](Modifiers.md) after `fixedentity` is set to true on [Start](Start.md)
 
 ````cs
@@ -638,7 +602,6 @@ private void SetFixedCollider()
 ````
 
 ### LockRigid
-
 Either locks the `rigid` when `value` is true by making it kinematic without gravity or unlock it when `value` is false by enabling its gravity without kinematic. This also zeros out the velocity if `resetvelocity` is true for either operations.
 
 ````cs
@@ -652,7 +615,6 @@ public void LockRigid(bool value, bool resetvelocity)
 The default value for `resetvelocity` is true.
 
 ### LateVelocity
-
 Yield until `rigid` isn't null anymore and then set its velocity to `ammount`
 
 ````cs
@@ -660,7 +622,6 @@ public IEnumerator LateVelocity(Vector3 ammount)
 ````
 
 ### Unfix
-
 If the proper conditions are met or `force` is true, SetFixed and SetFixedCollider are undone by calling LockRigid(false, false), enabling the `ccol`, setting the  `rigid` constraint to `FreezeRotation` and setting `fixedentity` to false.
 
 ````cs
@@ -676,11 +637,9 @@ The default value of `force` is false.
 If `force` is false, the method only act if there is no `npcdata` and if there is one, it must not be a type Object or SemiNPC and its `interacttype` must not be CaravanBadge or Shop.
 
 ## Detector
-
 These methods involves the `detect` and `feet` object which are ways to detect walls and grounds around the entity.
 
 ### CreateDetector
-
 Creates and add `detect`, a RayDetector on a trigger box collider with size `size` and center `center` that detects walls and other entities. The result is maintained in `hitwall`.
 
 ````cs
@@ -700,7 +659,6 @@ There is one exception to this rule. If the entity is the player, the [animstate
 It should be noted that because of the detector being slightly next to the `ccol` under normal gameplay, it is possible to miss detection of thin wall colliders due to the detector rendering past the wall.
 
 ### CreateFeet
-
 Create the `feet`, a GroundDetector with an octogon shaped trigger collider loaded from the `Prefabs/GroundDetector` prefab from the root of the asset tree that will detect the presence of grounds and maintain the result in `onground`.
 
 ````cs
@@ -712,7 +670,6 @@ The collider is configured to be at a local position of zero and a 0.1 vertical 
 The collider detects any objects in layers Ground and NoDigGround. A collision causes `onground` to turn to true until its exit which makes it revert back to `false`. The detector also manages the ability to dig depending on which of the 2 layers collided. Additionally, the detector can handle special cases where the collider has the tag `PushPlatform`, `Platform` and `PlatformNoClock`. Finally, it also handles the smoke and sound effects being played when a PushRock lands.
 
 ### HasGroundAhead
-
 Perform a Raycast downward starting from `point` with max distance `checkdistance` with layers Ground and NoDigGround and return whether there was a hit
 
 ````cs
@@ -732,7 +689,6 @@ public bool HasGroundAhead(Vector3 target)
 ````
 
 ### DetectDirection
-
 Call CreateDetector if `detect` doesn't exist, make `detect` look at `targetp` and zero out the x and z angles.
 
 ````cs
@@ -740,7 +696,6 @@ public void DetectDirection(Vector3 targetp)
 ````
 
 ### ForceHitWall
-
 Set `hitwall` to true which forces `detect` to report a hit.
 
 ````cs
@@ -748,7 +703,6 @@ public void ForceHitWall()
 ````
 
 ### DetectIgnoreSphere
-
 Have `detect` ignore collisions every laoded [NPCControl](../NPCControl/NPCControl.md)'s `scol`.
 
 ````cs
@@ -756,7 +710,6 @@ public void DetectIgnoreSphere(bool ignore)
 ````
 
 ## Structural additions
-
 These methods manages diverse object hierarchy extensions.
 
 Create `bubbleshield` if it didn't exist as an instance of `Prefabs/Objects/BubbleShield` from the root of the asset tree with a DialogueAnim that starts out shrunk with a shrink speed of 0.075 and a targetscale of (1.8, 3.15, 1.0).
@@ -800,7 +753,6 @@ public void CreateHPBar()
 ````
 
 ## Colliders ignoring
-
 These methods allows to ignore collisions with entities or other colliders.
 
 Have every collider under `a` recursive ignore every collider under `b` recursive if `ignore` is true or unignore them if it is false.
@@ -822,7 +774,6 @@ public IEnumerator TempIgnoreColision(Collider c, float sectime)
 ````
 
 ## Emoticon
-
 These methods manages `emoticon` which is a UI object that renders on top of the entity to indicate possible interactions.
 
 Set `emoticonid` to `emote` - 1 and `emoticoncooldown` to `time` before calling [UpdateEmoticon](Update%20process/UpdateEmoticon.md) which will show `emote` for `time` frames.
@@ -842,7 +793,6 @@ public void Emoticon(int type, int time)
 The first 2 overloads calls the third one which does all the work.
 
 ## Overrides
-
 These methods manages the overrides fields which are fields to bypass normal behaviors in many places notably during the update cycle.
 
 Set `overrideanim` to `animation`, `overrridejump` to `jumpanimation`, `overrideflip` to `flipbehavior`, `overridefly` to `flyanimation`, `overrideonlyflip` to `onlyflip` and `overrideanimspeed` to `animationspeed`.
@@ -870,7 +820,6 @@ public void OverrideOver()
 ````
 
 ## Death and revival
-
 These methods manages the concept of death and revival of an entity.
 
 Starts the parameterless Death coroutine and store its result into `deathcoroutine`
@@ -900,7 +849,6 @@ public void Revive()
 Specifically, this sets `iskill`, `dead` and `nocondition` to false as well as stop `deathcoroutine` if one was running. Then, LockRigid(false) is called with the `ccol` getting enabled with the center being set to `initialcenter` and its height/radius to the ones in `initialcolliderdata`. The world position of the entity is set to `startpos` + (0.0, 0.25, 0.0) with zero angles and `spin`. Finally, SetOverrides is called with all parameters to false which resets all overrides.
 
 ## Height adjustments
-
 These method manages `height`, the visual offset of the entity's `sprite` from its `transform`'s origin.
 
 Set `height` to `h`, `bobrange` to `range` and `bobspeed` to `spd` which will make be taken into effect on the next [UpdateHeight](Update%20process/UpdateHeight.md).
@@ -922,7 +870,6 @@ public IEnumerator GradualHeight(float newheight, float frametime)
 The default value of `newheight` is `initialheight`.
 
 ## Ice cube handling
-
 These 2 methods setups the entity to be frozen in an ice cube and allows it to break it when it is no longer frozen. More details at [Freeze handling](Notable%20methods/Freeze%20handling.md)
 
 ````cs
@@ -934,7 +881,6 @@ public void BreakIce()
 ````
 
 ## Digging
-
 Have the entity instantly dig underground without the first `digpart` by setting `digging` and `instdig` to true and `digtime` to 31.0.
 
 ````cs
@@ -948,7 +894,6 @@ public IEnumerator StopDig()
 ````
 
 ## Follow
-
 More details at [Follow](Notable%20methods/Follow.md)
 
 ````cs
@@ -974,7 +919,6 @@ private void ShieldMove(bool tempf)
 ````
 
 ## Sprite effects
-
 These methods perform shaking and fading on the sprite.
 
 For each `frametimer` frames, set the `spritetransform` local position to a random position between -`intensity` and `intensity` and restoring the position it had beforehand when `frametimer` frames elapsed.
@@ -998,7 +942,6 @@ public IEnumerator FadeSprite(float frametime, bool destroy)
 If `destroy` is true, this also calls LockRigid(true) and disables the `npcdata` if it was present after the fade is complete, but before the frame yield.
 
 ## Condition icons
-
 These methods manages the conditions icons which are UI elements that reports details and presence of battle conditions.
 
 Calls DestroyConditionIcons and then update `statusicons` and initialise `statusid` to 0 and the `statuscooldown` to 60.0 according to `data` positioned 0.5 units to the left of the `data.cursoroffset.x` if `right` is false or 0.5 units to the right if it is true.
@@ -1028,7 +971,6 @@ public void RefreshCondition()
 ````
 
 ## Late transform
-
 Set the `latetrans` to null
 
 ````cs
@@ -1036,7 +978,6 @@ public void StopLate()
 ````
 
 ## Cave of Trials
-
 These methods manages materials and colors specific to the Cave of Trials when `cotunknown` is true
 
 If `cotunknown` is true, set `spritebasecolor` to pure black fully opaque and if `extras` is present and non empty, `refreshedcotu` is set to true and all renderer and sprite render of every `extras` has they color set to pure black (half transparent for a renderer and fully opaque for sprite renderer).
@@ -1052,7 +993,6 @@ public void ForceCOT()
 ````
 
 ## Dialogue bleep
-
 If an `endata` for the [AnimID](../../Enums%20and%20IDs/AnimIDs.md) `animid` exists, set `dialoguebleepid` and `bleeppitch` from it unless `originalid` is -1 or below (None) in which case, they are set to 0 and 1.0 respectively.
 
 ````cs
@@ -1060,7 +1000,6 @@ public void SetDialogueBleep()
 ````
 
 ## Drop
-
 More details at [Drop](Notable%20methods/Drop.md), this is a coroutine needed during battle to drop an airborne enemy.
 
 ````cs
@@ -1068,7 +1007,6 @@ public IEnumerator Drop()
 ````
 
 ## Scale change
-
 Scales the entity to `target` smoothly over `frametime` frames. If `force` is false, `startscale` is what changes and if it's true, it's the `rotater`'s scale which makes it scale immediately without needing the handling of [UpdateFlip](Update%20process/UpdateFlip.md).
 
 ````cs
@@ -1076,7 +1014,6 @@ public IEnumerator ChangeScale(Vector3 target, float frametime, bool force)
 ````
 
 ## Trail
-
 Reset the trail managed by [RefreshTrail](Update%20process/RefreshTrail.md). More information can be found there.
 
 ````cs
@@ -1084,7 +1021,6 @@ public void ResetTrail()
 ````
 
 ## Numb
-
 A part of [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) that handles logic related to the numb animation. More details available there.
 
 ````cs
@@ -1092,7 +1028,6 @@ private void Numb()
 ````
 
 ## Return from action
-
 This is a special procedure performed during StopDig and Follow after an action was performed to restore the entity behavior.
 
 ````cs
@@ -1102,7 +1037,6 @@ private void ReturnFromAction()
 This first enables `shadow` if it wasn't. The, the `ccol` is enabled, the `rigid`'s isKinematic is set to false with gravity enabled, the `spritetransform`'s scale is set to a lerp between the current one and Vector3.one with a factor of 0.1 and set `spin` to zero if the switchcooldown expired. Finally, the fields `overrridejump`, `overrideanim` and `leiffly` are set to false.
 
 ## Check NEAR
-
 If the `NEAR` [Modifiers](Modifiers.md) is present, this will destroy the entity if it is further away than 30.0 units from the player.
 
 ````cs
@@ -1110,7 +1044,6 @@ public void CheckNear()
 ````
 
 ## Miscellaneous
-
 Returns true only if the entity has the `Follower`, `NPC`, `Enemy`, `PFollower` tag or `isplayer` or there is no `npcdata` or there is one being a PushRock or Item.
 
 ````cs
@@ -1142,7 +1075,6 @@ public IEnumerator BounceAnim(float squashammount, float time, float squashspeed
 ````
 
 ## Unused
-
 These methods aren't called by anyone, but they still exists.
 
 ````cs

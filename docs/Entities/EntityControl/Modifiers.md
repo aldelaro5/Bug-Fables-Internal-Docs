@@ -1,5 +1,4 @@
 # Modifiers
-
 Modifiers are special piece of text that when present in the name of an [Entity](../Entity.md), it will alter its behavior. While most will apply when the modifier is contained in the name, some expect them to prefix the actual name so it is recommended to prefix them rather than putting them in the middle. It is possible to combine them. All of them are case sensitive.
 
 Here are all the modifiers that are known:
@@ -17,7 +16,7 @@ Here are all the modifiers that are known:
 |ALF|Sets `alwaysflip` to true on [Start](Start.md) which calls [UpdateFlip](Update%20process/UpdateFlip.md) every LateUpdate|
 |PAU|Sets `activeonpause` to true on [Start](Start.md) which allows the entity to receive updates and late updates on pause, minipause, [message](../../SetText/Notable%20states.md#message) lock and being dead|
 |HIDE|Sets `hideinside` to true on [Start](Start.md) TODO: Involves [NPCControl](../NPCControl/NPCControl.md)|
-|ROT|Sets `lockrotater` to true on [Start](Start.md) which locks the y angle of the rotater. TODO: Involves [NPCControl](../NPCControl/NPCControl.md)|
+|ROT|LateAngle is called on [CreateEntities](CreateEntities.md) in 0.25 seconds to set the angle instead of setting it direction. It also sets `lockrotater` to true on [Start](Start.md) which locks the y angle of the rotater.|
 |ShwEm|Sets `alwaysemoticon` to true on [Start](Start.md) TODO: mostly involves [NPCControl](../NPCControl/NPCControl.md)|
 |COG|Sets `startpos` to the point a raycast will hit from the transform heading down on [Start](Start.md)|
 |NGS|Sets `onground` to false which forces the GroundDetector to report the entity being in the air on [Start](Start.md)|
@@ -27,6 +26,4 @@ Here are all the modifiers that are known:
 |NEAR|When CheckNear is called, the entity is destroyed if it is further away than 30.0 units from the player|
 |NDTCT|[HasHiddenItem](../NPCControl/Notable%20methods/HasHiddenItem.md) always returns false making this entity never trigger the Detector [medal](../../Enums%20and%20IDs/Medal.md) if the player has it equipped|
 |DDIST|[HasHiddenItem](../NPCControl/Notable%20methods/HasHiddenItem.md) always returns false if the distance between this entity and the player is 20.0 or above making this entity never trigger the Detector [medal](../../Enums%20and%20IDs/Medal.md) if the player has it equipped|
-|TOD|Allows a [switch](../NPCControl/ObjectTypes/Switch.md) object to be toggleable if its `data[0]` is 1 and `data[1]` is negative instead of only being able to be turned on|
-
-TODO: this isn't exhaustive, add those seen on [NPCControl](../NPCControl/NPCControl.md) or elsewhere as they are found
+|TOD|Allows a [Switch](../NPCControl/ObjectTypes/Switch.md) NPCControl object to be toggleable if its `data[0]` is 1 and `data[1]` is negative instead of only being able to be turned on|

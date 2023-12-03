@@ -1,5 +1,4 @@
 # UpdateHeight
-
 This update method is called by [LateUpdate](Unity%20events/LateUpdate.md). It will adjust the `spritetransform`'s local position unless `overrideheight` is true.
 
 First, prechecks are done if the adjustment is needed which only happens if the entity is not the player AND that it's not an `npcdata` of type Object.

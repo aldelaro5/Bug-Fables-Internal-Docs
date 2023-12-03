@@ -1,6 +1,5 @@
 # EntityControl
-
-EntityControl is the base component that all [Entity](../Entity.md) must have to be considered one. It mostly offers many capabilities and shared behaviors with a common lifecycle. Any [NPCControl](../NPCControl/NPCControl.md) must also be an EntityControl which is accessed through the `npcdata` field.
+EntityControl is the base component that all [Entity](../Entity.md) must have to be considered one. It mostly offers many capabilities and shared behaviors with a common lifecycle. Any [NPCControl](../NPCControl/NPCControl.md) must also be an EntityControl which is accessed through the `entity` field.
 
 For consulting the creation process of this component, check [EntityControl Creation](EntityControl%20Creation.md).
 

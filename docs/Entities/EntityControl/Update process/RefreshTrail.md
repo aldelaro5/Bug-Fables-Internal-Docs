@@ -1,5 +1,4 @@
 # RefreshTrail
-
 RefreshTrail is a method called by [LateUpdate](Unity%20events/LateUpdate.md) that manages the `trail` feature. Since this feature only implicates rendering, a high level explanation is provided rather than a series of steps.
 
 When `trail` is turned on, the method will create the internal `traildata` if they weren't created beforehand. A TrailData is a very simple struct containing 3 arrays (one for the sprite renderers of the copies, one for their time left to render  in frames and another for their position) and 2 fields (one setting the delay in frames between the copies and another saying the last trails id to use in the arrays).

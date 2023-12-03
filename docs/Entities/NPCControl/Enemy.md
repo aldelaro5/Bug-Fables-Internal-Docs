@@ -2,9 +2,11 @@
 An enemy is a non interactable entity that supports [ActionBehaviors](ActionBehaviors.md) with the ability to initiate a battle encounter with the player consisting of up to 4 [enemy](../../Enums%20and%20IDs/Enemies.md). It also features special logic to handle all of this including cases where it's frozen or dizzy. It is the NPCType with the most exclusive logic available.
 
 ## Data arrays
+- `vectordata`: The list of random standard [item](../../Enums%20and%20IDs/Items.md) the enemy can potentially drop in the x components of each element when EntityControl.[Death](../EntityControl/Notable%20methods/Death.md) is called on the entity. For the drop to happen on a given element, its y component (if it's not negative) must correspond to a [flag](../../Flags%20arrays/flags.md) slot whose value is true. If any element's y component is -2 however, the first occurence where this is the case will override the drop as it means this will dropped as a key item and it will also bypass the random check performed by EntityControl.Death
 - `battleids`: The array of [enemy](../../Enums%20and%20IDs/Enemies.md) ids this battle encounter consist of
 
 ## Additional data
+- `limit[0]`: The `activationflag` of the key item drop [Item](ObjectTypes/Item.md) object if the y component of any elements of `vectordata` is -2. This also serves as the first limit like regular NPCControl
 - `eventid`: If it's not 0, the `respawntimer` value whenever the enemy entity.`iskill` goes to true
 
 ## Start / SetUp

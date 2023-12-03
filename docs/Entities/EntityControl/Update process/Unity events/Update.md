@@ -1,5 +1,4 @@
 # Update
-
 This is the Update of EntityControl. It doesn't do as much as [LateUpdate](LateUpdate.md)
 
 * Check if the entity should receive updates which only happens when unpaused, minipause isn't active, the [message](../../../../SetText/Notable%20states.md#message) lock is released and the entity isn't dead. This can be overriden with `activeonpause`

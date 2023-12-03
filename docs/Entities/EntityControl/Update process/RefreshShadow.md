@@ -1,11 +1,10 @@
 # RefreshShadow
-
 RefreshShadow is a method on EntityControl called by [LateUpdate](Unity%20events/LateUpdate.md) when applicable to refresh the rendering of the `shadow` object which is a gradient black circle. Since all of this is rendering, only a high level explanation is needed.
 
 The method will skip the update if the `shadow` isn't present, but also under a specific set of conditions that have to be true:
 
 * The entity has an `npcdata` and its `freezecooldown` and `timer` expired
-* The entity is not an `item`
+* The entity is not an [item entity](../Item%20entity.md)
 * The entity is `onground`
 * It is not a `battle` entity
 * The squared distance with `lastshadow` is extremely small (\<= 0.005)

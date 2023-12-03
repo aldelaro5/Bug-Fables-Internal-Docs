@@ -1,5 +1,4 @@
 # SetAnim
-
 Animations on entity are setup like a state machine controlled by a single integer: the [Entity](../../Entity.md)'s [animstate](animstate.md). Setting the animstate is requesting the game to change the animation of an entity whenever SetAnim occurs, usually during the entity's [LateUpdate](../Update%20process/Unity%20events/LateUpdate.md). It being on [LateUpdate](../Update%20process/Unity%20events/LateUpdate.md) allows coroutines such as [SetText](../../../SetText/SetText.md) to change it and see the render immediately when yielding before the end of the frame.
 
 There are 2 overloads of SetAnim, but one only makes the second parameter optional which gives us the following method that end up being used:

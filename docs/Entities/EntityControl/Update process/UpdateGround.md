@@ -1,5 +1,4 @@
 # UpdateGround
-
 This update method is called by [LateUpdate](Unity%20events/LateUpdate.md). It updates the `ccol`'s physics material frictions and the `jumpcooldown`.
 
 The `ccol` physics material update applies except if it's a `npcdata` of `Pushrock`. The staticFriction and dynamicFriction of the material are either set to 1.0 or 0.0 depending on specific conditions:

@@ -1,5 +1,4 @@
 # Special animid startup
-
 This is the part of [CheckSpecialID](CheckSpecialID.md) that deals with specific [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md):
 
 * `GoldenSeedling`: setups the `Prefabs/Particles/GoldStars`

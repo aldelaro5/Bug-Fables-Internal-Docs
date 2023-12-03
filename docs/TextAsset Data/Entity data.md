@@ -66,7 +66,6 @@ Here are the possible values for a WalkType enum value:
 |1|Jump|
 
 ## Map entity data
-
 The `entitydata` directory contains the names and details that applies to each specific entities that should be loaded upon a specific [Map](../Enums%20and%20IDs/Maps.md) load. The data only gets loaded during MapControl's `CreateEntities` for the concerned [Maps](../Enums%20and%20IDs/Maps.md) which happens on the MapControl's Start. The data ends up in the `entities` field of the MapControl which is an array of EntityControl.
 
 Each line of an entity map asset contains one line per entity. It contains fields about its `EntityControl` and its `NPCControl` (via the `npcdata` field) separated by `}`. Each asset corresponds to each map in the game where its asset's filename is the [Map](../Enums%20and%20IDs/Maps.md)'s id.

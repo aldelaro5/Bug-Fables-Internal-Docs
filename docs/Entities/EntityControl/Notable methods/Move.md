@@ -1,5 +1,4 @@
 # Move
-
 This method is called by [FixedUpdate](../Update%20process/Unity%20events/FixedUpdate.md) during a `forcemove`, but it can be called externally. It will set the velocity of the movement and handle other logic for this instant. It receives the target position, a multiplier to the velocity and the [animstate](../Animations/animstate.md) to use during the movement.
 
 First, the entity is unifixed if `fixedentity` is true with the `rigid` constraints being set to freeze only rotations. Unless `overrideanim` is true, the [animstate](../Animations/animstate.md) is set to the state sent in.
