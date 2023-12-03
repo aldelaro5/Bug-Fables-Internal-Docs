@@ -108,6 +108,7 @@ This commands writes to the following:
 This command's logic behaves very differently based on the `itemtype` and the resolved `itemid` because the different types and ids requires different presentations and different behaviors.
 
 ### Description box rendering
+This uses a version of CreateDescWindow that is different than the one used for regular [Item](../../Entities/NPCControl/ObjectTypes/Item.md) objects. It will be documented here as it's the only usage of it.
 
 A description box will be created if `itemtype` isn't berries or Crystal Berries and the caller isn't a CaravanBadge or a Shop (for key items, it also needs to not be Game Tokens and not be in an interior)
 

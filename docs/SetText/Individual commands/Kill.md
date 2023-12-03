@@ -1,6 +1,6 @@
 # Kill
 
-Kills an [Entity](../../Entities/Entity.md) by calling [Death](../../Entities/EntityControl/Notable%20methods/Death.md) (with `activatekill` true) on it.
+Kills an [Entity](../../Entities/Entity.md) by calling [Death](../../Entities/EntityControl/Notable%20methods/Death.md) (with `activatekill`) on it.
 
 ## Syntax
 
@@ -22,8 +22,8 @@ Any non int value that isn't in one of the predefined values above will cause an
 
 ## Remarks
 
-There is a special case for Shop and CaravanBadge entities where it will call SetBadgeShop(true) on the entity's [NPCControl](../../Entities/NPCControl/NPCControl.md) for the former and on the shopkeeper of the [entity](../../Entities/Entity.md)'s [NPCControl](../../Entities/NPCControl/NPCControl.md) for the latter.
+There is a special case for [Shop](../../Entities/NPCControl/Interaction/Shop.md) and [CaravanBadge](../../Entities/NPCControl/Interaction/CaravanBadge.md) interactions on the caller where it will call [SetBadgeShop(true)](../../Entities/NPCControl/Interaction/CaravanBadge.md#setbadgeshop) on the entity's [NPCControl](../../Entities/NPCControl/NPCControl.md) for the former and on the `shopkeeper` of the [NPCControl](../../Entities/NPCControl/NPCControl.md) for the latter.
 
-This command only kills the entity if its [NPCControl](../../Entities/NPCControl/NPCControl.md) isn't null and it's not a CaravanBadge.
+This command only kills the entity if its [NPCControl](../../Entities/NPCControl/NPCControl.md) isn't null and it doesn't have a `CaravanBadge` interaction.
 
 Once the [entity](../../Entities/Entity.md) has been killed if applicable, the player's list of [NPCControl](../../Entities/NPCControl/NPCControl.md) is reset to a new list.
