@@ -116,7 +116,7 @@ There are 4 branches here:
   - `internaltransform[3]` (the spout of the main geizer object) gets disabled
   - `internaltransform[1]` (the frozen geizer object) gets enabled
   - `internaltransform[4]` (the spout of the frozen geizer object) gets enabled except if the current [map](../../../Enums%20and%20IDs/Maps.md) is `UpperSnekGeizerRoom` where it is disabled
-  - The entity `sound` is stopped and placed at the begining of the playback
+  - The entity.`sound` is stopped and placed at the begining of the playback
   - The `Freeze` sound is played at 0.5 volume
 - The `actioncooldown` gets set to `vectordata[0].z`, but if the Extra Freeze [medal](../../../Enums%20and%20IDs/Medal.md) is equipped, the value is multiplied by 3 before assigning it
 
@@ -154,4 +154,4 @@ This is a private method that only applies to this object type and its job is to
 - For all playerdata entities, if any was childed to any transform under this geizer, the entity gets rooted to the scene
 
 ## Effects of the `PlatformNoClock` tag
-The same than [PathPlatform](PathPlatform.md) except of course, the player entities `noclock` is always false so mostly the childing logic remains. In additiona however, it's what allows [Dropplet](Dropplet.md) ice cube to be chiled to the geizer via their Hornable component when the ice cube collides with the geizer.
+The same than [PathPlatform](PathPlatform.md) except of course, the player entities `noclock` is always false so mostly the childing logic remains. In additiona however, it's what allows [Dropplet](Dropplet.md) ice cube to be childed to the geizer via their Hornable component when the ice cube collides with the geizer.

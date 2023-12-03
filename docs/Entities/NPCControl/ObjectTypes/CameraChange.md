@@ -1,5 +1,5 @@
 # CameraChange
-A trigger zone to change the camera ???
+A trigger zone to change the camera's properties.
 
 ## Data Arrays
 - `data[0]`: If 1, the `camoffset` is changed by this object when triggered
@@ -33,6 +33,6 @@ If the `timer` hasn't expired yet, it is decremented by the game's frametime cla
 ## OnTriggerStay
 This does nothing if any of the following is true:
 - The other gameObject isn't the player
-- The player isn't free (ignoring flying) and it's not `digging`
+- The player isn't free (ignoring flying) and its entity is not `digging`
 
 If the above conditions are fufilled, the camera data is changed accoriding to the data logic described above.

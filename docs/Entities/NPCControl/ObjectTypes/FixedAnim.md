@@ -1,8 +1,8 @@
 # FixedAnim
-An object where the entity is left in a fixed [animstate](../../EntityControl/Animations/animstate.md) the the option to also disables the `ccol` and gravity on it.
+An object where the entity is left in a fixed [animstate](../../EntityControl/Animations/animstate.md) with the option to also disables the entity.`ccol` and gravity on it.
 
 ## Data Arrays
-- `data[0]`: If 1, the entity.`ccol` and the entity.`rigid`'s gravity are disabled
+- `data[0]`: If it's 1, the entity.`ccol` and the entity.`rigid`'s gravity are disabled
 - `data[1]`: the entity's [animstate](../../EntityControl/Animations/animstate.md) to set
 
 ## Setup

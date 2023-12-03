@@ -1,5 +1,5 @@
 # DoorSameMap
-A transition zone to an inside of the current map.
+A transition zone to and away from an inside of the current map.
 
 ## Data Arrays
 - `data[0]`: The id of the map.`insides` this transitions to

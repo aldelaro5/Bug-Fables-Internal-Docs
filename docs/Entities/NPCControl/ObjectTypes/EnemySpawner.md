@@ -4,8 +4,6 @@ An enemy spawner attached to another [Enemy](../NPCType.md#enemy) entity that wi
 ## Data Arrays
 - `data[0]`: The map entity id of the NPCControl that refers to the [Enemy](../NPCType.md#enemy) to spawn
 - `data[1]`: If it's 1, the spawner spawns the enemy on the first active Update cycle instead of having to wait the `data[4]` cooldown expires
-- `data[2]`: UNUSED
-- `data[3]`: UNUSED
 - `data[4]`: The time in frames to wait before the spawner spawns the enemy
 - `data[5]`: OVERRIDEN (the original entity.[animid](../../../Enums%20and%20IDs/AnimIDs.md))
 - `vectordata[0]`: The center position of the spawning range
@@ -25,7 +23,7 @@ There are 2 cases here. If the `actioncooldown` isn't expired and the `spawned` 
 
 If the cooldown has expired, then this update will only occur if the `spawned` doesn't exist or its entity `iskill`. This means that we should attempt to spawn the enemy. Otherwise, all update cycles are ignored until this becomes true.
 
-If the `spawned` enemy still doesn't exist, it is set to the NPCControl of the `Enemy` whose map entity id is `data[0]`.
+If the `spawned` enemy still doesn't exist, it is set to the NPCControl of the [Enemy](../Enemy.md) whose NPCControl `mapid` is `data[0]`.
 
 Here, as long as the `spawned`'s entity exists, [RespawnEnemy](../Notable%20methods/RespawnEnemy.md) is called with the `spawned` enemy at the position `vectordata[0]` + RandomVector(`vectodata[1]`) + (0.0, 0.5, 0.0). The random vector portion is from -`vectordata[1]` to `vectordata[1]`.
 

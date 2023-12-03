@@ -16,6 +16,8 @@ This [NPCType](NPCType.md) is very special in the shop system because it is the 
 
 The basic idea of a SemiNPC is it behaves mostly like an [Object](NPCType.md#object), but it allows interactions. This is ideal for a shelved item because it's possible to leave the [objecttype](ObjectTypes.md) to `None` which means that by default, there is no logic that will exist on the entity (objects are normally entirely driven by their type so leaving to `None` means the least amount of logic occurs). This is what differentiate an [Item](ObjectTypes/Item.md) NPCControl which is a collectable [item entity](../EntityControl/Item%20entity.md) to an item SemiNPC which has no logic other than being a simple item entity that just happens to support interactions thanks to `SemiNPC` allowing it. Everything other than being interactable is either excluded from the NPCControl logic or is left practicaly useless. Effectively, it's a "dumb" item: it can only be interacted with when the player gets close enough, but nothing more.
 
+Additionall, this type has no OnTriggerEnter logic. This type shouldn't ever be loaded from map entity data because the shop system will create them when needed.
+
 ## Map entity data
 A shop is declared in the map entity data as a single entity with the [Shop](Interaction/Shop.md) interaction. That entity data will be transformed to the entire shop structure at loading time. This means that this interaction is only used for loading purposes here: it will not actually involve the entity having a shop interaction as that will be delegated to each shelved items.
 

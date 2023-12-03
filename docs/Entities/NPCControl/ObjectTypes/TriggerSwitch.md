@@ -1,5 +1,5 @@
 # TriggerSwitch
-A trigger zone that manages either its own `hit` value when the player enters or exits the zone or it manages the `hit` value of another map entity when the player enters the zone, but not when they exit it.
+A trigger zone that controls either its own `hit` value when the player enters or exits the zone or it controls the `hit` value of another NPCControl when the player enters the zone, but not when they exit it.
 
 ## Data Arrays
 - `data[0]`: If it's -1, the trigger manages its own `hit` value when the player enters or exits the zone. If it's 0 or above, it manages the `hit` value of the map entity whose id is that value when the player enters the zone (not when they exit it). NOTE: any values below -1 are considered invalid because while this trigger `hit` will be set when the player enters the zone, it will not be set when the player exits the zone
@@ -35,7 +35,7 @@ This does nothing if any of the following is true:
 
 The [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot at `regionalflags` and the [flag](../../../Flags%20arrays/flags.md) slot at `activationflag` are set to true when applicable.
 
-We resolve the entity `npcdata` this refers to by using `data[0]` as the map entity id, but if it's negative, it defaults to this NPCControl.
+We resolve the entity.`npcdata` this refers to by using `data[0]` as the map entity id, but if it's negative, it defaults to this NPCControl.
 
 The `hit` field of that entity is toggled if `data[1]` is -1 or set to true if `data[1]` is 1 or set to false otherwise.
 

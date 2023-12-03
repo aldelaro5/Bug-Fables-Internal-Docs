@@ -1,9 +1,9 @@
 # ActionBehaviors
-An `ActionBehaviors` is an enum type that represents a behavior which has some logic to perform on the active main section of Update. It only applies to all [NPCType](NPCType.md) except `Object`.
+An `ActionBehaviors` is an enum type that represents a behavior which has some logic to perform on the active main section of Update. It only applies to all [NPCType](NPCType.md) except [Object](Object.md).
 
-There are 2 `ActionBehaviors` defined in [NPCControl data](../../TextAsset%20Data/Entity%20data.md#entitydata-directory) with the first one being the default one and the second one being only used when `inrange` is true. Each comes with an `actionfrequency` field that has a different meaning depending on the behavior.
+There are 2 `ActionBehaviors` defined in [NPCControl data](../../TextAsset%20Data/Entity%20data.md#map-entity-data) with the first one being the default one and the second one being only used when `inrange` is true. Each comes with an `actionfrequency` field that has a different meaning depending on the behavior.
 
-The actual execution of the behavior is done by [DoBehavior](Notable%20methods/DoBehaviour.md) called by [Update](Update.md) which receives the appropriate frequency, but only on the main active section. This means that it is only called when the NPCControl is considered active and a main update occurs (which excludes the special cases of an `Enemy` when it is dizzy, about to be unfrozen or frozen).
+The actual execution of the behavior is done by [DoBehavior](Notable%20methods/DoBehaviour.md) called by [Update](Update.md) which receives the appropriate frequency, but only on the main active section. This means that it is only called when the NPCControl is considered active and a main update occurs (which excludes the special cases of an [Enemy](Enemy.md) when it is dizzy, about to be unfrozen or frozen).
 
 ## Enum table
 The following is a table of the different enum values (NOT REFERENCED means the game never reference the value meaning it has not logic backing it, UNUSED means the behavior has logic, but it is either dead or not practically used under normal gameplay):

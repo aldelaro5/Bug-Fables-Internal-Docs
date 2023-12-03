@@ -1,5 +1,5 @@
 # Beemerang
-Vi's Beemerang when thrown.
+Vi's Beemerang when thrown. This object type is only created dynamically.
 
 ## Data Arrays
 - `vectordata[0]`: The desired position that the Beemerang should end up befor going to the opposite direction. This is set by PlayerControl.DoActionTap under normal gameplay.
@@ -8,17 +8,17 @@ Vi's Beemerang when thrown.
 The only entity that exists of this type is the one that exists under the `Ressources/prefabs/objects/Beerang` prefab as it comes with its own NPCControl of this `objecttype`. There is no way under normal gameplay other than PlayerControl requesting it to have it instantiated meaning effectively, if an entity has this `objecttype`, it is the same than if it was the player `beemerang` because it cannot be of any other type and no other NPCControl of this type can exist.
 
 ## Special behaviors
-- This type features an enabled `ccol` unlike other objects
+- This type features an enabled entity.`ccol` unlike other objects
 - This type doesn't doesn't feature an `scol` and the field remains null (The SphereCollider isn't added)
 - This type cannot be added to the player.`npc` list on LateUpdate
-- This type doesn't have its `ccol` height and center adjusted in LateUpdate according to `colliderheight`
+- This type doesn't have its entity.`ccol` height and center adjusted in LateUpdate according to `colliderheight`
 
 ## Setup
-First, the entity's `sound` is set to loop and the `RangeHold` sound is eet to play at half volume.
+The entity.`sound` is set to loop and the `RangeHold` sound is eet to play at half volume.
 
-Then, all collisions between any collider whose GameObject's tag is `Respawn` and the `scol` or the entity.`ccol` are ignored. This is to avoid collisions with independant [SetPlayerRespawn](SetPlayerRespawn.md).
+All collisions between any collider whose GameObject's tag is `Respawn` and the `scol` or the entity.`ccol` are ignored. This is to avoid collisions with independant [SetPlayerRespawn](SetPlayerRespawn.md).
 
-Finally, all collisions between the colliders in the map's `entityonly` and the `scol` or the entity.`ccol` are ignored. Nothing happens if this array was null or empty.
+All collisions between the colliders in the map.`entityonly` and the `scol` or the entity.`ccol` are ignored. Nothing happens if this array was null or empty.
 
 ## Update
 The tag is set to `BeeRang`.
@@ -31,8 +31,8 @@ The `hit` value tracks on which half of the path the beemerang is on. If it's fa
 If the distance between this object and `vectordata[0]` is higher than 0.2, this object's position is set to a lerp from the existing one to `vectordata[0]` with a factor of the game's frametime * the entity's `speed`. This basically moves the beemerang to its destination.
 
 Otherwise (meaning the Beemerang reached its destination), if the ability key is held, [flag](../../../Flags%20arrays/flags.md) 21 is true (got Beemerang Halt), `heldonce` is false and `WackaWorm.disablehold` is false:
-- The entity's `sound` pitch is set to 1.25
-- The entity's `spin` is set to (0.0, 0.0, 30.0)
+- The entity.`sound` pitch is set to 1.25
+- The entity.`spin` is set to (0.0, 0.0, 30.0)
 - `timer` is set to 99.0 (which gives it access to a new destination on the first Update cycle when the ability button is released)
 - If `particles` is null, it's initialised to an instance of `Prefabs/Particles/ContinuousSmokeCloud` childed to this object at this object's position + Vector3.up * 0.2 with angles (-90.0, 0.0, 0.0)
 
@@ -52,8 +52,8 @@ If the `timer` is higher than -2.0, it is decremented by framestep.
 If the distance between this object position and the player is higher than 0.45 the following section occurs (otherwise, this object is destroyed because it means the Beemerang completed its full travel).
 
 If the `timer` is less than -2.0 (meaning the Beemerang collided with a wall), the ability key is held, [flag](../../../Flags%20arrays/flags.md) 21 is true (got Beemerang Halt), `heldonce` is false and `WackaWorm.disablehold` is false, the following happens (this whole logic allows the beemerang to stall in place even if its path got cut short by a collider):
-- The entity's `sound` pitch is set to 1.25
-- The entity's `spin` is set to (0.0, 0.0, 30.0)
+- The entity.`sound` pitch is set to 1.25
+- The entity.`spin` is set to (0.0, 0.0, 30.0)
 - `timer` is set to -50.0
 - If `particles` is null, it's initialised to an instance of `Prefabs/Particles/ContinuousSmokeCloud` childed to this object at this object's position + Vector3.up * 0.2 with angles (-90.0, 0.0, 0.0)
 

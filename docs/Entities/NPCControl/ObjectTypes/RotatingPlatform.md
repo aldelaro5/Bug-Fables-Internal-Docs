@@ -29,7 +29,7 @@ The same than [PathPlatform](PathPlatform.md), but path mode will have the nodes
   - `electime` is initialised to 260.0 unless `dialogues[2].y` exists and isn't 0 where it will take that value instead
 
 ## Update
-First, if the [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) is a `Lilypad`, the `boxcol` if present is kept enabled, otherwise, its enabled will bet set to the `hit` value.
+If the [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) is a `Lilypad`, the `boxcol` if present is kept enabled, otherwise, its enabled will bet set to the `hit` value.
 
 From there, the platform can operate in 2 distinct modes: forever move in a loop between the first 2 `vectordata` or rotate by following a series of nodes defined in `vectordata` which are angles vectors. The former is done if `dialogues[1].x` is 1, the latter is done otherwise.
 

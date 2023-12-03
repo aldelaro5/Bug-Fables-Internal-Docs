@@ -1,5 +1,5 @@
 #### CheckEmoteFlag
-This is a private method only used in LateUpdate.
+This is a private method only used in [LateUpdate](../LateUpdate.md).
 
 This does nothing if `alwaysemoticon` is false, the y distance between this and the player is 2.0 or above and the z distance between this and the player is 15.0 or above.
 

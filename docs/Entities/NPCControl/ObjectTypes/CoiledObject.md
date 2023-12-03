@@ -24,9 +24,9 @@ Updates are disabled as long as `hit` is false.
 
 There's 2 cases. Either the `boxcol` is enabled or disabled.
 
-If it is enabled, then the entity's `model` local scale is set to a lerp from the existing one to (100.0, 100.0, 120.0) with a factor of the 1/5 of the game's frametime. This only increases the z scaling because the base scale of the `CoilyVine` prefab is 100.0 uniform, but the pivot point is also rotated such that the z axis is vertical so the overall effect is this grows it vertically. If the z component of the `model`'s local scale reached higher than 115.0, the `boxcol` gets disabled which ends this update cycle.
+If it is enabled, then the entity.`model` local scale is set to a lerp from the existing one to (100.0, 100.0, 120.0) with a factor of the 1/5 of the game's frametime. This only increases the z scaling because the base scale of the `CoilyVine` prefab is 100.0 uniform, but the pivot point is also rotated such that the z axis is vertical so the overall effect is this grows it vertically. If the z component of the entity.`model` local scale reached higher than 115.0, the `boxcol` gets disabled which ends this update cycle.
 
-If the `boxcol` was disabled (happens when the vine grew enough vertically), then the entity's `model` local scale is set to a lerp from the existing one to (100.0, 100.0, 0.0) with a factor of the 1/5 of the game's frametime. This makes it scales down vertically to become effectively flat upwards.
+If the `boxcol` was disabled (happens when the vine grew enough vertically), then the entity.`model` local scale is set to a lerp from the existing one to (100.0, 100.0, 0.0) with a factor of the 1/5 of the game's frametime. This makes it scales down vertically to become effectively flat upwards.
 
 ## LateUpdate (NaN in position component)
 This is logic that applies only to the `trapped` `Object` reffered by this `CoiledObject` and not the `CoiledObject` itself.
@@ -36,10 +36,10 @@ If the NPCControl is `trapped`, there is a special case where the game will find
 NOTE: it is unknown why the game seems to specifically care about a NaN positive with a `trapped` object. This doesn't seem to happen under normal gameplay.
 
 ## LateUpdate (Not a `dummy` and the entity is `incamera`)
-- If `moveobj` isn't initialised yet, `hit` is false and the entity isn't `iskill`, then `moveobj` is initialised to the map entity at `data[0]` with some adjustements:
+- If `moveobj` isn't initialised yet, `hit` is false and the entity isn't `iskill`, then `moveobj` is initialised to the NPCControl at `data[0]` as `mapid` with some adjustements:
   - Its `trapped` is set to true
-  - Its `rigid` is locked via [LockRigid(true)](../EntityControl/EntityControl%20Methods.md#lockrigid)
-  - It gets childed to this entity `sprite`
+  - Its entity.`rigid` is locked via [LockRigid(true)](../EntityControl/EntityControl%20Methods.md#lockrigid)
+  - It gets childed to this entity.`sprite`
   - Its scale is set to Vector3.one
   - Its local position is set to `vectordata[0]`
 
@@ -74,5 +74,5 @@ This field is specific to this object and the object being `trapped` receives so
 - [CheckItem](../Notable%20methods/CheckItem.md) prevents any `trapped` [Item](Item.md) from being obtained by the player.
 - It won't receive active NPCControl updates unless entity.`activeonpause` is true (and even if it is, it can only receive updates if it's an [Enemy](../NPCType.md#enemy) with one of the 3 active update override cases)
 - Any inactive updates will skip setting the position to entity.`startpos`
-- The entity's [UpdateVelocity](../../EntityControl/Update%20process/UpdateVelocity.md) effects are only active every 2 frames when the npcdata.`entitytype` isn't [NPC](../NPCType.md#npc)
+- The entity's [UpdateVelocity](../../EntityControl/Update%20process/UpdateVelocity.md) effects are only active every 2 frames when the npcdata.`entitytype` isn't [NPC](../NPC.md)
 - For all active EntityControl update on the entity, the first child of the `spritetransform`'s enablement is not updated

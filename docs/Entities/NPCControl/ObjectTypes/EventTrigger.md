@@ -1,5 +1,5 @@
 # EventTrigger
-An [event](../../../Enums%20and%20IDs/Events.md) trigger. It can either unconditionally trigger as a one shot event on the first Update cycle or trigger via OnTriggerStay that starts the event when the player collides with it with the option to destroy the NPCControl after.
+An [event](../../../Enums%20and%20IDs/Events.md) trigger zone. It can either unconditionally trigger as a one shot event on the first Update cycle or trigger via OnTriggerStay that starts the event when the player collides with it with the option to destroy the NPCControl after.
 
 ## Data Arrays
 - `data[0]`: The [event](../../../Enums%20and%20IDs/Events.md) id this will start when triggered

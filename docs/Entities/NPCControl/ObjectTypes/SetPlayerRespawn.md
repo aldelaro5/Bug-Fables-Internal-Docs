@@ -21,7 +21,7 @@ Finally, the gameObject gets destroyed. From now on, this NPCControl cease to ex
 - The [Beemerang](Beemerang.md) entity.`ccol` and `scol` have their collisions ignored with the collider
 - OnTriggerStay of PlayerControl: if the other collider has the tag with a `vectordata[0]` above 0.1, `lastpos` is set to it.
 - OnTriggerExit of PlayerControl: `respawncount` is set to 0.0 which resets a failsafe to prevent too much infinite respawns.
-- OnTriggerStay of RayDetector: prevents `hitwall` to change when colliding with an object with this tag.
+- OnTriggerStay of RayDetector: prevents entity.`hitwall` to change when colliding with an object with this tag.
 
 This means the Update and OnTriggerStay of this document only applies when the collider is managed by this NPCControl.
 

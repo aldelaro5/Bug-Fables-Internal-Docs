@@ -11,7 +11,7 @@ A plate that can be pushed down in its receptacle using a [PushRock](PushRock.md
 - `activationflag`: If it's not -1, it's the [flag](../../../Flags%20arrays/flags.md) slot that if true, will set `hit` to true and not allow any deactuation. Anything lower than -1 is considered invalid and will result with the plate being stuck as deactuated even when pressing on it.
 
 ## Setup
-`moveobj` is set to the first child of the entity's `model` which is the actual plate of the model inside its receptacle unless the entity.`originalid` is the `TestButton` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md) where the `moveobj` is set to the entity.`sprite`. 
+`moveobj` is set to the first child of the entity.`model` which is the actual plate of the model inside its receptacle unless the entity.`originalid` is the `TestButton` [AnimID](../../../Enums%20and%20IDs/AnimIDs.md) where the `moveobj` is set to the entity.`sprite`. 
 
 If the entity.`originalid` is `AncientPressurePlate`, a GlowTrigger is added on that plate object setting this NPCControl as the `parent` and the `glowparts` to one element being the plate's MeshRenderer.
 

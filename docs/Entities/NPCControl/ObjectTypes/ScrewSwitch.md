@@ -16,8 +16,8 @@ A crank switch actuated by Vi's Beemerang Toss with an analog actuation that nee
 - `nointeract` is set to true
 - if the `activationflag` [flags](../../../Flags%20arrays/flags.md) slot is true, `hit` is also set to true.
 - From there some adjustements happens based on the `originalid`'s [AnimID](../../../Enums%20and%20IDs/AnimIDs.md)(nothing happens if it doesn't match any of them):
-  - `SwitchCrystal` and `BigCrystalSwitch`: A GlowTrigger is added to the entity's `model`'s first child with its `parent` set to this object and the `glowparts` set to a single element corresponding to the MeshRender already attached to the first `model` child.
-  - `WoodenSwitch` and `SteelSwitch`: `internaldata` is initialised to a single element being -60 if it's a `WoodenSwitch` or -100 if it's a `SteelSwitch`, Then, the `moveobj` is set to the entity's `model` first child and if `hit` was set to true earlier, its angles are set to (0.0, `internaldata[0]`, 0.0)
+  - `SwitchCrystal` and `BigCrystalSwitch`: A GlowTrigger is added to the entity.`model`'s first child with its `parent` set to this object and the `glowparts` set to a single element corresponding to the MeshRender already attached to the first entity.`model` child.
+  - `WoodenSwitch` and `SteelSwitch`: `internaldata` is initialised to a single element being -60 if it's a `WoodenSwitch` or -100 if it's a `SteelSwitch`, Then, the `moveobj` is set to the entity.`model` first child and if `hit` was set to true earlier, its angles are set to (0.0, `internaldata[0]`, 0.0)
 - If the player is present, all collision between the `boxcol` and the player's wall detector are ignored.
 - If the `originalid` is not among `BigCrystalSwitch`, `WoodenSwitch` or `SteelSwitch`, [AddPushder](../Notable%20methods/AddPusher.md) is called.
 

@@ -24,7 +24,7 @@ A few adjustements occurs:
 - The layer is set to 0 (default)
 - The `scol` is disabled
 
-Then, AddModel is called on the entity with the path `Prefabs/Objects/CrackedRock` with offset (-1.0, 0.0, 1.5). The material's color depends on `data[0]` (any other value has it unchanged):
+[AddModel](../../EntityControl/Notable%20methods/AddModel.md) is called on the entity with the path `Prefabs/Objects/CrackedRock` with offset (-1.0, 0.0, 1.5). The material's color depends on `data[0]` (any other value has it unchanged):
 - 0: FFFFFF (pure white)
 - 1: ED9121 (mostly orange)
 - 2: EDD872 (light yellow)
@@ -32,7 +32,7 @@ Then, AddModel is called on the entity with the path `Prefabs/Objects/CrackedRoc
 - 4: 84BF6B (light green)
 - 5: A03F70 (light magenta)
 
-Then, the tag of this object is set to `DroppletPass` with a layer of 13 (NoDigGround) This was supposed to allow a [Dropplet](Dropplet.md) to pass through the rock instead of colliding with it, but the tag is overriden to `Object` later making this not work.
+The tag of this object is set to `DroppletPass` with a layer of 13 (NoDigGround) This was supposed to allow a [Dropplet](Dropplet.md) to pass through the rock instead of colliding with it, but the tag is overriden to `Object` later making this not work.
 
 The following occurs:
 - entity.`rotater` tag is set to `Hornable` which allows PlayerControl to get a green ! emoticon when getting 2.5 or lower distance from the grass for 5 frames
@@ -50,10 +50,10 @@ If the other gameObject tag is `BeetleDash`, BreakRock is called.
 
 Otherewise, if the other gameObject tag is `BeetleHorn`, ShakeSprite is called on the entity for 10.0 frames using the intensity (0.1, 0.05, 10.0). This will also cause the `Rock2` sound to be played on the entity with a random pitch between 0.9 and 1.1.
 
-Finally, `collisionammount` is set to 2.
+`collisionammount` is then set to 2.
 
 ## PauseMenu.NearSomething
-If the method finds out that a map entity of this object type exists less than 4.0 distance from the player, the return will be an array of 3 booleans with the first one being true. This will prevent usage of the Bed Bug [item](../../../Enums%20and%20IDs/Items.md).
+If the method finds out that an NPCControl of this object type exists less than 4.0 distance from the player, the return will be an array of 3 booleans with the first one being true. This will prevent usage of the Bed Bug [item](../../../Enums%20and%20IDs/Items.md).
 
 ## OnCollisionEnter (When this object type is the other collider of a [RollingRock](RollingRock.md))
 When a RollingRock receives a collision from a BreakableRock, BreakRock is called on the breakbale one.

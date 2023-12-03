@@ -60,7 +60,7 @@ If we didn't created the description window, it is destroyed via DestroyDescWind
 - instance.`itempicked` is true
 
 ### DestroyDescWindow
-This is a public method that will undo what CreateDescWindow did. It is heavily involved in this interaction, but [destroydescwindow](../../../SetText/Individual%20commands/Destroydescbox.md) and [additemtoss](../../../SetText/Individual%20commands/Additemtoss.md) SetText commands may call it (check their documentations to learn more). It only does anything if the `descwindow` exists.
+This is a public method that will undo what [CreateDescWindow](../Notable%20methods/CreateDescWindow.md) did. It is heavily involved in this interaction, but [destroydescwindow](../../../SetText/Individual%20commands/Destroydescbox.md) and [additemtoss](../../../SetText/Individual%20commands/Additemtoss.md) SetText commands may call it (check their documentations to learn more). It only does anything if the `descwindow` exists.
 
 - `descwindow`.shrink is set to true which will progressively shrink the window until it disappears
 - The position of the `descwindow` is incremented by a 1/10 of the normalised direction of the camera

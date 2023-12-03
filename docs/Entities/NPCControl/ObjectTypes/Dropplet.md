@@ -1,5 +1,5 @@
 # Dropplet
-A water dropple that can be frozen by Leif's Freeze which then turns it into an ice cube that can be moved by launching it using Kabbu's Horn Slash. The push velocity vector when launched is configurable and the object also supports many optional features, see the data array definition for details.
+A water dropplet that can be frozen by Leif's Freeze which then turns it into an ice cube that can be moved by launching it using Kabbu's Horn Slash. The push velocity vector when launched is configurable and the object also supports many optional features, see the data array definition for details.
 
 ## Data Arrays
 - `data[0]`: The time interval in frames between main Updates where the ice cube and dropplet are managed. This allows to throttle those updates
@@ -31,19 +31,19 @@ From there, `internaltransform` is initialised to one element which is an instan
 - A DialogueAnim is added with a startsize and targetpos of Vector3 * 1.5, a targetpos of Vector3.zero and a speed of 0.01
 - A Hornable is added with a push of (`vectordata[1].x`, `vectordata[1].y`) created from this NPCControl with breakondash and without pusher.
 - The first child's tag is set to `DroppletCube` (this is the actual cube inside the outer BoxCollider)
-- A trigger BoxCollider is added to the `DroppletCube` with a size of Vector3.one * 0.01. All collisions with it and the player's `ccol` or the outer BoxCollider are ignored
+- A trigger BoxCollider is added to the `DroppletCube` with a size of Vector3.one * 0.01. All collisions with it and the player.entity.`ccol` or the outer BoxCollider are ignored
 
 After:
 - `vectordata[0]` is incremented by the entity.`startpos`
-- `internalparticle` is initialised to a single element which is the SpriteBounce of a instance of `Prefabs/Objects/WaterBubble` which is then childed to the entity's `sprite` and has a local position of Vector3.up / 2
-- entity.`rigid` gets its gravity enabled with rotation frozen and its `onground` set to false
+- `internalparticle` is initialised to a single element which is the SpriteBounce of a instance of `Prefabs/Objects/WaterBubble` which is then childed to the entity.`sprite` and has a local position of Vector3.up / 2
+- entity.`rigid` gets its gravity enabled with rotation frozen and entity.`onground` set to false
 
 ## Update
-First, if the entity's `rigid` isn't in kinematic mode, its y velocity will be set to -10.0 and [RefreshShadow](../../EntityControl/Update%20process/RefreshShadow.md) is called on the entity. This forces the dropplet to drop down at a constant speed.
+If the entity.`rigid` isn't in kinematic mode, its y velocity will be set to -10.0 and [RefreshShadow](../../EntityControl/Update%20process/RefreshShadow.md) is called on the entity. This forces the dropplet to drop down at a constant speed.
 
-If the `actioncooldown` hasn't expired yet, it is decremented by the game's frametime. Otherwise [LockRigid(false, false)](../../EntityControl/EntityControl%20Methods.md#LockRigid) is called on the entity. This allows to unlock the entity's `rigid` once a dropplet is ready to be dropped.
+If the `actioncooldown` hasn't expired yet, it is decremented by the game's frametime. Otherwise [LockRigid(false, false)](../../EntityControl/EntityControl%20Methods.md#LockRigid) is called on the entity. This allows to unlock the entity.`rigid` once a dropplet is ready to be dropped.
 
-If the entity's `shadow` is present, it will get enabled if `data[2]` is 0 or `hit` is false and it will get disabled otherwise.
+If the entity.`shadow` is present, it will get enabled if `data[2]` is 0 or `hit` is false and it will get disabled otherwise.
 
 What follows is logic that depends on the `actionfrequency` 3 different cooldowns.
 
@@ -79,7 +79,7 @@ If it's below 100.0 every 3 frames:
 If it's expired, the ice cube is shattered via ShatterDroppletIce and ServerGeizer is called on the ice cube's Hornable.
 
 ## LateUpdate (Non `dummy`, the entity is `incamera` and not `iskill`)
-Normally under these circumstances, If the y position is less than the map.`ylimit`, the the position is set to the entity `startpos` and DeathSmoke particles are played at the entity `sprite` position if it isn't `dead` and the [animid](../../Enums%20and%20IDs/AnimIDs.md) isn't negative (it is defined).
+Normally under these circumstances, If the y position is less than the map.`ylimit`, the the position is set to the entity.`startpos` and DeathSmoke particles are played at the entity.`sprite` position if it isn't `dead` and the [animid](../../Enums%20and%20IDs/AnimIDs.md) isn't negative (it is defined).
 
 However, `Dropplet` are exempt from the logic above so they aren't bound by the map.`ylimit`.
 

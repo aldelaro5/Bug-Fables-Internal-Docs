@@ -1,5 +1,5 @@
 # DialogueTrigger
-A [SetText](../../../SetText/SetText.md) call trigger in [dialogue mode](../../../SetText/Dialogue%20mode.md) using a map dialogue line id. It can either unconditionally trigger as a one shot call on the first Update cycle or trigger via OnTriggerStay that starts the call when the player collides with it with the option to destroy the NPCControl after.
+A zone where a [SetText](../../../SetText/SetText.md) call starts in [dialogue mode](../../../SetText/Dialogue%20mode.md) using a map dialogue line id. It can either unconditionally trigger as a one shot call on the first Update cycle or trigger via OnTriggerStay that starts the call when the player collides with it with the option to destroy the NPCControl after.
 
 ## Data Arrays
 - `data[0]`: The map dialogue line id to call [SetText](../../../SetText/SetText.md) in [dialogue mode](../../../SetText/Dialogue%20mode.md) when triggered

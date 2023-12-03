@@ -1,5 +1,5 @@
 # Wander
-Periodically performs [MoveTowards](../../EntityControl/EntityControl%20Methods.md#movetowards) call after a random amount of time passed on the entity to a random position or the closest possible before unable to move further towards it. The range of movement, maximum time period to wait between wanders and the max distance to move to between wanders are all configurable.
+Periodically performs a [MoveTowards](../../EntityControl/EntityControl%20Methods.md#movetowards) call after a random amount of time passed on the entity to a random position or the closest possible before unable to move further towards it. The range of movement, maximum time period to wait between wanders and the max distance to move to between wanders are all configurable.
 
 ## Frequency meaning
 The maximum time in frames to wait before moving again. The minimum is always the 1/3 of the maximum.
@@ -15,7 +15,7 @@ The `actioncooldown` is set to 120 frames.
 ## DoBehavior
 The entity.`rigid` is unlocked with [LockRigid(false)](../../EntityControl/EntityControl%20Methods.md#lockrigid) if it was in kinematic or it didn't had gravity.
 
-Then, If `returntoheight` is true, entity.`height` is set to a lerp from the existing one to entity.`initialheight` with a factor of 0.1
+If `returntoheight` is true, entity.`height` is set to a lerp from the existing one to entity.`initialheight` with a factor of 0.1
 
 From there, there is an early exit path if the entity is in a `forcemove` and any of the following is true:
 - entity.`hitwall` is true

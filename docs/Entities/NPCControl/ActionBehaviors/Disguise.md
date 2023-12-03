@@ -84,7 +84,7 @@ The `disguiseobj` is disabled.
 The `disguiseobj` is disabled with the entity.`sprite` being enabled.
 
 ## EntityControl.[Update](../../EntityControl/Update%20process/Unity%20events/Update.md#update) (active)
-This behavior prevents the `sprite` from being enabled there. It also goes against this behavior at least as far as the `disguiseobj` is concerned, but this behavior doesn't change this logic in particular, only overrides it.
+This behavior prevents the entity.`sprite` from being enabled there. It also goes against this behavior at least as far as the `disguiseobj` is concerned, but this behavior doesn't change this logic in particular, only overrides it.
 
 ## EntityControl.[UpdateSprite](../../EntityControl/Update%20process/UpdateSprite.md#updatesprite)
 This update method is disallowed to change the `sprite` enablement on an [Enemy](../NPCType.md#enemy) with this behavior.
@@ -96,7 +96,7 @@ This logic only matters if the method was called as a result of MapControl.Start
 - entity.`sprite` being enabled.
 
 ## MapControl.PreloadSprites
-This behavior prevents the preloading of the entity.`sprite` texture into the map's `entitysprite`.
+This behavior prevents the preloading of the entity.`sprite` texture into the map.`entitysprite`.
 
 ## [RespawnEnemy](../Notable%20methods/RespawnEnemy.md) (Only if it's the default behavior)
 - The `disguiseobj` is destroyed if it was present

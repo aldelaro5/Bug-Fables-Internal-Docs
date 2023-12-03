@@ -5,7 +5,7 @@ A platform that can only be stood on by the player for a limited amount of time 
 - `data[0]`: The amount of time in frames that the player can be on the platform
 - `data[1]`: This needs to be 1 in order for the respawn functionality to work
 - `data[2]`: This needs to be 1 in order for the respawn functionality to work
-- `data[3]`: If 0, when the player is on the platform, the x local position of the entity.`model` will change to be random between -0.05 and 0.05 which makes it shakes horizontally. If it is 1 instead, the `Shaking` animation clip will play on the entity `anim` when the player.entity.`feet` (its ground detector) collides with the platform
+- `data[3]`: If 0, when the player is on the platform, the x local position of the entity.`model` will change to be random between -0.05 and 0.05 which makes it shakes horizontally. If it is 1 instead, the `Shaking` animation clip will play on the entity.`anim` when the player.entity.`feet` (its ground detector) collides with the platform
 - `vectordata[0].x`: The time in frames to wait from the moment a `FlyTrapPlatform` (if it is one) is done with its closing animation with the player being teleported in the air to the moment the fade out occurs
 
 ## Setup

@@ -1,5 +1,5 @@
 # BeetleGrass
-A grass that can be cut by Kabbu's Horn Slash. Can either be bound to a [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot which will be dropped, or a list of [items](../../../Enums%20and%20IDs/Items.md) that will dropped alongside the activation of a [flag](../../../Flags%20arrays/flags.md) and [regionalflag](../../../Flags%20arrays/Regionalflags.md) slots. 
+A grass that can be cut by Kabbu's Horn Slash. Can either be bound to a [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot which will be dropped, or a list of [items](../../../Enums%20and%20IDs/Items.md) that can be dropped alongside the activation of a [flag](../../../Flags%20arrays/flags.md) and [regionalflag](../../../Flags%20arrays/Regionalflags.md) slots. 
 
 ## Data Arrays
 - `data[0]`: The id of the grass sprite to use (NOTE: any other value than the ones below when `data[1]` doesn't apply will cause an exception to be thrown):
@@ -10,8 +10,8 @@ A grass that can be cut by Kabbu's Horn Slash. Can either be bound to a [crystal
   - 4: a dense dark green grass
   - 5: a purple grass
   - 6: a beige and gray grass
-- `data[1]`: The [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) id if applicable (being negative or not present means it isn't)
-- `vectordata`: The list of [items](../../../Enums%20and%20IDs/Items.md) ids (in the x component after flooring) to potentially drop. Only applicable if `data[1]` isn't.
+- `data[1]`: If it's not negative, the [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) id that will be dropped when the bush is cut. This is optional: no Crystal Berry is dropped if it doesn't exist
+- `vectordata`: The list of [items](../../../Enums%20and%20IDs/Items.md) ids (in the x component after flooring) to potentially drop. Only applicable if `data[1]` doesn't apply
 
 ## Additional data
 - `boxcol`: Required to be present with valid data
@@ -30,14 +30,16 @@ A few adjustements occurs:
 - The layer is set to 0 (default)
 - The `scol` is disabled
 
-Then, if `data[1]` is present and not negative and the crystal berry corresponding to its id has been obtained, the entity's `iskill` is set to true which ends this object setup as the grass will not appear.
+If `data[1]` is present and not negative and the crystal berry corresponding to its id has been obtained, the entity.`iskill` is set to true which ends this object setup as the grass will not appear.
 
-Otherwise, the layer is set to 8 (Ground) and the `boxcol`'s material is set to the defaultpmat. Finally, adjustements on the entity are performed:
-- The `rotater`'s tag is set to `Hornable` which allows PlayerControl to get a green ! emoticon when getting 2.5 or lower distance from the grass for 5 frames
-- The `rigid` has all constraints frozen
-- `overrideanim` is set to true
-- The `sprite` is enabled and set to the corresponding sprite from grasssprite mentioned above and its shadowCastingMode is set to TwoSided
-- Unless nowindeffect is true (meaning Wind Effects in the settings is Off), the `sprite`'s material is set to the windShader and RefreshWind is called on the `sprite` which sets the shader property to be:
+Otherwise:
+- The layer is set to 8 (Ground) 
+- The `boxcol`'s material is set to the defaultpmat. 
+- The entity.`rotater` tag is set to `Hornable` which allows PlayerControl to get a green ! emoticon when getting 2.5 or lower distance from the grass for 5 frames
+- The entity.`rigid` has all constraints frozen
+- entity.`overrideanim` is set to true
+- entity.`sprite` is enabled and set to the corresponding sprite from grasssprite mentioned above and its shadowCastingMode is set to TwoSided
+- Unless nowindeffect is true (meaning Wind Effects in the settings is Off), the entity.`sprite` material is set to the windShader and RefreshWind is called on the entity.`sprite` which sets the shader property to be:
   - `_ShakeDisplacement`: random betweent half the map.`windspeed` and it's actual value
   - `_ShakeBending`: random betweent half the map.`windintensity` and it's actual value
   - `_ShakeTime`: random betweent 0.075 and 0.25
@@ -67,7 +69,7 @@ If `data[1]` is present and not negative, [CreateItem](../../EntityControl/Notab
 - No timer
 
 #### Potential Item Drop
-If `data[1]` isn't present or is negative, `vectordata` is checked to see if we are going to drop an item. The way this is done is selecting a uniform random valid index of a `vectordata` element. It is valid if it's not negative. If it is valid, [CreateItem](../../EntityControl/Notable%20methods/CreateItem.md) is called with the following:
+If `data[1]` isn't present or is negative, `vectordata` is checked to see if we are going to drop an item. The way this is done is selecting a uniform random valid index of a `vectordata` element. It is valid if it's not negative. If it is valid, CreateItem is called which creates an [Item](Item.md) object with the following:
 - starpos of this transform + (0.0, 0.5, 0.0)
 - itemtype of 0 (Standard item)
 - itemid of `vectordata[i].x` floored where `i` is the random index generated earlier
@@ -78,10 +80,10 @@ Once the creation is done, the `regionalflag` and `activationflag` of the new it
 
 In the case where `vectordata` is empty or the generated index leads to a negative value of the element x component, the logic is limited to set the flag and regionalflag slots of this object's `regionalflag` and `activationflag` to true.
 
-No matter which cases we land into, there is always a 13% chance to call [CreateItem](../../EntityControl/Notable%20methods/CreateItem.md) a second time with the following:
+No matter which cases we land into, there is always a 13% chance to call CreateItem a second time with the following:
 - starpos of this transform + (0.0, 0.5, 0.0)
 - itemtype of 0 (Standard item)
-- itemid of 6 (MoneySmall, a blue berry)
+- itemid of 6 (`MoneySmall`)
 - direction of RandomItemBounce(4.0, 12.0)
 - timer of 600 frames
 
@@ -98,7 +100,7 @@ Finally, a GrassFade coroutine is started. The purpose of that coroutine is only
 - The grass object is destroyed once the fading is completed
 
 ## PauseMenu.NearSomething
-If the method finds out that a map entity of this object type exists less than 4.0 distance from the player, the return will be an array of 3 booleans with the first one being true. This will prevent usage of the Bed Bug [item](../../../Enums%20and%20IDs/Items.md).
+If the method finds out that an NPCControl of this object type exists less than 4.0 distance from the player, the return will be an array of 3 booleans with the first one being true. This will prevent usage of the Bed Bug [item](../../../Enums%20and%20IDs/Items.md).
 
 ## HasHiddenItem
 This object type is allowed to return true here if `data[1]` is positive and the corresponding [crystalbfflag](../../../Enums%20and%20IDs/crystalbfflags.md) slot has not been obtained yet.

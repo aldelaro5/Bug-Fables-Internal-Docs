@@ -1,16 +1,16 @@
-TODO: There is a high chance this is effectively unused because of its OnTriggerStay being the only useful logic, but it's actually dead code ???
-
 # BattleMapChange
-A loading zone for changing the battle map ???
+A zone that causes a change of the map.`battlemap`.
+
+> NOTE: While the logic for this object type is technically present, it is dead code because it's impossible to reach it. This means this can be considered as UNUSED even if it technically functions. Its usage isn't recommended.
 
 ## Data Arrays
-
+- `data[0]`: The battle map id to change to
 
 ## Setup
 A few adjustements occurs:
-- The entity's `alwaysactive` is set to true
+- The entity.`alwaysactive` is set to true
 - The gameObject's isStatic is set to true
-- The entity's `rigid` is placed in kinematic mode without gravity
+- The entity.`rigid` is placed in kinematic mode without gravity
 - `nointeract` is set to true
 - The layer is set to 0 (default)
 - The `scol` is disabled

@@ -7,6 +7,6 @@ None.
 ## DoBehavior
 [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on the entity.
 
-If the player is not present, no changes occur on the `flip` value.
+If the player is not present, no changes occur on the entity.`flip` value.
 
 The entity.`flip` is set to false when the entity x position is strictly higher than the player. It is set to true otherwise.

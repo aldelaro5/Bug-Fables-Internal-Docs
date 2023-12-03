@@ -1,6 +1,9 @@
 # Event
 Start the [event](../../../Enums%20and%20IDs/Events.md) whose id is `eventid` with this NPC as the caller.
 
+## Additional data
+- `eventid`: The [event](../../../Enums%20and%20IDs/Events.md) id to start
+
 ## args meaning
 None.
 

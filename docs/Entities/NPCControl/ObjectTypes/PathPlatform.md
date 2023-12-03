@@ -55,7 +55,7 @@ The platform is considered active when either `data` is empty or any of its elem
 
 The position set portion starts by clamping `speedmultiplier` from 0.0 to 1.0 and then setting the position using a Vector3.Lerp from `vectordata[0]` to `vectordata[1]` with a factor of `speedmultiplier`.
 
-Unless entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/AnimIDs.md), `speedmultiplier` is below 1.0 and the entity's `sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called on the entity with the `PlatformMove` clip set to loop.
+Unless entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/AnimIDs.md), `speedmultiplier` is below 1.0 and the entity.`sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called on the entity with the `PlatformMove` clip set to loop.
 
 ### Path mode
 What happens each updates depends on the value of `hit` which gets toggled on and off in a very systematic manner. The details involves many different fields that interacts with each other:
@@ -74,7 +74,7 @@ But it is possible for the platform to go inactive during its forward path. When
 #### When `hit` is true
 There is a special case before anything happens: whenever `hit` goes to true, it is possible that `currentnode` and `bounces` points to the same node. It can happen if there's only one node defined in `vectordata`. If this occurs, the update logic just ends abrutply because there is no need to move the platform and it will remain stationnary forever.
 
-Then, the entity.`model` tag is set to `PlatformNoClock`. Unless entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) and the entity's `sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called on the entity with the `PlatformMove` clip set to loop.
+The entity.`model` tag is set to `PlatformNoClock`. Unless entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) and the entity's `sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called on the entity with the `PlatformMove` clip set to loop.
 
 From there, this is where the movement is done until `speedmultipiler` reaches 1.0 or above in which case, it's reset to 0.0 and `hit` is set to false again.
 
@@ -92,9 +92,9 @@ If the NPCControl passed has this type, it returns true which allows it to stay 
 ## Effects of the `Platform` and `PlatformNoClock`
 There are some special logic implicated by the platform having these tags. Mainly, the game will often child GameObjects of interests to the platform when they are getting on it and child them back to where they were when no longer being on it.
 
-Specififcally, the GroundDetector's OnTriggerStay will check if the other collider has either of these tags and do the childing of the entity if it does. Additionally, the entity's `noclock` is set to true if the tag is `PlatformNoClock` and to false if it's `Platform`. On the component's OnTriggerExit, this is all undone, but there's a special case for the player or `PFolower` where it's parented to the root instead of the map.
+Specififcally, the GroundDetector's OnTriggerStay will check if the other collider has either of these tags and do the childing of the entity if it does. Additionally, the entity.`noclock` is set to true if the tag is `PlatformNoClock` and to false if it's `Platform`. On the component's OnTriggerExit, this is all undone, but there's a special case for the player or `PFolower` where it's parented to the root instead of the map.
 
 The Hornable component also does this which is related to the ice cube of a [Dropplet](Dropplet.md). If the other collider has either tag, OnTriggerEnter / OnCollisionEnter will child the other transform to the platform. This is undone on the component's OnTriggerExit if the other collider has either of the tags.
 
-As for what the entity's `noclock` does, normally, on MainManager.DoClock, the method RefreshPlayer is called when the player is free and it would normally set the `onground` to false and root all playerdata entities (this incidentally has a known issue where the frictions gets toggled off for one frame every second). `noclock` is a field that will prevent this logic from happening so it prevents the rooting of the player to the scene. In the case of the PathPlatform, it means that this logic doesn't happen as long as the player is on the platform AND it is active (the logic is free to do its thing when the platform goes inactive).
+As for what the entity.`noclock` does, normally, on MainManager.DoClock, the method RefreshPlayer is called when the player is free and it would normally set the `onground` to false and root all playerdata entities (this incidentally has a known issue where the frictions gets toggled off for one frame every second). `noclock` is a field that will prevent this logic from happening so it prevents the rooting of the player to the scene. In the case of the PathPlatform, it means that this logic doesn't happen as long as the player is on the platform AND it is active (the logic is free to do its thing when the platform goes inactive).
 

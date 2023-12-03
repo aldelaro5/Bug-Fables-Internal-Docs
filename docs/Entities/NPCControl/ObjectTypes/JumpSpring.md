@@ -32,7 +32,7 @@ This does nothing if any of the following are true:
 - The current [map](../../../Enums%20and%20IDs/Maps.md) is `RubberPrisonGym` while the other gameObject y position is not higher than this object y position
 - The other gameObject is the player and it is not free (ignoring fly)
 
-The entity `overrideflip` is set to true and the other gameObject's entity is obtained.
+The entity.`overrideflip` is set to true and the other gameObject's entity is obtained.
 
 For an actual jump to be registered on the spring, the following must all be true:
 - The other entity exists 
@@ -55,11 +55,11 @@ If the other gameObject is the player, nothing happens here if the `collisionamm
 - `collisionammount` is set to 110.0 (which prevents to reenter this branch until the end of the next LateUpdate)
 
 #### `data[0]` isn't 1 ([Jump](../../EntityControl/EntityControl%20Methods.md#Jump) logic)
-- The other entity `springcooldown` is set to true
-- The other entity `jumpcooldown` is set to 30.0
-- If the other gameObject is the player, CancelAction is called on the player keeping the beemerang. On top of this, if `itempicked` is true (we are in a [CheckItem](../Notable%20methods/CheckItem.md) process), the player entity `onground` is set to true
-- Unless we set `onground` to true earlier, the following occurs:
-  - The entity `springcooldown` is set to true
+- The other entity.`springcooldown` is set to true
+- The other entity.`jumpcooldown` is set to 30.0
+- If the other gameObject is the player, CancelAction is called on the player keeping the beemerang. On top of this, if `itempicked` is true (we are in a [CheckItem](../Notable%20methods/CheckItem.md) process), the player entity.`onground` is set to true
+- Unless we set.`onground` to true earlier, the following occurs:
+  - The entity.`springcooldown` is set to true
   - [Jump](../../EntityControl/EntityControl%20Methods.md#Jump) is called on the other entity with the height being its `jumpheight` unless `vectordata[0].x` is above 1.0 and the other doesn't have an `npcdata` that is a [RollingRock](RollingRock.md) where `vectordata[0].x` is used as the height instead
 
 ## Hazards.OnObjectStay

@@ -43,7 +43,7 @@ This does nothing when any of the following are true:
 
 If the other gameObject tag was `Icecle` and it has a DestroyOnLayer Kill is called on it. This component normally destroys the object attached when another trigger collider of a specific layer collides to it, but Kill allows it to do it manually.
 
-Then, the `BounceUp` animation is played on the entity.`anim` followed by playing the `Save` sound on the entity at 0.5 volume.
+The `BounceUp` animation is played on the entity.`anim` followed by playing the `Save` sound on the entity at 0.5 volume.
 
 If `data[2]` is 0, Heal is called.
 

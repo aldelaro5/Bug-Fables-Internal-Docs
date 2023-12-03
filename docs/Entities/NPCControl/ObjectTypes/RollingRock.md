@@ -19,8 +19,8 @@ A rolling rock that either appears and rolls on its own or is shot from a canon.
 - The entity.`ccol` is enabled overriding the default [Start](../Start.md) logic for objects
 - If `vectordata[1].y` is less than 0.1, it is set to 3.0
 - The `scol` center is set to (0.0, `vectordata[1].y`, 0.0)
-- The `model`'s local scale is set to Vector3.one * `vectordata[1].y`
-- The `model`'s local position is set to (0.0, `vectordata[1].y`, 0.0)
+- The entity.`model`'s local scale is set to Vector3.one * `vectordata[1].y`
+- The entity.`model`'s local position is set to (0.0, `vectordata[1].y`, 0.0)
 - The `scol` radius is set to `vectordata[1].y`
 - The `jumpheight` is halved
 - `internaldata` is initialised to a new array with 2 elements being 0.0 and 100.0
@@ -38,7 +38,7 @@ A rolling rock that either appears and rolls on its own or is shot from a canon.
 - The position of the the rolling rock is set to (0.0, 999.0, 0.0) which is offscreen in the air
 
 ## Update
-First, if `data[2]` is present and 1 (we are shooting from a canon), a complete logic is performed to scale `internaltransform[1]` (the nozzle of the canon) at different points in the shooting and to update the `actioncooldown`. No matter if this applies or not, the main logic section can apply after.
+If `data[2]` is present and 1 (we are shooting from a canon), a complete logic is performed to scale `internaltransform[1]` (the nozzle of the canon) at different points in the shooting and to update the `actioncooldown`. No matter if this applies or not, the main logic section can apply after.
 
 ### Canon nozzle scaling
 This section involves 2 countdown timer: `internaldata[0]` and `actioncooldown`. The former is reset to `internaldata[1]` (100.0) after shooting and represents the interval before preparing to shoot again while the latter represents the interval before respawning the rock. They both interact with each other, but this section still remains independant of what happens after when applicable.
@@ -93,7 +93,7 @@ If the other gameObject is the player and it's not `digging`, the [event](../../
 Otherwise, if the other gameObject tag is `RockLimit`, [BreakRock](../BreakRock.md) is called.
 
 ## OnCollisionEnter
-If the other gameObject is an `Object` NPCControl of type [BreakableRock](BreakableRock.md), [BreakRock](BreakableRock.md#breakrock) is called on the other's NPCControl.
+If the other gameObject is an [Object](../Object.md) NPCControl of type [BreakableRock](BreakableRock.md), [BreakRock](BreakableRock.md#breakrock) is called on the other's NPCControl.
 
 ## BreakRock
 This is a public method that has logic specific to this object type.

@@ -1,9 +1,16 @@
-# ObjectTypes
-An `ObjectTypes` is an enum that determines the type of object an NPCControl of [NPCType](NPCType.md) `Object` or `SemiNPC` is. This information is stored on the `objecttype` field.
+# Object
+Most of the logic depends entirely on the `objecttype` field.
+
+There are a couple of special logic to mention that applies by default to all objects:
+- In OnTriggerEnter, if the other collider isn't the player, `collisionammount` is incremented.
+- This is the only type with logic in OnTriggerStay and OnTriggerExit for specific `objecttype`
+
+## ObjectTypes
+An `ObjectTypes` is an enum that determines the type of object an NPCControl with an `entitytype` of `Object` or `SemiNPC` has. This information is stored on the `objecttype` field.
 
 A type dictates most of the logic of an `Object` in various situation notably Unity events, but also outside of NPCControl. Most prebaked logic in NPCControl is disabled by default, but any `ObjectTypes` can override this. It also greatly changes the meaning of several fields of NPCControl notably the general purpose `data` and `vectordata` array.
 
-## Enum table
+### ObjectTypes enum table
 The following are all the possible `ObjectTypes` (NOT REFERENCED means the game never references the value and it has no logic, UNUSED means the logic is present, but it is either dead or not used under normal gameplay):
 
 |Value|Name|Description|
@@ -46,4 +53,4 @@ The following are all the possible `ObjectTypes` (NOT REFERENCED means the game 
 |35|[TriggerSwitch](ObjectTypes/TriggerSwitch.md)| |
 |36|[WindPusher](ObjectTypes/WindPusher.md)| |
 |37|[WaterSwitch](ObjectTypes/WaterSwitch.md)| |
-|38|[BattleMapChange](ObjectTypes/BattleMapChange.md)|UNUSED, |
+|38|[BattleMapChange](ObjectTypes/BattleMapChange.md)|UNUSED|

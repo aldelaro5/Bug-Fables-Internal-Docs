@@ -25,7 +25,7 @@ Unless stated otheriwse, `activationflag` and `regionalflag` only applies when t
 |`data[0]`|`data[1]`|Starting `hit` value|Actuation flow|Effects on actuation|
 |---------|---------|-------------------|--------------|---------------|
 |0|0|If the `activationflag` flag slot (with the 0 value being allowed) is true, the switch will continuously set its `hit` to true during Update if `data[2]` exists and isn't negative.|This switch can only be toggled on. If `data[2]` exists and is positive, the switch automatically turns itself off after the amount of frames contained in `data[2]` passed. Otherwise, the switch cannot be turned off|When `hit` turns true, both `activationflag` and `regionalflag` respective slots are set to true|
-|0|1|`activationflag` (with the 0 value allowed) tells the starting value of `hit` by its flag slot.|The switch can be toggled on and off. Once toggled, there is a 30 frames cooldown before being able to toggle it again, but `data[2]` can override the cooldown time if it exist and isn't negative|When actuated, the `activationflag` flag slot is set to the new `hit` value. Additionally, all other switch entities present with the same `data[0]`, `data[1]` and `activationflag` values will have their `hit` values set to the new one after the toggle.<sup>1</sup>|
+|0|1|`activationflag` (with the 0 value allowed) tells the starting value of `hit` by its flag slot.|The switch can be toggled on and off. Once toggled, there is a 30 frames cooldown before being able to toggle it again, but `data[2]` can override the cooldown time if it exist and isn't negative|When actuated, the `activationflag` flag slot is set to the new `hit` value. Additionally, all other switch NPCControl present with the same `data[0]`, `data[1]` and `activationflag` values will have their `hit` values set to the new one after the toggle.<sup>1</sup>|
 |1|Negative|false|The switch can only be turned on once unless the `TOG` [modifier](../../EntityControl/Modifiers.md) is active which allows the switch to be toggled on and off.|When the switch is actuated, both `activationflag` and `regionalflag` respective slots are set to true. Additionally, if entity.`originalid` has an undefined (-1) [animid](../../../Enums%20and%20IDs/AnimIDs.md), entity.`iskill` is set to true and if it's `WoodenSwitch`, the `moveobj` angles are set to (0.0, -60.0, 0.0) (This moves the lever stick)|
 |1|0 or above|false<sup>2</sup>|The same actuation flow than if `data[1]` was negative<sup>3</sup>|That same effects occurs than if `data[1]` was negative with the addition that `data[1]` is an [event](../../../Enums%20and%20IDs/Events.md) id that will trigger with this switch as the caller each time the switch is actuated|
 
@@ -41,7 +41,7 @@ Unless stated otheriwse, `activationflag` and `regionalflag` only applies when t
 - `nointeract` is set to true
 - if the `activationflag` [flags](../../../Flags%20arrays/flags.md) slot is true, `hit` is also set to true.
 - From there some adjustements happens based on the `originalid`'s [AnimID](../../../Enums%20and%20IDs/AnimIDs.md)(nothing happens if it doesn't match any of them):
-  - `SwitchCrystal` and `BigCrystalSwitch`: A GlowTrigger is added to the entity's `model`'s first child with its `parent` set to this object and the `glowparts` set to a single element corresponding to the MeshRender already attached to the first `model` child.
+  - `SwitchCrystal` and `BigCrystalSwitch`: A GlowTrigger is added to the entity.`model`'s first child with its `parent` set to this object and the `glowparts` set to a single element corresponding to the MeshRender already attached to the first `model` child.
   - `WoodenSwitch` and `SteelSwitch`: `internaldata` is initialised to a single element being -60 if it's a `WoodenSwitch` or -100 if it's a `SteelSwitch`, Then, the `moveobj` is set to the entity's `model` first child and if `hit` was set to true earlier, its angles are set to (0.0, `internaldata[0]`, 0.0)
 - If the player is present, all collision between the `boxcol` and the player's wall detector are ignored.
 - If the `originalid` is not among `BigCrystalSwitch`, `WoodenSwitch` or `SteelSwitch`, [AddPushder](../Notable%20methods/AddPusher.md) is called.
@@ -82,7 +82,8 @@ This does nothing if `hit` is true and the `TOG` [modifier](../../EntityControl/
 - If the entity `originalid` is -1 (`None`), its `iskill` is set to true
 - If the entity `originalid` is the `WoodenSwitch` [animid](../../../Enums%20and%20IDs/AnimIDs.md), the `moveobj` angles are set to (0.0, -60.0, 0.0)
 
-If it's 0 then it depends on `data[1]`. If it's not 1, then `hit` is set to true and the [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot at `regionalflags` and the [flag](../../../Flags%20arrays/flags.md) slot at `activationflag` are set to true. If it's 1 and the `actioncooldown` expired:
+### `data[0]` is 0
+This depends on `data[1]`. If it's not 1, then `hit` is set to true and the [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot at `regionalflags` and the [flag](../../../Flags%20arrays/flags.md) slot at `activationflag` are set to true. If it's 1 and the `actioncooldown` expired:
 - `hit` is toggled
 - `actioncooldown` is set to 30.0
 - If the `activationflag` isn't negative, the corresponding [flag](../../../Flags%20arrays/flags.md) slot is set to `hit`

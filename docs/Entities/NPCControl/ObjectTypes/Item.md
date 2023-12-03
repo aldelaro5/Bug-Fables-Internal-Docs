@@ -79,7 +79,7 @@ If the `beerang` isn't null (meaning the [beemerang](Beemerang.md) caught this i
 - The absolute position is set to the `beerang` one + Vector3.Up
 - The entity's Unifx gets called if it was a `fixedentity`
 
-All collisions gets ignored between the `secondcoll` and the player.entity.`ccol` if the player is present and the `touchcooldown` hasn't expired yet. Otherwise, if the `touchcooldown` isn't exactly -9999.0, the collisions gets unignored and `toochcooldown` gets set to -9999.0 (so it doesn't unignore again). If neither happened, the `ccol` is enabled.
+All collisions gets ignored between the `secondcoll` and the player.entity.`ccol` if the player is present and the `touchcooldown` hasn't expired yet. Otherwise, if the `touchcooldown` isn't exactly -9999.0, the collisions gets unignored and `toochcooldown` gets set to -9999.0 (so it doesn't unignore again). If neither happened, the entity.`ccol` is enabled.
 
 If the entity.`onground` is true, [Jump](../EntityControl/EntityControl%20Methods.md#jump) is called on it with the absolute value of its current `rigid` y velocity. It will also increment `bounces` if it hasn't reached 3 yet on top of playing the `ItemBounce0` sound effect (or `ItemBounce1` if it's a Crystal Berry) if the `startlife` is above 15 frames.
 

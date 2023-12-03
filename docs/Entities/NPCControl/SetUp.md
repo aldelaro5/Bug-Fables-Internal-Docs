@@ -1,6 +1,5 @@
 # Setup
-
-This method is only called during [Start](Start.md) and it contains most of the logic of the startup process. The logic depends on the [NPCType](NPCType.md), [ObjectTypes](ObjectTypes.md), [ActionBehaviors](ActionBehaviors.md) and [Interaction](Interaction.md). Consult each's documentation to learn more.
+This method is only called during [Start](Start.md) and it contains most of the logic of the startup process. The logic depends on the [NPCType](NPCType.md), [ObjectTypes](ObjectTypes.md), [ActionBehaviors](ActionBehaviors.md) and [Interaction](Interaction.md). Consult each's documentation to learn more as only the end part of the method is shared.
 
 ## Common startup
 At the end of the method, this phase happens regardless of the logic performed prior.

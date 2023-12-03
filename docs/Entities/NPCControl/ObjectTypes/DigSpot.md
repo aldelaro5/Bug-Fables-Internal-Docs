@@ -39,11 +39,11 @@ If the `timer` hasn't expired yet, it is decremented by the game's frametime cla
 
 ## OnTriggerStay
 This does nothing if any of the following are true:
-- The entity `iskill` is true
+- The entity.`iskill` is true
 - The other gameObject isn't the player
 - The player `uproot` is false (meaning the player wasn't preparing to go back to the surface after stopping to dig)
 
-First, the `DigPop2` sound is played following by `DigPop`, but with 0.7 volume.
+The `DigPop2` sound is played following by `DigPop`, but with 0.7 volume.
 
 If `data[0]` is 2 or above, a WaitForEvent coroutine starts which does the following:
 - `hit` is set to true
@@ -56,7 +56,7 @@ If `data[0]` is 2 or above, a WaitForEvent coroutine starts which does the follo
 - `hit` is set to false
 
 Otherwise (meaning there is an item or a Crystal Berry hidden in this spot):
-- [CreateItem](../CreateItem.md) is called with:
+- CreateItem is called with:
   - This object's position as the startpos, 
   - If `data[0]` is 1, 3 (Crystal Berry) is the itemtype, it's `data[1]` otherwise
   - If `data[0]` is 1, `data[1]` is the itemid (which is a [crystalbfflags](../../../Enums%20and%20IDs/crystalbfflags.md) slot), it's `data[2]` otherwise

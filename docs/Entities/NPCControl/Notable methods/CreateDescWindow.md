@@ -2,7 +2,7 @@
 This is a public method that initialises `descwindow`. It is called both by the [Shop](../Interaction/Shop.md) interaction and the [Item](../ObjectTypes/Item.md) object during CheckItem. It receives a bool that is false during CheckItem and true during the shop interaction.
 
 - instance.`discoveryhub` is set to 0.0 which hides the discovery HUD element
-- If this is an `item` entity (which should always be the case), entity.`animstate` is set to entity.`itemstate`
+- If this is an [item entity](../../EntityControl/Item%20entity.md) (which should always be the case), entity.`animstate` is set to entity.`itemstate`
 - `deswindow` is set to the DialogueAnim of a new white 9Box using `Sprites/GUI/9Box/box0` of position (-3.5.0, -3.9.0, 10.0) with size (11.0, 3.0) with sortingOrder of -3 and with growing
 - If it was called from CheckItem, instance.`showmoney` is set to 0.0 which hides the berry count HUD element followed by the `descwindow` local position being set to (0.0, the existing y local position - 0.5, the existing z local position)
 - If the `shopkeeper` exists and its `dialgues[1].y` is 1 (the shop accepts Crystal Berries instead of regular berries):

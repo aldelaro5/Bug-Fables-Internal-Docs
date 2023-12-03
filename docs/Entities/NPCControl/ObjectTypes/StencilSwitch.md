@@ -44,10 +44,10 @@ The scale of `internaltransform[0]` (the ice radius) is set to a lerp from the e
 
 The position of `internaltransform[0]` (the ice radius) is set to be offscreen at (0.0, -999.0, 0.0) unless `hit` is true which will make the position be set to this object's position instead.
 
-Finally, if `data[1]` isn't negative (another map entity is the parent of this stencil switch), the local position of this object is set to `vectordata[1]`.
+If `data[1]` isn't negative (another map entity is the parent of this stencil switch), the local position of this object is set to `vectordata[1]`.
 
 ## MapControl.CheckStencilSwitch
-This method specifically targets any map entities of this object type. It is called for any MapControl LateUpdate after the first one.
+This method specifically targets any NPCControl of this object type. It is called for any MapControl LateUpdate after the first one.
 
 If any exists in the map where their entity isn't `iskill` and their `hit` value is true, it will select the first one. With it, 2 shaders global properties are set:
 - `GlobalIceRadius`: Half of the magnitude of the `internfaltransform[0]` (the ice radius object) scale
