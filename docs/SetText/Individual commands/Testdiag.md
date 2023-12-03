@@ -32,14 +32,14 @@ The dialogue test mode will restrict what commands will be processed from this p
 * [minibubble](Minibubble.md)
 * [breakend](Breakend.md)
 * Any commands that contains `line` in their name as specified in the input string (this is case sensitive). This means the following list are also processed if the command is written to satisfy this condition:
-  * [line](Line.md)
-  * [halfline](Halfline.md)
-  * [quarterline](Quarterline.md)
-  * [pauseline](Pauseline.md)
-  * [libraryline](Libraryline.md)
-  * [shopline](Shopline.md)
-  * [backline](Backline.md)
-  * [unpauseline](Unpauseline.md)
+    * [line](Line.md)
+    * [halfline](Halfline.md)
+    * [quarterline](Quarterline.md)
+    * [pauseline](Pauseline.md)
+    * [libraryline](Libraryline.md)
+    * [shopline](Shopline.md)
+    * [backline](Backline.md)
+    * [unpauseline](Unpauseline.md)
 
 Any other commands will not be processed. ([tail](Tail.md) and [tailextra](Tailextra.md) will be technically be processed too, but their command processing will break immediately under dialogue test mode).
 

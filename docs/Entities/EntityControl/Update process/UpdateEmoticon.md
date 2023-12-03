@@ -1,5 +1,4 @@
 # UpdateEmoticon
-
 This is an update method called by [LateUpdate](Unity%20events/LateUpdate.md), but it is able to be called externally via the `Emoticon` method. This updates the `emoticon` object.
 
 Every 10 frames (which means every 5 update cycle as [LateUpdate](Unity%20events/LateUpdate.md) only calls this method every 2 frames), the angles, position and `emoticonsprite`'s enabled are updated. The angles are set at 0.0 except for the y being the camera's y angle, the position is set to `emoticonoffset` + Vector3.up * `height` + `extraoffset` and the sprite's enabled is set to `incamera`.

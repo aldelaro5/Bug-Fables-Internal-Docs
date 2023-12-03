@@ -26,8 +26,8 @@ In its simplest form, this command will evaluate the following:
 
 * If syntax (1) and `flags` is one [flag](../../Flags%20arrays/flags.md) slot, check if that slot is false
 * If syntax (1) and `flags` is an array of integer, for each int:
-  * if it is above 0, check if the corresponding [flag](../../Flags%20arrays/flags.md) slot is false
-  * If it is 0 or below, take the absolute value and check if the corresponding [flag](../../Flags%20arrays/flags.md) slot is true
+    * if it is above 0, check if the corresponding [flag](../../Flags%20arrays/flags.md) slot is false
+    * If it is 0 or below, take the absolute value and check if the corresponding [flag](../../Flags%20arrays/flags.md) slot is true
 * If Syntax (2), check that the [flagvar](../../Flags%20arrays/flagvar.md) slot `flagvar` is NOT equal to `value`
 
 If any the applicable conditions are false, this command will do nothing and processing resumes as normal.

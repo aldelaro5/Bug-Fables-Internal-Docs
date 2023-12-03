@@ -1,5 +1,4 @@
 # UpdateAirAnim
-
 This is an update method called by [LateUpdate](Unity%20events/LateUpdate.md) when applicable. All update cycles are skipped if `overridefly` or `overrideanim` is true.
 
 The method first sees if the [animstate](../Animations/animstate.md) should be updated to `Jump` or `Fall` depending on the vertical velocity. Determining this involve verifying that the entity is in the air with `overridejump` being false. More specifically:

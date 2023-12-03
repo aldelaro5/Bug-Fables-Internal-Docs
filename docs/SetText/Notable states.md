@@ -33,7 +33,7 @@ This is a parameter sent to [SetText](SetText.md) that determines the font to re
 |----|--|
 |`BubblegumSans`|0|
 |`D3Streetism`|1|
-|UNUSED|2|
+|UNUSED (gets overriden to `D3Streetism` by MainManager.FontID)|2|
 |`Uzura`|3|
 |`BalsamiqSans`|4|
 |`ONEMobilePOP`|5|

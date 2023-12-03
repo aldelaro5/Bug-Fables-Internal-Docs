@@ -1,5 +1,4 @@
 # UpdateStatusIcons
-
 This update method is called on [LateUpdate](Unity%20events/LateUpdate.md). It handles the management of `statusicons`, `statuscooldown` and `statusid` for cycling the status icons display. This method is only applicable when `statusicons` is present and not empty.
 
 This method may do one of 3 possible things (checked in order):

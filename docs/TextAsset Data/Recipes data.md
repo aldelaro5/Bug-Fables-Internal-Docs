@@ -3,10 +3,10 @@
 [Recipes entry](../Enums%20and%20IDs/librarystuff/Recipes%20entry.md) data are split in 3 TextAssets in the game:
 
 * Loaded on boot by SetVariables: 
-  * `Ressources/data/CookLibrary`
-  * `Ressources/data/CookOrder`
+    * `Ressources/data/CookLibrary`
+    * `Ressources/data/CookOrder`
 * Loaded on boot by LoadEssentials:
-  * `Ressources/data/RecipeData`
+    * `Ressources/data/RecipeData`
 
 ## `CookLibrary` data
 
@@ -51,6 +51,7 @@ The data will be loaded into `recipedata[i, x]` where i is the line index and x 
 * First item: x is 0 if second item is > -1 AND the first item is \<= than the second item. Otherwise, x is 1.
 * Second item: x is 1 if second item is > -1 AND the first item is \<= than the second item. Otherwise, x is 0.
 * Result item: x is always 2.
-  This means that the first 2 elements of the array for a given recipe are the [Items](../Enums%20and%20IDs/Items.md) ordered by their id and the third element is the result item.
+
+This means that the first 2 elements of the array for a given recipe are the [Items](../Enums%20and%20IDs/Items.md) ordered by their id and the third element is the result item.
 
 Any combination of [Items](../Enums%20and%20IDs/Items.md) not listed in this file will produce [Items](../Enums%20and%20IDs/Items.md) 8 (Mistake).

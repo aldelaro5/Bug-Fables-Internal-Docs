@@ -28,7 +28,8 @@ Otherwise, the [flagstring](../../Flags%20arrays/flagstring.md) 0 is set to the 
 
 * If we are, [flagstring](../../Flags%20arrays/flagstring.md) 0 is overridden to the MenuText line id 279 (which is "Lot of Items" in English), [flagvar](../../Flags%20arrays/flagvar.md) 10 is now the sum of each selected item's buying price / 2 floored clamped from 1 to 999. [Flags](../../Flags%20arrays/flags.md) 349 is now true
 * If we aren't, [flagvar](../../Flags%20arrays/flagvar.md) 10 is the buying price of the selected item / 2 floored clamped from 1 to 999.
-  At any case, the list gets destroyed afterwards which ends this list's processing.
+
+At any case, the list gets destroyed afterwards which ends this list's processing.
 
 ## Other behaviors (when unpaused)
 

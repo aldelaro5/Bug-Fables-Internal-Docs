@@ -73,6 +73,7 @@ The text string is rendered on the left side of the bar and it corresponds to th
 |24|256|Reset Control. Bindings|Does not render anything including the arrows|
 
 \*: Here are all the pausemenu.joystick values with their corresponding text:
+
 joystick | MenuText line id | Description
 ------------ | -------- | ---------
 0 | 218 | DISABLED
@@ -83,6 +84,7 @@ joystick | MenuText line id | Description
 5 | 230 | CUSTOM BINDINGS
 
 \*\*: Here are all the pausemenu.joystickid values with their corresponding text when pausemenu.joystick is set to PRE-CONFIGURED:
+
 joystickid | MenuText line id | Description
 ------------ | -------- | ---------
 0 | 225 | Xbox 360

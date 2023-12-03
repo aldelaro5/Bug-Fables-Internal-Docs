@@ -1,5 +1,4 @@
 # UpdateGeneralAnim
-
 This update method is called by [LateUpdate](Unity%20events/LateUpdate.md). It handles updates to the `sprite`'s sortingorder, the `line` if applicable and `extrasnims`.
 
 The sorting order of the `sprite` is set to the viewport point of the `transform`'s z * 1000.0 which ensures the order respects the actual depths as seen by the camera.

@@ -181,7 +181,7 @@ Since they are coroutines, they have the ability to wait for specific amounts of
 |155|Talking to the permanent upgrade berry guy at Defiant Root|
 |156|Using the Mysterious Piece in the receptacle of the Cave of Trials room. Also used when talking to the Holo Assistant|
 |157|Hitting for the first time an ice crystal switch at the Ancient Castle|
-|158||
+|158|UNUSED (Opening the book object at Lost Sands, remnants of a cut quest involving Neolith)|
 |159|Chapter 6 arriving at the Forsaken Lands for the first time|
 |160|Talking to Ven after taking the Bandit Hunt quest. Also used when talking to Takkun after taking the Seedling Hunt quest. Also used when talking to Alex after taking the It’s Time…! quest|
 |161|Approaching Mun getting attacked by bandits at the Outskirt|

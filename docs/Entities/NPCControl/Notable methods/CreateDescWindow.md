@@ -1,0 +1,36 @@
+# CreateDescWindow
+This is a public method that initialises `descwindow`. It is called both by the [Shop](../Interaction/Shop.md) interaction and the [Item](../ObjectTypes/Item.md) object during CheckItem. It receives a bool that is false during CheckItem and true during the shop interaction.
+
+- instance.`discoveryhub` is set to 0.0 which hides the discovery HUD element
+- If this is an [item entity](../../EntityControl/Item%20entity.md) (which should always be the case), entity.`animstate` is set to entity.`itemstate`
+- `deswindow` is set to the DialogueAnim of a new white 9Box using `Sprites/GUI/9Box/box0` of position (-3.5.0, -3.9.0, 10.0) with size (11.0, 3.0) with sortingOrder of -3 and with growing
+- If it was called from CheckItem, instance.`showmoney` is set to 0.0 which hides the berry count HUD element followed by the `descwindow` local position being set to (0.0, the existing y local position - 0.5, the existing z local position)
+- If the `shopkeeper` exists and its `dialgues[1].y` is 1 (the shop accepts Crystal Berries instead of regular berries):
+    - A new SpriteRenderer UI object named `CBerryBar` is created childed to the `descwindow` of color cyan with position (10.65, -0.45, 0.0) with size (0.55, 0.6, 1.0) with `guisprites[4]` (the HUD element background) and a sortingOrder of 0
+    - [SetText](../../../SetText/SetText.md) is called using `|sort,10||color,4||single||dropshadow,0.75,-0.75|` followed by [flagvar](../../../Flags%20arrays/flagvar.md) 14 padded by 3 `0` as the input string in [non dialogue mode](../../../SetText/Dialogue%20mode.md#non-dialogue-mode) with the following:
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype) of 2 (gets overriden to `D3Streetism` as 2 is UNUSED)
+        - No linebreak
+        - No tridimensional
+        - Position offset of (-0.65, -0.5, 0.0)
+        - No camera offset
+        - size of 1.75 uniform
+        - Parent is the SpriteRenderer created earlier
+        - No caller
+    - A new UI object called `BerryIcon` is created using the sprite of the Crystal Berry icon childed to the `descwindow` with a position of (9.45, -0.45, 0.0) with a size of Vector3.one and a sortingOrder of 1
+- If entity.`animid` is 2 (it's a [medal](../../../Enums%20and%20IDs/Medal.md)), [flagvar](../../../Flags%20arrays/flagvar.md) 10 is set to the price of the medal (entity.`animstate` used as the id, berries or Crystal Berries depending on `shopkeeper.dialogues[1].y` being 1 or not), but it's overriden to 35 berries (or 4 Crystal Berries unless [flagvar](../../../Flags%20arrays/flagvar.md) 66 (amount of medals bought at shades) is less than 2 where it's 3 Crystal Berries) if the `shopkeeper`  exists and [flag](../../../Flags%20arrays/flags.md) 681 is true (MYSTERY? is active)
+- Otherwise, [flagvar](../../../Flags%20arrays/flagvar.md) 10 is set to the buying price of the [item](../../../Enums%20and%20IDs/Items.md) * `mmulti` (the price multiplier loaded from the shop keeper entity data) all ceiled
+- From there, a SetText string is constructed with the following appended together in order:
+    - `|single||singlebreak,` followed by `itemdescbreak` followed by `|`
+    - If entity.`animid` is 2 (it's a medal) and the call came from the [Shop](../Interaction/Shop.md) interaction, the name of the medal is appended (overriden to `menutext[59]` or `?????` if MYSTERY? is active) followed by ` ` followed by a `-` (or a `—` if the [languageid](../../../SetText/languageid.md) is `German`) followed by ` ` followed by `menutext[49]` (`Worth |currency,var,10|`) if `shopkeeper.dialogues[1].y` isn't 1 (the shop accepts regular berries) and if it's 1, it's followed by `flagvar` 10 followed by a space followed by `menutext[169]` (Crystal Berries, it's `menutext[112]` if `flagvar` 10 is 1 for the singular form) followed by `|line|`
+    - If entity.`animid` is 2 (it's a medal), the description of the medal is appened (entity.`animstate` is used as the medal id), but it's overriden to `menutext[59]` (`?????`) if the `shopkeeper` exists and MYSTERY? is active
+    - If entity.`animid` isn't 2 (it's not a medal) and the call came from the [Shop](../Interaction/Shop.md) interaction, the name of the [item](../../../Enums%20and%20IDs/Items.md) is appended (entity.`animstate` is used as the item id) followed by ` ` followed by ` ` followed by a `-` (or a `—` if the [languageid](../../../SetText/languageid.md) is `German`) followed by ` ` followed by `menutext[49]` (`Worth |currency,var,10|`) followed by `|line|`
+    - If entity.`animid` isn't 2 (it's not a medal), the description of the item is appended (entity.`animstate` is used as the item id)
+- A SetText call occurs in [non dialogue mode](../../../SetText/Dialogue%20mode.md#non-dialogue-mode) with the string generated above with these properties:
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype) of `BubblegumSans`
+    - No linebreak
+    - No tridimensional
+    - Position offset of (-5.2, 0.65, 0.0)
+    - No camera offset
+    - size of 0.675 uniform
+    - Parent is the `descwindow`
+    - No caller

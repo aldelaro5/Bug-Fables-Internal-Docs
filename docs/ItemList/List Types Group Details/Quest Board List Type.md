@@ -9,11 +9,11 @@ Display the list of open, taken or completed [BoardQuests](../../Enums%20and%20I
 * Leif's Request and Vi's Request are excluded (NOTE: Kabbu's Request should have been excluded, but its exclusion was forgotten).
 * Any story request (id between 11 and 17) are excluded.
 * Any of the following bounty requests are excluded if the current map isn't UndergroundBar and the board type of the list is the open quests:
-  * Bounty: Seedling King
-  * Bounty: False Monarch
-  * Bounty: Devourer
-  * Bounty: Tidal Wyrm
-  * Bounty: Peacock Spider
+    * Bounty: Seedling King
+    * Bounty: False Monarch
+    * Bounty: Devourer
+    * Bounty: Tidal Wyrm
+    * Bounty: Peacock Spider
     
 If the end result has no quests, add quest id 0 (No Quests) as the only quest offered as option.
 
@@ -61,7 +61,7 @@ In either cases, `questboardobj` will be updated to reflect this page change and
 
 If type is the open quests board and a `boardcaller` exists, the quest must not be No Quest or a buzzer sound will be played and the confirmation rejected.
 
-If it is not No Quest, the `questboardobj` is closed which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false. From there, every player entity is set to face towards the entity of the boardcaller. SetText is then called in [Dialogue mode](../../SetText/Dialogue%20mode.md) with the dialogue of the boardcaller prepended with |[Questprompt](../../SetText/Individual%20commands/Questprompt.md)\| using the entity of the board caller as the parent and its NPCControl as caller. [Flagvar](../../Flags%20arrays/flagvar.md) 0 is set to the selected quest id and the list is finally destroyed which ends this confirmation handling.
+If it is not No Quest, the `questboardobj` is closed which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false. From there, every player entity is set to face towards the entity of the boardcaller. SetText is then called in [Dialogue mode](../../SetText/Dialogue%20mode.md) with the [dialogue line id](../../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md) of the boardcaller (it's stored in its `data[1]` field, see the [BoardQuest](../../Entities/NPCControl/Interaction/QuestBoard.md) interaction for more details). That test gets prepended with `|`[questprompt](../../SetText/Individual%20commands/Questprompt.md)`|`. The entity of the boardcaller is the parent and its NPCControl is the caller. [Flagvar](../../Flags%20arrays/flagvar.md) 0 is set to the selected quest id and the list is finally destroyed which ends this confirmation handling.
 
 On the other hand, if the type isn't the open quest board and the current map is the TestRoom, the selected quest is removed from the corresponding board, the `questboardobj` is closed (which adds an `actioncooldown` of 20 frames, sets `minipause` to false and `inlist` to false) and the list is destroyed which ends this confirmation handling.
 

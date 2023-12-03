@@ -48,8 +48,8 @@ In its simplest form, this command will evaluate the following:
 
 * If syntax (1) and `flags` is one [flags](../../Flags%20arrays/flags.md) slot, check if that slot is true
 * If syntax (1) and `flags` is an array of integer, for each int:
-  * if it is above 0, check if the corresponding [flags](../../Flags%20arrays/flags.md) slot is true
-  * If it is 0 or below, take the absolute value and check if the corresponding [flags](../../Flags%20arrays/flags.md) slot is false
+    * if it is above 0, check if the corresponding [flags](../../Flags%20arrays/flags.md) slot is true
+    * If it is 0 or below, take the absolute value and check if the corresponding [flags](../../Flags%20arrays/flags.md) slot is false
 * If Syntax (2), check that the [flagvar](../../Flags%20arrays/flagvar.md) slot `flagvar` is NOT equal to `value`
 
 If any the applicable conditions are false, this command will do nothing and processing resumes as normal.

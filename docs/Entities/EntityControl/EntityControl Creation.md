@@ -1,9 +1,7 @@
 # EntityControl Creation
-
 EntityControl is a components in the game that defines what an [Entity](../Entity.md) is and what it can do. It can be considered the building blocks of the game as it represents anything that is created and behaves at runtime.
 
 ## CreateNewEntity
-
 While there are multiple ways to create an entity, all of them ends up at the same method:
 
 ```cs
@@ -19,8 +17,8 @@ This method will create an object structure that is shared across every entities
 
 * The root GameObject is created with its name being the `name` parameter and an EntityControl component is added to it
 * The transform of the root object is cached into the `transform` field
-* Another GameObject is created and childed to the root one called "Rotater". This won't be assigned to anything until the entity's [Start](Start.md) runs on the next frame where it is assigned to the `rotater` field.
-* Another GameObject is created and childed to the Rotater one called "Sprite" with a SpriteRender component. It is assigned to the `sprite` field and its transform into the `spritetransform` field.
+* Another GameObject is created and childed to the root one called `Rotater`. This won't be assigned to anything until the entity's [Start](Start.md) runs on the next frame where it is assigned to the `rotater` field.
+* Another GameObject is created and childed to the Rotater one called `Sprite` with a SpriteRender component. It is assigned to the `sprite` field and its transform into the `spritetransform` field.
 * Another GameObject is created and childed to the root one called "MoveRotater". It is assigned to the `moverotater` field.
 * A CapsuleCollider is added to the root object with radius 0.5, height of 2.0, center at (0.0. 1.0, 0.0) and assigned to the `ccol` field.
 * The layer of the entity is set to 10 which is the Entity layer.
@@ -64,12 +62,10 @@ The follower is initialized like this when applicable:
 * The tag of the entity is set to `PFollower`
 
 ## OnEnable
-
 The creation process doesn't stop there because EntityControl defines an OnEnable which is run immediately on creation OR whenever it gets enabled. This will do 2 things:
 
 * Do a [SetAnim](Animations/SetAnim.md) call with empty `args` and `force` to true which will force the animation to start on "Idle" as it's the default value of [animstate](Animations/animstate.md).
-* If the emoticon object exists, it will be set to -1 (none) and its cooldown to 0 frames. Since an entity cannot have one on creation, this only applies when it gets enabled with one present later.
+* If the emoticon object exists, it will be set to -1 (`None`) and its cooldown to 0 frames. Since an entity cannot have one on creation, this only applies when it gets enabled with one present later.
 
 ## Map entities preset
-
-On top of this, there is a system the game has that allows to define each entities's starting parameters for a map along with an [NPCControl](../NPCControl/NPCControl.md) stored in `npcdata`. This data comes from the [entitydata directory](../../TextAsset%20Data/Entity%20data.md#`entitydata`%20directory) and is done by MapControl's [CreateEntities](CreateEntities.md) which happens on its Start.
+On top of this, there is a system the game has that allows to define each entities's starting parameters for a map along with an [NPCControl](../NPCControl/NPCControl.md) stored in `npcdata`. This data comes from the [map entity data](../../TextAsset%20Data/Entity%20data.md#map-entity-data) and is done by MapControl's [CreateEntities](CreateEntities.md) which happens on its Start.

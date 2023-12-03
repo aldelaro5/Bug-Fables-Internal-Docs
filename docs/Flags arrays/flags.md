@@ -429,7 +429,7 @@ An empty description means unknown.
 |414|Showed the Explorer Permit to the Holo Assistant at the Cave of Trials|
 |415|Got the Strong Start medal at Lost Sands|
 |416|Hit an ice crystal switch for the first time at Ancient Castle|
-|417|UNKNOWN used in event 158|
+|417|UNUSED (Opened the book object at Lost Sands, a remnant of a cut quest involving Neolith|
 |418|Got the Antlion Jaws medal at Stream Mountain|
 |419|Arrived at Metal Island for the first time|
 |420|Chapter 6, arrived at Forsaken Lands for the first time|

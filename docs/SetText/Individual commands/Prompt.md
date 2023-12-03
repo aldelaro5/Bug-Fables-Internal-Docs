@@ -76,15 +76,15 @@ For the `xminsize` part of `xminsizeyoffset`, the horizontal length of the promp
 While this command manages the creation and setup of the prompt, its handling is left to be handled in MainManager's Update. There are several MainManager instance fields in this command to make this possible:
 
 * `promptbox`: The 9box containing the prompt, created during processing using `xminsizeyoffset` and the texts obtained from `prompttexts` using separate SetText calls for each in [non Dialogue mode](../Dialogue%20mode.md#non-dialogue-mode). These calls are done with the following parameters:
-  * The input string is the text value appended with |[choicewave](Choicewave.md),o| where o is the corresponding option index. 
-  * [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
-  * No `linebreak`
-  * No `tridimensional`
-  * `position` is (0.0 - `xminsize` - 0.1, `yoffset`, 0.0)
-  * No `camoffset`
-  * [size](size.md) is (0.85, 0.85, 1.0)
-  * `parent` is the `promptbox` itself
-  * `caller` is null
+    * The input string is the text value appended with |[choicewave](Choicewave.md),o| where o is the corresponding option index. 
+    * [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
+    * No `linebreak`
+    * No `tridimensional`
+    * `position` is (0.0 - `xminsize` - 0.1, `yoffset`, 0.0)
+    * No `camoffset`
+    * [size](size.md) is (0.85, 0.85, 1.0)
+    * `parent` is the `promptbox` itself
+    * `caller` is null
 * `prompt`: The flag tracking if a prompt is active, set to true during this command's processing and set to false by MainManager's Update once an option has been chosen.
 * `promptpick`: The option index chosen, already been set to -1 from the [Setup](../Life%20Cycle.md#setup) phase and set by MainManager's Update when an option has been chosen to `option` (if a cancel was performed, `listcancel` will be used instead).
 * `promptpointers`: The pointers specified by `promptpointers` which are set during the processing of this command.

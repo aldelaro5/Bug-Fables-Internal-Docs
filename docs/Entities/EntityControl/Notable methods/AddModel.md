@@ -1,5 +1,4 @@
 # AddModel
-
 AddModel is a method in EntityControl that is called whenever a need to have a custom object structure occurs for [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md) that needs it:
 
 ````cs
