@@ -1,7 +1,18 @@
-#### CheckEmoteFlag
-This is a private method only used in [LateUpdate](../LateUpdate.md).
+# CheckEmoteFlag
+This is a private method only used in [LateUpdate](../LateUpdate.md). It is called only under the following conditions:
+- This isn't s `dummy`
+- The entity is `incamera`
+- Every 3 frames
+- We aren't `inevent`
+- We aren't in a `minipause`
+- The entity isn't `dead` or `iskill` and `deathcoroutine` isn't in prgress
+- The player `canpause`
+- This NPCControl is an [NPC](../NPC)
+- The player npc list is empty or the first element isn't this NPCControl
 
-This does nothing if `alwaysemoticon` is false, the y distance between this and the player is 2.0 or above and the z distance between this and the player is 15.0 or above.
+The method does nothing if `alwaysemoticon` is false and at least one of the following is true:
+- The y distance between this NPCControl and the player is 2.0 or above
+- The z distance between this NPCControl and the player is 15.0 or above
 
 If we are doing something, we try to find the first `emoticonflag` that is applicable.
 
