@@ -7,7 +7,7 @@ This is a private method only used in [LateUpdate](../LateUpdate.md). It is call
 - We aren't in a `minipause`
 - The entity isn't `dead` or `iskill` and `deathcoroutine` isn't in prgress
 - The player `canpause`
-- This NPCControl is an [NPC](../NPC)
+- This NPCControl is an [NPC](../NPC.md)
 - The player npc list is empty or the first element isn't this NPCControl
 
 The method does nothing if `alwaysemoticon` is false and at least one of the following is true:
