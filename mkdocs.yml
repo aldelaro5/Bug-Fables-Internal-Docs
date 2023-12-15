@@ -4,7 +4,7 @@ site_description: The technical documentation of the internals of Bug Fable
 site_author: aldelaro5
 
 repo_url: https://github.com/aldelaro5/Bug-Fables-Internal-Docs
-edit_uri: edit/reorganize/docs/
+edit_uri: edit/master/docs/
 
 strict: true
 validation:
