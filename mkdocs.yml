@@ -1,6 +1,6 @@
 site_name: Bug Fables internal docs
 site_url: https://aldelaro5.github.io/Bug-Fables-Internal-Docs
-site_description: The technical documentation of the internals of Bug Fable: The Everlasting Sapling
+site_description: "The technical documentation of the internals of Bug Fable: The Everlasting Sapling"
 site_author: aldelaro5
 
 repo_url: https://github.com/aldelaro5/Bug-Fables-Internal-Docs
