@@ -22,7 +22,9 @@ If it isn't, It uses the default rendering scheme described in [Description box 
 
 ## Confirmation handling (when unpaused)
 
-First, [flagvar](../../Flags%20arrays/flagvar.md) of the `storeid` is set to the item id selected. If the item id selected is -1, the list is immediately destroyed which ends this list's processing.
+There are 2 possible handlers: the `inbattle` one and the regular one. The former only applies if instance.`inbattle` is true. It will call [SetItem](../../Battle%20system/Player%20UI/SetItem.md) with the option selected on the `battle` followed by DestroyList being called. The entire confirmation handling is handled within SetItem in this case.
+
+If `inbattle` is false, the regular handler is used. First, [flagvar](../../Flags%20arrays/flagvar.md) of the `storeid` is set to the item id selected. If the item id selected is -1, the list is immediately destroyed which ends this list's processing.
 
 Otherwise, the [flagstring](../../Flags%20arrays/flagstring.md) 0 is set to the selected item's name from `itemdata`. If `listsell`, the behaviour depends if we were using `multiselect`:
 

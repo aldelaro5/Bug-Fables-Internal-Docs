@@ -1,0 +1,211 @@
+# Battle state
+These fields describes the state of the battle. Some fields belongs to MainManager, but are mostly BattleControl related.
+
+## BattleControl fields
+This is all the BattleControl fields.
+
+### Uncategorised fields
+These fields's semantics haven't been found yet. They will be moved out of this section as they are figured out.
+
+|Name|Type|Public?|Description|
+|----|----|---------|-----------|
+|reservedata|List<BattleData>|No|??? Reset to a new list on StartBattle|
+|extraentities|EntityControl\[\]|Yes|???|
+|enemybounce|Coroutine\[\]|No|???|
+|actionroutine|Coroutine|No|???|
+|checkingdead|Coroutine|Yes|Store diverse coroutines ??? TODO: the name is weird: it talks about CheckDead, but it's not just used for it...|
+|currententity|EntityControl|No|???|
+|coptions|List<int>|No|The list of action options available during [Chompy](Battle%20flow/Action%20coroutines/Chompy.md): 0 is ???, 1 is ???, 2 is ??? and 3 is ???|
+|defaultcounteroffset|Vector3|No|???|
+|partymiddle|Vector3|No|???|
+|commandsuccess|bool|Yes|???|
+|doingaction|bool|Yes|???|
+|startdrop|bool|Yes|???|
+|firstaction|bool|Yes|???|
+|specialdefeat|bool|Yes|???|
+|gottaspit|bool|Yes|???|
+|overridechallengeblock|bool|Yes|???|
+|keepmusic|bool|Yes|???|
+|lockmmatter|bool|Yes|??? Set to false on StartBattle|
+|nolifesteal|bool|Yes|???|
+|eatenkill|bool|Yes|???|
+|dimmer|SpriteRenderer|No|A giant black colored sprite that covers everything behind the transition during load ??? Initialised on StartBattle after the fade in transition and disabled with a clear color just before the fade out one TODO: what is the point of this|
+|commandsprites|SpriteRenderer\[\]|No|???|
+|playertargetentity|EntityControl|No|???|
+|cancelb|ButtonSprite|No|???|
+|tryenemyheal|Coroutine|No|???|
+|firststrike|bool|No|Whether or not the enemy is performing a first strike ???|
+|nonphyscal|bool|No|???|
+|dontusecharge|bool|No|???|
+|hasblocked|bool|No|???|
+|enemyfled|bool|No|???|
+|selfsacrifice|bool|No|???|
+|chompylock|bool|No|??? Set to false on StartBattle|
+|infinitecommand|bool|No|???|
+|chompyaction|bool|No|Tells if Chompy's action is being processed ???|
+|receivedrelay|bool\[\]|No|An array indicating which player index got relayed to ??? TODO: what does this do with relaying exactly|
+|turncooldown|float|No|???|
+|caninputcooldown|float|No|???|
+|blockcooldown|float|No|???|
+|barfill|float|No|???|
+|superblockedthisframe|float|No|???|
+|lastaddedid|int|No|???|
+|selection|int|No|???|
+|counter|int|No|???|
+|presskey|int|No|???|
+|playertargetID|int|No|???|
+|forceattack|int|No|???|
+|successfulchain|int|No|???|
+|combo|int|No|???|
+|oldmusicchannel|int|No|???|
+|lastaction|int|No|???|
+|lastdamage|int|No|???|
+|idletimer|int|No|???|
+|attackedally|int|No|??? Set to -1 on StartBattle TODO: Related to Favorite One|
+|calleventnext|int|No|???|
+|charmcooldown|int|No|???|
+|damagethisturn|int|No|???|
+|chompyoption|int|No|???|
+|actionid|int|No|???|
+|targetedenemy|int|No|???|
+|noaction|int|No|???|
+|tempdata|int|Yes|???|
+|killinput|bool|No|???|
+|demomode|bool|No|???|
+|leveled|bool|No|???|
+|weakenemyfound|bool|No|???|
+|counterspriteindex|int\[\]|No|???|
+|partypointer|int\[\]|Yes|Party order stuff ??? Set to {0, 1, 2} on StartBattle TODO: what even is happening with this|
+|deadmembers|int\[\]|No|???|
+|tempslot|BattleData|No|???|
+|damcounters|List<Transform>|No|Damage counter stuff ??? Set to a new list on StartBattle|
+|delprojs|DelayedProjectileData\[\]|Yes|???|
+|lvicon|Transform|No|???|
+|spitout|Coroutine|No|???|
+|commandword|SpriteRenderer|No|???|
+|wordroutine|Coroutine|No|???|
+|buttons|ButtonSprite\[\]|No|???|
+|deadenemypos|List<Vector3>|No|???|
+|summonnewenemy|bool|No|???|
+
+### Known fields
+TODO: categorise them once most of them are known 
+
+|Name|Type|Public?|Description|
+|----|----|---------|-----------|
+|itemarea|[AttackArea](Uncategorised%20types/AttackArea.md)|No|Tells what actors are selectable to perform the current action|
+|currentaction|[Pick](Player%20UI/Pick.md)|Yes|The current menu being naviguated by the player. Set to `BaseAction` on [StartBattle](StartBattle.md)|
+|currentchoice|[Actions](Player%20UI/Actions.md)|Yes|The current action being selected on the `BaseAction` menu. Set to `Attack` on [StartBattle](StartBattle.md)|
+|enemydata|[BattleData](Actors%20states/BattleData.md)\[\]|Yes|The first enemies party member data with a length up to 4 (the extra ones are stored in `extraenemies`). Set to a new list with the same length as the sent enemyids on [StartBattle](StartBattle.md) (after it was truncated to the first 4) and then filled with the actual enemy data|
+|alldata|[BattleData](Actors%20states/BattleData.md)\[\]|Yes|All the `playerdata` followed by all the `enemydata` appended together. Set by RefreshAllData which is only called during [StartBattle](StartBattle.md)|
+|partyentities|[EntityControl](../Entities/EntityControl/EntityControl.md)\[\]|No|Set to all the `playerdata` battleentity on [StartBattle](StartBattle.md)|
+|gameover|Coroutine|No|The current [GameOver](Battle%20flow/Terminal%20coroutines/GameOver.md) coroutine is one is in progress (null if it's not). Set to null on [StartBattle](StartBattle.md)|
+|chompy|[EntityControl](../Entities/EntityControl/EntityControl.md)|No|If [flags](../Flags%20arrays/flags.md) 402 is true(Chompy is with Team Snakemouth), this is initialised to a new entity created via [CreateNewEntity](../Entities/EntityControl/EntityControl%20Creation.md#createnewentity) with name `chompy` with the `ChompyChan` [animid](../Enums%20and%20IDs/AnimIDs.md) on [StartBattle](StartBattle.md)|
+|caller|[NPCControl](../Entities/NPCControl/NPCControl.md)|No|The [Enemy](../Entities/NPCControl/Enemy.md) NPCControl whose encounters caused this battle. This is set to the calledfrom value sent to [StartBattle](StartBattle.md). If it's null, no encounter caused this battle|
+|battlemap|GameObject|Yes|The parent of all the battles objects notably the battle map prefab. This is a game object named `Battle` created on [StartBattle](StartBattle.md)|
+|choicevine|Transform|No|A GameObject named `Vine` that is the root of the vines UI objects, childed to the `battlemap` and initialised on CreateVine as part of [PlayerTurn](Battle%20flow/PlayerTurn.md)|
+|vinebase|Transform|No|A GameObject named `Base` childed to `choicevine`|
+|cursor|Transform|No|The selection leaf cursor. Initialised on CreateCursor which is only called on [StartBattle](StartBattle.md)|
+|switchicon|Transform|No|The parent of the UI objects that composes the switch icon which is a GameObject named `switchicon` childed to the `GUICamera`. Initialised on [StartBattle](StartBattle.md)|
+|hexpcounter|Transform|No|The EXP counter shown when idling for 200+ frames when `currentaction` is `BaseAction`. Created on the first [controlled update flow](Battle%20flow/Update.md#controlled-flow)|
+|expholder|Transform|No|A GameObject named `expholder` childed to the `GUICamera` with tag `DelAftBtl` that holds the EXP orbs cumulated in the battle for visual rendering|
+|oldcamoffset|Vector3|No|Set to instance.`camoffset` on [StartBattle](StartBattle.md) when it's not a retry. This is used for restore later on [ReturnToOverWorld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
+|oldcamrotation|Vector3|No|Set to instance.`camangleoffset` on [StartBattle](StartBattle.md) when it's not a retry. This is used for restore later on [ReturnToOverWorld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
+|camoffset|Vector3|No|The `camoffset` that will be set when [SetDefaultCamera](Visual%20rendering/SetDefaultCamera.md) is called, normally MainManager.`battlecampos`|
+|campos|Vector3|No|The `camtargetpos` that will be set when [SetDefaultCamera](Visual%20rendering/SetDefaultCamera.md) is called, normally Vector3.zero|
+|cancelupdate|bool|Yes|Whether updates are disabled which only happen when some kind of terminal event occurs that changes the flow to a [terminal flow](Battle%20flow/Update.md#terminal-flow). Set to false on [StartBattle](StartBattle.md)|
+|action|bool|Yes|If true, it means an action coroutine controls the battle flow making it an [uncontrolled flow](Battle%20flow/Update.md#uncontrolled-flow). Set to false on [StartBattle](StartBattle.md)|
+|enemy|bool|Yes|Whether we're in the [enemy phase](Battle%20flow/Update.md#enemies-phase) or not (meaning we're in the [player phase](Battle%20flow/Update.md#player-phase)) of the turn of a [controlled flow](Battle%20flow/Update.md#controlled-flow) or processing a [hitaction](Battle%20flow/Update.md#enemies-hitaction). Set to false on [StartBattle](StartBattle.md)|
+|canflee|bool|Yes|Whether fleeing is allowed. Set to the canescape value sent to [StartBattle](StartBattle.md)|
+|excludeself|bool|Yes|If true, it will cause the `currentturn` player to not be selectable in a `currentaction` of `SelectPlayer` in [GetChoiceInput](Player%20UI/GetChoiceInput.md)|
+|halfload|bool|Yes|Whether or not [StartBattle](StartBattle.md) roughly got done half of the starting process. This is set to true right after calling SetLastTurns and it's used by the game to yield until this goes to true|
+|inevent|bool|Yes|Tells if an [EventDialogue](Battle%20flow/EventDialogue.md) is in progress or not. If one is, we enter an [uncontrolled flow](Battle%20flow/Update.md#uncontrolled-flow)|
+|alreadyending|bool|Yes|Tells when the battle is about to end via [GameOver](Battle%20flow/Terminal%20coroutines/GameOver.md) or [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md). Set to false on [StartBattle](StartBattle.md)|
+|hideenemyhp|bool|Yes|If true, the `hpbar` of every enemy party members's battleentity gets disabled on [RefreshEnemyHP](Visual%20rendering/RefreshEnemyHP.md)|
+|actiontext|SpriteRenderer|No|The UI element for the game to indicate the current action being selected which is the SpriteRenderer of a new GameObject named `ActionText` childed to the `GUICamera`. Initialised on [StartBattle](StartBattle.md)|
+|fronticon|SpriteRenderer|No|The SpriteRenderer of the UI object named `attackicon` childed to the `GUICamera` that corresponds to the icon the front party member has. Initialised on [StartBattle](StartBattle.md)|
+|bigexporbs|Transform\[\]|No|The array of larger orbs (one per 10 EXP) which are instances of `Prefabs/Objects/ExpOrbGUI` rendered as child of the `expholder`|
+|smallexporbs|Transform\[\]|No|The array of smaller orbs (one per 1 EXP below 10 remaining) which are instances of `Prefabs/Objects/ExpOrbGUI` rendered as child of the `expholder`|
+|tiredpart|Transform\[\]|No|Set to a new array of the transform of instances of `Prefabs/Particles/Tired` on [StartBattle](StartBattle.md) belonging to each `playerdata` battleentity (each is childed to their battleentity) The length is thus the same than `playerdata`|
+|vineicons|SpriteRenderer\[\]|No|The vine icons of the vine menu, childs of `vinebase`|
+|aiparty|[EntityControl](../Entities/EntityControl/EntityControl.md)|No|The entity that was created as part of AddAI if one was created|
+|mainturn|Coroutine|No|The [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) coroutine if one is in progress (null if it's not)|
+|helpbox|DialogueAnim|No|The 9box containing the action command description whose id is `helpboxid`|
+|overworldmusic|AudioClip|No|On [StartBattle](StartBattle.md), this is set to MainManager.`music[0]`.clip if the map.`music[0]` exists and map.`musicid` is not negative. This is used for restoring the music on [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
+|extraenemies|List<int>|No|This contains the list of [enemy](../Enums%20and%20IDs/Enemies.md) that overflows the maximum amount of enemies allowed in `enemydata` which is 4. It is initialised as such on [StartBattle](StartBattle.md)|
+|scopeequipped|bool|No|Whether or not the `Spy Specs` [medal](../Enums%20and%20IDs/Medal.md) is equipped. Set as such on [StartBattle](StartBattle.md)|
+|longcancel|bool|No|Whether the Cancel input is considered wider for rendering or not. Set to the return of InputIO.LongButton(5) on [StartBattle](StartBattle.md). This is involved during the rendering of the `switchicon`|
+|oldcamspeed|float|No|Saved to instance.`camspeed` on [StartBattle](StartBattle.md) when it's not a retry. This is used for restore later on [ReturnToOverWorld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
+|overmusic|float|No|If `overworldmusic` was saved, the time of that music is saved on this field if MainManager.`keepmusicafterbattle` is true. This is also used for restore on [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
+|target|int|No|The index of the selected target when selecting a player or enemy|
+|turns|int|No|The amount of completed turns advanced by AdvanceMainTurn. Set to 0 on [StartBattle](StartBattle.md)|
+|maxoptions|int|No|The amount of available `option` on the main vine menu|
+|lastoption|int|No|The last selected `option` on the main vine menu|
+|selecteditem|int|No|The selected `listvar` option from an [ItemList](../ItemList/ItemList.md), set by [SetItem](Player%20UI/SetItem.md)|
+|vineoption|int|No|Equivalent to `maxoption`, but for the main vine menu value|
+|expreward|int|No|The amount of EXP cumulated in the course of the battle that will be granted if the battle is won. Set to 0 on [StartBattle](StartBattle.md)|
+|oldexp|int|No|The last value of `expreward` observed since the last [RefreshEXP](Visual%20rendering/RefreshEXP.md)|
+|moneyreward|int|No|The amount of berries that will be dropped after the battle. Set to 0 on [StartBattle](StartBattle.md)|
+|avaliableplayers|int|No|The amount of players that are considered free by [GetFreePlayerAmmount](Actors%20states/GetFreePlayerAmmount.md). Set to the current amount on [StartBattle](StartBattle.md)|
+|helpboxid|int|No|The id of the current action command whose description should be rendered in `helpbox`|
+|sadv|int|No|The starting advantage value. Set to the sent adv value of [StartBattle](StartBattle.md), but adv is set to this field if it's a retry|
+|estimatedexp|int|No|The sum of all the calculated `enemydata`'s `exp`|
+|currentturn|int|Yes|Determine the `playerdata` index currently selected for an action. -1 means no one is selected yet, being below `playerdata` length means that player index is selected and being at length or above means all players have taken their actions and the player phase is over. Set to -1 on [StartBattle](StartBattle.md)|
+|option|int|Yes|The current vine menu option. 0 is attack, 1 is skills, 2 is items, 3 is strategies and 4 is turn relay. Set to 0 on [StartBattle](StartBattle.md). This can also be the index of an enemy or player target being selected. NOTE: the vine order is reversed in game as left goes up and right goes down in the option index with wrap around|
+|saveddata|bool|No|Whether the `sdata` have been saved and are ready for restoration. Set to true at the very end of [StartBattle](StartBattle.md)|
+|actedthisturn|bool|No|Tells if [PlayerTurn](Battle%20flow/PlayerTurn.md) was called at least once during the turn implying at least one player could act. Set back to false on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
+|lastturns|int\[\]|No|The state of the player index selection cycle which starts with an array of length being the amount of free players - 1. Advancing it means either assigning the first free slot (-1) to the player being selected or shift the elements such that it falls on the latest while the oldest is removed|
+|charmdance|Sprite\[\]|No|The sprites Charmy uses during [UseCharm](Battle%20flow/UseCharm.md). Always set to sprite 98 and 99 of `Sprites/Entities/moth0` on [StartBattle](StartBattle.md)|
+|tskybox|Material|No|The RenderSettings.skybox saved on [StartBattle](StartBattle.md). This is used for restoring later in case of a retry|
+|chompyattack|Coroutine|Yes|The coroutine of [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) if it's in progress (null if it's not)|
+|disablespy|bool|Yes|If true, spying is disabled and cannot be performed on any enemy|
+|chompyattacked|bool|No|Tells if [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) has completed during the player phase when applicable|
+|aiattacked|bool|No|Tells if [AIAttack](Battle%20flow/Action%20coroutines/AIAttack.md) has completed during the player phase when applicable|
+|fogdist|float|No|The value of RenderSettings.fogEndDistance saved on [StartBattle](StartBattle.md) if the current one needs to change. Restored from this field during [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md) if it had a value above 0.0|
+|tempskill|int|Yes|The skill id that was confirmed from skills selection in [SetItem](Player%20UI/SetItem.md)|
+|avaliabletargets|BattleData\[\]|No|An ephemeral array of actors to track possible targets for an action which is frequently set by calling [GetAvailableTargets](Actors%20states/GetAvaliableTargets.md)|
+|sdata|StartUpData|No|The [StartUpData](StartUpData.md) stored during [StartBattle](StartBattle.md) when `saveddata` is false. Restored on StartBattle for a retry|
+|lastskill|int|No|The last skill id used, set to `selecteditem` before its usage when confirmed in [GetChoiceInput](Player%20UI/GetChoiceInput.md)|
+
+### Unused fields
+These fields are never referenced or never used in any meaningful ways.
+
+|Name|Type|Public?|Description|
+|----|----|---------|-----------|
+|oldcamtarget|Transform|No|UNUSED, Set to instance.`camtarget` on [StartBattle](StartBattle.md) when it's not a retry|
+|guicooldown|float|No|UNUSED (there is logic in Update implicating it was supposed to be a cooldown that exhausts only during an Update controlled battle, but it is never practically used anywhere else making it practically unused)|
+
+## MainManager fields
+These fields belongs to MainManager, but they are mostly related to BattleControl's state and either have influences on the battle or they are reporting the result of the battle.
+
+### Uncategorised fields
+These fields's semantics haven't been found yet. They will be moved out of this section as they are figured out.
+
+|Name|Type|Static?|Description|
+|----|----|---------|-----------|
+|battleenemyfled|bool|Yes|Whether the battle ended by the enemy fleeing ??? Set to false on [StartBattle](StartBattle.md)|
+|lastdefeated|List<int>|No|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that ??? Set to a new list on [StartBattle](StartBattle.md)|
+|battleresult|bool|Yes|Whether the battle was won ??? Set to true on [StartBattle](StartBattle.md) TODO: it assumes we won|
+|firstbattleaction|bool|No|??? TODO: this field is very strange in general|
+
+### Known fields
+TODO: categorise them once most of them are known 
+
+|Name|Type|Static?|Description|
+|----|----|---------|-----------|
+|tp|int|No|The amount of TP the player party has (usually clamped from 0 to `maxtp`)|
+|tpt|int|No|The displayed amount of TP the player party has in the HUD|
+|maxtp|int|No|The maximum amount of TP the player can have (this is `basetp` + the medals effects from [ApplyBadges](ApplyBadges.md))|
+|basetp|int|No|The base maximum amount of TP the player can have (this is normally 10 + all the bonuses applied from [ApplyStatBonus](ApplyStatBonus.md))|
+|partylevel|int|No|The player party's rank, starts at 1|
+|partyexp|int|No|The amount of EXP the player party has (this amount is only the one applicable for the current rank's progression)|
+|neededexp|int|No|The amount of EXP needed for the player party to rank up (in other words, `partyexp` needs to reach this value to rank up). This starts at 100|
+|battle|[BattleControl](BattleControl.md)|Yes|The current battle (null if no battle is in progress). Set on [StartBattle](StartBattle.md) when it's null (meaning it wasn't a retry)|
+|playerdata|BattleData\[\]|No|The battle data of the players. The game keeps track of them constantly even outside of battle, but [StartBattle](StartBattle.md) resets their fields to a default state|
+|battlenoexp|bool|Yes|Whether the last battle yielded no EXP. Set to false on [StartBattle](StartBattle.md)|
+|haltbattleload|bool|Yes|If this is set to true right after [StartBattle](StartBattle.md) starts by the caller, StartBattle will wait that it goes to false right after the fade in transition played|
+|partyorder|int\[\]|No|The list of party members by their [animid](../Enums%20and%20IDs/AnimIDs.md) ordered by their formation|
+|inbattle|bool|No|Whether we are in battle or not. Set to true on [StartBattle](StartBattle.md) after the fade out transition and set to false in a terminal case where we know the battle will end without retry|
+|battlelossevent|bool|Yes|Tells if [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md) should be called without flee if [DeadParty](Battle%20flow/Terminal%20coroutines/DeadParty.md) happens|
+|battlefled|bool|Yes|Tells if the battle ended by fleeing|
+|haltbattleload|bool|Yes|When set to true, [StartBattle](StartBattle.md) will yield early on in the starting process until the value gets set to false before resuming|

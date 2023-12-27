@@ -6,7 +6,7 @@ Display the list of skills that a party member has access to.
 
 `listvar` will be the skills array field of the corresponding playerdata (-1, -2 and -3 means 0, 1 and 2 respectively). They corresponds the skills id of skilldata.
 
-The playerdata's skills are expected to be refreshed by using RefreshSkills which takes into account the party's rank and [Medal](../../Enums%20and%20IDs/Medal.md)s equipped.
+The playerdata's skills are expected to be refreshed by using [RefreshSkills](../../Battle%20system/RefreshSkills.md) which takes into account the party's rank and [Medal](../../Enums%20and%20IDs/Medal.md)s equipped.
 
 `listredirect` is overridden to null.
 
@@ -47,6 +47,6 @@ It uses the default rendering scheme described in [Description box rendering](..
 
 ## Confirmation handling (during battle)
 
-The skill cost will then be checked if the player has enough and if they can use the skill in general. The cost is stored in [flagvar](../../Flags%20arrays/flagvar.md) 0. If the skill can be used and the player can pay the cost, SetItem is called on the battle with the selected skill and DestroyList is called which ends the processing of the list.
+The skill cost will then be checked if the player has enough and if they can use the skill in general. The cost is stored in [flagvar](../../Flags%20arrays/flagvar.md) 0. If the skill can be used and the player can pay the cost, [SetItem](../../Battle%20system/Player%20UI/SetItem.md) is called on the battle with the selected skill and DestroyList is called which ends the processing of the list.
 
 If the skill can't be used, the buzzer sound will play. In addition, if the player couldn't pay the cost and the skill wasn't Hard Charge, the appropriate hud sprite will flash red (the TP one if it's TP cost or the party member's HP if we have Life Cast).

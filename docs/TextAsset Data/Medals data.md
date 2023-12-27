@@ -14,64 +14,52 @@ The asset contains one line per [Medal](../Enums%20and%20IDs/Medal.md) whose id 
 |------------:|----|----|-----------|
 |2|MP cost|int|The cost of the medal in MP to equip|
 |3|Party equipable|bool|Tells if this medal can be equipped to the whole party or not.|
-|4|Item effects|`;` separated list of ItemUse|The list of item effects this medal has (see below for details)|
+|4|Medal effects|`;` separated list of string[] separated by `,`|The list of effects this medal has (see below for details)|
 |5|Value|int|The buying price of the medal in berries|
 |7|Crystal Berries value|int|The buying price of the medal in Crystal Berries|
 
 The data will be loaded into `badgedata[id, x]`, where `id` is the [Medal](../Enums%20and%20IDs/Medal.md) id and `x` is the loaded index.
 
-An ItemUse is defined by 2 fields separated by `,`:
+### Medal effects
+A medal effect is defined by 2 fields separated by `,`:
 
 |Name|Type|Description|
 |----|----|-----------|
-|usetype|ItemUsage|The effect the item has|
-|value|int|A value that influences the usetype (usually amount or amount of turns)|
+|effect|BadgeEffects|The effect the medal has|
+|value|int|A value that influences the BadgeEffects (usually an amount)|
 
-The usetype must be specified as a string or int representation of an ItemUsage enum value. Here are the valid values, anything else is considered invalid:
+The BadgeEffects must be specified as a string or int representation of an BadgeEffects enum value. 
 
-|Value|Name|
-|-----:|----|
-|0|None|
-|1|HPRecover|
-|2|TPRecover|
-|3|HPRecoverAll|
-|4|HPRecoverFull|
-|5|TPRecoverFull|
-|6|HPUP|
-|7|TPUP|
-|8|AttackUp|
-|9|DefenseUp|
-|10|Battle|
-|11|Revive|
-|12|ReviveAll|
-|13|AutoRevive|
-|14|CurePoison|
-|15|CureFreeze|
-|16|CureNumb|
-|17|CureSleep|
-|18|CureParty|
-|19|AddPoison|
-|20|AddSleep|
-|21|AddNumb|
-|22|AddFreeze|
-|23|HPto1|
-|24|TPto1|
-|25|HPto1All|
-|26|GradualHP|
-|27|GradualTP|
-|28|GradualHPParty|
-|29|DefUpStat|
-|30|AtkUpStat|
-|31|Sturdy|
-|32|HPUPAll|
-|33|MPUP|
-|34|ChargeUp|
-|35|AtkDownAfter|
-|36|CureFire|
-|37|CureAll|
-|38|TurnNextTurn|
-|39|HPorDamage|
-|40|CurePoisonAll|
+These effects doesn't necessarily tell everything the medal can do. These are a category of effects that can be applied statically without the need for checking if the medal is equipped at a particular moment. The method that applies all of the equipped ones at once is called ApplyBadges.
+
+Here are the valid values, anything else is considered invalid (the apply to column specify if the effect is compatible with member equip or party equip or both):
+
+|Value|Name|Apply to|Value Meaning|Description|
+|-----|----|--------|------------|-----------|
+|0|None|N/A|None|No effects|
+|1|HPUP|Member only|The amount to add to the `hp`|Add the value to the `playerdata`'s `hp`|
+|2|TPUP|Party only|The amount to add to the instance.`maxtp`|Add the value to instance.`maxtp`|
+|3|HPRecover|N/A|None|UNUSED|
+|4|TPRecover|N/A|None|UNUSED|
+|5|AttackUp|Member / Party|The amount to add to the attack value(s)|For a member, add the value to the `playerdata`'s `atk` and for the party, add the value to all `playerdata`'s `atk`|
+|6|DefenseUp|Member only|The amount to add to the `def`|Add the value to the `playerdata`'s `def`|
+|7|LockSkills|Member only|None|Set the `playerdata`'s `lockskills` to true|
+|8|Detect|N/A|None|UNUSED (The `Detector` medal has it defined, but no logic backs this effect)|
+|9|SpeedUp|Party only|None|Set instance.`speedup` to true (this field is never read making the whole effect practically UNUSED)|
+|10|PoisonRes|Member only|The amount to add to the `poisonres`|Add the value to the `playerdata`'s `poisonres`|
+|11|SleepRes|Member only|The amount to add to the `sleepres`|Add the value to the `playerdata`'s `sleepres`|
+|12|NumbRes|Member only|The amount to add to the `numbres`|Add the value to the `playerdata`'s `numbres`|
+|13|FreezeRes|Member only|The amount to add to the `freezeres`|Add the value to the `playerdata`'s `freezeres`|
+|14|PoisonAttack|N/A|None|UNUSED (the `PoisonAttacker` medal has it defined, but no logic backs this effect)|
+|15|PoisonDefense|N/A|None|UNUSED (the `PoisonDefender` medal has it defined, but no logic backs this effect)|
+|16|SleepDefense|N/A|None|UNUSED|
+|17|NumbDefense|N/A|None|UNUSED|
+|18|FreezeDefense|N/A|None|UNUSED|
+|19|AttackMultiply|Member only|The multiplier to multiply the `atk` by|Multiply the `playerdata`'s `atk` by the value. No medals defines this effect under normal gameplay making it practically UNUSED|
+|20|DefenseMuliply|N/A|None|UNUSED|
+|21|LockItems|Member only|None|Set the `playerdata`'s `lockitems` to true|
+|22|LockRelay|Member only|None|Set the `playerdata`'s `locktri` to true|
+|23|LockRelayPass|Member only|None|Set the `playerdata`'s `lockrelayreceive` to true|
 
 ## `BadgeName` data
 

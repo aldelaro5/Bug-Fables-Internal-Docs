@@ -1,0 +1,9 @@
+# Charm
+
+|Value|Name|Description|
+|-----|----|-----------|
+|0|DefenseUp|???|
+|1|AttackUp|???|
+|2|ExpUp|???|
+|3|HealHP|???|
+|4|HealTP|???|

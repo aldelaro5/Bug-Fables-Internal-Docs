@@ -12,30 +12,30 @@ The entire `librarystuff` two dimensional array is saved on the [Save File](../.
 
 ## Areas table
 
-|ID|Name|
-|--:|----|
-|0|Bugaria Outskirts|
-|1|Ant Kingdom City|
-|2|Snakemouth Den|
-|3|Lost Sands|
-|4|Golden Hills|
-|5|Golden Path|
-|6|Golden Settlement|
-|7|Forsaken Lands|
-|8|Far Grasslands|
-|9|Wild Swamplands|
-|10|Defiant Root|
-|11|Ancient Castle|
-|12|Bee Kingdom Hive|
-|13|Honey Factory|
-|14|Rubber Prison|
-|15|Giant's Lair|
-|16|Metal Lake|
-|17|Metal Island|
-|18|Termite Capitol|
-|19|Wasp Kingdom Hive|
-|20|Bandit Hideout|
-|21|Stream Mountain|
-|22|Chomper Caves|
-|23|Fishing Village|
-|24|Upper Snakemouth|
+|ID|Name|English Name|
+|-:|----|------------|
+|0|BugariaOutskirts|Bugaria Outskirts|
+|1|BugariaCity|Ant Kingdom City|
+|2|Snakemouth|Snakemouth Den|
+|3|Desert|Lost Sands|
+|4|GoldenHills|Golden Hills|
+|5|GoldenWay|Golden Path|
+|6|GoldenSettlement|Golden Settlement|
+|7|BarrenLands|Forsaken Lands|
+|8|FarGrasslands|Far Grasslands|
+|9|WildGrasslands|Wild Swamplands|
+|10|DefiantRoot|Defiant Root|
+|11|SandCastle|Ancient Castle|
+|12|Beehive|Bee Kingdom Hive|
+|13|HoneyFactory|Honey Factory|
+|14|RubberPrison|Rubber Prison|
+|15|GiantLair|Giant's Lair|
+|16|MetalLake|Metal Lake|
+|17|MetalIsland|Metal Island|
+|18|TermiteCity|Termite Capitol|
+|19|WaspKingdom|Wasp Kingdom Hive|
+|20|BanditHideout|Bandit Hideout|
+|21|StreamMountain|Stream Mountain|
+|22|ChomperCaves|Chomper Caves|
+|23|FishingVillage|Fishing Village|
+|24|UpperSnakemouth|Upper Snakemouth|

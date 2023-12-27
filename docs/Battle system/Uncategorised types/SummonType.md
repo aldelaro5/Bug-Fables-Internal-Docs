@@ -1,0 +1,12 @@
+# SummonType
+
+|Value|Name|Description|
+|-----|----|-----------|
+|0|FromGround|???|
+|1|Offscreen|???|
+|2|OffscreenNoAnim|???|
+|3|None|???|
+|4|FromGroundInstant|???|
+|5|Raise|???|
+|6|FromGroundKeepScale|???|
+|7|Tablet|???|

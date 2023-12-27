@@ -5,7 +5,7 @@
 * `Ressources/data/ItemData`
 * `Items` from the corresponding dialogue directory of the current [languageid](../SetText/languageid.md)
 
-## `ItemData` data
+## `itemdata`
 
 The asset contains one line per [Item](../Enums%20and%20IDs/Items.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
