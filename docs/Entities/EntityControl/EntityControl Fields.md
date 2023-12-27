@@ -112,7 +112,7 @@ These fields manages optional objects that the entity maintains. They are usuall
 |extralines|LineRenderer\[\]|No|A set of extra lines the entity can use, only used for DeadLanderB during [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks)|
 |line|LineRenderer|No|The line renderer of the Line object, childed to the parent sent to AddLine or to the spritetransform if null. AddLine must be called to have this assigned which it is on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) for `RizGrandpa`|
 |subentity|EntityControl\[\]|No|An array of sub entities that this entity has access to. This is specifically used for `SeedlingKing`|
-|firepart|Transform|Yes|This is not used internally and is left to null. This must be set and used externally|
+|firepart|Transform|Yes|The particles object involved in a [condition](../../Battle%20system/Actors%20states/Conditions.md)'s visual effect when applicable. This is not used internally and is left to null. This must be set and used externally|
 
 ## Ice
 These fields manages any ice related event, particularly during [Freeze handling](Notable%20methods/Freeze%20handling.md).

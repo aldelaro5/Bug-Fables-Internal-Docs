@@ -35,7 +35,7 @@ DoNothing is called which does the following:
     - `Reflection`: If no `Prayer` or `Meditation` medals is equipped, the `StatUp` sound is played. This is followed by a [StatEffect](../Visual%20rendering/StatEffect.md) starting on the battleentity with type 1 (blue, up arrow) and if the player party member doesn't have the `Reflection` condition, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with `Reflection` on the player party member with a turn amount being the amount of medals equipped
 - `playerdata[currentturn].didnothing` is set to true which prevents the medals effects to apply on a second do nothing
 - [EndPlayerTurn](../Battle%20flow/EndPlayerTurn.md) is called
-- CancelList is called which resets `option` to `lastoption`, `currentaction` to `BaseAction` and `turncooldown` to 5.0. It also calls [SetMaxOptions](SetMaxOptions.md) and [UpdateText](../Visual%20rendering/UpdateText.md)
+- [CancelList](CancelList.md) is called
 
 ### 0 (Switch)
 The `Switch` sound is played followed by a [SwitchParty](../Battle%20flow/Action%20coroutines/SwitchParty.md#switchparty) action coroutine starting switching to an [uncontrolled flow](../Battle%20flow/Update.md#uncontrolled-flow).

@@ -6,7 +6,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 
 |Name|Type|Description|
 |---|---|---|
-|charge|int|The amount of charges cumulated ???|
 |eventondeath|int|For an enemy, the EventDialogue to trigger when it dies ???|
 |deathtype|int|For an enemy, dictates the manner in which the enemy dies (this isn't a DeathType, see the [battleentity initialisation documentation](../../TextAsset%20Data/Enemies%20data.md#battleentity-special-initialisation) for more details) TODO: seems to have more to it ???|
 |eventonfall|int|The EventDialogue to trigger when the enemy falls ???|
@@ -103,6 +102,7 @@ These fields applies to actors for either parties.
 |isasleep|bool|Tells if the actor has a `Sleep` condition, set on HasCondition if that condition exist|
 |isnumb|bool|Tells if the actor has a `Numb` condition, set on FixCondition which is called by SetCondition|
 |entity|EntityControl|For a player party member, the overworld entity. For an enemy party member, the same than `battleentity`|
+|charge|int|The amount of charges cumulated|
 
 ## Unused fields
 These fields are never referenced or never used in any meaningful ways.

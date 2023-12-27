@@ -44,7 +44,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |infinitecommand|bool|No|???|
 |chompyaction|bool|No|Tells if Chompy's action is being processed ???|
 |receivedrelay|bool\[\]|No|An array indicating which player index got relayed to ??? TODO: what does this do with relaying exactly|
-|turncooldown|float|No|???|
 |caninputcooldown|float|No|???|
 |blockcooldown|float|No|???|
 |barfill|float|No|???|
@@ -53,7 +52,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |selection|int|No|???|
 |counter|int|No|???|
 |presskey|int|No|???|
-|playertargetID|int|No|???|
 |forceattack|int|No|???|
 |successfulchain|int|No|???|
 |combo|int|No|???|
@@ -166,6 +164,8 @@ TODO: categorise them once most of them are known
 |avaliabletargets|BattleData\[\]|No|An ephemeral array of actors to track possible targets for an action which is frequently set by calling [GetAvailableTargets](Actors%20states/GetAvaliableTargets.md)|
 |sdata|StartUpData|No|The [StartUpData](StartUpData.md) stored during [StartBattle](StartBattle.md) when `saveddata` is false. Restored on StartBattle for a retry|
 |lastskill|int|No|The last skill id used, set to `selecteditem` before its usage when confirmed in [GetChoiceInput](Player%20UI/GetChoiceInput.md)|
+|turncooldown|float|No|The amount of [FixedUpdate](Visual%20rendering/FixedUpdate.md) cycles left before [GetChoiceInput](Player%20UI/GetChoiceInput.md) calls are allowed during [PlayerTurn](Battle%20flow/PlayerTurn.md). Set to 5.0 in [SetItem](Player%20UI/SetItem.md) and [CancelList](Player%20UI/CancelList.md)|
+|playertargetID|int|No|The player party member index whom is currently targetted by the enemy. If it's -1, the enemy isn't targetting anyone|
 
 ### Unused fields
 These fields are never referenced or never used in any meaningful ways.
