@@ -48,7 +48,7 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |caninputcooldown|float|No|???|
 |blockcooldown|float|No|???|
 |barfill|float|No|???|
-|superblockedthisframe|float|No|???|
+|superblockedthisframe|float|No|Seems to be some sort of cooldown ??? Decreases by framestep on LateUpdate|
 |lastaddedid|int|No|???|
 |selection|int|No|???|
 |counter|int|No|???|
