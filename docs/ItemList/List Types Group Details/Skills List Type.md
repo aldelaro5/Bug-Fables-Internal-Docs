@@ -1,6 +1,6 @@
 # Skills list type
 
-Display the list of skills that a party member has access to.
+Display the list of [skills](../../Enums%20and%20IDs/Skills.md) that a party member has access to.
 
 ## Options generation
 

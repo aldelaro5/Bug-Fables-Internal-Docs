@@ -9,12 +9,12 @@ private void GetAvaliableTargets(bool onlyground, bool onlyfront, int attackid, 
 
 - `onlyground`: Only include enemies with a `position` of `Ground` (or `Underground` if excludeunderground is false)
 - `onlyfront`: Only the first eligible enemy will be included
-- `attackid`: The skill id or a negative number denoting a member's basic attack (-1 is `Bee`'s, -2 is `Beetle`'s and -3 is `Moth`'s)
+- `attackid`: The [skill](../../Enums%20and%20IDs/Skills.md) id or a negative number denoting a member's basic attack (-1 is `Bee`'s, -2 is `Beetle`'s and -3 is `Moth`'s)
 - `excludeunderground`: Excludes all enemies with a `position` of `Underground` when `onlyground` is true. There is an overload without this parameter that sends false
 
 ## Procedure
 
-There is some dead code where if `currentaction` is `SkillList` and the `AttackArea` of the skill from `skilldata` is `AllParty` or `SingleAlly`, `availabletargets` is set to `playerdata` which ends the method. This is dead because this method can be called with an attackid being negative which means the method refers to a member's basic attack rather than a skill.
+There is some dead code where if `currentaction` is `SkillList` and the `AttackArea` of the [skill](../../Enums%20and%20IDs/Skills.md) from `skilldata` is `AllParty` or `SingleAlly`, `availabletargets` is set to `playerdata` which ends the method. This is dead because this method can be called with an attackid being negative which means the method refers to a member's basic attack rather than a skill.
 
 Otherwise:
 

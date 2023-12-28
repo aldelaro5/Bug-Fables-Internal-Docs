@@ -217,7 +217,7 @@ For CanBeRelayed to return true, all of the following must be true on `playerdat
 A [SwitchPos](../Battle%20flow/Action%20coroutines/SwitchPos.md) action coroutine is started changing to an [uncontrolled flow](../Battle%20flow/Update.md#uncontrolled-flow) to swap `currentturn` as the called with `option` as the target.
 
 #### `Skill`
-For the skill to be used, if `skilldata` of `tempskill` reports that it can only target alive party members, `playerdata[target].hp` must be above 0. Alternatively, if `skilldata` of `tempskill` reports that it can only target dead party members, `playerdata[target].hp` must be 0 or below. This doesn't apply if neither restrictions applies on the skill, but no matter what, `playerdata[target].eatenby` must not exist.
+For the [skill](../../Enums%20and%20IDs/Skills.md) to be used, if `skilldata` of `tempskill` reports that it can only target alive party members, `playerdata[target].hp` must be above 0. Alternatively, if `skilldata` of `tempskill` reports that it can only target dead party members, `playerdata[target].hp` must be 0 or below. This doesn't apply if neither restrictions applies on the skill, but no matter what, `playerdata[target].eatenby` must not exist.
 
 If the skill can be used, a [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) action coroutine is started changing to an [uncontrolled flow](../Battle%20flow/Update.md#uncontrolled-flow) on `playerdata[currentturn].battleentity` using `tempskill` as the action id.
 

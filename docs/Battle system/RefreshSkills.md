@@ -3,7 +3,7 @@ This method allows to refresh the `skills` list of all the player party members.
 
 The method will go over each player party member and reset their `skills` to a new list before filling them with the ones they are allowed to have if the conditions are fufilled. Most of them are specific to each [animid](../Enums%20and%20IDs/AnimIDs.md) (only `Bee`, `Beetle` and `Moth` can have skills), but some of them are common with the same conditions to have it. 
 
-The order they will be presented is the same order they will be checked and added if the condition is fufilled. The `Name` column is the name of the value in the `Skills` enum.
+The order they will be presented is the same order they will be checked and added if the condition is fufilled. The `Name` column is the name of the value in the `Skills` enum. To see the entire list of skills defined in the game by id order, check the [skills](../Enums%20and%20IDs/Skills.md) documentation.
 
 ## `Bee`'s skills
 

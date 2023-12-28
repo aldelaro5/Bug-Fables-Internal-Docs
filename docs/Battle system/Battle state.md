@@ -160,10 +160,10 @@ TODO: categorise them once most of them are known
 |chompyattacked|bool|No|Tells if [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) has completed during the player phase when applicable|
 |aiattacked|bool|No|Tells if [AIAttack](Battle%20flow/Action%20coroutines/AIAttack.md) has completed during the player phase when applicable|
 |fogdist|float|No|The value of RenderSettings.fogEndDistance saved on [StartBattle](StartBattle.md) if the current one needs to change. Restored from this field during [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md) if it had a value above 0.0|
-|tempskill|int|Yes|The skill id that was confirmed from skills selection in [SetItem](Player%20UI/SetItem.md)|
+|tempskill|int|Yes|The [skill](../Enums%20and%20IDs/Skills.md) id that was confirmed from skills selection in [SetItem](Player%20UI/SetItem.md)|
 |avaliabletargets|BattleData\[\]|No|An ephemeral array of actors to track possible targets for an action which is frequently set by calling [GetAvailableTargets](Actors%20states/GetAvaliableTargets.md)|
 |sdata|StartUpData|No|The [StartUpData](StartUpData.md) stored during [StartBattle](StartBattle.md) when `saveddata` is false. Restored on StartBattle for a retry|
-|lastskill|int|No|The last skill id used, set to `selecteditem` before its usage when confirmed in [GetChoiceInput](Player%20UI/GetChoiceInput.md)|
+|lastskill|int|No|The last [skill](../Enums%20and%20IDs/Skills.md) id used, set to `selecteditem` before its usage when confirmed in [GetChoiceInput](Player%20UI/GetChoiceInput.md)|
 |turncooldown|float|No|The amount of [FixedUpdate](Visual%20rendering/FixedUpdate.md) cycles left before [GetChoiceInput](Player%20UI/GetChoiceInput.md) calls are allowed during [PlayerTurn](Battle%20flow/PlayerTurn.md). Set to 5.0 in [SetItem](Player%20UI/SetItem.md) and [CancelList](Player%20UI/CancelList.md)|
 |playertargetID|int|No|The player party member index whom is currently targetted by the enemy. If it's -1, the enemy isn't targetting anyone|
 

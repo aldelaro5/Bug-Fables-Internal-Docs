@@ -93,7 +93,7 @@ The asset contains one line per [Item](../Enums%20and%20IDs/Items.md) whose id c
 |2|Description|[SetText](../SetText/SetText.md) string|The description of the item|
 |3|Prepender|[SetText](../SetText/SetText.md) string|The prepender string used with the [Anstring](../SetText/Individual%20commands/Anstring.md) command for this item|
 
-The data will be loaded into `itemdata[0, id, x]` where `id` is the skill id and `x` is the loaded index.
+The data will be loaded into `itemdata[0, id, x]` where `id` is the item id and `x` is the loaded index.
 
 The unused description is, as its name says, not used in the game. It is safe to leave it empty or a dummy value, but its value must exist for the actual description which needs a valid value.
 

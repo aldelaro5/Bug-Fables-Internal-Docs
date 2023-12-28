@@ -7,7 +7,7 @@ Skills data are split in 2 TextAssets in the game loaded on boot by SetVariables
 
 ## `SkillData`
 
-The asset contains one line per skill whose id corresponds to the line index. Each line contains fields separated by `@`:
+The asset contains one line per [skill](../Enums%20and%20IDs/Skills.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
 
 |Loaded index|Name|Type|Description|
 |------------:|----|----|-----------|

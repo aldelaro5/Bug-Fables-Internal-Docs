@@ -8,9 +8,9 @@ public static IEnumerator StartBattle(int[] enemyids, int stageid, int adv, stri
 ## Parameters
 
 - `enemyids`: The list of [enemies](../Enums%20and%20IDs/Enemies.md) id that the player party will be against. If it contains more than 4 elements, all the ones after the 4th one will be placed in `extraeenmies` and the fight will be against the first 4 for now by setting `enemydata` to them. This is subject to be overriden by EnemyCheck during the start process
-- `stageid`: The `BattleMaps` to use for the battle, will be overriden to the ice version if the calledfrom.entity is `inice` and the stageid is `SandCastle` or `SandCastleDark`. If -1 is sent, the stage is determined by instance.`battlestage` which the MapControl initialised on its Start
+- `stageid`: The [BattleMaps](../Enums%20and%20IDs/BattleMaps.md) to use for the battle, will be overriden to the ice version if the calledfrom.entity is `inice` and the stageid is `SandCastle` or `SandCastleDark`. If -1 is sent, the stage is determined by instance.`battlestage` which the MapControl initialised on its Start
 - `adv`: Decides whose party has the advantage ???. This will be set to battle.`sadv` TODO: the values seems arbitrary, but 3 seems to be in favor of the enemy...
-- `music`: The name of the music to use for the battle. This is ignored if map.`nobattlemusic` is true. If it's null, the music is determined automatically based on the BattleMaps and some conditions
+- `music`: The name of the music to use for the battle. This is ignored if map.`nobattlemusic` is true. If it's null, the music is determined automatically based on the [BattleMaps](../Enums%20and%20IDs/BattleMaps.md) and some conditions
 - `calledfrom`: The [Enemy](../Entities/NPCControl/Enemy.md) NPCControl that caused this battle if any. If it's null, it means no NPCControl caused it and the battle was started manually. This will be set to battle.`caller`
 - `canescape`: Whether the player is allowed to flee or not. This will be set to battle.`canflee`
 
@@ -153,7 +153,7 @@ This part disables the current map and enables the battle one which is created:
         - The entity.gameObject is disabled
     - The map is disabled
 - `battlemap` is set to a new GameObject named `Battle`
-- The corresponding `Prefabs/BattleMaps/X` battle map prefab is instantiated where X is the BattleMaps enum name of the stageid and it is childed to `battlemap`
+- The corresponding `Prefabs/BattleMaps/X` battle map prefab is instantiated where X is the [BattleMaps](../Enums%20and%20IDs/BattleMaps.md) enum name of the stageid and it is childed to `battlemap`
 - All colliders in the battle map are disabled
 - A BoxCollider is added to `battlemap` with center (0.0, -0.5, 0.0) and size (100.0, 1.0, 50.0)
 - `battlemap`.layer is set to 8 (`Ground`)

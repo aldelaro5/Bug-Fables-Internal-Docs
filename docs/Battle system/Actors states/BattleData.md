@@ -49,8 +49,8 @@ These fields only applies to player party members.
 |hpt|int|The displayed HUD value of the `hp`|
 |baseatk|int|The attack after applying all the `statbonus` from the initial one (normally 2)|
 |basedef|int|The defense after applying all the `statbonus` from the initial one (normally 0)|
-|skills|List<int>|The list of available skills, set to the return of [RefreshSkills](../RefreshSkills.md) for this player party member|
-|lockskills|bool|If true, prevents skills to be used|
+|skills|List<int>|The list of available [skills](../../Enums%20and%20IDs/Skills.md), set to the return of [RefreshSkills](../RefreshSkills.md) for this player party member|
+|lockskills|bool|If true, prevents [skills](../../Enums%20and%20IDs/Skills.md) to be used|
 |lockitems|bool|If true, prevents items to be used|
 |locktri|bool|If true, prevents relay to be used|
 |haspassed|bool|If true, this player party member has already relayed which prevents it to relay again|

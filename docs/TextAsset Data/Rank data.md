@@ -16,7 +16,7 @@ The available bonus types are the followings along with their parameters meaning
 
 |Id|Description|Parameters|
 |--:|-----------|----------|
-|0|Grants a skill to a party member|First: [AnimID](../Enums%20and%20IDs/AnimIDs.md) of the recipient of the skill|
+|0|Grants a [skill](../Enums%20and%20IDs/Skills.md) to a party member|First: [AnimID](../Enums%20and%20IDs/AnimIDs.md) of the recipient of the skill|
 |--|--|Second: Skill id to grant|
 |--|--|Third: NOT USED|
 |1|Grant a stat bonus to a party member|First: [AnimID](../Enums%20and%20IDs/AnimIDs.md) of the recipient of the stat bonus|
@@ -29,7 +29,7 @@ The available bonus types are the followings along with their parameters meaning
 |--|--|Second: NOT USED|
 |--|--|Third: NOT USED|
 
-## About skills rank up data
+## About [skills](../Enums%20and%20IDs/Skills.md) rank up data
 The bonus type 0 doesn't actually grant anything. The actual rank check is done in [RefreshSkills](../Battle%20system/RefreshSkills.md), but the data is still used to present the message informing that a skill was available. That however means there is 2 sources of truths about this: the data tells what the game needs to present the message of getting the skill while RefreshData tells if the skill is actually available with the new rank. For the skill availability to function correctly, both information should match. Failure to do so will cause the rank up message to advertise a new skill, but it wouldn't be available or vice versa.
 
 ## A few notes about how the data is handled
