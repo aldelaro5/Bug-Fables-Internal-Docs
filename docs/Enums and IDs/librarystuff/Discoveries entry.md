@@ -5,9 +5,10 @@ A discovery entry is a collectible bound to a bool that tells whether or not the
 The entire `librarystuff` two dimensional array is saved on the [Save File](../../External%20data%20format/Save%20File.md).
 
 ## Discovery entries table
+The following table shows all discovery entries with their English names for convenience.
 
-|ID|Name|
-|--:|----|
+|ID|English Name|
+|-:|------------|
 |0|Snakemouth Den|
 |1|Snakemouth Depths|
 |2|Explorer's Message|

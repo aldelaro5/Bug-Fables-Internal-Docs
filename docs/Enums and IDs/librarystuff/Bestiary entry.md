@@ -7,9 +7,10 @@ A bestiary entry is a collectible bound to a bool that tells whether or not the 
 The entire `librarystuff` two dimensional array is saved on the [Save File](../../External%20data%20format/Save%20File.md).
 
 ## Bestiary entries table
+The following table shows all bestiary entries with their English names for convenience.
 
-|ID|Name|
-|--:|----|
+|ID|English Name|
+|-:|----|
 |0|Zombiant|
 |1|Jellyshroom|
 |2|Spider|

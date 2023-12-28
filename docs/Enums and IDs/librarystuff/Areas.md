@@ -11,6 +11,7 @@ Each area is bound to a bool value stored in a 2 dimensional jagged array locate
 The entire `librarystuff` two dimensional array is saved on the [Save File](../../External%20data%20format/Save%20File.md).
 
 ## Areas table
+The following table shows all the `Areas` enum value and their English names for convenience.
 
 |ID|Name|English Name|
 |-:|----|------------|

@@ -7,9 +7,10 @@ The maps prefabs are located at `Ressources/prefabs/maps` from the game's assets
 The current map is saved on the [Save File](../External%20data%20format/Save%20File.md).
 
 ## Maps table
+The following table shows all the `Maps` enum values:
 
-|ID|Description|
-|--:|-----------|
+|ID|Name|
+|-:|----|
 |0|TestRoom|
 |1|NearSnakemouth|
 |2|OutsideSnakemouth|

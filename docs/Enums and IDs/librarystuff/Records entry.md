@@ -5,9 +5,10 @@ A record entry is a collectible bound to a bool that tells whether or not the sp
 The entire `librarystuff` two dimensional array is saved on the [Save File](../../External%20data%20format/Save%20File.md).
 
 ## Record entries table
+The following table shows all record entries with their English names for convenience.
 
-|ID|Name|Description|
-|--:|----|-----------|
+|ID|English Name|English Description|
+|-:|------------|------------------|
 |0|Ultimate Team!|Defeat a very powerful foe.|
 |1|Crystal Collector|Find all Crystal Berries.|
 |2|Medal Collector|Find all Medals.|
