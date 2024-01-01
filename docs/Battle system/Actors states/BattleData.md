@@ -9,9 +9,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |eventondeath|int|For an enemy, the EventDialogue to trigger when it dies ???|
 |deathtype|int|For an enemy, dictates the manner in which the enemy dies (this isn't a DeathType, see the [battleentity initialisation documentation](../../TextAsset%20Data/Enemies%20data.md#battleentity-special-initialisation) for more details) TODO: seems to have more to it ???|
 |eventonfall|int|The EventDialogue to trigger when the enemy falls ???|
-|turnssincedeath|int|???|
-|turnsalive|int|???|
-|moreturnnextturn|int|???|
 |sizeonfreeze|float|For an enemy, the `size` when frozen ???|
 |initialsize|float|???|
 |battlepos|Vector3|The battle position ??? TODO: this seems to be the neutral position to return to after an action, recheck|
@@ -31,12 +28,9 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |actimmobile|bool|??? TODO: involved in checks to see if the enemy is active|
 |diebyitself|bool|???|
 |noexpatstart|bool|???|
-|atkdownonloseatkup|bool|???|
 |lockposition|bool|???|
 |alreadycounted|bool|???|
 |destroyentity|bool|???|
-|frozenlastturn|bool|???|
-|lockcantmove|bool|???|
 |animid|int|For an enemy, the [enemy](../../Enums%20and%20IDs/Enemies.md) id. For a player, ???|
 
 ## Player party members fields
@@ -57,6 +51,7 @@ These fields only applies to player party members.
 |lockrelayreceive|bool|If true, prevents to be relayed to from another player party member|
 |plating|bool|Tells if the `Plating` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on this player party member|
 |didnothing|bool|Tells if the player party member already has chosen to do nothing on a previous action in the same turn which prevents to benefits from some [medals](../../Enums%20and%20IDs/Medal.md)'s effects. See [Do Nothing](../Player%20UI/SetItem.md#2-do-nothing) for details|
+|lockcantmove|bool|If true, prevents `cantmove` to be set to 0 (one action available) whenever the `MiracleMatter` [medal](../../Enums%20and%20IDs/Medal.md) triggers. It is set to false after the medal triggers|
 
 ## Enemy party members fields
 These fields only applies to enemy party members.
@@ -92,17 +87,22 @@ These fields applies to actors for either parties.
 |poisonres|int|The poison resistance|
 |numbres|int|The numb resistance|
 |sleepres|int|The sleep resistance|
-|cantmove|int|The amount of turns that needs to pass until an action is possible for the next turn. 0 Means one action is possible and anything negative further adds possible actions on the same turn|
+|cantmove|int|The amount of actor turns that needs to pass until an action is possible. 0 Means one action is possible and anything negative further adds possible actions on the same turn|
 |tired|int|The amount of exhaustion cumulated|
 |holditem|int|The [item](../../Enums%20and%20IDs/Items.md) id the actor is holding. Defaults to -1 which is no item held|
 |cursoroffset|Vector3|The offset to apply to the cursor when selecting this|
 |itemoffset|Vector3|The offset to render the item relative to the entity|
-|condition|List<int\[\]>|The list of condition applied. Each element is an array of 2 elements, the first being the `BattleCondition` id and the second being the amount of turns it is in effect|
+|condition|List<int\[\]>|The list of condition applied. Each element is an array of 2 elements, the first being the `BattleCondition` id and the second being the amount of actor turns it is in effect|
 |battleentity|EntityControl|The entity used during the battle|
 |isasleep|bool|Tells if the actor has a `Sleep` condition, set on HasCondition if that condition exist|
 |isnumb|bool|Tells if the actor has a `Numb` condition, set on FixCondition which is called by SetCondition|
 |entity|EntityControl|For a player party member, the overworld entity. For an enemy party member, the same than `battleentity`|
 |charge|int|The amount of charges cumulated|
+|turnssincedeath|int|The amount of actor turns since death, 0 if the actor is alive|
+|turnsalive|int|The amount of actor turns since the battle started or their last death if any occured|
+|frozenlastturn|bool|Tells if the actor still had the `Freeze` [condition](Conditions.md) after their last actor turn advance via [AdvanceTurnEntity](AdvanceTurnEntity.md)|
+|atkdownonloseatkup|bool|If true, the actor will get an `AttackDown` [condition](Conditions.md) inflicted the next time an `AttackUp` condition runs out of actor turns|
+|moreturnnextturn|int|When above 0, on the next actor turn, the actor's `cantmove` will be decreased by it which gives it this amount of additional actions available|
 
 ## Unused fields
 These fields are never referenced or never used in any meaningful ways.

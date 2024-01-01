@@ -5,7 +5,7 @@ This amount includes all player party members have the following criteria:
 
 - `cantmove` is 0 or below (at least one action is available)
 - `hp` is above 0 (the player isn't dead)
-- It does not have any of the following [conditions](Conditions.md) for any amount of turns above 0:
+- It does not have any of the following [conditions](Conditions.md):
     - `Sleep`
     - `Numb`
     - `Freeze`

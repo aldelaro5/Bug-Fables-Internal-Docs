@@ -1,5 +1,5 @@
 # HasCondition
-This methods checks the presence of a [condition](../Conditions.md). It belongs to MainManager.
+This methods checks the presence of a [condition](../Conditions.md) and returns the amount of actor turns left on it if it exist or -1 if it doesn't. It belongs to MainManager.
 
 ```cs
 public static int HasCondition(BattleCondition condition, BattleData entity)

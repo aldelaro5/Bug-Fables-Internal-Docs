@@ -19,7 +19,8 @@ Here are all the terms that will be used throughout the battle system documentat
 - `enemy phase`: Refers to the processing of all the enemy party's actions
 - `turn end phase`: Refers to the special phase that happens after the player and enemy phases where the turn is advanced and finished
 - `phase`: Refers to any of the 3 phases
-- `turn`: Refers to the processing of all 3 phases as a unit which starts on the player phase and ends after the turn end phase
+- `main turn`: Refers to the processing of all 3 phases as a unit which starts on the player phase and ends after the turn end phase
+- `actor turn`: Refers to an individual's actor's concept of turn which includes their actions and ends with its turn advancement including their `cantmove` change
 
 ## Execution flow
 There is only one way to start a battle: starting a [StartBattle](StartBattle.md) coroutine. This will perform a wide variety of setup and fields initialisation to start the battle from a fresh state. This will not be recalled unless a retry occur which is the opt-in ability to recreate the battle from the existing one, but preserving the [StartUpData](StartUpData.md). The caller is able to further configure the battle as needed either by setting battle.`haltbattleload` to true to make the coroutine stop early or by yielding on battle.`halfload` to wait the coroutine stops later on on the caller side and configure it that way.
@@ -68,8 +69,8 @@ Here are all the terminal coroutines:
 
 They act similarly to action coroutines, but with even more control which is needed to properly end the battle or retry it.
 
-## Turn flow
-As this is a turn based battle system, it has a concept of turns. A turn is composed of 3 phases executed in order:
+## Main turn flow
+As this is a turn based battle system, it has a concept of turns. A main turn is composed of 3 phases executed in order:
 
 - [Player phase](Battle%20flow/Update.md#player-phase)
 - [Enemy phase](Battle%20flow/Update.md#enemies-phase)
@@ -77,7 +78,9 @@ As this is a turn based battle system, it has a concept of turns. A turn is comp
 
 The player phase is the most involved mainly handling UI naviguations on top of player actions. It is only active when battle,`enemy` is false.
 
-The enemy phase mostly involves each enemies doing their action when `enemy` is true and AdvanceMainTurn being the whole procedure that advances the turn and allows a fresh turn to start again.
+The enemy phase mostly involves each enemies doing their action when `enemy` is true and [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) being the whole procedure that advances the turn and allows a fresh turn to start again.
+
+Each actor also have their own concept of turns called actor turn. An actor turn is composed of their action and other advancement logic such as the `cantmove` advance, the way for the game to track that an actor can act, needs to wait before being able to, or has multiple actions available. The actor turn advance is done by [AdvanceTurnEntity](Actors%20states/AdvanceTurnEntity.md) which is only called as part of [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md).
 
 ### hitactions
 There is a notable exception to this flow: an enemy is able to do what's known as a [hitaction](Battle%20flow/Update.md#enemies-hitaction). A hitaction occurs when the field of the same name on the enemy party member is true which causes the next Update cycle to process a temporary DoAction call on the enemy while placing `enemy` to true. This allows an enemy to seize control of the battle during the player phase with DoAction being aware of the hitaction thanks to the field being true. This is only temporary: DoAction will revert the battle state to where it was before once it's done including setting the enemy's `hitaction` back to false. When this happens, the battle can continue where it was in the player phase.

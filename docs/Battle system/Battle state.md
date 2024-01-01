@@ -18,7 +18,7 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |coptions|List<int>|No|The list of action options available during [Chompy](Battle%20flow/Action%20coroutines/Chompy.md): 0 is ???, 1 is ???, 2 is ??? and 3 is ???|
 |defaultcounteroffset|Vector3|No|???|
 |partymiddle|Vector3|No|???|
-|commandsuccess|bool|Yes|???|
+|commandsuccess|bool|Yes|Tells if an action command succeeded ???|
 |doingaction|bool|Yes|???|
 |startdrop|bool|Yes|???|
 |firstaction|bool|Yes|???|
@@ -26,16 +26,12 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |gottaspit|bool|Yes|???|
 |overridechallengeblock|bool|Yes|???|
 |keepmusic|bool|Yes|???|
-|lockmmatter|bool|Yes|??? Set to false on StartBattle|
 |nolifesteal|bool|Yes|???|
-|eatenkill|bool|Yes|???|
-|dimmer|SpriteRenderer|No|A giant black colored sprite that covers everything behind the transition during load ??? Initialised on StartBattle after the fade in transition and disabled with a clear color just before the fade out one TODO: what is the point of this|
 |commandsprites|SpriteRenderer\[\]|No|???|
 |playertargetentity|EntityControl|No|???|
 |cancelb|ButtonSprite|No|???|
 |tryenemyheal|Coroutine|No|???|
-|firststrike|bool|No|Whether or not the enemy is performing a first strike ???|
-|nonphyscal|bool|No|???|
+|nonphyscal|bool|No|If true, indicate the attack isn't physical ???|
 |dontusecharge|bool|No|???|
 |hasblocked|bool|No|???|
 |enemyfled|bool|No|???|
@@ -52,21 +48,16 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |selection|int|No|???|
 |counter|int|No|???|
 |presskey|int|No|???|
-|forceattack|int|No|???|
 |successfulchain|int|No|???|
 |combo|int|No|???|
 |oldmusicchannel|int|No|???|
-|lastaction|int|No|???|
 |lastdamage|int|No|???|
 |idletimer|int|No|???|
-|attackedally|int|No|??? Set to -1 on StartBattle TODO: Related to Favorite One|
 |calleventnext|int|No|???|
-|charmcooldown|int|No|???|
-|damagethisturn|int|No|???|
+|charmcooldown|int|No|The amount of main turns that needs to pass for [UseCharm](Battle%20flow/UseCharm.md) to have a charm occur ???|
 |chompyoption|int|No|???|
 |actionid|int|No|???|
 |targetedenemy|int|No|???|
-|noaction|int|No|???|
 |tempdata|int|Yes|???|
 |killinput|bool|No|???|
 |demomode|bool|No|???|
@@ -77,9 +68,7 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |deadmembers|int\[\]|No|???|
 |tempslot|BattleData|No|???|
 |damcounters|List<Transform>|No|Damage counter stuff ??? Set to a new list on StartBattle|
-|delprojs|DelayedProjectileData\[\]|Yes|???|
 |lvicon|Transform|No|???|
-|spitout|Coroutine|No|???|
 |commandword|SpriteRenderer|No|???|
 |wordroutine|Coroutine|No|???|
 |buttons|ButtonSprite\[\]|No|???|
@@ -136,7 +125,7 @@ TODO: categorise them once most of them are known
 |oldcamspeed|float|No|Saved to instance.`camspeed` on [StartBattle](StartBattle.md) when it's not a retry. This is used for restore later on [ReturnToOverWorld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
 |overmusic|float|No|If `overworldmusic` was saved, the time of that music is saved on this field if MainManager.`keepmusicafterbattle` is true. This is also used for restore on [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
 |target|int|No|The index of the selected target when selecting a player or enemy|
-|turns|int|No|The amount of completed turns advanced by AdvanceMainTurn. Set to 0 on [StartBattle](StartBattle.md)|
+|turns|int|No|The amount of completed main turns advanced by [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md). Set to 0 on [StartBattle](StartBattle.md)|
 |maxoptions|int|No|The amount of available `option` on the main vine menu|
 |lastoption|int|No|The last selected `option` on the main vine menu|
 |selecteditem|int|No|The selected `listvar` option from an [ItemList](../ItemList/ItemList.md), set by [SetItem](Player%20UI/SetItem.md)|
@@ -166,6 +155,17 @@ TODO: categorise them once most of them are known
 |lastskill|int|No|The last [skill](../Enums%20and%20IDs/Skills.md) id used, set to `selecteditem` before its usage when confirmed in [GetChoiceInput](Player%20UI/GetChoiceInput.md)|
 |turncooldown|float|No|The amount of [FixedUpdate](Visual%20rendering/FixedUpdate.md) cycles left before [GetChoiceInput](Player%20UI/GetChoiceInput.md) calls are allowed during [PlayerTurn](Battle%20flow/PlayerTurn.md). Set to 5.0 in [SetItem](Player%20UI/SetItem.md) and [CancelList](Player%20UI/CancelList.md)|
 |playertargetID|int|No|The player party member index whom is currently targetted by the enemy. If it's -1, the enemy isn't targetting anyone|
+|delprojs|DelayedProjectileData\[\]|Yes|The delayed projectiles currently active|
+|noaction|int|No|The amount of main turns in a row where `actedthisturn` was false. If it reaches 5 without game over, the [inactive failsafe](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md#inaction-failsafe) triggers in [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
+|forceattack|int|No|The `playerdata` index that will be forced to be returned during [GetRandomAvaliablePlayer](Actors%20states/GetRandomAvaliablePlayer.md)|
+|damagethisturn|int|No|The amount of damage the player party inflicted in the current main turn. If it gets higher than [flagvar](../../../Flags%20arrays/flagvar.md) 41 (highest damage in one turn), the flagvar value is set to it before resetting in [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
+|lastaction|int|No|The last [action](Player%20UI/Actions.md) chosen by a player party member. Set to `option` on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) which keeps the last selected vine menu options since the last one chosen on the new turn|
+|eatenkill|bool|Yes|If true, it indicates that a player party member was killed by a `Pitcher` [enemy](../Enums%20and%20IDs/Enemies.md) by draining their HP|
+|dimmer|SpriteRenderer|No|A giant black colored sprite that covers everything behind the transition during load. Initialised on StartBattle after the fade in transition and disabled with a clear color just before the fade out one|
+|spitout|Coroutine|No|The SpitOut coroutine if one is in progress which is a coroutine used by the `Pitcher` [enemy](../Enums%20and%20IDs/Enemies.md). It is null if it's not in progress|
+|firststrike|bool|No|Whether or not the enemy is currently acting as part of the enemy party getting the starting advantage during [StartBattle](StartBattle.md)|
+|lockmmatter|bool|Yes|If true, prevents the `MiracleMatter` [medal](../Enums%20and%20IDs/Medal.md) to take effect. Set to false on StartBattle|
+|attackedally|int|No|The `playerdata` index that was attacked while the `FavoriteOne` [medal](../Enums%20and%20IDs/Medal.md) was equipped on them which will cause it to take effect during [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md). If this medal isn't applicable, the value is -1|
 
 ### Unused fields
 These fields are never referenced or never used in any meaningful ways.

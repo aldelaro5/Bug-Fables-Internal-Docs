@@ -9,7 +9,7 @@ private void StatusEffect(MainManager.BattleData data, MainManager.BattleConditi
 
 - `data`: The actor to attempt to inflict the condition
 - `status`: The condition to attempt to inflict the actor
-- `turns`: The amount of turns to inflict the condition
+- `turns`: The amount of actor turns to inflict the condition
 - `effect`: Whether the infliction should include a visual render. There is an overload where this can be ommited and it will send false
 
 ### Procedure
@@ -27,7 +27,7 @@ Here are the statuses where the test is applicable and which resistance will be 
 
 If the test fails, nothing happens and a return happens immediately.
 
-If it succeeds, [SetCondition](SetCondition.md) is called with the actor, condition and amount of turns. This does imply that another resistance check will happen if it amends the condition, but it doesn't matter because it will always pass given the previous test.
+If it succeeds, [SetCondition](SetCondition.md) is called with the actor, condition and amount of actor turns. This does imply that another resistance check will happen if it amends the condition, but it doesn't matter because it will always pass given the previous test.
 
 The method is done if effect is false.
 
