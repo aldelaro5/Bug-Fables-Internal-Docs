@@ -54,7 +54,7 @@ From there, for each `delprojs` (going from last to start), the delproj's `turns
 - `blockcooldown` is set to 0.0
 - `commandsuccess` is set to false
 - If the delproj has a `whilesound` set, it is played on loop unless the first character is `@` in which case, it will play the sound only once where name is the one without the `@`
-- The `args` of the delproj are parsed as explained in the [delayed projectile documentation](../../Uncategorised%20types/DelayedProjectileData.md#args-field)
+- The `args` of the delproj are parsed as explained in the [delayed projectile documentation](../../Actors%20states/Delayed%20projectile.md#args-field)
 - Unless a `noshadow` command was parsed, a ShadowLite is added to the delproj's `obj`
 - For delproj's `framestep` amount of frames, the projectile is moved (kept track with a local frame counter starting at 0.0 and getting incremented by MainManager.`framestep` each iteraction):
     - The delproj's `obj` psotion is set to a lerp from the initial one to the `partypos` of the delproj's `position` + the `move` command offset if it was parsed with a factor of the ratio between the amount of frames spent so far on this loop vs delproj's `framestep`
