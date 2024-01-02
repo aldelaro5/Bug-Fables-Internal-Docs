@@ -86,7 +86,7 @@ Each actor also have their own concept of turns called actor turn. An actor turn
 There is a notable exception to this flow: an enemy is able to do what's known as a [hitaction](Battle%20flow/Update.md#enemies-hitaction). A hitaction occurs when the field of the same name on the enemy party member is true which causes the next Update cycle to process a temporary DoAction call on the enemy while placing `enemy` to true. This allows an enemy to seize control of the battle during the player phase with DoAction being aware of the hitaction thanks to the field being true. This is only temporary: DoAction will revert the battle state to where it was before once it's done including setting the enemy's `hitaction` back to false. When this happens, the battle can continue where it was in the player phase.
 
 ## Actor state
-The player party's stats are in instance.`playerdata` (which the whole game uses elsewhere in various places) while the enemy party's are specifically inside BattleControl and is called `enemydata`. 
+The player party's stats are in instance.`playerdata` (which the whole game uses elsewhere in various places) while the enemy party's are specifically inside BattleControl and is called `enemydata`.  The `playerdata` array has complex addressing methods, more info can be found at the [`playerdata` addressing documentation](playerdata%20addressing.md)
 
 They are both the same type: a struct called `BattleData` which means some fields have different meanings depending if it's a player party member or an enemy party member and some fields are only relevant for one of the 2.
 
