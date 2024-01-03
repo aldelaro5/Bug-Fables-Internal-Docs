@@ -9,7 +9,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 
 |Name|Type|Public?|Description|
 |----|----|---------|-----------|
-|reservedata|List<BattleData>|No|??? Reset to a new list on StartBattle|
 |extraentities|EntityControl\[\]|Yes|???|
 |enemybounce|Coroutine\[\]|No|???|
 |actionroutine|Coroutine|No|???|
@@ -44,7 +43,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |blockcooldown|float|No|???|
 |barfill|float|No|???|
 |superblockedthisframe|float|No|Seems to be some sort of cooldown ??? Decreases by framestep on LateUpdate|
-|lastaddedid|int|No|???|
 |selection|int|No|???|
 |counter|int|No|???|
 |presskey|int|No|???|
@@ -66,14 +64,11 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |counterspriteindex|int\[\]|No|???|
 |partypointer|int\[\]|Yes|Party order stuff ??? Set to {0, 1, 2} on StartBattle TODO: what even is happening with this|
 |deadmembers|int\[\]|No|???|
-|tempslot|BattleData|No|???|
 |damcounters|List<Transform>|No|Damage counter stuff ??? Set to a new list on StartBattle|
 |lvicon|Transform|No|???|
 |commandword|SpriteRenderer|No|???|
 |wordroutine|Coroutine|No|???|
 |buttons|ButtonSprite\[\]|No|???|
-|deadenemypos|List<Vector3>|No|???|
-|summonnewenemy|bool|No|???|
 
 ### Known fields
 TODO: categorise them once most of them are known 
@@ -157,7 +152,7 @@ TODO: categorise them once most of them are known
 |playertargetID|int|No|The player party member index whom is currently targetted by the enemy. If it's -1, the enemy isn't targetting anyone|
 |delprojs|DelayedProjectileData\[\]|Yes|The delayed projectiles currently active|
 |noaction|int|No|The amount of main turns in a row where `actedthisturn` was false. If it reaches 5 without game over, the [inactive failsafe](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md#inaction-failsafe) triggers in [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
-|forceattack|int|No|The `playerdata` index that will be forced to be returned during [GetRandomAvaliablePlayer](Actors%20states/GetRandomAvaliablePlayer.md)|
+|forceattack|int|No|The player party member's [animid](../Enums%20and%20IDs/AnimIDs.md) index that will be forced to be returned during [GetRandomAvaliablePlayer](Actors%20states/GetRandomAvaliablePlayer.md)|
 |damagethisturn|int|No|The amount of damage the player party inflicted in the current main turn. If it gets higher than [flagvar](../Flags%20arrays/flagvar.md) 41 (highest damage in one turn), the flagvar value is set to it before resetting in [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
 |lastaction|int|No|The last [action](Player%20UI/Actions.md) chosen by a player party member. Set to `option` on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) which keeps the last selected vine menu options since the last one chosen on the new turn|
 |eatenkill|bool|Yes|If true, it indicates that a player party member was killed by a `Pitcher` [enemy](../Enums%20and%20IDs/Enemies.md) by draining their HP|
@@ -166,6 +161,11 @@ TODO: categorise them once most of them are known
 |firststrike|bool|No|Whether or not the enemy is currently acting as part of the enemy party getting the starting advantage during [StartBattle](StartBattle.md)|
 |lockmmatter|bool|Yes|If true, prevents the `MiracleMatter` [medal](../Enums%20and%20IDs/Medal.md) to take effect. Set to false on StartBattle|
 |attackedally|int|No|The `playerdata` index that was attacked while the `FavoriteOne` [medal](../Enums%20and%20IDs/Medal.md) was equipped on them which will cause it to take effect during [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md). If this medal isn't applicable, the value is -1|
+|deadenemypos|List<Vector3>|No|The list of the positions of previously dead enemies as found by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md). It is only used by CheckDead in case `extraenemies` needs to be summoned in the place of the dead ones at the same positions they were before|
+|reservedata|List<BattleData>|No|The list of enemies who are no longer part of `enemydata` because they had died and were moved there by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md) since their `deathtype` indicated they should be moved there. Doing so prevents a full destruction which allows the enemy to be revived later or to visually have a death animation without disappearing. Reset to a new list on StartBattle|
+|summonnewenemy|bool|No|If true, it means that the game is in the process of summoning an enemy from the `extraenemies` to `enemydata` via [SummonEnemy](Actors%20states/SummonEnemy.md), called duing [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md). This prevents SummonEnemy to set `checkingdead` to null once completed to not interfere with the ongoing CheckDead and it also allows CheckDead to wait the summon is over|
+|lastaddedid|int|No|The last enemy party member index added via [AddNewEnemy](Actors%20states/AddNewEnemy.md)|
+|tempslot|BattleData|No|The last enemy to be added in `enemydata` according to [NewEnemy](Actors%20states/NewEnemy.md) if the sent animation value isn't `None`|
 
 ### Unused fields
 These fields are never referenced or never used in any meaningful ways.
@@ -209,3 +209,4 @@ TODO: categorise them once most of them are known
 |battlelossevent|bool|Yes|Tells if [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md) should be called without flee if [DeadParty](Battle%20flow/Terminal%20coroutines/DeadParty.md) happens|
 |battlefled|bool|Yes|Tells if the battle ended by fleeing|
 |haltbattleload|bool|Yes|When set to true, [StartBattle](StartBattle.md) will yield early on in the starting process until the value gets set to false before resuming|
+|lastdefeated|List<int>|No|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that were defeated in the last battle (amended when applicable by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md))|

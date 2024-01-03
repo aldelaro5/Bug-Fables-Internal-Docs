@@ -6,7 +6,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 
 |Name|Type|Description|
 |---|---|---|
-|eventondeath|int|For an enemy, the EventDialogue to trigger when it dies ???|
 |deathtype|int|For an enemy, dictates the manner in which the enemy dies (this isn't a DeathType, see the [battleentity initialisation documentation](../../TextAsset%20Data/Enemies%20data.md#battleentity-special-initialisation) for more details) TODO: seems to have more to it ???|
 |eventonfall|int|The EventDialogue to trigger when the enemy falls ???|
 |sizeonfreeze|float|For an enemy, the `size` when frozen ???|
@@ -14,7 +13,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |battlepos|Vector3|The battle position ??? TODO: this seems to be the neutral position to return to after an action, recheck|
 |delayedcondition|List<int>|???|
 |data|int\[\]|General purpose data array ???|
-|helditem|SpriteRenderer|???|
 |ate|EntityControl|The entity this is currently eating ???|
 |eatenby|EntityControl|The entity currently eating this one ???|
 |position|BattlePosition|The current battle position ???|
@@ -24,14 +22,9 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |cantfall|bool|Tells if the enemy cannot fall ???|
 |notaunt|bool|Tells if the enemy can't be taunted ???|
 |notired|bool|???|
-|fled|bool|???|
 |actimmobile|bool|??? TODO: involved in checks to see if the enemy is active|
-|diebyitself|bool|???|
 |noexpatstart|bool|???|
 |lockposition|bool|???|
-|alreadycounted|bool|???|
-|destroyentity|bool|???|
-|animid|int|For an enemy, the [enemy](../../Enums%20and%20IDs/Enemies.md) id. For a player, ???|
 
 ## Player party members fields
 These fields only applies to player party members.
@@ -73,6 +66,11 @@ These fields only applies to enemy party members.
 |hitaction|bool|When set to true, the enemy will perform a [hitation](../Battle%20flow/Update.md#enemies-hitaction) on the next controlled update flow|
 |defenseonhit|int|The amount to increase the defense when `isdefending` is true|
 |weight|float|A modifier to apply when animating the enemy when it gets hurt by certain attacks|
+|fled|bool|If true, it indicates the enemy party member fled the battle which is seen the same way than if the `hp` reached 0 during [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) which means it's the same than dying, but with less logic involved to kill the enemy party member|
+|destroyentity|bool|If the enemy party member `fled` and this is true while the fleeing is found by [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md), the battleentity will be disabled as part of the killing process|
+|alreadycounted|bool|Indicates to [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) that the enemy party member was already killed prior and therefore, shouldn't cause another increment of the [bestiary entry](../../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md)'s defeat counter the next time the enemy party member dies|
+|eventondeath|int|The [EventDialogue](../Battle%20flow/EventDialogue.md) id to trigger during [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) when it detects that the enemy party member died|
+|diebyitself|bool|If true, it means the enemy party member will die if all of the ones left have this field set to true automatically when [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) detects this situation after it had killed any other enemy party members. This is done by setting the `hp` to 0 manually before running a second check on all enemy party members which will kill them|
 
 ## Common actor fields
 These fields applies to actors for either parties.
@@ -103,6 +101,8 @@ These fields applies to actors for either parties.
 |frozenlastturn|bool|Tells if the actor still had the `Freeze` [condition](Conditions.md) after their last actor turn advance via [AdvanceTurnEntity](AdvanceTurnEntity.md)|
 |atkdownonloseatkup|bool|If true, the actor will get an `AttackDown` [condition](Conditions.md) inflicted the next time an `AttackUp` condition runs out of actor turns|
 |moreturnnextturn|int|When above 0, on the next actor turn, the actor's `cantmove` will be decreased by it which gives it this amount of additional actions available|
+|animid|int|For an enemy, the [enemy](../../Enums%20and%20IDs/Enemies.md) id. For a player, the same as the `trueid` (the actual [animid](../../Enums%20and%20IDs/AnimIDs.md) can be fetched via battleentity.`animid`)|
+|helditem|SpriteRenderer|The `sprite` of the [item](../../Enums%20and%20IDs/Items.md) held by the actor whose id is `holditem`|
 
 ## Unused fields
 These fields are never referenced or never used in any meaningful ways.
