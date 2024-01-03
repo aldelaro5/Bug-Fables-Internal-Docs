@@ -60,14 +60,17 @@ A terminal flow is reserved for cases where the battle will end for sure in some
 
 Here are all the terminal coroutines:
 
-- [DeadParty](Battle%20flow/Terminal%20coroutines/DeadParty.md)
 - [GameOver](Battle%20flow/Terminal%20coroutines/GameOver.md)
-- [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md)
-- [EndBattleWon](Battle%20flow/Terminal%20coroutines/EndBattleWon.md)
-- [ExitBattle](Battle%20flow/Terminal%20coroutines/ExitBattle.md)
 - [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)
+- [DeadParty](Battle%20flow/Terminal%20coroutines/DeadParty.md) (this one is a wrapper to GameOver and ReturnToOverworld)
+- [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md)
 
 They act similarly to action coroutines, but with even more control which is needed to properly end the battle or retry it.
+
+Additionally, there are also wrapper methods available that will call some of the above and also change to a terminal flow:
+
+- [EndBattleWon](Battle%20flow/EndBattleWon.md) (wraps AddExperience)
+- [ExitBattle](Battle%20flow/ExitBattle.md) (wraps ReturnToOverWorld, part of AddExperience)
 
 ## Main turn flow
 As this is a turn based battle system, it has a concept of turns. A main turn is composed of 3 phases executed in order:
