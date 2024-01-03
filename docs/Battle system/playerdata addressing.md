@@ -81,3 +81,6 @@ Another benefit of `partypointer` is this array allows to map battle formation o
 A benefit to this is it simplifies the procedure of [SwitchParty](Battle%20flow/Action%20coroutines/SwitchParty.md) and [SwitchPos](Battle%20flow/Action%20coroutines/SwitchPos.md) because all that's needed is to change the `partypointer` elements and update the battleentities accordingly (mainly their position).
 
 One thing to be cautious of: `partypointer` always has 3 elements, but there might not be 3 `playerdata` elements. If there's 2 or 1, care must be taken to check that the `partypointer` index falls within the bounds of `playerdata` first before addressing this way.
+
+### By battleentity.`animid`
+While the `animid` field isn't as useful as it's essentially the same than `trueid`, it is still possible to address by the rendered [animid](../Enums%20and%20IDs/AnimIDs.md). It works in a similar way than the overworld version, but it uses the battleentity.`animid` instead because the battleentity is now the only one that holds the information about the true rendered animid.
