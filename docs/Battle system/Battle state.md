@@ -33,7 +33,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |nonphyscal|bool|No|If true, indicate the attack isn't physical ???|
 |dontusecharge|bool|No|???|
 |hasblocked|bool|No|???|
-|enemyfled|bool|No|???|
 |selfsacrifice|bool|No|???|
 |chompylock|bool|No|??? Set to false on StartBattle|
 |infinitecommand|bool|No|???|
@@ -166,6 +165,7 @@ TODO: categorise them once most of them are known
 |summonnewenemy|bool|No|If true, it means that the game is in the process of summoning an enemy from the `extraenemies` to `enemydata` via [SummonEnemy](Actors%20states/SummonEnemy.md), called duing [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md). This prevents SummonEnemy to set `checkingdead` to null once completed to not interfere with the ongoing CheckDead and it also allows CheckDead to wait the summon is over|
 |lastaddedid|int|No|The last enemy party member index added via [AddNewEnemy](Actors%20states/AddNewEnemy.md)|
 |tempslot|BattleData|No|The last enemy to be added in `enemydata` according to [NewEnemy](Actors%20states/NewEnemy.md) if the sent animation value isn't `None`|
+|enemyfled|bool|No|Whether at least one enemy party member fled the battle or not|
 
 ### Unused fields
 These fields are never referenced or never used in any meaningful ways.
@@ -183,7 +183,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 
 |Name|Type|Static?|Description|
 |----|----|---------|-----------|
-|battleenemyfled|bool|Yes|Whether the battle ended by the enemy fleeing ??? Set to false on [StartBattle](StartBattle.md)|
 |lastdefeated|List<int>|No|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that ??? Set to a new list on [StartBattle](StartBattle.md)|
 |battleresult|bool|Yes|Whether the battle was won ??? Set to true on [StartBattle](StartBattle.md) TODO: it assumes we won|
 |firstbattleaction|bool|No|??? TODO: this field is very strange in general|
@@ -210,3 +209,4 @@ TODO: categorise them once most of them are known
 |battlefled|bool|Yes|Tells if the battle ended by fleeing|
 |haltbattleload|bool|Yes|When set to true, [StartBattle](StartBattle.md) will yield early on in the starting process until the value gets set to false before resuming|
 |lastdefeated|List<int>|No|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that were defeated in the last battle (amended when applicable by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md))|
+|battleenemyfled|bool|Yes|Whether the battle ended while `enemyfled` was true without `expreward`. Set to false on [StartBattle](StartBattle.md). This won't be set to true for an [Enemy](../Entities/NPCControl/Enemy.md) NPCControl encounter if any `GoldenSeedling` [enemy](../Enums%20and%20IDs/Enemies.md) were defeated|
