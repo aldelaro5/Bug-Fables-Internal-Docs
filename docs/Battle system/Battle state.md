@@ -60,7 +60,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |demomode|bool|No|???|
 |weakenemyfound|bool|No|???|
 |counterspriteindex|int\[\]|No|???|
-|partypointer|int\[\]|Yes|Party order stuff ??? Set to {0, 1, 2} on StartBattle TODO: what even is happening with this|
 |deadmembers|int\[\]|No|???|
 |damcounters|List<Transform>|No|Damage counter stuff ??? Set to a new list on StartBattle|
 |commandword|SpriteRenderer|No|???|
@@ -174,6 +173,7 @@ These fields are never referenced or never used in any meaningful ways.
 |----|----|---------|-----------|
 |oldcamtarget|Transform|No|UNUSED, Set to instance.`camtarget` on [StartBattle](StartBattle.md) when it's not a retry|
 |guicooldown|float|No|UNUSED (there is logic in Update implicating it was supposed to be a cooldown that exhausts only during an Update controlled battle, but it is never practically used anywhere else making it practically unused)|
+|partypointer|int\[\]|Yes|UNUSED, This field is maintained to be the same value as `partypointer`, but by indexing `playerdata` instead. This means that `playerdata[X].pointer` is the same than `partypointer[X]` where `X` is a valid `playerdata` index. In practice, this field is only written into making it unused|
 
 ## MainManager fields
 These fields belongs to MainManager, but they are mostly related to BattleControl's state and either have influences on the battle or they are reporting the result of the battle.
