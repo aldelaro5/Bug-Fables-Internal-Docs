@@ -37,7 +37,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |chompylock|bool|No|??? Set to false on StartBattle|
 |infinitecommand|bool|No|???|
 |chompyaction|bool|No|Tells if Chompy's action is being processed ???|
-|receivedrelay|bool\[\]|No|An array indicating which player index got relayed to ??? TODO: what does this do with relaying exactly|
 |caninputcooldown|float|No|???|
 |blockcooldown|float|No|???|
 |barfill|float|No|???|
@@ -165,6 +164,7 @@ TODO: categorise them once most of them are known
 |enemyfled|bool|No|Whether at least one enemy party member fled the battle or not|
 |leveled|bool|No|Indicates that [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md) detected a rank up situation|
 |lvicon|Transform|No|The EXP icon sprite used in the UI during [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md)|
+|receivedrelay|bool\[\]|No|An array indicating which player index got relayed to via [Relay](Battle%20flow/Action%20coroutines/Relay.md) which allows the `tiredpart` to be rendered whenever `tired` gets above 0 during [UpdateAnim](Visual%20rendering/UpdateAnim.md)|
 
 ### Unused fields
 These fields are never referenced or never used in any meaningful ways.
