@@ -51,20 +51,18 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |lastdamage|int|No|???|
 |idletimer|int|No|???|
 |calleventnext|int|No|???|
-|charmcooldown|int|No|The amount of main turns that needs to pass for [UseCharm](Battle%20flow/UseCharm.md) to have a charm occur ???|
+|charmcooldown|int|No|The amount of main turns that needs to pass for [UseCharm](Actors%20states/UseCharm.md) to have a charm occur ???|
 |chompyoption|int|No|???|
 |actionid|int|No|???|
 |targetedenemy|int|No|???|
 |tempdata|int|Yes|???|
 |killinput|bool|No|???|
 |demomode|bool|No|???|
-|leveled|bool|No|???|
 |weakenemyfound|bool|No|???|
 |counterspriteindex|int\[\]|No|???|
 |partypointer|int\[\]|Yes|Party order stuff ??? Set to {0, 1, 2} on StartBattle TODO: what even is happening with this|
 |deadmembers|int\[\]|No|???|
 |damcounters|List<Transform>|No|Damage counter stuff ??? Set to a new list on StartBattle|
-|lvicon|Transform|No|???|
 |commandword|SpriteRenderer|No|???|
 |wordroutine|Coroutine|No|???|
 |buttons|ButtonSprite\[\]|No|???|
@@ -136,7 +134,7 @@ TODO: categorise them once most of them are known
 |saveddata|bool|No|Whether the `sdata` have been saved and are ready for restoration. Set to true at the very end of [StartBattle](StartBattle.md)|
 |actedthisturn|bool|No|Tells if [PlayerTurn](Battle%20flow/PlayerTurn.md) was called at least once during the turn implying at least one player could act. Set back to false on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
 |lastturns|int\[\]|No|The state of the player index selection cycle which starts with an array of length being the amount of free players - 1. Advancing it means either assigning the first free slot (-1) to the player being selected or shift the elements such that it falls on the latest while the oldest is removed|
-|charmdance|Sprite\[\]|No|The sprites Charmy uses during [UseCharm](Battle%20flow/UseCharm.md). Always set to sprite 98 and 99 of `Sprites/Entities/moth0` on [StartBattle](StartBattle.md)|
+|charmdance|Sprite\[\]|No|The sprites Charmy uses during [UseCharm](Actors%20states/UseCharm.md). Always set to sprite 98 and 99 of `Sprites/Entities/moth0` on [StartBattle](StartBattle.md)|
 |tskybox|Material|No|The RenderSettings.skybox saved on [StartBattle](StartBattle.md). This is used for restoring later in case of a retry|
 |chompyattack|Coroutine|Yes|The coroutine of [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) if it's in progress (null if it's not)|
 |disablespy|bool|Yes|If true, spying is disabled and cannot be performed on any enemy|
@@ -166,6 +164,8 @@ TODO: categorise them once most of them are known
 |lastaddedid|int|No|The last enemy party member index added via [AddNewEnemy](Actors%20states/AddNewEnemy.md)|
 |tempslot|BattleData|No|The last enemy to be added in `enemydata` according to [NewEnemy](Actors%20states/NewEnemy.md) if the sent animation value isn't `None`|
 |enemyfled|bool|No|Whether at least one enemy party member fled the battle or not|
+|leveled|bool|No|Indicates that [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md) detected a rank up situation|
+|lvicon|Transform|No|The EXP icon sprite used in the UI during [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md)|
 
 ### Unused fields
 These fields are never referenced or never used in any meaningful ways.
@@ -210,3 +210,5 @@ TODO: categorise them once most of them are known
 |haltbattleload|bool|Yes|When set to true, [StartBattle](StartBattle.md) will yield early on in the starting process until the value gets set to false before resuming|
 |lastdefeated|List<int>|No|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that were defeated in the last battle (amended when applicable by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md))|
 |battleenemyfled|bool|Yes|Whether the battle ended while `enemyfled` was true without `expreward`. Set to false on [StartBattle](StartBattle.md). This won't be set to true for an [Enemy](../Entities/NPCControl/Enemy.md) NPCControl encounter if any `GoldenSeedling` [enemy](../Enums%20and%20IDs/Enemies.md) were defeated|
+|bp|int|No|The amount of MP the player party has, clamped to `maxbp`|
+|maxbp|int|No|The maximum amount of MP the player party has|

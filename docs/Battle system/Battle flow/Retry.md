@@ -19,9 +19,9 @@ private void Retry(bool skipdata)
 - `tskybox` is set to RenderSettings.skybox
 - RenderSettings.skybox is set to null
 - instance.`enemyencounter` is set to `sdata.encounter`
-- If skipdata is false, ReloadInitialData is called which does the following (mostly loads from the [StartUpData](../../StartUpData.md)):
-    - [ApplyBadges](../../ApplyBadges.md) is called
-    - [ApplyStatBonus](../../ApplyStatBonus.md) is called
+- If skipdata is false, ReloadInitialData is called which does the following (mostly loads from the [StartUpData](../StartUpData.md)):
+    - [ApplyBadges](../ApplyBadges.md) is called
+    - [ApplyStatBonus](../ApplyStatBonus.md) is called
     - instance.`maxtp` is set to `sdata.maxtp`
     - instance.`tp` is set to `sdata.tp` clamped from 0 to instance.`maxtp`
     - For each player party member:

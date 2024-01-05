@@ -59,8 +59,8 @@ This means the battle ended due to the player fleeing:
 - If the `caller` exists, some adjustements needs to happen on it (it implies the `caller` is an [Enemy](../../../Entities/NPCControl/Enemy.md#enemy) NPCControl):
     - STOP is called on the `caller` which does the following if the `caller.entity` isn't `dead`:
         - Stop `behaviorroutine` if it was in progress and set it to null
-        - Set `forcebehavior` to null and call [StopForceBehavior](StopForceBehavior.md)
-        - Call [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) on the entity
+        - Set `forcebehavior` to null and call [StopForceBehavior](../../../Entities/NPCControl/Notable%20methods/StopForceBehavior.md)
+        - Call [StopForceMove](../../../Entities/EntityControl/EntityControl%20Methods.md#stopforcemove) on the entity
         - Set the entity.`overrideflip` and entity.`overrideonlyflip` to false
         - Set `attacking` to false
     - `caller.entity.overrideanim` is set to false

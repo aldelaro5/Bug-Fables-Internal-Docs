@@ -32,10 +32,10 @@ These fields only applies to player party members.
 |Name|Type|Description|
 |---|---|---|
 |trueid|int|The [animid](../../Enums%20and%20IDs/AnimIDs.md#animids) of the player party member|
-|basehp|int|The max HP after applying all the `statbonus` from the initial one (this is normally 7 except for the `Beetle` [animid](../../Enums%20and%20IDs/AnimIDs.md#animids) where it's 9)|
+|basehp|int|The max HP after applying all the `statbonus` from the initial one (this is initially 7 except for the `Beetle` [animid](../../Enums%20and%20IDs/AnimIDs.md#animids) where it's 9)|
 |hpt|int|The displayed HUD value of the `hp`|
-|baseatk|int|The attack after applying all the `statbonus` from the initial one (normally 2)|
-|basedef|int|The defense after applying all the `statbonus` from the initial one (normally 0)|
+|baseatk|int|The attack after applying all the `statbonus` from the initial one (initially 2)|
+|basedef|int|The defense after applying all the `statbonus` from the initial one (initially 0)|
 |skills|List<int>|The list of available [skills](../../Enums%20and%20IDs/Skills.md), set to the return of [RefreshSkills](../RefreshSkills.md) for this player party member|
 |lockskills|bool|If true, prevents [skills](../../Enums%20and%20IDs/Skills.md) to be used|
 |lockitems|bool|If true, prevents items to be used|

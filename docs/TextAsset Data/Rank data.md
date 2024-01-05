@@ -1,6 +1,6 @@
 # Rank data
 
-The game contains a TextAsset located at `Ressources/data/LevelData` from the root of the assets tree that contains data about special bonuses gained for specific ranks reached after a rank up. It is loaded each time in LevelUpMessage (which also applies the bonus on top of presenting the message) and [Event](../SetText/Individual%20commands/Event.md) 208 (Talking to Eetl in RUIGEE) to gather the bonus information if one exist. If no bonus exists for the given new rank, no extra bonus is applied on top of the standard one (chosen in battle or 1 MP under RUIGEE).
+The game contains a TextAsset located at `Ressources/data/LevelData` from the root of the assets tree that contains data about special bonuses gained for specific ranks reached after a rank up. It is loaded each time in [LevelUpMessage](../Battle%20system/Battle%20flow/LevelUpMessage.md) (which also applies the bonus on top of presenting the message) and [Event](../SetText/Individual%20commands/Event.md) 208 (Talking to Eetl in RUIGEE) to gather the bonus information if one exist. If no bonus exists for the given new rank, no extra bonus is applied on top of the standard one (chosen in battle or 1 MP under RUIGEE).
 
 The asset contains a list of bonuses to apply given a rank reached, one per line. Each lines contains fields:
 
