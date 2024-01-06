@@ -19,7 +19,7 @@ In order for this coroutine to process the charm, all of the following must true
 - A 6% random test must pass (generate a random integer number between 0 and 100 exclusive, that number converted to float must be \<= 5.5 which is a pass from 0 to 5 inclusive which makes it 6%)
 - At least 1 player party member's `hp` is above 0 and isn't `eatenby`
 - EnemyActingOutOfOrder returns false meaning no enemy party member's [hitaction](../BattleControl.md#hitactions) is true
-- Either the type is `ExpUp` (meaning it was invoked from [AddExperience](../Battle%20flow/Terminal%20coroutines/AddExperience.m)) or it's any other type while `cancelupdate` is false (we aren't in a [terminal flow](../Battle%20flow/Update.md#terminal-flow))
+- Either the type is `ExpUp` (meaning it was invoked from [AddExperience](../Battle%20flow/Terminal%20coroutines/AddExperience.md)) or it's any other type while `cancelupdate` is false (we aren't in a [terminal flow](../Battle%20flow/Update.md#terminal-flow))
 - If the type is `AttackUp`, `playerdata[currentturn]` must not have the `AttackUp` [condition](Conditions.md) already
 
 The following sections describes what happens when the charm is cleared to be processed.
@@ -90,7 +90,7 @@ The following is paraphrased as it contains verbose animation logic:
 - `charmcooldown` is set to a random number from 3 to 7 inclusive (this means a minimum amount of main turn needs to advance before the next charm is able to be processed even if it can be and the amount is between 3 and 7)
 - If [flagvar](../../Flags%20arrays/flagvar.md) 22 reached 0 (meaning the last charm was just consumed):
     - A [SetText](../../SetText/SetText.md) call occurs in [dialogue move](../../SetText/Dialogue%20mode.md#dialogue-mode) using the text `|boxstyle,4||center||halfline||spd,0|` followed by `menutext[184]` (a message informing the player they no longer have any charms). The call also has these properties:
-      - [fonttype](../../../SetText/Notable%20states.md#fonttype) of 0 (`BubblegumSans`)
+      - [fonttype](../../SetText/Notable%20states.md#fonttype) of 0 (`BubblegumSans`)
       - linebreak of `messagebreak`
       - No tridimensional
       - position of Vector3.zero
