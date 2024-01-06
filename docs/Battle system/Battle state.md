@@ -59,7 +59,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |weakenemyfound|bool|No|???|
 |counterspriteindex|int\[\]|No|???|
 |deadmembers|int\[\]|No|???|
-|damcounters|List<Transform>|No|Damage counter stuff ??? Set to a new list on StartBattle|
 |commandword|SpriteRenderer|No|???|
 |wordroutine|Coroutine|No|???|
 |buttons|ButtonSprite\[\]|No|???|
@@ -165,6 +164,7 @@ TODO: categorise them once most of them are known
 |lvicon|Transform|No|The EXP icon sprite used in the UI during [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md)|
 |receivedrelay|bool\[\]|No|An array indicating which player index got relayed to via [Relay](Battle%20flow/Action%20coroutines/Relay.md) which allows the `tiredpart` to be rendered whenever `tired` gets above 0 during [UpdateAnim](Visual%20rendering/UpdateAnim.md)|
 |charmcooldown|int|No|The amount of main turns that needs to pass for [UseCharm](Actors%20states/UseCharm.md) to process the next charm even if one is available and it would have been processed otherwise. Set to a random integer between 3 and 7 inclusive after a charm has been processed and decremented on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
+|damcounters|List<Transform>|No|All of the currently rendered damage counters maintained by [CounterAnimation](Visual%20rendering/ShowDamageCounter.md#counteranimation), a sub coroutine of [ShowDamageCounter](Visual%20rendering/ShowDamageCounter.md). Set to a new list on StartBattle|
 
 ### Unused fields
 These fields are never referenced or never used in any meaningful ways.
