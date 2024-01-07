@@ -47,7 +47,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |oldmusicchannel|int|No|???|
 |lastdamage|int|No|???|
 |idletimer|int|No|???|
-|calleventnext|int|No|???|
 |chompyoption|int|No|???|
 |actionid|int|No|???|
 |targetedenemy|int|No|???|
@@ -165,6 +164,7 @@ TODO: categorise them once most of them are known
 |killinput|bool|No|Used for the `PressKey` action command that when set to true, [DoCommand](Action%20commands/DoCommand.md) will stop listening for inputs|
 |commandsuccess|bool|Yes|Tells if the last action command succeeded|
 |doingaction|bool|Yes|If true, an action command is in progress|
+|calleventnext|int|No|If not negative, the [EventDialogue](Battle%20flow/EventDialogue.md) whose id is this value will be done on the next [unctrolled flow](Battle%20flow/Update.md#uncontrolled-flow). This is only used in conjuction with an actor's `eventonfall` when it triggers|
 
 ### Unused fields
 These fields are never referenced or never used in any meaningful ways.

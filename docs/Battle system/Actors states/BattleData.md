@@ -1,31 +1,6 @@
 # BattleData
 This is defined in MainManager, but it is primarily used for the battle system.
 
-## Uncategorised fields
-These fields's semantics haven't been found yet. They will be moved out of this section as they are figured out
-
-|Name|Type|Description|
-|---|---|---|
-|deathtype|int|For an enemy, dictates the manner in which the enemy dies (this isn't a DeathType, see the [battleentity initialisation documentation](../../TextAsset%20Data/Enemies%20data.md#battleentity-special-initialisation) for more details) TODO: seems to have more to it ???|
-|eventonfall|int|The EventDialogue to trigger when the enemy falls ???|
-|sizeonfreeze|float|For an enemy, the `size` when frozen ???|
-|initialsize|float|???|
-|battlepos|Vector3|The battle position ??? TODO: this seems to be the neutral position to return to after an action, recheck|
-|delayedcondition|List<int>|???|
-|data|int\[\]|General purpose data array ???|
-|ate|EntityControl|The entity this is currently eating ???|
-|eatenby|EntityControl|The entity currently eating this one ???|
-|position|BattlePosition|The current battle position ???|
-|weakness|List<AttackProperty>|The list of properties that applies for attacks on this ??? TODO: it's not just weaknesses, for some reasons, alwayssurvive placed in this case make the enemy always survive...|
-|extrastuff|Transform\[\]|???|
-|frostbitep|ParticleSystem|???|
-|cantfall|bool|Tells if the enemy cannot fall ???|
-|notaunt|bool|Tells if the enemy can't be taunted ???|
-|notired|bool|???|
-|actimmobile|bool|??? TODO: involved in checks to see if the enemy is active|
-|noexpatstart|bool|???|
-|lockposition|bool|???|
-
 ## Player party members fields
 These fields only applies to player party members.
 
@@ -45,6 +20,7 @@ These fields only applies to player party members.
 |plating|bool|Tells if the `Plating` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on this player party member|
 |didnothing|bool|Tells if the player party member already has chosen to do nothing on a previous action in the same turn which prevents to benefits from some [medals](../../Enums%20and%20IDs/Medal.md)'s effects. See [Do Nothing](../Player%20UI/SetItem.md#2-do-nothing) for details|
 |lockcantmove|bool|If true, prevents `cantmove` to be set to 0 (one action available) whenever the `MiracleMatter` [medal](../../Enums%20and%20IDs/Medal.md) triggers. It is set to false after the medal triggers|
+|eatenby|EntityControl|If not null, this player party member is trapped via eating by the entity corresponding to the value (this is only used when a `Pitcher` [enemy](../../Enums%20and%20IDs/Enemies.md) eats a player party member and it not being null is treated the same as having an `hp` of 0 or below which is death)|
 
 ## Enemy party members fields
 These fields only applies to enemy party members.
@@ -71,6 +47,23 @@ These fields only applies to enemy party members.
 |alreadycounted|bool|Indicates to [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) that the enemy party member was already killed prior and therefore, shouldn't cause another increment of the [bestiary entry](../../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md)'s defeat counter the next time the enemy party member dies|
 |eventondeath|int|The [EventDialogue](../Battle%20flow/EventDialogue.md) id to trigger during [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) when it detects that the enemy party member died|
 |diebyitself|bool|If true, it means the enemy party member will die if all of the ones left have this field set to true automatically when [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) detects this situation after it had killed any other enemy party members. This is done by setting the `hp` to 0 manually before running a second check on all enemy party members which will kill them|
+|deathtype|int|For an enemy, dictates the manner in which the enemy dies (this isn't a DeathType, see the [battleentity initialisation documentation](../../TextAsset%20Data/Enemies%20data.md#battleentity-special-initialisation) for more details)|
+|eventonfall|int|The [EventDialogue](../Battle%20flow/EventDialogue.md) to trigger when the enemy party member falls to the ground when sustaining damage (meaning [Drop](../../Entities/EntityControl/Notable%20methods/Drop.md#drop) is called on the battleentity as a result of sustaining damage)|
+|sizeonfreeze|float|The size returned by GetEnemySize when the enemy party member has the `Frozen` [condition](Conditions.md) instead of its `size`|
+|initialsize|float|The initial `size` value of the enemy party member. `size` will be set to this value when [BreakIce](../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) is called on the battleentity|
+|battlepos|Vector3|The resting battle position of the enemy party members used only in an [EventDialogue](../Battle%20flow/EventDialogue.md)|
+|delayedcondition|List<int>|A list of [conditions](Conditions.md) (only the `BattleCondition` part) added by the damage pipeline that will be inflicted later un [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) TODO: learn more during damage pipeline docs|
+|data|int\[\]|General purpose data array for use in [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md)|
+|ate|EntityControl|The entity this enemy party member is trapping via eating (this is only used for the `Pitcher` [enemy](../../Enums%20and%20IDs/Enemies.md))|
+|position|BattlePosition|The logical battle position frequently used to determine target availability|
+|extrastuff|Transform\[\]|A general purspose transforms array for use in [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md)|
+|frostbitep|ParticleSystem|An instance of `Prefabs/Particles/Snowflakes` childed to the battleentity that is initialised whenever the `Freeze` [condition](Conditions.md) is added as a delayed condition|
+|cantfall|bool|If true, the enemy party member cannot fall to the ground as a result of sustaining damage|
+|notaunt|bool|If true, the enemy party member cannot be inflicted by the `Taunted` [condition](Conditions.md) from the player party|
+|notired|bool|If true, the enemy will not cumulated any `tired` (meaning it can't gain exhaustion) whenever the `DoublePain` [medal](../../Enums%20and%20IDs/Medal.md) is not equipped|
+|actimmobile|bool|??? TODO: involved in checks to see if the enemy is active|
+|weakness|List<AttackProperty>|The list of properties that applies for attacks on this ??? TODO: it's not just weaknesses, for some reasons, alwayssurvive placed in this case make the enemy always survive, heavily involved in the damage pipeline|
+|lockposition|bool|??? TODO: involved in the damage pipeline|
 
 ## Common actor fields
 These fields applies to actors for either parties.
@@ -117,3 +110,4 @@ These fields are never referenced or never used in any meaningful ways.
 |harddef|int|UNUSED|
 |lv|int|UNUSED|
 |id|int|UNUSED (only read from [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md), but never written to so it stays at 0)|
+|noexpatstart|bool|UNUSED (intended for enemy party members only, only read during damage pipeline, but never written to so it always have the value false)|

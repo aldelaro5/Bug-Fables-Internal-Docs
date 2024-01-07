@@ -138,6 +138,7 @@ After this, the `entity.destroytype` gets mapped to a DeathType depending on the
 |9|Sink|
 |10|ExplodeAnim|
 |11|DropSprites|
+|12|TODO: ???|
 
 #### Exp logic
 The `exp` field has particularily complex logic to determine its value:
