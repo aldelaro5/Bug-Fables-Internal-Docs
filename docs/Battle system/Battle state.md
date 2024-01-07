@@ -17,8 +17,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |coptions|List<int>|No|The list of action options available during [Chompy](Battle%20flow/Action%20coroutines/Chompy.md): 0 is ???, 1 is ???, 2 is ??? and 3 is ???|
 |defaultcounteroffset|Vector3|No|???|
 |partymiddle|Vector3|No|???|
-|commandsuccess|bool|Yes|Tells if an action command succeeded ???|
-|doingaction|bool|Yes|???|
 |startdrop|bool|Yes|???|
 |firstaction|bool|Yes|???|
 |specialdefeat|bool|Yes|???|
@@ -54,7 +52,6 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |actionid|int|No|???|
 |targetedenemy|int|No|???|
 |tempdata|int|Yes|???|
-|killinput|bool|No|???|
 |demomode|bool|No|???|
 |weakenemyfound|bool|No|???|
 |counterspriteindex|int\[\]|No|???|
@@ -68,7 +65,7 @@ TODO: categorise them once most of them are known
 
 |Name|Type|Public?|Description|
 |----|----|---------|-----------|
-|itemarea|[AttackArea](Uncategorised%20types/AttackArea.md)|No|Tells what actors are selectable to perform the current action|
+|itemarea|[AttackArea](AttackArea.md)|No|Tells what actors are selectable to perform the current action|
 |currentaction|[Pick](Player%20UI/Pick.md)|Yes|The current menu being naviguated by the player. Set to `BaseAction` on [StartBattle](StartBattle.md)|
 |currentchoice|[Actions](Player%20UI/Actions.md)|Yes|The current action being selected on the `BaseAction` menu. Set to `Attack` on [StartBattle](StartBattle.md)|
 |enemydata|[BattleData](Actors%20states/BattleData.md)\[\]|Yes|The first enemies party member data with a length up to 4 (the extra ones are stored in `extraenemies`). Set to a new list with the same length as the sent enemyids on [StartBattle](StartBattle.md) (after it was truncated to the first 4) and then filled with the actual enemy data|
@@ -165,6 +162,9 @@ TODO: categorise them once most of them are known
 |receivedrelay|bool\[\]|No|An array indicating which player index got relayed to via [Relay](Battle%20flow/Action%20coroutines/Relay.md) which allows the `tiredpart` to be rendered whenever `tired` gets above 0 during [UpdateAnim](Visual%20rendering/UpdateAnim.md)|
 |charmcooldown|int|No|The amount of main turns that needs to pass for [UseCharm](Actors%20states/UseCharm.md) to process the next charm even if one is available and it would have been processed otherwise. Set to a random integer between 3 and 7 inclusive after a charm has been processed and decremented on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
 |damcounters|List<Transform>|No|All of the currently rendered damage counters maintained by [CounterAnimation](Visual%20rendering/ShowDamageCounter.md#counteranimation), a sub coroutine of [ShowDamageCounter](Visual%20rendering/ShowDamageCounter.md). Set to a new list on StartBattle|
+|killinput|bool|No|Used for the `PressKey` action command that when set to true, [DoCommand](Action%20commands/DoCommand.md) will stop listening for inputs|
+|commandsuccess|bool|Yes|Tells if the last action command succeeded|
+|doingaction|bool|Yes|If true, an action command is in progress|
 
 ### Unused fields
 These fields are never referenced or never used in any meaningful ways.

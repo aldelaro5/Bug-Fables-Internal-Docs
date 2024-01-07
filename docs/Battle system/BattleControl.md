@@ -97,6 +97,3 @@ More details on the fiels can be consulted in the [BattleData](Actors%20states/B
 
 ## Other Unity events
 Besides Update, this component has a [LateUpdate](Visual%20rendering/LateUpdate.md) and a [FixedUpdate](Visual%20rendering/FixedUpdate.md), but they only update UI informations visually and are therefore much more minor in terms of importance.
-
-## Uncategorised types
-These enums don't have proper organisations yet, but are left present as they influence the battle. They will be moved once more information has been figured out and organised.
