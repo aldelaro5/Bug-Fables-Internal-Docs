@@ -4,66 +4,52 @@ These fields describes the state of the battle. Some fields belongs to MainManag
 ## BattleControl fields
 This is all the BattleControl fields.
 
-### Uncategorised fields
-These fields's semantics haven't been found yet. They will be moved out of this section as they are figured out.
-
-|Name|Type|Public?|Description|
-|----|----|---------|-----------|
-|extraentities|EntityControl\[\]|Yes|???|
-|enemybounce|Coroutine\[\]|No|???|
-|actionroutine|Coroutine|No|???|
-|checkingdead|Coroutine|Yes|Store diverse coroutines ??? TODO: the name is weird: it talks about CheckDead, but it's not just used for it...|
-|currententity|EntityControl|No|???|
-|coptions|List<int>|No|The list of action options available during [Chompy](Battle%20flow/Action%20coroutines/Chompy.md): 0 is ???, 1 is ???, 2 is ??? and 3 is ???|
-|defaultcounteroffset|Vector3|No|???|
-|partymiddle|Vector3|No|???|
-|startdrop|bool|Yes|???|
-|firstaction|bool|Yes|???|
-|specialdefeat|bool|Yes|???|
-|gottaspit|bool|Yes|???|
-|overridechallengeblock|bool|Yes|???|
-|keepmusic|bool|Yes|???|
-|nolifesteal|bool|Yes|???|
-|commandsprites|SpriteRenderer\[\]|No|???|
-|playertargetentity|EntityControl|No|???|
-|cancelb|ButtonSprite|No|???|
-|tryenemyheal|Coroutine|No|???|
-|nonphyscal|bool|No|If true, indicate the attack isn't physical ???|
-|dontusecharge|bool|No|???|
-|hasblocked|bool|No|???|
-|selfsacrifice|bool|No|???|
-|chompylock|bool|No|??? Set to false on StartBattle|
-|infinitecommand|bool|No|???|
-|chompyaction|bool|No|Tells if Chompy's action is being processed ???|
-|caninputcooldown|float|No|???|
-|blockcooldown|float|No|???|
-|barfill|float|No|???|
-|superblockedthisframe|float|No|Seems to be some sort of cooldown ??? Decreases by framestep on LateUpdate|
-|selection|int|No|???|
-|counter|int|No|???|
-|presskey|int|No|???|
-|successfulchain|int|No|???|
-|combo|int|No|???|
-|oldmusicchannel|int|No|???|
-|lastdamage|int|No|???|
-|idletimer|int|No|???|
-|chompyoption|int|No|???|
-|actionid|int|No|???|
-|targetedenemy|int|No|???|
-|tempdata|int|Yes|???|
-|demomode|bool|No|???|
-|weakenemyfound|bool|No|???|
-|counterspriteindex|int\[\]|No|???|
-|deadmembers|int\[\]|No|???|
-|commandword|SpriteRenderer|No|???|
-|wordroutine|Coroutine|No|???|
-|buttons|ButtonSprite\[\]|No|???|
-
 ### Known fields
 TODO: categorise them once most of them are known 
 
 |Name|Type|Public?|Description|
 |----|----|---------|-----------|
+|buttons|ButtonSprite\[\]|No|A general purpose array of ButtonSprites for use in [DoCommand](Action%20commands/DoCommand.md)|
+|wordroutine|Coroutine|No|Tracks the progress of a [ShowSuccessWord](Visual%20rendering/ShowSuccessWord.md) coroutine|
+|commandword|SpriteRenderer|No|The word SpriteRenderer used in [ShowSuccessWord](Visual%20rendering/ShowSuccessWord.md)|
+|deadmembers|int\[\]|No|The array of player party members indexes whose `hp` is 0 or below as returned by GetDeadParty. Used during [RevivePlayer](Actors%20states/RevivePlayer.md) to decide whether to resucitate the player party member|
+|counterspriteindex|int\[\]|No|Indicates the `guisprites` indexes of the different counter used in [ShowDamageCounter](Visual%20rendering/ShowDamageCounter.md). This is always {8, 40, 101}|
+|tempdata|int|Yes|A general purpose integer for use in [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) meant to be set externally. This is only used for the `Spuder` [enemy](../Enums%20and%20IDs/Enemies.md) TODO: recheck, it might have been moved to a different enemy during dev|
+|demomode|bool|No|If true, indicates the battle operates in tutorial mode TODO: clearly define what this is|
+|targetedenemy|int|No|Indicates the enemy party member index that `Beetle` will target when using his basic attack or the `HeavyStrike` skill during [DoAction](Battle%20flow/Action%20coroutines/DoAction.md)|
+|chompyoption|int|No|The last chosen `coption` the last time [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) was called|
+|idletimer|int|No|The amount of frames since the player idled which is used in the [EXP counter update](Battle%20flow/Update.md#exp-counter-updates)|
+|lastdamage|int|No|The last final amount of damage done at the end of [DoDamage](Damage%20pipeline/DoDamage.md)|
+|combo|int|No|The amount of consecutive successful action commands performed which influences visual and audio effects informing of the input successes|
+|successfulchain|int|No|The amount of sucessful inputs perfomred in a `LongRandomBar` action commands during [DoCommand](Action%20commands/DoCommand.md)|
+|presskey|int|No|A general purpose input id for use in [DoCommand](Action%20commands/DoCommand.md)|
+|superblockedthisframe|float|No|A short lived frames cooldown that when not expired, it indicates the player very recently peformed a super block. Used in the damage pipeline and maintained by [LateUpdate](Visual%20rendering/LateUpdate.md)|
+|barfill|float|No|A number between 0.0 and 1.0 that tells the ratio of an action command's bar's filled portion which is managed by [DoCommand](Action%20commands/DoCommand.md)|
+|blockcooldown|float|No|The amount of frames left that a block can be processed TODO: detail this and recheck|
+|caninputcooldown|float|No|A general purpose input cooldown in amount of frames left before expiring|
+|chompyaction|bool|No|Tells if [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) is in progress or not|
+|infinitecommand|bool|No|If true, action commands processed by [DoCommand](Action%20commands/DoCommand.md) will use their infinite variant TODO: define what this is|
+|chompylock|bool|No|If true, it prevents [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) to be a part of the [player phase](Battle%20flow/Update.md#player-phase) even if it would normally be allowed. This is only used during [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) specifically for the `Centipede` [enemy](../Enums%20and%20IDs/Enemies.md)|
+|selfsacrifice|bool|No|If true, it indicates that the enemy party member killed themselves during their [DoAction](Battle%20flow/Action%20coroutines/DoAction.md)|
+|hasblocked|bool|No|If true, the damage pipeline detected the player blocked the attack with a valid block (meaning FRAMEONE rules applied). This is only used in HardSeedVenus, a coroutine specific to the `VenusBoss` [enemy](../Enums%20and%20IDs/Enemies.md)|
+|dontusecharge|bool|No|If true, the `charge` of the enemy party member will not be reset to 0 on [EndEnemyTurn](Battle%20flow/EndEnemyTurn.md)|
+|nonphyscal|bool|No|If true, indicate to the damage pipeline that the damages aren't physical which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md#)|
+|tryenemyheal|Coroutine|No|Tracks the progress of a TryHealEnemyItem and EnemyFlee coroutines|
+|cancelb|ButtonSprite|No|A ButtonSprite of the cancel input for use in [UpdateText](Visual%20rendering/UpdateText.md)|
+|playertargetentity|EntityControl|No|An actor to use for targetting purposes (NOTE: despite the name, it can be an enemy party member as enemies can sometimes target other enemy party members)|
+|commandsprites|SpriteRenderer\[\]|No|General purpose SpriteRenderer array for use in [DoCommand](Action%20commands/DoCommand.md) or other action commands related needs|
+|nolifesteal|bool|Yes|If true, disables the effects of the `LifeSteal` [medal](../Enums%20and%20IDs/Medal.md) during the damage pipeline|
+|keepmusic|bool|Yes|Towards the end of [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md) when instance.`inevent` is true, it is possible to skip the default behavior of fading the current music to silence by having this field set to true before ReturnToOverworld ends which will leave the current music playing instead|
+|overridechallengeblock|bool|Yes|Normally, standard blocks are disallowed when [flags](../Flags%20arrays/flags.md#flags) 615 and 15 are true (FRAMEONE is active while past the first tutorial fight), but if this field is true, it allows to override that behavior to allow them regardless of these conditions being fufilled or not|
+|gottaspit|bool|Yes|When calling SpitOut (a coroutine specific to the `Pitcher` [enemy](../Enums%20and%20IDs/Enemies.md)), this needs to be set to false whenever `Pitcher` should spit out the player party member trapped within them|
+|startdrop|bool|Yes|When a [Drop](../Entities/EntityControl/Notable%20methods/Drop.md#drop) calls occurs, the coroutine will eventually wait for this field to become true so it can proceed with the drops|
+|partymiddle|Vector3|No|Always set to (-4.5, 0.0, 0.0) for use in [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) TODO: find out what this represents|
+|defaultcounteroffset|Vector3|No|Always set to (0.0, 1.25, 0.0) for use in [DoDamage](Damage%20pipeline/DoDamage.md) TODO: find out what this represents|
+|coptions|List<int>|No|The list of action options available during [Chompy](Battle%20flow/Action%20coroutines/Chompy.md): 0 is basic attack, 1 is do nothing, 2 is the ribbon specific attack and 3 is change ribbon|
+|actionroutine|Coroutine|No|Tracks the progress of a [DoCommand](Action%20commands/DoCommand.md) coroutine|
+|enemybounce|Coroutine\[\]|No|A general purpose coroutines array for use in [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) that is made to track EnemyBounce and SummonArtifact|
+|extraentities|[EntityControl](../Entities/EntityControl/EntityControl.md)\[\]|Yes|A general purpose array of entities. This is only used when a `VenusBoss` [enemy](../Enums%20and%20IDs/Enemies.md) is involved|
+|checkingdead|Coroutine|Yes|Store diverse coroutines to track their progression (NOTE: despite the name, it's not just for [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md))|
 |itemarea|[AttackArea](AttackArea.md)|No|Tells what actors are selectable to perform the current action|
 |currentaction|[Pick](Player%20UI/Pick.md)|Yes|The current menu being naviguated by the player. Set to `BaseAction` on [StartBattle](StartBattle.md)|
 |currentchoice|[Actions](Player%20UI/Actions.md)|Yes|The current action being selected on the `BaseAction` menu. Set to `Attack` on [StartBattle](StartBattle.md)|
@@ -171,6 +157,14 @@ These fields are never referenced or never used in any meaningful ways.
 
 |Name|Type|Public?|Description|
 |----|----|---------|-----------|
+|weakenemyfound|bool|No|UNUSED, this is only set to false at the start of [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) and to true on TryHealEnemyItem when a heal occured, but the field is never read making it unused|
+|actionid|int|No|UNUSED, this is only read during the damage pipeline, but never written to making it unused|
+|oldmusicchannel|int|No|UNUSED|
+|counter|int|No|UNUSED|
+|selection|int|No|UNUSED|
+|specialdefeat|bool|Yes|UNUSED|
+|firstaction|bool|Yes|UNUSED|
+|currententity|EntityControl|No|UNUSED|
 |oldcamtarget|Transform|No|UNUSED, Set to instance.`camtarget` on [StartBattle](StartBattle.md) when it's not a retry|
 |guicooldown|float|No|UNUSED (there is logic in Update implicating it was supposed to be a cooldown that exhausts only during an Update controlled battle, but it is never practically used anywhere else making it practically unused)|
 |partypointer|int\[\]|Yes|UNUSED, This field is maintained to be the same value as `partypointer`, but by indexing `playerdata` instead. This means that `playerdata[X].pointer` is the same than `partypointer[X]` where `X` is a valid `playerdata` index. In practice, this field is only written into making it unused|
@@ -183,7 +177,7 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 
 |Name|Type|Static?|Description|
 |----|----|---------|-----------|
-|lastdefeated|List<int>|No|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that ??? Set to a new list on [StartBattle](StartBattle.md)|
+|lastdefeated|List<int>|No|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md) detected were killed due to their `hp` reaching 0 or below. Set to a new list on [StartBattle](StartBattle.md) and reset to a new list after processing drops during the [Death](../Entities/EntityControl/Notable%20methods/Death.md) of the [Enemy](../Entities/NPCControl/Enemy.md) NPCControl if the battle was caused by a regular encounter|
 |battleresult|bool|Yes|Whether the battle was won ??? Set to true on [StartBattle](StartBattle.md) TODO: it assumes we won|
 |firstbattleaction|bool|No|??? TODO: this field is very strange in general|
 
