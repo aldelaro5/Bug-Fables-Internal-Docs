@@ -178,7 +178,7 @@ These fields's semantics haven't been found yet. They will be moved out of this 
 |Name|Type|Static?|Description|
 |----|----|---------|-----------|
 |lastdefeated|List<int>|No|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md) detected were killed due to their `hp` reaching 0 or below. Set to a new list on [StartBattle](StartBattle.md) and reset to a new list after processing drops during the [Death](../Entities/EntityControl/Notable%20methods/Death.md) of the [Enemy](../Entities/NPCControl/Enemy.md) NPCControl if the battle was caused by a regular encounter|
-|battleresult|bool|Yes|Whether the battle was won ??? Set to true on [StartBattle](StartBattle.md) TODO: it assumes we won|
+|battleresult|bool|Yes|Whether the battle ended by winning (fleeing don't count) Set to true on [StartBattle](StartBattle.md) and set to false during [TryFlee](Battle%20flow/Action%20coroutines/TryFlee.md) (when succeeding) and during [DeadParty](Battle%20flow/Terminal%20coroutines/DeadParty.md)|
 |firstbattleaction|bool|No|??? TODO: this field is very strange in general|
 
 ### Known fields
