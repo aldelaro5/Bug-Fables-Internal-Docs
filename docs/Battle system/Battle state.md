@@ -206,3 +206,4 @@ TODO: categorise them once most of them are known
 |battleenemyfled|bool|Yes|Whether the battle ended while `enemyfled` was true without `expreward`. Set to false on [StartBattle](StartBattle.md). This won't be set to true for an [Enemy](../Entities/NPCControl/Enemy.md) NPCControl encounter if any `GoldenSeedling` [enemy](../Enums%20and%20IDs/Enemies.md) were defeated|
 |bp|int|No|The amount of MP the player party has, clamped to `maxbp`|
 |maxbp|int|No|The maximum amount of MP the player party has|
+|lastitemuser|int|Yes|The last player party member's `trueid` who used an item via [UseItem](Battle%20flow/Action%20coroutines/UseItem.md)|
