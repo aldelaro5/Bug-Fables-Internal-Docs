@@ -49,8 +49,8 @@ What follows is a bunch of field value resets:
 From there, a couple of local variables are initialised that may be used in the actions logic:
 
 - flip: The `flip` value of the entity, used for restoring later in normal post action
-- randomposafter: A boolean starting at false that when true by the normal post action, the `position` of the actor will be determined randomly. This only applies to enemy party members and is only used by `Mushroom` and `BeeBot` under normal gameplay
-- fled: A boolean starting at false that when true by the normal post action, it will change the majority of the normal post action logic to be very reduced. This is supposed to signal that the action lead to the entity fleeing the battle. This only applies to enemy party members and is only used by `Burglar` and `GoldenSeedling` under normal gameplay
+- randomposafter: A boolean starting at false that when true by the normal post action, the `position` of the enemy party member will be determined randomly. This only applies to enemy party members and is only used by `Mushroom` and `BeeBot` under normal gameplay. NOTE: it is invalid to set this to true during a player action and if done, it will lead to illogical behaviors
+- fled: A boolean starting at false that when true by the normal post action, it will change the majority of the normal post action logic to be very reduced. This is supposed to signal that the action lead to the enemy party member fleeing the battle. This only applies to enemy party members and is only used by `Burglar` and `GoldenSeedling` under normal gameplay. NOTE: it is invalid to set this to true during a player action and if done, it will lead to illogical behaviors
 - nocharm: A boolean starting at false that when true by the normal post action, it will prevent any [UseCharm](../../Actors%20states/UseCharm.md) calls to occur. This means no `HealTP` for the player party if it spent any to perform a skill and no `HealHP` after an enemy action. This is only used by `WaspHealer`, `LeafbugNinja` and `LeafbugArcher` under normal gameplay
 - startp: The x/y starting position of the entity (the y component is left at 0.0). This can be overriden to another value in action logic and it is only used to move the actor back to it in normal post action
 - startstate: The starting [animstate](../../../Entities/EntityControl/Animations/animstate.md) of the entity. This can be overriden in action logic and is only used as the stopping state when moving the actor back to startp in normal post action
@@ -196,10 +196,7 @@ In either cases, they both end by setting all enemy party members's `lockpositio
 - 0.15 seconds are yielded
 - If randomposafter is true, an attempt with be made to change the enemy party member's `position` by generating a 50/50 random position between `Ground` and `Flying`. If the position changed from its previous one, the following is performed (in either cases, entity.`oldid` is reset to -1 after):
     - If the new enemy party member's `position` is `Ground`:
-        - As long as entity.`height` is higher than entity.`minheight`:
-            - The `Fall` AnimationClip is played on entity.`anim`
-            - entity.`height` is decreased by 0.075 of the game's frametime
-            - A frame is yielded
+        - As long as entity.`height` is higher than entity.`minheight`, the `Fall` AnimationClip is played on entity.`anim` followed by entity.`height` being decreased by 0.075 of the game's frametime followed by a frame yield
         - entity.`onground` is set to true
         - entity.`height` is set to entity.`minheight`
         - entity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to its `basestate`
@@ -231,7 +228,7 @@ In either cases, they both end by setting all enemy party members's `lockpositio
 - Otherwise, if `selfsacrifice` is false (the enemy party member didn't killed themselves during their action):
     - If the enemy party member had any `delayedcondition`:
         - All `delayedcondition` are processed. See the [delayed condition](../../Actors%20states/Delayed%20condition.md) documentation to learn more
-        - If any `delayedcondition` applied, the enemy party member's `cantmove` is set to 0 (EndEnemyTurn will later advance it making it 1 which means one actor turn needs to pass before an action is available)
+        - If any `delayedcondition`'s processing caused a [condition](../../Actors%20states/Conditions.md) to be inflicted, the enemy party member's `cantmove` is set to 0 (EndEnemyTurn will later advance it making it 1 which means one actor turn needs to pass before an action is available)
         - If the enemy party member's `position` is `Flying` while its `cantfall` is false, entity.`droproutine` is set to a new [Drop](../../../Entities/EntityControl/EntityControl%20Methods.md#drop) coroutine on the entity
         - 0.5 seconds are yielded
         - The enemy party member's `delayedcondition` is set to null
