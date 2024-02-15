@@ -5,124 +5,116 @@ This is a method that contains all the damage calculation logic and returns the 
 private int CalculateBaseDamage(MainManager.BattleData? attacker, ref MainManager.BattleData target, int basevalue, bool block, AttackProperty? property, ref bool weaknesshit, ref bool superguarded, DamageOverride[] overrides)
 ```
 
+## Parameters
 All parameters comes directly from [DoDamage](DoDamage.md) (the damageammount becomes the basevalue) with 3 exceptions:
 
 - `block`: This may be overriden to false by DoDamage under certain condition
-- `weaknesshit`: This is meant to initially contain false, the method will set this to true if a weakness has been hit ??? TODO: it's not clear what a weakness is in general
+- `weaknesshit`: This is meant to initially contain false, the method will set this to true if a weakness has been hit
 - `superguarded`: This is meant to initially contain false, the method will set this to true if the player sucessfully super blocked
+- `property`: If this is `Pierce` or `Flip` while the `target` is a player party member, it is overriden to null at the start of this method which invalidates it
+
+## Damage flow
+While the attacker is optional (null means no attacker), the target is mandatory. Additionally, the target cannot be part of the same party as the attacker. This means an enemy party member cannot attack another enemy party member and a player party member cannot attack another player party member. This results in the following damage flows available:
+
+- No attacker to player party member
+- No attacker to enemy party member
+- Player party member to enemy party member
+- Enemy party member to player party member
+
+Each have different implications on the calculations. It is assumed that the target or the attacker is a player party member if it has the `Player` tag. Otherwise, it is assumed to be an enemy party member when not null.
 
 basevalue is the damage amount that will ultimately be returned. This method may modify it for various reasons until it reaches the end where it becomes final.
 
-The following is the procedure of the damage calculation divided in ordered section TODO: very WIP.
+## Piercing
+There is a concept of piercing which has influences on a lot of the damage calculation.
 
-It is assumed that the target or the attacker is a player party member if it has the `Player` tag. Otherwise, it is assumed to be an enemy party member when not null.
+In order for piercing to apply, the following must all be true:
 
-## Invalidation the `Pierce` and `Flip` properties
-If the target is a player party member and the property is either `Pierce` or `Flip`, it is overriden to null which invalidates it.
+- The target is an enemy party member
+- The target doesn't have `AntiPierce` in its `weakness`
+- property is `Atleast1pierce` or `Pierce`
 
-## `TANGYBUG` [enemy](../../Enums%20and%20IDs/Enemies.md) attacker specific
-If the target is a player party member and the attacker is a `TANGYBUG` [enemy](../../Enums%20and%20IDs/Enemies.md), basevalue is increased by 2.
+If the above isn't fufilled, piercing doesn't apply.
 
-## Preliminary attacker's attack processing
-This section happens only if there is an attacker and it applies several bonuses depending on the attacker's attack.
+## Calculation pipeline table
+The calculation pipeline is very complex and most of it will be illustrated by a table.
 
-The following are applied in order when they apply.
+Each rows of the table contains an effect to basevalue or other additional effects when applicable. Each row contains 3 columns:
 
-### Exhaustion
-basevalue is always decremented by the attacker's `tired`.
+- Attack direction: The damage flow:
+    - Enemy to player: Enemy party member to player party member
+    - Player to enemy: Player party member to enemy party member
+    - Attacker to Any: The attacker exists and the attacker / target can be in either party
+    - Any to player: The attacker may or may not exists and the target is a player party member
+    - Any to Any: The attacker may or may not exist and the attacker / target can be in either party
+- Condition: The conditions required for this effect to process. If a list is presented, all conditions must be true unless stated otherwise
+- Damage effect: The effects on basevalue if Condition is true. This may contain other effects than changing basevalue. Anything underlined means it's an effect other than increasing or decreasing meaning it's more significant and its position in the calculation is important
 
-### Player attacker
-This part only applies if the attacker is a player party member and we aren't in `demomode`.
+These effects are shown in the exact order they appear. As for the "Main damage" and "Air attack" effects, they are documented in their dedicated sections below as their logic is too complex to document in the main table.
 
-#### Front position bonus
-If `partypointer[0]` is `currentturn` (meaning the front player party member is effectively the attacker as it's also the one spending its actor turn), basevalue is incremented.
+|Attack direction|Condition|Damage effect|
+|----------------|---------|-------------|
+|Enemy to player|Attacker is a `TANGYBUG` [enemy](../../Enums%20and%20IDs/Enemies.md)|+ 2|
+|Attacker to Any|Always processed|- attacker.`tired`|
+|Player to enemy|<ul><li>Not in `demomode`</li><li>attacker is `partypointer[0]` (at the front of formation)</li></ul>|+ 1|
+|Player to enemy|<ul><li>Not in `demomode`</li><li>attacker has the `Poison` [condition](../Actors%20states/Conditions.md)</li></ul>|+ amount of attacker's `PoisonAttacker` [medals](../../Enums%20and%20IDs/Medal.md)|
+|Player to enemy|<ul><li>Not in `demomode`</li><li>attacker.`hp` <= 4</li></ul>|+ amount of attacker's `AttackUp` [medals](../../Enums%20and%20IDs/Medal.md)|
+|Enemy to player|<ul><li>Not in `demomode`</li><li>[flags](../../Flags%20arrays/flags.md) 614 and 88 are true (HARDEST is active after chapter 2 ended)</li></ul>|+ 1|
+|Enemy to player|Not in `demomode`|+ attacker.`hardatk` TODO: recheck|
+|Enemy to player|<ul><li>Not in `demomode`</li><li>`DoublePainReal` [medal](../../Enums%20and%20IDs/Medal.md) is equipped</li></ul>|<u>Clamped from 2 to 99</u>|
+|Attacker to any|None|+ attacker.`charge`|
+|Any to player|block is true OR `superblockedthisframe` hasn't expired yet|Decreased by:<ul><li>1 if it's a non super block</li></li><li>2 + amount of attacker's `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) if it's a super block<sup>1</sup></li></ul>|
+|Enemy to player|<ul><li>Target has `Frozen` [condition](../Actors%20states/Conditions.md)</li><li>no `NoIceBreak` override AND (first that applies of the 3 below)</li></ul>|Ice thaw<sup>2</sup>|
+|-|<ul><li>target has a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`nonphysical` is false</li><li>attacker.`position` isn't `Underground`</li></ul>|A `Freeze` [delayed condition](../Actors%20states/Delayed%20condition.md) is added to the attacker AND counter of the full damage to the attacker (see the final results explanation below for details)</sup>|
+|-|<ul><li>target has a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>The counter effect above didn't apply</li></ul>|<u>Divided by 2 floored</u>|
+|-|target has no `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)|+ 1|
+|Any to Any|<ul><li>target has the `Numb` [condition](../Actors%20states/Conditions.md)</li><li>target doesn't have the the `DefenseDown` [condition](../Actors%20states/Conditions.md)</li><li>property isn't `Flip`</li><li>there is no `IgnoreNumb` in the overrides</li><li>piercing doesn't apply</li></ul>|- 1|
+|Any to enemy|<ul><li>target.`noexpatstat` is true (cannot happen because this field is UNUSED)</li><li>[flags](../../Flags%20arrays/flags.md) 162 is false (we aren't using the B.O.S.S system and we aren't in a Cave Of Trials session)</li></ul>|- 1 (this effect never happens under normal gameplay)|
+|Any to Any|Always occur|Main damage logic and status infliction (see the section below for more details)|
+|Any to enemy|<ul><li>target.battleentity.`height` is above 0.0</li><li>target.`cantfall` is false</li><li>target.`position` is `Flying`</li><li>target.`lockposition` is false</li><li>There are `NoFall` overrides</li></ul> AND (first of the 2 applies)|-|
+|-|<ul><li>target doesn't already have have the `Topple` [conditions](../Actors%20states/Conditions.md)</li><li>target doesn't have the `Sleep`, `Freeze` or `Numb` [conditions](../Actors%20states/Conditions.md)</li><li>target has `ToppleFirst` or `ToppleAirOnly` in its `weakness` </li></ul>|The `Topple` [condition](../Actors%20states/Conditions.md) is added directly to target.`condition` array for 1 turn followed by target.battleentity.`basestate` set to 21 (`Woobly`)|
+|-|The above didn't apply|The enemy falls<sup>3</sup>|
+|Any to Any|<ul><li>target has the `DefenseUp` [condition](../Actors%20states/Conditions.md)</li><li>Either property:<ul><li>is null OR</li><li>is not `Flip` or `NoExceptions` while piercing doesn't apply</li></ul></li></ul>|- 1|
+|Any to Any|<ul><li>target has the `DefenseDown` [condition](../Actors%20states/Conditions.md)</li><li>piercing doesn't apply</li><li>property isn't `NoExceptions`</li><li>At least one of the following is true:<ul><li>[GetDefense](GetDefense.md) returns above 0 (this is target.`def` or target.`harddef`, but not the actual defense)</li><li>The `DefenseUp` effect above was just processed</li><li>The target is a player party member while HardMode returns true</li></ul></li></ul>|+ 1|
+|Attacker to any|<ul><li>Attacker has the `AttackUp` [condition](../Actors%20states/Conditions.md)</li><li>property isn't `NoExceptions`</li></ul>|+ 1|
+|Attacker to any|<ul><li>Attacker has the `AttackDown` [condition](../Actors%20states/Conditions.md)</li><li>property isn't `NoExceptions`</li></ul>|- 1|
+|Any to player|The `DoublePainReal` [medal](../../Enums%20and%20IDs/Medal.md) is equipped|<u>Multiplied by 1.25 floored</u>, then increased by 1|
+|Player to enemy|<ul><li>Attacker has a `AntlionJaws` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`actionid` is 0 or below TODO: why include 0 ???</li><li>`currentaction` is `Attack`</li><li>Either the target has the `DefenseUp` [condition](../Actors%20states/Conditions.md) OR its [GetDefense](GetDefense.md) is above 0</li><li>Piercing doesn't apply</li></ul>|Decreased by the lowest between the amount of the attacker's `AntlionJaws` [medals](../../Enums%20and%20IDs/Medal.md) and the target's defense which is:<ul><li>[GetDefense](GetDefense.md)'s value if it's above 0</li><li>1 if [GetDefense](GetDefense.md) is 0 AND it has the `DefenseUp` [condition](../Actors%20states/Conditions.md)<sup>4</sup></li><li>0 otherwise</li></ul>|
+|Any to enemy|<ul><li>The target has `DefDownOnFlyHard` in its `weakness`</li><li>target.`position` is `Flying`</li><li>HardMode returns true</li></ul>|+ 1|
+|Any to Any|target has the `Sturdy` [condition](../Actors%20states/Conditions.md)|- 3|
+|Any to player|target has a `Reflection` [condition](../Actors%20states/Conditions.md)|- amount of target's `Reflection` [medals](../../Enums%20and%20IDs/Medal.md)|
+|Any to Any|<ul><li>target doesn't have `LimitX10` in its `weakness`</li><li>property is `Atleast1` or `Atleast1pierce`</li></ul>|<u>Clamped from 1 to 99</u>|
+|Any to Enemy|<ul><li>target has `LimitX10` in its `weakness`</li><li>property is `Atleast1` or `Atleast1pierce`</li></ul>|- 10|
+|Any to Enemy|target has `LimitX10` in its `weakness`|<ul><li>If basevalue is <= 1, <u>basevalue is set to 0</u></li><li>Otheriwise, <u>basevalue is divided by 10 ceiled</u></li></ul>|
 
-#### `PoisonAttacker` [medal](../../Enums%20and%20IDs/Medal.md) processing
-If the attacker has the `Poison` [condition](../Actors%20states/Conditions.md), basevalue is increased by the amount of `PoisonAttacker` [medals](../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[currentturn]` (the attacker).
-
-#### `AttackUp` [medal](../../Enums%20and%20IDs/Medal.md) processing
-If the `playerdata[currentturn]` (the attacker)'s `hp` is 4 or less, basevalue is increased by the amount of `AttackUp` [medals](../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[currentturn]` (the attacker).
-
-### Enemy attacker
-This part only applies if the attacker is an enemy party member and we aren't in `demomode`.
-
-#### HARDEST attack bonus
-If [flags](../../Flags%20arrays/flags.md) 614 and 88 are true (HARDEST is active after chapter 2 ended), basevalue is incremented.
-
-#### `hardatk`
-basevalue is always increased by the attacker's `hardatk`. TODO: odd, recheck this later
-
-#### `DoublePainReal` [medal](../../Enums%20and%20IDs/Medal.md)'s clamp
-If the `DoublePainReal` [medal](../../Enums%20and%20IDs/Medal.md) is equipped, basevalue is clamped from 2 to 99.
-
-### `charge` bonus
-basevalue is always incremented by the attacker's `charge`.
-
-## Block processing
-This section applies only if the target is a player party member while either block is true or `superblockedthisframe` hasn't expired yet (see [GetBlock](../Battle%20flow/Update.md#getblock) for more information on how this works).
-
-### Non super block defense
-For a non super block (and `superblockedthisframe` expired), the only logic is basevalue gets decremented.
-
-### Super block defense
-For a super block (or `superblockedthisframe` hasn't expired yet):
-
+1: This always counts as a super block if `superblockedthisframe` hasn't expired yet. A super block also causes the following to happen:
+    
 - `superblockedthisframe` is reset to 3.0 frames
 - superguarded is set to true
 - block is overriden to true
-- basevalue is decreased by 2
 
-#### `SuperBlock` [medal](../../Enums%20and%20IDs/Medal.md) processing
-On top of the regular super block decrease, basevalue gets decreased by the amount of `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) equipped on the target.
+For more information on how super blocks are determined, check [GetBlock](../Battle%20flow/Update.md).
 
-## Frozen target processing
-This section happens if the target has the `Freeze` [condition](../Actors%20states/Conditions.md) unless a `NoIceBreak` overrides exists.
-
-### `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md) processing
-If the target is a player party member with a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md) equipped and there is an attacker (assumed to be an enemy party member), then the medal overrides the logic regarding basevalue in 2 ways (they are mutually exclusive).
-
-If this doesn't apply, the standard logic does (see the section below).
-
-#### Physical attack from an above ground attacker
-If `nonphysical` is false and the attacker's `position` isn't `Underground`, a `Freeze` [delayed condition](../Actors%20states/Delayed%20condition.md) is added to the attacker with no changes to the basevalue for now. 
-
-However, towards the end of the method, there will be a full counter of the basevalue back to the attacker. See the later section about this for details.
-
-#### `nonphysical` attack or the attacker is `Underground`
-This applies if the logic above didn't. In this case, basevalue gets halved via an integer division which is effectively a divide by 2 floored.
-
-### Standard freeze bonus
-This logic applies if the `Frostbite` [medal](../../Enums%20and%20IDs/Medal.md) logic didn't.
-
-The only thing that happens is basevalue gets incremented.
-
-### Ice thaw processing
-This logic always happen no matter how basevalue was managed just now.
+2: This is how ice thawing is done (this is done after the sub effect processed):
 
 - [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the `Freeze` [condition](../Actors%20states/Conditions.md)
 - [BreakIce](../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) is called on the target.battleentity
 - target.`cantmove` is set to 0 if the target is an enemy party member or to 1 if it's a player party member TODO: this seems strange for an enemy party, recheck
 
-## `Numb` [condition](../Actors%20states/Conditions.md) defense
-This section only happens if all of the following is true:
+3: This means the attack happened to a toppled flying enemy or the enemy wasn't topplable and was hit while flying meaning it should be dropped to the ground. This is how this happens:
 
-- The target has the `Numb` [condition](../Actors%20states/Conditions.md)
-- The target doesn't have the the `DefenseDown` [condition](../Actors%20states/Conditions.md)
-- The property isn't `Flip`
-- There is no `IgnoreNumb` in the overrides
-- At least one of the following is false (piercing doesn't apply):
-    - The target is an enemy party member
-    - The target doesn't have `AntiPierce` in its `weakness`
-    - The property is `Atleast1pierce` or `Pierce`
+- [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove its `Topple` [condition](../Actors%20states/Conditions.md)
+- target.battleentity.`bobrange` and `bobspeed` are set to 0.0
+- If target.`animid` isn't 208 (this [enemy](../../Enums%20and%20IDs/Enemies.md) id doesn't exist TODO: ???), target.battleentity.`basestate` is set to 0 (`Idle`)
+- If target.`eventonfall` is above -1 (it's defined):
+    - `calleventnext` is set to target.`eventonfall`
+    - target.battleentity.`basestate` is set to 11 (`Hurt`)
+- Otherwise (target.`eventonfall` isn't defined):
+    - target.battleentity.`droproutine` is set to a new [Drop](../../Entities/EntityControl/EntityControl%20Methods.md#drop) call on target.battleentity
 
-If all of the above is fufilled, basevalue is decremented.
+4: Specifically, this means that if the target's [GetDefense](GetDefense.md) is 1 while having the `DefenseUp` [condition](../Actors%20states/Conditions.md), at most 1 `AntLionJaws` will count still (even if 2 are equipped)
 
-## Dead `noexpatstart` logic
-There is logic here that never happens because it requires the target's `noexpatstart` to be true, but this can't happen because this field is never written to. The other 2 requirements were that the target is an enemy party member and that [flags](../../Flags%20arrays/flags.md) 162 is false (we aren't using the B.O.S.S system and we aren't in a Cave Of Trials session).
-
-The logic would have been to decrement the basevalue. TODO: mysterious...
-
-## Main damage and status infliction
+## Main damage logic and status infliction
 This section always happen and it contains essential logic about damage calculation as well as the processing of the main status effects.
 
 There are 5 potential procedure that this logic can go and it depends on the property. They are all mutually exclusive because it depends on the exact value of property (but the standard one may be done after another).
@@ -373,139 +365,17 @@ If this test succeeds:
 - basevalue is incremented
 - If `commandsuccess` is true (the player suceeded the action command), weaknesshit is set to true
 
-## Air attack logic
-This section only happens if all of the following is true:
-
-- target.battleentity.`height` is above 0.0
-- target.`cantfall` is false
-- target.`position` is `Flying`
-- target.`lockposition` is false
-- There are `NoFall` overrides
-
-What happens here depends on if the target can be toppled which means all of the following are true:
-
-- The target doesn't already have have the `Topple` [conditions](../Actors%20states/Conditions.md)
-- The target doesn't have the `Sleep`, `Freeze` or `Numb` [conditions](../Actors%20states/Conditions.md)
-- The target has `ToppleFirst` or `ToppleAirOnly` in its `weakness` 
-
-### Toppling
-If the above conditions are fufilled, the `Topple` [condition](../Actors%20states/Conditions.md) is added directly to target.`condition` array for 1 turn followed by target.battleentity.`basestate` set to 21 (`Woobly`).
-
-### Fall
-Otherwise, it means the attack happened to a toppled flying enemy or the enemy wasn't topplable and was hit while flying meaning it should be dropped to the ground. This is how this happens:
-
-- [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove its `Topple` [condition](../Actors%20states/Conditions.md)
-- target.battleentity.`bobrange` and `bobspeed` are set to 0.0
-- If target.`animid` isn't 208 (this [enemy](../../Enums%20and%20IDs/Enemies.md) id doesn't exist TODO: ???), target.battleentity.`basestate` is set to 0 (`Idle`)
-- If target.`eventonfall` is above -1 (it's defined):
-    - `calleventnext` is set to target.`eventonfall`
-    - target.battleentity.`basestate` is set to 11 (`Hurt`)
-- Otherwise (target.`eventonfall` isn't defined):
-    - target.battleentity.`droproutine` is set to a new [Drop](../../Entities/EntityControl/EntityControl%20Methods.md#drop) call on target.battleentity
-
-## Stats modifiers [conditions](../Actors%20states/Conditions.md)
-This section happens as long as property isn't `NoExceptions`.
-
-There are 2 parts to this: target's defense and attacker's attack (if one exists).
-
-### Target's defense
-If the target has the `DefenseUp` [condition](../Actors%20states/Conditions.md), it will be processed if property is null or that both of the following are true:
-
-- property isn't `Flip`
-- At least one of the following is false (piercing doesn't apply):
-    - The target is an enemy party member
-    - The target doesn't have `AntiPierce` in its `weakness`
-    - The property is `Atleast1pierce` or `Pierce`
-
-If the above conditions are fufilled, basevalue is decremented.
-
-Next, if the target has the `DefenseDown` [condition](../Actors%20states/Conditions.md), it will be processed if all of the following conditions are true:
-- One of the following is true:
-    - [GetDefense](GetDefense.md) returns above 0 (this is target.`def` or target.`harddef`, but not the actual defense)
-    - A `DefenseUp` was just processed
-    - The target is a player party member while HardMode returns true meaning one of the following is true:
-        - The `DoublePain` [medal](../../Enums%20and%20IDs/Medal.md) is equipped
-        - [flags](../../Flags%20arrays/flags.md) 614 is true (HARDEST is active)
-        - [flags](../../Flags%20arrays/flags.md) 166 is true (EX mode is active on the B.O.S.S system)
-- At least one of the following is false (piercing doesn't apply):
-    - The target is an enemy party member
-    - The target doesn't have `AntiPierce` in its `weakness`
-    - The property is `Atleast1pierce` or `Pierce`
-
-If the above conditions are fufilled, `basevalue` is incremented.
-
-### Attacker's attack
-This part only happens if an attacker exists.
-
-If the attacker has the `AttackUp` [condition](../Actors%20states/Conditions.md), basevalue is incremented.
-
-If the attacker has the `AttackDown` [condition](../Actors%20states/Conditions.md), basevalue is decremented.
-
-## `DoublePainReal` [medal](../../Enums%20and%20IDs/Medal.md) damage boost
-If the target is a player party member and the `DoublePainReal` [medal](../../Enums%20and%20IDs/Medal.md) is equipped, basevalue gets multiplied by 1.25 floored then increased by 1.
-
-## `AntlionJaws` [medal](../../Enums%20and%20IDs/Medal.md) bonus
-This section happens if all of the folloiwing are true:
-
-- The target is an enemy party member
-- `AntlionJaws` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on `playerdata[currentturn].trueid`
-- `actionid` is 0 or below TODO: why include 0 ???
-- `currentaction` is `Attack`
-- Either the target has the `DefenseUp` [condition](../Actors%20states/Conditions.md) or [GetDefense](GetDefense.md) on the target is above 0 (this is target.`def` or target.`harddef`, but not the actual defense)
-- At least one of the following is false (piercing doesn't apply):
-    - The target is an enemy party member
-    - The target doesn't have `AntiPierce` in its `weakness`
-    - The property is `Atleast1pierce` or `Pierce`
-
-If all of the above are fufilled, basevalue is increased by a certain amount. This amount is the lowest between the amount of `AntlionJaws` equipped on the target and the target's [GetDefense](GetDefense.md)  (this is target.`def` or target.`harddef`, but not the actual defense). This means that each `AntlionJaws` undoes 1 base defense of the target.
-
-However, if target has the `DefenseUp` [condition](../Actors%20states/Conditions.md), it only counts if GetDefense is 0. This means if GetDefense is above 0 AND the target has `DefenseUp`, the condition won't count. Specifically, if the target has 1 base defense while having `DefenseUp`, at most 1 `AntLionJaws` will count (even if 2 are equipped).
-
-? defense is not supported (no `AntLionJaws` will be processed).
-
-## `DefDownOnFlyHard` processing
-This section happens if all of the following are true:
-
-- The target has `DefDownOnFlyHard` in its `weakness`
-- target.`position` is `Flying`
-- HardMode returns true meaning one of the following is true:
-    - The `DoublePain` [medal](../../Enums%20and%20IDs/Medal.md) is equipped
-    - [flags](../../Flags%20arrays/flags.md) 614 is true (HARDEST is active)
-    - [flags](../../Flags%20arrays/flags.md) 166 is true (EX mode is active on the B.O.S.S system)
-
-If the above conditions are fufilled, basevalue is incremented.
-
-## `Sturdy` [condition](../Actors%20states/Conditions.md) defense bonus
-If the target has the `Sturdy` [condition](../Actors%20states/Conditions.md), basevalue is decreased by 3.
-
-## `Reflection` [condition](../Actors%20states/Conditions.md) defense bonus
-If the target is a player party member with a `Reflection` [condition](../Actors%20states/Conditions.md), basevalue is decreased by the amount of `Reflection` [medal](../../Enums%20and%20IDs/Medal.md) equipped on the target.
-
-## `LimitX10` logic
-TODO: what is this??? is it even used?
-
-- If the target doesn't have `LimitX10` in its `weakness` while property is `Atleast1` or `Atleast1pierce`:
-    - basevalue is clamped from 1 to 99
-- Otherwise, if the target has `LimitX10` in its `weakness`:
-    - If the property is `Atleast1` or `Atleast1pierce`, basevalue is decreased by 10 TODO: why???
-    - basevalue is set to 0 if it isn't higher than 1 and if it is, it's divided by 10.0 ceiled TODO: why???
-
-## Cooldowns reset
-This section allways happen.
+## Final steps and results
+Before the method ends:
 
 - `caninputcooldown` is set to 0.0
 - `blockcooldown` is set to 0.0
 
-## `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md) counter
-If a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md) was processed to the attacker (meaning it got a `Freeze` [delayed condition](../Actors%20states/Delayed%20condition.md)), this is where the counter logic occurs.
+The final result is determined by the following:
 
-The logic is performed by doing the following on the attacker (already determined to be an enemy party member):
-
-- [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 0 (damage) with the basevalue as the ammount starting from the world [CenterPos](../Actors%20states/CenterPos.md) of attacker and ending at Vector3.Up.
-- The attacker's `hp` is decreased by basevalue clamped from 1 to its `maxhp` (meaning this can't be lethal)
-- 0 is returned as the final damage value (this is because the calculations are overriden to deal no damages to the target, but they were dealt manually just now to the attacker)
-
-## Final clamping of basevalue and return
-If the target is a player party member while block is false, the final return value is basevalue clamped from 1 to 99.
-
-Otherwise, it's basevalue clamped from 0 to 99.
+- If a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md) counter conditions were fufilled:
+    - [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 0 (damage) with the basevalue (which is now the final amount) as the ammount starting from the world [CenterPos](../Actors%20states/CenterPos.md) of attacker and ending at Vector3.Up.
+    - The attacker's `hp` is decreased by basevalue clamped from 1 to its `maxhp` (meaning this can't be lethal)
+    - 0 is returned as the final damage value (this is because the calculations are overriden to deal no damages to the target, but they were dealt manually just now to the attacker)
+- Otheriwse, if the attack direction is attacker to player while block is false, basevalue is clamped from 1 to 99
+- Otherwise, basevalue is clamped from 0 to 99
