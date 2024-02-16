@@ -46,6 +46,7 @@ Each rows of the table contains an effect to basevalue or other additional effec
     - Player to enemy: Player party member to enemy party member
     - Attacker to Any: The attacker exists and the attacker / target can be in either party
     - Any to player: The attacker may or may not exists and the target is a player party member
+    - Any to enemy: The attacker may or may not exists and the target is an enemy party member
     - Any to Any: The attacker may or may not exist and the attacker / target can be in either party
 - Condition: The conditions required for this effect to process. If a list is presented, all conditions must be true unless stated otherwise
 - Damage effect: The effects on basevalue if Condition is true. This may contain other effects than changing basevalue. Anything underlined means it's an effect other than increasing or decreasing meaning it's more significant and its position in the calculation is important
@@ -65,21 +66,21 @@ These effects are shown in the exact order they appear. As for the "Main damage"
 |Attacker to any|None|+ attacker.`charge`|
 |Any to player|block is true OR `superblockedthisframe` hasn't expired yet|Decreased by:<ul><li>1 if it's a non super block</li></li><li>2 + amount of attacker's `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) if it's a super block<sup>1</sup></li></ul>|
 |Enemy to player|<ul><li>Target has `Frozen` [condition](../Actors%20states/Conditions.md)</li><li>no `NoIceBreak` override AND (first that applies of the 3 below)</li></ul>|Ice thaw<sup>2</sup>|
-|-|<ul><li>target has a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`nonphysical` is false</li><li>attacker.`position` isn't `Underground`</li></ul>|A `Freeze` [delayed condition](../Actors%20states/Delayed%20condition.md) is added to the attacker AND counter of the full damage to the attacker (see the final results explanation below for details)</sup>|
+|-|<ul><li>target has a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`nonphysical` is false</li><li>attacker.`position` isn't `Underground`</li></ul>|A `Freeze` [delayed condition](../Actors%20states/Delayed%20condition.md) is added to the attacker AND a counter of the full damage to the attacker is scheduled (see the final results explanation below for details)</sup>|
 |-|<ul><li>target has a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>The counter effect above didn't apply</li></ul>|<u>Divided by 2 floored</u>|
 |-|target has no `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)|+ 1|
 |Any to Any|<ul><li>target has the `Numb` [condition](../Actors%20states/Conditions.md)</li><li>target doesn't have the the `DefenseDown` [condition](../Actors%20states/Conditions.md)</li><li>property isn't `Flip`</li><li>there is no `IgnoreNumb` in the overrides</li><li>piercing doesn't apply</li></ul>|- 1|
 |Any to enemy|<ul><li>target.`noexpatstat` is true (cannot happen because this field is UNUSED)</li><li>[flags](../../Flags%20arrays/flags.md) 162 is false (we aren't using the B.O.S.S system and we aren't in a Cave Of Trials session)</li></ul>|- 1 (this effect never happens under normal gameplay)|
-|Any to Any|Always occur|Main damage logic and status infliction (see the section below for more details)|
-|Any to enemy|<ul><li>target.battleentity.`height` is above 0.0</li><li>target.`cantfall` is false</li><li>target.`position` is `Flying`</li><li>target.`lockposition` is false</li><li>There are `NoFall` overrides</li></ul> AND (first of the 2 applies)|-|
+|Any to Any|Always occur|Main damage logic and status infliction (see the section below for more details, may contains basevalue changes)|
+|Any to enemy|<ul><li>target.battleentity.`height` is above 0.0</li><li>target.`cantfall` is false</li><li>target.`position` is `Flying`</li><li>target.`lockposition` is false</li><li>There are `NoFall` overrides</li></ul> AND (first of the 2 applies)||
 |-|<ul><li>target doesn't already have have the `Topple` [conditions](../Actors%20states/Conditions.md)</li><li>target doesn't have the `Sleep`, `Freeze` or `Numb` [conditions](../Actors%20states/Conditions.md)</li><li>target has `ToppleFirst` or `ToppleAirOnly` in its `weakness` </li></ul>|The `Topple` [condition](../Actors%20states/Conditions.md) is added directly to target.`condition` array for 1 turn followed by target.battleentity.`basestate` set to 21 (`Woobly`)|
 |-|The above didn't apply|The enemy falls<sup>3</sup>|
 |Any to Any|<ul><li>target has the `DefenseUp` [condition](../Actors%20states/Conditions.md)</li><li>Either property:<ul><li>is null OR</li><li>is not `Flip` or `NoExceptions` while piercing doesn't apply</li></ul></li></ul>|- 1|
-|Any to Any|<ul><li>target has the `DefenseDown` [condition](../Actors%20states/Conditions.md)</li><li>piercing doesn't apply</li><li>property isn't `NoExceptions`</li><li>At least one of the following is true:<ul><li>[GetDefense](GetDefense.md) returns above 0 (this is target.`def` or target.`harddef`, but not the actual defense)</li><li>The `DefenseUp` effect above was just processed</li><li>The target is a player party member while HardMode returns true</li></ul></li></ul>|+ 1|
+|Any to Any|<ul><li>target has the `DefenseDown` [condition](../Actors%20states/Conditions.md)</li><li>piercing doesn't apply</li><li>property isn't `NoExceptions`</li><li>At least one of the following is true:<ul><li>[GetDefense](GetDefense.md) returns above 0</li><li>The `DefenseUp` effect above was just processed</li><li>The target is a player party member while HardMode returns true</li></ul></li></ul>|+ 1|
 |Attacker to any|<ul><li>Attacker has the `AttackUp` [condition](../Actors%20states/Conditions.md)</li><li>property isn't `NoExceptions`</li></ul>|+ 1|
 |Attacker to any|<ul><li>Attacker has the `AttackDown` [condition](../Actors%20states/Conditions.md)</li><li>property isn't `NoExceptions`</li></ul>|- 1|
 |Any to player|The `DoublePainReal` [medal](../../Enums%20and%20IDs/Medal.md) is equipped|<u>Multiplied by 1.25 floored</u>, then increased by 1|
-|Player to enemy|<ul><li>Attacker has a `AntlionJaws` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`actionid` is 0 or below TODO: why include 0 ???</li><li>`currentaction` is `Attack`</li><li>Either the target has the `DefenseUp` [condition](../Actors%20states/Conditions.md) OR its [GetDefense](GetDefense.md) is above 0</li><li>Piercing doesn't apply</li></ul>|Decreased by the lowest between the amount of the attacker's `AntlionJaws` [medals](../../Enums%20and%20IDs/Medal.md) and the target's defense which is:<ul><li>[GetDefense](GetDefense.md)'s value if it's above 0</li><li>1 if [GetDefense](GetDefense.md) is 0 AND it has the `DefenseUp` [condition](../Actors%20states/Conditions.md)<sup>4</sup></li><li>0 otherwise</li></ul>|
+|Player to enemy|<ul><li>Attacker has an `AntlionJaws` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`actionid` is 0 or below TODO: why include 0 ???</li><li>`currentaction` is `Attack`</li><li>Either the target has the `DefenseUp` [condition](../Actors%20states/Conditions.md) OR its [GetDefense](GetDefense.md) is above 0</li><li>Piercing doesn't apply</li></ul>|Decreased by the lowest between the amount of the attacker's `AntlionJaws` [medals](../../Enums%20and%20IDs/Medal.md) and the target's defense which is:<ul><li>[GetDefense](GetDefense.md)'s value if it's above 0</li><li>1 if [GetDefense](GetDefense.md) is 0 AND it has the `DefenseUp` [condition](../Actors%20states/Conditions.md)<sup>4</sup></li><li>0 otherwise</li></ul>|
 |Any to enemy|<ul><li>The target has `DefDownOnFlyHard` in its `weakness`</li><li>target.`position` is `Flying`</li><li>HardMode returns true</li></ul>|+ 1|
 |Any to Any|target has the `Sturdy` [condition](../Actors%20states/Conditions.md)|- 3|
 |Any to player|target has a `Reflection` [condition](../Actors%20states/Conditions.md)|- amount of target's `Reflection` [medals](../../Enums%20and%20IDs/Medal.md)|
@@ -119,156 +120,72 @@ This section always happen and it contains essential logic about damage calculat
 
 There are 5 potential procedure that this logic can go and it depends on the property. They are all mutually exclusive because it depends on the exact value of property (but the standard one may be done after another).
 
-### Property is null
-This procedure is simplified to calling [DefaultDamageCalc](DefaultDamageCalc.md) with the corresponding values for the parameters with pierce being false and def being target.`def`.
+|Property|Outcome|
+|--------|-------|
+|null|[DefaultDamageCalc](DefaultDamageCalc.md) is called with the corresponding values for the parameters with pierce being false and def being target.`def`. TODO: study this more thoroughly to know exactly what breaks.|
+|`NoExceptions`|Nothing<sup>1</sup>|
+|`Flip`|Flip handling that may or may not be followed by Standard damage calculation (see the section below for more details)|
+|Any of the following:<ul><li>`Poison`</li><li>`Numb`</li><li>`Numb1Turn`</li><li>`Sleep`</li><li>`Freeze`</li><li>`Fire`</li><li>`InkOnBlock`</li><li>`Ink`</li><li>`Sticky`</li></ul>|Status infliction logic followed by Standard damage calculation (see the sections below for more details)|
+|Anything else not mentioned above|Standard damage calculation (see the section below for more details)|
 
-NOTE: target.`def` does not report the effective defense here. It only reports the fixed base one. This implies many calculation bugs. TODO: study this more thoroughly to know exactly what breaks.
-
-### Property is `NoExceptions`
-This procedure doe nothing.
-
-However, there is a technical possibility that a magic weakness hit is processed with this property. For that to happen, the target needs the `Magic` in its `weakness`, the attacker needs to be a player party member and the attack needs to have been caused by `Icefall`, `FrigidCoffin` or `IceRain`. If this case happens, basevalue is incremented and if `commandsuccess` is true (the player sucessfully perfomed the action command), weaknesshit is set to true.
+1: There is a technical possibility that a magic weakness hit is processed with this property. For that to happen, the target needs the `Magic` in its `weakness`, the attacker needs to be a player party member and the attack needs to have been caused by `Icefall`, `FrigidCoffin` or `IceRain`. If this case happens, basevalue is incremented and if `commandsuccess` is true (the player sucessfully perfomed the action command), weaknesshit is set to true.
 
 This edge case however should never happen under normal gameplay because these 3 skills do not feature a `NoExceptions` property in their [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) logic. It is mentioned here because it is otherwise possible in theory, but it is considered invalid. The normal case for a `NoExceptions` is to not do anything in the main damage calculation section.
 
-### Property inflicts one of the main status effects
-This procedure applies to any of the following property values:
+### Standard damage calculation
+This procedure happens if the property is none of the ones mentioned above, but it's also processed in addition to the status infliction property's logic and it may be processed with the `Flip` logic.
 
-- `Poison`
-- `Numb`
-- `Numb1Turn`
-- `Sleep`
-- `Freeze`
-- `Fire`
-- `InkOnBlock`
-- `Ink`
-- `Sticky`
+It is composed of 2 parts: DefaultDamageCalc and magic weakness processing
 
-What happens here depends on the property, but they all have one thing in common: after they are processed, the standard damage calculation procedure applies on top of this procedure (see the section below for more details on the standard damage calculation procedure). This is true no matter what happens (even if the infliction fails, succeeds or nothing happens in the first place).
+#### DefaultDamageCalc 
+The first thing that happens is [DefaultDamageCalc](DefaultDamageCalc.md) is called with the corresponding values for the parameters where pierce is true if piercing applies (false otherwise), with def being target.`def`.
+
+#### Magic weakness processing
+After, a magic weakness hit test is performed. It succeeds if the target has `Magic` in its `weakness` as well as at least one of the following being true:
+
+- The property is `Magic`
+- The attacker is a player party member using the `Icefall`, `FrigidCoffin` or `IceRain` skill
+
+If this test succeeds:
+
+- basevalue is incremented
+- If `commandsuccess` is true (the player suceeded the action command), weaknesshit is set to true
+
+### Status infliction
+What happens here depends on the property, but they all have one thing in common: after they are processed, the standard damage calculation procedure applies on top of this procedure (see the section above for more details). This is true no matter what happens (even if the infliction fails, succeeds or nothing happens in the first place).
 
 These typically attempts to inflict a [condition](../Actors%20states/Conditions.md) on the target when applicable and most of them implies a resistance check.
 
-#### `Poison`
-For this to inflict, the following must be true:
+Here's an explanation of the columns:
 
-- The target doesn't have the `Sturdy` [condition](../Actors%20states/Conditions.md)
-- block is false
-- target.`poisonres` is less than 100 (it's not immune)
-- A resistance test must pass
+- propert: The property value the row applies to
+- [conditions](../Actors%20states/Conditions.md#conditions) inflicted: The condition to inflict if all the requirements are fufilled
+- Resistance check?: Whether or not a resistance check must pass for the condition to be inflicted. A resistance is a field on the target that can be at most 99 for the condition to possibly inflict. If it's 100 or above, the target is immune and the infliction won't occur. This immunity condition also affects if the `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) works. This is how the test occurs:
+    - If this is a `chompyaction` or the attacker is a player party member with a `StatusBoost` [medal](../../Enums%20and%20IDs/Medal.md), the resistance used for the test is decreased by 15 (guaranteed to inflict if this subtraction makes the resistance land at 0 or below)
+    - A random number between 0 and 99 is generated and it must be higher or equal than the target's resistance for the test to pass. Intuitively, if the target isn't immune, it means the percentage to inflict is 100 - resistance with `StatusBoost` or a `chompyaction` giving 15% more chances (or a guarantee if the percent number is above 100)
+- Requirements: The requirements that must be fufilled for the condition to be inflicted. All statuses requires block to be false and the target to not have the `Sturdy` [condition](../Actors%20states/Conditions.md). Those checks are implied in this column and won't be mentioned. There are 2 requirements specifically that recurs a lot and will be called with a simplified name:
+    - Resistance check: A resistance check must pass for the condition to be inflicted. A resistance is an integer field on the target that can be at most 99 for the condition to possibly inflict. If it's 100 or above, the target is immune and the infliction won't occur. This immunity condition also affects if the `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) works. This is how the test occurs:
+        - If this is a `chompyaction` or the attacker is a player party member with a `StatusBoost` [medal](../../Enums%20and%20IDs/Medal.md), the resistance used for the test is decreased by 15 (guaranteed to inflict if this subtraction makes the resistance land at 0 or below)
+        - A random number between 0 and 99 is generated and it must be higher or equal than the target's resistance for the test to pass. Intuitively, if the target isn't immune, it means the percentage to inflict is 100 - resistance with `StatusBoost` or a `chompyaction` giving 15% more chances (or a guarantee if the percent number is above 100)
+    - Requires !CanBeToppled?: CanBeToppled needs to return false with the target for the infliction to be allowed. For it to return false, at least one of the following must be true:
+        - The target has the `Topple` [conditions](../Actors%20states/Conditions.md)
+        - target.`position` is `Flying` while having the `Sleep`, `Freeze` or `Numb` [conditions](../Actors%20states/Conditions.md)
+        - The target doesn't have `ToppleFirst` or `ToppleAirOnly` in its `weakness` (if it has the latter, its `position` must not be `Flying`)
+- Resistance increase: After infliction, it's possible the resistance used with the resistance check gets increased. This column indicates if it will happen, under what conditions it will happen and for how much
+- `StatusMirror` Infliction scheme: The `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) scheme of infliction. This medal only works in an enemy to player attack direction and it requires the resistance used for the resistance check to be below 100 (not being immune). If these conditions are met upon inflictions, the attacker gets inflicted with the same condition. The scheme of the infliction may vary and this column tells how it's inflicted
+- Other effects: Anything the infliction does other than inflicting the condition or giving it to the attacker due to `StatusMirroe`. Please note that with the exception of the `Sleep` property, [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is always called with the target to remove its `Sleep` [condition](../Actors%20states/Conditions.md) upon infliction. NOTE: there was supposed to be a condition for removal to happen, but it's broken because the target needs to be an enemy party member OR the player attacker doesn't have the `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md), but the latter is impossible if the former is false making this condition always true
 
-For the resistance test, it involves generating a number between 0 and 99 and it must be higher or equal than the poison resistance. This resistance is normally target.`poisonres`, but if this is a `chompyaction` or the attacker is a player party member with a `StatusBoost` [medal](../../Enums%20and%20IDs/Medal.md), it's target.`poisonres` - 15 (guaranteed to inflict if this subtraction makes the resistance land at 0 or below). Intuitively, if the target isn't immune, it means the percentage to inflict is 100 - target.`poisonres` with `StatusBoost` or a `chompyaction` giving 15% more chances (or a guarantee if the percent number is above 100).
+|property|[conditions](../Actors%20states/Conditions.md#conditions) inflicted|Requirements|Resistance increase|`StatusMirror` Infliction scheme|Other effects|
+|----|------|-----|-----|-----|-----|
+|`Poison`|`Poison` for 2 turns|Pass a resistance check with target.`poisonres`|None|[SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the attacker to set the `Poison` [condition](../Actors%20states/Conditions.md) for 2 turns|The `Poison` sound is played if it wasn't playing already|
+|`Numb` or `Numb1Turn`|`Numb` for 2 turns (1 turn instead if it's a `chompyaction` or property is `Numb1Turn`)|<ul><li>Pass a resistance check with target.`numbres`</li><li>Requires !CanBeToppled</li></ul>|If target is an enemy party member, it is increased by 17. The increase is 22 instead if HardMode returns true|AddDelayedCondition is called with the attacker to add the `Numb` [delayed condition](../Actors%20states/Delayed%20condition.md) to it|<ul><li>The `Numb` sound is played if it wasn't playing already</li><li>target.`isnumb` is set to true</li><li>If the target is an enemy party member and its `actimmobile` is false, target.`cantmove` is set to 1 (meaning 1 actor turn needs to pass before the target can act again)</li><li>If target.`position` is `Ground` and its battleentity.`height` is above 0.05, target.battleentity.`droproutine` is set to a new [Drop](../../Entities/EntityControl/EntityControl%20Methods.md#drop) call on target.battleentity</li></ul>|
+|`Sleep`|`Sleep` for 2 turns (3 turns instead if the target is a player party member while it already had a `Sleep` condition TODO: this seems backwards...)|<ul><li>Pass a resistance check with target.`sleepres`</li><li>Requires !CanBeToppled</li></ul>|If the target is an enemy party member, target.`numbres` is increased by 9. The increase is 13 instead if HardMode returns true|AddDelayedCondition is called with the attacker to add the `Sleep` [delayed condition](../Actors%20states/Delayed%20condition.md) to it|<ul><li>The `Sleep` sound is played if it wasn't playing already</li><li>target.`isasleep` is set to true</li><li>If the target has the `Flipped` [condition](../Actors%20states/Conditions.md), target.battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 25 (`SleepFallen`) and if it doesn't have it, it's set to 14 (`Sleep`)</li><li>If target.`position` is `Ground` and its battleentity.`height` is above 0.05, target.battleentity.`droproutine` is set to a new [Drop](../../Entities/EntityControl/EntityControl%20Methods.md#drop) call on target.battleentity</li></ul>|
+|`Freeze`|`Freeze` for 1 turn if the target is an enemy party member or 2 turns if it's a player party member|<ul><li>Pass a resistance check with target.`freezeres`</li><li>Requires !CanBeToppled</li></ul>|If the target is an enemy party member:<ul><li>If the corresponding [endata](../../TextAsset%20Data/Entity%20data.md#animid-data) of the target's `hasiceanim` is true and we are either at the `GiantLairFridgeInside` [map](../../Enums%20and%20IDs/Maps.md) or in any maps outside of the `GiantLair` [area](../../Enums%20and%20IDs/librarystuff/Areas.md), target.`freezeres` is increased by 70</li><li>Otherwise, if target.`frozenlastturn` is true, target.`freezeres` is increased by 25</li><li>Otherwise, target.`freezeres` is increased by 13. The increase is 18 instead if HardMode returns true</li></ul>|AddDelayedCondition is called with the attacker to add the `Freeze` [delayed condition](../Actors%20states/Delayed%20condition.md) to it|<ul><li>[RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the `Topple` [condition](../Actors%20states/Conditions.md)</li><li>If the corresponding [endata](../../TextAsset%20Data/Entity%20data.md#animid-data) of the target's `hasiceanim` is true and we are either at the `GiantLairFridgeInside` [map](../../Enums%20and%20IDs/Maps.md) or in any maps outside of the `GiantLair` [area](../../Enums%20and%20IDs/librarystuff/Areas.md):<ul><li>target.battleentity.`inice` is set to true</li><li>target.`weakness` is set to a new list with one element being `HornExtraDamage`</li></ul></li><li>[Freeze](../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#freeze) is called on target.battleentity</li><li>If target.`position` is `Ground` and its battleentity.`height` is above 0.05, target.battleentity.`droproutine` is set to a new [Drop](../../Entities/EntityControl/EntityControl%20Methods.md#drop) call on target.battleentity</li></ul>|
+|`Fire`|`Fire` for 2 turns|CanBeOnFire must returns true<sup>1</sup>|None|[SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the attacker to set the `Fire` [condition](../Actors%20states/Conditions.md) for 2 turns|The `Flame` sound is played if it wasn't playing already|
+|`Ink` or `InkOnBlock` (`InkOnBlock` doesn't have the block requirement)|`Inked` for 3 turns when block is false (2 when block is true)|If the target has the `ResistAll` [medal](../../Enums%20and%20IDs/Medal.md) equipped, a 50% RNG test is performed and it must pass (not applicable if the target doesn't have it equipped)|None|[SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the attacker to set the `Inked` [condition](../Actors%20states/Conditions.md) for 2 turns|<ul><li>The `WaterSplash2` sound is played at 0.7 pitch if it wasn't playing already or it was while its time is higher than 0.25 seconds</li><li>The `InkGet` particles plays at the target.battleentity's position + Vector3.up</li></ul>|
+|`Sticky`|`Sticky` for 3 turns when block is false (2 when block is true)|If the target has the `ResistAll` [medal](../../Enums%20and%20IDs/Medal.md) equipped, a 50% RNG test is performed and it must pass (not applicable if the target doesn't have it equipped)|None|[SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the attacker to set the `Sticky` [condition](../Actors%20states/Conditions.md) for 2 turns|<ul><li>The `WaterSplash2` sound is played at 0.7 pitch if it wasn't playing already or it was while its time is higher than 0.25 seconds</li><li>The `StickyGet` particles plays at the target.battleentity's position + Vector3.up</li></ul>|
 
-If the above conditions are fufilled:
-
-- The `Poison` sound is played if it wasn't playing already
-- If the target is an enemy party member or the attacker is a player party member without a `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the `Sleep` [condition](../Actors%20states/Conditions.md) TODO: I don't know what this means...
-- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the target to set the `Poison` [condition](../Actors%20states/Conditions.md) for 2 turns
-- If there is an attacker with a `poisonres` below 100 (not immune) and the target is a player party member with a `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the attacker to set the `Poison` [condition](../Actors%20states/Conditions.md) for 2 turns
-
-#### `Numb`
-For this to inflict, the following must be true:
-
-- The target doesn't have the `Sturdy` [condition](../Actors%20states/Conditions.md)
-- block is false
-- target.`numbres` is less than 100 (it's not immune)
-- The target cannot be toppled meaning at least one of the following must be true:
-    - The target has the `Topple` [conditions](../Actors%20states/Conditions.md)
-    - target.`position` is `Flying` while having the `Sleep`, `Freeze` or `Numb` [conditions](../Actors%20states/Conditions.md)
-    - The target doesn't have `ToppleFirst` or `ToppleAirOnly` in its `weakness` (if it has the latter, its `position` must not be `Flying`)
-- A resistance test must pass
-
-For the resistance test, it involves generating a number between 0 and 99 and it must be higher or equal than the poison resistance. This resistance is normally target.`numbres`, but if this is a `chompyaction` or the attacker is a player party member with a `StatusBoost` [medal](../../Enums%20and%20IDs/Medal.md), it's target.`numbres` - 15 (guaranteed to inflict if this subtraction makes the resistance land at 0 or below). Intuitively, if the target isn't immune, it means the percentage to inflict is 100 - target.`numbres` with `StatusBoost` or a `chompyaction` giving 15% more chances (or a guarantee if the percent number is above 100).
-
-If the above conditions are fufilled:
-
-- The `Numb` sound is played if it wasn't playing already
-- If the target is an enemy party member or the attacker is a player party member without a `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the `Sleep` [condition](../Actors%20states/Conditions.md) TODO: I don't know what this means...
-- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the target to set the `Numb` [condition](../Actors%20states/Conditions.md) for 2 turns (1 turn instead if it's a `chompyaction`)
-- target.`isnumb` is set to true
-- If the target is an enemy party member and its `actimmobile` is false, target.`cantmove` is set to 1 (meaning 1 actor turn needs to pass before the target can act again)
-- If target.`position` is `Ground` and its battleentity.`height` is above 0.05, target.battleentity.`droproutine` is set to a new [Drop](../../Entities/EntityControl/EntityControl%20Methods.md#drop) call on target.battleentity
-- If the target is a player party member:
-    - If there is an attacker with a `poisonres` below 100 (not immune) and the target has a `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) equipped, AddDelayedCondition is called with the attacker to add the `Numb` [delayed condition](../Actors%20states/Delayed%20condition.md) to it
-- Otherwise (the target is an enemy party member):
-    - target.`numbres` is increased by 17. The increase is 22 instead if HardMode returns true meaning any of the following is true:
-        - The `DoublePain` [medal](../../Enums%20and%20IDs/Medal.md) is equipped
-        - [flags](../../Flags%20arrays/flags.md) 614 is true (HARDEST is active)
-        - [flags](../../Flags%20arrays/flags.md) 166 is true (EX mode is active on the B.O.S.S system)
-
-#### `Numb1Turn`
-The same as `Numb`, but the [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) call always inflict for 1 turn regardless if it's a `chompyaction` or not.
-
-#### `Sleep`
-For this to inflict, the following must be true:
-
-- The target doesn't have the `Sturdy` [condition](../Actors%20states/Conditions.md)
-- block is false
-- target.`sleepres` is less than 100 (it's not immune)
-- The target cannot be toppled meaning at least one of the following must be true:
-    - The target has the `Topple` [conditions](../Actors%20states/Conditions.md)
-    - target.`position` is `Flying` while having the `Sleep`, `Freeze` or `Numb` [conditions](../Actors%20states/Conditions.md)
-    - The target doesn't have `ToppleFirst` or `ToppleAirOnly` in its `weakness` (if it has the latter, its `position` must not be `Flying`)
-- A resistance test must pass
-
-For the resistance test, it involves generating a number between 0 and 99 and it must be higher or equal than the poison resistance. This resistance is normally target.`sleepres`, but if this is a `chompyaction` or the attacker is a player party member with a `StatusBoost` [medal](../../Enums%20and%20IDs/Medal.md), it's target.`sleepres` - 15 (guaranteed to inflict if this subtraction makes the resistance land at 0 or below). Intuitively, if the target isn't immune, it means the percentage to inflict is 100 - target.`sleepres` with `StatusBoost` or a `chompyaction` giving 15% more chances (or a guarantee if the percent number is above 100).
-
-If the above conditions are fufilled:
-
-- The `Sleep` sound is played if it wasn't playing already
-- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the target to set the `Sleep` [condition](../Actors%20states/Conditions.md) for 2 turns. It will be for 3 turns instead if the target is a player party member while it already had a `Sleep` condition TODO: this seems backwards...
-- target.`isasleep` is set to true
-- If the target has the `Flipped` [condition](../Actors%20states/Conditions.md), target.battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 25 (`SleepFallen`) and if it doesn't have it, it's set to 14 (`Sleep`)
-- If target.`position` is `Ground` and its battleentity.`height` is above 0.05, target.battleentity.`droproutine` is set to a new [Drop](../../Entities/EntityControl/EntityControl%20Methods.md#drop) call on target.battleentity
-- If the target is a player party member:
-    - If there is an attacker with a `sleepres` below 100 (not immune) and the target has a `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) equipped, AddDelayedCondition is called with the attacker to add the `Sleep` [delayed condition](../Actors%20states/Delayed%20condition.md) to it
-- Otherwise (the target is an enemy party member):
-    - target.`numbres` is increased by 9. The increase is 13 instead if HardMode returns true meaning any of the following is true:
-        - The `DoublePain` [medal](../../Enums%20and%20IDs/Medal.md) is equipped
-        - [flags](../../Flags%20arrays/flags.md) 614 is true (HARDEST is active)
-        - [flags](../../Flags%20arrays/flags.md) 166 is true (EX mode is active on the B.O.S.S system)
-
-#### `Freeze`
-For this to inflict, the following must be true:
-
-- The target doesn't have the `Sturdy` [condition](../Actors%20states/Conditions.md)
-- block is false
-- target.`freezeres` is less than 100 (it's not immune)
-- The target cannot be toppled meaning at least one of the following must be true:
-    - The target has the `Topple` [conditions](../Actors%20states/Conditions.md)
-    - target.`position` is `Flying` while having the `Sleep`, `Freeze` or `Numb` [conditions](../Actors%20states/Conditions.md)
-    - The target doesn't have `ToppleFirst` or `ToppleAirOnly` in its `weakness` (if it has the latter, its `position` must not be `Flying`)
-- A resistance test must pass
-
-For the resistance test, it involves generating a number between 0 and 99 and it must be higher or equal than the poison resistance. This resistance is normally target.`freezeres`, but if this is a `chompyaction` or the attacker is a player party member with a `StatusBoost` [medal](../../Enums%20and%20IDs/Medal.md), it's target.`freezeres` - 15 (guaranteed to inflict if this subtraction makes the resistance land at 0 or below). Intuitively, if the target isn't immune, it means the percentage to inflict is 100 - target.`freezeres` with `StatusBoost` or a `chompyaction` giving 15% more chances (or a guarantee if the percent number is above 100).
-
-If the above conditions are fufilled:
-
-- If the target is an enemy party member or the attacker is a player party member without a `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the `Sleep` [condition](../Actors%20states/Conditions.md) TODO: I don't know what this means...
-- [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the `Topple` [condition](../Actors%20states/Conditions.md)
-- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the target to set the `Freeze` [condition](../Actors%20states/Conditions.md) for 1 turn if the target is an enemy party member and 2 turns if it's a player party member.
-- If the target is a player party member:
-    - If there is an attacker with a `freezeres` below 100 (not immune) and the target has a `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) equipped, AddDelayedCondition is called with the attacker to add the `Freeze` [delayed condition](../Actors%20states/Delayed%20condition.md) to it
-- Otherwise (the target is an enemy party member), what happens depends on some conditions (mutually exclusive, only the first one applies):
-    - If the corresponding [endata](../../TextAsset%20Data/Entity%20data.md#animid-data) of the target's `hasiceanim` is true and we are either at the `GiantLairFridgeInside` [map](../../Enums%20and%20IDs/Maps.md) or in any maps outside of the `GiantLair` [area](../../Enums%20and%20IDs/librarystuff/Areas.md):
-        - target.`freezeres` is increased by 70
-        - target.battleentity.`inice` is set to true
-        - target.`weakness` is set to a new list with one element being `HornExtraDamage`
-    - Otherwise, if target.`frozenlastturn` is true, target.`freezeres` is increased by 25
-    - If none of the above applied, target.`freezeres` is increased by 13. The increase is 18 instead if HardMode returns true meaning any of the following is true:
-        - The `DoublePain` [medal](../../Enums%20and%20IDs/Medal.md) is equipped
-        - [flags](../../Flags%20arrays/flags.md) 614 is true (HARDEST is active)
-        - [flags](../../Flags%20arrays/flags.md) 166 is true (EX mode is active on the B.O.S.S system)
-- [Freeze](../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#freeze) is called on target.battleentity
-- If target.`position` is `Ground` and its battleentity.`height` is above 0.05, target.battleentity.`droproutine` is set to a new [Drop](../../Entities/EntityControl/EntityControl%20Methods.md#drop) call on target.battleentity
-
-#### `Fire`
-For this to inflict, the following must be true:
-
-- The target doesn't have the `Sturdy` [condition](../Actors%20states/Conditions.md)
-- block is false
-- The target CanBeOnFire test pass
-
-CanBeOnFire is a method that returns true if the target allows the infliction. Here is what it does:
+1: The method does the following to determine if the target can be on fire:
 
 - If the target is a player party member, true is returned unless it has the `ResistAll` [medal](../../Enums%20and%20IDs/Medal.md) equipped and a 50% RNG test is failed where false is returned instead
 - If it's a `WaspKing` or `EverlastingKing` [enemy](../../Enums%20and%20IDs/Enemies.md), true is returned if a 30% RNG test succeed, false otherwise
@@ -276,56 +193,15 @@ CanBeOnFire is a method that returns true if the target allows the infliction. H
 - If it's a `KeyR`, `KeyL` or `Tablet` [enemy](../../Enums%20and%20IDs/Enemies.md), false is returned
 - If none of the cases applies, true is returned
 
-If the above conditions are fufilled:
-
-- The `Flame` sound is played if it wasn't playing already
-- If the target is an enemy party member or the attacker is a player party member without a `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the `Sleep` [condition](../Actors%20states/Conditions.md). TODO: I don't know what this means...
-- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the target to set the `Fire` [condition](../Actors%20states/Conditions.md) for 2 turns
-- If there is an attacker and the target is a player party member with a `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the attacker to set the `Fire` [condition](../Actors%20states/Conditions.md) for 2 turns
-
-#### `InkOnBlock`
-For this to inflict, the following must be true:
-
-- The target doesn't have the `Sturdy` [condition](../Actors%20states/Conditions.md)
-- If the target has the `ResistAll` [medal](../../Enums%20and%20IDs/Medal.md) equipped, a 50% RNG test is performed and it must pass (not applicable if the target doesn't have it equipped)
-
-If the above conditions are fufilled:
-
-- The `WaterSplash2` sound is played at 0.7 pitch if it wasn't playing already or it was while its time is higher than 0.25 seconds
-- The `InkGet` particles plays at the target.battleentity's position + Vector3.up
-- If the target is an enemy party member or the attacker is a player party member without a `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the `Sleep` [condition](../Actors%20states/Conditions.md). NOTE: this cannot happen under normal gameplay because there are no way to directly inflict `Inked` from a player's action TODO: I don't know what this means...
-- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the target to set the `Inked` [condition](../Actors%20states/Conditions.md) for 3 turns when block is false (2 when block is true)
-- If there is an attacker and the target is a player party member with a `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the attacker to set the `Inked` [condition](../Actors%20states/Conditions.md) for 2 turns
-
-#### `Ink`
-If block is true, nothing happens (only the standard damage calculation procedure applies as mentioned above).
-
-Otherwise, it's the same procedure than `InkOnBlock`.
-
-#### `Sticky`
-For this to inflict, the following must be true:
-
-- The target doesn't have the `Sturdy` [condition](../Actors%20states/Conditions.md)
-- block is false
-- If the target has the `ResistAll` [medal](../../Enums%20and%20IDs/Medal.md) equipped, a 50% RNG test is performed and it must pass (not applicable if the target doesn't have it equipped)
-
-If the above conditions are fufilled:
-
-- The `WaterSplash2` sound is played at 0.8 pitch if it wasn't playing already or it was while its time is higher than 0.25 seconds
-- The `StickyGet` particles plays at the target.battleentity's position + Vector3.up
-- If the target is an enemy party member or the attacker is a player party member without a `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the `Sleep` [condition](../Actors%20states/Conditions.md). NOTE: this cannot happen under normal gameplay because there are no way to directly inflict `Sticky` from a player's action TODO: I don't know what this means...
-- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the target to set the `Sticky` [condition](../Actors%20states/Conditions.md) for 3 turns when block is false (2 when block is true)
-- If there is an attacker and the target is a player party member with a `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) equipped, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with the attacker to set the `Sticky` [condition](../Actors%20states/Conditions.md) for 2 turns
-
-### Property is `Flip`
+### Flip handing
 This procedure is unique as it is the only property that mar or may not end up using the standard damage calculation procedure.
 
-- If the target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md), basevalue is decreased by the clamp of target.`def` - 1 from 0 to 99. If the target also has the `Flip` in its `weakness`:
+- If the target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md), basevalue is decreased by the clamp of target.`def` - 1 from 0 to 99. If the target also has `Flip` in its `weakness`:
     - weaknesshit is set to true
     - If the target doesn't have `ToppleFirst` in its `weakness`:
         - A `Flip` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`
         - basevalue is clamped from 1 to 99
-    - Otherwise, if the target has the `Toople` [condition](../Actors%20states/Conditions.md):
+    - Otherwise, if the target has the `Topple` [condition](../Actors%20states/Conditions.md):
         - A `Flip` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`
         - basevalue is clamped from 1 to 99
         - [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove its `Topple` [condition](../Actors%20states/Conditions.md)
@@ -338,32 +214,7 @@ This procedure is unique as it is the only property that mar or may not end up u
 - If the target is an enemy party member:
     - If target.`holditem` isn't -1 (it was holding an item), [DropItem](../Actors%20states/DropItem.md) is called with the target and with additem
     - If target.`isdefending` is true, it is set to false
-- If the target had the `Flipped` [condition](../Actors%20states/Conditions.md) at the start of this procedure, the standard damage calculation procedure is performed (see the section below for details). Otherwise, this procedure ends
-
-### Property is anything else (standard damage calculation)
-This procedure happens if the property is none of the ones mentioned above, but it's also processed in addition to the status infliction property's logic and it may be processed with the `Flip` logic.
-
-#### DefaultDamageCalc 
-The first thing that happens is [DefaultDamageCalc](DefaultDamageCalc.md) is called with the corresponding values for the parameters, with def being target.`def`.
-
-NOTE: target.`def` does not report the effective defense here. It only reports the fixed base one. This implies many calculation bugs. TODO: study this more thoroughly to know exactly what breaks.
-
-As for the pierce value, it's only true of all of the following are true (it's false otherwise):
-
-- The target is an enemy party member
-- The target doesn't have `AntiPierce` in its `weakness`
-- The property is `Atleast1pierce` or `Pierce`
-
-#### Magic weakness processing
-After, a magic weakness hit test is performed. It succeeds if the target has `Magic` in its `weakness` as well as at least one of the following being true:
-
-- The property is `Magic`
-- The attacker is a player party member using the `Icefall`, `FrigidCoffin` or `IceRain` skill
-
-If this test succeeds:
-
-- basevalue is incremented
-- If `commandsuccess` is true (the player suceeded the action command), weaknesshit is set to true
+- If the target had the `Flipped` [condition](../Actors%20states/Conditions.md) at the start of this procedure, the standard damage calculation procedure is performed (see the section above for details). Otherwise, this procedure ends
 
 ## Final steps and results
 Before the method ends:
