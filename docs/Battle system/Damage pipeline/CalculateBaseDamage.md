@@ -51,7 +51,7 @@ Each rows of the table contains an effect to basevalue or other additional effec
 - Condition: The conditions required for this effect to process. If a list is presented, all conditions must be true unless stated otherwise
 - Damage effect: The effects on basevalue if Condition is true. This may contain other effects than changing basevalue. Anything underlined means it's an effect other than increasing or decreasing meaning it's more significant and its position in the calculation is important
 
-These effects are shown in the exact order they appear. As for the "Main damage" and "Air attack" effects, they are documented in their dedicated sections below as their logic is too complex to document in the main table.
+These effects are shown in the exact order they appear.
 
 |Attack direction|Condition|Damage effect|
 |----------------|---------|-------------|
@@ -71,7 +71,10 @@ These effects are shown in the exact order they appear. As for the "Main damage"
 |-|target has no `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)|+ 1|
 |Any to Any|<ul><li>target has the `Numb` [condition](../Actors%20states/Conditions.md)</li><li>target doesn't have the the `DefenseDown` [condition](../Actors%20states/Conditions.md)</li><li>property isn't `Flip`</li><li>there is no `IgnoreNumb` in the overrides</li><li>piercing doesn't apply</li></ul>|- 1|
 |Any to enemy|<ul><li>target.`noexpatstat` is true (cannot happen because this field is UNUSED)</li><li>[flags](../../Flags%20arrays/flags.md) 162 is false (we aren't using the B.O.S.S system and we aren't in a Cave Of Trials session)</li></ul>|- 1 (this effect never happens under normal gameplay)|
-|Any to Any|Always occur|Main damage logic and status infliction (see the section below for more details, may contains basevalue changes)|
+|Any to Any|property is one of the following:<ul><li>`Poison`</li><li>`Numb`</li><li>`Numb1Turn`</li><li>`Sleep`</li><li>`Freeze`</li><li>`Fire`</li><li>`InkOnBlock`</li><li>`Ink`</li><li>`Sticky`</li></ul>|Status infliction logic occurs (see the section below for details), no changes to basevalue|
+|Any to Any|property is `Flip`|Flip handling logic (see the section below for details), basevalue may change in a `Flip` weaknesshit condition|
+|Any to Any|property is anything except:<ul><li>`NoExceptions` OR</li><li>`Flip` while target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)</li></ul>|DefaultDamageCalc (see the section below for details) is called with the corresponding values for the parameters where pierce is true if piercing applies (false otherwise or if property is null), with def being target.`def`. basevalue may change due to various defense modifiers|
+|Any to Any|property is `Magic` OR <ul><li>`lastskill` is `Icefall`, `FrigidCoffin` or `IceRain` AND</li><li>property is one of the following:</li><ul><li>`Poison`</li><li>`Numb`</li><li>`Numb1Turn`</li><li>`Sleep`</li><li>`Freeze`</li><li>`Fire`</li><li>`InkOnBlock`</li><li>`Ink`</li><li>`Sticky`</li><li>`Flip` while target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)</li><li>`NoExceptions`</li></ul></ul>|+ 1 and If `commandsuccess` is true (the player suceeded the action command), weaknesshit is set to true|
 |Any to enemy|<ul><li>target.battleentity.`height` is above 0.0</li><li>target.`cantfall` is false</li><li>target.`position` is `Flying`</li><li>target.`lockposition` is false</li><li>There are `NoFall` overrides</li></ul> AND (first of the 2 applies)||
 |-|<ul><li>target doesn't already have have the `Topple` [conditions](../Actors%20states/Conditions.md)</li><li>target doesn't have the `Sleep`, `Freeze` or `Numb` [conditions](../Actors%20states/Conditions.md)</li><li>target has `ToppleFirst` or `ToppleAirOnly` in its `weakness` </li></ul>|The `Topple` [condition](../Actors%20states/Conditions.md) is added directly to target.`condition` array for 1 turn followed by target.battleentity.`basestate` set to 21 (`Woobly`)|
 |-|The above didn't apply|The enemy falls<sup>3</sup>|
@@ -115,43 +118,7 @@ For more information on how super blocks are determined, check [GetBlock](../Bat
 
 4: Specifically, this means that if the target's [GetDefense](GetDefense.md) is 1 while having the `DefenseUp` [condition](../Actors%20states/Conditions.md), at most 1 `AntLionJaws` will count still (even if 2 are equipped)
 
-## Main damage logic and status infliction
-This section always happen and it contains essential logic about damage calculation as well as the processing of the main status effects.
-
-There are 5 potential procedure that this logic can go and it depends on the property. They are all mutually exclusive because it depends on the exact value of property (but the standard one may be done after another).
-
-|Property|Outcome|
-|--------|-------|
-|null|[DefaultDamageCalc](DefaultDamageCalc.md) is called with the corresponding values for the parameters with pierce being false and def being target.`def`. TODO: study this more thoroughly to know exactly what breaks.|
-|`NoExceptions`|Nothing<sup>1</sup>|
-|`Flip`|Flip handling that may or may not be followed by Standard damage calculation (see the section below for more details)|
-|Any of the following:<ul><li>`Poison`</li><li>`Numb`</li><li>`Numb1Turn`</li><li>`Sleep`</li><li>`Freeze`</li><li>`Fire`</li><li>`InkOnBlock`</li><li>`Ink`</li><li>`Sticky`</li></ul>|Status infliction logic followed by Standard damage calculation (see the sections below for more details)|
-|Anything else not mentioned above|Standard damage calculation (see the section below for more details)|
-
-1: There is a technical possibility that a magic weakness hit is processed with this property. For that to happen, the target needs the `Magic` in its `weakness`, the attacker needs to be a player party member and the attack needs to have been caused by `Icefall`, `FrigidCoffin` or `IceRain`. If this case happens, basevalue is incremented and if `commandsuccess` is true (the player sucessfully perfomed the action command), weaknesshit is set to true.
-
-This edge case however should never happen under normal gameplay because these 3 skills do not feature a `NoExceptions` property in their [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) logic. It is mentioned here because it is otherwise possible in theory, but it is considered invalid. The normal case for a `NoExceptions` is to not do anything in the main damage calculation section.
-
-### Standard damage calculation
-This procedure happens if the property is none of the ones mentioned above, but it's also processed in addition to the status infliction property's logic and it may be processed with the `Flip` logic.
-
-It is composed of 2 parts: DefaultDamageCalc and magic weakness processing
-
-#### DefaultDamageCalc 
-The first thing that happens is [DefaultDamageCalc](DefaultDamageCalc.md) is called with the corresponding values for the parameters where pierce is true if piercing applies (false otherwise), with def being target.`def`.
-
-#### Magic weakness processing
-After, a magic weakness hit test is performed. It succeeds if the target has `Magic` in its `weakness` as well as at least one of the following being true:
-
-- The property is `Magic`
-- The attacker is a player party member using the `Icefall`, `FrigidCoffin` or `IceRain` skill
-
-If this test succeeds:
-
-- basevalue is incremented
-- If `commandsuccess` is true (the player suceeded the action command), weaknesshit is set to true
-
-### Status infliction
+## Status infliction
 What happens here depends on the property, but they all have one thing in common: after they are processed, the standard damage calculation procedure applies on top of this procedure (see the section above for more details). This is true no matter what happens (even if the infliction fails, succeeds or nothing happens in the first place).
 
 These typically attempts to inflict a [condition](../Actors%20states/Conditions.md) on the target when applicable and most of them implies a resistance check.
@@ -193,28 +160,60 @@ Here's an explanation of the columns:
 - If it's a `KeyR`, `KeyL` or `Tablet` [enemy](../../Enums%20and%20IDs/Enemies.md), false is returned
 - If none of the cases applies, true is returned
 
-### Flip handing
-This procedure is unique as it is the only property that mar or may not end up using the standard damage calculation procedure.
+## Flip handing
+Each rows of the table contains an effect to basevalue or other additional effects when applicable. Each row contains 3 columns:
 
-- If the target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md), basevalue is decreased by the clamp of target.`def` - 1 from 0 to 99. If the target also has `Flip` in its `weakness`:
-    - weaknesshit is set to true
-    - If the target doesn't have `ToppleFirst` in its `weakness`:
-        - A `Flip` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`
-        - basevalue is clamped from 1 to 99
-    - Otherwise, if the target has the `Topple` [condition](../Actors%20states/Conditions.md):
-        - A `Flip` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`
-        - basevalue is clamped from 1 to 99
-        - [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove its `Topple` [condition](../Actors%20states/Conditions.md)
-    - Otherwise:
-        - If target.`position` is `Ground`, target.battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 21 (`Woobly`)
-        - A `Topple` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`
-- If the target has `HornExtraDamage` in its `weakness`:
-    - basevalue is incremented
-    - weaknesshit is set to true
-- If the target is an enemy party member:
-    - If target.`holditem` isn't -1 (it was holding an item), [DropItem](../Actors%20states/DropItem.md) is called with the target and with additem
-    - If target.`isdefending` is true, it is set to false
-- If the target had the `Flipped` [condition](../Actors%20states/Conditions.md) at the start of this procedure, the standard damage calculation procedure is performed (see the section above for details). Otherwise, this procedure ends
+- target's party: The party of the target (any for either)
+- Condition: The conditions required for this effect to process. If a list is presented, all conditions must be true unless stated otherwise
+- Effects: The effects on basevalue if Condition is true. This may contain other effects than changing basevalue. Anything underlined means it's an effect other than increasing or decreasing meaning it's more significant and its position in the calculation is important
+
+These effects are shown in the exact order they appear.
+
+|target's party|Condition|Effects|
+|--------------|---------|-------------|
+|Any|target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)|basevalue is decreased by the clamp of target.`def` - 1 from 0 to 99|
+|Any|<ul><li>target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)</li><li>target has `Flip` in its `weakness`</li></ul>|wealnesshit is set to true + the first of 3 applicable effects below (mutually exclusive)|
+|-|target doesn't have `ToppleFirst` in its `weakness`|<ul><li>A `Flip` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`</li><li><u>basevalue is clamped from 1 to 99</u></li></ul>|
+|-|target has the `Topple` [condition](../Actors%20states/Conditions.md)|<ul><li>A `Flip` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`</li><li><u>basevalue is clamped from 1 to 99</u></li><li>[RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove its `Topple` [condition](../Actors%20states/Conditions.md)</li></ul>|
+|-|Neither of the above applied|<ul><li>If target.`position` is `Ground`, target.battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 21 (`Woobly`)</li><li>A `Topple` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`</li></ul>|
+|Any|target has `HornExtraDamage` in its `weakness`|<ul><li>basevalue is incremented</li><li>weaknesshit is set to true</li></ul>|
+|Enemy|Always occur|<ul><li>If target.`holditem` isn't -1 (it was holding an item), [DropItem](../Actors%20states/DropItem.md) is called with the target and with additem</li><li>If target.`isdefending` is true, it is set to false</li></ul>|
+
+## DefaultDamageCalc
+This is a sub method to CalculateBaseDamage which only gets called for most property values (the exceptions being `NoExceptions` where it's never called and `Flip` where it may or may not be called).
+
+It takes the basevalue as ref and despite its name, it only processes optional decreases of the basevalue due to defensive effects.
+
+```cs
+private void DefaultDamageCalc(MainManager.BattleData target, ref int basevalue, bool pierce, bool blocked, int def)
+```
+
+### Parameters:
+
+- `target`: The target from CalculateBaseDamage
+- ref `basevalue`: The basevalue from CalculateBaseDamage
+- pierce: Whether defense pierce applies. This value is computed from CalculateBaseDamage, but overriden to false if `target` is a player party member
+- `blocked`: UNUSED (this is block from CalculateBaseDamage, but it is never read in the method)
+- `def`: target.`def` from CalculateBaseDamage. (NOTE: this is the base value, not the effective one). Overriden to 0 if `pierce` is true while `target` is an enemy party member
+
+### Effects
+Each rows of the table contains an effect to basevalue or other additional effects when applicable. Each row contains 3 columns:
+
+- target's party: The party of the target (any for either)
+- Condition: The conditions required for this effect to process. If a list is presented, all conditions must be true unless stated otherwise
+- Damage effect: The effects on basevalue if Condition is true. This may contain other effects than changing basevalue. Anything underlined means it's an effect other than increasing or decreasing meaning it's more significant and its position in the calculation is important
+
+These effects are shown in the exact order they appear.
+
+|target's party|Condition|Damage effect|
+|--------------|---------|-------------|
+|Any|target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)|- def|
+|Player|target has the `Poison` [condition](../Actors%20states/Conditions.md)|- (amount of target's `PoisonDefender` [medals](../../Enums%20and%20IDs/Medal.md) - amount of target's `ReversePoison` medals)|
+|Player|target is `playerdata[battle.partypointer[playerdata.lenght - 1]]` (the furthest back in the player party formation)|- amount of target's `BackSupport` [medals](../../Enums%20and%20IDs/Medal.md)|
+|Player|target is `playerdata[battle.partypointer[0]]` (the font in the player party formation)|- amount of target's `FrontSupport` [medals](../../Enums%20and%20IDs/Medal.md)|
+|Player|target.`hp` is <= 4|- 2 * amount of target's `DefenseUp` [medals](../../Enums%20and%20IDs/Medal.md)|
+|Player|<ul><li>target has the `Sleep` [condition](../Actors%20states/Conditions.md)</li><li>target has a `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md)</li></ul>|<u>Divided by 2 floored</u>|
+|Any|<ul><li>target.`isdefending` is true</li><li>pierce is false</li></ul>|- target.`defenseonhit`|
 
 ## Final steps and results
 Before the method ends:
