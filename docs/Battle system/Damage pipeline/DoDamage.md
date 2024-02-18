@@ -47,20 +47,20 @@ private int DoDamage(MainManager.BattleData? attacker, ref MainManager.BattleDat
 ```
 
 ### Enemy attack overloads
-The following overloads are specifically made for an enemy attacking the player.
+The following overloads are specifically made for an enemy party member attacking a player party member.
 
 (6) Calls the final overload with the `attacker` being `enemydata[enemyid]`, the target being `playerdata[playertarget]`, `overrides` being null and the rest being the same as the parameters sent
 ```cs
 private int DoDamage(int enemyid, int playertarget, int damage, AttackProperty? property, bool block)
 ```
 
-(7)  Calls the final overload with the `attacker` being `enemydata[enemyid]`, the target being `playerdata[playertarget]` and the rest being the same as the parameters sent
+(7) Calls the final overload with the `attacker` being `enemydata[enemyid]`, the target being `playerdata[playertarget]` and the rest being the same as the parameters sent
 ```cs
 private int DoDamage(int enemyid, int playertarget, int damage, AttackProperty? property, DamageOverride[] overrides, bool block)
 ```
 
 ### Player attack overloads
-The following overloads are specifically made for a player attacking the enemy.
+The following overloads are specifically made for a player party member attacking an enemy party member.
 
 (8) Calls (9) with the parameter sent and `enemytarget` being the BattleControl's `target`
 ```cs
@@ -71,7 +71,7 @@ private int DoDamage(int playerid, AttackProperty? property)
 
 - `attacker`: The player party member whose `trueid` is `playerid` (it will falback to the first player party member if none exists)
 - `target`: The enemy party member in `availabletargets` whose index is `enemytarget`. An exception is thrown if no enemy party member exists at that index
-- `damageammount`: The return of GetPlayerAttack for the `playerid` and `commandsuccess` which is the `atk` of the corresponding player party member if `commandsuccess` is true and if it's false, it's its `atk` clamped from -99 to 1 TODO: this clamping is very odd
+- `damageammount`: The return of GetPlayerAttack for the `playerid` and `commandsuccess` which is the `atk` of the corresponding player party member if `commandsuccess` is true and if it's false, it's its `atk` clamped from -99 to 1
 - `property`: The same as the parameter sent
 - `overrides`: If `commandsuccess` is true, this is null and if it's false, it's an array with one element being `FailSound`
 - `block`: false
@@ -80,7 +80,7 @@ private int DoDamage(int playerid, int enemytarget, AttackProperty? property)
 ```
 
 ## Procedure
-The following is a high level overview of the damage pipeline TODO: very WIP
+The following is a high level overview of the damage pipeline divided by sections for each groups of effects that happens.
 
 An actor is considered to be a player party member if it its battleentity has the `Player` tag. It's assumed to be an enemy party member if it doesn't.
 
@@ -96,25 +96,22 @@ There are ways that block can be overriden to false. Here are all of them (they 
 ### Damage calculation
 The damage amount is decided by the following:
 
-- The final damage amount starts at 0
-- If property is `NoException`, the final damage amount is initially set to damageammount
-- If the target isn't Invulnerable, the final damage amount is set to the return of [CalculateBaseDamage](CalculateBaseDamage.md) with all the parameters sent (with the overriden block if applicable and property to null if it was `None`). The weaknesshit and superguarded ref parameters are passed via locals initially set to false
-
-What this means is the final damage amount is 0 if the target is Invulnerable AND property isn't `NoException`. TODO: clarify what happens when the target isn't Invulnerable, but property is `NoException`, does it override the damageammount?
-
-As for how the target can be Invulnerable, it is if any of the following is true:
-- Its `plating` is true
-- It has the `Shield` [condition](../Actors%20states/Conditions.md)
-- It is a player party member with the `Numb` [condition](../Actors%20states/Conditions.md) and the `ShockTrooper` [medal](../../Enums%20and%20IDs/Medal.md) equipped
+- If the target isn't Invulnerable, the final damage amount is set to the return of [CalculateBaseDamage](CalculateBaseDamage.md) with all the parameters sent (with the overriden block if applicable and property to null if it was `None`). The weaknesshit and superguarded ref parameters are passed via locals initially set to false. The target is invulnerable if any of the following is true:
+    - Its `plating` is true
+    - It has the `Shield` [condition](../Actors%20states/Conditions.md)
+    - It is a player party member with the `Numb` [condition](../Actors%20states/Conditions.md) and the `ShockTrooper` [medal](../../Enums%20and%20IDs/Medal.md) equipped
+- Otherwise (the target is vulnerable), it depends if the property is `NoException`:
+    - If it isn't, the amount is 0
+    - If it is, it's the original damageammount
 
 ### `plating` expiration
-If the target doesn't have the `Shield` condition, its `plating` is set to false
+If the target doesn't have the `Shield` condition, its `plating` is set to false. TODO: check if this can interfere when the target is both shielded and plated
 
 ### `DamageOverride` application
 8 of the 11 available `DamageOverride` are processed here if they are present in overrides. Each are processed in order they appear in the array. The other 3 were processed by [CalculateBaseDamage](CalculateBaseDamage.md) if it was called earlier:
 
 #### `ShowCombo`
-ShowComboMessage is called with target.battleentity and block. This is a wrapper around [ShowSuccessWord](../Visual%20rendering/ShowSuccessWord.md) (without super) where `wordroutine` is stopped if it was in progress (followed by the destruction of `commandword`) and then set to the new coroutine call
+[ShowComboMessage](../Visual%20rendering/ShowSuccessWord.md#showcombomessage) is called with target.battleentity and block as block.
 
 #### `NoSound`
 The [DoDamageAnim](DoDamageAnim.md) call towards the end will have nosound set to true. NOTE: this is ignored if `NoDamageAnim` or `BlockSoundOnly` is processed after
@@ -135,7 +132,7 @@ There will not be a [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.
 The [DoDamageAnim](DoDamageAnim.md) call towards the end will have fakeanim set to true. NOTE: this is ignored if `NoDamageAnim` is processed after
 
 #### `DontAwake`
-Prevents the attack from removing the `Sleep` [condition](../Actors%20states/Conditions.md) on the target later even if all conditions to do so are fufilled
+Prevents the attack from removing the `Sleep` [condition](../Actors%20states/Conditions.md) on the target later even if all conditions to do so are fufilled. TODO: this seems broken if damage calc inflicted a condition, recheck
 
 ### Player damage processing
 This section only happens if the target is a player party member.
@@ -151,11 +148,11 @@ The second case is an edge case where the only thing that happens is `hasblocked
 The first case is the standard one:
 
 - `hasblocked` is set to true (allows HardSeedVenus to give a `HardSeed` to the player if it gets called later as part of the enemy action)
-- If this is a non super block, ShowComboMessage is called with target.battleentity as the entity and true as the block. This is a wrapper around [ShowSuccessWord](../Visual%20rendering/ShowSuccessWord.md) (without super) where `wordroutine` is stopped if it was in progress (followed by the destruction of `commandword`) and then set to the new coroutine call
+- If this is a non super block, [ShowComboMessage](../Visual%20rendering/ShowSuccessWord.md#showcombomessage) is called with target.battleentity as the entity and true as the block
 - Otherwise (meaning this was a super block):
     - `combo` is set to 2
     - The `AtkSuccess` sound is played at 1.1 pitch and 0.6 volume if it wasn't playing already (or it was, but its time was past 0.1 seconds)
-    - ShowComboMessage is called with target.battleentity as the entity and false as the block. This is a wrapper around [ShowSuccessWord](../Visual%20rendering/ShowSuccessWord.md) (without super) where `wordroutine` is stopped if it was in progress (followed by the destruction of `commandword`) and then set to the new coroutine call
+    - [ShowComboMessage](../Visual%20rendering/ShowSuccessWord.md#showcombomessage) is called with target.battleentity as the entity and false as the block
     - If the `NeedlePincer` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the target and the target's battleentity still exists in `playerdata`, the target will get healed later due to the medal
 
 #### `SpikeBod` [medal](../../Enums%20and%20IDs/Medal.md) processing
@@ -178,7 +175,7 @@ This part only happens if all of the following are true:
 
 - The `PoisonTouch` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the target
 - The target has the `Poison` [condition](../Actors%20states/Conditions.md)
-- There is an attacker (assumed to be an enemy party member) and its `poisonres` is less than 100 (it's not immune)
+- There is an attacker (assumed to be an enemy party member) and its `poisonres` is less than 100 (it's not immune). NOTE: this contradicts the game's description because it is not a "chance" to get poisoned
 - `nonphysical` is false
 
 If all of the above are fufilled, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called to set the `Poison` [condition](../Actors%20states/Conditions.md) on the corresponding enemy party member of the attacker for 2 turns
@@ -203,10 +200,10 @@ This part only happens if all of the following are true:
 - The final amount of damage calculated is above 0
 - property isn't `Flip`
 
-If all the above are fufilled, `defenseonhit` is set to false if the target [IsStopped](../Actors%20states/IsStopped.md) or to true if it's not.
+If all the above are fufilled, it means the enemy supports defending itself and it sustained damage which causes updates to its guarding state. When that happens, `isdefending` is set to false if the target [IsStopped](../Actors%20states/IsStopped.md) or to true if it's not.
 
-#### `hitaction` update
-target.`hitaction` can changed under 2 conditions (these aren't mutually exclusive, they are applied in order):
+#### [hitaction](#hitaction-update) update
+target.`hitaction` can change under 2 conditions (these aren't mutually exclusive, they are applied in order):
 
 - It's set to true if target.`defenseonhit` is -1 and its `position` isn't `Underground`
 - It's set to !`enemy` (false on the enemy phase, true otherwise) if the target.`onhitaction` condition is fufilled which is:
@@ -217,7 +214,13 @@ target.`hitaction` can changed under 2 conditions (these aren't mutually exclusi
 After, every other enemy party members other than the target who has the target.`animid` (its [enemy](../../Enums%20and%20IDs/Enemies.md) id) in their `chargeonotherenemy` has their `hitaction` set to !`enemy` (false during the enemy phase, true otherwise).
 
 #### Undigging
-If the final amount of damages calculated earlier is higher than 0 and target.`position` is `Underground` while `mainturn` isn't in progress TODO: why does that matter?, then UnDig is called with the target as ref which does the following on it:
+This part only happens if all of the following are true:
+
+- The final amount of damages calculated earlier is higher than 0
+- target.`position` is `Underground` 
+- `mainturn` isn't in progress TODO: why does that matter?
+
+If the above conditions are fufilled, then UnDig is called with the target as ref which does the following on it:
 
 - battleentity.`digging` is set to false
 - battleentity.`overridejump` is set to true
@@ -231,12 +234,10 @@ If the final amount of damages calculated earlier is higher than 0, target.`turn
 If `commandsuccess` is true and the attacker is a player party member:
 
 - `wordroutine` is stopped if it was in progress (followed by the destruction of `commandword` if it was)
-- `wordroutine` is set to a new [ShowSuccessWord](../Visual%20rendering/ShowSuccessWord.md) call with target.battleenetity as the t, without block and the super being the ref value obtained from [CalculateBaseDamage](CalculateBaseDamage.md) done earlier (false if it wasn't called)
+- `wordroutine` is set to a new [ShowSuccessWord](../Visual%20rendering/ShowSuccessWord.md) call with target.battleenetity as the t, without block and the super being the ref weaknessonhit value obtained from [CalculateBaseDamage](CalculateBaseDamage.md) done earlier (false if it wasn't called)
 
 ### target.`hp` decrease and clamping
 target.`hp` gets decreased by the final amount of damage calculated earlier, but it also gets clamped after. The higher bound of the clamp is always target.`maxhp`, but the lower bound depends on some conditions.
-
-NOTE: The 10 and 1 clamp are technically exceptions to the `NoException` property that took effect earlier because they can reduce the damages dealt which is a bug as it isn't intuitive.
 
 Here they are in order (they are mutually exclusive, the first one applies):
 
@@ -245,10 +246,10 @@ This happens if all the following are true:
 
 - The target is an enemy party member
 - The target has a `SurviveWith10` weakness
-- `currentaction` is `ItemList` (meaning this was an item use) or `lastskill` is 9 (this attack came from any player skills other than `PeebleToss`)
+- `currentaction` is `ItemList` (meaning this was an item use) or `lastskill` is not 9 (this attack came from any player skills other than `PeebleToss`)
 
 #### Clamp from 1
-This happens if the target is an enemy party member with a `AlwaysSurvive` weakness.
+This happens if the target is an enemy party member with an `AlwaysSurvive` weakness.
 
 #### Clamp from 0
 This is the default clamp that happens if the other 2 didn't.
@@ -262,7 +263,7 @@ This section only applies if all of the following is true:
 - The target has the `Sleep` [condition](../Actors%20states/Conditions.md)
 - The property isn't `Sleep`
 - target.`hp` is above 0
-- The final damage amount calculated earlier is above 0
+- The final damage amount calculated earlier is above 0. NOTE: [CalculateBaseDamage](CalculateBaseDamage.md) may override this if the property is one of the status infliction one (except `Flip`) and the infliction occured because this clause isn't part of the damage calculation
 - There was no `DamageOverride` of `DontAwake` processed earlier
 - If the target is an player party member, the `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) must not be equipped
 
@@ -270,7 +271,7 @@ If all of the above are fufilled, the following happens:
 
 - [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called to remove the `Sleep` [condition](../Actors%20states/Conditions.md) on the target
 - target.`isasleep` is set to false
-- target.`cantmove` is set to 1 (meaning 1 turns needs to pass for them to have an actor turn available, but this will be advanced before the end of the main turn making them able to act immediately after)
+- target.`cantmove` is set to 1 (meaning 1 turns needs to pass for them to have an actor turn available, but this will be advanced before the end of the main turn making them able to act immediately after) TODO: this seems very odd and very inconsistent because cantmove isn't changed if the target wakes up in damage calc as a result of being inflicted by another condition
 - [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called with true as the onlyplayer
 
 ### `LifeSteal` processing

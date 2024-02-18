@@ -24,3 +24,11 @@ private IEnumerator ShowSuccessWord(EntityControl t, bool block, bool super)
 - The shrink of the `word`'s DialogueAnim is set to true (this means the word will collapse to nothing vertically)
 - `commandword` is destroyed in 1 second
 - `wordroutine` is set to null signaling it is no longer in progress
+
+## ShowComboMessage
+This is a wrapper around ShowSuccessWord (without super) where `wordroutine` is stopped if it was in progress (followed by the destruction of `commandword`) and then set to the new coroutine call:
+
+```cs
+private void ShowComboMessage(EntityControl entity, bool block)
+```
+The parameters are relayed as they are to ShowSuccessWord with false as super.
