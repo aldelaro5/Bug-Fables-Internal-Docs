@@ -21,7 +21,7 @@ After updating the enablement, if it's still active, battleentity.`hpbarfont.tex
 
 The `defstat`'s displayed value is also updated based on the `def`. If the `def` is -1, the displayed value is `?`. If it's not, it will be the return value of TrueDef which is calculated by doing the following:
 
-1. The base defense is determined. It is 0 if the enemy has the `Flipped` [condition](../Actors%20states/Conditions.md) and if it doesn't have it, it is the return of [GetDefense](../Damage%20pipeline/GetDefense.md)
+1. The base defense is determined. It is 0 if the enemy has the `Flipped` [condition](../Actors%20states/Conditions.md) and if it doesn't have it, it is the return of GetDefense (enemy's `def`)
 2. 1 is added if the enemy has the `DefenseUp` [condition](../Actors%20states/Conditions.md)
 3. 1 is subtracted if the enemy has the `DefenseDown` [condition](../Actors%20states/Conditions.md)
 4. `defenseonhit` is added if the enemy `isdefending` is true 

@@ -12,7 +12,7 @@ private int CalculateBaseDamage(MainManager.BattleData? attacker, ref MainManage
 ```
 
 ## Parameters
-All parameters comes directly from [DoDamage](DoDamage.md) (the damageammount becomes the basevalue) with 3 exceptions:
+All parameters comes directly from [DoDamage](DoDamage.md) (the damageammount becomes the basevalue) with some exceptions:
 
 - `block`: This may be overriden to false by DoDamage If any of the following are true:
     - The target has the `Freeze` [condition](../Actors%20states/Conditions.md)
@@ -78,21 +78,21 @@ These effects are shown in the exact order they appear.
 |-|<ul><li>target has a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`nonphysical` is false</li><li>attacker.`position` isn't `Underground`</li></ul>|A `Freeze` [delayed condition](../Actors%20states/Delayed%20condition.md) is added to the attacker AND a counter of the full damage to the attacker is scheduled (see the final results explanation below for details)</sup>|
 |-|<ul><li>target has a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>The counter effect above didn't apply</li></ul>|<u>Divided by 2 floored</u>|
 |-|target has no `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)|+ 1|
-|Any to Any|<ul><li>target has the `Numb` [condition](../Actors%20states/Conditions.md)</li><li>target doesn't have the the `DefenseDown` [condition](../Actors%20states/Conditions.md). NOTE: this is incorrect<sup>5</sup></li><li>property isn't `Flip`</li><li>there is no `IgnoreNumb` in the overrides</li><li>piercing doesn't apply</li></ul>|- 1|
+|Any to Any|<ul><li>target has the `Numb` [condition](../Actors%20states/Conditions.md)</li><li>target doesn't have the the `DefenseDown` [condition](../Actors%20states/Conditions.md). NOTE: this is incorrect<sup>5</sup></li><li>property isn't `Flip`. NOTE: This is incorrect<sup>7</sup></li><li>there is no `IgnoreNumb` in the overrides</li><li>piercing doesn't apply</li></ul>|- 1|
 |Any to enemy|<ul><li>target.`noexpatstat` is true (cannot happen because this field is UNUSED)</li><li>[flags](../../Flags%20arrays/flags.md) 162 is false (we aren't using the B.O.S.S system and we aren't in a Cave Of Trials session)</li></ul>|- 1 (this effect never happens under normal gameplay)|
 |Any to Any|property is one of the following:<ul><li>`Poison`</li><li>`Numb`</li><li>`Numb1Turn`</li><li>`Sleep`</li><li>`Freeze`</li><li>`Fire`</li><li>`InkOnBlock`</li><li>`Ink`</li><li>`Sticky`</li></ul>|Status infliction logic occurs (see the section below for details), no changes to basevalue|
 |Any to Any|property is `Flip`|Flip handling logic (see the section below for details), basevalue may change in various ways|
-|Any to Any|property is anything except:<ul><li>`NoExceptions` OR</li><li>`Flip` while target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)</li></ul>|DefaultDamageCalc (see the section below for details) is called with the corresponding values for the parameters where pierce is true if piercing applies (false otherwise or if property is null), with def being target.`def`. basevalue may decrease due to various defense modifiers|
+|Any to Any|property is anything except:<ul><li>`NoExceptions` OR</li><li>`Flip` while target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md). NOTE: If the enemy has `defenseonhit`, this is incorrect<sup>7</sup></li></ul>|DefaultDamageCalc (see the section below for details) is called with the corresponding values for the parameters where pierce is true if piercing applies (false otherwise or if property is null), with def being target.`def`. basevalue may decrease due to various defense modifiers|
 |Any to Any|<ul><li>target has `Magic` in its `weakness` AND</li><li>property is `Magic` OR</li> <ul><li>attacker is a player party member while `lastskill` is `Icefall`, `FrigidCoffin` or `IceRain` AND</li><li>property is one of the following:</li><ul><li>`Poison`</li><li>`Numb`</li><li>`Numb1Turn`</li><li>`Sleep`</li><li>`Freeze`</li><li>`Fire`</li><li>`InkOnBlock`</li><li>`Ink`</li><li>`Sticky`</li><li>`Flip` while target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)</li><li>`NoExceptions`</li></ul></ul></ul>|+ 1 and If `commandsuccess` is true (the player suceeded the action command), weaknesshit is set to true|
 |Any to enemy|<ul><li>target.battleentity.`height` is above 0.0</li><li>target.`cantfall` is false</li><li>target.`position` is `Flying`</li><li>target.`lockposition` is false</li><li>There are `NoFall` overrides</li></ul> AND (first of the 2 applies)||
 |-|<ul><li>target doesn't already have have the `Topple` [conditions](../Actors%20states/Conditions.md)</li><li>target doesn't have the `Sleep`, `Freeze` or `Numb` [conditions](../Actors%20states/Conditions.md)</li><li>target has `ToppleFirst` or `ToppleAirOnly` in its `weakness` </li></ul>|The `Topple` [condition](../Actors%20states/Conditions.md) is added directly to target.`condition` array for 1 turn followed by target.battleentity.`basestate` set to 21 (`Woobly`)|
 |-|The above didn't apply|The enemy falls<sup>3</sup> (no basevalue changes)|
-|Any to Any|<ul><li>target has the `DefenseUp` [condition](../Actors%20states/Conditions.md)</li><li>Either property:<ul><li>is null OR</li><li>is not `Flip` or `NoExceptions` while piercing doesn't apply</li></ul></li></ul>|- 1|
-|Any to Any|<ul><li>target has the `DefenseDown` [condition](../Actors%20states/Conditions.md)</li><li>piercing doesn't apply</li><li>property isn't `NoExceptions`</li><li>At least one of the following is true:<ul><li>[GetDefense](GetDefense.md) returns above 0</li><li>The `DefenseUp` effect above was just processed. NOTE: This is incorrect<sup>5</sup></li><li>The target is a player party member while HardMode returns true. NOTE: This is inconsistent or incorrect<sup>6</sup></li></ul></li></ul>|+ 1|
+|Any to Any|<ul><li>target has the `DefenseUp` [condition](../Actors%20states/Conditions.md)</li><li>Either property:<ul><li>is null OR</li><li>is not `Flip` (NOTE: this is incorrect<sup>7</sup>) or `NoExceptions` while piercing doesn't apply</li></ul></li></ul>|- 1|
+|Any to Any|<ul><li>target has the `DefenseDown` [condition](../Actors%20states/Conditions.md)</li><li>piercing doesn't apply</li><li>property isn't `NoExceptions`.</li><li>At least one of the following is true:<ul><li>GetDefense (target.`def`) is above 0. NOTE: If the property is `Flip`, this is incorrect if target.`def` is exactly 1<sup>8</sup></li><li>The `DefenseUp` effect above was just processed. NOTE: This is incorrect<sup>5</sup></li><li>The target is a player party member while HardMode returns true. NOTE: This is inconsistent or incorrect<sup>6</sup></li></ul></li></ul>|+ 1|
 |Attacker to any|<ul><li>Attacker has the `AttackUp` [condition](../Actors%20states/Conditions.md)</li><li>property isn't `NoExceptions`</li></ul>|+ 1|
 |Attacker to any|<ul><li>Attacker has the `AttackDown` [condition](../Actors%20states/Conditions.md)</li><li>property isn't `NoExceptions`</li></ul>|- 1|
 |Any to player|The `DoublePainReal` [medal](../../Enums%20and%20IDs/Medal.md) is equipped|<u>Multiplied by 1.25 floored</u>, then increased by 1|
-|Player to enemy|<ul><li>Attacker has an `AntlionJaws` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`actionid` is 0 or below (this field is UNUSED so it's always 0)</li><li>`currentaction` is `Attack`</li><li>Either the target has the `DefenseUp` [condition](../Actors%20states/Conditions.md) OR its [GetDefense](GetDefense.md) is above 0</li><li>Piercing doesn't apply</li></ul>|Decreased by the lowest between the amount of the attacker's `AntlionJaws` [medals](../../Enums%20and%20IDs/Medal.md) and the target's defense which is:<ul><li>[GetDefense](GetDefense.md)'s value if it's above 0</li><li>1 if [GetDefense](GetDefense.md) is 0 AND it has the `DefenseUp` [condition](../Actors%20states/Conditions.md)</li><li>0 otherwise</li></ul>NOTE: This logic is incorrect<sup>4</sup>|
+|Player to enemy|<ul><li>Attacker has an `AntlionJaws` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`actionid` is 0 or below (this field is UNUSED so it's always 0)</li><li>`currentaction` is `Attack`</li><li>Either the target has the `DefenseUp` [condition](../Actors%20states/Conditions.md) OR its GetDefense (target.`def`) is above 0</li><li>Piercing doesn't apply</li></ul>|Decreased by the lowest between the amount of the attacker's `AntlionJaws` [medals](../../Enums%20and%20IDs/Medal.md) and the target's defense which is:<ul><li>GetDefense (target.`def`) if it's above 0</li><li>1 if GetDefense (target.`def`) is 0 AND it has the `DefenseUp` [condition](../Actors%20states/Conditions.md)</li><li>0 otherwise</li></ul>NOTE: This logic is incorrect<sup>4</sup>|
 |Any to enemy|<ul><li>The target has `DefDownOnFlyHard` in its `weakness` (This is specific to a `VenusBoss` [enemy](../../Enums%20and%20IDs/Enemies.md))</li><li>target.`position` is `Flying`</li><li>HardMode returns true</li></ul>|+ 1|
 |Any to Any|target has the `Sturdy` [condition](../Actors%20states/Conditions.md)|- 3|
 |Any to player|target has a `Reflection` [condition](../Actors%20states/Conditions.md)|- amount of target's `Reflection` [medals](../../Enums%20and%20IDs/Medal.md)|
@@ -125,12 +125,13 @@ For more information on how super blocks are determined, check [GetBlock](../Bat
 - Otherwise (target.`eventonfall` isn't defined):
     - target.battleentity.`droproutine` is set to a new [Drop](../../Entities/EntityControl/EntityControl%20Methods.md#drop) call on target.battleentity
 
-4: The medal was supposed to ignore a defense for each instance equipped. However, there are 4 cases in which this doesn't work correctly:
+4: The medal was supposed to ignore a defense for each instance equipped. However, there are 5 cases in which this doesn't work correctly:
 
 - The `DefenseDown` [condition](../Actors%20states/Conditions.md) is ignored
 - The defense gained as a result of the `Numb` [condition](../Actors%20states/Conditions.md) is ignored
 - `defenseonhit` is ignored on enemies who supports it
-- The `DefenseUp` [condition](../Actors%20states/Conditions.md) is ignored UNLESS [GetDefense](GetDefense.md)'s value is 0 where it works correctly. Specifically, this means that if the target's [GetDefense](GetDefense.md) is 1 while having the `DefenseUp` [condition](../Actors%20states/Conditions.md), at most 1 `AntLionJaws` will count still (even if 2 are equipped)
+- The `DefenseUp` [condition](../Actors%20states/Conditions.md) is ignored UNLESS GetDefense (target.`def`) is 0 where it works correctly. Specifically, this means that if the target's GetDefense (target.`def`) is 1 while having the `DefenseUp` [condition](../Actors%20states/Conditions.md), at most 1 `AntLionJaws` will count still (even if 2 are equipped)
+- The property is `Flip`. This will cause both the medal and the 1 defense ignore to apply independently for the same reasons, effectively ignoring the defense that was already ignored befrehand
 
 5: This is incorrect to do because the `DefenseDown` effect later can still apply which can make it override the numb defense giving +1 erroneous increase to basevalue. For this issue to reproduce, the `DefenseDown` conditions needs to be fufilled while the numb defense conditions also applies which will effectively count 1 less defense than it should. The defense in the HUD reports the correct number, but the calculations are wrong.
 
@@ -145,6 +146,16 @@ The second case is a design bug. The first case isn't consistent because the med
 
 Additionally, this doesn't take into consideration the numb defense even if its logic was correct (that it would apply regardless of `DefenseDown`'s presence or not). It now means that the numb defense may or may not be cancelled correctly depending on the difficulty which is a bug.
 
+7: `Flip` always ignore at most 1 of target.`def`, but it also ignores unconditionally other types of defenses on top of this incorrectly:
+
+- Numb defense
+- `DefenseUp` [condition](../Actors%20states/Conditions.md)
+- `defenseonhit` on supported enemies when they are `isdefending`
+
+They are also cumulative: if all 3 are combined, they all get ignored on top of the 1 defense ignored from target.`def` while only at most 1 was supposed to be ignored across all defenses.
+
+8: This is the infamous issue known as the "def bug". If target.`def` is EXACTLY 1 (0 or 2+ are accidentally correct) while it has a `DefenseDown` [condition](../Actors%20states/Conditions.md), the only defense left will be ignored, but `DefenseDown` will still apply. Only one of the two should apply because there's only 1 defense available to ignore. `DefenseDown` only requires that target.`def` is above 0.
+
 ## Status infliction
 What happens here depends on the property, but they all have one thing in common: after they are processed, the standard damage calculation procedure applies on top of this procedure (see the section below for more details). This is true no matter what happens (even if the infliction fails, succeeds or nothing happens in the first place).
 
@@ -152,7 +163,7 @@ These typically attempts to inflict a [condition](../Actors%20states/Conditions.
 
 Here's an explanation of the columns:
 
-- propert: The property value the row applies to
+- property: The property value the row applies to
 - [conditions](../Actors%20states/Conditions.md#conditions) inflicted: The condition to inflict if all the requirements are fufilled
 - Requirements: The requirements that must be fufilled for the condition to be inflicted. All statuses requires block to be false and the target to not have the `Sturdy` [condition](../Actors%20states/Conditions.md). Those checks are implied in this column and won't be mentioned. There are 2 requirements specifically that recurs a lot and will be called with a simplified name:
     - Resistance check: A resistance check must pass for the condition to be inflicted. A resistance is an integer field on the target that can be at most 99 for the condition to possibly inflict. If it's 100 or above, the target is immune and the infliction won't occur. This immunity condition also affects if the `StatusMirror` [medal](../../Enums%20and%20IDs/Medal.md) works. This is how the test occurs:
@@ -188,7 +199,7 @@ Here's an explanation of the columns:
 
 2: This is due to the first of those 3 turns ending immediately making it really + 2 turns in practice which matches all other cases where it's always + 2 turns.
 
-## Flip handing
+## `Flip` handing
 Each rows of the table contains an effect to basevalue or other additional effects when applicable. Each row contains 3 columns:
 
 - target's party: The party of the target (any for either)
@@ -199,7 +210,7 @@ These effects are shown in the exact order they appear.
 
 |target's party|Condition|Effects|
 |--------------|---------|-------------|
-|Any|target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)|basevalue is decreased by the clamp of target.`def` - 1 from 0 to 99 TODO: this is probably the infamous def bug, recheck|
+|Any|target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)|basevalue is decreased by the clamp of target.`def` - 1 from 0 to 99|
 |Any|<ul><li>target doesn't have the `Flipped` [condition](../Actors%20states/Conditions.md)</li><li>target has `Flip` in its `weakness`</li></ul>|wealnesshit is set to true + the first of 3 applicable effects below (mutually exclusive)|
 |-|target doesn't have `ToppleFirst` in its `weakness`|<ul><li>A `Flip` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`</li><li><u>basevalue is clamped from 1 to 99</u></li></ul>|
 |-|target has the `Topple` [condition](../Actors%20states/Conditions.md)|<ul><li>A `Flip` [condition](../Actors%20states/Conditions.md) for 1 turn is added directly to target.`condition`</li><li><u>basevalue is clamped from 1 to 99</u></li><li>[RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove its `Topple` [condition](../Actors%20states/Conditions.md)</li></ul>|
