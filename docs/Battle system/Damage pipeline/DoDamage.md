@@ -11,11 +11,11 @@ It returns the amount of damage actually dealt.
 
 Here are the parameters:
 
-- `attacker`: The actor dealing the damage. If null, the damage didn't come from an attacker
-- `target`: The actor receiving the damage. Passed as ref to allow modifying the actor's data
+- `attacker`: The actor dealing the damage. If null, the damage didn't come from an attacker. If it exists, it must belong to the opposite party of the `target`
+- `target`: The actor receiving the damage. Passed as ref to allow modifying the actor's data. If the `attacker` exists, it must belong to its opposite party
 - `damageammount`: The base amount of damage to deal. This number can be heavilly changed by the damage pipeline, it is only the base one to deal
-- `property`: The property of the attack ??? TODO: figure out what this is exactly. May be null to have no property
-- `overrides`: The overrides to apply to the damage pipeline ??? TODO: define clearly what is an override. May be null or an empty array to have no overrides
+- `property`: The property of the attack
+- `overrides`: The overrides to apply to the damage pipeline. May be null or an empty array to have no overrides
 - `block`: For an enemy attack, whether or not the player sucessfully blocked it (this is intended to receive `commandsuccess` as it was determined by [GetBlock](../Battle%20flow/Update.md#getblock)). It doesn't matter if it's a regular block or a super block, this parameter is to signal a block of any kind as the damage pipeline will process what to do with it
 
 ### General purpose overloads
@@ -82,7 +82,7 @@ private int DoDamage(int playerid, int enemytarget, AttackProperty? property)
 ## Procedure
 The following is a high level overview of the damage pipeline divided by sections for each groups of effects that happens.
 
-An actor is considered to be a player party member if it its battleentity has the `Player` tag. It's assumed to be an enemy party member if it doesn't.
+An actor is considered to be a player party member if it its battleentity has the `Player` tag. It's assumed to be an enemy party member if it doesn't. If the attacker exists, its party is assumed to be the opposte of the target's.
 
 ### block override
 There are ways that block can be overriden to false. Here are all of them (they aren't mutually exclusive, if any is true, block becomes false):
@@ -100,12 +100,12 @@ The damage amount is decided by the following:
     - Its `plating` is true
     - It has the `Shield` [condition](../Actors%20states/Conditions.md)
     - It is a player party member with the `Numb` [condition](../Actors%20states/Conditions.md) and the `ShockTrooper` [medal](../../Enums%20and%20IDs/Medal.md) equipped
-- Otherwise (the target is vulnerable), it depends if the property is `NoException`:
+- Otherwise (the target is invulnerable), it depends if the property is `NoException`:
     - If it isn't, the amount is 0
     - If it is, it's the original damageammount
 
 ### `plating` expiration
-If the target doesn't have the `Shield` condition, its `plating` is set to false. TODO: check if this can interfere when the target is both shielded and plated
+If the target doesn't have the `Shield` [condition](../Actors%20states/Conditions.md), its `plating` is set to false. This allows the `plating` to not expire when hit while shielded.
 
 ### `DamageOverride` application
 8 of the 11 available `DamageOverride` are processed here if they are present in overrides. Each are processed in order they appear in the array. The other 3 were processed by [CalculateBaseDamage](CalculateBaseDamage.md) if it was called earlier:
@@ -132,7 +132,7 @@ There will not be a [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.
 The [DoDamageAnim](DoDamageAnim.md) call towards the end will have fakeanim set to true. NOTE: this is ignored if `NoDamageAnim` is processed after
 
 #### `DontAwake`
-Prevents the attack from removing the `Sleep` [condition](../Actors%20states/Conditions.md) on the target later even if all conditions to do so are fufilled. TODO: this seems broken if damage calc inflicted a condition, recheck
+Prevents the attack from removing the `Sleep` [condition](../Actors%20states/Conditions.md) on the target later even if all conditions to do so are fufilled. This is only used as part of poison and fire damages from [AdvanceTurnEntity](../Actors%20states/AdvanceTurnEntity.md).
 
 ### Player damage processing
 This section only happens if the target is a player party member.
@@ -175,7 +175,7 @@ This part only happens if all of the following are true:
 
 - The `PoisonTouch` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the target
 - The target has the `Poison` [condition](../Actors%20states/Conditions.md)
-- There is an attacker (assumed to be an enemy party member) and its `poisonres` is less than 100 (it's not immune). NOTE: this contradicts the game's description because it is not a "chance" to get poisoned
+- There is an attacker (assumed to be an enemy party member) and its `poisonres` is less than 100 (it's not immune)
 - `nonphysical` is false
 
 If all of the above are fufilled, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called to set the `Poison` [condition](../Actors%20states/Conditions.md) on the corresponding enemy party member of the attacker for 2 turns
@@ -185,7 +185,7 @@ This part only happens if the `FavoriteOne` [medal](../../Enums%20and%20IDs/Meda
 
 The only thing that happens is `attackedally` is set to target.`trueid`. This will only take into effect later during [AdvanceMainTurn](../Battle%20flow/Action%20coroutines/AdvanceMainTurn.md).
 
-#### Last player damage processing
+#### ShakeGUI call
 This part always happen as part of the player damage processing.
 
 The only thing that happens here is a ShakeGUI coroutine is started to shake the corresponding `hud` element of the target.battleentity.[animid](../../Enums%20and%20IDs/AnimIDs.md) with a range of (0.1, 0.1, 0.0) for 15.0 frames. This coroutine will change the localposition of the `hud`'s first chiled to be random between (0.0 - shake.x, 0.0 - shake.y) and (shake.x, shake.y) for the next 15.0 frames before being reset to Vector3.zero.
@@ -198,14 +198,14 @@ This part only happens if all of the following are true:
 
 - target.`defenseonhit` is above 0
 - The final amount of damage calculated is above 0
-- property isn't `Flip`
+- property isn't `Flip`. NOTE: [CalculateBaseDamage](CalculateBaseDamage.md) can change `isdefending` when property is `Flip` so this is why it can't change here (damage calculation needs to override this logic)
 
 If all the above are fufilled, it means the enemy supports defending itself and it sustained damage which causes updates to its guarding state. When that happens, `isdefending` is set to false if the target [IsStopped](../Actors%20states/IsStopped.md) or to true if it's not.
 
 #### [hitaction](#hitaction-update) update
 target.`hitaction` can change under 2 conditions (these aren't mutually exclusive, they are applied in order):
 
-- It's set to true if target.`defenseonhit` is -1 and its `position` isn't `Underground`
+- It's set to true if target.`defenseonhit` is -1 and its `position` isn't `Underground`. This is only the case for an `Underling` [enemy](../../Enums%20and%20IDs/Enemies.md) under normal gameplay
 - It's set to !`enemy` (false on the enemy phase, true otherwise) if the target.`onhitaction` condition is fufilled which is:
     - If it's 1, it's always fufilled
     - If it's 2, it's only fufilled if target.`position` is `Flying`
@@ -218,7 +218,7 @@ This part only happens if all of the following are true:
 
 - The final amount of damages calculated earlier is higher than 0
 - target.`position` is `Underground` 
-- `mainturn` isn't in progress TODO: why does that matter?
+- `mainturn` isn't in progress
 
 If the above conditions are fufilled, then UnDig is called with the target as ref which does the following on it:
 
@@ -271,7 +271,7 @@ If all of the above are fufilled, the following happens:
 
 - [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called to remove the `Sleep` [condition](../Actors%20states/Conditions.md) on the target
 - target.`isasleep` is set to false
-- target.`cantmove` is set to 1 (meaning 1 turns needs to pass for them to have an actor turn available, but this will be advanced before the end of the main turn making them able to act immediately after) TODO: this seems very odd and very inconsistent because cantmove isn't changed if the target wakes up in damage calc as a result of being inflicted by another condition
+- target.`cantmove` is set to 1. NOTE: this is incorrect because it means for a player party member, that remaining actor turn will advance immeidately after the enemy phase so they get to act, but for an enemy party member, they loose their entire main turn because the actor turn won't advance after the player phase
 - [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called with true as the onlyplayer
 
 ### `LifeSteal` processing
@@ -288,7 +288,7 @@ If the above is fufilled, the following happens:
 ### Stat down on block properties processing
 This section applies if the target.`hp` is above 0, the target doesn't have the `Shield` [condition](../Actors%20states/Conditions.md) and the property is `DefDownOnBlock` or `AtkDownOnBlock`.
 
-This will call [StatusEffect](../Actors%20states/Conditions%20methods/StatusEffect.md) to give the target a [condition](../Actors%20states/Conditions.md) with visual effect. The amount of turn to inflict is 2 turns unless block is true where it's 1 turn instead. On top of this, it inflicts for one more turn if the target is a player party member (meaning 3 turns or 2 with block)
+This will call [StatusEffect](../Actors%20states/Conditions%20methods/StatusEffect.md) to give the target a [condition](../Actors%20states/Conditions.md) with visual effect. The amount of turn to inflict is 2 turns unless block is true where it's 1 turn instead. On top of this, it inflicts for one more turn if the target is a player party member (meaning 3 turns or 2 with block).
 
 As for the actual condition, it's `DefenseDown` if the property is `DefDownOnBlock` and it's `AttackDown` if the property is `AtkDownOnBlock`.
 
