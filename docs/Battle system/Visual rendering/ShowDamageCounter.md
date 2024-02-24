@@ -17,7 +17,7 @@ private void ShowDamageCounter(int type, int ammount, Vector3 start, Vector3 end
 
 ## Procedure
 
-- A new GameObject is created named `X counter` where `X` is the ammount with a tag of `DelAftBtl` and a local scale of Vector3.zero
+- A new GameObject is created named `X counter` where `X` is the ammount with a tag of `DelAftBtl` (meaning it will get destroyed on [ReturnToOverworld](../Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)) and a local scale of Vector3.zero
 - Another GameObject is created named `sprite` childed to the counter just created with a SpriteRenderer on layer 15 (`3DUI`). The sprite is the `guisprites[counterspriteindex[X]]` where `X` is the type (4 for type 0, 40 for type 1 and 101 for type 2)
 - For each `damcounters` whose position to the start is less than 1.5 away, start is increased by (1.25, 1.25, 1.25)
 - The counter's position is set to start

@@ -5,7 +5,7 @@ Nothing happens if the `hpbar` doesn't exist (meaning CreateHPBar had to be call
 
 The `hpbar` is always hidden if the enemy has `hidehp` to true while the bar was enabled or if the [message](../../SetText/Notable%20states.md#message) lock is grabbed while `chompyaction` is true.
 
-If it wasn't hidden from the above, the enablement will be updated by testing a series of conditions and it will happen if the conditions results in a different enablement than the existing one. Here are all the conditions that must be true for the `hpbar` to remain enabled (it is disabled otherwise):
+If it wasn't hidden from the above, the enablement will be updated by testing a series of conditions and it will only actually update if the conditions results in a different enablement than the existing one. Here are all the conditions that must be true for the `hpbar` to remain enabled (it is disabled otherwise):
 
 - `hideenemyhp` is false
 - `helpbox` doesn't exist (no description or help text is presented in the bottom left corner)
@@ -17,9 +17,9 @@ If it wasn't hidden from the above, the enablement will be updated by testing a 
     - The current battle's `inevent` is false
     - `enemy` is false
 
-After updating the enablement, if it's still active, battleentity.`hpbarfont.text` is updated to the actualy enemy's `hp`. To update the red bar, the `hpbar`'s first child's first child gets its x scale update to be the enemy's `hp` / `maxhp` (the y/z scale are set to 1.0). To update the yellow bar, the `hpbar`'s first child's second child gets its x scale update to `hpoffset[X]` where X is the length of the `hpbarfont.text` - 1 which essentially means if it's one digit, it's 1.1, 1.275 for 2 digits and 1.45 for 3 digits (the y/z scale are set to 1.0).
+After updating the enablement, if it's still active, battleentity.`hpbarfont`.`text` is updated to the actualy enemy's `hp`. To update the red bar, the `hpbar`'s first child's first child gets its x scale update to be the enemy's `hp` / `maxhp` (the y/z scale are set to 1.0). To update the yellow bar, the `hpbar`'s first child's second child gets its x scale update to `hpoffset[X]` where X is the length of the `hpbarfont`.`text` - 1 which essentially means if it's one digit, it's 1.1, 1.275 for 2 digits and 1.45 for 3 digits (the y/z scale are set to 1.0).
 
-The `defstat`'s displayed value is also updated based on the `def`. If the `def` is -1, the displayed value is `?`. If it's not, it will be the return value of TrueDef which is calculated by doing the following:
+The `defstat`'s displayed value is also updated based on the `def`. If the `def` is -1, the displayed value is `?`. If it's not, it will be the return value of TrueDef which is a method that returns the total defense of the enemy party member. It is is calculated by doing the following:
 
 1. The base defense is determined. It is 0 if the enemy has the `Flipped` [condition](../Actors%20states/Conditions.md) and if it doesn't have it, it is the return of GetDefense (enemy's `def`)
 2. 1 is added if the enemy has the `DefenseUp` [condition](../Actors%20states/Conditions.md)
@@ -28,3 +28,4 @@ The `defstat`'s displayed value is also updated based on the `def`. If the `def`
 5. 1 is added if the enemy has the `Numb` [condition](../Actors%20states/Conditions.md)
 6. The result is clamped from 0 to 9 and then returned
 
+What's important to note about TrueDef is it is ALWAYS accurate no matter the circumstances because it exhaustively covers all points of defense that can apply to any enemy party member. This is important because [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md) may incorrectly ignore some defense sources in various situations.

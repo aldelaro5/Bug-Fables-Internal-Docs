@@ -12,18 +12,22 @@ public static void SetDefaultCamera(bool reset)
 ## Procedure
 The method does the following assignement to the camera fields:
 
-- `camspeed` to 0.1
-- `camoffset` to battle.`camoffset`
-- `camangleoffset` to `battlecamangle`
-- `camtarget` to null
-- `camtargetpos` to battle.`campos`
+|Name|Value|
+|---:|-----|
+|`camspeed`|0.1|
+|`camoffset`|battle.`camoffset`|
+|`camangleoffset`|`battlecamangle`|
+|`camtarget`|null|
+|`camtargetpos`|battle.`campos`|
 
 It is also possible to send true as a parameter to do a more aggressive version which also resets the battle fields:
 
-- `camspeed` to 0.1
-- `camoffset` to `battlecampos`
-- `camangleoffset` to `battlecamangle`
-- `camtarget` to null
-- `camtargetpos` to Vector3.zero
-- battle.`camoffset` to `battlecampos`
-- battle.`campos` to Vector3.zero
+|Name|Value|
+|---:|-----|
+|`camspeed`|0.1|
+|`camoffset`|`battlecampos`|
+|`camangleoffset`|`battlecamangle`|
+|`camtarget`|null|
+|`camtargetpos`|Vector3.zero|
+|battle.`camoffset`|`battlecampos`|
+|battle.`campos`|Vector3.zero|

@@ -53,7 +53,7 @@ Here are all the action coroutines defined in the battle system:
 The interesting point these have in common is with the exception of doing nothing from a player party member which is handled without the need of a coroutine taking control, these represents all actions that can possibly be taken by an actor. Notably, [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) covers every single attacks in the entire game from every actor. This is why BattleControl can be caracterised as a coroutine driven system: while it does have an Update, it only acts as a dispatcher for the coroutines mentioned above.
 
 ### Battle events
-Separatly from this, but still features an uncontrolled flow is [EventDialogue](Battle%20flow/EventDialogue.md) which is a method that processes some kind of events or cutscenes. The only difference with an action coroutine is instead of setting battle.`action` to true, it sets battle.`inevent` to true instead, but it has similar effects. These are triggered on specific conditions and behave very similarily to [events](../Enums%20and%20IDs/Events.md), but are specialised to handle the ongoing battle.
+Separatly from this, but still features an uncontrolled flow is [EventDialogue](Battle%20flow/EventDialogue.md) which is a coroutine that processes some kind of events or cutscenes. The only difference with an action coroutine is instead of setting battle.`action` to true, it sets battle.`inevent` to true instead, but it has similar effects. These are triggered on specific conditions and behave very similarily to [events](../Enums%20and%20IDs/Events.md), but are specialised to handle the ongoing battle.
 
 ### Terminal coroutines
 A terminal flow is reserved for cases where the battle will end for sure in some ways and it features battle.`cancelupdate` or instance.`inbattle` being set to false. It features almost no control from Update and instead, the terminal coroutine controls the battle completely. This is done both for retries, losses and wins.
@@ -81,19 +81,24 @@ As this is a turn based battle system, it has a concept of turns. A main turn is
 
 The player phase is the most involved mainly handling UI naviguations on top of player actions. It is only active when battle,`enemy` is false.
 
-The enemy phase mostly involves each enemies doing their action when `enemy` is true and [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) being the whole procedure that advances the turn and allows a fresh turn to start again.
+The enemy phase mostly involves each enemies doing their action when `enemy` is true and [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) being the whole procedure that advances the main turn and allows a fresh one to start again.
 
-Each actor also have their own concept of turns called actor turn. An actor turn is composed of their action and other advancement logic such as the `cantmove` advance, the way for the game to track that an actor can act, needs to wait before being able to, or has multiple actions available. The actor turn advance is done by [AdvanceTurnEntity](Actors%20states/AdvanceTurnEntity.md) which is only called as part of [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md).
+Each actor also have their own concept of turns called actor turn. An actor turn is composed of their action and other advancement logic such as the `cantmove` advance, the way for the game to track that an actor can act, needs to wait before being able to, or has multiple actions available. When all the actor turns available are consumed, the actor turn advance is done by [AdvanceTurnEntity](Actors%20states/AdvanceTurnEntity.md) which is only called as part of [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md).
 
 ### hitactions
 There is a notable exception to this flow: an enemy is able to do what's known as a [hitaction](Battle%20flow/Update.md#enemies-hitaction). A hitaction occurs when the field of the same name on the enemy party member is true which causes the next Update cycle to process a temporary DoAction call on the enemy while placing `enemy` to true. This allows an enemy to seize control of the battle during the player phase with DoAction being aware of the hitaction thanks to the field being true. This is only temporary: DoAction will revert the battle state to where it was before once it's done including setting the enemy's `hitaction` back to false. When this happens, the battle can continue where it was in the player phase.
+
+## Damage pipeline
+During the course of the battle, damages might be processed for various reasons such as attacks or using an item. These damages are processed by the damage pipeline which has a single entry point: [DoDamage](Damage%20pipeline/DoDamage.md). This method takes in a target, an optional attacker (it is possible to have damages comes from no actor) and a base amount to inflict. This amount may change for various reasons as part of the damage calculation logic which is held in [CalculateBaseDamage](Damage%20pipeline/CalculateBaseDamage.md). The damage might have more effects processed after its calculation for example, by applying some medals that act on it.
+
+It should be noted however the caller of the damage pipeline is free to perform any logic that goes beyond the scope of the damage pipeline.
 
 ## Actor state
 The player party's stats are in instance.`playerdata` (which the whole game uses elsewhere in various places) while the enemy party's are specifically inside BattleControl and is called `enemydata`.  The `playerdata` array has complex addressing methods, more info can be found at the [`playerdata` addressing documentation](playerdata%20addressing.md)
 
 They are both the same type: a struct called `BattleData` which means some fields have different meanings depending if it's a player party member or an enemy party member and some fields are only relevant for one of the 2.
 
-More details on the fiels can be consulted in the [BattleData](Actors%20states/BattleData.md) documentation.
+More details on the fields can be consulted in the [BattleData](Actors%20states/BattleData.md) documentation.
 
 ## Other Unity events
 Besides Update, this component has a [LateUpdate](Visual%20rendering/LateUpdate.md) and a [FixedUpdate](Visual%20rendering/FixedUpdate.md), but they only update UI informations visually and are therefore much more minor in terms of importance.

@@ -1,7 +1,7 @@
 # SetItem
 This method is a special handler whenever a confirmation of an [ItemList](../../ItemList/ItemList.md) occurs. The [listtype](../../ItemList/listtype.md) handled here are only the ones related to BattleControl except for the [chompy ribbons list type](../../ItemList/List%20Types%20Group%20Details/Chompy%20Ribbons%20List%20Type.md) as this one is handled by the [Chompy](../Battle%20flow/Action%20coroutines/Chompy.md) action coroutine. The ItemList handled are only the ones that were setup by [GetChoiceInput](GetChoiceInput.md)
 
-The method receives the `listvar` option that was confirmed which is set to `selecteditem`. `turncooldown` is set to 5.0 and `option` to 0.
+The method receives the `listvar` option that was confirmed which is set to `selecteditem`. `turncooldown` is set to 5.0 and `option` to 0. The `turncooldown` prevents [GetChoiceInput](GetChoiceInput.md) to be called from [PlayerTurn](../Battle%20flow/PlayerTurn.md) for 5 [FixedUpdate](../Visual%20rendering/FixedUpdate.md) cycles.
 
 From there, this is where the list type is handled. Only 3 are possible:
 
@@ -66,7 +66,7 @@ If `canflee` is true, a [TryFlee](../Battle%20flow/Action%20coroutines/TryFlee.m
 
 If it's false however:
 
-- CancelList is called which resets `option` to `lastoption`, `currentaction` to `BaseAction` and `turncooldown` to 5.0. It also calls [SetMaxOptions](SetMaxOptions.md) and [UpdateText](../Visual%20rendering/UpdateText.md#updatetext)
+- [CancelList](CancelList.md) is called
 - [ItemList](../../ItemList/ItemList.md)'s `listredirect` is set to -1 (this is to workaround a potential [inlist issue](../../ItemList/inlist%20issue.md))
 - [SetText](../../SetText/SetText.md) is called in [dialogue mode](../../SetText/Dialogue%20mode.md) using `|`[boxstyle](../../SetText/Individual%20commands/Boxstyle.md)`,4||`[spd](../../SetText/Individual%20commands/Spd.md)`,0|` followed by `menutext[73]` (`|`[boxstyle](../../SetText/Individual%20commands/Boxstyle.md)`,4||`[halfline](../../SetText/Individual%20commands/Halfline.md)`||`[spd](../../SetText/Individual%20commands/Spd.md)`,0||`[center](../../SetText/Individual%20commands/Center.md)`|Can't escape from this battle!`) as the text and the following:
     - [fonttype](../../SetText/Notable%20states.md#fonttype) of 0 (`BubblegumSans`)

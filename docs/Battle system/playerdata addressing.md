@@ -6,9 +6,9 @@ Let's first explain why is there multiple way to address the player party and ho
 ## `playerdata`'s layout
 At its code, `playerdata` is an array. This means that no matter what, a member can only be addressed by its index which starts at 0 and ends at the amount of members - 1.
 
-This by itself is very limiting for varying reasons because the game needs to keep track of the player switching the order and the game also needs to sometime address a the party by using an [animid](../Enums%20and%20IDs/AnimIDs.md) instead of a particular position in the formation.
+This by itself is very limiting for varying reasons because the game needs to keep track of the player switching the order and the game also needs to sometime address a member the party by using an [animid](../Enums%20and%20IDs/AnimIDs.md) instead of a particular position in the formation.
 
-Due to this, 2 fields exists on each `BattleData` that covers addressing everyone in every way at least in the overworld. Here's the fields and what they do:
+Due to this, 2 fields exists on each `BattleData` that covers addressing everyone in every way at least in the overworld (meaning these semantics are only for player party members). Here's the fields and what they do:
 
 - `trueid`: The [animid](../Enums%20and%20IDs/AnimIDs.md) of the player party member since the last time ChangeParty was called which creates or recreates the entire party. This value never changes for a particular `playerdata` element until ChangeParty is called which recreates the whole array.
 - `animid`: The visually rendered [animids](../Enums%20and%20IDs/AnimIDs.md) in the overworld. This value initially starts as the same as `trueid`, but if the player switches the order, the animids are rotated between all elements of `playerdata`. This means this value not only allows the switch to work since the visual rendering changes accordingly, but it also allows the game to know who is actually in front when taking into account player switches.
@@ -55,7 +55,7 @@ Due to this, 2 fields are introduced to allow to "fake" a different view of the 
 - instance.`partyorder`: This array contains the [animids](../Enums%20and%20IDs/AnimIDs.md) ordered by the `animid` fields of `playerdata`'s elements. In other words, it's the rendered overworld party order. It is updated on ChangeParty and everytime the player switches the formation, but is otherwise only used by [StartBattle](StartBattle.md)
 - `partypointer`: This array maps battle formation position to `playerdata` indexes and it is always composed of 3 elements (which is the maximum amount of player party members). It is affected during a battle party switch or swap (which occurs as part of [SwitchParty](Battle%20flow/Action%20coroutines/SwitchParty.md) and [SwitchPos](Battle%20flow/Action%20coroutines/SwitchPos.md))
 
-Initially, `partypointer` is initialised to {0, 1, 2} on StartBattle. Later on in that coroutine, it will try to align `partypointer` and `partyorder` so they contain matching arrays with the player party being aligned with this. This alignement is done by calling a fast [SwitchParty](Battle%20flow/Action%20coroutines/SwitchParty.md) repeatedly until they both aligne (no call is done if they already happened to align).
+Initially, `partypointer` is initialised to {0, 1, 2} on StartBattle. Later on in that coroutine, it will try to align `partypointer` and `partyorder` so they contain matching arrays with the player party being aligned with this. This alignement is done by calling a fast [SwitchParty](Battle%20flow/Action%20coroutines/SwitchParty.md) repeatedly until they both align (no call is done if they already happened to align).
 
 This works because a switch during battle works differently than in the overworld. If the overworld only involved rotating the `animid` fields, in battle, a switch only involves rotating the `partypointer` elements. This alone doesn't switch anything so what [SwitchParty](Battle%20flow/Action%20coroutines/SwitchParty.md) and [SwitchPos](Battle%20flow/Action%20coroutines/SwitchPos.md) do after the switch is to also update the `playerdata` elements with some information, but notably, it changes the position of the `battleentity`. This means that as far as the entities are concerned, a switch truly took place as far as the data are concerned, but as far as the `animid` are concerned, they are left unchanged leaving no visual changes like in the overworld. It just provides a different view of the same `playerdata` array.
 
@@ -71,12 +71,12 @@ Unlike in the overworld, this addressing method is much less useful because it g
 Due to this, this mode of addressing is specific to just address all player party members regarless of anything such as in a standard loop as it's still the simplest way to address the party.
 
 ### By the player party member's `trueid`
-Addressing by `trueid` becomes much more interesting in battle because since the party order didn't changed any `animid` fields, it means `partypointer` resolves to the `trueid` and it now means it acomplishes a similar goal than what the overworld `animid` addressing means.
+Addressing by `trueid` becomes much more interesting in battle because since the party order didn't change any `animid` fields, it means `partypointer` resolves to the `trueid` and it now means it acomplishes a similar goal than what the overworld `animid` addressing means.
 
 In practice, it means the `trueid` can be thought of as the same than the actual `animid` field. In fact, the battleentity.`animid` values originally get set to the `playerdata`'s `trueid` values on [StartBattle](StartBattle.md). Essentially, anything that required a specific animid (such as checking a if a [medal](../Enums%20and%20IDs/Medal.md) is equipped on a member with a particular animid) is best suited for this addressing method.
 
 ### By `partypointer`
-Another benefit of `partypointer` is this array allows to map battle formation order to `playerdata` order. This means that for example `playerdata[partyorder[0]]` always return the player party member in the front in battle irregardless of the overworld formation while `playerdata[partyorder[playerdata.length - 1]]` always return the one on the back. This addressing method is best suited where the battle formation matters such as targetting. 
+Another benefit of `partypointer` is this array allows to map battle formation order to `playerdata` order. This means that for example `playerdata[partyorder[0]]` always return the player party member in the front in battle irregardless of the overworld formation while `playerdata[partyorder[playerdata.length - 1]]` always return the one on furthest back. This addressing method is best suited where the battle formation matters such as targetting.
 
 A benefit to this is it simplifies the procedure of [SwitchParty](Battle%20flow/Action%20coroutines/SwitchParty.md) and [SwitchPos](Battle%20flow/Action%20coroutines/SwitchPos.md) because all that's needed is to change the `partypointer` elements and update the battleentities accordingly (mainly their position).
 

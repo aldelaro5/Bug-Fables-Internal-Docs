@@ -33,7 +33,7 @@ As for the offset vector, it's Vector3.up if the actor's [position](../Actors%20
 The position is set to a lerp from the existing one to `playerdata[option].battleentity` position + `playerdata[option].cursoroffset` with a factor of 0.2 unless the `cursor` y position is above 20.0 where the factor is 1.0 (instant) instead
 
 ## `turncooldown`
-If the field is above 0.0, it is decremented by 1.0. Effectively, this means that any [SetItem](../Player%20UI/SetItem.md) or [CancelList](../Player%20UI/CancelList.md) will prevent [GetChoiceInput](../Player%20UI/GetChoiceInput.md) calls for exactly 5 FixedUpdate cycle.
+If the field is above 0.0, it is decremented by 1.0.
 
 ## Actor's visual updates
 [UpdateEntities](UpdateEntities.md) is called only if `halfload` is true which means most of [StartBattle](../StartBattle.md) is done as it guarantees all actors are fully loaded.
