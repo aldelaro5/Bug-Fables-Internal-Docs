@@ -1,5 +1,5 @@
 # Pick
-This enum describes the current interface the player is naviguating. The current one is stored in the `currentaction` field. It can be thought as the top level interface while [Actions](Actions.md) is the sub level one.
+This enum describes the current top level interface the player is naviguating. The current one is stored in the `currentaction` field. It can be thought as the top level interface while [Actions](Actions.md) is the sub level one.
 
 |Value|Name|Description|
 |-----|----|-----------|
