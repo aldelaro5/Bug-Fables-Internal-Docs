@@ -1,5 +1,5 @@
 # CenterPos
-A method that returns an intuitive center position to render effects on an actor.
+A method that returns an intuitive center position to render effects on an actor, but can also be used for logic involving the positions of actors.
 
 ```cs
 private Vector3 CenterPos(MainManager.BattleData entity, bool world)

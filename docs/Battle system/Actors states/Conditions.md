@@ -3,7 +3,7 @@ A condition is a temporary effect applied for a limited amount of actor turns on
 
 A `condition` element contains an int\[\] of 2 elements:
 
-- 0: The `BattleCondition` (in int form) representing the kind of effects this condition involves
+- 0: The BattleCondition (in int form) representing the kind of effects this condition involves
 - 1: The amount of actor turns left for the effects to apply. 0 and below values are technically allowed, but frequently causes the whole condition to be removed and they are not considered to be present in the actor
 
 Some conditions are tested for resistance before being added to `condition`. This usually involves the actor's resistance compared to a random number with immunity starting at a resistance of 100 and a certainty of infliction being 0 with everything in between being (100 - resistance) / 100 chance to inflict. The presence of this test, its methodology and its accuracy (not all have the correct odds) depends on the specific method used to add the condition.
@@ -14,3 +14,32 @@ Conditions are used heavily throughout the battle system and even come with a se
 - [StatusEffect](Conditions%20methods/StatusEffect.md)
 - MainManager.[HasCondition](Conditions%20methods/HasCondition.md)
 - MainManager.[RemoveCondition](Conditions%20methods/RemoveCondition.md)
+- [HealCondition](Conditions%20methods/HealConditions.md)
+- [ClearStatus](Conditions%20methods/ClearStatus.md)
+
+## BattleCondition table
+Here are the different BattleCondition that exists in the game and a summary of what they do (with links to further documentations):
+
+|ID|Name|Summary|
+|-:|----|-------|
+|0|[Freeze](BattleCondition/Freeze.md)||
+|1|[Poison](BattleCondition/Poison.md)||
+|2|[Numb](BattleCondition/Numb.md)||
+|3|[Sleep](BattleCondition/Sleep.md)||
+|4|[AttackUp](BattleCondition/AttackUp.md)||
+|5|[DefenseUp](BattleCondition/DefenseUp.md)||
+|6|[AttackDown](BattleCondition/AttackDown.md)||
+|7|[DefenseDown](BattleCondition/DefenseDown.md)||
+|8|[Topple](BattleCondition/Topple.md)||
+|9|[Flipped](BattleCondition/Flipped.md)||
+|10|[Shield](BattleCondition/Shield.md)||
+|11|[Taunted](BattleCondition/Taunted.md)||
+|12|[Sturdy](BattleCondition/Sturdy.md)||
+|13|[GradualHP](BattleCondition/GradualHP.md)||
+|14|[GradualTP](BattleCondition/GradualTP.md)||
+|15|[Eaten](BattleCondition/Eaten.md)||
+|16|[EventStop](BattleCondition/EventStop.md)||
+|17|[Fire](BattleCondition/Fire.md)||
+|18|[Inked](BattleCondition/Inked.md)||
+|19|[Sticky](BattleCondition/Sticky.md)||
+|20|[Reflection](BattleCondition/Reflection.md)||
