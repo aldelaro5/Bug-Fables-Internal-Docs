@@ -1,5 +1,5 @@
 # PlayerTurn
-This method processes any [controlled flow](Update.md#controlled-flow) during the [player phase](Update.md#player-phase) when applicable to the currently selected player.
+This method processes any [controlled flow](Update.md#controlled-flow) during the [player phase](Main%20turn%20life%20cycle.md#player-phase) when applicable to the currently selected player.
 
 - `actedthisturn` is set to true
 - If `currentaction` is `BaseAction` (the main vine action menu):
@@ -20,4 +20,4 @@ This method processes any [controlled flow](Update.md#controlled-flow) during th
         - with flipX
     - The `choicevine` gets childed to the `battlemap`
 - The `choicevine` position is set to `playerdata[currentturn].battleentity` position + (0.0, 10.0, 0.0)
-- If `turncooldown` expired, [GetChoiceInput](../Player%20UI/GetChoiceInput.md) is called
+- If `turncooldown` expired, [GetChoiceInput](../Player%20UI/GetChoiceInput.md) is called which handles the player UI

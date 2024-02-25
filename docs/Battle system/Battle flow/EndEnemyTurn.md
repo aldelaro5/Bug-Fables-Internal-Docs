@@ -1,5 +1,5 @@
 # EndEnemyTurn
-This method is only called by [DoAction](Action%20coroutines/DoAction.md) during the [post action phase](Action%20coroutines/DoAction.md#post-action) if the actionid isn't -555 (a player first strike) and it's an enemy party member's action. It will end an enemy party member's actor turn, just like [EndPlayerTurn](EndPlayerTurn.md), but for enemy party members instead of player party members.
+This method is only called by [DoAction](Action%20coroutines/DoAction.md) during the [post action phase](Action%20coroutines/DoAction.md#post-action) if the actionid isn't -555 (it's not a player first strike) and it's an enemy party member's action. It will end an enemy party member's actor turn, just like [EndPlayerTurn](EndPlayerTurn.md), but for enemy party members instead of player party members.
 
 ```cs
 private void EndEnemyTurn(int id)

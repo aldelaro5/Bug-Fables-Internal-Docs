@@ -1,5 +1,5 @@
 # LevelUpMessage
-This is a static coroutine that is part of the [AddExperience](../Battle%20flow/Terminal%20coroutines/AddExperience.md) when a rank up occurs. Some ranks also have special level up bonuses that are signaled via this method which may end up calling [SetText](../../SetText/SetText.md) in [dialogue mode](../../SetText/Dialogue%20mode.md#dialogue-mode)
+This is a static coroutine that is part of [AddExperience](../Battle%20flow/Terminal%20coroutines/AddExperience.md) when a rank up occurs. Some ranks also have special level up bonuses that are signaled via this method which may end up calling [SetText](../../SetText/SetText.md) in [dialogue mode](../../SetText/Dialogue%20mode.md#dialogue-mode)
 
 > NOTE: This coroutine expects [flagvar](../../Flags%20arrays/flagvar.md) 0 to be set to 0 so the caller can yield on it. It will be set to 1 at the very end to inform the caller of its completion.
 
