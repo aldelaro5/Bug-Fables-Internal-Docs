@@ -1,10 +1,12 @@
 # Delayed condition
 A delayed condition is a [condition](Conditions.md) placed on an enemy party member that whose infliction attempt occurs during the [post action](../Battle%20flow/Action%20coroutines/DoAction.md#post-action) phase of DoAction when the actionid isn't -555 (player first strike), it's an enemy action that didn't cause them to flee and it didn't cause them to kill themselves (`selfsacrifice` is false).
 
+NOTE: Only `Freeze`, `Numb` and `Sleep` are supported because they are the only ones that gets processed.
+
 The list of them is tracked in the `delayedcondition` field of the enemy party member and are ephemeral in nature: once processed, they are removed so they are only valid per action.
 
-## Adding a delayed condition
-Adding one involves calling the AddDelayedCondition method.
+## AddDelayedCondition
+Adding a delayed condition involves calling the AddDelayedCondition method.
 
 ```cs
 private void AddDelayedCondition(int enid, MainManager.BattleCondition cond)
