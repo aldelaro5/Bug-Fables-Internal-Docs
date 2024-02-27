@@ -24,7 +24,7 @@ Here are the different BattleCondition that exists in the game and a summary of 
 |-:|----|-------|
 |0|[Freeze](BattleCondition/Freeze.md)|A stopping condition that encases the actor in a block of ice. Most attacks will remove this condition and thaw out the ice, but with a +1 damage to the attack. It also allows the target to process a `FrostBite` [medal](../../../Enums%20and%20IDs/Medal.md) when attacked|
 |1|[Poison](BattleCondition/Poison.md)|A condition that either deals non lethal damage or heals the actor each actor turn depending on if they have a `ReversePoison` [medal](../../../Enums%20and%20IDs/Medal.md) or not. It also allows several poison specific medals to take effect|
-|2|[Numb](BattleCondition/Numb.md)||
+|2|[Numb](BattleCondition/Numb.md)|A stopping condition that gives the actor a point of defense (with caveats, see [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation for details). It also allows the target to process a `ShockTrooper` [medal](../../../Enums%20and%20IDs/Medal.md) which can bypass damage calculation|
 |3|[Sleep](BattleCondition/Sleep.md)||
 |4|[AttackUp](BattleCondition/AttackUp.md)||
 |5|[DefenseUp](BattleCondition/DefenseUp.md)||
