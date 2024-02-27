@@ -1,5 +1,5 @@
 # Freeze
-A stopping condition that encases the actor in a block of ice. Most attacks will remove this condition and thaw out the ice, but with a +1 damage to the attack. It is also needed by the attacker to process a `FrostBite` [medal](../../../Enums%20and%20IDs/Medal.md).
+A stopping condition that encases the actor in a block of ice. Most attacks will remove this condition and thaw out the ice, but with a +1 damage to the attack. It also allows the target to process a `FrostBite` [medal](../../../Enums%20and%20IDs/Medal.md) when attacked.
 
 ## Resistance
 This condition has a dedicated resistance field for actors to use: `freezeres`. If it's 100 or above, the actor is immune to it. Inflictions that requires a resistance check will use this field.
