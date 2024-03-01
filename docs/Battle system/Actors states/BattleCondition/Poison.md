@@ -55,6 +55,8 @@ When the condition is processed (when `hp` is above 0 and there is at least one 
 - The actor's `hp` is clamped from 1 to its `maxhp` (this implies it can't be lethal)
 - A yield of 0.75 seconds is set to happen after the method is done
 
+Exceptionally, the turn counter of the condition won't decrement if the actor has an `EternalPoison` [medal](../../../Enums%20and%20IDs/Medal.md).
+
 ## [HealConditions](../Conditions%20methods/HealConditions.md)
 This condition is supported by this method and it will be removed when called.
 

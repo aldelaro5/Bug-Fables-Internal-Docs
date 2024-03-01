@@ -5,7 +5,7 @@ A 1 hit defensive mechanism in the form of a condition for an enemy party member
 This condition will not be transfered to the target of the relay if the relayer had a `RelayTransfer` [medal](../../../Enums%20and%20IDs/Medal.md). It should be noted that it is not possible to inflict this condition on a player party member under normal gameplay so this clause effectively does nothing.
 
 ## [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md)
-Before an enemy party member acts, if it has this condition or [Flipped](Flipped.md), both are removed alongside the following logic:
+Before an enemy party member acts, if it has this condition or [Flipped](Flipped.md) for exactly 1 actor turn left, both are removed alongside the following logic:
 
 - [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) is called on the enemy party member with a height of 10.0
 - entity.`overrideanim` is set to false
@@ -18,7 +18,7 @@ This condition prevents toppling an enemy party members with a `ToppleFirst` or 
 
 This condition is removed if [Freeze](Freeze.md) is inflicted.
 
-This condition is removed if the target has it, property is `Flip` while the target has a `Flip` and `ToppleFirst` [weakness](../../Damage%20pipeline/AttackProperty.md) without the [Flipped](Flipped.md) condition. It essentially acts as replacing `Topple` with `Flipped` in this case since it also inflicts [Flipped](Flipped.md).
+This condition is removed if the target has it, property is `Flip` while the target has a `Flip` and `ToppleFirst` [weakness](../../Damage%20pipeline/AttackProperty.md) without the [Flipped](Flipped.md) condition. It essentially acts as replacing `Topple` with `Flipped` in this case since it also inflicts [Flipped](Flipped.md). However, if the condition isn't present while the other conditions are fufilled, it is inflicted for 1 turn and on top of this, if the the target.`position` is `Ground`, battleentity.`basestate` is set to 21 (`Woobly`). 
 
 This condition is removed if the damage calculation logic needs to drop the enemy party member. Check the method documentation to learn about the conditions for that to happen.
 
