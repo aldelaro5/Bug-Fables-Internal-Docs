@@ -35,4 +35,4 @@ When the condition is processed (when `hp` is above 0), if the actor's `atkdowno
 This condition prevents a charm of type `AttackUp` to take effect as its effect would become redundant. Check the method's documentation to learn more.
 
 ## [CheckDead](../../Battle%20flow/Action%20coroutines/CheckDead.md)
-When summoning `extraenemies` at the `AbandonedCity` [map](../../../Enums%20and%20IDs/Maps.md) while [flags](../../../Flags%20arrays/flags.md) 400 is true, this condition is inflicted to all enemies alongside [DefenseUp](DefenseUp.md).
+When summoning `extraenemies` at the `AbandonedCity` [map](../../../Enums%20and%20IDs/Maps.md) while [flags](../../../Flags%20arrays/flags.md) 400 is true, this condition is inflicted to all enemies alongside [DefenseUp](DefenseUp.md) for 999999 turns.
