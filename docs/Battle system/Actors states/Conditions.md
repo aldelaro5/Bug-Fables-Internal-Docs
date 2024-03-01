@@ -26,7 +26,7 @@ Here are the different BattleCondition that exists in the game and a summary of 
 |1|[Poison](BattleCondition/Poison.md)|A condition that either deals non lethal damage or heals the actor each actor turn depending on if they have a `ReversePoison` [medal](../../../Enums%20and%20IDs/Medal.md) or not. It also allows several poison specific medals to take effect|
 |2|[Numb](BattleCondition/Numb.md)|A stopping condition that gives the actor a point of defense (with caveats, see [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation for details). It also allows the target to process a `ShockTrooper` [medal](../../../Enums%20and%20IDs/Medal.md) which can bypass damage calculation|
 |3|[Sleep](BattleCondition/Sleep.md)|A stopping condition that will heal the attacker on each actor turn and be removed on most attacks due to waking up (with caveats, see [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation for details). It also allows the target to process a `HeavySleeper` [medal](../../../Enums%20and%20IDs/Medal.md) which can prevent waking up, halve the damage amount and heal for more per actor turn|
-|4|[AttackUp](BattleCondition/AttackUp.md)||
+|4|[AttackUp](BattleCondition/AttackUp.md)|A condition that gives a +1 damage bonus on attacks by the actor while it is active when the [AttackProperty](../../Damage%20pipeline/AttackProperty.md) isn't `NoExceptions`|
 |5|[DefenseUp](BattleCondition/DefenseUp.md)||
 |6|[AttackDown](BattleCondition/AttackDown.md)||
 |7|[DefenseDown](BattleCondition/DefenseDown.md)||
