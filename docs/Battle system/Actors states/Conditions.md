@@ -28,7 +28,7 @@ Here are the different BattleCondition that exists in the game and a summary of 
 |3|[Sleep](BattleCondition/Sleep.md)|A stopping condition that will heal the attacker on each actor turn and be removed on most attacks due to waking up (with caveats, see [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation for details). It also allows the target to process a `HeavySleeper` [medal](../../../Enums%20and%20IDs/Medal.md) which can prevent waking up, halve the damage amount and heal for more per actor turn|
 |4|[AttackUp](BattleCondition/AttackUp.md)|A condition that gives a +1 damage bonus on attacks by the actor while it is active when the [AttackProperty](../../Damage%20pipeline/AttackProperty.md) isn't `NoExceptions`|
 |5|[DefenseUp](BattleCondition/DefenseUp.md)|A condition that gives a -1 damage on attacks to the actor as a point of defense recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#truedef) while the condition is active and property isn't `NoExceptions` (with several caveats, check the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) to learn more)|
-|6|[AttackDown](BattleCondition/AttackDown.md)||
+|6|[AttackDown](BattleCondition/AttackDown.md)|A condition that gives a -1 damage malus on attacks by the actor while it is active when the [AttackProperty](../../Damage%20pipeline/AttackProperty.md) isn't `NoExceptions`|
 |7|[DefenseDown](BattleCondition/DefenseDown.md)||
 |8|[Topple](BattleCondition/Topple.md)||
 |9|[Flipped](BattleCondition/Flipped.md)||
