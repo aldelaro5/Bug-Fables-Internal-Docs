@@ -1,5 +1,5 @@
 # DefenseUp
-A condition that gives a -1 damage on attacks to the actor as a point of defense recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#truedef) while the condition is active and property isn't `NoExceptions` (with several caveats, check the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) to learn more).
+A condition that gives a -1 damage on attacks to the actor as a point of defense recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#truedef) while the condition is active and property isn't `NoExceptions`. NOTE: This has several caveats, check the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) to learn more.
 
 ## [SetCondition](../Conditions%20methods/SetCondition.md)
 When amending the condition, the turn amount is always increased by the existing one (meaning it stacks).
