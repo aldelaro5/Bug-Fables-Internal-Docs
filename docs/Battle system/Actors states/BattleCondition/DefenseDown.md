@@ -1,5 +1,5 @@
 # DefenseDown
-A condition that removes a point of defense recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#truedef) which can result in a +1 damage effects while it is active when the [AttackProperty](../../Damage%20pipeline/AttackProperty.md) isn't `NoExceptions`. NOTE: This has several caveats, check the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) to learn more.
+A condition that removes a point of defense recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#truedef) which can result in a +1 damage effects while it is active when the [AttackProperty](../../Damage%20pipeline/AttackProperty.md) isn't `NoExceptions`. NOTE: This has several caveats, check the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation to learn more.
 
 ## [SetCondition](../Conditions%20methods/SetCondition.md)
 When amending the condition, the turn amount is always increased by the existing one (meaning it stacks).
