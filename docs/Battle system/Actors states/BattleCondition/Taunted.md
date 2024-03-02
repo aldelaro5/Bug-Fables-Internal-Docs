@@ -11,7 +11,11 @@ This condition prevents the following [Actions](../../Player%20UI/Actions.md) op
 This condition will also deny the confirmation of another player party member's choice when selecting who to relay to when handling the `Relay` choice for a `SelectPlayer` action. Effectively, it means not only the condition prevents the player party member from relaying, it also prevents them to be relayed to.
 
 ## [SetMaxOptions](../../Player%20UI/SetMaxOptions.md)
-This condition causes the vine icons for these [Actions](../../Player%20UI/Actions.md) to render with the MainManager.`grayscale` material instead of MainManager.`spritedefaultunity`. 
+This condition causes the vine icons for these [Actions](../../Player%20UI/Actions.md) to render with the MainManager.`grayscale` material instead of MainManager.`spritedefaultunity`:
+
+- `Skill`
+- `Item`
+- `Relay` 
 
 ## [ClearStatus](../Conditions%20methods/ClearStatus.md)
 This condition is excluded from removal meaning it will remain even after calling this method.

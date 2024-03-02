@@ -40,6 +40,6 @@ Here are the different BattleCondition that exists in the game and a summary of 
 |15|[Eaten](BattleCondition/Eaten.md)||
 |16|[EventStop](BattleCondition/EventStop.md)|A stop condition specifically made for [event](../../../Enums%20and%20IDs/Events.md) 182 (trying to exit the room after approaching the tank in the last room of Upper Snakemouth) that simply disables a party member until it is manually removed (it is not meant to expire naturally)|
 |17|[Fire](BattleCondition/Fire.md)||
-|18|[Inked](BattleCondition/Inked.md)||
+|18|[Inked](BattleCondition/Inked.md)|A condition that prevents a player party member from using a [skill](../../../Enums%20and%20IDs/Skills.md) that may be inflicted in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) if property is `Ink` or `InkOnBlock` (without a resistance field) featuring a `Prefabs/Particles/InkDrip` as a `firepart`|
 |19|[Sticky](BattleCondition/Sticky.md)||
 |20|[Reflection](BattleCondition/Reflection.md)||
