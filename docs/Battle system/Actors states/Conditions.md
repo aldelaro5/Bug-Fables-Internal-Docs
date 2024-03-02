@@ -34,7 +34,7 @@ Here are the different BattleCondition that exists in the game and a summary of 
 |9|[Flipped](BattleCondition/Flipped.md)|An ephemeral condition specific to enemy party members that is only inflicted with a `Flip` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) to an enemy party member with a `Flip` [weakness](../../Damage%20pipeline/AttackProperty.md). It causes all the enemy party member's `def` to be ignored during damage calculation which is recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md). This process can be hampered by [Topple](Topple.md)'s defense mechanism if it applies. NOTE: The condition logic has caveats, check the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation to learn more|
 |10|[Shield](BattleCondition/Shield.md)|A condition that encases the acotr in a shield by controlling its battleentity.`shieldenabled` which allows it to bypass damage calculation and not loose its `plating`|
 |11|[Taunted](BattleCondition/Taunted.md)|A condition that prevents a player party member from selecting the `Skill`, `Item` and `Relay` vine menu [Actions](../../Player%20UI/Actions.md) and prevents other player party member from relaying to them|
-|12|[Sturdy](BattleCondition/Sturdy.md)||
+|12|[Sturdy](BattleCondition/Sturdy.md)|A condition that prevents other conditions from being inflicted (even through using an [item](../../../Enums%20and%20IDs/Items.md)) while also getting a -3 damage effect applied in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) at the expense that the actor cannot be relayed to|
 |13|[GradualHP](BattleCondition/GradualHP.md)||
 |14|[GradualTP](BattleCondition/GradualTP.md)||
 |15|[Eaten](BattleCondition/Eaten.md)||
