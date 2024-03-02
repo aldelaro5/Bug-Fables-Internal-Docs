@@ -27,3 +27,6 @@ For any enemy party member entity with this condition after the drop, it is remo
 
 ## [DoDamageAnim](../../Visual%20rendering/DoDamageAnim.md)
 This condition may cause the actor's battleentity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) and `basestate` to be set to 21 (`Woobly`) alongside setting `overrideanim` to false. Check the method's documentation to learn more.
+
+## Note about [ClearStatus](../Conditions%20methods/ClearStatus.md)
+This method will clear this condition, but it's not supposed to: it was mistakenly left out of the exclusion list. This means that when the condition gets cleared, the actor's [animstate](../../../Entities/EntityControl/Animations/animstate.md) and `basestate` may still be left on 21 (`Woobly`) since this condition normally would cause reverting that upon removal, but this removal isn't supposed to happen.
