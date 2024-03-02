@@ -35,7 +35,7 @@ Here are the different BattleCondition that exists in the game and a summary of 
 |10|[Shield](BattleCondition/Shield.md)|A condition that encases the acotr in a shield by controlling its battleentity.`shieldenabled` which allows it to bypass damage calculation and not loose its `plating`|
 |11|[Taunted](BattleCondition/Taunted.md)|A condition that prevents a player party member from selecting the `Skill`, `Item` and `Relay` vine menu [Actions](../../Player%20UI/Actions.md) and prevents other player party member from relaying to them|
 |12|[Sturdy](BattleCondition/Sturdy.md)|A condition that prevents other conditions from being inflicted (even through using an [item](../../../Enums%20and%20IDs/Items.md)) while also getting a -3 damage effect applied in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) at the expense that the actor cannot be relayed to|
-|13|[GradualHP](BattleCondition/GradualHP.md)||
+|13|[GradualHP](BattleCondition/GradualHP.md)|A condition that increases the actor's `hp` by 2 (clamped from 0 to `maxhp`) every actor turn while active|
 |14|[GradualTP](BattleCondition/GradualTP.md)||
 |15|[Eaten](BattleCondition/Eaten.md)||
 |16|[EventStop](BattleCondition/EventStop.md)||

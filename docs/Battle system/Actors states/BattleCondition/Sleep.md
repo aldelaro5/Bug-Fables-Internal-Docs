@@ -51,7 +51,7 @@ All enemy party members who still have this condition on EndPlayerTurn without `
 When the condition is processed (when `hp` is above 0, but less than `maxhp`):
 
 - A heal amount is determined with a starting value of the actor's `maxhp` * 0.1 ceiled. If the `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the actor, the amount is tripled. On top of this, if it's not a player party member, the amount is clamped from 0 to 4
-- [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 1 with the amount determined earlier with a start of the actor position + its `cursoroffset` and an end of Vector3.up
+- [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 1 (HP) with the amount determined earlier with a start of the actor position + its `cursoroffset` and an end of Vector3.up
 - The actor's `hp` is incremented by the amount determined earlier clamped from 0 to the actor's `maxhp`
 - The `Heal` sound is played
 - A yield of 0.75 seconds is set to happen after the method is done
