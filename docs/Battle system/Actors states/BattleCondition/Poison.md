@@ -46,11 +46,11 @@ When the condition is processed (when `hp` is above 0 and there is at least one 
     - If the `Heal` sound isn't playing or its more than halfway done player, it is played
     - [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 1 with the damage amount as the amount healed earlier with the start being the battleentity position + (0.0, 1.0, 0.0) and the end being (0.0, 2.0, 0.0)
 - Otherwise, [DoDamage](../Damage%20pipeline/DoDamage.md) is called with target being the actor with no attacker with a `NoExceptions` property without block. The damageammount is the actor's `maxhp` / 10.0 ceiled - 1 and then clamped from 1 to 3 for a player party member and from 1 to 2 for an enemy party member. The call also has these overrides:
-    - `NoFall`,
-		- `NoIceBreak`,
-		- `FakeAnim`,
-		- `DontAwake`,
-		- `IgnoreNumb`
+    - `NoFall`
+	- `NoIceBreak`
+	- `FakeAnim`
+	- `DontAwake`
+	- `IgnoreNumb`
 - If the actor's `hp` became 0, battleentity.`overrideanim` is set to false followed by an OverrideOver call being invoked on the battleentity in 1.0 seconds
 - The actor's `hp` is clamped from 1 to its `maxhp` (this implies it can't be lethal)
 - A yield of 0.75 seconds is set to happen after the method is done
