@@ -38,7 +38,7 @@ Here are the different BattleCondition that exists in the game and a summary of 
 |13|[GradualHP](BattleCondition/GradualHP.md)|A condition that increases the actor's `hp` by 2 (clamped from 0 to `maxhp`) every actor turn while active|
 |14|[GradualTP](BattleCondition/GradualTP.md)|A condition that increases instance.`tp` by 2 (clamped from 0 to instance.`maxtp`) every actor turn while active|
 |15|[Eaten](BattleCondition/Eaten.md)||
-|16|[EventStop](BattleCondition/EventStop.md)||
+|16|[EventStop](BattleCondition/EventStop.md)|A stop condition specifically made for [event](../../../Enums%20and%20IDs/Events.md) 182 (trying to exit the room after approaching the tank in the last room of Upper Snakemouth) that simply disables a party member until it is manually removed (it is not meant to expire naturally)|
 |17|[Fire](BattleCondition/Fire.md)||
 |18|[Inked](BattleCondition/Inked.md)||
 |19|[Sticky](BattleCondition/Sticky.md)||
