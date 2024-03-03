@@ -138,7 +138,9 @@ The name of this field is a missnomer because it doesn't represent only weakness
 When this field is true, it will never be dropped or have its `position` set to `Ground` by RefreshEnemyPos (used by [GetAvailableTargets](Targetting/GetAvaliableTargets.md) or [Chompy](../Battle%20flow/Action%20coroutines/Chompy.md)).
 
 ## `notaunt`
-When this field is true, it specifically affects the `BeetleTaunt` [skill](../../Enums%20and%20IDs/Skills.md) by preventing the [Taunted](BattleCondition/Taunted.md) infliction. TODO: does not prevent the forceattack set ???
+When this field is true, it specifically affects the `BeetleTaunt` [skill](../../Enums%20and%20IDs/Skills.md) by preventing the [Taunted](BattleCondition/Taunted.md) infliction.
+
+NOTE: This doesn't prevent the `forceattack` being set to `currentturn` which means that the actual enemy party members taunting logic still works despite this. This is only meant to prevent the animations or [SetCondition](Conditions%20methods/SetCondition.md) calls which is still desired for [enemies](../../Enums%20and%20IDs/Enemies.md) who do not perform any targetting actions in their action logic so it doesn't look out of place visually or logically in the case of the `TauntPlus` [medal](../../Enums%20and%20IDs/Medal.md).
 
 ## `notired`
 When this is true, enemy party members will not have their `tired` (exhaustion) field incremented during [EndEnemyTurn](../Battle%20flow/EndEnemyTurn.md) like it would normally if the `DoublePain` [medal](../../Enums%20and%20IDs/Medal.md) isn't equipped.
