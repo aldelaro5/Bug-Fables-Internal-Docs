@@ -162,6 +162,15 @@ Additionally, GetEnemyData can also change yet again the value after it was calc
 1. [flag](../Flags%20arrays/flags.md) 162 is true (during a B.O.S.S or Cave Of Trials session): the value gets multiplied by 0.2, floored and then clamped from 0 to 5
 2. createentity is true, [flag](../Flags%20arrays/flags.md) 166 is false (EX mode isn't active on the B.O.S.S. system) and the `battleentity` is a `hologram` (see the section above about the `battleentity` initialisation for when this happens): the value is multiplied by 0.1 and floored
 
+Finally, [StartBattle](../Battle%20system/StartBattle.md) can further change the `exp` If all of the following conditions are true:
+
+- The [enemy](../Enums%20and%20IDs/Enemies.md) is a `Krawler`, `CursedSkull` or `Cape`
+- battleentity.`forcefire` is true or we are in the `GiantLair` [area](../Enums%20and%20IDs/librarystuff/Areas.md) except for the `GiantLairFridgeInside` [map](../Enums%20and%20IDs/Maps.md)
+- instance.`partylevel` is less than 27 (meaning it's not maxed)
+- [flags](../Flags%20arrays/flags.md) 613 is false (RUIGEE is inactive)
+
+If that happens, the `exp` is incremented by the floored result of a lerp from 10.0 to 3.0 with a factor of instance.`partylevel` / 27.0
+
 #### Special fields logic
 Additionally, some `BattleData` fields have special logic attached to them:
 
