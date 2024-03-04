@@ -10,7 +10,7 @@ When inflicted as a new condition, nothing special happens.
 When the condition is processed (when instance.`tp` is above 0, but less than instance.`maxtp`):
 
 - The `Heal2` sound is played
-- [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 2 (TP) with the amount being 2 with a start of the actor position + its `cursoroffset` and an end of Vector3.up
+- [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) is called with type 2 (TP) with the amount being 2 with a start of the actor position + its `cursoroffset` and an end of Vector3.up
 - instance.`tp` is incremented by 2 clamped from 0 to instance.`maxtp`
 - A yield of 0.75 seconds is set to happen after the method is done
 - The turn counter of the condition is decremented

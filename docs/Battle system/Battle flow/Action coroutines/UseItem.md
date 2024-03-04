@@ -71,7 +71,7 @@ After, there's additional logic depending on the ItemUsage.
 - If there's more than 1 effect, 0.5 seconds are yielded before processing more
 
 #### `Revive`
-The same than `HPRecover` or `HPRecoverFull`, but if the `option` player party member's battleentity is `dead`, [RevivePlayer](../../Actors%20states/RevivePlayer.md) is called with its id for -1 hp and showcounter as false.
+The same than `HPRecover` or `HPRecoverFull`, but if the `option` player party member's battleentity is `dead`, [RevivePlayer](../../Actors%20states/Player%20party%20members/RevivePlayer.md) is called with its id for -1 hp and showcounter as false.
 
 #### `TPRecover` or `TPRecoverFull`
 
@@ -87,7 +87,7 @@ This effect applies to each player party member that isn't `eatenby` and has an 
 If at least one player party member was affected and there's more than 1 effect, 0.5 seconds are yielded before processing more.
 
 #### `ReviveAll`
-The same than `HPRecoverAll`, but it also affects player party members with an `hp` of 0 or below and if its battleentity is `dead`, [RevivePlayer](../../Actors%20states/RevivePlayer.md) is called with its id for -1 hp and showcounter as false.
+The same than `HPRecoverAll`, but it also affects player party members with an `hp` of 0 or below and if its battleentity is `dead`, [RevivePlayer](../../Actors%20states/Player%20party%20members/RevivePlayer.md) is called with its id for -1 hp and showcounter as false.
 
 #### `HPorDamage`
 
@@ -168,7 +168,7 @@ The `MagicUp` particle are played without sound at each of the player party memb
 #### `HPto1`
 
 - [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) is called with type 0 (Damage) with the ammount being the `option` player party member's `maxhp` - 1 starting at its battleentity's position and ending at (-1, 2.0, 0.0)
-- [DoDamageAnim](../../Damage%20pipeline/DoDamageAnim.md) is called with the `option` player party member with a damage of its `maxhp` - 1 without block
+- [DoDamageAnim](../../Visual%20rendering/DoDamageAnim.md) is called with the `option` player party member with a damage of its `maxhp` - 1 without block
 - If there's more than 1 effect, 0.5 seconds are yielded before processing more
 
 #### `AtkUpStat`

@@ -7,7 +7,7 @@ private IEnumerator NewEnemy(int id, Vector3 pos, SpawnAnim animation)
 
 ## Parameters
 
-- `id`: The [enemy](../../Enums%20and%20IDs/Enemies.md) id to add
+- `id`: The [enemy](../../../Enums%20and%20IDs/Enemies.md) id to add
 - `position`: Where the enemy should initialy be spawned
 - `animation`: If it's not `None`, the spawn animation to use for the new enemy. If it's `None`, the coroutine only calls [AddNewEnemy](AddNewEnemy.md) and set `checkingdead` to null
 
@@ -25,7 +25,7 @@ Otherwise, the following occurs (the entity refered to is the new enemy just add
 - The entity local scale is zeroed out
 - `spin` is set to (0.0, 25.0, 0.0)
 - During the course of 60.0 frames tracked with a local frame counter (incremented by the game's frametime):
-    - entity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 11 (`Hurt`)
+    - entity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 11 (`Hurt`)
     - entity's local scale is set to a lerp from Vector3.zero to a target that depends on the animation with a factor of the ratio of the amount of frames cumulated over 60.0 frames. The target is Vector3.one for an animation of `Seed` and (0.75, 0.75, 0.75) for `SeedMini`
     - The local framecounter is advanced
     - A frame is yielded

@@ -8,10 +8,10 @@ The main feature of this flow is less UI being shown as they are mostly disabled
 Here are all the logic included in this flow.
 
 ## RefreshEXP
-If the `oldexp` value doesn't match the current `expreward`, [RefreshEXP](../Visual%20rendering/RefreshEXP.md) is called. This method manages the visual rendering of the currently cumulated EXP and the different orbs that composes it. `expreward` is the actual EXP cumulated so far while `oldexp` is the last value observed since the last RefreshEXP. It will also create `expholder` if it wasn't created already.
+If the `oldexp` value doesn't match the current `expreward`, [RefreshEXP](../../Visual%20rendering/RefreshEXP.md) is called. This method manages the visual rendering of the currently cumulated EXP and the different orbs that composes it. `expreward` is the actual EXP cumulated so far while `oldexp` is the last value observed since the last RefreshEXP. It will also create `expholder` if it wasn't created already.
 
 ## HP UI refresh
-[RefreshEnemyHP](../Visual%20rendering/RefreshEnemyHP.md) is called every 3 frames. It should be noted that in this flow, this will always results in the `hpbar` of the enemies to be disabled. This means this refresh is less useful here, but it's more useful in a controlled flow.
+[RefreshEnemyHP](../../Visual%20rendering/RefreshEnemyHP.md) is called every 3 frames. It should be noted that in this flow, this will always results in the `hpbar` of the enemies to be disabled. This means this refresh is less useful here, but it's more useful in a controlled flow.
 
 ## UpdateSwitchIcon
 UpdateSwitchIcon is called. It should be noted that in this flow, this will always results in the `switchicon` to be disabled. This means this refresh is less useful here, but it's more useful in a controlled flow.
@@ -21,7 +21,7 @@ This section happens only when all the following are fufilled:
 
 - `enemy` is true (we are in the player phase)
 - `inevent` is false (no EventDialogue is in progress)
-- The [message](../../SetText/Notable%20states.md#message) lock is released (covers cases like [Tattle](../Action%20coroutines/Tattle.md))
+- The [message](../../../SetText/Notable%20states.md#message) lock is released (covers cases like [Tattle](../Action%20coroutines/Tattle.md))
 
 [GetBlock](../GetBlock.md) is called here which updates `blockcooldown` and `commandsuccess` according to the current blocking state. Consult the GetBlock documentation to learn more about how the blocking system works.
 

@@ -37,7 +37,7 @@ This condition will deny the confirmation of a player party member when selectin
 ## [DoDamage](../../Damage%20pipeline/DoDamage.md)
 This condition overrides block to be false meaning blocking is always denied for a player party member with this condition.
 
-This condition allows a target with a `ShockTrooper` [medal](../../Enums%20and%20IDs/Medal.md) to be considered Invulnerable and bypass damage calculation completely. In such case, the damage ammount is overriden to 0 unless property is `NoExceptions` where it's overriden by the original damageammount sent to the method.
+This condition allows a target with a `ShockTrooper` [medal](../../../Enums%20and%20IDs/Medal.md) to be considered Invulnerable and bypass damage calculation completely. In such case, the damage ammount is overriden to 0 unless property is `NoExceptions` where it's overriden by the original damageammount sent to the method.
 
 ## [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
 This condition may be inflicted if the property is `Numb` or `Numb1Turn` (it's the same as `Numb`, but it always inflict for 1 turn). This means it's also supported by the `StatusMirror` [medal](../../../Enums%20and%20IDs/Medal.md).

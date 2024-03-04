@@ -51,10 +51,10 @@ From there, a couple of local variables are initialised that may be used in the 
 - flip: The `flip` value of the entity, used for restoring later in normal post action
 - randomposafter: A boolean starting at false that when true by the normal post action, the `position` of the enemy party member will be determined randomly. This only applies to enemy party members and is only used by `Mushroom` and `BeeBot` under normal gameplay. NOTE: it is invalid to set this to true during a player action and if done, it will lead to illogical behaviors
 - fled: A boolean starting at false that when true by the normal post action, it will change the majority of the normal post action logic to be very reduced. This is supposed to signal that the action lead to the enemy party member fleeing the battle. This only applies to enemy party members and is only used by `Burglar` and `GoldenSeedling` under normal gameplay. NOTE: it is invalid to set this to true during a player action and if done, it will lead to illogical behaviors
-- nocharm: A boolean starting at false that when true by the normal post action, it will prevent any [UseCharm](../../Actors%20states/UseCharm.md) calls to occur. This means no `HealTP` for the player party if it spent any to perform a skill and no `HealHP` after an enemy action. This is only used by `WaspHealer`, `LeafbugNinja` and `LeafbugArcher` under normal gameplay
+- nocharm: A boolean starting at false that when true by the normal post action, it will prevent any [UseCharm](../UseCharm.md) calls to occur. This means no `HealTP` for the player party if it spent any to perform a skill and no `HealHP` after an enemy action. This is only used by `WaspHealer`, `LeafbugNinja` and `LeafbugArcher` under normal gameplay
 - startp: The x/y starting position of the entity (the y component is left at 0.0). This can be overriden to another value in action logic and it is only used to move the actor back to it in normal post action
 - startstate: The starting [animstate](../../../Entities/EntityControl/Animations/animstate.md) of the entity. This can be overriden in action logic and is only used as the stopping state when moving the actor back to startp in normal post action
-- usedtp: An integer starting at -1 that reports the cost of the skill used by the player party member if applicable. This is only used in normal post action to determine if a [UseCharm](../../Actors%20states/UseCharm.md) call should occur with `HealTP` corresponding to half of the skill's cost. This has no effect on enemy party members
+- usedtp: An integer starting at -1 that reports the cost of the skill used by the player party member if applicable. This is only used in normal post action to determine if a [UseCharm](../UseCharm.md) call should occur with `HealTP` corresponding to half of the skill's cost. This has no effect on enemy party members
 
 After, the following is done:
 
@@ -82,7 +82,7 @@ The setup first begins by initialising a local variable called targetentity whic
 - If actionid is -555 (player first strike), the value is left at the [BattleData](../../Actors%20states/BattleData.md)'s default
 - Otherwise, if `currentaction` is `ItemList` (this is an item use action), then it depends on `itemarea` (if none match, the variable is left at the [BattleData](../../Actors%20states/BattleData.md)'s default):
     - `SingleAlly`: The `target` player party member
-    - `SingleEnemy`: [GetAvaliableTargets](../../Actors%20states/GetAvaliableTargets.md) is called without onlyground and onlyfront with excludeunderground using actionid as the attack id followed by setting the variable to `avaliabletargets[target]`. NOTE: In practice, the GetAvaliableTargets shouldn't change anything under normal gameplay because it was called with similar parameters (attackid was -1, but it doesn't change anything) during [SetItem](../../Player%20UI/SetItem.md)
+    - `SingleEnemy`: [GetAvaliableTargets](../../Actors%20states/Targetting/GetAvaliableTargets.md) is called without onlyground and onlyfront with excludeunderground using actionid as the attack id followed by setting the variable to `avaliabletargets[target]`. NOTE: In practice, the GetAvaliableTargets shouldn't change anything under normal gameplay because it was called with similar parameters (attackid was -1, but it doesn't change anything) during [SetItem](../../Player%20UI/SetItem.md)
 - Otherwise, if `target` is less than the length of `avaliabletargets` (it's a valid target), the variable is set to `avaliabletargets[target]`
 - Otherwise, it's left at [BattleData](../../Actors%20states/BattleData.md)'s default
 
@@ -93,7 +93,7 @@ After, if actionid isn't negative (meaning this isn't a basic attack action or p
 
 If a cost was paid, usedtp is set to the value of [flagvar](../../../Flags%20arrays/flagvar.md) 0 (the TP or HP cost).
 
-After, if actionid isn't -555 (meaning it's not a player first strike) and `currentaction` isn't `ItemList` (meaning it's not an item use so it's a basic attack or skill action), `checkingdead` is set to a new [UseCharm](../../Actors%20states/UseCharm.md) call with the type being `AttackUp`.
+After, if actionid isn't -555 (meaning it's not a player first strike) and `currentaction` isn't `ItemList` (meaning it's not an item use so it's a basic attack or skill action), `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `AttackUp`.
 
 After, `targettedenemy` is set to the `enemydata` index of the targetted enemy using the following logic:
 
@@ -103,7 +103,7 @@ After, `targettedenemy` is set to the `enemydata` index of the targetted enemy u
 
 TODO: What even is this logic? this seems broken
 
-Finally, all frames are yielded while `checkingdead` is in progress (which would be the [UseCharm](../../Actors%20states/UseCharm.md) call made earlier if it was).
+Finally, all frames are yielded while `checkingdead` is in progress (which would be the [UseCharm](../UseCharm.md) call made earlier if it was).
 
 #### Player action procedure
 The actionid directly tells what action will be performed by a switch on it. Unlike enemy actions, there is no loop so the action is performed once and then completes.
@@ -116,7 +116,7 @@ This phase applies if the entity doesn't have a `Player` tag unless it's not the
 #### Enemy action setup
 This part of the enemy action phase occurs before any action is performed:
 
-- `checkingdead` is set to a new [UseCharm](../../Actors%20states/UseCharm.md) call with the type being `DefenseUp`
+- `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `DefenseUp`
 - All frames are yielded while `checkingdead` is in progress
 
 The action can only occur if the enemy party member doesn't have a `Flipped` [condition](../../Actors%20states/Conditions.md) for 2 turns or more (the action is allowed if there's 1 turn left on it or the condition isn't present). If it doesn't occur, the coroutine skips to the post action phase.
@@ -212,7 +212,7 @@ In either cases, they both end by setting all enemy party members's `lockpositio
 - If the entity has the `Player` tag:
     - If usedtp is above 0, nocharm is false and `currentaction` isn't `ItemList` (meaning a skill was used that had a paid cost to it while healing charms aren't disallowed):
         - [flagvar](../../../Flags%20arrays/flagvar.md) 1 is set to usedtp / 2 clamped from 1 to usedtp (the integer division floors implicitly)
-        - `checkingdead` is set to a new [UseCharm](../../Actors%20states/UseCharm.md) call with the type being `HealTP` which heals for the amoutn set to flagvar 1 just before
+        - `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `HealTP` which heals for the amoutn set to flagvar 1 just before
         - All frames are yielded while `checkingdead` is in progress
     - `playerdata[currentturn]`'s `tired` is incremented if `currentaction` isn't `ItemList` and actionid is not among the following (these are all the team moves TODO: why would they be exempt from exhaustion???):
         - 5 (`BeeFly`)
@@ -224,7 +224,7 @@ In either cases, they both end by setting all enemy party members's `lockpositio
     - [EndPlayerTurn](../EndPlayerTurn.md) is called
     - `currentaction` is set to `BaseAction`
     - `option` is set to `lastoption` (this restores the main vine menu's selection to whichever was the last one selected)
-    - If [GetFreePlayerAmmount](../../Actors%20states/GetFreePlayerAmmount.md) returns at least 1, [UpdateText](../../Visual%20rendering/UpdateText.md) is called
+    - If [GetFreePlayerAmmount](../../Actors%20states/Player%20party%20members/GetFreePlayerAmmount.md) returns at least 1, [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 - Otherwise, if `selfsacrifice` is false (the enemy party member didn't killed themselves during their action):
     - If the enemy party member had any `delayedcondition`:
         - All `delayedcondition` are processed. See the [delayed condition](../../Actors%20states/Delayed%20condition.md) documentation to learn more
@@ -233,7 +233,7 @@ In either cases, they both end by setting all enemy party members's `lockpositio
         - 0.5 seconds are yielded
         - The enemy party member's `delayedcondition` is set to null
     - If nocharm is false (healing charms weren't disallowed):
-        - `checkingdead` is set to a new [UseCharm](../../Actors%20states/UseCharm.md) call with the type being `HealHP`
+        - `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `HealHP`
         - All frames are yielded while `checkingdead` is in progress
     - If the enemy party member was performaning a `hitaction`, `enemy` is set to false, giving control back to the player party
     - [EndEnemyTurn](../EndEnemyTurn.md) is called with the actionid

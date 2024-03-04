@@ -85,7 +85,7 @@ If any `delprojs` landed:
 This section happens for each player party member.
 
 - The corresponding `receivedrelay` of the player party member index is set to false
-- [AdvanceTurnEntity](../../Actors%20states/AdvanceTurnEntity.md) is called on the player party member with hasdelay starting at false
+- [AdvanceTurnEntity](../AdvanceTurnEntity.md) is called on the player party member with hasdelay starting at false
 - If the turn advancement resulted in hasdelay becoming true, 0.75 seconds are yielded
 - If `eatenkill` is true (meaning a player party member died as a result of an eating attack) the game needs to properly kill the player party member that died by doing the following:
     - `eatenkill` is set to false
@@ -104,7 +104,7 @@ Finally, if the `MiracleMatter` [medal](../../../Enums%20and%20IDs/Medal.md) is 
 If all the conditions are met, the revive occurs as follows:
 
 - `turnssincedeath` is set to 0
-- [RevivePlayer](../../Actors%20states/RevivePlayer.md) is called on the player party member index with 2 hp and with showcounter
+- [RevivePlayer](../../Actors%20states/Player%20party%20members/RevivePlayer.md) is called on the player party member index with 2 hp and with showcounter
 - 0.5 seconds are yielded
 - If the player party member's `lockcantmove` is false, their `cantmove` is set to 0 (this gives them one action available)
 - The player party member's `lockcantmove` is set to false
@@ -129,7 +129,7 @@ The first thing that happens is relating to the `FavoriteOne` [medal](../../../E
 
 From there, each enemy party members gets their turn advanced by having the following logic apply to each of them:
 
-- [AdvanceTurnEntity](../../Actors%20states/AdvanceTurnEntity.md) is called on the eneny party member with hasdelay starting at false which advances their actor turn
+- [AdvanceTurnEntity](../AdvanceTurnEntity.md) is called on the eneny party member with hasdelay starting at false which advances their actor turn
 - If hasdelay got a value of true after the turn advancement, 0.75 seconds are yielded
 - battleentity.`shakeice` is set to false
 - If `cantmove` is 0 (they would have only 1 action available after the actor turn), `cantmove` is set to -`moves` + 1 (this resets the available actions counter to the base one set from the normal amount being `moves`)
@@ -146,7 +146,7 @@ Finally, some end of main turn process logic occurs:
         - [Heal](../../Actors%20states/Heal.md) is called on the player party member with the amount being 2 * the amount of `HappyHeart` medals equipped
         - 0.5 seconds are yielded
     - Every 2 `turns` (same cycle as the one above), if the `HappyTP` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped:
-        - HealTP is called which plays a `Heal2` sound followed by a heal of instance.`tp` by 2 * the amount of `HappyTP` medals equipped clamped from 0 to instance.`maxtp` followed by a [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) with type 2, the amount being the amount of tp healed, the start position being `playerdata[`[GetRandomAvaliablePlayer()](../../Actors%20states/GetRandomAvaliablePlayer.md)`].battleentity` position + (2.0, 2.0, 2.0) and the end position being (5.0, 5.0, 5.0)
+        - HealTP is called which plays a `Heal2` sound followed by a heal of instance.`tp` by 2 * the amount of `HappyTP` medals equipped clamped from 0 to instance.`maxtp` followed by a [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) with type 2, the amount being the amount of tp healed, the start position being `playerdata[`[GetRandomAvaliablePlayer()](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md)`].battleentity` position + (2.0, 2.0, 2.0) and the end position being (5.0, 5.0, 5.0)
         - 0.5 seconds are yielded
     - `checkingdead` is set to null which informs the caller the coroutine has ended so it can stop yielding
 - `option` is set to 0

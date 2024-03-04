@@ -15,12 +15,12 @@ When the condition is processed (when `hp` is above 0):
 
 - A yield of 0.75 seconds is set to happen after the method is done
 - If `eatenby` exists backed by an enemy party member, the player party member's `hp` is above 0 and there is at least one enemy party member:
-    - [DoDamage](../Damage%20pipeline/DoDamage.md) is called to the player party member with no attacker with a `NoExceptions` property, a `NoCounter` overrides without block. The damageammount is the player party member's `maxhp` / 10.0 + 1 ceiled and then clamped from 1 to 99
-    - [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 0 with the damage amount as the amount with the start being the `eatenby` enemy party member's `cursoroffset` and the end being (0.0, 2.0, 0.0)
-    - [Heal](Heal.md) is called on the `eatenby` enemy party member for the same damage amount dealt to the player party member
+    - [DoDamage](../../Damage%20pipeline/DoDamage.md) is called to the player party member with no attacker with a `NoExceptions` property, a `NoCounter` overrides without block. The damageammount is the player party member's `maxhp` / 10.0 + 1 ceiled and then clamped from 1 to 99
+    - [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) is called with type 0 with the damage amount as the amount with the start being the `eatenby` enemy party member's `cursoroffset` and the end being (0.0, 2.0, 0.0)
+    - [Heal](../Heal.md) is called on the `eatenby` enemy party member for the same damage amount dealt to the player party member
 - If the player party member's `hp` is 0 or below while there are at least 1 player party member with an `hp` above 0 while not having an `eatenby`:
     - `eatenkill` is set to true (this is used in [AdvanceMainTurn](../../Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) to handle this specific case)
-    - [EventDialogue](../Battle%20flow/EventDialogue.md) 19 is started and stored in `checkingdead` (this will eventually call SpitOut, check the section below for more detail)
+    - [EventDialogue](../../Battle%20flow/EventDialogue.md) 19 is started and stored in `checkingdead` (this will eventually call SpitOut, check the section below for more detail)
 
 The turn counter of the condition is never decremented because it is expected to be removed manually.
 
@@ -29,7 +29,7 @@ Right after the return of [AdvanceTurnEntity](../../Battle%20flow/AdvanceTurnEnt
 
 - `eatenkill` is set to false (this is meant as a one shot flag field)
 - All frames are yielded while `spitout` is in progress
-- `checkingdead` is set to a new [CheckDead](CheckDead.md) coroutine starting
+- `checkingdead` is set to a new [CheckDead](../../Battle%20flow/Action%20coroutines/CheckDead.md) coroutine starting
 - All frames are yielded while `checkingdead` is in progress
 
 This part is necessary because the player party member may have not died properly and in order to address this, a CheckDead is needed, but it is only safe to do so after `spitout` is done.

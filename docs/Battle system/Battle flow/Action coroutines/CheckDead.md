@@ -18,7 +18,7 @@ Here's the CheckDead procedure:
 - Otherwise:
     - A frame is yielded
     - If EnemyDropping reports that all enemy party members's battleentity.`droproutine` isn't in progress while `mainturn` isn't in progress, `action` is set to false which will change to a [controlled flow](../Update.md#controlled-flow) once CheckDead completes
-- If we aren't `inevent`, [ReorganizeEnemies](../../Actors%20states/ReorganizeEnemies.md) is called with order
+- If we aren't `inevent`, [ReorganizeEnemies](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called with order
 - `checkingdead` is set to null which reports to the rest of BattleControl that CheckDead is no longer in progress
 
 ## Player party member death process
@@ -26,7 +26,7 @@ Here's the CheckDead procedure:
 - `tired` is set to 0 (removes all exhaustions)
 - `charge` is set to 0
 - StartDeath is called on the battleentity which starts a [Death](../../../Entities/EntityControl/Notable%20methods/Death.md) process on it
-- If `enemy` is true (the player party member died during the [enemy phase](../Update.md#enemies-phase), a [hitaction](../../BattleControl.md#hitactions) or a [delproj advance](AdvanceMainTurn.md#delprojs-advance)), `turnssinedeath` is set to -1 (this is so it gets incremented to 0 on their [AdvanceTurnEntity](../../Actors%20states/AdvanceTurnEntity.md) later).
+- If `enemy` is true (the player party member died during the [enemy phase](../Update.md#enemies-phase), a [hitaction](../../BattleControl.md#hitactions) or a [delproj advance](AdvanceMainTurn.md#delprojs-advance)), `turnssinedeath` is set to -1 (this is so it gets incremented to 0 on their [AdvanceTurnEntity](../AdvanceTurnEntity.md) later).
 - [ClearStatus](../../Actors%20states/Conditions%20methods/ClearStatus.md) is called on the player party member
 - battleentity.`dead` is set to true (the Death process already does that)
 - If the battleentity.[animid](../../../Enums%20and%20IDs/AnimIDs.md) matches the battle's `forceattack`, it is reset to -1 (since the target is no longer valid)
@@ -72,7 +72,7 @@ The following happens if CheckDead found the enemy hasn't `fled` meaning they we
 The following happens after all checks are done:
         
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on the battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
-- If any enemy was found to be `dead` or `fled` earlier, [ReorganizeEnemies](../../Actors%20states/ReorganizeEnemies.md) is called without skip
+- If any enemy was found to be `dead` or `fled` earlier, [ReorganizeEnemies](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called without skip
 
 Finally, this is where all of this section's logic can be reiterated. It happens if all of the reamining enemy party members have their `diebyitself` set to true. This means that they should die automatically and in order to do so, their `hp` are set to 0 and their `diebyitself` set to false to avoid reentering this case.
 
@@ -84,7 +84,7 @@ This section will move the appropriate amount of `extraenemies` to the main `ene
 - All the enemy party members that died or `fled` during this CheckDead has their `droproutine` stopped then set to null if it was in progress
 - For each `deadenemypos` (but not more than the amount in `extraenemies`):
     - `summonnewenemy` is set to true
-    - [SummonEnemy](../../Actors%20states/SummonEnemy.md) is called with type `Offscreen`, the [enemy](../../../Enums%20and%20IDs/Enemies.md) id being the `extraenemies` at the same index than the `deadenemypos` and the position being the `deadenemypos`
+    - [SummonEnemy](../../Actors%20states/Enemy%20party%20members/SummonEnemy.md) is called with type `Offscreen`, the [enemy](../../../Enums%20and%20IDs/Enemies.md) id being the `extraenemies` at the same index than the `deadenemypos` and the position being the `deadenemypos`
     - 0.5 seconds are yielded
 - All frames are yielded as long as `summonnewenemy` is true and EnemiesAreNotMoving reports false (meaning at least one enemy party member has their battleentity is in a [forcemove](../../../Entities/EntityControl/EntityControl%20Methods.md#forcemove))
 - If instance.`map` is the `AbandonedCity` [map](../../../Enums%20and%20IDs/Maps.md) and [flags](../../../Flags%20arrays/flags.md) 400 (temporary slot) is true, all enemy party members have 2 [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) calls on them: one with `AttackUp` for 999999 actor turns and one with `DefenseUp` for 999999 actor turns

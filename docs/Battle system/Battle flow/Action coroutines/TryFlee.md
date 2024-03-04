@@ -9,7 +9,7 @@ This action coroutine allows the player to attempt to flee from the battle if an
 - The instance.`camtargetpos` is set to (-4.5, 0.0, 2.5) with an instance.`camspeed` of 0.075
 - 10 RigidBodies are initialised to hold lost berries (they each get a SpriteRenderer using the `MoneySmall`'s `itemsprites`) childed to the `battlemap` in kinematic mode, but initially placed offscreen at (0.0, 999.0, 0.0)
 - The `FlipNoise` sound is played
-- For each player party member that isn't [IsStopped](../Actors%20states/IsStopped.md#isstopped), the following adjustements happens on their battleentity (this setups their walk in place animations):
+- For each player party member that isn't [IsStopped](../../Actors%20states/IsStopped.md), the following adjustements happens on their battleentity (this setups their walk in place animations):
     - `anim`.speed is set to 2.0
     - `overridejump` is set to true
     - [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) is called
@@ -50,14 +50,14 @@ The rest of the coroutine depends on `commandsuccess` being true or not indicati
 This section is applicable if `commandsuccess` is true:
 
 - MainManager.`battleresult` is set to false
-- For each player party member that isn't [IsStopped](../Actors%20states/IsStopped.md#isstopped), [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) is called on their battleentity
+- For each player party member that isn't [IsStopped](../../Actors%20states/IsStopped.md), [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) is called on their battleentity
 - 0.45 seconds are yielded
 - The `Flee` sound is played
-- For each player party member that isn't [IsStopped](../Actors%20states/IsStopped.md#isstopped), the following happens on their battleentitty:
+- For each player party member that isn't [IsStopped](../../Actors%20states/IsStopped.md), the following happens on their battleentitty:
     - The y position is set to 0.0
     - The `rigid`'s gravity is disabled
     - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) is called to move to (-20.0, 0.0, 0.0) with a multiplier of 5.0
-- All frames are yielded until the `forcemove` of the battleentity of the last player party member that isn't [IsStopped](../Actors%20states/IsStopped.md#isstopped) goes to false (meaning the last player party member that was moved is done with its `forcemove`)
+- All frames are yielded until the `forcemove` of the battleentity of the last player party member that isn't [IsStopped](../../Actors%20states/IsStopped.md) goes to false (meaning the last player party member that was moved is done with its `forcemove`)
 - [flagvar](../../../Flags%20arrays/flagvar.md) 42 (number of fleed battles) is incremented
 - [ReturnToOverworld](../Terminal%20coroutines/ReturnToOverworld.md) is called with flee
 
@@ -65,13 +65,13 @@ This section is applicable if `commandsuccess` is true:
 This section is applicable if `commandsuccess` is false:
 
 - The `Fail` sound is played
-- For each player party member that isn't [IsStopped](../Actors%20states/IsStopped.md#isstopped), the following happens on their battleentitty (this undo what was done on the command preparations with some more animations):
+- For each player party member that isn't [IsStopped](../../Actors%20states/IsStopped.md), the following happens on their battleentitty (this undo what was done on the command preparations with some more animations):
     - `anim`.speed is reset to 1.0
     - `overrideanimspeed` is set to false
     - [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) is called
     - [animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 11 (`Hurt`)
 - 0.1 seconds are yielded
-- For each player party member that isn't [IsStopped](../Actors%20states/IsStopped.md#isstopped), the following happens on their battleentitty:
+- For each player party member that isn't [IsStopped](../../Actors%20states/IsStopped.md), the following happens on their battleentitty:
     - DeathSmoke is called with the battleentity
     - [animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 18 (`KO`)
     - The `Drop` sound is played on the entity (not the battleentity)
@@ -83,7 +83,7 @@ This section is applicable if `commandsuccess` is false:
     - A frame is yielded
 - 0.85 seconds are yielded
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) is called
-- For each player party member that isn't [IsStopped](../Actors%20states/IsStopped.md#isstopped), the following happens on their battleentitty:
+- For each player party member that isn't [IsStopped](../../Actors%20states/IsStopped.md), the following happens on their battleentitty:
     - `overridejump` is set to false
     - `overrideanim` is set to false
     - `flip` is set to true

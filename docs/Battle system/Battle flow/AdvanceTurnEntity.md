@@ -11,9 +11,9 @@ private void AdvanceTurnEntity(ref MainManager.BattleData t, ref bool delay)
 - `delay`: a dummy ref bool value. It should always have a false value before calling this method as the method only sets it to true in some cases, but never to false
 
 ## Procedure
-There are 2 parts to this: [conditions](Conditions.md) advances and state advance.
+There are 2 parts to this: [Conditions](../Actors%20states/Conditions.md) advances and state advance.
 
-## [Conditions](Conditions.md) advances
+## [Conditions](../Actors%20states/Conditions.md) advances
 This part goes through each `condition` and acts on them. This part refers to what happens to each individual condition unless stated otherwise.
 
 There's 2 sections to this: alive advance and last advance.
@@ -52,7 +52,7 @@ This section occur if the actor is alive and it depends on the `BattleCondtion`:
     - If `eatenby` exists backed by an enemy party member, the player party member's `hp` is above 0 and there is at least one enemy party member:
         - [DoDamage](../Damage%20pipeline/DoDamage.md) is called to the player party member with no attacker with a `NoExceptions` property, a `NoCounter` overrides without block. The damageammount is the player party member's `maxhp` / 10.0 + 1 ceiled and then clamped from 1 to 99
         - [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 0 with the damage amount as the amount with the start being the `eatenby` enemy party member's `cursoroffset` and the end being (0.0, 2.0, 0.0)
-        - [Heal](Heal.md) is called on the `eatenby` enemy party member for the same damage amount dealt to the player party member
+        - [Heal](../Actors%20states/Heal.md) is called on the `eatenby` enemy party member for the same damage amount dealt to the player party member
     - If the player party member's `hp` is 0 or below while there are at least 1 player party member with an `hp` above 0 while not having an `eatenby`:
         - `eatenkill` is set to true
         - [EventDialogue](../Battle%20flow/EventDialogue.md) 19 is started and stored in `checkingdead`
@@ -97,9 +97,9 @@ This section only does something if the condition's turn counter just reached 0 
 
 ## State advance
 
-- All the [condition](Conditions.md) whose turn count reached 0 are removed
+- All the [conditions](../Actors%20states/Conditions.md) whose turn count reached 0 are removed
 - If an `AttackUp` condition's turn count reached 0 while `atkdownonloseatkup` was true earlier:
-    - [SetCondition](Conditions%20methods/SetCondition.md) is called with `AttackDown` for 2 actor turns on the actor
+    - [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with `AttackDown` for 2 actor turns on the actor
     - The `StatDown` sound is played
     - [StatEffect](../Visual%20rendering/StatEffect.md) is called on the battleentity with type 2 (red arrow down)
 - The actor's `isasleep` is set to whether or not the actor has the `Sleep` condition

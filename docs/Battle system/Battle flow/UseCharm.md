@@ -20,7 +20,7 @@ In order for this coroutine to process the charm, all of the following must true
 - At least 1 player party member's `hp` is above 0 and isn't `eatenby`
 - EnemyActingOutOfOrder returns false meaning no enemy party member's [hitaction](../BattleControl.md#hitactions) is true
 - Either the type is `ExpUp` (meaning it was invoked from [AddExperience](../Battle%20flow/Terminal%20coroutines/AddExperience.md)) or it's any other type while `cancelupdate` is false (we aren't in a [terminal flow](../Battle%20flow/Update.md#terminal-flow))
-- If the type is `AttackUp`, `playerdata[currentturn]` must not have the `AttackUp` [condition](Conditions.md) already
+- If the type is `AttackUp`, `playerdata[currentturn]` must not have the `AttackUp` condition already
 
 The following sections describes what happens when the charm is cleared to be processed.
 
@@ -45,14 +45,14 @@ The logic here depends on the type:
 #### `AttackUp`
 
 - [StatEffect](../Visual%20rendering/StatEffect.md) is called on `playerdata[currentturn]` with type 0 (red up arrow)
-- [SetCondition](Conditions%20methods/SetCondition.md) is called on `playerdata[currentturn]` giving the `AttackUp` [condition](Conditions.md) for 1 actor turn
+- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on `playerdata[currentturn]` giving the `AttackUp` condition for 1 actor turn
 - The `StatUp` sound is played
 
 #### `DefenseUp`
 
 - All player party members whose `hp` is above 0 and aren't `eatenby` have the following happen to them:
     - [StatEffect](../Visual%20rendering/StatEffect.md) is called on the player party member with type 1 (blue up arrow)
-    - [SetCondition](Conditions%20methods/SetCondition.md) is called on the player party member giving the `DefenseUp` [condition](Conditions.md) for 1 actor turn
+    - [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on the player party member giving the `DefenseUp` condition for 1 actor turn
 - The `StatUp` sound is played
 
 #### `ExpUp`

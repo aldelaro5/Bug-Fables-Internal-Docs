@@ -8,7 +8,7 @@ This section runs first and performs any waits or setup needed before switching 
 
 - A frame is yielded if there's at least one `extraenemies`
 - All frames are yielded while `checkingdead` is in progress, `summonnewenemy` is true or while any enemy party member's battleentity is in a `forcemove`
-- [ReorganizeEnemies(true)](../../Actors%20states/ReorganizeEnemies.md) is called which removes all dead enemy party members and orders them by battleentity.position.x
+- [ReorganizeEnemies(true)](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called which removes all dead enemy party members and orders them by battleentity.position.x
 - RefreshEnemyPos is called which checks all `enemydata` whose `hp` is above 0, whose `cantfall` is false and whose `position` is `Ground` or `Flying`. If the enemy battleentity.`height` is above battleentity.`minheight` + 0.5, the `position` is set to `Flying`, `Ground` otherwise
 - `combo` is set to 1
 - `chompyaction` is set to true informing that the setup is complete

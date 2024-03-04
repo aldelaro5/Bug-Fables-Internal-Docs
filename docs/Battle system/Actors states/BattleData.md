@@ -91,7 +91,7 @@ These fields applies to actors for either parties.
 |charge|int|The amount of charges cumulated|
 |turnssincedeath|int|The amount of actor turns since death, 0 if the actor is alive|
 |turnsalive|int|The amount of actor turns since the battle started or their last death if any occured|
-|frozenlastturn|bool|Tells if the actor still had the `Freeze` [condition](Conditions.md) after their last actor turn advance via [AdvanceTurnEntity](AdvanceTurnEntity.md)|
+|frozenlastturn|bool|Tells if the actor still had the `Freeze` [condition](Conditions.md) after their last actor turn advance via [AdvanceTurnEntity](../Battle%20flow/AdvanceTurnEntity.md)|
 |atkdownonloseatkup|bool|If true, the actor will get an `AttackDown` [condition](Conditions.md) inflicted the next time an `AttackUp` condition runs out of actor turns|
 |moreturnnextturn|int|When above 0, on the next actor turn, the actor's `cantmove` will be decreased by it which gives it this amount of additional actions available|
 |animid|int|For an enemy, the [enemy](../../Enums%20and%20IDs/Enemies.md) id. For a player, the same as the `trueid` (the actual [animid](../../Enums%20and%20IDs/AnimIDs.md) can be fetched via battleentity.`animid`)|

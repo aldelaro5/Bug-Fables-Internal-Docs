@@ -1,5 +1,5 @@
 # AddExperience
-AddExperience is a terminal coroutine that is invoked whenever most battles are won with EXP gain. This coroutine will be the step between the battle finishing and [ExitBattle](../ExitBattle.md) which is a wrapper around [ReturnToOverworld](ReturnToOverworld.md).
+AddExperience is a terminal coroutine that is invoked whenever most battles are won with EXP gain. This coroutine will be the step between the battle finishing and [ExitBattle](../Terminal%20wrappers/ExitBattle.md) which is a wrapper around [ReturnToOverworld](ReturnToOverworld.md).
 
 The coroutine yield breaks immediately if `alreadyending` is true (meaning AddExperience or [GameOver](GameOver.md) was already invoked) or `gameover` is in progress.
 
@@ -15,10 +15,10 @@ The coroutine yield breaks immediately if `alreadyending` is true (meaning AddEx
     - The `Heal` sound is played (the reason the Heal calls didn't had sound is to avoid playing healing sounds multiple times)
 - 0.5 seconds are yielded if any player party members were healed as a result of the `HealingBuzz` logic above
 - If the `VictoryBuzz` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped:
-    - HealTP is called which plays a `Heal2` sound followed by a heal of instance.`tp` by 4 followed by a [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) with type 2, the amount being 4, the start position being `playerdata[`[GetRandomAvaliablePlayer()](../../Actors%20states/GetRandomAvaliablePlayer.md)`].battleentity` position + (2.0, 2.0, 2.0) and the end position being (5.0, 5.0, 5.0)
+    - HealTP is called which plays a `Heal2` sound followed by a heal of instance.`tp` by 4 followed by a [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) with type 2, the amount being 4, the start position being `playerdata[`[GetRandomAvaliablePlayer()](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md)`].battleentity` position + (2.0, 2.0, 2.0) and the end position being (5.0, 5.0, 5.0)
     - 0.5 seconds are yielded
 - If `expreward` is above 5:
-    - `checkingdead` is set to a new [UseCharm](../../Actors%20states/UseCharm.md) coroutine starting with `ExpUp` as the type
+    - `checkingdead` is set to a new [UseCharm](../UseCharm.md) coroutine starting with `ExpUp` as the type
     - All frames are yielded while `checkingdead` is in progress
 - The `switchicon` and `fronticon` are destroyed
 - If [flags](../../../Flags%20arrays/flags.md) 613 is true (RUIGEE is active), `expreward` is set to 0
@@ -223,4 +223,4 @@ If the rank up logic didn't happen, but instance.`partylevel` is at least 99 (wh
 
 - A frame is yielded
 - `sounds[9]` is stopped with a 0.002 delay
-- [ExitBattle](../ExitBattle.md) is called
+- [ExitBattle](../Terminal%20wrappers/ExitBattle.md) is called

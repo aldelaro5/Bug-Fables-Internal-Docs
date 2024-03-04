@@ -26,7 +26,7 @@ From there, what happens in the phase depends on `currentturn` and `avaliablepla
 - If instance.`hud` exists while not being empty, GUIMovement is called. This method will visually render the `fronticon` on the applicable `playerdata` element (`partypointer[0]`) on its lower right corner and also move the currently selected player's HUD element by setting its y local position to 0.0 - the abosolute value of Sin(Time.time / 2.0) / 7.0 (the other HUD elements have it reset to 0.0) This makes the HUD element move up and down.
 - [PlayerTurn](PlayerTurn.md) is called
 
-If `currentturn` is -1 however, it means no one is selected yet which indicates the phase needs to proceed to either select one or perform a post player action step. This starts by updating `availableplayers` to [GetFreePlayerAmmount](../Actors%20states/GetFreePlayerAmmount.md).
+If `currentturn` is -1 however, it means no one is selected yet which indicates the phase needs to proceed to either select one or perform a post player action step. This starts by updating `availableplayers` to [GetFreePlayerAmmount](../Actors%20states/Player%20party%20members/GetFreePlayerAmmount.md).
 
 From there, the next appropriate part of the player phase is performed which is the first of the next 4 parts. They can be thought of a sequence where the first applicable part occurs. A part may be skipped entirely, but eventually, the last one will occur which will end the player phase.
 
