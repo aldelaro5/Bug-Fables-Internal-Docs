@@ -5,17 +5,19 @@ It first starts by resetting instance.`speedup` (an UNUSED field) to true and in
 
 ResetPlayerStats is called on player party member which resets fields to defaults:
 
-- `lockitems` to false
-- `lockskills` to false
-- `locktri` to false
-- `lockrelayreceive` to false
-- `maxhp` to its `basehp`
-- `atk` to its `baseatk`
-- `def` to its `basedef`
-- `poisonres` to 0
-- `sleepres` to 0
-- `freezeres` to 0
-- `numbres` to 0
+|Field|Value set|
+|----:|-----|
+|`lockitems`|false|
+|`lockskills`|false|
+|`locktri`|false|
+|`lockrelayreceive`|false|
+|`maxhp`|`basehp`|
+|`atk`|`baseatk`|
+|`def`|`basedef`|
+|`poisonres`|0|
+|`sleepres`|0|
+|`freezeres`|0|
+|`numbres`|0|
 
 After, all the `BadgeEffects` of every applicable medals are applied just as described in the [medal effects data documentation](../TextAsset%20Data/Medals%20data.md#medal-effects).
 

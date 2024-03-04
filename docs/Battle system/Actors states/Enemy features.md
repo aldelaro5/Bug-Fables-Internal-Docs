@@ -55,7 +55,7 @@ Enemy party members have the ability to hold an [item](../../Enums%20and%20IDs/I
 
 This is primarily used for stealing items from the player party or for visually rendering them using an item.
 
-## `hitaction`, `onhitaction`, `chargeonotherenemy` and `isdefending` being -1
+## `hitaction`
 This field tells if an enemy wants to performa an action immediately on the next [controlled flow](../Battle%20flow/Update%20flows/Controlled%20flow.md) update. These actions are performed out of the main turn flow because they are ran during the [player phase](../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase). It's essentially a way for an enemy party member to temporarilly seize control of the turn flow to perform their action.
 
 During [Update](../Battle%20flow/Update.md), all `enemydata` elements are checked if any has `hitaction` set to true. If none do, nothing happens. For each that does have it set to true, the following happens:
@@ -66,6 +66,14 @@ During [Update](../Battle%20flow/Update.md), all `enemydata` elements are checke
 Setting `enemy` to true here is temporary: it will go back to false as part of [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md). DoAction is also responsible for setting the enemy's `hitaction` back to false. The overall effect is DoAction temporarily seize control of the battle flow, but for the game, it's as if we were in an [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). The flow will go back to where it was in the player phase once it's handled. Due to `hitaction` being true, DoAction is able to handle this special case in a separate fashion.
 
 This cycle repeats for all applicable enemies untill all `hitaction` are set to false at which point, the main turn procedure can continue.
+
+There are 3 ways to automatically have `hitaction` set to true upon attack:
+
+- `onhitaction`
+- `chargeonotherenemy`
+- `isdefending` being -1
+
+Details are in the sub sections below.
 
 ### `onhitaction`
 There is a standard way to have `hitaction` set automatically when the enemy party member is targetted during [DoDamage](../Damage%20pipeline/DoDamage.md) and it's done by the `onhitaction` field. The conditions required to set `hitaction` to true is that `enemy` is false (we are in the [player phase](../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase)) and something else that depends on the field's value:

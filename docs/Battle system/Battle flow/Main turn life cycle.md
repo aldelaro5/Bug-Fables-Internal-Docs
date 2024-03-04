@@ -78,7 +78,7 @@ If none of the possible parts applied above, the following happens which ultimat
 - All of the instance.`hud`'s first child has their local position reset to Vector3.zero
 - `currentturn` is set to the length of `playerdata`
 
-## Enemies phase
+## Enemy phase
 This is where the enemies party portion of the turn is handled. It is denoted by `enemy` being true while there are at least 1 free enemy obtained via GetFreeEnemies. 
 
 A free enemy is one whose `cantmove` is 0 or below (it has at least one action available) and whose `hp` is above 0 (not dead yet). If there are no free enemies, this phase is skipped and we move on to the turn end phase.
