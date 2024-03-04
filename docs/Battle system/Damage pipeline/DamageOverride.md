@@ -18,13 +18,13 @@ The vast majority are processed in DoDamage, but some are in [CalculateBaseDamag
 |8|ShakeLonger|UNUSED|
 |9|NoShake|UNUSED|
 |10|ShowCombo|Calls [ShowComboMessage](../Visual%20rendering/ShowSuccessWord.md#showcombomessage) right after the damage amount has been calculated in DoDamage|
-|11|NoSound|The [DoDamageAnim](DoDamageAnim.md) call towards the end of DoDamage will have nosound set to true. NOTE: this is ignored if `NoDamageAnim` or `BlockSoundOnly` is processed after|
-|12|FailSound|The [DoDamageAnim](DoDamageAnim.md) call towards the end of DoDamage will have fail set to true. NOTE: this is ignored if `NoDamageAnim` is processed after|
-|13|NoDamageAnim|There will not be a [DoDamageAnim](DoDamageAnim.md) call towards the end of DoDamage. NOTE: processing this overrides any `NoSound`, `BlockSoundOnly`, `FailSound` and `FakeAnim` because the call won't happen|
-|14|BlockSoundOnly|The [DoDamageAnim](DoDamageAnim.md) call towards the end of DoDamage will have nosound set to true if block is false. NOTE: this is ignored if `NoDamageAnim` or `NoSound` is processed after|
+|11|NoSound|The [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end of DoDamage will have nosound set to true. NOTE: this is ignored if `NoDamageAnim` or `BlockSoundOnly` is processed after|
+|12|FailSound|The [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end of DoDamage will have fail set to true. NOTE: this is ignored if `NoDamageAnim` is processed after|
+|13|NoDamageAnim|There will not be a [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end of DoDamage. NOTE: processing this overrides any `NoSound`, `BlockSoundOnly`, `FailSound` and `FakeAnim` because the call won't happen|
+|14|BlockSoundOnly|The [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end of DoDamage will have nosound set to true if block is false. NOTE: this is ignored if `NoDamageAnim` or `NoSound` is processed after|
 |15|NoCounter|There will not be a [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) call in DoDamage (this does not cover a `Frostbite` [medal](../../Enums%20and%20IDs/Medal.md) counter which is done in CalculateBaseDamage)|
 |16|NoFall|Prevents an enemy party member from falling under any circumstances in CalculateBaseDamage if one is the target|
 |17|NoIceBreak|Prevents an enemy party member from thawing out when they have the `Freeze` [condition](../Actors%20states/Conditions.md) under any circumstances in CalculateBaseDamage if one is the target|
-|18|FakeAnim|The [DoDamageAnim](DoDamageAnim.md) call towards the end of DoDamage will have fakeanim set to true. NOTE: this is ignored if `NoDamageAnim` is processed after|
+|18|FakeAnim|The [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end of DoDamage will have fakeanim set to true. NOTE: this is ignored if `NoDamageAnim` is processed after|
 |19|DontAwake|Prevents the attack from removing the `Sleep` [condition](../Actors%20states/Conditions.md) on the target during the course of DoDamage. NOTE: CalculateBaseDamage can still remove it when inflicting a different status, check its documentation to learn more|
 |20|IgnoreNumb|Prevents the `Numb` [condition](../Actors%20states/Conditions.md) to have its defense apply during CalculateBaseDamage under any circumstances|

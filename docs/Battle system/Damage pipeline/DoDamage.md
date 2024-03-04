@@ -114,25 +114,25 @@ If the target doesn't have the `Shield` [condition](../Actors%20states/Condition
 [ShowComboMessage](../Visual%20rendering/ShowSuccessWord.md#showcombomessage) is called with target.battleentity and block as block.
 
 #### `NoSound`
-The [DoDamageAnim](DoDamageAnim.md) call towards the end will have nosound set to true. NOTE: this is ignored if `NoDamageAnim` or `BlockSoundOnly` is processed after
+The [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end will have nosound set to true. NOTE: this is ignored if `NoDamageAnim` or `BlockSoundOnly` is processed after
 
 #### `BlockSoundOnly`
-The [DoDamageAnim](DoDamageAnim.md) call towards the end will have nosound set to true if block is false. NOTE: this is ignored if `NoDamageAnim` or `NoSound` is processed after
+The [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end will have nosound set to true if block is false. NOTE: this is ignored if `NoDamageAnim` or `NoSound` is processed after
 
 #### `FailSound`
-The [DoDamageAnim](DoDamageAnim.md) call towards the end will have fail set to true. NOTE: this is ignored if `NoDamageAnim` is processed after
+The [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end will have fail set to true. NOTE: this is ignored if `NoDamageAnim` is processed after
 
 #### `NoDamageAnim`
-There will not be a [DoDamageAnim](DoDamageAnim.md) call towards the end of the method. NOTE: processing this overrides any `NoSound`, `BlockSoundOnly`, `FailSound` and `FakeAnim` because the call won't happen
+There will not be a [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end of the method. NOTE: processing this overrides any `NoSound`, `BlockSoundOnly`, `FailSound` and `FakeAnim` because the call won't happen
 
 #### `NoCounter`
 There will not be a [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) call later
 
 #### `FakeAnim`
-The [DoDamageAnim](DoDamageAnim.md) call towards the end will have fakeanim set to true. NOTE: this is ignored if `NoDamageAnim` is processed after
+The [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call towards the end will have fakeanim set to true. NOTE: this is ignored if `NoDamageAnim` is processed after
 
 #### `DontAwake`
-Prevents the attack from removing the `Sleep` [condition](../Actors%20states/Conditions.md) on the target later even if all conditions to do so are fufilled. This is only used as part of poison and fire damages from [AdvanceTurnEntity](../Actors%20states/AdvanceTurnEntity.md).
+Prevents the attack from removing the `Sleep` [condition](../Actors%20states/Conditions.md) on the target later even if all conditions to do so are fufilled. This is only used as part of poison and fire damages from [AdvanceTurnEntity](../Battle%20flow/AdvanceTurnEntity.md).
 
 ### Player damage processing
 This section only happens if the target is a player party member.
@@ -295,8 +295,8 @@ As for the actual condition, it's `DefenseDown` if the property is `DefDownOnBlo
 ### `NeedlePincer` [medal](../../Enums%20and%20IDs/Medal.md) processing
 If a heal was requested earlier as a result of blocking as a player party member with a `NeedlePincer` [medal](../../Enums%20and%20IDs/Medal.md), this is where the [Heal](../Actors%20states/Heal.md) call happens with the target as the entity and the ammount being the amount of `NeedlePincer` equipped on the target.
 
-### [DoDamageAnim](DoDamageAnim.md) call
-Unless there was a `NoDamageAnim` damage override processed earlier, [DoDamageAnim](DoDamageAnim.md) is called with these parameters:
+### [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) call
+Unless there was a `NoDamageAnim` damage override processed earlier, [DoDamageAnim](../Visual%20rendering/DoDamageAnim.md) is called with these parameters:
 
 - entity: target
 - damage: The final amount of damage calculated

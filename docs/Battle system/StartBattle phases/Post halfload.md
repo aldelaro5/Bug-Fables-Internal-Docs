@@ -9,7 +9,7 @@ This part only contains miscellaneous initialisations logic mainly about the `pl
 - All `enemydata` battleentity have their `rigid` gravity enabled
 - The `dimmer` gets childed to the `battlemap` with a clear color and then disabled (this reveals the scene as it was hidden earlier)
 - If instance.`firstbattleaction` is false TODO ???
-    - A [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) call starts with the first `playerdata` battleentity with action -555
+    - A [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) call starts with the first `playerdata` battleentity with action -555
     - All frames are yielded while `action` is true until it goes to false
     - 0.5 seconds are yielded
     - instance.`firstbattleaction` gets set to true
@@ -45,18 +45,18 @@ This part only happens if adv is 3:
 
 - `enemy` is set to true (We temporarilly go into the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase))
 - `firststrike` is set to true
-- [UpdateAnim](Visual%20rendering/UpdateAnim.md) is called
+- [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called
 - instance.`hudcooldown` is set to 10.0 which shows the main HP / TP HUD
 - instance.`showmoney` is set to -1.0 which hides the berry count HUD
 - `action` is set to true (enter an [uncontrolled flow](../Battle%20flow/Update%20flows/Uncontrolled%20flow.md))
-- [RefreshEnemyHP](Visual%20rendering/RefreshEnemyHP.md) is called
+- [RefreshEnemyHP](../Visual%20rendering/RefreshEnemyHP.md) is called
 - 0.15 seconds are yielded
-- A [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) call is started on `enemydata[0]` with action 0
+- A [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) call is started on `enemydata[0]` with action 0
 - All frames are yielded while `action` is true until it goes to false (Waits that DoAction is done)
 - `enemydata[0].tired` is set to 0
 - `enemydata[0].cantmove` is set to 0
 - `action` is set to true (goes back into an [uncontrolled flow](../Battle%20flow/Update%20flows/Uncontrolled%20flow.md))
-- A [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md) is started with the coroutine being stored in `checkingdead`
+- A [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) is started with the coroutine being stored in `checkingdead`
 - All frames are yielded while `checkingdead` is in progress
 - All `enemydata` have their `tired` and `cantmove` set to 0
 - `currentturns` is set to -1
@@ -77,27 +77,27 @@ If `saveddata` is true (this is a retry), SetStartConditions is called which wil
 
 After, all `playerdata`'s `condition`'s element that have a turn count of 0 or below are removed
 
-From there, the `RandomStart` [medal](../Enums%20and%20IDs/Medal.md) takes effect if it's equipped for each `playerdata` that has it. The effec involves a GetChance test that is performed with 16 weights with outcomes from 0 to 6 and what happens here depends on the result:
+From there, the `RandomStart` [medal](../../Enums%20and%20IDs/Medal.md) takes effect if it's equipped for each `playerdata` that has it. The effec involves a GetChance test that is performed with 16 weights with outcomes from 0 to 6 and what happens here depends on the result:
 
-- 0 (3/16): [StatusEffect](Actors%20states/Conditions%20methods/StatusEffect.md) is called on the `playerdata` with [AttackUp](../Actors%20states/BattleCondition/AttackUp.md) for 2 actor turns with effect
-- 1 (3/16): [StatusEffect](Actors%20states/Conditions%20methods/StatusEffect.md) is called on the `playerdata` with [DefenseUp](../Actors%20states/BattleCondition/DefenseUp.md) for 2 actor turns with effect
+- 0 (3/16): [StatusEffect](../Actors%20states/Conditions%20methods/StatusEffect.md) is called on the `playerdata` with [AttackUp](../Actors%20states/BattleCondition/AttackUp.md) for 2 actor turns with effect
+- 1 (3/16): [StatusEffect](../Actors%20states/Conditions%20methods/StatusEffect.md) is called on the `playerdata` with [DefenseUp](../Actors%20states/BattleCondition/DefenseUp.md) for 2 actor turns with effect
 - 2 (2/16): 
     - The `StatUp` sound is played if it wasn't already 
-    - [StatEffect](Visual%20rendering/StatEffect.md) is called with the battleentity using type 4 (green up arrow)
+    - [StatEffect](../Visual%20rendering/StatEffect.md) is called with the battleentity using type 4 (green up arrow)
     - The player party member's `charge` is incremented
 - 3 (2/16): If the `playerdata`'s `poisonres` is 100 or above (it's immune to poison), this is treated as an outcome of 2 described above. If it's not:
     - The `Poison` sound is played if it wasn't already
     - The `PoisonEffect` particles are played on the battleentity position
-    - [SetCondition](Actors%20states/Conditions%20methods/SetCondition.md) is called with [Poison](../Actors%20states/BattleCondition/Poison.md) on the player party member for 2 actor turns unless the `Eternal Venom` [medal](../Enums%20and%20IDs/Medal.md) is equipped on it where it's 99999 actor turns instead
-- 4 (2/16): The `StatUp` sound is played if it wasn't already followed by a [StatEffect](Visual%20rendering/StatEffect.md) coroutine being started with the battleentity using type 5 (yellow up arrow) followed by the `playerdata`'s `cantmove` being decremented (gives an additional actor turn)
+    - [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with [Poison](../Actors%20states/BattleCondition/Poison.md) on the player party member for 2 actor turns unless the `Eternal Venom` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on it where it's 99999 actor turns instead
+- 4 (2/16): The `StatUp` sound is played if it wasn't already followed by a [StatEffect](../Visual%20rendering/StatEffect.md) coroutine being started with the battleentity using type 5 (yellow up arrow) followed by the `playerdata`'s `cantmove` being decremented (gives an additional actor turn)
 - 5 (2/16): 
     - The `Heal3` sound is played if it wasn't already
     - The `MagicUp` particles being played on the battleentity position without sound
-    - [SetCondition](Actors%20states/Conditions%20methods/SetCondition.md) is called with [GradualHP](../Actors%20states/BattleCondition/GradualHP.md) on the player party member for 2 actor turns
+    - [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with [GradualHP](../Actors%20states/BattleCondition/GradualHP.md) on the player party member for 2 actor turns
 - 6 (2/16): 
     - The `Heal3` sound is played if it wasn't already
     - The `MagicUp` particles are played on the battleentity position without sound
-    - [SetCondition](Actors%20states/Conditions%20methods/SetCondition.md) is called with [GradualTP](../Actors%20states/BattleCondition/GradualTP.md) on the player party member for 2 actor turns
+    - [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called with [GradualTP](../Actors%20states/BattleCondition/GradualTP.md) on the player party member for 2 actor turns
 
 Finally, UpdateConditionIcons is called which calls UpdateConditionBubbles on the battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
 
