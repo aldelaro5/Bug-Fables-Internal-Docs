@@ -18,7 +18,7 @@ This part goes through each `condition` and acts on them. This part refers to wh
 
 There's 2 sections to this: alive advance and last advance.
 
-### Alive adance
+### Alive advance
 This section occur if the actor is alive and it depends on the `BattleCondtion`:
 
 - `Reflection`: The turn count of the condition is set to 0

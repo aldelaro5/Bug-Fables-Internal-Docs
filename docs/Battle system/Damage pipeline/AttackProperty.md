@@ -1,5 +1,5 @@
 # AttackProperty
-An AttackProperty is a parameter of [DoDamage](DoDamage.md) and they are also the elements allowed in the `weakness` field of BattleData (meant for enemy party members only). They influence the damage pipeline in various ways either at the specific call level when passed as a parameter to DoDamage or at the target level for an enemy party member's `weakness`. They mainly influence [CalculateBaseDamage](CalculateBaseDamage.md)'s logic.
+An AttackProperty is a parameter of [DoDamage](DoDamage.md) and they are also the elements allowed in the [weakness](../Actors%20states/Enemy%20features.md#weakness) field of BattleData (meant for enemy party members only). They influence the damage pipeline in various ways either at the specific call level when passed as a parameter to DoDamage or at the target level for an enemy party member's `weakness`. They mainly influence [CalculateBaseDamage](CalculateBaseDamage.md)'s logic.
 
 They are not to be confused with [DamageOverride](DamageOverride.md) which can only be sent to DoDamage as an array of them and have very different logic changes.
 

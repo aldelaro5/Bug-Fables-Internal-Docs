@@ -3,7 +3,7 @@ This method applies all the static [medals](../Enums%20and%20IDs/Medal.md) effec
 
 It first starts by resetting instance.`speedup` (an UNUSED field) to true and instance.`maxtp` to instance.`basetp`.
 
-ResetPlayerStats is called on player party member which resets  fields to defaults:
+ResetPlayerStats is called on player party member which resets fields to defaults:
 
 - `lockitems` to false
 - `lockskills` to false

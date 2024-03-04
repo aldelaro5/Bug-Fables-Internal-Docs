@@ -7,7 +7,7 @@ private IEnumerator GameOver(bool skipsetup)
 
 ## Parameters
 
-- `skipsetup`: If true, it will skip some setup logic at the start and only show the prompt immediately. This is meant only to be used recursively in an edge case where reloading the save file failed which lets the player remedy the problem before letting GameOver try again, but with less setups. This should NEVER be called with the value false for the first time because it will prevent to change to a [terminal flow](../Update.md#terminal-flow)
+- `skipsetup`: If true, it will skip some setup logic at the start and only show the prompt immediately. This is meant only to be used recursively in an edge case where reloading the save file failed which lets the player remedy the problem before letting GameOver try again, but with less setups. This should NEVER be called with the value true for the first time because it will prevent to change to a [terminal flow](../Update.md#terminal-flow)
 
 ## Procedure
 

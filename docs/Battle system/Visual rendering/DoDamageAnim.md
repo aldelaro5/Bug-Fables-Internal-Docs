@@ -56,5 +56,3 @@ There is a coroutine overload available that starts this one where `nosound`, `f
     - if entity has the `Sleep` [condition](../Actors%20states/Conditions.md), entity.battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 14 (`Sleep`)
     - Otherwise, if the entity is a player party member with an `hp` of 4 or below, its [animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 17 (`WeakBattleIdle`)
     - Otherwise, entity.battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to its value before this coroutine started unless it was 31 (`Dig`) or 32 (`DigMove`) where it's the `basestate` it had at the start instead
-
-

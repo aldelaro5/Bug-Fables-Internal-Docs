@@ -192,19 +192,19 @@ An action will may be set to trigger in the post item effects section depending 
 - `LonglegSummoner`: The -2 action id will be set to trigger
 - If the item id is in the following list, the 9 action id will be set to trigger:
     - `HardSeed`
-		-	`SpicyBomb`
-		-	`PoisonBomb`
-		-	`ClearBomb`
-		-	`NumbDart`
-		-	`Ice`
-		-	`FrostBomb`
-		-	`NumbBomb`
-		-	`SleepBomb`
-		-	`Abombhoney`
-		-	`PoisonDart`
-		-	`CherryBomb`
-		-	`BurlyBomb`
-		-	`FlameRock`
+	- `SpicyBomb`
+	- `PoisonBomb`
+	- `ClearBomb`
+	- `NumbDart`
+	- `Ice`
+	- `FrostBomb`
+	- `NumbBomb`
+	- `SleepBomb`
+	- `Abombhoney`
+	- `PoisonDart`
+	- `CherryBomb`
+	- `BurlyBomb`
+	- `FlameRock`
 
 ## Post item effects
 
