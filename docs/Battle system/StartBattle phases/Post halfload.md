@@ -8,8 +8,8 @@ This part only contains miscellaneous initialisations logic mainly about the `pl
 
 - All `enemydata` battleentity have their `rigid` gravity enabled
 - The `dimmer` gets childed to the `battlemap` with a clear color and then disabled (this reveals the scene as it was hidden earlier)
-- If instance.`firstbattleaction` is false TODO ???
-    - A [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) call starts with the first `playerdata` battleentity with action -555
+- If instance.`firstbattleaction` is false (this is the first StartBattle call since the save was loaded)
+    - A [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) call starts with the first `playerdata` battleentity with action -555. -555 is a special value that will bypass most meaningful logic of the coroutine. In other words, it can be viewed as doing a blank call: nothing of note will happen and no actual action will be processed. The reason this is done has to do with a performance issue with DoAction where its IL code is large enough to stutter the game when compiling it with the JIT and this provokes this stutters early. Because this is done right before the battle out transition, it's less perceivable than if it was on the first action, hence this odd logic.
     - All frames are yielded while `action` is true until it goes to false
     - 0.5 seconds are yielded
     - instance.`firstbattleaction` gets set to true

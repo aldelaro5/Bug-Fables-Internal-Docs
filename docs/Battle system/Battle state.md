@@ -287,10 +287,4 @@ These fields belongs to MainManager, but they are mostly related to BattleContro
 |lastitemuser|int|Yes|The last player party member's `trueid` who used an item via [UseItem](Battle%20flow/Action%20coroutines/UseItem.md)|
 |lastdefeated|List<int>|No|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md) detected were killed due to their `hp` reaching 0 or below. Set to a new list on [StartBattle](StartBattle.md) and reset to a new list after processing drops during the [Death](../Entities/EntityControl/Notable%20methods/Death.md) of the [Enemy](../Entities/NPCControl/Enemy.md) NPCControl if the battle was caused by a regular encounter|
 |battleresult|bool|Yes|Whether the battle ended by winning (fleeing don't count) Set to true on [StartBattle](StartBattle.md) and set to false during [TryFlee](Battle%20flow/Action%20coroutines/TryFlee.md) (when succeeding) and during [DeadParty](Battle%20flow/Terminal%20coroutines/DeadParty.md)|
-
-### Uncategorised fields
-These fields's semantics haven't been found yet. They will be moved out of this section as they are figured out.
-
-|Name|Type|Static?|Description|
-|----|----|---------|-----------|
-|firstbattleaction|bool|No|??? TODO: this field is very strange in general|
+|firstbattleaction|bool|No|This is only set to true on the first [StartBattle](StartBattle.md) call since the last save load and it is used to apply an optimisation that involves a dummy [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) call. This is only needed on the first StartBattle call so when true, this optimisation doesn't happen again|

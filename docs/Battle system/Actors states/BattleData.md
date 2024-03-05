@@ -52,7 +52,7 @@ These fields only applies to enemy party members.
 |sizeonfreeze|float|The size returned by GetEnemySize when the enemy party member has the `Frozen` [condition](Conditions.md) instead of its `size`|
 |initialsize|float|The initial `size` value of the enemy party member. `size` will be set to this value when [BreakIce](../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) is called on the battleentity|
 |battlepos|Vector3|The resting battle position of the enemy party members used only in an [EventDialogue](../Battle%20flow/EventDialogue.md)|
-|delayedcondition|List<int>|A list of [conditions](Conditions.md) (only the `BattleCondition` part) added by the damage pipeline that will be inflicted later un [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) TODO: learn more during damage pipeline docs|
+|delayedcondition|List<int>|A list of [conditions](Conditions.md) (only the `BattleCondition` part) added by the damage pipeline that will be inflicted later un [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md)|
 |data|int\[\]|General purpose data array for use in [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md)|
 |ate|EntityControl|The entity this enemy party member is trapping via eating (this is only used for the `Pitcher` [enemy](../../Enums%20and%20IDs/Enemies.md))|
 |position|BattlePosition|The logical battle position frequently used to determine target availability|
@@ -61,9 +61,9 @@ These fields only applies to enemy party members.
 |cantfall|bool|If true, the enemy party member cannot fall to the ground as a result of sustaining damage|
 |notaunt|bool|If true, the enemy party member cannot be inflicted by the `Taunted` [condition](Conditions.md) from the player party|
 |notired|bool|If true, the enemy will not cumulated any `tired` (meaning it can't gain exhaustion) whenever the `DoublePain` [medal](../../Enums%20and%20IDs/Medal.md) is not equipped|
-|actimmobile|bool|??? TODO: involved in checks to see if the enemy is active|
-|weakness|List<AttackProperty>|The list of properties that applies for attacks on this ??? TODO: it's not just weaknesses, for some reasons, alwayssurvive placed in this case make the enemy always survive, heavily involved in the damage pipeline|
-|lockposition|bool|??? TODO: involved in the damage pipeline|
+|actimmobile|bool|???|
+|weakness|List<AttackProperty>|The list of properties that applies for attacks on this ???|
+|lockposition|bool|???|
 
 ## Common actor fields
 These fields applies to actors for either parties.

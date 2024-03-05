@@ -1,7 +1,7 @@
 # CheckDead
 This is an action coroutine that runs at specific points during the battle to check the health of every actors and if any are found dead when they weren't before, the coroutine performs the process to kill them properly mainly by calling [Death](../../../Entities/EntityControl/Notable%20methods/Death.md#death) on their battleentity. The coroutine is usually stored on the `checkingdead` field which tracks whether or not a CheckDead is in progress, but other coroutines may use this field.
 
-TODO: figure out the implications of other coroutines using this field
+NOTE: This field is shared by other coroutines, but as long as care is taken such that no collisions happens, this is fine. Under normal gameplay, this is normally safe.
 
 The coroutine does nothing if `gameover` is in progress. In that case, `checkingdead` is set to null followed by a yield break.
 
@@ -65,7 +65,7 @@ The following happens if CheckDead found the enemy hasn't `fled` meaning they we
     - `money` is set to 0
 - Otherwise if `inevent` is false, `inevent` is set to true followed by an [EventDialogue](../EventDialogue.md) starting with `eventondeath` as the id
 - If the current enemy party member index is still valid TODO: confirm that no event dialogue can render it invalid as this seems unlikely:
-    - If `deathtype` is 2, 3, 4 or 5, the enemy party member is added to `reservedata` TODO: document the deathtype as this makes it possible
+    - If [deathtype](../../Actors%20states/Enemy%20features.md#deathtype) is 2, 3, 4 or 5, the enemy party member is added to `reservedata`
     - The `animid` (the [enemy](../../../Enums%20and%20IDs/Enemies.md) id) is added to instance.`lastdefeated`
 
 ### Cleanup and `diebyitself` rechecks
