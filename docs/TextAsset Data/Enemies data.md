@@ -37,7 +37,7 @@ The asset contains one line per [enemy](../Enums%20and%20IDs/Enemies.md) whose i
 |20|battleentity.height|float|The `height` of the entity, If the `position` is `Flying` and the value is below 2.0, it is overriden to 2.0|
 |21|battleentity.bobspeed|float|The `bobspeed` of the entity|
 |22|battleentity.bobrange|float|The `bobrange` of the entity|
-|23|weakness|`{` separated list of AttackProperty (int or string)|The list of attack properties the enemy ??? TODO: could be more than weaknesses|
+|23|weakness|`{` separated list of AttackProperty (int or string)|The list of [AttackProperty](../Battle%20system/Damage%20pipeline/AttackProperty.md)|
 |24|weight|float|???|
 |25|Base [Enemy](../Enums%20and%20IDs/Enemies.md) id (loaded as animid)|int|The [Enemy](../Enums%20and%20IDs/Enemies.md) id that this is a variant of (see the section below about enemy variant for details), can be omitted by putting any negative number|
 |26|eventondeath|int|The EventDialogue to trigger when the enemy dies ???|
@@ -47,8 +47,8 @@ The asset contains one line per [enemy](../Enums%20and%20IDs/Enemies.md) whose i
 |30|fixedexp|bool|Tells if the exp field should not be scaled and is a fixed number (see the section below about EXP for details)|
 |31|notired|bool|???|
 |32|hidehp|bool|Tells if the HP of the enemy should always be hidden even after spying|
-|33|deathtype|int|The manner in which the enemy dies (This isn't a DeathType, see the `battleentity` section below for details on how it is mapped) TODO: there might be more to this|
-|34|chargeonotherenemy|`;` separated list of int or `-1` or empty|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that will cause this enemy to perform a `hitaction` when any enemy id in that list takes damages in the player phase. See the special fields logic section below for more details on which format gives what value TODO: seems reasonable, but recheck to make sure|
+|33|deathtype|int|The manner in which the enemy dies (This isn't a DeathType, more on the [deathtype](../Battle%20system/Actors%20states/Enemy%20features.md#deathtype) documentation)|
+|34|chargeonotherenemy|`;` separated list of int or `-1` or empty|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that will cause this enemy to perform a `hitaction` when any enemy id in that list takes damages in the player phase. See the special fields logic section below for more details on which format gives what value|
 |35|hardatk|int|The amount to increase the attack on Hard Mode or EX (see the section below about difficulty scaling for details). Not loaded if the hard difficulty scaling doesn't apply and the value remains at 0|
 |36|<No field>|int|The base amount to increase the max HP on Hard Mode, EX or HARDEST (this is NOT `hardhp` which stays at 0 and is unused). See the section below about difficulty scaling for details|
 |37|<No field>|int|The base amount to increase the defense on Hard Mode, EX or HARDEST (this is NOT `hardef` which stays at 0 and is unused). See the section below about difficulty scaling for details|
@@ -62,7 +62,7 @@ The asset contains one line per [enemy](../Enums%20and%20IDs/Enemies.md) whose i
 |45|eventonfall|int|The EventDialogue to trigger when the enemy falls ???|
 |46|onhitaction|int|If 1, the enemy will process a `hitaction` when hit. If 2, it will only when its `position` is `Flying` and if 3, it will only when its `position` is `Ground`|
 |47|actimmobile|bool|???|
-|48|sizeonfreeze|float|The size of the enemy on freeze. If the value is less than 0.1, it is be overriden to `size` + 0.25 TODO: why is this separate than the entity one ???|
+|48|sizeonfreeze|float|The size of the enemy on freeze. If the value is less than 0.1, it is be overriden to `size` + 0.25. More details at [sizeonfreeze](../Battle%20system/Actors%20states/Enemy%20features.md#sizeonfreeze) documentation|
 
 The data will be loaded by into `enemydata[id, x]`, where `id` is the [enemy](../Enums%20and%20IDs/Enemies.md) id and `x` is the loaded index. On the pause menu, every lines is loaded into `enemydata` all at once, but the meanings do not change.
 
@@ -124,21 +124,7 @@ When createentity is true, on top of actually creating the entity and setting it
     - `battleentity.height` and `battleentity.initialheight` are set to 0.0
 - If the field 42 of `enemydata` is true, `battleentity.basestate` is set to 13 (`BattleIdle`)
 
-After this, the `entity.destroytype` gets mapped to a DeathType depending on the value of the `BattleData`'s `deathtype` (this also changes the `battleentity`'s because they hold the same reference):
-
-|deathtype|entity.destroytype|
-|--------:|------------------|
-|0 / 3|SpinSmoke|
-|1|SpinNoSmoke|
-|2 / 4|KO|
-|5|SpinKO|
-|6|Shrink|
-|7|ShrinkNoSmoke|
-|8|None|
-|9|Sink|
-|10|ExplodeAnim|
-|11|DropSprites|
-|12|TODO: ???|
+After this, the `entity.destroytype` gets mapped to a DeathType depending on the value of the `BattleData`'s [deathtype](../Battle%20system/Actors%20states/Enemy%20features.md#deathtype) (this also changes the `battleentity`'s because they hold the same reference).
 
 #### Exp logic
 The `exp` field has particularily complex logic to determine its value:
