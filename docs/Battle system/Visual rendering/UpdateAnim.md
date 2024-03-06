@@ -15,7 +15,7 @@ There are 2 parts to this: the player party members one and the enemy party memb
 ### Players
 This applies to each element of `playerdata`.
 
-The enablement of the corresponding `tiredpart` has its enablement changed to be enabled only when the corresponding `receivedrelay` is true, the player `hp` is above 0 and its `tired` is above 0. It is disabled otherwise.
+The enablement of the corresponding `tiredpart` has its enablement changed to be enabled only when the corresponding `receivedrelay` is true, the player `hp` is above 0 and its `tired` is above 0. It is disabled otherwise. NOTE: This logic is incorrect because `receivedrelay` is only set to true when the player party member received a [Relay](../Battle%20flow/Action%20coroutines/Relay.md) or when the player party member was in front and [StartBattle](../StartBattle.md) was called from an encounter with an [Enemy NPCControl](../../Entities/NPCControl/Enemy.md) while it had a `dizzytime`. This doesn't cover the cases involving the `StrongStart` [medal](../../Enums%20and%20IDs/Medal.md) and consuming multiple actor turns granted via `moreturnnextturn`.
 
 The rest of the logic isn't done if the player's battleentity.`overrideanim` is true.
 

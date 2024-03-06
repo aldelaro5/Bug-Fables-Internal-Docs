@@ -7,7 +7,7 @@ This method processes any [controlled flow](Update.md#controlled-flow) during th
     - [ItemList](../../ItemList/ItemList.md)'s `inlist` is set to false
     - For each `playerdata`:
         - If the actor isn't [IsStopped](../Actors%20states/IsStopped.md#isstopped), its battleentity.`overrideanim` is set to false
-        - If battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is 24 (`Block`), [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called and the `playerdata` loop exited TODO: odd that it stops there considering the overrideanim field...
+        - If battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is 24 (`Block`), [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called and the `playerdata` loop exited. NOTE: it means not all player party member might have their `overrideanim` set to false when not stopped, but in practice, this doesn't impact anything negatively under normal gameplay
 - If `choicevine` doesn't exist, it is created via CreateVine:
     - `choicevine` is created as a new GameObject named `Vine`
     - `vineicons` is created as new array of length `maxoptions`

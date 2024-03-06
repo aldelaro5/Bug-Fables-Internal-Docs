@@ -11,7 +11,7 @@ private IEnumerator GameOver(bool skipsetup)
 
 ## Procedure
 
-- `alreadyending` is set to true TODO: what is this
+- `alreadyending` is set to true. This prevents [AddExperience](AddExperience.md) or [EventDialogue](../EventDialogue.md) 19 (The `Pitcher` [enemy](../../../Enums%20and%20IDs/Enemies.md) spit out event) from switching to a [terminal flow](../Update%20flows/Terminal%20flow.md)
 - [ItemList](../../../ItemList/ItemList.md)'s `listredirect` is set to -1 (this workarounds a potential [inlist issue](../../../ItemList/inlist%20issue.md) that can happen as a result of the [SetText](../../../SetText/SetText.md) call later)
 - The [SetText](../../../SetText/SetText.md) string is prepared and it starts with `|`[boxstyle](../../../SetText/Individual%20commands/Boxstyle.md)`,-1|` which renders without a dialogue box. This string will get appended when needed later
 

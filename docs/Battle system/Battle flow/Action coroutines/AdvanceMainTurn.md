@@ -77,7 +77,7 @@ If any `delprojs` landed:
 - All frames are yielded while `checkingdead` is in progress
 - `action` is set again to true
 - A frame is yielded
-- All actors from both parties with a `cantmove` below 1 (at least one action available) gets their `cantmove` clamped from 1 to 99 (forcing at least one turn needed before an action is available) TODO: this seems very strange and looks like it could break things, recheck
+- All actors from both parties with a `cantmove` below 1 (at least one action available) gets their `cantmove` clamped from 1 to 99 (forcing at least one turn needed before an action is available). This in practice doesn't do anything destructive because `moreturnnextturn` is granted later correctly and it's not possible to have a meaningul `cantmove` above 0 by this point (if it happened, it likely means the player party member [IsStopped](../../Actors%20states/IsStopped.md) which imply that when the stopping [condition](../../Actors%20states/Conditions.md) gets removed, the `cantmove` will reset anyway).
 - `currentturn` is set to 1 (deselects any previously selected player party member)
 - 0.5 seconds are yielded
 

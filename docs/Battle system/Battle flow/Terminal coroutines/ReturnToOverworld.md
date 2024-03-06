@@ -116,8 +116,7 @@ The logic here depends on instance.`inevent`.
     - If `music[0]`.name is `LevelUp` and `map.nobattlemusic` is true, ChangeMusic is called which will change the music to either silence or to `map.music[map.musicid]` if it exists
 - A frame is yielded
 - If MainManager.`keepmusicafterbattle` is true, MainManager.`musicresume` is set to `overmusic`
-- ChangeMusic is called with the `overworldmusic` TODO: this means ChangeMusic is potentially called twice, recheck the implications
-- Ressources.UnloadUnusedAssets is called
+- ChangeMusic is called with the `overworldmusic`. NOTE: It can mean ChangeMusic is called twice, but the second one will stop the first via a StopCoroutine
 - MainCamera's parent angles are set to instance.`camangleoffset`
 - A frame is yielded
 - A fade in from pure black is performed via PlayTransition with a speed of 0.05 which undoes the fade earlier

@@ -64,7 +64,7 @@ The following happens if CheckDead found the enemy hasn't `fled` meaning they we
     - entity.`spitexp` is set to the amount of EXP determined earlier
     - `money` is set to 0
 - Otherwise if `inevent` is false, `inevent` is set to true followed by an [EventDialogue](../EventDialogue.md) starting with `eventondeath` as the id
-- If the current enemy party member index is still valid TODO: confirm that no event dialogue can render it invalid as this seems unlikely:
+- If the current enemy party member index is still valid (protects against an edgecase that can involve [EventDialogue](../EventDialogue.md) 9 which involves the `Acolyte` [enemy](../../../Enums%20and%20IDs/Enemies.md)):
     - If [deathtype](../../Actors%20states/Enemy%20features.md#deathtype) is 2, 3, 4 or 5, the enemy party member is added to `reservedata`
     - The `animid` (the [enemy](../../../Enums%20and%20IDs/Enemies.md) id) is added to instance.`lastdefeated`
 

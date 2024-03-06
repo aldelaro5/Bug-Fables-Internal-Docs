@@ -18,6 +18,6 @@ The condition is searched and if it's not found, nothing happens.
 If it's found, some specific `BattleCondition` has a side effect for its removal that will be performed:
 
 - `Numb` or `Sleep`: RefreshCondition is called on the actor's battleentity which updates the actor's `isasleep` and `isnumb` fields according to an [HasCondition](HasCondition.md) call for `Sleep` and `Numb` respectively.
-- `Freeze`: The actor's entity (not its battleentity) has [BreakIce](../../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md) called on it. TODO: for a player party member, this might be useless and have side effects on the overworld entity, recheck
+- `Freeze`: The actor's entity (not its battleentity) has [BreakIce](../../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) called on it. NOTE: This is technically wrong because it calls the method on the overworld entity instead of the battle one, but this will effectively not do anything destructive since the `icecube` of the entity is null. It however means that the caller is instead responsible for calling the method correctly which the game does in every circumstances under normal gameplay.
 
 NOTE: If multiple occurences of the condition exists, only the first one is removed.

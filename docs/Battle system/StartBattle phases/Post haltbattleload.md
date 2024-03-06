@@ -6,7 +6,7 @@ This phase occurs after the `haltbattleload` yield, but before battle.`halfload`
 ## Further initialisations
 This part only contains miscellaneous initialisations logic:
 
-- If the stageid is `FarGrasslands`, the existing RenderSettings.fogEndDistance is saved into `fogdist` while it gets overriden to 75.0 TODO ???
+- If the stageid is `FarGrasslands`, the existing RenderSettings.fogEndDistance is saved into `fogdist` while it gets overriden to 75.0 (this adds a foggy effect more suitable visuablly for this [BattleMap](../../Enums%20and%20IDs/BattleMaps.md))
 - The money HUD is hidden by setting instance.showmoney to -1
 - MainManager.RefreshHUDValues is called which forces the displayed hp, tp and berry count to their real ones
 - If `tskybox` exists (meaning this is a retry as it was saved before the StartBattle call), RenderSettings.skybox is set to it
@@ -235,7 +235,7 @@ This part only contains miscellaneous initialisations logic before `halfload` is
 - We exit the `pause` entered earlier
 - If there's more than one `playerdata` element, then as long as the first `partypointer` doesn't match the first instance.`partyorder` (meaning the `battle` doesn't point to the leading party member), a [SwitchParty](../Battle%20flow/Action%20coroutines/SwitchParty.md) action coroutine is started with fast (which ends up calling MainManager.SwitchParty immediately) followed by a frame yield until they both match NOTE: it does mean the coroutine calls can be spammed, but in theory, the while condition gets updated information everytime since the StartCoroutine call immediately causes the party to be updated. For more information on why this is done, check [battle party addressing](../playerdata%20addressing.md#methods-of-addressing-durring-battle).
 - If calledfrom exists with a `dizzytime` above 0.0:
-    - The `playerdata` with a `trueid` (which is the [animid](../../Enums%20and%20IDs/AnimIDs.md)) that matches the first `partypointer` is found and its `cantmove` is set to -1 and `receivedrelay` of the corresponding `playerdata` index is set to true. This essentially gives an additional turn to the lead party member and also allows their `tiredpart` to be enabled by [UpdateAnim](../Visual%20rendering/UpdateAnim.md). TODO: seems to neglect more turn next turn and strong start...
+    - The `playerdata` with a `trueid` (which is the [animid](../../Enums%20and%20IDs/AnimIDs.md)) that matches the first `partypointer` is found and its `cantmove` is set to -1 and `receivedrelay` of the corresponding `playerdata` index is set to true. This essentially gives an additional turn to the lead party member and also allows their `tiredpart` to be enabled by [UpdateAnim](../Visual%20rendering/UpdateAnim.md)
     - calledfrom.`dizzytime` is set to 0.0
 - If the `StrongStart` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on a party member, the corresponding `playerdata` gets its `cantmove` decremented which gives it an additional turn
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
