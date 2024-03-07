@@ -260,10 +260,10 @@ If the target is a player party member with an `hp` of 0 (meaning it just died a
 ### Target waking up
 This section only applies if all of the following is true:
 
-- The target has the `Sleep` [condition](../Actors%20states/Conditions.md)
+- The target had the `Sleep` [condition](../Actors%20states/Conditions.md) at the start of the method
 - The property isn't `Sleep`
 - target.`hp` is above 0
-- The final damage amount calculated earlier is above 0. NOTE: [CalculateBaseDamage](CalculateBaseDamage.md) may override this if the property is one of the status infliction one (except `Flip`) and the infliction occured because this clause isn't part of the damage calculation
+- The final damage amount calculated earlier is above 0. NOTE: [CalculateBaseDamage](CalculateBaseDamage.md) may override this if the property is one of the status infliction one (except `Flip`) and the infliction occured because this clause isn't part of the damage calculation. This means that if the amount is 0, but an infliction removing `Sleep` occured, the `cantmove` won't change which is a different logic than this method enforces
 - There was no `DamageOverride` of `DontAwake` processed earlier
 - If the target is an player party member, the `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) must not be equipped
 

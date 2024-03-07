@@ -22,10 +22,10 @@ The asset contains one line per [enemy](../Enums%20and%20IDs/Enemies.md) whose i
 |5|cursoroffset.x|float|The x component of the offset to apply to the selection cursor upon targeting the enemy|
 |6|cursoroffset.y|float|The y component of the offset to apply to the selection cursor upon targeting the enemy|
 |7|cursoroffset.z|float|The z component of the offset to apply to the selection cursor upon targeting the enemy|
-|8|poisonres|int|The poison resistance of the enemy|
-|9|freezeres|int|The freeze resistance of the enemy|
-|10|numbres|int|The numb resistance of the enemy|
-|11|sleepres|int|The sleep resistance of the enemy|
+|8|poisonres|int|The base [poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) resistance of the enemy|
+|9|freezeres|int|The base [freeze](../Battle%20system/Actors%20states/BattleCondition/Freeze.md) resistance of the enemy|
+|10|numbres|int|The base [numb](../Battle%20system/Actors%20states/BattleCondition/Numb.md) resistance of the enemy|
+|11|sleepres|int|The base [sleep](../Battle%20system/Actors%20states/BattleCondition/Sleep.md) resistance of the enemy|
 |12|size|float|The width of the enemy used for calculating positioning|
 |13|battleentity.freezesize.x|float|The x component of the ice cube size when the entity is frozen|
 |14|battleentity.freezesize.y|float|The y component of the ice cube size when the entity is frozen|
@@ -33,36 +33,36 @@ The asset contains one line per [enemy](../Enums%20and%20IDs/Enemies.md) whose i
 |16|battleentity.freezeoffset.x|float|The x component of the ice cube offset from the entity's center when the entity is frozen|
 |17|battleentity.freezeoffset.y|float|The y component of the ice cube offset from the entity's center when the entity is frozen|
 |18|battleentity.freezeoffset.z|float|The z component of the ice cube offset from the entity's center when the entity is frozen|
-|19|position|BattlePosition (string or int)|The battle position of the enemy on the battle field (`Random` has special logic, see the special fields logic section below for details)|
-|20|battleentity.height|float|The `height` of the entity, If the `position` is `Flying` and the value is below 2.0, it is overriden to 2.0|
+|19|[position](../Battle%20system/Actors%20states/BattlePosition.md)|`BattlePosition` (string or int)|The starting battle position of the enemy on the battle field (`Random` has special logic, see the special fields logic section below for details)|
+|20|battleentity.height|float|The `height` of the entity, If the [position](../Battle%20system/Actors%20states/BattlePosition.md) is `Flying` and the value is below 2.0, it is overriden to 2.0|
 |21|battleentity.bobspeed|float|The `bobspeed` of the entity|
 |22|battleentity.bobrange|float|The `bobrange` of the entity|
-|23|weakness|`{` separated list of AttackProperty (int or string)|The list of [AttackProperty](../Battle%20system/Damage%20pipeline/AttackProperty.md)|
-|24|weight|float|???|
-|25|Base [Enemy](../Enums%20and%20IDs/Enemies.md) id (loaded as animid)|int|The [Enemy](../Enums%20and%20IDs/Enemies.md) id that this is a variant of (see the section below about enemy variant for details), can be omitted by putting any negative number|
-|26|eventondeath|int|The EventDialogue to trigger when the enemy dies ???|
-|27|moves|int|The amount of actions the enemy has normally each turn during the enemy phase|
-|28|notaunt|bool|Tells if the enemy can't be taunted ???|
-|29|cantfall|bool|Tells if the enemy cannot fall ???|
+|23|[weakness](../Battle%20system/Actors%20states/Enemy%20features.md#weakness)|`{` separated list of AttackProperty (int or string)|The list of [AttackProperty](../Battle%20system/Damage%20pipeline/AttackProperty.md) that applies to this enemy|
+|24|[weight](../Battle%20system/Actors%20states/Enemy%20features.md#weight)|float|A visual modifier that controls if and how much the enemy can get launched if attacked, should be between 0.0 (furthest launch) and 100.0 (no launch)|
+|25|Base [Enemy](../Enums%20and%20IDs/Enemies.md) id (loaded as animid)|int|The [Enemy](../Enums%20and%20IDs/Enemies.md) id that this is a variant of (see the section below about enemy variant for details), can be omitted if it's a negative number|
+|26|[eventondeath](../Battle%20system/Actors%20states/Enemy%20features.md#eventondeath)|int|The [EventDialogue](../Battle%20system/Battle%20flow/EventDialogue.md) to trigger when the enemy dies as detected by [CheckDead](../Battle%20system/Battle%20flow/Action%20coroutines/CheckDead.md), can be ommited if it's -1|
+|27|[moves](../Battle%20system/Actors%20states/Enemy%20features.md#moves)|int|The amount of actor turn the enemy has normally each main turn during the [enemy phase](../Battle%20system/Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase)|
+|28|[notaunt](../Battle%20system/Actors%20states/Enemy%20features.md#notaunt)|bool|Tells if the enemy can't receive the [Taunted](../Battle%20system/Actors%20states/BattleCondition/Taunted.md) condition by using the `Taunt` [skill](../Enums%20and%20IDs/Skills.md)|
+|29|[cantfall](../Battle%20system/Actors%20states/Enemy%20features.md#cantfall)|bool|Tells if the enemy cannot drop or have its [position](../Battle%20system/Actors%20states/BattlePosition.md) set to `Ground`|
 |30|fixedexp|bool|Tells if the exp field should not be scaled and is a fixed number (see the section below about EXP for details)|
-|31|notired|bool|???|
-|32|hidehp|bool|Tells if the HP of the enemy should always be hidden even after spying|
-|33|deathtype|int|The manner in which the enemy dies (This isn't a DeathType, more on the [deathtype](../Battle%20system/Actors%20states/Enemy%20features.md#deathtype) documentation)|
-|34|chargeonotherenemy|`;` separated list of int or `-1` or empty|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that will cause this enemy to perform a `hitaction` when any enemy id in that list takes damages in the player phase. See the special fields logic section below for more details on which format gives what value|
+|31|[notired](../Battle%20system/Actors%20states/Enemy%20features.md#notired)|bool|Tells if exhaution increases won't happen if they were set to happen normally (with caveats, check the documentation of the feature to learn more)|
+|32|[hidehp](../Battle%20system/Actors%20states/Enemy%20features.md#hidehp)|bool|Tells if the `hp` and `def` stats of the enemy should not be shown even after spying|
+|33|[deathtype](../Battle%20system/Actors%20states/Enemy%20features.md#deathtype)|int|The manner in which the enemy dies (This isn't a `DeathType`, more on the feature's documentation)|
+|34|[chargeonotherenemy](../Battle%20system/Actors%20states/Enemy%20features.md#chargeonotherenemy)|`;` separated list of int or `-1` or empty|The list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that will cause this enemy to perform a [hitaction](../Battle%20system/Actors%20states/Enemy%20features.md#hitaction) when any enemy id in that list takes damages in the player phase. See the feature's documentation to learn more. This field also has special loading logic, check the section below for more details|
 |35|hardatk|int|The amount to increase the attack on Hard Mode or EX (see the section below about difficulty scaling for details). Not loaded if the hard difficulty scaling doesn't apply and the value remains at 0|
-|36|<No field>|int|The base amount to increase the max HP on Hard Mode, EX or HARDEST (this is NOT `hardhp` which stays at 0 and is unused). See the section below about difficulty scaling for details|
-|37|<No field>|int|The base amount to increase the defense on Hard Mode, EX or HARDEST (this is NOT `hardef` which stays at 0 and is unused). See the section below about difficulty scaling for details|
-|38|defenseonhit|int|The amount to increase the defense on hit ???|
+|36|<No field>|int|The base amount to increase the max HP on Hard Mode, EX or HARDEST (this is NOT `hardhp` which stays at 0 and is UNUSED). See the section below about difficulty scaling for details|
+|37|<No field>|int|The base amount to increase the defense on Hard Mode, EX or HARDEST (this is NOT `hardef` which stays at 0 and is UNUSED). See the section below about difficulty scaling for details|
+|38|[defenseonhit](../Battle%20system/Actors%20states/Enemy%20features.md#defenseonhit-and-isdefending)|int|The amount of point of defenses granted to the enemy when `isdefending` is true (check the feature's documentation to learn more)|
 |39|itemoffset.x|float|The x component of the offset to render an item relative to the enemy|
 |40|itemoffset.y|float|The y component of the offset to render an item relative to the enemy|
 |41|itemoffset.z|float|The z component of the offset to render an item relative to the enemy|
-|42|<No field>|bool|If true, the `battleentity.basestate` is set to 13 (`BattleIdle`)|
+|42|<No field>|bool|If true, the battleentity.`basestate` is set to 13 (`BattleIdle`)|
 |43|Portrait sprite index|int|Index of the sprite in `Sprites/Items/EnemyPortraits` (if this is negative, this defaults to the enemy id, see the section below about this for more details)|
-|44|notattle|bool|Tells if the enemy is not spy-able (this can be overriden to true, see the section about special fields logic for details)|
-|45|eventonfall|int|The EventDialogue to trigger when the enemy falls ???|
-|46|onhitaction|int|If 1, the enemy will process a `hitaction` when hit. If 2, it will only when its `position` is `Flying` and if 3, it will only when its `position` is `Ground`|
-|47|actimmobile|bool|???|
-|48|sizeonfreeze|float|The size of the enemy on freeze. If the value is less than 0.1, it is be overriden to `size` + 0.25. More details at [sizeonfreeze](../Battle%20system/Actors%20states/Enemy%20features.md#sizeonfreeze) documentation|
+|44|[notattle](../Battle%20system/Actors%20states/Enemy%20features.md#notattle)|bool|Tells if the enemy is not spy-able. Check the feature's documentation for more details. This fields also has special loading logic that can override it to true, check the section below for more detials|
+|45|[eventonfall](../Battle%20system/Actors%20states/Enemy%20features.md#eventonfall)|int|The [EventDialogue](../Battle%20system/Battle%20flow/EventDialogue.md) to trigger when the enemy drops, can be ommited if it's -1|
+|46|[onhitaction](../Battle%20system/Actors%20states/Enemy%20features.md#onhitaction)|int|If 1, the enemy will process a [hitaction](../Battle%20system/Actors%20states/Enemy%20features.md#hitaction) when hit. If 2, it will only when its [position](../Battle%20system/Actors%20states/BattlePosition.md) is `Flying` and if 3, it will only when its `position` is `Ground`|
+|47|[actimmobile](../Battle%20system/Actors%20states/Enemy%20features.md#actimmobile)|bool|Prevent `cantmove` to be anything higher than 0 or [IsStopped](../Battle%20system/Actors%20states/IsStopped.md) to return true as a result of being inflicted with a stopping [condition](../Battle%20system/Actors%20states/Conditions.md). This works for most, but not all cases, check the feature's documentation to learn more|
+|48|[sizeonfreeze](../Battle%20system/Actors%20states/Enemy%20features.md#sizeonfreeze)|float|The size of the enemy on freeze. If the value is less than 0.1, it is be overriden to `size` + 0.25, check the feature's documentation to learn more|
 
 The data will be loaded by into `enemydata[id, x]`, where `id` is the [enemy](../Enums%20and%20IDs/Enemies.md) id and `x` is the loaded index. On the pause menu, every lines is loaded into `enemydata` all at once, but the meanings do not change.
 

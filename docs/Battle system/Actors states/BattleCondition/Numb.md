@@ -9,6 +9,12 @@ It is mentioned here because it remains important to make sure this field is upd
 ## Resistance
 This condition has a dedicated resistance field for actors to use: `numbres`. If it's 100 or above, the actor is immune to it. Inflictions that requires a resistance check will use this field.
 
+## Resistance increases for player party members
+For player party member, the resistance can only be increased by processing the `NumbRes` [BadgeEffects](../../../TextAsset%20Data/Medals%20data.md#medal-effects) with the value acting as the amount to increase it by. This only matters for enemy inflicting the player party member, it does not matter for user infliction using [items](../../../Enums%20and%20IDs/Items.md).
+
+## Resistance increases for enemy party members
+For player party member target when property is `Numb` or `Numb1Turn` and when successfully inflicting this condition, [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md), target.`numbres` is increased by 17. The increase is 22 instead if [HardMode](../../Damage%20pipeline/HardMode.md) returns true
+
 ## [IsStopped](../IsStopped.md)
 This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a `actimmobile` is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
 

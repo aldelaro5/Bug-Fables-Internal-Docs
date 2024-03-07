@@ -4,6 +4,9 @@ A condition that either deals non lethal damage or heals the actor each actor tu
 ## Resistance
 This condition has a dedicated resistance field for actors to use: `poisonres`. If it's 100 or above, the actor is immune to it. Inflictions that requires a resistance check will use this field.
 
+## Resistance increases for player party members
+For player party member, the resistance can only be increased by processing the `PoisonRes` [BadgeEffects](../../../TextAsset%20Data/Medals%20data.md#medal-effects) with the value acting as the amount to increase it by. This only matters for enemy inflicting the player party member, it does not matter for user infliction using [items](../../../Enums%20and%20IDs/Items.md).
+
 ## [SetCondition](../Conditions%20methods/SetCondition.md)
 When amending the condition: 
 

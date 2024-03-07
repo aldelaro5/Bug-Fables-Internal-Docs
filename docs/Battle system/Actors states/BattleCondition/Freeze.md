@@ -4,6 +4,20 @@ A stopping condition that encases the actor in a block of ice. Most attacks will
 ## Resistance
 This condition has a dedicated resistance field for actors to use: `freezeres`. If it's 100 or above, the actor is immune to it. Inflictions that requires a resistance check will use this field.
 
+## Resistance increases for player party members
+For player party member, the resistance can only be increased by processing the `FreezeRes` [BadgeEffects](../../../TextAsset%20Data/Medals%20data.md#medal-effects) with the value acting as the amount to increase it by. This only matters for enemy inflicting the player party member, it does not matter for user infliction using [items](../../../Enums%20and%20IDs/Items.md).
+
+## Resistance increases for enemy party members
+Here are the potential increases for the resistance associated (only applies to enemy party members):
+
+- On [StartBattle](../../StartBattle.md) (not mutually exclusive):
+    - If the calledfrom.entity or the battleentity is `inice` while it's a `Krawler` or `CursedSkull` [enemy](../../Enums%20and%20IDs/Enemies.md), the enemy party member's `freezeres` is increased by 70
+    - If battleentity.`forcefire` or we are in the `GiantLair` [area](../../Enums%20and%20IDs/librarystuff/Areas.md) except for the `GiantLairFridgeInside` [map](../../Enums%20and%20IDs/Maps.md) while the enemy is a `Krawler`, `CursedSkull` or `Cape`, the enemy party member's `freezeres` is set to 110 making them immune (this override the clause above if it applied)
+- On [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) when sucessfully inflicting this condition when property is `Freeze` (mutually exclusive, only the first that applies):
+    - If the corresponding [endata](../../../TextAsset%20Data/Entity%20data.md#entity-data) of the target's `hasiceanim` is true and we are either at the `GiantLairFridgeInside` [map](../../../Enums%20and%20IDs/Maps.md) or in any maps outside of the `GiantLair` area, target.`freezeres` is increased by 70
+    - Otherwise, if target.`frozenlastturn` is true, target.`freezeres` is increased by 25
+    - Otherwise, target.`freezeres` is increased by 13. The increase is 18 instead if [HardMode](../../Damage%20pipeline/HardMode.md) returns true
+
 ## [IsStopped](../IsStopped.md)
 This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a `actimmobile` is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
 
