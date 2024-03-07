@@ -98,10 +98,10 @@ After, if actionid isn't -555 (meaning it's not a player first strike) and `curr
 After, `targettedenemy` is set to the `enemydata` index of the targetted enemy using the following logic:
 
 - If actionid is -555 (player first strike), it's 0
-- Otherwise, if `target` is at least `avaliabletargets`'s length - 1 (TODO: huh???) or `currentaction` is `ItemList` (this is an item use action), it's `target`
+- Otherwise, if `target` is at least `avaliabletargets`'s length - 1 (this is wrong, but safe, see the note below) or `currentaction` is `ItemList` (this is an item use action), it's `target`
 - Otherwise, it's the battleentity.`battleid` of the return of GetEnemyFromAvaliable using `avaliabletargets[target]`. Basically, it means if `avaliabletargets[target]`'s battleentity still exists in `enemydata`, it will be its `battleid` (which is the same than the `enemydata` index) and if it doesn't, it will be 0
 
-TODO: What even is this logic? this seems broken
+NOTE: This logic is very broken, but in practice, it's only ever used in 2 actions: the `HeavyStrike` [skill](../../../Enums%20and%20IDs/Skills.md) or `Beetle`'s basic attack. For those actions specifically, this logic happens to always be correct whether it is on accident or not. `targetedenemy` will be correct in these cases, but it should not be relied upon because its value isn't reliable and can easilly point to the wrong enemy party member.
 
 Finally, all frames are yielded while `checkingdead` is in progress (which would be the [UseCharm](../UseCharm.md) call made earlier if it was).
 
@@ -214,9 +214,9 @@ In either cases, they both end by setting all enemy party members's `lockpositio
         - [flagvar](../../../Flags%20arrays/flagvar.md) 1 is set to usedtp / 2 clamped from 1 to usedtp (the integer division floors implicitly)
         - `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `HealTP` which heals for the amoutn set to flagvar 1 just before
         - All frames are yielded while `checkingdead` is in progress
-    - `playerdata[currentturn]`'s `tired` is incremented if `currentaction` isn't `ItemList` and actionid is not among the following (these are all the team moves TODO: why would they be exempt from exhaustion???):
+    - `playerdata[currentturn]`'s `tired` is incremented if `currentaction` isn't `ItemList` and actionid is not among the following (these are all the team moves, the reason they are exempted from exhaustion is because their individual action logic already took care of incremented the proper `tired` fields so this would have been a second, unwanted increment):
         - 5 (`BeeFly`)
-        - 26 (`IceBeemerang`)
+        - 26 (`IceBeemerang`)/
         - 27 (`IceDrill`)
         - 31 (`IceSphere`)
     - `playerdata[currentturn]`'s `tired` is incremented again if `turns` is 0 (meaning this is the first turn of the battle) while the `StrongStart` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped

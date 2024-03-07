@@ -9,9 +9,7 @@ These 2 inputs are only processed if `itemarea` isn't `AllParty`, `AllEnemies` o
 These inputs changes the `option` by one depending on the direction (decrement if left, increment if right with wrap around from 0 to `maxoptions` - 1 using DecreaseOption and IncreaseOption). However, there are 2 exceptions (only one is applied)
 
 - If `excludeself` is true, the increment/decrement is redone over and over until `option` isn't `currentturn` (meaning the player that will be selected isn't the one performing an action)
-- Otherwise, if PartyInOrder returns false (meaning more than 1 member exists and swaps occured such that it is no longer in one of the 3 expected order), the reverse change will be done instead
-
-TODO: something is suspicious here: it feels like depending on things, it could be possible to break player selection combined with swaps...
+- Otherwise, if PartyInOrder returns false (meaning more than 1 member exists and swaps occured such that it is no longer in one of the 3 expected order), the reverse change will be done instead. This works because all combinations where the party is out of order happens to cycle in reverse order (intuitively, think of fixing the first number, your only choices are +1 and -1 in the cycle which locks in the last one and the latter choice is out of order)
 
 Additionally, a `Scroll` sound played on `sounds[10]` before changing the `option` and [UpdateText](../../Visual%20rendering/UpdateText.md) is called after changing it.
 

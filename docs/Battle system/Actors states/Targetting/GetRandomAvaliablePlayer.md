@@ -7,7 +7,7 @@ private int GetRandomAvaliablePlayer(bool nullable)
 
 ## Parameters
 
-- `nullable`: ??? There is an overload without this that behaves the same as if false was sent
+- `nullable`: If true, this will use an alternative targetting scheme that may return -1 meaning to not target anyone. There is an overload without this that behaves the same as if false was sent. NOTE: The true version has broken logic, see the section below for details.
 
 ## Procedure
 The logic depends on nullable's value
@@ -17,9 +17,31 @@ If `forceattack` isn't -1, it is returned.
 
 Otherwise, there will be attempts to find a random player party member to target. Each attempt involves generating a random one using uniformly random probabilities between each of them. For the target to be accepted, its `hp` must be above 0. The amount of times this is attempted is the amount of player party members. If a target is accepted it is returned, otherwise, -1 is returned.
 
-TODO: This targetting scheme seems broken compared to the other one
+#### Problems with nullable true logic
+There are some issues with this logic compared to the nullable false version which are bad enough to be considered broken:
 
-## nullable is false
+- This scheme fails to account for the [eatenby](../BattleCondition/Eaten.md#eatenby-influences) (Only would have mattered for a `Pitcher` [enemy](../../../Enums%20and%20IDs/Enemies.md), but they do not use this targetting scheme under normal gameplay)
+- This scheme fails to account for the front player party member meaning it does not matter who is in the front
+- This scheme fails to account for the `LeafCloak` [medal](../../../Enums%20and%20IDs/Medal.md) even when it is equipped meaning it does not matter if it is equipped on someone or not
+- This scheme may not return a valid target which may force the caller to abort the attack or to try again, but there is never a guarantee that an accepted target is returned
+
+However, some enemies intentionally uses it in their action codes. The following enemies involves it at least once as part of their [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md) logic:
+
+- `WildChomper` (via SpitSeed)
+- `ChomperBrute` (via SpitSeed)
+- `VenusBoss` (called directly and via ShakeSeed)
+- `TANGYBUG` (via ShakeSeed)
+- `SeedlingKing` (via ShakeSeed)
+- `BeeTurret`
+- `BeeBoss`
+- `FalseMonarch`
+- `MidgeBroodmother`
+- `UltimaxTank`
+- `MotherChomper`
+
+Despite the game using it under normal gameplay, it is highly recommended to never pass true to the nullable parameter. It fails to account for too much and it can lead to undesired logic where the caller might not be able to find a suitable target.
+
+### nullable is false
 If `forceattack` isn't -1 and the player party member corresponding to it doens't have an `eatenby`, it is returned.
 
 Otherwise, there is an infinite loop that starts:
