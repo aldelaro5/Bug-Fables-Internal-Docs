@@ -9,31 +9,31 @@ This is all the BattleControl fields.
 |Name|Type|Public?|Description|
 |----|----|---------|-----------|
 |battlemap|GameObject|Yes|The parent of all the battles objects notably the battle map prefab. This is a game object named `Battle` created on [StartBattle](StartBattle.md)|
-|caller|[NPCControl](../Entities/NPCControl/NPCControl.md)|No|The [Enemy](../Entities/NPCControl/Enemy.md) NPCControl whose encounters caused this battle. This is set to the calledfrom value sent to [StartBattle](StartBattle.md). If it's null, no encounter caused this battle|
-|sadv|int|No|The starting advantage value. Set to the sent adv value of [StartBattle](StartBattle.md), but adv is set to this field if it's a retry|
-|sdata|StartUpData|No|The [StartUpData](StartUpData.md) stored during [StartBattle](StartBattle.md) when `saveddata` is false. Restored on StartBattle for a retry|
+|caller|[NPCControl](../Entities/NPCControl/NPCControl.md)|No|The [Enemy](../Entities/NPCControl/Enemy.md) NPCControl whose encounters caused this battle. This is set to the calledfrom value sent to [StartBattle](StartBattle.md). If it's null, no encounter caused this battle and it was started manually|
+|sadv|int|No|The starting advantage value. Set to the sent adv value of [StartBattle](StartBattle.md), but adv is set to this field if it's a [retry](Battle%20flow/Retry.md). The only recognised value is 3 which means the enemy party has the advantage, other values do nothing|
+|sdata|StartUpData|No|The [StartUpData](StartUpData.md) stored during [StartBattle](StartBattle.md) when `saveddata` is false. Restored on StartBattle for a [retry](Battle%20flow/Retry.md)|
 |saveddata|bool|No|Whether the `sdata` have been saved and are ready for restoration. Set to true at the very end of [StartBattle](StartBattle.md)|
-|canflee|bool|Yes|Whether fleeing is allowed. Set to the canescape value sent to [StartBattle](StartBattle.md)|
+|canflee|bool|Yes|Whether fleeing is allowed as well as [retry](Battle%20flow/Retry.md) when a [GameOver](Battle%20flow/Terminal%20coroutines/GameOver.md) occurs. Set to the canescape value sent to [StartBattle](StartBattle.md)|
 
 ### Battle flow
 
 |Name|Type|Public?|Description|
 |----|----|---------|-----------|
-|action|bool|Yes|If true, it means an action coroutine controls the battle flow making it an [uncontrolled flow](Battle%20flow/Update%20flows/Uncontrolled%20flow.md). Set to false on [StartBattle](StartBattle.md)|
+|action|bool|Yes|If true, it means an action coroutine or a method controls the battle flow making it an [uncontrolled flow](Battle%20flow/Update%20flows/Uncontrolled%20flow.md). Set to false on [StartBattle](StartBattle.md)|
 |inevent|bool|Yes|Tells if an [EventDialogue](Battle%20flow/EventDialogue.md) is in progress or not. If one is, we enter an [uncontrolled flow](Battle%20flow/Update%20flows/Uncontrolled%20flow.md)|
 |calleventnext|int|No|If not negative, the [EventDialogue](Battle%20flow/EventDialogue.md) whose id is this value will be done on the next [uncontrolled flow](Battle%20flow/Update%20flows/Uncontrolled%20flow.md). This is only used in conjuction with an enemy party member's [eventonfall](Actors%20states/Enemy%20features.md#eventonfall) when it triggers|
 |cancelupdate|bool|Yes|Whether updates are disabled which only happen when some kind of terminal event occurs that changes the flow to a [terminal flow](Battle%20flow/Update%20flows/Terminal%20flow.md). Set to false on [StartBattle](StartBattle.md)|
-|alreadyending|bool|Yes|Tells when the battle is about to end via [GameOver](Battle%20flow/Terminal%20coroutines/GameOver.md) or [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md). Set to false on [StartBattle](StartBattle.md)|
-|enemy|bool|Yes|Whether we're in the [enemy phase](Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) or not (meaning we're in the [player phase](Battle%20flow/Main%20turn%20life%20cycle.md#player-phase)) of the turn of a [controlled flow](Battle%20flow/Update%20flows/Controlled%20flow.md) or processing a [hitaction](Actors%20states/Enemy%20features.md#hitaction). Set to false on [StartBattle](StartBattle.md)|
+|alreadyending|bool|Yes|Tells when the battle is about to end via [GameOver](Battle%20flow/Terminal%20coroutines/GameOver.md) or [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md). Set to false on [StartBattle](StartBattle.md). This protects against potential double terminal flow changes|
+|enemy|bool|Yes|Whether we're in the [enemy phase](Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) or not (false means we're in the [player phase](Battle%20flow/Main%20turn%20life%20cycle.md#player-phase)) of the turn of a [controlled flow](Battle%20flow/Update%20flows/Controlled%20flow.md) or processing a [hitaction](Actors%20states/Enemy%20features.md#hitaction) or processing a [delproj](Actors%20states/Delayed%20projectile.md). Set to false on [StartBattle](StartBattle.md)|
 |mainturn|Coroutine|No|The [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) coroutine if one is in progress (null if it's not)|
 |delprojs|DelayedProjectileData\[\]|Yes|The [delayed projectiles](Actors%20states/Delayed%20projectile.md) currently active|
 |turns|int|No|The amount of completed main turns advanced by [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md). Set to 0 on [StartBattle](StartBattle.md)|
 |demomode|bool|No|If true, indicates the battle operates in tutorial mode|
 |gameover|Coroutine|No|The current [GameOver](Battle%20flow/Terminal%20coroutines/GameOver.md) coroutine is one is in progress (null if it's not). Set to null on [StartBattle](StartBattle.md)|
 |halfload|bool|Yes|Whether or not [StartBattle](StartBattle.md) roughly got done half of the starting process. This is set to true right after calling SetLastTurns and it's used by the game to yield until this goes to true|
-|avaliableplayers|int|No|The amount of players that are considered free by [GetFreePlayerAmmount](Actors%20states/Player%20party%20members/GetFreePlayerAmmount.md). Set to the current amount on [StartBattle](StartBattle.md)|
+|avaliableplayers|int|No|The amount of players that are considered free by [GetFreePlayerAmmount](Actors%20states/Player%20party%20members/GetFreePlayerAmmount.md). Set to the current amount on [StartBattle](StartBattle.md) and updated in specific situations|
 |currentturn|int|Yes|Determine the `playerdata` index currently selected for an action. -1 means no one is selected yet, being below `playerdata` length means that player index is selected and being at length or above means all players have taken their actions and the player phase is over. Set to -1 on [StartBattle](StartBattle.md)|
-|lastturns|int\[\]|No|The state of the player index selection cycle which starts with an array of length being the amount of free players - 1. Advancing it means either assigning the first free slot (-1) to the player being selected or shift the elements such that it falls on the latest while the oldest is removed|
+|lastturns|int\[\]|No|The state of the player index selection cycle which starts with an array with a length of the amount of free players - 1. Advancing it means either assigning the first free slot (-1) to the player being selected or shift the elements such that it falls on the latest while the oldest is removed|
 |receivedrelay|bool\[\]|No|An array indicating which player index got relayed to via [Relay](Battle%20flow/Action%20coroutines/Relay.md) which allows the `tiredpart` to be rendered whenever `tired` gets above 0 during [UpdateAnim](Visual%20rendering/UpdateAnim.md)|
 |actedthisturn|bool|No|Tells if [PlayerTurn](Battle%20flow/PlayerTurn.md) was called at least once during the turn implying at least one player could act. Set back to false on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
 |noaction|int|No|The amount of main turns in a row where `actedthisturn` was false. If it reaches 5 without game over, the [inactive failsafe](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md#inaction-failsafe) triggers in [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
@@ -41,25 +41,26 @@ This is all the BattleControl fields.
 |firststrike|bool|No|Whether or not the enemy is currently acting as part of the enemy party getting the starting advantage during [StartBattle](StartBattle.md)|
 |summonnewenemy|bool|No|If true, it means that the game is in the process of summoning an enemy from the `extraenemies` to `enemydata` via [SummonEnemy](Actors%20states/Enemy%20party%20members/SummonEnemy.md), called duing [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md). This prevents SummonEnemy to set `checkingdead` to null once completed to not interfere with the ongoing CheckDead and it also allows CheckDead to wait the summon is over|
 |selfsacrifice|bool|No|If true, it indicates that the enemy party member killed themselves during their [DoAction](Battle%20flow/Action%20coroutines/DoAction.md)|
-|eatenkill|bool|Yes|If true, it indicates that a player party member was killed by a `Pitcher` [enemy](../Enums%20and%20IDs/Enemies.md) by draining their HP|
+|eatenkill|bool|Yes|If true, it indicates that a player party member was killed by a `Pitcher` [enemy](../Enums%20and%20IDs/Enemies.md) by draining their HP which allows [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) to handle this special case|
 |lastdamage|int|No|The last final amount of damage done at the end of [DoDamage](Damage%20pipeline/DoDamage.md)|
-|damagethisturn|int|No|The amount of damage the player party inflicted in the current main turn. If it gets higher than [flagvar](../Flags%20arrays/flagvar.md) 41 (highest damage in one turn), the flagvar value is set to it before resetting in [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
-|charmcooldown|int|No|The amount of main turns that needs to pass for [UseCharm](Battle%20flow/UseCharm.md) to process the next charm even if one is available and it would have been processed otherwise. Set to a random integer between 3 and 7 inclusive after a charm has been processed and decremented on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
+|damagethisturn|int|No|The amount of damage the player party inflicted in the current main turn. If it gets higher than [flagvar](../Flags%20arrays/flagvar.md) 41 (highest damage in one turn), the flagvar value is set to it before resetting the value of damagethisturn in [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
+|charmcooldown|int|No|The amount of main turns that needs to pass for [UseCharm](Battle%20flow/UseCharm.md) to process the next charm even if one is available and could have been processed otherwise. Set to a random integer between 3 and 7 inclusive after a charm has been processed and decremented on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
 
 ### Actors information
 
 |Name|Type|Public?|Description|
 |----|----|---------|-----------|
+|partypointer|int\[\]|Yes|The mapping from battle order formation to `playerdata` index. Aligned with the correct order on [StartBattle](StartBattle.md) and changed on [SwitchParty](Battle%20flow/Action%20coroutines/SwitchParty.md) or [SwitchPos](Battle%20flow/Action%20coroutines/SwitchPos.md). Check the [battle party addressing documentation](playerdata%20addressing.md#methods-of-addressing-durring-battle) for more details|
+|partyentities|[EntityControl](../Entities/EntityControl/EntityControl.md)\[\]|No|Set to all the `playerdata` battleentity on [StartBattle](StartBattle.md)|
 |alldata|[BattleData](Actors%20states/BattleData.md)\[\]|Yes|All the `playerdata` followed by all the `enemydata` appended together. Set by RefreshAllData which is only called during [StartBattle](StartBattle.md)|
 |enemydata|[BattleData](Actors%20states/BattleData.md)\[\]|Yes|The first enemy party members data with a length up to 4 (the extra ones are stored in `extraenemies`). Set to a new list with the same length as the sent enemyids on [StartBattle](StartBattle.md) (after it was truncated to the first 4) and then filled with the actual enemy data|
 |extraenemies|List<int>|No|This contains the list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that overflows the maximum amount of enemies allowed in `enemydata` which is 4. It is initialised as such on [StartBattle](StartBattle.md)|
-|reservedata|List<BattleData>|No|The list of enemies who are no longer part of `enemydata` because they had died and were moved there by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md) since their [deathtype](Actors%20states/Enemy%20features.md#deathtype) indicated they should be moved there. Doing so prevents a full destruction which allows the enemy to be revived later or to visually have a death animation without disappearing. Reset to a new list on StartBattle|
+|reservedata|List<BattleData>|No|The list of enemies who are no longer part of `enemydata` because they had died and were moved there by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md) since their [deathtype](Actors%20states/Enemy%20features.md#deathtype) indicated they should be moved there. Doing so prevents a full destruction which allows the enemy to be revived later or to visually have a death animation without disappearing. Reset to a new list on [StartBattle](StartBattle.md)|
 |enemyfled|bool|No|Whether at least one enemy party member fled the battle or not|
 |lastaddedid|int|No|The last enemy party member index added via [AddNewEnemy](Actors%20states/Enemy%20party%20members/AddNewEnemy.md)|
 |tempslot|BattleData|No|The last enemy to be added in `enemydata` according to [NewEnemy](Actors%20states/Enemy%20party%20members/NewEnemy.md) if the sent animation value isn't `None`|
 |deadenemypos|List<Vector3>|No|The list of the positions of previously dead enemies as found by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md). It is only used by CheckDead in case `extraenemies` needs to be summoned in the place of the dead ones at the same positions they were before|
 |deadmembers|int\[\]|No|The array of player party members indexes whose `hp` is 0 or below as returned by GetDeadParty. Used during [RevivePlayer](Actors%20states/Player%20party%20members/RevivePlayer.md) to decide whether to resucitate the player party member|
-|partyentities|[EntityControl](../Entities/EntityControl/EntityControl.md)\[\]|No|Set to all the `playerdata` battleentity on [StartBattle](StartBattle.md)|
 
 ### Attack and flow modifiers
 
@@ -83,12 +84,12 @@ This is all the BattleControl fields.
 |killinput|bool|No|Used for the `PressKey` action command that when set to true, [DoCommand](Action%20commands/DoCommand.md) will stop listening for inputs|
 |commandsuccess|bool|Yes|Tells if the last action command succeeded or tell if the player is currently blocking (tracked by [GetBlock](Battle%20flow/GetBlock.md))|
 |buttons|ButtonSprite\[\]|No|A general purpose array of ButtonSprites for use in [DoCommand](Action%20commands/DoCommand.md)|
-|commandsprites|SpriteRenderer\[\]|No|General purpose SpriteRenderer array for use in [DoCommand](Action%20commands/DoCommand.md) or other action commands related needs|
+|commandsprites|SpriteRenderer\[\]|No|A general purpose SpriteRenderer array for use in [DoCommand](Action%20commands/DoCommand.md) or other action commands related needs|
 |helpboxid|int|No|The id of the current action command whose description should be rendered in `helpbox`|
 |helpbox|DialogueAnim|No|The 9box containing the action command description whose id is `helpboxid`|
-|superblockedthisframe|float|No|A short lived frames cooldown that allows a super block to still count until it expires, check [GetBlock](Battle%20flow/GetBlock.md) to learn more. Used in the damage pipeline and maintained by [LateUpdate](Visual%20rendering/LateUpdate.md)|
+|superblockedthisframe|float|No|A short lived cooldown in frames that allows a super block to still count until it expires, check [GetBlock](Battle%20flow/GetBlock.md) to learn more. Used in the damage pipeline and maintained by [LateUpdate](Visual%20rendering/LateUpdate.md)|
 |blockcooldown|float|No|The amount of frames left that a block can be processed, check [GetBlock](Battle%20flow/GetBlock.md) for more details|
-|hasblocked|bool|No|If true, the damage pipeline detected the player blocked the attack with a valid block (even if FRAMEONE rules prevented). This is only used in HardSeedVenus, a coroutine specific to the `VenusBoss` [enemy](../Enums%20and%20IDs/Enemies.md)|
+|hasblocked|bool|No|If true, the damage pipeline detected the player blocked the attack with a valid block (even if FRAMEONE rules would have prevented it). This is only used in HardSeedVenus, a coroutine specific to the `VenusBoss` [enemy](../Enums%20and%20IDs/Enemies.md)|
 |overridechallengeblock|bool|Yes|Normally, standard blocks are disallowed when [flags](../Flags%20arrays/flags.md#flags) 615 and 15 are true (FRAMEONE is active while past the first tutorial fight), but if this field is true, it allows to override that behavior to allow them regardless of these conditions being fufilled or not|
 
 ### Targetting
@@ -96,9 +97,9 @@ This is all the BattleControl fields.
 |Name|Type|Public?|Description|
 |----|----|---------|-----------|
 |avaliabletargets|BattleData\[\]|No|An ephemeral array of actors to track possible targets for an action which is frequently set by calling [GetAvailableTargets](Actors%20states/Targetting/GetAvaliableTargets.md)|
-|forceattack|int|No|The player party member's [animid](../Enums%20and%20IDs/AnimIDs.md) index that will be forced to be returned during [GetRandomAvaliablePlayer](Actors%20states/Targetting/GetRandomAvaliablePlayer.md)|
+|forceattack|int|No|The player party member's [animid](../Enums%20and%20IDs/AnimIDs.md) index that will be forced to be returned during [GetRandomAvaliablePlayer](Actors%20states/Targetting/GetRandomAvaliablePlayer.md). This is only set in the course of the `Taunt` [skill](../Enums%20and%20IDs/Skills.md) during its [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) logic|
 |playertargetID|int|No|The player party member index whom is currently targetted by the enemy. If it's -1, the enemy isn't targetting anyone|
-|playertargetentity|EntityControl|No|An actor to use for targetting purposes (NOTE: despite the name, it can be an enemy party member as enemies can sometimes target other enemy party members)|
+|playertargetentity|EntityControl|No|An actor to use for targetting purposes (NOTE: despite the name, it can be an enemy party member as enemies can sometimes target other enemy party members outside of the damage pipeline)|
 |targetedenemy|int|No|Indicates the enemy party member index that `Beetle` will target when using his basic attack or the `HeavyStrike` skill during [DoAction](Battle%20flow/Action%20coroutines/DoAction.md)|
 |target|int|No|The index of the selected target when selecting a player or enemy|
 
@@ -109,7 +110,7 @@ This is all the BattleControl fields.
 |chompy|[EntityControl](../Entities/EntityControl/EntityControl.md)|No|If [flags](../Flags%20arrays/flags.md) 402 is true (Chompy is with Team Snakemouth), this is initialised to a new entity created via [CreateNewEntity](../Entities/EntityControl/EntityControl%20Creation.md#createnewentity) with name `chompy` with the `ChompyChan` [animid](../Enums%20and%20IDs/AnimIDs.md) on [StartBattle](StartBattle.md)|
 |chompyattack|Coroutine|Yes|The coroutine of [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) if it's in progress (null if it's not)|
 |chompyaction|bool|No|Tells if [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) is in progress or not|
-|chompyattacked|bool|No|Tells if [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) has completed during the player phase when applicable|
+|chompyattacked|bool|No|Tells if [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) has completed during the [player phase](Battle%20flow/Main%20turn%20life%20cycle.md#player-phase) when applicable|
 |coptions|List<int>|No|The list of action options available during [Chompy](Battle%20flow/Action%20coroutines/Chompy.md): 0 is basic attack, 1 is do nothing, 2 is the ribbon specific attack and 3 is change ribbon|
 |chompyoption|int|No|The last chosen `coption` the last time [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) was called|
 |chompylock|bool|No|If true, it prevents [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) to be a part of the [player phase](Battle%20flow/Update.md#player-phase) even if it would normally be allowed. This is only used during [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) specifically for the `Centipede` [enemy](../Enums%20and%20IDs/Enemies.md)|
@@ -118,7 +119,7 @@ This is all the BattleControl fields.
 
 |Name|Type|Public?|Description|
 |----|----|---------|-----------|
-|aiparty|[EntityControl](../Entities/EntityControl/EntityControl.md)|No|The entity that was created as part of AddAI if one was created|
+|aiparty|[EntityControl](../Entities/EntityControl/EntityControl.md)|No|The entity that was created as part of [AddAI](StartBattle%20phases/Post%20haltbattleload.md#ai-setup) if one was created|
 |aiattacked|bool|No|Tells if [AIAttack](Battle%20flow/Action%20coroutines/AIAttack.md) has completed during the player phase when applicable|
 
 ### EXP and berries
@@ -127,7 +128,7 @@ This is all the BattleControl fields.
 |----|----|---------|-----------|
 |estimatedexp|int|No|The sum of all the calculated `enemydata`'s `exp`|
 |expreward|int|No|The amount of EXP cumulated in the course of the battle that will be granted if the battle is won. Set to 0 on [StartBattle](StartBattle.md)|
-|oldexp|int|No|The last value of `expreward` observed since the last [RefreshEXP](Visual%20rendering/RefreshEXP.md)|
+|oldexp|int|No|The last value of `expreward` observed since the last [RefreshEXP](Visual%20rendering/RefreshEXP.md). If it differs with the current one, RefreshEXP will be called on the next applicable [Update](Battle%20flow/Update.md)|
 |leveled|bool|No|Indicates that [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md) detected a rank up situation|
 |moneyreward|int|No|The amount of berries that will be dropped after the battle. Set to 0 on [StartBattle](StartBattle.md)|
 
@@ -144,7 +145,7 @@ This is all the BattleControl fields.
 |vineoption|int|No|Equivalent to `maxoption`, but for the main vine menu value|
 |option|int|Yes|The current vine menu option. 0 is attack, 1 is skills, 2 is items, 3 is strategies and 4 is turn relay. Set to 0 on [StartBattle](StartBattle.md). This can also be the index of an enemy or player target being selected. NOTE: the vine order is reversed in game as left goes up and right goes down in the option index with wrap around|
 |excludeself|bool|Yes|If true, it will cause the `currentturn` player to not be selectable in a `currentaction` of `SelectPlayer` in [GetChoiceInput](Player%20UI/GetChoiceInput.md)|
-|tempskill|int|Yes|The [skill](../Enums%20and%20IDs/Skills.md) id that was confirmed from skills selection in [SetItem](Player%20UI/SetItem.md)|
+|tempskill|int|Yes|The [skill](../Enums%20and%20IDs/Skills.md) id that was confirmed from skills selection in [SetItem](Player%20UI/ItemList%20confirmation%20handling/Skills%20list%20type.md)|
 |lastskill|int|No|The last [skill](../Enums%20and%20IDs/Skills.md) id used, set to `selecteditem` before its usage when confirmed in [GetChoiceInput](Player%20UI/GetChoiceInput.md)|
 |lastaction|int|No|The last [action](Player%20UI/Actions.md) chosen by a player party member. Set to `option` on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) which keeps the last selected vine menu options since the last one chosen on the new turn|
 |idletimer|int|No|The amount of frames since the player idled which is used in the [EXP counter update](Battle%20flow/Update%20flows/Controlled%20flow.md#exp-counter-updates)|
@@ -162,7 +163,7 @@ This is all the BattleControl fields.
 |switchicon|Transform|No|The parent of the UI objects that composes the switch icon which is a GameObject named `switchicon` childed to the `GUICamera`. Initialised on [StartBattle](StartBattle.md)|
 |fronticon|SpriteRenderer|No|The SpriteRenderer of the UI object named `attackicon` childed to the `GUICamera` that corresponds to the icon the front party member has. Initialised on [StartBattle](StartBattle.md)|
 |hexpcounter|Transform|No|The EXP counter shown when idling for 200+ frames when `currentaction` is `BaseAction`. Created on the first [controlled update flow](Battle%20flow/Update%20flows/Controlled%20flow.md)|
-|expholder|Transform|No|A GameObject named `expholder` childed to the `GUICamera` with tag `DelAftBtl` that holds the EXP orbs cumulated in the battle for visual rendering|
+|expholder|Transform|No|A GameObject named `expholder` childed to the `GUICamera` with tag `DelAftBtl` (destroyed on [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)) that holds the EXP orbs cumulated in the battle for visual rendering|
 |lvicon|Transform|No|The EXP icon sprite used in the UI during [AddExperience](Battle%20flow/Terminal%20coroutines/AddExperience.md)|
 |hideenemyhp|bool|Yes|If true, the `hpbar` of every enemy party members's battleentity gets disabled on [RefreshEnemyHP](Visual%20rendering/RefreshEnemyHP.md)|
 |actiontext|SpriteRenderer|No|The UI element for the game to indicate the current action being selected which is the SpriteRenderer of a new GameObject named `ActionText` childed to the `GUICamera`. Initialised on [StartBattle](StartBattle.md)|
@@ -183,7 +184,7 @@ This is all the BattleControl fields.
 |counterspriteindex|int\[\]|No|Indicates the `guisprites` indexes of the different counter used in [ShowDamageCounter](Visual%20rendering/ShowDamageCounter.md). This is always {8, 40, 101}|
 |partymiddle|Vector3|No|Always set to (-4.5, 0.0, 0.0) for use in [DoAction](Battle%20flow/Action%20coroutines/DoAction.md)|
 |tiredpart|Transform\[\]|No|Set to a new array of the transform of instances of `Prefabs/Particles/Tired` on [StartBattle](StartBattle.md) belonging to each `playerdata` battleentity (each is childed to their battleentity) The length is thus the same than `playerdata`|
-|tskybox|Material|No|The RenderSettings.skybox saved on [StartBattle](StartBattle.md). This is used for restoring later in case of a retry|
+|tskybox|Material|No|The RenderSettings.skybox saved on [StartBattle](StartBattle.md). This is used for restoring later in case of a [retry](Battle%20flow/Retry.md)|
 |fogdist|float|No|The value of RenderSettings.fogEndDistance saved on [StartBattle](StartBattle.md) if the current one needs to change. Restored from this field during [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md) if it had a value above 0.0|
 |dimmer|SpriteRenderer|No|A giant black colored sprite that covers everything behind the transition during load. Initialised on StartBattle after the fade in transition and disabled with a clear color just before the fade out one|
 |charmdance|Sprite\[\]|No|The sprites Charmy uses during [UseCharm](Battle%20flow/UseCharm.md). Always set to sprite 98 and 99 of `Sprites/Entities/moth0` on [StartBattle](StartBattle.md)|
@@ -244,9 +245,8 @@ These fields are never referenced or never used in any meaningful ways.
 |specialdefeat|bool|Yes|UNUSED|
 |firstaction|bool|Yes|UNUSED|
 |currententity|EntityControl|No|UNUSED|
-|oldcamtarget|Transform|No|UNUSED, Set to instance.`camtarget` on [StartBattle](StartBattle.md) when it's not a retry|
+|oldcamtarget|Transform|No|UNUSED, Set to instance.`camtarget` on [StartBattle](StartBattle.md) when it's not a [retry](Battle%20flow/Retry.md)|
 |guicooldown|float|No|UNUSED (there is logic in Update implicating it was supposed to be a cooldown that exhausts only during an Update controlled battle, but it is never practically used anywhere else making it practically unused)|
-|partypointer|int\[\]|Yes|UNUSED, This field is maintained to be the same value as `partypointer`, but by indexing `playerdata` instead. This means that `playerdata[X].pointer` is the same than `partypointer[X]` where `X` is a valid `playerdata` index. In practice, this field is only written into making it unused|
 
 ## MainManager fields
 These fields belongs to MainManager, but they are mostly related to BattleControl's state and either have influences on the battle or they are reporting the result of the battle.
@@ -255,14 +255,14 @@ These fields belongs to MainManager, but they are mostly related to BattleContro
 
 |Name|Type|Static?|Description|
 |----|----|---------|-----------|
-|playerdata|BattleData\[\]|No|The battle data of the players. The game keeps track of them constantly even outside of battle, but [StartBattle](StartBattle.md) resets their fields to a default state|
+|playerdata|[BattleData](Actors%20states/BattleData.md)\[\]|No|The battle data of the players. The game keeps track of them constantly even outside of battle, but [StartBattle](StartBattle.md) resets their fields to a default state|
 |tp|int|No|The amount of TP the player party has (usually clamped from 0 to `maxtp`)|
 |tpt|int|No|The displayed amount of TP the player party has in the HUD|
 |maxtp|int|No|The maximum amount of TP the player can have (this is `basetp` + the medals effects from [ApplyBadges](ApplyBadges.md))|
 |basetp|int|No|The base maximum amount of TP the player can have (this is normally 10 + all the bonuses applied from [ApplyStatBonus](ApplyStatBonus.md))|
 |bp|int|No|The amount of MP the player party has, clamped to `maxbp`|
 |maxbp|int|No|The maximum amount of MP the player party has|
-|partylevel|int|No|The player party's rank, starts at 1|
+|partylevel|int|No|The player party's rank, starts at 1 and maxes out at 27 under normal gameplay|
 |partyexp|int|No|The amount of EXP the player party has (this amount is only the one applicable for the current rank's progression)|
 |neededexp|int|No|The amount of EXP needed for the player party to rank up (in other words, `partyexp` needs to reach this value to rank up). This starts at 100|
 
@@ -277,9 +277,9 @@ These fields belongs to MainManager, but they are mostly related to BattleContro
 
 |Name|Type|Static?|Description|
 |----|----|---------|-----------|
-|battle|[BattleControl](BattleControl.md)|Yes|The current battle (null if no battle is in progress). Set on [StartBattle](StartBattle.md) when it's null (meaning it wasn't a retry)|
-|inbattle|bool|No|Whether we are in battle or not. Set to true on [StartBattle](StartBattle.md) after the fade out transition and set to false in a [terminal](Battle%20flow/Update%20flows/Terminal%20flow.md) case where we know the battle will end without retry|
-|partyorder|int\[\]|No|The list of party members by their [animid](../Enums%20and%20IDs/AnimIDs.md) ordered by their formation|
+|battle|[BattleControl](BattleControl.md)|Yes|The current battle (null if no battle is in progress). Set on [StartBattle](StartBattle.md) when it's null (meaning it wasn't a [retry](Battle%20flow/Retry.md))|
+|inbattle|bool|No|Whether we are in battle or not. Set to true on [StartBattle](StartBattle.md) after the fade out transition and set to false in a [terminal](Battle%20flow/Update%20flows/Terminal%20flow.md) case where we know the battle will end without [retry](Battle%20flow/Retry.md)|
+|partyorder|int\[\]|No|The list of player party members by their [animid](../Enums%20and%20IDs/AnimIDs.md) ordered by their formation in the overworld. Used to align the `partypointer` on [StartBattle](StartBattle.md)|
 |battlenoexp|bool|Yes|Whether the last battle yielded no EXP. Set to false on [StartBattle](StartBattle.md)|
 |battlefled|bool|Yes|Tells if the battle ended by fleeing|
 |battleenemyfled|bool|Yes|Whether the battle ended while `enemyfled` was true without `expreward`. Set to false on [StartBattle](StartBattle.md). This won't be set to true for an [Enemy](../Entities/NPCControl/Enemy.md) NPCControl encounter if any `GoldenSeedling` [enemy](../Enums%20and%20IDs/Enemies.md) were defeated|

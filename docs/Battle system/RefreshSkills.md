@@ -1,5 +1,5 @@
 # RefreshSkills
-This method allows to refresh the `skills` list of all the player party members. The lists depends on [flags](../Flags%20arrays/flags.md), [medals](../Enums%20and%20IDs/Medal.md) equipped and others. It belongs to MainManager.
+This method allows to refresh the [skills](../Enums%20and%20IDs/Skills.md) list of all the player party members. The lists depends on [flags](../Flags%20arrays/flags.md), [medals](../Enums%20and%20IDs/Medal.md) equipped and others. It belongs to MainManager.
 
 The method will go over each player party member and reset their `skills` to a new list before filling them with the ones they are allowed to have if the conditions are fufilled. Most of them are specific to each [animid](../Enums%20and%20IDs/AnimIDs.md) (only `Bee`, `Beetle` and `Moth` can have skills), but some of them are common with the same conditions to have it. 
 

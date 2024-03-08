@@ -104,7 +104,7 @@ These fields are never referenced or never used in any meaningful ways.
 |---|---|---|
 |tiredpart|ParticleSystem|UNUSED|
 |noblock|bool|UNUSED|
-|pointer|int|UNUSED|
+|pointer|int|UNUSED, This field is maintained to be the same value as `partypointer`, but by indexing `playerdata` instead. This means that `playerdata[X].pointer` is the same than `partypointer[X]` where `X` is a valid `playerdata` index. In practice, this field is only written into making it unused|
 |turnsnodamage|int|UNUSED|
 |hardhp|int|UNUSED|
 |harddef|int|UNUSED|

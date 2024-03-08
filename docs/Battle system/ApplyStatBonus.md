@@ -8,7 +8,7 @@ It starts by calling ResetStats which resets all the stats to their starting val
 - `basedef`: 0
 - Additionally, it also resets instance.`basetp` to 10
 
-From there, the method only does anything if there's any `statbonus` (NOTE: this means the ApplyBadges call at the end is also skipped).
+From there, the method only does anything if there's any `statbonus` (NOTE: This means the ApplyBadges call at the end is also skipped if there's none).
 
 The method will then go through each `statbonus` and apply them as described in [stat bonus save file line](../External%20data%20format/Save%20File.md#line-10-array-line-stats-bonuses) by using the following fields (all player party members are impacted by the bonus if it targets the party):
 
