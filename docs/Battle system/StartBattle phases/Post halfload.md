@@ -4,7 +4,7 @@ This is the last of 3 phases of [StartBattle](../StartBattle.md).
 This section occurs after `halfload` is set to true and the coroutine yielded making the new value visible to the rest of the game.
 
 ## Last player and enemy setup
-This part only contains miscellaneous initialisations logic mainly about the `plyaerdata` and `enemydata`: 
+This part only contains miscellaneous initialisations logic mainly about the `playerdata` and `enemydata`: 
 
 - All `enemydata` battleentity have their `rigid` gravity enabled
 - The `dimmer` gets childed to the `battlemap` with a clear color and then disabled (this reveals the scene as it was hidden earlier)
@@ -23,7 +23,7 @@ This part only plays the battle out transition by calling PlayTransition with id
 ## `switchicon` initialisation
 This part initialises the `switchicon` if it didn't exist as a new GameObject with name `switchicon` childed to the `GUICamera` with a local position of (0.0, 99.0, 0.0). 
 
-It also causes 3 child to get added to it:
+It also causes 3 children to get added to it:
 
 - A new UI object named `arrow0` with size Vector3.one * 0.4 using the sprite `guisprites[92]` (right turn black arrow) with a sortingOrder of 3 with angles (0.0, 0.0, 180.0). The local y/z positions is 0 and the x is -1.0 except if `longcancel` is true where it becomes -1.25
 - Another instance of the above, but the name is `arrow1`, there is no angles and the x position is the positive version instead of the negative one
@@ -38,12 +38,12 @@ This resets some important state fields:
 - `enemy` is set to false
 - instance.`inbattle` is set to true
 - if `sadv` is not negative, adv is set to it
-- `sadv` is set to adv (which only does anything if it had a non negative value)
+- `sadv` is set to adv (which only does anything if it was 3)
 
 ## Enemy first strike
 This part only happens if adv is 3:
 
-- `enemy` is set to true (We temporarilly go into the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase))
+- `enemy` is set to true (we temporarilly go into the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase))
 - `firststrike` is set to true
 - [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called
 - instance.`hudcooldown` is set to 10.0 which shows the main HP / TP HUD
@@ -52,7 +52,7 @@ This part only happens if adv is 3:
 - [RefreshEnemyHP](../Visual%20rendering/RefreshEnemyHP.md) is called
 - 0.15 seconds are yielded
 - A [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) call is started on `enemydata[0]` with action 0
-- All frames are yielded while `action` is true until it goes to false (Waits that DoAction is done)
+- All frames are yielded while `action` is true until it goes to false (waits that DoAction is done)
 - `enemydata[0].tired` is set to 0
 - `enemydata[0].cantmove` is set to 0
 - `action` is set to true (goes back into an [uncontrolled flow](../Battle%20flow/Update%20flows/Uncontrolled%20flow.md))
@@ -71,7 +71,7 @@ This part manages the player and enemies conditions as they have special logic t
 If `saveddata` is true (this is a retry), SetStartConditions is called which will do the following:
 
 - Add all the corresponding `sdata.psc` to each `playerdata`'s [condition](../Actors%20states/Conditions.md) from the existing ones
-- Add all the corresponding `sdata.esc` to each `enemydata`'s `condition` from the existing ones
+- Add all the corresponding `sdata.esc` to each `enemydata`'s [condition](../Actors%20states/Conditions.md) from the existing ones
 - Add all the corresponding `sdata.enemyweakness` to each `enemydata`'s [weakness](../Actors%20states/Enemy%20features.md#weakness) from the existing ones
 - SetLastTurns is called which resets `lastturns` to a new aray with the length being the amount of free players - 1 and all elements being -1
 

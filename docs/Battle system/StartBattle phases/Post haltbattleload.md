@@ -33,7 +33,7 @@ This part only contains miscellaneous initialisations logic:
 - `caller` is set to calledfrom
 
 ## Battle map creation
-This part disables the current map and enables the battle one which is created:
+This part disables the overworld map and creates/enables the battle one:
 
 - If the map is enabled:
     - MainManager.[RefreshEntities](../Actors%20states/RefreshEntities.md) is called
@@ -47,7 +47,7 @@ This part disables the current map and enables the battle one which is created:
 - `battlemap` is set to a new GameObject named `Battle`
 - The corresponding `Prefabs/BattleMaps/X` battle map prefab is instantiated where X is the [BattleMaps](../../Enums%20and%20IDs/BattleMaps.md) enum name of the stageid and it is childed to `battlemap`
 - All colliders in the battle map are disabled
-- A BoxCollider is added to `battlemap` with center (0.0, -0.5, 0.0) and size (100.0, 1.0, 50.0)
+- A BoxCollider is added to `battlemap` with center (0.0, -0.5, 0.0) and size (100.0, 1.0, 50.0). This is essentially the physical ground for both parties
 - `battlemap`.layer is set to 8 (`Ground`)
 - A frame is yielded
 
@@ -64,23 +64,23 @@ This part selects the music to play if any and plays it:
 ## Enemy party setup
 This part goes through all the enemyids and initialises the corresponding `enemydata` element. The array is initialised to a new one with a length of enemyids.length for this purpose. The main portion of the data comes from [GetEnemyData](../../TextAsset%20Data/Enemies%20data.md) with entity creation.
 
-From there, the following happens on each `enemydata`:
+From there, the following happens on each `enemydata` after setting it to the return of GetEnemyData:
 
-- battleentity.`battleid` is set to the corresponding index
+- battleentity.`battleid` is set to the corresponding index of the `enemydata`
 - `turnsnodamage` is set to -1
 - battleentity.`alwaysactive` is set to true
-- battle.`estimatedexp` is incremented by the `enemydata.exp`
+- battle.`estimatedexp` is incremented by the `enemydata`'s `exp`
 - If the enemy's `animid` (the [enemy](../../Enums%20and%20IDs/Enemies.md) id) is less than the amount of instance.`enemyencounter` elements (which is normally 256) and battleentity.`cotunknown` is false (it's not a Cave of Trials battle entity), the corresponding `enemyencounter` element's seen counter is incremented
-- The battleentity position is determined where it depends on the amount of enemies and this one's position:
-    - x: This depends on the amount of enemies and half of the `enemydata`'s size clamped from 1.0 to 1.5:
-        - 2: 1.5 + 3.5 * enemy index * the clamped size
-        - 3: 1 + 2.5 * enemy index * the clamped size
-        - 4: 0.5 + 2.0 * enemy index * the clamped size
+- The battleentity position is determined:
+    - x: This depends on the amount of enemy party member and the `enemydata` index of the element:
+        - 2 enemies: 1.5 * `enemydata`'s index + 3.5
+        - 3 enemies: 1.5 * `enemydata`'s index + 2.5
+        - 4 enemies: 0.75 * `enemydata`'s index + 2.0
     - y: always 0.1
     - z: 0.0 for the 1st enemy, 0.15 for the 2nd, 0.30 for the 3rd and 0.45 for the 4th
 - The battleentity gets childed to the `battlemap`
-- battleentity.`hologram` gets set to the value of [flag](../../Flags%20arrays/flags.md) 162 (we are in a B.O.S.S or Cave of Trials battle)
-- `battlepos` is set to the battleentity position
+- battleentity.`hologram` gets set to the value of [flag](../../Flags%20arrays/flags.md) 162 (we are in a B.O.S.S or Cave of Trials session)
+- `battlepos` is set to the battleentity's position
 - Some [enemies](../../Enums%20and%20IDs/Enemies.md) have additional logic here:
     - `VenusBoss`: `extraentities` is initialised to a new array with one element being a new entity created via [CreateNewEntity](../../Entities/EntityControl/EntityControl%20Creation.md#createnewentity) with a name of `Venus`, an [animid](../../Enums%20and%20IDs/AnimIDs.md) of 80 (`Venus`) and a position of (0.0, 0.0, 4.0) childed to the `battlemap`. This entity gets further adjustements:
         - `hologram` gets set to the value of [flag](../../Flags%20arrays/flags.md) 162 (we are in a B.O.S.S or Cave of Trials battle)
@@ -90,31 +90,31 @@ From there, the following happens on each `enemydata`:
     - `Scarlet`: battleentity.`basesate` is set to 5 (`Angry`)
     - `BeeBoss`: `battlepos` and the battleentity position are set to (4.5, 0.0, 0.0)
     - `SandWyrmTail`: entity.`height` and entity.`initialheight` are set to 0.0
-    - `Cenn` and `Pisci`: If [flags](../../Flags%20arrays/flags.md) 497 is true (beat them for the first time) , `eventondeath` is set to -1. If it's false, `AlwaysSurvive` is added to the [weakness](../Actors%20states/Enemy%20features.md#weakness). In either cases, `battlepos` and the battleentity position are set to (1.0, 0.0, 0.0)
+    - `Cenn` and `Pisci`: If [flags](../../Flags%20arrays/flags.md) 497 is true (beat them for the first time) , [eventondeath](../Actors%20states/Enemy%20features.md) is set to -1. If it's false, `AlwaysSurvive` is added to the [weakness](../Actors%20states/Enemy%20features.md#weakness). In either cases, `battlepos` and the battleentity position are set to (1.0, 0.0, 0.0)
     - `Spuder` and `SpuderReal`: If [flags](../../Flags%20arrays/flags.md) 41 is false (before the end of chapter 1) and either flags 613 (RUIGEE) or 614 (HARDEST) is true, the `hp` and `maxhp` are decreased by 15
     - `Zasp` and `Mothiva`: If [flags](../../Flags%20arrays/flags.md) 606 is true (after the second round of the colosseum in chapter 6), `hp` / `maxhp` are increased by 15, `hardatk` is incremented and `lockrelayreceive` is set to true
     - `Pitcher`: battleentity position is incremented by Vector3.right
-    - `Maki`, `Kina` and `Yin`: If [flags](../../Flags%20arrays/flags.md) 614 (HARDEST) is true, `hp` / `maxhp` are increased by 10 and `def` is incremented
+    - `Maki`, `Kina` and `Yin`: If [flags](../../Flags%20arrays/flags.md) 614 is true (HARDEST is active), `hp` / `maxhp` are increased by 10 and `def` is incremented
 - If the calledfrom.entity or the battleentity is `inice` while it's a `Krawler` or `CursedSkull` [enemy](../../Enums%20and%20IDs/Enemies.md):
-    - `freezeres` is incremented by 70
+    - `freezeres` is incremented by 70 (affects [freeze](../Actors%20states/BattleCondition/Freeze.md) inflictions)
     - battleentity.`inice` is set to true
     - [weakness](../Actors%20states/Enemy%20features.md#weakness) is set to a new list with one element being `HornExtraDamage`
 - If battleentity.`forcefire` or we are in the `GiantLair` [area](../../Enums%20and%20IDs/librarystuff/Areas.md) except for the `GiantLairFridgeInside` [map](../../Enums%20and%20IDs/Maps.md) while the enemy is a `Krawler`, `CursedSkull` or `Cape`:
     - If instance.`partylevel` is less than 27 (meaning it's not maxed) and [flags](../../Flags%20arrays/flags.md) 613 is false (RUIGEE is inactive), the `exp` is incremented by the floored result of a lerp from 10.0 to 3.0 with a factor of instance.`partylevel` / 27.0
-    - `freezeres` is set to 110
+    - `freezeres` is set to 110 (immune to [freeze](../Actors%20states/BattleCondition/Freeze.md) inflictions)
     - `hp` and `maxhp` are increased by 3
-    - `weakness` is set to a new list with one element being `Magic`
+    - [weakness](../Actors%20states/Enemy%20features.md#weakness) is set to a new list with one element being `Magic`
 - A frame is yielded
 - battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to its `basesate`
 
 After, there are more setup logic, but this time, it's based on the entire `enemydata` array instead of each element:
 
-- If it contains a `MotherChomper` [enemy](../../Enums%20and%20IDs/Enemies.md) with a length of 3, the `battlepos` are changed as follows:
+- If it contains a `MotherChomper` [enemy](../../Enums%20and%20IDs/Enemies.md) with a length of 3, the `battlepos` are changed as follows depending on their `enemydata` indexes:
     - 0: (1.2, 0.0, 1.0)
     - 1: (2.7, 0.0, -0.5)
     - 2: (4.6, 0.0, -0.1)
 - If it contains a `UltimaxTank` [enemy](../../Enums%20and%20IDs/Enemies.md), the `battlepos` of the first element is incremented by (0.0, 0.0, 1.0)
-- If it contains a `SandWyrm` [enemy](../../Enums%20and%20IDs/Enemies.md), the first 2 elements gets a VenusBattle component added to their battleentity.gameObject with its SetUp called on them where the target is the battleentity itself and the parent being the other of the 2 battleentity. It also changes their `battlepos`:
+- If it contains a `SandWyrm` [enemy](../../Enums%20and%20IDs/Enemies.md), the first 2 elements gets a VenusBattle component added to their battleentity.gameObject with its SetUp called on them where the target is the battleentity itself and the parent being the other of the 2 battleentity. It also changes their `battlepos` depending on their `enemydata` indexes:
     - 0: (3.0, 0.0, 0.0)
     - 1: (5.9, 0.0, 0.0)
 - All battleentity in `enemydata` gets their position set to their corresponding `battlepos`
@@ -134,7 +134,7 @@ From there, the following fields gets initialised to each `playerdata`:
 |`atkdownonloseatkup`|false|
 |battleentity's position|Depends on the `playerdata` index:<ul><li>0: (-3.0, 0.1, 0.0)</li><li>1: (-5.0, 0.1, 1.0)</li><li>2: (-6.0, 0.1, 0.0)</li></ul>|
 |battleentity's tag|`Player`|
-|battleentity.[animid](../../Enums%20and%20IDs/AnimIDs.md)|The corresponding `trueid` (see [battle party addressing](../playerdata%20addressing.md#methods-of-addressing-durring-battle))|
+|battleentity.[animid](../../Enums%20and%20IDs/AnimIDs.md)|The corresponding `trueid` (see [battle party addressing](../playerdata%20addressing.md#methods-of-addressing-durring-battle) for why this happens)|
 |battleentity.`flip`|true|
 |battleentity.`battle`|true|
 |`moreturnnextturn`|0|
@@ -185,13 +185,15 @@ This part involves the initialisation of the `chompy` field. It happens if [flag
 - `battle` set to true
 
 ## AI setup
-This part initialises battle `aiparty` which is a battle AI. A battle AI is an entity that sits closely to the player party, but has scripted actions after the player party's turn is over. They are only added under specific conditions, usually involving having a follower. 
+This part initialises battle `aiparty` which is a battle AI. A battle AI is an entity that sits closely to the player party, but has scripted actions after the player party's actions (and `chompy` if applicable) is over. They are only added under specific conditions, usually involving having a follower. 
 
-The method used for this is called AddAI and it initalises `aiparty` to a new entity created via [CreateNewEntity](../../Entities/EntityControl/EntityControl%20Methods.md#createnewentity) with name `ai party` using the matching  with position (-3.0, 0.0, 2.0) childed to the `battlemap` and with a `flip` and `battle` field set to true. The method takes an [animid](../../Enums%20and%20IDs/AnimIDs.md) and am [animstate](../../Entities/EntityControl/Animations/animstate.md) to set to the entity (the animstate parameter is called basestate, but it actually sets the `animstate` field).
+The method used for this is called AddAI and it initalises `aiparty` to a new entity created via [CreateNewEntity](../../Entities/EntityControl/EntityControl%20Methods.md#createnewentity) with name `ai party` using the matching [animid](../../Enums%20and%20IDs/AnimIDs.md) and am [animstate](../../Entities/EntityControl/Animations/animstate.md) with position (-3.0, 0.0, 2.0) childed to the `battlemap` and with a `flip` and `battle` field set to true. 
+
+The method takes an [animid](../../Enums%20and%20IDs/AnimIDs.md) and am [animstate](../../Entities/EntityControl/Animations/animstate.md) to set to the entity (the animstate parameter is called basestate, but it actually sets the `animstate` field).
 
 While technically, the method can be called multiple time, this isn't supported and will likely result in entities not being tracked by the game should this happen.
 
-Here are the different AIs added and their conditions:
+Here are the different AIs added and their conditions by their animid:
 
 - `Maki` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 13 (`BattleIdle`) if any of the following is true:
     - The MainManager.map.`mapid` is the `FGClearing` [map](../../Enums%20and%20IDs/Maps.md)
@@ -233,11 +235,11 @@ This part only contains miscellaneous initialisations logic before `halfload` is
 - If the `fronticon` doesn't exist, it is initialised to the SpriteRenderer of a new UI object with the name `attackicon` childed to the `GUICamera` with position of Vector.zero, size of Vector3.one / 3.0, sortingOrder of 20 and with a sprite of `guisprites[63]` (the red arrow of the front icon in battle)
 - A frame is yielded
 - We exit the `pause` entered earlier
-- If there's more than one `playerdata` element, then as long as the first `partypointer` doesn't match the first instance.`partyorder` (meaning the `battle` doesn't point to the leading party member), a [SwitchParty](../Battle%20flow/Action%20coroutines/SwitchParty.md) action coroutine is started with fast (which ends up calling MainManager.SwitchParty immediately) followed by a frame yield until they both match NOTE: it does mean the coroutine calls can be spammed, but in theory, the while condition gets updated information everytime since the StartCoroutine call immediately causes the party to be updated. For more information on why this is done, check [battle party addressing](../playerdata%20addressing.md#methods-of-addressing-durring-battle).
-- If calledfrom exists with a `dizzytime` above 0.0:
+- If there's more than one `playerdata` element, then as long as the first `partypointer` doesn't match the first instance.`partyorder` (meaning the `battle` doesn't point to the leading party member), a [SwitchParty](../Battle%20flow/Action%20coroutines/SwitchParty.md) action coroutine is started with fast (which ends up calling MainManager.SwitchParty immediately) followed by a frame yield until they both match. NOTE: It does mean the coroutine calls can be spammed, but in theory, the while condition gets updated information everytime since the StartCoroutine call immediately causes the party to be updated. For more information on why this is done, check [battle party addressing](../playerdata%20addressing.md#methods-of-addressing-durring-battle).
+- If calledfrom exists with a `dizzytime` above 0.0 (the player should get the advantage):
     - The `playerdata` with a `trueid` (which is the [animid](../../Enums%20and%20IDs/AnimIDs.md)) that matches the first `partypointer` is found and its `cantmove` is set to -1 and `receivedrelay` of the corresponding `playerdata` index is set to true. This essentially gives an additional turn to the lead party member and also allows their `tiredpart` to be enabled by [UpdateAnim](../Visual%20rendering/UpdateAnim.md)
     - calledfrom.`dizzytime` is set to 0.0
-- If the `StrongStart` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on a party member, the corresponding `playerdata` gets its `cantmove` decremented which gives it an additional turn
+- If the `StrongStart` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on a party member, the corresponding `playerdata` gets its `cantmove` decremented which gives it an additional turn. NOTE: The `tiredpart` may not render after the first actor turn because the corresponding `receviedrelay` may not be set to true
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
 - All frames are yielded while `action` is true until it goes to false (this is done to ensure all remainings SwitchParty calls done earlier are fully finished)
 - [RefreshEXP](../Visual%20rendering/RefreshEXP.md) is called
