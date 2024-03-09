@@ -55,7 +55,7 @@ Each parameters directly maps to a field in `DelayedProjectileData` of the delpr
 - `obj`: `obj`
 - `targetpos`: `position`
 - `damage`: `damage`
-- `turnstohit`: The value + 1 is mapped to `turns` (this is because the main turn that the projectile is fired is excluded from `turns` so the first [AdvanceMainTurn](../Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) will remove it after its launch and the [enemy phase](../Battle%20flow/Update.md#enemies-phase) is done)
+- `turnstohit`: The value + 1 is mapped to `turns` (this is because the main turn that the projectile is fired is excluded from `turns` so the first [AdvanceMainTurn](../Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) will remove it after its launch and the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) is done)
 - `areadamage`: `areadamage` (this field is UNUSED because it is never read)
 - `property`: `property`
 - `framespeed`: `framestep`

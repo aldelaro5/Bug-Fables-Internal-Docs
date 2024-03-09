@@ -85,8 +85,8 @@ This is all the BattleControl fields.
 |commandsuccess|bool|Yes|Tells if the last action command succeeded or tell if the player is currently blocking (tracked by [GetBlock](Battle%20flow/GetBlock.md))|
 |buttons|ButtonSprite\[\]|No|A general purpose array of ButtonSprites for use in [DoCommand](Action%20commands/DoCommand.md)|
 |commandsprites|SpriteRenderer\[\]|No|A general purpose SpriteRenderer array for use in [DoCommand](Action%20commands/DoCommand.md) or other action commands related needs|
-|helpboxid|int|No|The id of the current action command whose description should be rendered in `helpbox`|
-|helpbox|DialogueAnim|No|The 9box containing the action command description whose id is `helpboxid`|
+|helpboxid|int|No|The id of the current action command whose description should be rendered in `helpbox` by [CreateHelpBox](Visual%20rendering/CreateHelpBox.md#createhelpbox)|
+|helpbox|DialogueAnim|No|The 9box containing the action command description whose id is `helpboxid` rendered by [CreateHelpBox](Visual%20rendering/CreateHelpBox.md#createhelpbox)|
 |superblockedthisframe|float|No|A short lived cooldown in frames that allows a super block to still count until it expires, check [GetBlock](Battle%20flow/GetBlock.md) to learn more. Used in the damage pipeline and maintained by [LateUpdate](Visual%20rendering/LateUpdate.md)|
 |blockcooldown|float|No|The amount of frames left that a block can be processed, check [GetBlock](Battle%20flow/GetBlock.md) for more details|
 |hasblocked|bool|No|If true, the damage pipeline detected the player blocked the attack with a valid block (even if FRAMEONE rules would have prevented it). This is only used in HardSeedVenus, a coroutine specific to the `VenusBoss` [enemy](../Enums%20and%20IDs/Enemies.md)|
@@ -113,7 +113,7 @@ This is all the BattleControl fields.
 |chompyattacked|bool|No|Tells if [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) has completed during the [player phase](Battle%20flow/Main%20turn%20life%20cycle.md#player-phase) when applicable|
 |coptions|List<int>|No|The list of action options available during [Chompy](Battle%20flow/Action%20coroutines/Chompy.md): 0 is basic attack, 1 is do nothing, 2 is the ribbon specific attack and 3 is change ribbon|
 |chompyoption|int|No|The last chosen `coption` the last time [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) was called|
-|chompylock|bool|No|If true, it prevents [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) to be a part of the [player phase](Battle%20flow/Update.md#player-phase) even if it would normally be allowed. This is only used during [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) specifically for the `Centipede` [enemy](../Enums%20and%20IDs/Enemies.md)|
+|chompylock|bool|No|If true, it prevents [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) to be a part of the [player phase](Battle%20flow/Main%20turn%20life%20cycle.md#player-phase) even if it would normally be allowed. This is only used during [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) specifically for the `Centipede` [enemy](../Enums%20and%20IDs/Enemies.md)|
 
 ### AI party informations
 

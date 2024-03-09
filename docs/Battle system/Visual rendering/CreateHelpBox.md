@@ -7,7 +7,7 @@ private void CreateHelpBox(int id)
 
 ## Parameters
 
-- `id`: the `helpboxid` to use. There is an overload without this parameter that will use the existing value. NOTE: if this is sent and MainManager.`mashcommandalt` is true (sequential keys is set in the settings):
+- `id`: The `helpboxid` to use. There is an overload without this parameter that will use the existing value. NOTE: if this is sent and MainManager.`mashcommandalt` is true (sequential keys is set in the settings):
     - 4 (`TappingKey`) is overriden to 8 (`RandomTappingKeysTimer`)
     - 10 (`RandomTappingBar`) is overriden to 8 (`RandomTappingKeysTimer`)
     - 11 (`RandomPressKeyTimer`) is overriden to 8 (`RandomTappingKeysTimer`)

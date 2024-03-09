@@ -13,7 +13,7 @@ All SetText calls in this method have the following parameters on top of being i
 - No caller
 
 ## Chompy
-This section applies only if the `currentaction` is `Chompy`:
+This section applies only if the [currentaction](../Player%20UI/Pick.md) is `Chompy`:
 
 - `actiontext` local position is set to (-5.0, 4.0, 10.0)
 - All SetText objects under `actiontext` are destroyed via MainManager.DestroyText
@@ -27,7 +27,7 @@ This section applies only if the `currentaction` is `Chompy`:
     - 3: 273 (`Change Ribbons`)
 - SetText is called in non dialogue mode using the `menutext` line selected earlier prepanded with `|`[center](../../SetText/Individual%20commands/Center.md)`|`
 
-## During the [player phase](../Battle%20flow/Update.md#player-phase) of a [controlled flow](../Battle%20flow/Update.md#controlled-flow)
+## During the [player phase](../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase) of a [controlled flow](../Battle%20flow/Update%20flows/Controlled%20flow.md)
 This section applies if the chompy one didn't and `enemy`, `action` and `inevent` are false while the [message](../../SetText/Notable%20states.md#message) lock is released:
 
 ### `cancelb`
@@ -43,9 +43,9 @@ If `cancelb` doesn't exist, it is created as a new GameObject named `cancelhelp`
 After the creation, a DelayCancelBox coroutine is started which yields a frame followed by creating a new UI object named `back` childed to `cancelb` with a position of (2.25, 0.
 0, 0.0), a size of (1.1, 2.75, 1.0) using `guisprites[0]` (a rectangle) and with a sortingOrder of -10. The SpriteRenderer color of this object is set to pure white with half opacity.
 
-If the `currentaction` is `BaseAction` (the vine main action menu), `cancelb` position is set offscreen to (0.0, 999.0, 0.0). Otherwise, the local position is set to (2.1 or 2.5 if `longcancel` is true, 4.2, 10.0).
+If the [currentaction](../Player%20UI/Pick.md) is `BaseAction` (the vine main action menu), `cancelb` position is set offscreen to (0.0, 999.0, 0.0). Otherwise, the local position is set to (2.1 or 2.5 if `longcancel` is true, 4.2, 10.0).
 
-### `currentaction` logic
+### [currentaction](../Player%20UI/Pick.md) logic
 This section depends on the `currentaction`
 
 #### `BaseAction`
@@ -69,11 +69,11 @@ This section depends on the `currentaction`
 
 - `actiontext` local position is set to (-5.0, -2.5, 10.0)
 - All SetText objects under `actiontext` are destroyed via MainManager.DestroyText
-- A string is built depending on the `itemarea`, but it always starts with `|`[center](../../SetText/Individual%20commands/Center.md)`|`:
+- A string is built depending on the [itemarea](../AttackArea.md), but it always starts with `|`[center](../../SetText/Individual%20commands/Center.md)`|`:
     - `SingleEnemy`:
         - If the [languageid](../../SetText/languageid.md#languageid) is `Japanese` or the `availabletargets[option].entityname` (the selected enemy's name) has a length of 5 or above, `|`[size](../../SetText/Individual%20commands/size.md)`,X,0.7|` is appended where `X` is 1.0 - 0.05 * `availabletargets[option].entityname.length` - 5 clamped from 0.5 to 0.8
         - `avaliabletargets[option].entityname` is appended
-        - If `currentchoice` is `Strategy` while the [bestiary entry](../../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md) of the `avaliabletargets[option].animid` [enemy](../../Enums%20and%20IDs/Enemies.md) id exists (the selected enemy id), ` |`[stars](../../SetText/Individual%20commands/Stars.md)`,1|` is appended
+        - If [currentchoice](../Player%20UI/Actions.md) is `Strategy` while the [bestiary entry](../../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md) of the `avaliabletargets[option].animid` [enemy](../../Enums%20and%20IDs/Enemies.md) id exists (the selected enemy id), ` |`[stars](../../SetText/Individual%20commands/Stars.md)`,1|` is appended
     - `All`: `menutext[77]` is appended
     - `AllEnemies`: `menutext[75]` is appended
     - `AllParty`: `menutext[76]` is appended
@@ -83,10 +83,10 @@ This section depends on the `currentaction`
 
 - `actiontext` local position is set to (-5.0, -2.5, 10.0)
 - All SetText objects under `actiontext` are destroyed via MainManager.DestroyText
-- A string is built depending on the `itemarea`, but it always starts with `|`[center](../../SetText/Individual%20commands/Center.md)`|`:
+- A string is built depending on the [itemarea](../AttackArea.md), but it always starts with `|`[center](../../SetText/Individual%20commands/Center.md)`|`:
     - `SingleAlly`:
         - `playerdata[option].entityname` is appended
-        - If `currentchoice` is `Item` while the `WeakStomach` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on `playerdata[option].trueid`, ` |`[size](../../SetText/Individual%20commands/size.md)`,1,0.6||`[icon](../../SetText/Individual%20commands/Icon.md)`,184|` is appended
+        - If [currentchoice](../Player%20UI/Actions.md) is `Item` while the `WeakStomach` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on `playerdata[option].trueid`, ` |`[size](../../SetText/Individual%20commands/size.md)`,1,0.6||`[icon](../../SetText/Individual%20commands/Icon.md)`,184|` is appended
     - `All`: `menutext[77]` is appended
     - `AllEnemies`: `menutext[75]` is appended
     - `AllParty`: `menutext[76]` is appended

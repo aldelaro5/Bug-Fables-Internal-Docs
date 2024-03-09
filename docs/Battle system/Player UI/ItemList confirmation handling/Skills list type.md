@@ -11,5 +11,5 @@ This page describes the logic [SetItem](../SetItem.md) has when handling a [list
     - 9 (`RandomPressBar`) is overriden to 12 (`MultiPressBar`)
 - `itemarea` is set to the `AttackArea` from `skilldata`
 - `excludeself` is set to the the value from `skilldata`
-- If `itemarea` is `User`, there is no need to have [GetChoiceInput](../GetChoiceInput.md) handle this so it is handled immediately by starting a [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md) action coroutine changing to an [uncontrolled flow](../../Battle%20flow/Update.md#uncontrolled-flow)
+- If `itemarea` is `User`, there is no need to have [GetChoiceInput](../GetChoiceInput.md) handle this so it is handled immediately by starting a [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md) action coroutine changing to an [uncontrolled flow](../../Battle%20flow/Update%20flows/Uncontrolled%20flow.md)
 - Otherwise, [GotoSelect](../GotoSelect.md) is called with overridemax

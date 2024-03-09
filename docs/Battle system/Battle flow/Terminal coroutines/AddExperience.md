@@ -8,7 +8,7 @@ The coroutine yield breaks immediately if `alreadyending` is true (meaning AddEx
 ## Setup
 
 - `alreadyending` is set to true which prevents double invocations
-- `action` and `cancelupdate` are set to true changing to a [terminal flow](../Update.md#terminal-flow)
+- `action` and `cancelupdate` are set to true changing to a [terminal flow](../Update%20flows/Terminal%20flow.md)
 - `enemy` is set to false, but this doesn't do anything because we just changed to a terminal flow
 - If the `HealingBuzz` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped:
     - All player party members with an `hp` above 0 has [Heal](../../Actors%20states/Heal.md) called on them for an ammount of 2 with nosound

@@ -13,7 +13,7 @@ private IEnumerator SwitchParty(bool fast)
 
 ## Procedure
 
-- `action` is set to true changing to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+- `action` is set to true changing to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 - `currentturn` is set to -1 which unselects the current player party member
 - SetLastTurns is called which resets `lastturns` to a new aray with the length being the amount of free players - 1 and all elements being -1 (this resets the player selection cycle)
 - If fast is false
@@ -31,7 +31,7 @@ private IEnumerator SwitchParty(bool fast)
 - [CancelList](../../Player%20UI/CancelList.md) is called
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
 - A frame is yielded
-- `action` is set to false changing to a [controlled flow](../Update.md#controlled-flow)
+- `action` is set to false changing to a [controlled flow](../Update%20flows/Controlled%20flow.md)
 - A frame is yielded (this frame will process in a controlled flow, but the rest is just visual updates so it's safe)
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called

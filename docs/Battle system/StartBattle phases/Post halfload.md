@@ -60,7 +60,7 @@ This part only happens if adv is 3:
 - All frames are yielded while `checkingdead` is in progress
 - All `enemydata` have their `tired` and `cantmove` set to 0
 - `currentturns` is set to -1
-- `action` is set to false (resets to a [controlled flow](../Battle%20flow/Update%20flows/Controlled%20flow.md#controlled-flow))
+- `action` is set to false (resets to a [uncontrolled flow](../Battle%20flow/Update%20flows/Uncontrolled%20flow.md))
 - `firststrike` is set to false
 - `enemy` is set to false (reset to be in the [player phase](../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase))
 - SetLastTurns is called which resets `lastturns` to a new array with the length being the amount of free players - 1 and all elements being -1

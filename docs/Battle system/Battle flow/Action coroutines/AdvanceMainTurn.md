@@ -5,7 +5,7 @@ This is an action coroutine that runs at the very end of every main turn when bo
 
 - `commandsuccess` is reset to false
 - `blockcooldown` is reset to 0.0
-- `action` is set to true which changes to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+- `action` is set to true which changes to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 - If the following conditions are met, `delprojs` are processed (see the section below for details):
     - `delprojs` isn't empty
     - There are at least one player party member who has their `hp` above 0 while not `eatenby`
@@ -15,13 +15,13 @@ This is an action coroutine that runs at the very end of every main turn when bo
 - Each player party member gets their actor turn advanced (see the section below for details)
 - A frame is yielded
 - `availableplayers` is set to the amount of player party members whose `hp` is above 0
-- If `availableplayers` is 0, [DeadParty](../Terminal%20coroutines/DeadParty.md) is started followed by an abrupt yield break. This will change to a [terminal flow](../Update.md#terminal-flow) as it is a terminal coroutine.
+- If `availableplayers` is 0, [DeadParty](../Terminal%20coroutines/DeadParty.md) is started followed by an abrupt yield break. This will change to a [terminal flow](../Update%20flows/Terminal%20flow.md) as it is a terminal coroutine.
 - If there is at least one enemy party member, the enemy party section of the turn advancement is performed alongside some end of main turn process (see the section below for details)
-- Otheriwse if `gameover` was already in progress, a yield break is issued because it means we already changed to a [terminal flow](../Update.md#terminal-flow) and nothing is left to do
+- Otheriwse if `gameover` was already in progress, a yield break is issued because it means we already changed to a [terminal flow](../Update%20flows/Terminal%20flow.md) and nothing is left to do
 - Otherwise: 
-    - `cancelupdate` is set to true changing to a [terminal flow](../Update.md#terminal-flow)
+    - `cancelupdate` is set to true changing to a [terminal flow](../Update%20flows/Terminal%20flow.md)
     - A second is yielded
-    - If `inevent` is false (we weren't in an [EventDialogue](../EventDialogue.md)), [AddExperience](../Terminal%20coroutines/AddExperience.md) is started changing to a [terminal flow](../Update.md#terminal-flow). NOTE: the coroutine still continues, but in practice, it can't race against AddExperience
+    - If `inevent` is false (we weren't in an [EventDialogue](../EventDialogue.md)), [AddExperience](../Terminal%20coroutines/AddExperience.md) is started changing to a [terminal flow](../Update%20flows/Terminal%20flow.md). NOTE: the coroutine still continues, but in practice, it can't race against AddExperience
 - If `actedthisturn` is false, `noaction` is incremented
 - If `gameover` isn't in progress while `noaction` is 5 (meaning 5 main turns passed without the ability for the player party to act), the inaction failsafe is done (see the section below for more details)
 - `actedthisturn` is set to false
@@ -151,9 +151,9 @@ Finally, some end of main turn process logic occurs:
     - `checkingdead` is set to null which informs the caller the coroutine has ended so it can stop yielding
 - `option` is set to 0
 - `currentturn` is set to -1 (this unselects any players party members previously selected)
-- `enemy` is set to false (this resets the [controlled flow](../Update.md#controlled-flow) to be in the [player phase](../Update.md#player-phase))
+- `enemy` is set to false (this resets the [controlled flow](../Update%20flows/Controlled%20flow.md) to be in the [player phase](../Main%20turn%20life%20cycle.md#player-phase))
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
-- `action` is set to false changing to a [controlled flow](../Update.md#controlled-flow)
+- `action` is set to false changing to a [controlled flow](../Update%20flows/Controlled%20flow.md#controlled-flow)
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 
 ### Inaction failsafe

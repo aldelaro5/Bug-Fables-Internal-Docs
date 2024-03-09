@@ -20,13 +20,15 @@ If it wasn't hidden from the above, the enablement will be updated by testing a 
 After updating the enablement, if it's still active, battleentity.`hpbarfont`.`text` is updated to the actualy enemy's `hp`. To update the red bar, the `hpbar`'s first child's first child gets its x scale update to be the enemy's `hp` / `maxhp` (the y/z scale are set to 1.0). To update the yellow bar, the `hpbar`'s first child's second child gets its x scale update to `hpoffset[X]` where X is the length of the `hpbarfont`.`text` - 1 which essentially means if it's one digit, it's 1.1, 1.275 for 2 digits and 1.45 for 3 digits (the y/z scale are set to 1.0).
 
 ## TrueDef
-The `defstat`'s displayed value is also updated based on the `def`. If the `def` is -1, the displayed value is `?`. If it's not, it will be the return value of TrueDef which is a method that returns the total defense of the enemy party member. It is is calculated by doing the following:
+The `defstat`'s displayed value is also updated based on the `def`. If the `def` is -1, the displayed value is `?`. NOTE: having the `def` be -1 only visually shows `?`, but it doesn't actually implies the feature of ? defense because this is handled separately by hacing `LimitX10` in the enemy party member's [weakness](../Actors%20states/Enemy%20features.md#weakness).
 
-1. The base defense is determined. It is 0 if the enemy has the `Flipped` [condition](../Actors%20states/Conditions.md) and if it doesn't have it, it is the return of GetDefense (enemy's `def`)
-2. 1 is added if the enemy has the `DefenseUp` [condition](../Actors%20states/Conditions.md)
-3. 1 is subtracted if the enemy has the `DefenseDown` [condition](../Actors%20states/Conditions.md)
-4. `defenseonhit` is added if the enemy `isdefending` is true 
-5. 1 is added if the enemy has the `Numb` [condition](../Actors%20states/Conditions.md)
+If it's not -1, it will be the return value of TrueDef which is a method that returns the total defense of the enemy party member. It is is calculated by doing the following:
+
+1. The base defense is determined. It is 0 if the enemy has the [Flipped](../Actors%20states/BattleCondition/Flipped.md) condition and if it doesn't have it, it is the `def` value
+2. 1 is added if the enemy has the [DefenseUp](../Actors%20states/BattleCondition/DefenseUp.md) condition
+3. 1 is subtracted if the enemy has the [DefenseDown](../Actors%20states/BattleCondition/DefenseDown.md) condition
+4. [defenseonhit](../Actors%20states/Enemy%20features.md#defenseonhit-and-isdefending)'s value is added if the enemy `isdefending` is true
+5. 1 is added if the enemy has the [Numb](../Actors%20states/BattleCondition/Numb.md) condition
 6. The result is clamped from 0 to 9 and then returned
 
 What's important to note about TrueDef is it is ALWAYS accurate no matter the circumstances because it exhaustively covers all points of defense that can apply to any enemy party member. This is important because [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md) may incorrectly ignore some defense sources in various situations.

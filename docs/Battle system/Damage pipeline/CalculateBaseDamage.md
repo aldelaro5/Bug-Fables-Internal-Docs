@@ -106,7 +106,7 @@ These effects are shown in the exact order they appear.
 - superguarded is set to true
 - block is overriden to true
 
-For more information on how super blocks are determined, check [GetBlock](../Battle%20flow/Update.md).
+For more information on how super blocks are determined, check [GetBlock](../Battle%20flow/GetBlock.md).
 
 2: This is how ice thawing is done (this is done after the sub effect processed):
 

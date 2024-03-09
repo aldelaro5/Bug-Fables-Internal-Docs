@@ -7,7 +7,7 @@ private IEnumerator GameOver(bool skipsetup)
 
 ## Parameters
 
-- `skipsetup`: If true, it will skip some setup logic at the start and only show the prompt immediately. This is meant only to be used recursively in an edge case where reloading the save file failed which lets the player remedy the problem before letting GameOver try again, but with less setups. This should NEVER be called with the value true for the first time because it will prevent to change to a [terminal flow](../Update.md#terminal-flow)
+- `skipsetup`: If true, it will skip some setup logic at the start and only show the prompt immediately. This is meant only to be used recursively in an edge case where reloading the save file failed which lets the player remedy the problem before letting GameOver try again, but with less setups. This should NEVER be called with the value true for the first time because it will prevent to change to a [terminal flow](../Update%20flows/Terminal%20flow.md)
 
 ## Procedure
 
@@ -19,7 +19,7 @@ private IEnumerator GameOver(bool skipsetup)
 This entire section is skipped if skipsetup is true.
 
 - All `smallexporbs` and `bigexporbs` are destroyed
-- `action` and `cancelupdate` are set to true changing to a [terminal flow](../Update.md#terminal-flow)
+- `action` and `cancelupdate` are set to true changing to a [terminal flow](../Update%20flows/Terminal%20flow.md)
 - [RefreshEnemyHP](../../Visual%20rendering/RefreshEnemyHP.md) is called
 - SetFlags is called which sets all [flags](../../../Flags%20arrays/flags.md) and [flagvar](../../../Flags%20arrays/flagvar.md) to the ones from the [StartupData](../../StartUpData.md) of the `sdata`
 - instance.`hudcooldown` is set to -1 which hides the HP HUD elements

@@ -1,10 +1,10 @@
 # Chompy
-This action coroutine involves `chompy`'s special attack phase when she is present. It it is called during the [player phase](../Update.md#player-phase) after all player party members's actor turns are done. Whether or not this coroutine has ran is tracked by `chompyattacked` and whether or not it's in progress is tracked by the `chompyattack` coroutine (`chompyaction` also tells if the setup is complete). 
+This action coroutine involves `chompy`'s special attack phase when she is present. It it is called during the [player phase](../Main%20turn%20life%20cycle.md#player-phase) after all player party members's actor turns are done. Whether or not this coroutine has ran is tracked by `chompyattacked` and whether or not it's in progress is tracked by the `chompyattack` coroutine (`chompyaction` also tells if the setup is complete). 
 
-The actual flow is only switched once the setup is complete meaning this coroutine may stay in a [controlled flow](../Update.md#controlled-flow) for a little while before switching to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+The actual flow is only switched once the setup is complete meaning this coroutine may stay in a [controlled flow](../Update%20flows/Controlled%20flow.md) for a little while before switching to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 
 ## Setup
-This section runs first and performs any waits or setup needed before switching to an [uncontrolled flow](../Update.md#uncontrolled-flow).
+This section runs first and performs any waits or setup needed before switching to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md).
 
 - A frame is yielded if there's at least one `extraenemies`
 - All frames are yielded while `checkingdead` is in progress, `summonnewenemy` is true or while any enemy party member's battleentity is in a `forcemove`
@@ -12,7 +12,7 @@ This section runs first and performs any waits or setup needed before switching 
 - RefreshEnemyPos is called which checks all `enemydata` whose `hp` is above 0, whose `cantfall` is false and whose `position` is `Ground` or `Flying`. If the enemy battleentity.`height` is above battleentity.`minheight` + 0.5, the `position` is set to `Flying`, `Ground` otherwise
 - `combo` is set to 1
 - `chompyaction` is set to true informing that the setup is complete
-- `action` is set to true switching to a [uncontrolled flow](../Update.md#uncontrolled-flow)
+- `action` is set to true switching to a [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 - A frame is yielded
 
 ## Vine menu setup
@@ -137,10 +137,10 @@ What follows depends on the `coption[option]` selected.
 - `startdrop` is set back to false (since it's no longer needed)
 - `checkingdead` is set to a new [CheckDead](CheckDead.md) coroutine
 - All frames are yielded while `checkingdead` is in progress
-- If there's still any enemy party member with an `hp` above 0, `action` is set to false switching to a [controlled flow](../Update.md#controlled-flow) (this means the flow isn't changed if all enemies are dead)
+- If there's still any enemy party member with an `hp` above 0, `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md) (this means the flow isn't changed if all enemies are dead)
 
 ### 1 (Do Nothing)
-The only thing that happens is `action` is set to false switching to a [controlled flow](../Update.md#controlled-flow)
+The only thing that happens is `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md)
 
 ### 3 (Switch ribbon)
 
@@ -158,7 +158,7 @@ The only thing that happens is `action` is set to false switching to a [controll
     - Any other item id: Lerp between pure red and pure white with a factor of 0.5 (light red)
 - 0.1 seconds are yielded
 - `chompy`'s `spin` is zeroed out
-- `action` is set to false switching to a [controlled flow](../Update.md#controlled-flow)
+- `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md)
 
 ## End
 This section contains all the cleanup steps needed to end the action coroutine.

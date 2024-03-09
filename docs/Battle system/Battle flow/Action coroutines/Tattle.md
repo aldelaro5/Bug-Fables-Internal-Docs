@@ -6,7 +6,7 @@ The coroutine expects `playerdata[currentturn]` to be the player party member th
 ## Action command setup
 
 - DestroyHelpBox is called which sets `helpboxid` to -1 and destroys `helpbox` if it existed in 0.5 seconds with shrink before setting it to null
-- `action` is set to true changing to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+- `action` is set to true changing to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 - `caninputcooldown` is set to 0.0
 - `blockcooldown` is set to 0.0
 - `combo` is set to 0
@@ -83,6 +83,6 @@ This section only happens if the `HPScope` [medal](../../../Enums%20and%20IDs/Me
 - Unless the `HPScope` [medal](../../../Enums%20and%20IDs/Medal.md) was equipped, [EndPlayerTurn](../EndPlayerTurn.md) is called which advances the player party member's actor turn
 - [CancelList](../../Player%20UI/CancelList.md) is called
 - A frame is yielded
-- `action` is set to false changing to a [controlled flow](../Update.md#controlled-flow)
+- `action` is set to false changing to a [controlled flow](../Update%20flows/Controlled%20flow.md)
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called

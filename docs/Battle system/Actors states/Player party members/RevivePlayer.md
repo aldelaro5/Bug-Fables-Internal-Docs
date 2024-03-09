@@ -20,7 +20,7 @@ private void RevivePlayer(int id, int hp, bool showcounter)
 - battleentity.`nocondition` is set to false
 - The `playerdata`'s `turnssincedeath` is set to 0
 - If the player party member is included in `deadmembers`:
-    - The `playerdata`'s `cantmove` is set to 0 (one action available) unless `enemy` is true (we are in the [enemy phase](../../Battle%20flow/Update.md#enemies-phase) or later) where it's set to 1 instead (one actor turn is needed for an action to be available)
+    - The `playerdata`'s `cantmove` is set to 0 (one action available) unless `enemy` is true (we are in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) or later) where it's set to 1 instead (one actor turn is needed for an action to be available)
     - [ClearStatus](../Conditions%20methods/ClearStatus.md) is called on the player party member
     - The `playerdata`'s `moreturnnextturn` is set to 0
     - The `playerdata`'s `tired` is set to 0

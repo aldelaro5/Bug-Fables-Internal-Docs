@@ -1,5 +1,5 @@
 # RefreshEXP
-This method refreshes the rendered EXP orbs visually involving the `expholder`.
+This method refreshes the rendered EXP orbs visually involving the `expholder`. It is mostly called by [Update](../Battle%20flow/Update.md).
 
 - If the `expholder` doesn't exist, it is created as a new GameObject named `expholder` childed to the `GUICamera` with a tag of `DelAftBtl` (meaning it will get destroyed on [ReturnToOverworld](../Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md))
 - All existing `bigexporbs` and `smallexporbs` are destroyed

@@ -29,18 +29,18 @@ A `Confirm` sound is played on `sounds[10]` followed by `target` being set to `o
 What happens after depends on the `currentchoice` (nothing happen if it's not among these `Actions`).
 
 ### `Attack`
-A [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md) action coroutine is started changing to an [uncontrolled flow](../../Battle%20flow/Update.md#uncontrolled-flow) on `playerdata[currentturn].battleentity` using -1 as the action id.
+A [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md) action coroutine is started changing to an [uncontrolled flow](../../Battle%20flow/Update%20flows/Uncontrolled%20flow.md) on `playerdata[currentturn].battleentity` using -1 as the action id.
 
 ### `Item`
-CheckItemUse is called with the `selecteditem` which ends starting a [UseItem](../../Battle%20flow/Action%20coroutines/UseItem.md) action coroutine changing to an [uncontrolled flow](../../Battle%20flow/Update.md#uncontrolled-flow).
+CheckItemUse is called with the `selecteditem` which ends starting a [UseItem](../../Battle%20flow/Action%20coroutines/UseItem.md) action coroutine changing to an [uncontrolled flow](../../Battle%20flow/Update%20flows/Uncontrolled%20flow.md).
 
 ### `Skill`
 
 - `lastskill` is set to `selecteditem`
-- A [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md) action coroutine is started changing to an [uncontrolled flow](../../Battle%20flow/Update.md#uncontrolled-flow) on `playerdata[currentturn].battleentity` using `selecteditem` as the action id.
+- A [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md) action coroutine is started changing to an [uncontrolled flow](../../Battle%20flow/Update%20flows/Uncontrolled%20flow.md) on `playerdata[currentturn].battleentity` using `selecteditem` as the action id.
 
 ### `Strategy`
 
 - [ItemList](../../../ItemList/ItemList.md)'s `listredirect` is set to -1 (this workarounds a potential [inlist issue](../../../ItemList/inlist%20issue.md))
 - `currentaction` is set to `BaseAction`
-- A [Tattle](../../Battle%20flow/Action%20coroutines/Tattle.md) action coroutine is started changing to an [uncontrolled flow](../../Battle%20flow/Update.md#uncontrolled-flow) if `disablespy` is false.
+- A [Tattle](../../Battle%20flow/Action%20coroutines/Tattle.md) action coroutine is started changing to an [uncontrolled flow](../../Battle%20flow/Update%20flows/Uncontrolled%20flow.md) if `disablespy` is false.

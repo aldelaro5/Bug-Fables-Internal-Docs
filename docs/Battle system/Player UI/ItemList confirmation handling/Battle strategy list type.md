@@ -27,7 +27,7 @@ DoNothing is called which does the following:
 - [CancelList](../CancelList.md) is called
 
 ## 0 (Switch)
-The `Switch` sound is played followed by a [SwitchParty](../../Battle%20flow/Action%20coroutines/SwitchParty.md#switchparty) action coroutine starting switching to an [uncontrolled flow](../../Battle%20flow/Update.md#uncontrolled-flow).
+The `Switch` sound is played followed by a [SwitchParty](../../Battle%20flow/Action%20coroutines/SwitchParty.md#switchparty) action coroutine starting switching to an [uncontrolled flow](../../Battle%20flow/Update%20flows/Uncontrolled%20flow.md).
 
 ## 1 (Spy)
 
@@ -51,7 +51,7 @@ The `Switch` sound is played followed by a [SwitchParty](../../Battle%20flow/Act
     - `currentaction` is set to `SelectEnemy`
 
 ## 3 (Flee)
-If `canflee` is true, a [TryFlee](../../Battle%20flow/Action%20coroutines/TryFlee.md) action coroutine is started changing to an [uncontrolled flow](../../Battle%20flow/Update.md#uncontrolled-flow). This ends the handler.
+If `canflee` is true, a [TryFlee](../../Battle%20flow/Action%20coroutines/TryFlee.md) action coroutine is started changing to an [uncontrolled flow](../../Battle%20flow/Update%20flows/Uncontrolled%20flow.md). This ends the handler.
 
 If it's false however:
 

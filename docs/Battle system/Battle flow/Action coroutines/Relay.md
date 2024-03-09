@@ -5,7 +5,7 @@ The coroutine excepts to have the player party member whose index is `currenttur
 
 ## Setup
 
-- `action` is set to true changing to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+- `action` is set to true changing to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 - [UpdateText](../../Visual%20rendering/UpdateText.md)
 - A frame is yielded
 - The `Relay` sound is played
@@ -49,5 +49,5 @@ The logic ends by calling [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) f
 - [EndPlayerTurn](../EndPlayerTurn.md) is called which advances the actor turn
 - [CancelList](../../Player%20UI/CancelList.md) is called
 - A frame is yielded
-- `action` is set to false changing to a [controlled flow](../Update.md#controlled-flow)
+- `action` is set to false changing to a [controlled flow](../Update%20flows/Controlled%20flow.md)
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called

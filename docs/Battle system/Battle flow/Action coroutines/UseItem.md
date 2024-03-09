@@ -3,7 +3,7 @@ This action coroutine allows the player party member to use an [item](../../../E
 
 ## Setup
 
-- `action` is set to true switching to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+- `action` is set to true switching to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 - The `ItemHold` sounds is played
 - `lastitemuser` is set to the `trueid` of the `currentturn` player party member
@@ -42,7 +42,7 @@ If it does apply, the enemy party member index of the first `BanditLeader` is sa
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 - [EndPlayerTurn](../EndPlayerTurn.md) is called
-- `action` is set to false switching to a [controlled flow](../Update.md#controlled-flow)
+- `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md)
 - Yield break which ends this coroutine
 
 ## Pre item effects
@@ -218,4 +218,4 @@ An action will may be set to trigger in the post item effects section depending 
 - Otherwise:
     - 0.5 seconds are yielded
     - [EndPlayerTurn](../EndPlayerTurn.md) is called
-    - `action` is set to false switching to a [controlled flow](../Update.md#controlled-flow)
+    - `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md)

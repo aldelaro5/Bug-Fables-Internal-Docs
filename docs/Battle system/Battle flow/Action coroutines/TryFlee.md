@@ -3,7 +3,7 @@ This action coroutine allows the player to attempt to flee from the battle if an
 
 ## Command preparation
 
-- `action` is set to true changing to a [controlled flow](../Update.md#controlled-flow)
+- `action` is set to true changing to a [controlled flow](../Update%20flows/Controlled%20flow.md)
 - `commandsuccess` is reset to false
 - instance.`showmoney` is set to 100000000.0 which effectively makes the berry count HUD element shown permanently for now
 - The instance.`camtargetpos` is set to (-4.5, 0.0, 2.5) with an instance.`camspeed` of 0.075
@@ -92,4 +92,4 @@ This section is applicable if `commandsuccess` is false:
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called
 - instance.`showmoney` is set to -1 which hides the berry count HUD
 - [EndPlayerTurn](../EndPlayerTurn.md) is called (which will increment the `currentturn` player party member so all members's `cantmove` ends up at 1)
-- `action` is set to false switching back to a [controlled flow](../Update.md#controlled-flow)
+- `action` is set to false switching back to a [controlled flow](../Update%20flows/Controlled%20flow.md)

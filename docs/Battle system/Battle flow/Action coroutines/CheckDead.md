@@ -8,16 +8,16 @@ The coroutine does nothing if `gameover` is in progress. In that case, `checking
 Here's the CheckDead procedure:
 
 - `deadenemypos` is reset to a new list
-- `action` is set to true which changes to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+- `action` is set to true which changes to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 - For player party member whose `hp` is 0 or below while their battleentity.`death` is false (meaning this member should be dead, but isn't currently), the player death process occurs (see the section below for more details)
-- From there, if there are no longer any player party members with an `hp` above 0 while not `eatenby`, a [DeadParty](../Terminal%20coroutines/DeadParty.md) terminal coroutine is started changing to a [terminal flow](../Update.md#terminal-flow) followed by a yield break which abruptly ends this CheckDead
+- From there, if there are no longer any player party members with an `hp` above 0 while not `eatenby`, a [DeadParty](../Terminal%20coroutines/DeadParty.md) terminal coroutine is started changing to a [terminal flow](../Update%20flows/Terminal%20flow.md) followed by a yield break which abruptly ends this CheckDead
 - If any player party member were killed, SetLastTurns is called which resets `lastturns` to a new aray with the length being the amount of free players - 1 and all elements being -1 (this resets the player selection cycle)
 - The enemy death checks occurs (see the section below for details)
 - If `deadenemypos` isn't empty (meaning at least one enemy party member died or fled during this CheckDead), `extraenemies` isn't empty and there are still player party members with an `hp` above 0 while not being `eatenby`, the `extraenemies` summons procedure is performed (check the section below for details)    
 - If there are no longer any enemy party members left while `mainturn` isn't in progress, `mainturn` is set to a new [AdvanceMainTurn](AdvanceMainTurn.md) call which will take care of detecting the terminal case of winning the battle and act accordingly
 - Otherwise:
     - A frame is yielded
-    - If EnemyDropping reports that all enemy party members's battleentity.`droproutine` isn't in progress while `mainturn` isn't in progress, `action` is set to false which will change to a [controlled flow](../Update.md#controlled-flow) once CheckDead completes
+    - If EnemyDropping reports that all enemy party members's battleentity.`droproutine` isn't in progress while `mainturn` isn't in progress, `action` is set to false which will change to a [controlled flow](../Update%20flows/Controlled%20flow.md) once CheckDead completes
 - If we aren't `inevent`, [ReorganizeEnemies](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called with order
 - `checkingdead` is set to null which reports to the rest of BattleControl that CheckDead is no longer in progress
 
@@ -26,7 +26,7 @@ Here's the CheckDead procedure:
 - `tired` is set to 0 (removes all exhaustions)
 - `charge` is set to 0
 - StartDeath is called on the battleentity which starts a [Death](../../../Entities/EntityControl/Notable%20methods/Death.md) process on it
-- If `enemy` is true (the player party member died during the [enemy phase](../Update.md#enemies-phase), a [hitaction](../../BattleControl.md#hitactions) or a [delproj advance](AdvanceMainTurn.md#delprojs-advance)), `turnssinedeath` is set to -1 (this is so it gets incremented to 0 on their [AdvanceTurnEntity](../AdvanceTurnEntity.md) later).
+- If `enemy` is true (the player party member died during the [enemy phase](../Main%20turn%20life%20cycle.md#enemy-phase), a [hitaction](../../BattleControl.md#hitactions) or a [delproj advance](AdvanceMainTurn.md#delprojs-advance)), `turnssinedeath` is set to -1 (this is so it gets incremented to 0 on their [AdvanceTurnEntity](../AdvanceTurnEntity.md) later).
 - [ClearStatus](../../Actors%20states/Conditions%20methods/ClearStatus.md) is called on the player party member
 - battleentity.`dead` is set to true (the Death process already does that)
 - If the battleentity.[animid](../../../Enums%20and%20IDs/AnimIDs.md) matches the battle's `forceattack`, it is reset to -1 (since the target is no longer valid)

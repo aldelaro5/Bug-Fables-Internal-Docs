@@ -5,7 +5,7 @@ When the coroutine starts, all frames will be yielded as long as any enemy party
 
 ## Preparation
 
-- `action` is set to true switching to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+- `action` is set to true switching to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 - `combo` is set to 1
 - [ReorganizeEnemies(true)](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called which sets `enemydata` to be all the alive enemies ordered by their x position
 - The position of the `aiparty` is saved locally as the starting position

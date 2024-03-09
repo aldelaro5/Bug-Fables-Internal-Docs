@@ -19,7 +19,7 @@ In order for this coroutine to process the charm, all of the following must true
 - A 6% random test must pass (generate a random integer number between 0 and 100 exclusive, that number converted to float must be \<= 5.5 which is a pass from 0 to 5 inclusive which makes it 6%)
 - At least 1 player party member's `hp` is above 0 and isn't `eatenby`
 - EnemyActingOutOfOrder returns false meaning no enemy party member's [hitaction](../BattleControl.md#hitactions) is true
-- Either the type is `ExpUp` (meaning it was invoked from [AddExperience](../Battle%20flow/Terminal%20coroutines/AddExperience.md)) or it's any other type while `cancelupdate` is false (we aren't in a [terminal flow](../Battle%20flow/Update.md#terminal-flow))
+- Either the type is `ExpUp` (meaning it was invoked from [AddExperience](../Battle%20flow/Terminal%20coroutines/AddExperience.md)) or it's any other type while `cancelupdate` is false (we aren't in a [terminal flow](Update%20flows/Terminal%20flow.md))
 - If the type is `AttackUp`, `playerdata[currentturn]` must not have the `AttackUp` condition already
 
 The following sections describes what happens when the charm is cleared to be processed.

@@ -10,4 +10,4 @@ This enum describes the current top level interface the player is naviguating. T
 |4|ItemList|Selecting an [item](../../Enums%20and%20IDs/Items.md) in its [ItemList](../../ItemList/ItemList.md)|
 |5|StrategyList|Selecting a strategy in its [ItemList](../../ItemList/ItemList.md)|
 |6|Relay|UNUSED|
-|7|Chompy|The chompy vine menu|
+|7|Chompy|The chompy vine menu used in [Chompy](../Battle%20flow/Action%20coroutines/Chompy.md)|

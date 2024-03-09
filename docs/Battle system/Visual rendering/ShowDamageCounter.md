@@ -25,8 +25,8 @@ private void ShowDamageCounter(int type, int ammount, Vector3 start, Vector3 end
 
 From there, 2 [SetText](../../SetText/SetText.md) calls occurs in [non dialogue mode](../../SetText/Dialogue%20mode.md#non-dialogue-mode). The only distinguishing factors of the 2 calls is the input string and the position:
 
-- The first has the input string be `|triui||halfline||center||sort,2||color,4|` followed by the ammount and it has a position of (0.0, 0.2, 0.0)
-- The second has the input string be `|triui||halfline||center||sort,1|` followed by the ammount and it has a position of (0.08, 0.08, 0.08)
+- The first has the input string be `|`[triui](../../SetText/Individual%20commands/Triui.md)`||`[halfline](../../SetText/Individual%20commands/Halfline.md)`||`[center](../../SetText/Individual%20commands/Center.md)`||`[sort](../../SetText/Individual%20commands/Sort.md)`,2||`[color](../../SetText/Individual%20commands/Color.md)`,4|` followed by the ammount and it has a position of (0.0, 0.2, 0.0)
+- The second has the input string be `|`[triui](../../SetText/Individual%20commands/Triui.md)`||`[halfline](../../SetText/Individual%20commands/Halfline.md)`||`[center](../../SetText/Individual%20commands/Center.md)`||`[sort](../../SetText/Individual%20commands/Sort.md)`,1|` followed by the ammount and it has a position of (0.08, 0.08, 0.08)
 
 Both calls shares these properties:
 
@@ -37,6 +37,8 @@ Both calls shares these properties:
 - size of Vector3.one * 1.75
 - parent of the counter object
 - No caller
+
+These 2 calls gives a white on black effect to the text.
 
 The last step involves a CounterAnimation coroutine starting, but this coroutine now ends with this.
 

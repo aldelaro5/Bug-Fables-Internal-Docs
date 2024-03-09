@@ -17,14 +17,14 @@ This input is only processed if [GetFreePlayerAmmount](../../Actors%20states/Pla
 - `caninputcooldown` is set to 2.0 frames
 - The `Money` sound is player with a pitch of 1.0 + `currentturn` / 10.0 which shifts the pitch slightly using a rate that depends on the selected player that we are switching away from
 - `lastoption` is set to `option`
-- `currentturn` is set to -1 which unselects the player (the new one will be cycle on the next [player phase](../../Battle%20flow/Update.md#player-phase) update)
+- `currentturn` is set to -1 which unselects the player (the new one will be cycle on the next [player phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase) update)
 
 ## Input 6 (switch party)
 This input is only processed when AllPartyFree returns true (all `playerdata` have a `cantmove` of 0 or below) or GetAlivePlayerAmmount returns exactly 1 (there is only one player with an `hp` above 0 with no `eatenby`). NOTE: this implies that it is possible to switch after an action if that action killed all, but one party member.
 
 - `caninputcooldown` is set to 2.0
 - The `Switch` sound is played
-- The [SwitchParty](../../Battle%20flow/Action%20coroutines/SwitchParty.md) action coroutine is started (without fast) which changes to an [uncontrolled flow](../../Battle%20flow/Update.md#uncontrolled-flow)
+- The [SwitchParty](../../Battle%20flow/Action%20coroutines/SwitchParty.md) action coroutine is started (without fast) which changes to an [uncontrolled flow](../../Battle%20flow/Update%20flows/Uncontrolled%20flow.md)
 
 ## Input 4 (confirm)
 

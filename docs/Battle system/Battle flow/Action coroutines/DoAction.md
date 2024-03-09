@@ -25,11 +25,11 @@ NOTE: If this is a player action, the coroutine expects `availabletargets`, `tar
 This is the first phase of the coroutine. It ensures the coroutin can proceed and does some preparations logic.
 
 - `deadmembers` is set to the return of GetDeadParty which are all the player party members indexes whose `hp` is 0 or below
-- If `cancelupdate` is true (which means we had entered into a [terminal flow](../Update.md#terminal-flow)), a frame is yielded followed by the coroutine abruptly ending with a yield break. This can be considered a safeguard in case terminal flow was entered before a DoAction call occured
+- If `cancelupdate` is true (which means we had entered into a [terminal flow](../Update%20flows/Terminal%20flow.md)), a frame is yielded followed by the coroutine abruptly ending with a yield break. This can be considered a safeguard in case terminal flow was entered before a DoAction call occured
 - `overridechallengeblock` is set to false
 - Any string invocation of [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is cancelled. This can happen if [AdvanceMainTurn](AdvanceMainTurn.md) invoked it, but a DoAction call processed before the incation occurs which can interfere because DoAction needs tighther control over calling UpdateAnim (and it calls it later as part of the setup anyway). Cancelling the invocation prevents this from happening
 - DestroyHelpBox is called which sets `helpboxid` to -1 and destroys `helpbox` if it existed in 0.5 seconds with shrink before setting it to null
-- `action` is set to true switching to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+- `action` is set to true switching to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
 
 What follows is a bunch of field value resets:
 
@@ -165,7 +165,7 @@ This phase occurs after any actions. It starts with logic that allways occur no 
 
 From there, what follows depends on if the actionid is -555 or not (this actionid is reserved for a player first strike).
 
-If it is, the only logic that happens is `action` is set to false switching to a [controlled flow](../Update.md#controlled-flow) followed by skipping to the cleanup phase.
+If it is, the only logic that happens is `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md) followed by skipping to the cleanup phase.
 
 If it's not, the full post action logic occurs with 2 distinct branche:
 
@@ -240,13 +240,13 @@ In either cases, they both end by setting all enemy party members's `lockpositio
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
 - If this isn't a `firststrike`:
     - A [CheckDead](CheckDead.md) is done without storing the coroutine
-    - Otherwise, `action` is set to false switching to a [controlled flow](../Update.md#controlled-flow)
+    - Otherwise, `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md)
 - If this isn't a `firststrike` and any enemy party member has their battleentity.`droproutine` in progress:
-    - `action` is set to true switching to an [uncontrolled flow](../Update.md#uncontrolled-flow)
+    - `action` is set to true switching to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
     - `startdrop` is set to true which allows any existing enemy party members to fall during their `droproutine`
     - All frames are yielded while an enemy party member still has its battleentity.`droproutine` in progress (it also constantly set `startdrop` to true to make sure they can drop)
     - `startdrop` is reset to false
-    - `action` is reset to false switching back to a [controlled flow](../Update.md#controlled-flow)
+    - `action` is reset to false switching back to a [controlled flow](../Update%20flows/Controlled%20flow.md)
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
 
 #### Fled enemy post action
