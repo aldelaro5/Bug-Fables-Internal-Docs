@@ -69,7 +69,7 @@ This section depends on the `currentaction`
 
 - `actiontext` local position is set to (-5.0, -2.5, 10.0)
 - All SetText objects under `actiontext` are destroyed via MainManager.DestroyText
-- A string is built depending on the [itemarea](../AttackArea.md), but it always starts with `|`[center](../../SetText/Individual%20commands/Center.md)`|`:
+- A string is built depending on the [itemarea](../Player%20UI/AttackArea.md), but it always starts with `|`[center](../../SetText/Individual%20commands/Center.md)`|`:
     - `SingleEnemy`:
         - If the [languageid](../../SetText/languageid.md#languageid) is `Japanese` or the `availabletargets[option].entityname` (the selected enemy's name) has a length of 5 or above, `|`[size](../../SetText/Individual%20commands/size.md)`,X,0.7|` is appended where `X` is 1.0 - 0.05 * `availabletargets[option].entityname.length` - 5 clamped from 0.5 to 0.8
         - `avaliabletargets[option].entityname` is appended
@@ -83,7 +83,7 @@ This section depends on the `currentaction`
 
 - `actiontext` local position is set to (-5.0, -2.5, 10.0)
 - All SetText objects under `actiontext` are destroyed via MainManager.DestroyText
-- A string is built depending on the [itemarea](../AttackArea.md), but it always starts with `|`[center](../../SetText/Individual%20commands/Center.md)`|`:
+- A string is built depending on the [itemarea](../Player%20UI/AttackArea.md), but it always starts with `|`[center](../../SetText/Individual%20commands/Center.md)`|`:
     - `SingleAlly`:
         - `playerdata[option].entityname` is appended
         - If [currentchoice](../Player%20UI/Actions.md) is `Item` while the `WeakStomach` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on `playerdata[option].trueid`, ` |`[size](../../SetText/Individual%20commands/size.md)`,1,0.6||`[icon](../../SetText/Individual%20commands/Icon.md)`,184|` is appended

@@ -138,7 +138,7 @@ This is all the BattleControl fields.
 |----|----|---------|-----------|
 |currentaction|[Pick](Player%20UI/Pick.md)|Yes|The current menu being naviguated by the player. Set to `BaseAction` on [StartBattle](StartBattle.md)|
 |currentchoice|[Actions](Player%20UI/Actions.md)|Yes|The current action being selected on the `BaseAction` menu. Set to `Attack` on [StartBattle](StartBattle.md)|
-|itemarea|[AttackArea](AttackArea.md)|No|Tells what actors are selectable to perform the current action|
+|itemarea|[AttackArea](Player%20UI/AttackArea.md)|No|Tells what actors are selectable to perform the current action|
 |maxoptions|int|No|The amount of available `option` on the main vine menu|
 |lastoption|int|No|The last selected `option` on the main vine menu|
 |selecteditem|int|No|The selected `listvar` option from an [ItemList](../ItemList/ItemList.md), set by [SetItem](Player%20UI/SetItem.md)|

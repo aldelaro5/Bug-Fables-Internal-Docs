@@ -15,7 +15,7 @@ This section only applies if `choicevine` exists which is after [StartBattle](..
 ## `cursor` updates
 This section only applies if `cursor` exists which is after [StartBattle](../StartBattle.md) called CreateCursor.
 
-The `cursor` is only rendered on screen if we are in a [controlled flow](../Battle%20flow/Update%20flows/Controlled%20flow.md) while [currentaction](../Player%20UI/Pick.md) isn't `BaseAction` (the main vine action menu) and [itemarea](../AttackArea.md) is `SingleAlly` or `SingleEnemy`. Otherwise, its position is set to offscreen at (0.0, 100.0, 0.0)
+The `cursor` is only rendered on screen if we are in a [controlled flow](../Battle%20flow/Update%20flows/Controlled%20flow.md) while [currentaction](../Player%20UI/Pick.md) isn't `BaseAction` (the main vine action menu) and [itemarea](../Player%20UI/AttackArea.md) is `SingleAlly` or `SingleEnemy`. Otherwise, its position is set to offscreen at (0.0, 100.0, 0.0)
 When it needs to be rendered, the `cursor` position setting logic depends on [currentaction](../Player%20UI/Pick.md).
 
 ### `SelectEnemy`

@@ -5,32 +5,32 @@ If the confirmation handling needs to move to target selection (which happens fr
 private void GotoSelect(bool overridemax)
 ```
 
-Here is the logic of that method depending on the `itemarea` (nothing happens if it's not among them):
+Here is the logic of that method depending on the [itemarea](../Player%20UI/AttackArea.md) (nothing happens if it's not among them):
 
 ## `SingleAlly`
 
 - `maxoptions` is set to the length of `playerdata`
-- `currentaction` is set to `SelectPlayer`
+- [currentaction](Pick.md) is set to `SelectPlayer`
 
 ## `SingleEnemy`
 
 - If overridemax is false, `maxoptions` is set to the length of `availabletargets`
-- `currentaction` is set to `SelectEnemy`
+- [currentaction](Pick.md) is set to `SelectEnemy`
 
 ## `AllEnemies`
 
 - `option` is set to 0
 - `maxoptions` is set to 1
-- `currentaction` is set to `SelectEnemy`
+- [currentaction](Pick.md) is set to `SelectEnemy`
 
 ## `AllParty`
 
 - `option` is set to `currentturn`
 - `maxoptions` is set to 1
-- `currentaction` is set to `SelectPlayer`
+- [currentaction](Pick.md) is set to `SelectPlayer`
 
 ## `All`
 
 - `option` is set to 0
 - `maxoptions` is set to 1
-- `currentaction` is set to `SelectEnemy`
+- [currentaction](Pick.md) is set to `SelectEnemy`
