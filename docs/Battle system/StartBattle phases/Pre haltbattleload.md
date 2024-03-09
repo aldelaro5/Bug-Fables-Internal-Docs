@@ -72,8 +72,8 @@ This part will do further initialisation:
 |`overworldmusic`|MainManager.`music[0]`.clip|Only set if MainManager.map.`musicid` is not negative and MainManager.map.`music` isn't empty<sup>1</sup>|
 |`overmusic`|MainManager.`music[0]`.time|Only set if `overworldmusic` was and MainManager.`keepmusicafterbattle` is true|
 |`canflee`|canescape|Sent as parameter|
-|`currentaction`|`BaseAction` (the main vine action menu)||
-|`currentchoice`|`Attack`||
+|[currentaction](../Player%20UI/Pick.md)|`BaseAction` (the main vine action menu)||
+|[currentchoice](../Player%20UI/Actions.md)|`Attack`||
 |`option`|0||
 |`action`|false||
 |`alreadyending`|false||

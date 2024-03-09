@@ -2,7 +2,7 @@
 DoDamage is the entrypoint of the damage pipeline. Any damage must go through it in order to be properly calculated and processed with visual effects and counters.
 
 ## Entry point
-There are 10 overloads, but all of them ends up at a particular one which is the following (it will be reffered to as the final overload):
+There are 10 overloads, but all of them ends up at a particular one which is the following (it will be refered to as the final overload):
 
 ```cs
 private int DoDamage(MainManager.BattleData? attacker, ref MainManager.BattleData target, int damageammount, AttackProperty? property, DamageOverride[] overrides, bool block)
@@ -12,10 +12,10 @@ It returns the amount of damage actually dealt.
 Here are the parameters:
 
 - `attacker`: The actor dealing the damage. If null, the damage didn't come from an attacker. If it exists, it must belong to the opposite party of the `target`
-- `target`: The actor receiving the damage. Passed as ref to allow modifying the actor's data. If the `attacker` exists, it must belong to its opposite party
+- ref `target`: The actor receiving the damage. Passed as ref to allow modifying the actor's data. If the `attacker` exists, it must belong to its opposite party
 - `damageammount`: The base amount of damage to deal. This number can be heavilly changed by the damage pipeline, it is only the base one to deal
-- `property`: The property of the attack
-- `overrides`: The overrides to apply to the damage pipeline. May be null or an empty array to have no overrides
+- `property`: The [property](AttackProperty.md) of the attack
+- `overrides`: The [overrides](DamageOverride.md) to apply to the damage pipeline. May be null or an empty array to have no overrides
 - `block`: For an enemy attack, whether or not the player sucessfully blocked it (this is intended to receive `commandsuccess` as it was determined by [GetBlock](../Battle%20flow/Update.md#getblock)). It doesn't matter if it's a regular block or a super block, this parameter is to signal a block of any kind as the damage pipeline will process what to do with it
 
 ### General purpose overloads
@@ -31,17 +31,17 @@ private int DoDamage(ref MainManager.BattleData target, int ammount)
 private int DoDamage(ref MainManager.BattleData target, int ammount, bool block)
 ```
 
-(3) Calls the final overload with the parameters sent leaving `overrides` to an empty array and `block` to false
+(3) Calls the final overload with the parameters sent leaving overrides to an empty array and block to false
 ```cs
 private int DoDamage(MainManager.BattleData? attacker, ref MainManager.BattleData target, int damageammount, AttackProperty? property)
 ```
 
-(4) Calls (5) with the parameters sent leaving `attacker` to null (meaning no attacker and no overrides)
+(4) Calls (5) with the parameters sent leaving attacker to null (meaning no attacker and no overrides)
 ```cs
 private int DoDamage(ref MainManager.BattleData target, int damage, AttackProperty? property)
 ```
 
-(5) Calls the final overload with the parameters sent leaving `overrides` to an empty array
+(5) Calls the final overload with the parameters sent leaving overrides to an empty array
 ```cs
 private int DoDamage(MainManager.BattleData? attacker, ref MainManager.BattleData target, int damageammount, AttackProperty? property, bool block)
 ```
@@ -49,12 +49,12 @@ private int DoDamage(MainManager.BattleData? attacker, ref MainManager.BattleDat
 ### Enemy attack overloads
 The following overloads are specifically made for an enemy party member attacking a player party member.
 
-(6) Calls the final overload with the `attacker` being `enemydata[enemyid]`, the target being `playerdata[playertarget]`, `overrides` being null and the rest being the same as the parameters sent
+(6) Calls the final overload with the attacker being `enemydata[enemyid]`, the target being `playerdata[playertarget]`, overrides being null and the rest being the same as the parameters sent
 ```cs
 private int DoDamage(int enemyid, int playertarget, int damage, AttackProperty? property, bool block)
 ```
 
-(7) Calls the final overload with the `attacker` being `enemydata[enemyid]`, the target being `playerdata[playertarget]` and the rest being the same as the parameters sent
+(7) Calls the final overload with the attacker being `enemydata[enemyid]`, the target being `playerdata[playertarget]` and the rest being the same as the parameters sent
 ```cs
 private int DoDamage(int enemyid, int playertarget, int damage, AttackProperty? property, DamageOverride[] overrides, bool block)
 ```
@@ -62,7 +62,7 @@ private int DoDamage(int enemyid, int playertarget, int damage, AttackProperty? 
 ### Player attack overloads
 The following overloads are specifically made for a player party member attacking an enemy party member.
 
-(8) Calls (9) with the parameter sent and `enemytarget` being the BattleControl's `target`
+(8) Calls (9) with the parameter sent and enemytarget being the BattleControl's `target`
 ```cs
 private int DoDamage(int playerid, AttackProperty? property)
 ```
@@ -75,6 +75,7 @@ private int DoDamage(int playerid, AttackProperty? property)
 - `property`: The same as the parameter sent
 - `overrides`: If `commandsuccess` is true, this is null and if it's false, it's an array with one element being `FailSound`
 - `block`: false
+
 ```cs
 private int DoDamage(int playerid, int enemytarget, AttackProperty? property)
 ```
@@ -82,32 +83,35 @@ private int DoDamage(int playerid, int enemytarget, AttackProperty? property)
 ## Procedure
 The following is a high level overview of the damage pipeline divided by sections for each groups of effects that happens.
 
-An actor is considered to be a player party member if it its battleentity has the `Player` tag. It's assumed to be an enemy party member if it doesn't. If the attacker exists, its party is assumed to be the opposte of the target's.
+An actor is considered to be a player party member if its battleentity has the `Player` tag. It's assumed to be an enemy party member if it doesn't. If the attacker exists, its party is assumed to be the opposte of the target's.
 
 ### block override
 There are ways that block can be overriden to false. Here are all of them (they aren't mutually exclusive, if any is true, block becomes false):
 
-- The target has the `Freeze` [condition](../Actors%20states/Conditions.md)
-- The target has the `Sleep` [condition](../Actors%20states/Conditions.md)
-- The target has the `Numb` [condition](../Actors%20states/Conditions.md)
+- The target has the [Freeze](../Actors%20states/BattleCondition/Freeze.md) condition
+- The target has the [Sleep](../Actors%20states/BattleCondition/Sleep.md) condition
+- The target has the [Numb](../Actors%20states/BattleCondition/Numb.md) condition
 - The target is a player party member with the `Berserker` [medal](../../Enums%20and%20IDs/Medal.md) equipped
-- This isn't a super block while [flags](../../Flags%20arrays/flags.md) 15 and 615 are true (chapter 1 started after the combat tutorial while FRAMEONE is active) and `overridechallengeblock` is false
+- This is a non super block while [flags](../../Flags%20arrays/flags.md) 15 and 615 are true (chapter 1 started after the combat tutorial while FRAMEONE is active) and `overridechallengeblock` is false
 
 ### Damage calculation
-The damage amount is decided by the following:
+This is where the final damage amount is determined.
 
-- If the target isn't Invulnerable, the final damage amount is set to the return of [CalculateBaseDamage](CalculateBaseDamage.md) with all the parameters sent (with the overriden block if applicable and property to null if it was `None`). The weaknesshit and superguarded ref parameters are passed via locals initially set to false. The target is invulnerable if any of the following is true:
-    - Its `plating` is true
-    - It has the `Shield` [condition](../Actors%20states/Conditions.md)
-    - It is a player party member with the `Numb` [condition](../Actors%20states/Conditions.md) and the `ShockTrooper` [medal](../../Enums%20and%20IDs/Medal.md) equipped
-- Otherwise (the target is invulnerable), it depends if the property is `NoException`:
-    - If it isn't, the amount is 0
-    - If it is, it's the original damageammount
+If the target isn't Invulnerable, the final damage amount is set to the return of [CalculateBaseDamage](CalculateBaseDamage.md) with all the parameters sent (with the overriden block if applicable and property to null if it was `None`). The weaknesshit and superguarded ref parameters are passed via locals initially set to false. 
+
+Otherwise (the target is invulnerable), it depends if the property is `NoException`:
+- If it isn't, the amount is 0
+- If it is, it's the original damageammount
+
+The target is invulnerable if any of the following is true:
+- Its `plating` is true
+- It has the [Shield](../Actors%20states/BattleCondition/Shield.md) condition
+- It is a player party member with the [Numb](../Actors%20states/BattleCondition/Numb.md) condition and the `ShockTrooper` [medal](../../Enums%20and%20IDs/Medal.md) equipped
 
 ### `plating` expiration
-If the target doesn't have the `Shield` [condition](../Actors%20states/Conditions.md), its `plating` is set to false. This allows the `plating` to not expire when hit while shielded.
+If the target doesn't have the [Shield](../Actors%20states/BattleCondition/Shield.md) condition, its `plating` is set to false. This allows the `plating` to not expire when hit while shielded.
 
-### `DamageOverride` application
+### [DamageOverride](DamageOverride.md) application
 8 of the 11 available `DamageOverride` are processed here if they are present in overrides. Each are processed in order they appear in the array. The other 3 were processed by [CalculateBaseDamage](CalculateBaseDamage.md) if it was called earlier:
 
 #### `ShowCombo`
@@ -167,7 +171,7 @@ This part only happens if all of the following are true:
 In that case, the attacker will get damaged which goes like the following:
 
 - The `Damage0` sound is played with 0.8 pitch and 0.5 volume
-- The `hp` of enemy party member corresponding to the attacker is decreased by 1 + the amount of `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) equipped on `Beetle` then clamped from 1 to its `maxhp` (this implies that this damage cannot be lethal)
+- The `hp` of the enemy party member corresponding to the attacker is decreased by 1 + the amount of `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) equipped on `Beetle` then clamped from 1 to its `maxhp` (this implies that this damage cannot be lethal)
 - [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 0 (damage) with the amount of damage dealt just now starting from the attacker.battleentity's position + attacker.`cursoroffset` and ending to (0.0, 1.0, 1.0)
 
 #### `PoisonTouch` [medal](../../Enums%20and%20IDs/Medal.md) processing
@@ -175,10 +179,10 @@ This part only happens if all of the following are true:
 
 - The `PoisonTouch` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the target
 - The target has the `Poison` [condition](../Actors%20states/Conditions.md)
-- There is an attacker (assumed to be an enemy party member) and its `poisonres` is less than 100 (it's not immune)
+- There is an attacker (assumed to be an enemy party member) and its `poisonres` is less than 100 (it's not immune to [poison](../Actors%20states/BattleCondition/Poison.md) inflictions)
 - `nonphysical` is false
 
-If all of the above are fufilled, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called to set the `Poison` [condition](../Actors%20states/Conditions.md) on the corresponding enemy party member of the attacker for 2 turns
+If all of the above are fufilled, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called to set the [Poison](../Actors%20states/BattleCondition/Poison.md) condition on the corresponding enemy party member of the attacker for 2 turns
 
 #### `FavoriteOne` [medal](../../Enums%20and%20IDs/Medal.md) processing
 This part only happens if the `FavoriteOne` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the target.
@@ -188,44 +192,44 @@ The only thing that happens is `attackedally` is set to target.`trueid`. This wi
 #### ShakeGUI call
 This part always happen as part of the player damage processing.
 
-The only thing that happens here is a ShakeGUI coroutine is started to shake the corresponding `hud` element of the target.battleentity.[animid](../../Enums%20and%20IDs/AnimIDs.md) with a range of (0.1, 0.1, 0.0) for 15.0 frames. This coroutine will change the localposition of the `hud`'s first chiled to be random between (0.0 - shake.x, 0.0 - shake.y) and (shake.x, shake.y) for the next 15.0 frames before being reset to Vector3.zero.
+The only thing that happens here is a ShakeGUI coroutine is started to shake the corresponding `hud` element of the target.battleentity.[animid](../../Enums%20and%20IDs/AnimIDs.md) with a range of (0.1, 0.1, 0.0) for 15.0 frames. This coroutine will change the local position of the `hud`'s first chiled to be random between (0.0 - shake.x, 0.0 - shake.y) and (shake.x, shake.y) for the next 15.0 frames before being reset to Vector3.zero.
 
 ### Enemy damage processing
 This section happens if the player damage processing didn't meaning the target is an enemy party member
 
-#### `isdefending` update
+#### [isdefending](../Actors%20states/Enemy%20features.md#isdefending) update
 This part only happens if all of the following are true:
 
-- target.`defenseonhit` is above 0
+- target.[defenseonhit](../Actors%20states/Enemy%20features.md#defenseonhit-and-isdefending) is above 0
 - The final amount of damage calculated is above 0
-- property isn't `Flip`. NOTE: [CalculateBaseDamage](CalculateBaseDamage.md) can change `isdefending` when property is `Flip` so this is why it can't change here (damage calculation needs to override this logic)
+- property isn't `Flip`. NOTE: [CalculateBaseDamage](CalculateBaseDamage.md) can change `isdefending` when property is `Flip` so this is why it can't change here (damage calculation needs to ne able to override this logic hence why this check is done)
 
 If all the above are fufilled, it means the enemy supports defending itself and it sustained damage which causes updates to its guarding state. When that happens, `isdefending` is set to false if the target [IsStopped](../Actors%20states/IsStopped.md) or to true if it's not.
 
-#### [hitaction](#hitaction-update) update
-target.`hitaction` can change under 2 conditions (these aren't mutually exclusive, they are applied in order):
+#### [hitaction](../Actors%20states/Enemy%20features.md#hitaction) update
+target.`hitaction` can change under 2 conditions (these aren't mutually exclusive, they are applied in order, but `hitaction` may not be set if neither apply):
 
-- It's set to true if target.`defenseonhit` is -1 and its `position` isn't `Underground`. This is only the case for an `Underling` [enemy](../../Enums%20and%20IDs/Enemies.md) under normal gameplay
-- It's set to !`enemy` (false on the enemy phase, true otherwise) if the target.`onhitaction` condition is fufilled which is:
+- It's set to true if target.[defenseonhit](../Actors%20states/Enemy%20features.md#defenseonhit-and-isdefending) is -1 and its [position](../Actors%20states/BattlePosition.md) isn't `Underground`. This is only the case for an `Underling` [enemy](../../Enums%20and%20IDs/Enemies.md) under normal gameplay
+- It's set to !`enemy` (false on the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) / [delproj](../Actors%20states/Delayed%20projectile.md#delayed-projectile) / enemy `firststrike` / enemy `hitaction`, true otherwise) if the target.`onhitaction` condition is fufilled which is:
     - If it's 1, it's always fufilled
     - If it's 2, it's only fufilled if target.`position` is `Flying`
     - If it's 3, it's only fufilled if target.`position` is `Ground`
 
-After, every other enemy party members other than the target who has the target.`animid` (its [enemy](../../Enums%20and%20IDs/Enemies.md) id) in their `chargeonotherenemy` has their `hitaction` set to !`enemy` (false during the enemy phase, true otherwise).
+After, every other enemy party members other than the target who has the target.`animid` (its [enemy](../../Enums%20and%20IDs/Enemies.md) id) in their [chargeonotherenemy](../Actors%20states/Enemy%20features.md#chargeonotherenemy) has their `hitaction` set to !`enemy` (false on the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) / [delproj](../Actors%20states/Delayed%20projectile.md#delayed-projectile) / enemy `firststrike` / enemy `hitaction`, true otherwise).
 
 #### Undigging
 This part only happens if all of the following are true:
 
 - The final amount of damages calculated earlier is higher than 0
-- target.`position` is `Underground` 
-- `mainturn` isn't in progress
+- target.[position](../Actors%20states/BattlePosition.md) is `Underground` 
+- `mainturn` ([AdvanceMainTurn](../Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)) isn't in progress
 
 If the above conditions are fufilled, then UnDig is called with the target as ref which does the following on it:
 
 - battleentity.`digging` is set to false
 - battleentity.`overridejump` is set to true
 - [Jump](../../Entities/EntityControl/EntityControl%20Methods.md#jump) is called on the battleentity with a height of 15.0
-- `position` is set to `Ground`
+- [position](../Actors%20states/BattlePosition.md) is set to `Ground`
 
 #### `turnsnodamage` reset
 If the final amount of damages calculated earlier is higher than 0, target.`turnsnodamage` is set to -1.
@@ -246,7 +250,7 @@ This happens if all the following are true:
 
 - The target is an enemy party member
 - The target has a `SurviveWith10` weakness
-- `currentaction` is `ItemList` (meaning this was an item use) or `lastskill` is not 9 (this attack came from any player skills other than `PeebleToss`)
+- [currentaction](../Player%20UI/Pick.md) is `ItemList` (meaning this was an item use) or `lastskill` is not 9 (this attack came from any player [skills](../../Enums%20and%20IDs/Skills.md) other than `PeebleToss`)
 
 #### Clamp from 1
 This happens if the target is an enemy party member with an `AlwaysSurvive` weakness.
@@ -260,18 +264,18 @@ If the target is a player party member with an `hp` of 0 (meaning it just died a
 ### Target waking up
 This section only applies if all of the following is true:
 
-- The target had the `Sleep` [condition](../Actors%20states/Conditions.md) at the start of the method
+- The target had the [Sleep](../Actors%20states/BattleCondition/Sleep.md) condition at the start of the method
 - The property isn't `Sleep`
 - target.`hp` is above 0
 - The final damage amount calculated earlier is above 0. NOTE: [CalculateBaseDamage](CalculateBaseDamage.md) may override this if the property is one of the status infliction one (except `Flip`) and the infliction occured because this clause isn't part of the damage calculation. This means that if the amount is 0, but an infliction removing `Sleep` occured, the `cantmove` won't change which is a different logic than this method enforces
-- There was no `DamageOverride` of `DontAwake` processed earlier
+- There was no [DamageOverride](DamageOverride.md) of `DontAwake` processed earlier
 - If the target is an player party member, the `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) must not be equipped
 
 If all of the above are fufilled, the following happens:
 
-- [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called to remove the `Sleep` [condition](../Actors%20states/Conditions.md) on the target
+- [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called to remove the [Sleep](../Actors%20states/BattleCondition/Sleep.md) condition on the target
 - target.`isasleep` is set to false
-- target.`cantmove` is set to 1. NOTE: this is incorrect because it means for a player party member, that remaining actor turn will advance immeidately after the enemy phase so they get to act, but for an enemy party member, they loose their entire main turn because the actor turn won't advance after the player phase
+- target.`cantmove` is set to 1. NOTE: This is incorrect because it means for a player party member, that remaining actor turn will advance immeidately after the enemy phase so they get to act, but for an enemy party member, they loose their entire main turn because the actor turn won't advance after the player phase
 - [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called with true as the onlyplayer
 
 ### `LifeSteal` processing

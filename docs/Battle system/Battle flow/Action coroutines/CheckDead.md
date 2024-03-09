@@ -53,7 +53,7 @@ The following happens if CheckDead found the enemy hasn't `fled` meaning they we
 - `charge` is set to 0
 - `condition` is reset to a new list
 - [LockRigid(false)](../../../Entities/EntityControl/EntityControl%20Methods.md#lockrigid) is called on the battleentity to unlock its `rigid`
-- If `holditem` wasn't -1, [DropItem](../../Actors%20states/DropItem.md) is called on the enemy party member with additem true
+- If `holditem` wasn't -1, [DropItem](../../Actors%20states/Enemy%20party%20members/DropItem.md) is called on the enemy party member with additem true
 - If `animid` (the [enemy](../../../Enums%20and%20IDs/Enemies.md) id) is less than the amount of instance.`enemyencounter` (normally 256), `alreadycounted` is false and battleentity.`cotunknown` is false (this isn't a Cave Of Trials's shadow), the corresponding [bestiary entry](../../../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md)'s defeated counter is incremented followed by setting `alreadycounted` to true
 - The EXP amount is obtained by performing a [GetEXP](../../../TextAsset%20Data/Enemies%20data.md#exp-logic) call on the `exp`, `fixedexp` and the `animid` (the [enemy](../../../Enums%20and%20IDs/Enemies.md) id) clamped from 0 to instance.`neededexp` unless battleentity is a `hologram` in which case, it's clamped from 0 to 5 instead
 - `expreward` is increased by the amount determined above and then clamped from 0 to instance.`neededexp`
