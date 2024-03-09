@@ -16,7 +16,7 @@ Here are the parameters:
 - `damageammount`: The base amount of damage to deal. This number can be heavilly changed by the damage pipeline, it is only the base one to deal
 - `property`: The [property](AttackProperty.md) of the attack
 - `overrides`: The [overrides](DamageOverride.md) to apply to the damage pipeline. May be null or an empty array to have no overrides
-- `block`: For an enemy attack, whether or not the player sucessfully blocked it (this is intended to receive `commandsuccess` as it was determined by [GetBlock](../Battle%20flow/Update.md#getblock)). It doesn't matter if it's a regular block or a super block, this parameter is to signal a block of any kind as the damage pipeline will process what to do with it
+- `block`: For an enemy attack, whether or not the player sucessfully blocked it (this is intended to receive `commandsuccess` as it was determined by [GetBlock](../Battle%20flow/GetBlock.md#getblock)). It doesn't matter if it's a regular block or a super block, this parameter is to signal a block of any kind as the damage pipeline will process what to do with it
 
 ### General purpose overloads
 The following are general purpose overloads which just ends up calling the final one leaving some parameters to default.
@@ -100,10 +100,12 @@ This is where the final damage amount is determined.
 If the target isn't Invulnerable, the final damage amount is set to the return of [CalculateBaseDamage](CalculateBaseDamage.md) with all the parameters sent (with the overriden block if applicable and property to null if it was `None`). The weaknesshit and superguarded ref parameters are passed via locals initially set to false. 
 
 Otherwise (the target is invulnerable), it depends if the property is `NoException`:
+
 - If it isn't, the amount is 0
 - If it is, it's the original damageammount
 
 The target is invulnerable if any of the following is true:
+
 - Its `plating` is true
 - It has the [Shield](../Actors%20states/BattleCondition/Shield.md) condition
 - It is a player party member with the [Numb](../Actors%20states/BattleCondition/Numb.md) condition and the `ShockTrooper` [medal](../../Enums%20and%20IDs/Medal.md) equipped
@@ -178,7 +180,7 @@ In that case, the attacker will get damaged which goes like the following:
 This part only happens if all of the following are true:
 
 - The `PoisonTouch` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the target
-- The target has the `Poison` [condition](../Actors%20states/Conditions.md)
+- The target has the [Poison](../Actors%20states/BattleCondition/Poison.md) condition
 - There is an attacker (assumed to be an enemy party member) and its `poisonres` is less than 100 (it's not immune to [poison](../Actors%20states/BattleCondition/Poison.md) inflictions)
 - `nonphysical` is false
 
@@ -210,7 +212,7 @@ If all the above are fufilled, it means the enemy supports defending itself and 
 target.`hitaction` can change under 2 conditions (these aren't mutually exclusive, they are applied in order, but `hitaction` may not be set if neither apply):
 
 - It's set to true if target.[defenseonhit](../Actors%20states/Enemy%20features.md#defenseonhit-and-isdefending) is -1 and its [position](../Actors%20states/BattlePosition.md) isn't `Underground`. This is only the case for an `Underling` [enemy](../../Enums%20and%20IDs/Enemies.md) under normal gameplay
-- It's set to !`enemy` (false on the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) / [delproj](../Actors%20states/Delayed%20projectile.md#delayed-projectile) / enemy `firststrike` / enemy `hitaction`, true otherwise) if the target.`onhitaction` condition is fufilled which is:
+- It's set to !`enemy` (false on the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) / [delproj](../Actors%20states/Delayed%20projectile.md#delayed-projectile) / enemy `firststrike` / enemy `hitaction`, true otherwise) if the target.[onhitaction](../Actors%20states/Enemy%20features.md#onhitaction) condition is fufilled which is:
     - If it's 1, it's always fufilled
     - If it's 2, it's only fufilled if target.`position` is `Flying`
     - If it's 3, it's only fufilled if target.`position` is `Ground`
