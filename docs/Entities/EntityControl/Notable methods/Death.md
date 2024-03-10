@@ -123,6 +123,7 @@ The same than Shrink, but no DeathSmoke particles are played.
 
 ### Berries drop logic
 The following is performed until `spitmoney` amount of berries worth total have been dropped:
+
 - [CreateItem](../../NPCControl/ObjectTypes/Item.md#entitycontrolcreateitem) is called which creates an [Item](../../NPCControl/ObjectTypes/Item.md) NPCControl object at `spritetansform` position + (0.0, 0.5, 0.0) with the item type being 0 (standard item), the direction being RandomItemBounce(4.0, 10.0) for 600 frames. The [item](../../../Enums%20and%20IDs/Items.md) id is `MoneyBig` if there's strictly more than 20 berries left to drop, `MoneyMedum` if there's 5 or less left and `MoneySmall` otherwise (this means the last 20 berries if exactly 20 are left will be dropped by 4 `MoneyMedum` instead of one `MoneyBig`)
 - The collisions between the item's entity.`ccol` and the item's entity.`detect` or itself are ignored for 5.0 seconds
 - The same RandomBounce vector obtined earlier is set to the item's entity.`rigid` vecity on the next frame

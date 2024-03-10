@@ -185,6 +185,7 @@ From there, it's mostly cleaning up:
 * If the [textbox](Notable%20states.md#textbox) isn't null, hide it with a shrink animation and Destroys the textbox in 1 second.
 
 Special cleanup logic if the player isn't null and we aren't in an event:
+
 - Restores the player rigid body constraints to its original value.
 - Apply an `actioncooldown` of 20 frames
 - Stops ignoring every collisions between the player's ccol and each entities that were ignored using any [igcolmove](Individual%20commands/Igcolmove.md) commands.

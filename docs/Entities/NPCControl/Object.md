@@ -2,6 +2,7 @@
 Most of the logic depends entirely on the `objecttype` field.
 
 There are a couple of special logic to mention that applies by default to all objects:
+
 - In OnTriggerEnter, if the other collider isn't the player, `collisionammount` is incremented.
 - This is the only type with logic in OnTriggerStay and OnTriggerExit for specific `objecttype`
 

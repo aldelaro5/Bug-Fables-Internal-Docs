@@ -6,6 +6,7 @@ A trigger zone that sets the player.`lastpos` which is the player last spawn poi
 
 ## Setup
 There are 2 modes this object can operate on:
+
 - `vectordata[0]`.magnitude is 0.1 or higher: this NPCControl manages the `lastpos` and the colliders to it via its OnTriggerStay
 - `vectordata[0]`.magnitude is less than 0.1: this object is destroyed after creating an independant GameObject with a BoxCollider that PlayerControl's OnTriggerStay interacts with
 

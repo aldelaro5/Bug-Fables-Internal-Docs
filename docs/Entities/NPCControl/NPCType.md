@@ -54,6 +54,7 @@ TODO: unsure if it works because EntityControl also seems to manage this). The s
 While a lot of the logic of an NPCControl is shared regardless of its `entitytype`, the vast majority is dictated to a specific one that the others only partially have or do not have at all.
 
 For more informations on each NPCType, check each of their documentations:
+
 - [NPC](NPC.md)
 - [Enemy](Enemy.md)
 - [SemiNPC](Shop%20system.md#seminpc) (this type is specifically used for the shop system)
