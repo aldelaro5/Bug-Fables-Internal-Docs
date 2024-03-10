@@ -19,7 +19,7 @@ This struct defines the entirety of a delproj, here are all the fields and their
 |whilesound|string|A `Resources/audio/sounds` audio clip's name that will be play while the projectile is landing on loop. For the clip to play only once instead of looping, the name needs to be prepended by `@`|
 |args|string|`@` separated strings containing optional configurations, see the section below for details|
 |calledby|MainManager.BattleData|UNUSED|
-|property|AttackProperty?|The property of the damage dealt|
+|property|[AttackProperty](../Damage%20pipeline/AttackProperty.md)?|The property of the damage dealt (null means no property applies)|
 
 ### `args` field
 The `args` of the `DelayedProjectileData` are a list of commands which is `@` separated while each command is a list of string that is `,` separated.

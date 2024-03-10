@@ -7,8 +7,8 @@ public static void RefreshEntities(bool forceanim, bool refreshmap, bool onlypla
 
 ## Parameters:
 
-- `forceanim`: Tells if FroceAnim will be caolled on each entity which will call Play on the entity's `anim` using its the current [animstate](../../Entities/EntityControl/Animations/animstate.md) (`f` is appended if the entity's `height` is aboe 0.1 and it has the same meaning than its normal argument)
-- `refreshmap`: Tells if the [NPCControl](../../Entities/NPCControl/NPCControl.md) specific logics will apply
+- `forceanim`: Tells if ForceAnim will be called on each entity which will call Play on the entity's `anim` using its the current [animstate](../../Entities/EntityControl/Animations/animstate.md) (`f` is appended if the entity's `height` is aboe 0.1 and it has the same meaning than its normal argument)
+- `refreshmap`: Tells if the [NPCControl](../../Entities/NPCControl/NPCControl.md) specific logic will apply
 - `onlyplayer`: Tells if only the `playerdata` entities part will have their fields reset
 
 There are 3 overloads: one where `onlyplayer` is ommited and false is sent, one without parameter where all the parameters will have false sent and one where the only parameter is `onlyplayer` and the other 2 will have false sent.

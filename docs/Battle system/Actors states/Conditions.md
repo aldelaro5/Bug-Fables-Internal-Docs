@@ -1,5 +1,5 @@
 # Conditions
-A condition is a temporary effect applied for a limited amount of actor turns on an actor. They are tracked in the actor's `condition` array.
+A condition is a temporary effect applied for a limited amount of main turns on an actor. They are tracked in the actor's `condition` array.
 
 A `condition` element contains an int\[\] of 2 elements:
 

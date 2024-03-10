@@ -9,7 +9,7 @@ If the value isn't -1 and the enemy party member was detected dead (without `fle
 ## `eventonfall`
 This feature allows to trigger an [EventDialogue](../Battle%20flow/EventDialogue.md) when the enemy party member drops.
 
-When set to any non negative value, whenever [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md) detects that the enemy party memeber should be dropped, it not do the drop as it would have normally. Instead, it will set `calleventnext` to `eventonfall` which has the effect that on the next [CheckEvent](../Battle%20flow/Update%20flows/Controlled%20flow.md), the [EventDialogue](../Battle%20flow/EventDialogue.md) whose id was `eventonfall` will be triggered.
+When set to any non negative value, whenever [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md) detects that the enemy party memeber should be dropped, it won't do it as it would have normally. Instead, it will set `calleventnext` to `eventonfall` which has the effect that on the next [CheckEvent](../Battle%20flow/Update%20flows/Controlled%20flow.md), the [EventDialogue](../Battle%20flow/EventDialogue.md) whose id was `eventonfall` will be triggered.
 
 ## `moves`
 The value of this field determines the base amount of actor turn an enemy is allowed to have per main turn.
@@ -79,8 +79,8 @@ Details are in the sub sections below.
 There is a standard way to have `hitaction` set automatically when the enemy party member is targetted during [DoDamage](../Damage%20pipeline/DoDamage.md) and it's done by the `onhitaction` field. The conditions required to set `hitaction` to true is that `enemy` is false (we are in the [player phase](../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase)) and something else that depends on the field's value:
 
 - If it's 1, it's always fufilled
-- If it's 2, it's only fufilled if target.`position` is `Flying`
-- If it's 3, it's only fufilled if target.`position` is `Ground`
+- If it's 2, it's only fufilled if target.[position](BattlePosition.md) is `Flying`
+- If it's 3, it's only fufilled if target.[position](BattlePosition.md) is `Ground`
 
 This allows the `hitaction` to happen whenever the enemy party member is targetted while in any or in specific positions.
 
@@ -90,7 +90,7 @@ There is an alternative way to get `hitaction` set to true automatically during 
 How it works is when the target sustains the damage, every other enemy party members who has the target.`animid` (their [enemy](../../Enums%20and%20IDs/Enemies.md) id) in their `chargeonotherenemy` has their `hitaction` set to !`enemy` (false during the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase), true during the [player phase](../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase)).
 
 ### About `isdefending` being -1
-There is a second way to automatically set `hitaction` to true when the enemy party member is targetted during [DoDamage](../Damage%20pipeline/DoDamage.md). That was is by having `isdefending` be -1 and the `position` of the enemy party member must not be `Underground`. If this applies, it will override `onhitaction` and take priority by always setting `hitaction` to true.
+There is a second way to automatically set `hitaction` to true when the enemy party member is targetted during [DoDamage](../Damage%20pipeline/DoDamage.md). That was is by having `isdefending` be -1 and the [position](BattlePosition.md) of the enemy party member must not be `Underground`. If this applies, it will override `onhitaction` and take priority by always setting `hitaction` to true.
 
 In practice, only the `Underling` [enemy](../../Enums%20and%20IDs/Enemies.md) does this, every other Enemy defined in the game would rather use `onhitaction` or `chargeonotherenemy`.
 
@@ -101,7 +101,7 @@ The value of this field has 3 modes of operations:
 - 0: The enemy party member is opting out of the `hitaction` and the `isdefending` logic
 - 1 or above: No `hiaction` logic, but it will get the `isdefending` logic.
 
-As for the `isdefending`, it's where the enemy party member guards and it gain points of defenses during [DefaultDamageCalc](../Damage%20pipeline/CalculateBaseDamage.md) when piercing doesn't apply with the amount corresponding to the value and those defense are recognised by [TrueDef](../Visual%20rendering/RefreshEnemyHP.md#truedef). They will apply when `isdefending` is true unless the enemy party member is [Flipped](BattleCondition/Flipped.md). This also enables `isdefending`'s toggling during [DoDamage](../Damage%20pipeline/DoDamage.md) (See the section below for more details). NOTE: There are several caveats with this, check the [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md) documentation to learn more.
+As for the `isdefending`, it's where the enemy party member guards and it gain points of defenses during [DefaultDamageCalc](../Damage%20pipeline/CalculateBaseDamage.md) when piercing doesn't apply with the amount corresponding to the value and those defense points are recognised by [TrueDef](../Visual%20rendering/RefreshEnemyHP.md#truedef). They will apply when `isdefending` is true unless the enemy party member is [Flipped](BattleCondition/Flipped.md). This also enables `isdefending`'s toggling during [DoDamage](../Damage%20pipeline/DoDamage.md) (See the section below for more details). NOTE: There are several caveats with this, check the [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md) documentation to learn more.
 
 ### `isdefending`
 As for `isdefending`, it is a field that tells if the enemy party member is guarding. Its initial value is false set by [StartBattle](../StartBattle.md). 
@@ -143,7 +143,11 @@ This is a general purpose transform array for use by enemy party members only du
 The name of this field is a missnomer because it doesn't represent only weaknesses, but rather a general purpose list of [AttackProperties](../Damage%20pipeline/AttackProperty.md) that can change the damage pipeline, especially during [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md).
 
 ## `cantfall`
-When this field is true, it will never be dropped or have its `position` set to `Ground` by RefreshEnemyPos (used by [GetAvailableTargets](Targetting/GetAvaliableTargets.md) or [Chompy](../Battle%20flow/Action%20coroutines/Chompy.md)).
+When this field is true, it will never be dropped by [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md) when its [position](BattlePosition.md) is `Flying`.
+
+It will also prevent having its [position](BattlePosition.md) set to `Ground` by RefreshEnemyPos (used by [GetAvailableTargets](Targetting/GetAvaliableTargets.md) or [Chompy](../Battle%20flow/Action%20coroutines/Chompy.md)).
+
+`lockposition` is a field that does the same logic in [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md) specifically, but it doesn't require the [position](BattlePosition.md) to be `Flying`. It doesn't include the other logic `cantfall` has.
 
 ## `notaunt`
 When this field is true, it specifically affects the `BeetleTaunt` [skill](../../Enums%20and%20IDs/Skills.md) by preventing the [Taunted](BattleCondition/Taunted.md) infliction.
