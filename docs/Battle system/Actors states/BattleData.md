@@ -1,5 +1,7 @@
 # BattleData
-This is defined in MainManager, but it is primarily used for the battle system.
+This is defined in MainManager, but it is primarily used for the battle system. It contains all the data associated with an actor, but it primarily augments an [EntityControl](../../Entities/EntityControl/EntityControl.md) which is stored in the battleentity field (or the entity field for the overworld version for player party members).
+
+Fields can be intended to be used for only player party members, only enemy party members or any actors depending on the specific field.
 
 ## Player party members fields
 These fields only applies to player party members.
