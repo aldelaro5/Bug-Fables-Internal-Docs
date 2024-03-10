@@ -33,7 +33,7 @@ The `Switch` sound is played followed by a [SwitchParty](../../Battle%20flow/Act
 
 - [ItemList](../../../ItemList/ItemList.md)'s `listredirect` is set to -1 (this is to workaround a potential [inlist issue](../../../ItemList/inlist%20issue.md))
 - `availabletargets` is set to the return of GetTattleable which is all `enemydata` whose `notattle` is false
-- If `availabletargets` is empty, PlayBuzzer is called followed by ReloadStrategy being called and invoked another time in 0.1 seconds. The method does the following:
+- If `availabletargets` is empty, PlayBuzzer is called followed by ReloadStrategy being called and invoked another time in 0.1 seconds. The method does the following (essentially denies the spy):
     - [currentaction](../Pick.md) is set to `StrategyList`
     - `helpboxid` is set to -1
     - A couple of [ItemList](../../../ItemList/ItemList.md) field are initialised (with an instance.`inputcooldown` of 5.0):
@@ -44,7 +44,7 @@ The `Switch` sound is played followed by a [SwitchParty](../../Battle%20flow/Act
         - `listsell`: false
     - [ShowItemList](../../../ItemList/ShowItemList.md) is called with 9 as the list type, MainManager.`defaultlistpos` as the position with showdescription and without sell
     - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
-- Otherwise:
+- Otherwise (the spy is accepted):
     - [CreateHelpBox](../../Visual%20rendering/CreateHelpBox.md) with id 0 is called
     - [itemarea](../../Damage%20pipeline/AttackProperty.md) is set to `SingleEnemy`
     - `maxoptions` is set to the length of `availabletargets`
@@ -53,7 +53,7 @@ The `Switch` sound is played followed by a [SwitchParty](../../Battle%20flow/Act
 ## 3 (Flee)
 If `canflee` is true, a [TryFlee](../../Battle%20flow/Action%20coroutines/TryFlee.md) action coroutine is started changing to an [uncontrolled flow](../../Battle%20flow/Update%20flows/Uncontrolled%20flow.md). This ends the handler.
 
-If it's false however:
+If it's false however (this denies the flee with a message):
 
 - [CancelList](../CancelList.md) is called
 - [ItemList](../../../ItemList/ItemList.md)'s `listredirect` is set to -1 (this is to workaround a potential [inlist issue](../../../ItemList/inlist%20issue.md))

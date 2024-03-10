@@ -42,7 +42,7 @@ From there, what happens depends on [currentchoice](../Actions.md) and after, [U
 
 - [SetTargets](../../Actors%20states/Targetting/SetTargets.md) is called
 - If there's no `availabletargets`, PlayBuzzer is called (the attack usage is denied because no targets is available)
-- Otherwise:
+- Otherwise (the basic attack is accepted):
     - `maxoptions` is set to the length of `availabletargets`
     - [currentaction](../Pick.md) is set to `SelectEnemy`
     - [itemarea](../../Player%20UI/AttackArea.md) is set to `SingleEnemy`
@@ -52,7 +52,7 @@ From there, what happens depends on [currentchoice](../Actions.md) and after, [U
 
 - `excludeself` is set to false
 - `playerdata[currentturn].lockskills` is true or it has the [Taunted](../../Actors%20states/BattleCondition/Taunted.md) or [Inked](../../Actors%20states/BattleCondition/Inked.md) condition, PlayBuzzer is called (the skill usage is denied)
-- Otherwise:
+- Otherwise (the skill usage is accepted):
     - [currentaction](../Pick.md) is set to `SkillList`
     - MainManager.[RefreshSkills](../../RefreshSkills.md) is called
     - A couple of [ItemList](../../../ItemList/ItemList.md) fields are initialised (with an instance.`inputcooldown` of 5.0):
@@ -68,7 +68,7 @@ From there, what happens depends on [currentchoice](../Actions.md) and after, [U
 - `excludeself` is set to false
 - [GetAvaliableTargets](../../Actors%20states/Targetting/GetAvaliableTargets.md) is called with onlyground without onlyfront using -1 as the acttackid
 - If instance.`items[0]` is empty (no standard items) or `playerdata[currentturn].lockitems` is true or it has the [Taunted](../../Actors%20states/BattleCondition/Taunted.md) or [Sticky](../../Actors%20states/BattleCondition/Sticky.md) condition, PlayBuzzer is called (the item usage is denied)
-- Otherwise:
+- Otherwise (the item usage is accepted):
     - [currentaction](../Pick.md) is set to `ItemList`
     - A couple of [ItemList](../../../ItemList/ItemList.md) field are initialised (with an instance.`inputcooldown` of 5.0):
         - `storeid`: 0
@@ -94,7 +94,7 @@ From there, what happens depends on [currentchoice](../Actions.md) and after, [U
 ### `Relay`
 
 - If there's 1 or less `playerdata` or `playerdata[currentturn].locktri` (unable to relay) or `haspassed` is true (already relayed on the same main turn) or it has the [Taunted](../../Actors%20states/BattleCondition/Taunted.md) condition, PlayBuzzer is called (the relay is denied)
-- Otherwise:
+- Otherwise (the relay is accepted):
     - `excludeself` is set to true
     - `option` is set to 0
     - `helpboxid` is set to -1
