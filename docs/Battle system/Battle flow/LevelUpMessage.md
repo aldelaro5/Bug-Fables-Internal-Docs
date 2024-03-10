@@ -54,7 +54,7 @@ There will always be a message.
 ### Message display
 This part only happens if we decided to show a message.
 
-[SetText](../../SetText/SetText.md) is called in [dialogue mode](../../SetText/Dialogue%20mode.md#dialogue-mode) with the text being `|boxstyle,4||spd,0||halfline||center|` followed by `menutext[141 + X]` where `X` is the type of the rank up bonus. The call has the following properties:
+[SetText](../../SetText/SetText.md) is called in [dialogue mode](../../SetText/Dialogue%20mode.md#dialogue-mode) with the text being `|`[boxstyle](../../SetText/Individual%20commands/Boxstyle.md)`,4||`[spd](../../SetText/Individual%20commands/Spd.md)`,0||`[halfline](../../SetText/Individual%20commands/Halfline.md)`||`[center](../../SetText/Individual%20commands/Center.md)`|` followed by `menutext[141 + X]` where `X` is the type of the rank up bonus. The call has the following properties:
 
 - [fonttype](../../SetText/Notable%20states.md#fonttype) of 0 (`BubblegumSans`)
 - linebreak of instance.`messagebreak`

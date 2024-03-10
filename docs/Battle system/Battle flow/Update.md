@@ -10,4 +10,3 @@ The first flow whose conditions are fufilled will apply from the following table
 |[Terminal](Update%20flows/Terminal%20flow.md)|`cancelupdate` is true or instance.`pausemenu` exists|A flow where Update relegates almost complete control to a terminal coroutine which will end or retry this battle|
 |[Uncontrolled](Update%20flows/Uncontrolled%20flow.md)|`action` or `inevent` is true|A flow where Update delegates most (but not all) control to an action coroutine which performs a specific battle action|
 |[Controlled](Update%20flows/Controlled%20flow.md)|The battle isn't in a terminal or uncontrolled flow|A flow where Update has complete control of the battle and will act as a dispatcher according to the main turn procedure|
-

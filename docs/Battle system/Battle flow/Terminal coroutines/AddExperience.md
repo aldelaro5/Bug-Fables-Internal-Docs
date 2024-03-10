@@ -34,7 +34,7 @@ The coroutine yield breaks immediately if `alreadyending` is true (meaning AddEx
 - 0.45 seconds are yielded
 - All player party members has their matching instance.`hud`'s child has its local position set to Vector3.zero
 - For every player party members whose `hp` is above 0:
-    - If they have the `Freeze` [condition](../../Actors%20states/Conditions.md), [BreakIce](../../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) is called on their battleentity
+    - If they have the [Freeze](../../Actors%20states/BattleCondition/Freeze.md) condition, [BreakIce](../../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) is called on their battleentity
     - battleentity.`spin` is set to (0.0, -17.0, 0.0)
     - battleentity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 4 (`ItemGet`)
 - instance.`camtargetpos` is set to (-4.5, 0.0, 2.5)
@@ -42,8 +42,8 @@ The coroutine yield breaks immediately if `alreadyending` is true (meaning AddEx
 ## EXP gain visuals setup
 The process to render the expereince gain screen is very verbose and complex so the procedure is paraphrased a lot here:
 
-- A `textholder` GameObject gets created with a `DelAftBtl` tag childed to the GUICamera with a z local position of 5.0
-- [SetText](../../../SetText/SetText.md) is called in [non dialogue mode](../../../SetText/Dialogue%20mode.md#non-dialogue-mode) using the following string: `|sort,10000||color,4||center||dropshadow,0.05,-0.05||backbox,6|` followed by `menutext[117]` (a message informing the player they gained EXP where the number is `|`[var](../../../SetText/Individual%20commands/Var.md)`,0|`). The call has the following properties:
+- A `textholder` GameObject gets created with a `DelAftBtl` tag (destroyed on [ReturnToOverworld](ReturnToOverworld.md)) childed to the GUICamera with a z local position of 5.0
+- [SetText](../../../SetText/SetText.md) is called in [non dialogue mode](../../../SetText/Dialogue%20mode.md#non-dialogue-mode) using the following string: `|`[sort](../../../SetText/Individual%20commands/Sort.md)`,10000||`[color](../../../SetText/Individual%20commands/Color.md)`,4||`[center](../../../SetText/Individual%20commands/Center.md)`||`[dropshadow](../../../SetText/Individual%20commands/Dropshadow.md)`,0.05,-0.05||`[backbox](../../../SetText/Individual%20commands/Backbox.md)`,6|` followed by `menutext[117]` (a message informing the player they gained EXP where the number is `|`[var](../../../SetText/Individual%20commands/Var.md)`,0|`). The call has the following properties:
     - [fonttype](../../../SetText/Notable%20states.md#fonttype) of 2 (UNUSED, but gets overriden to `D3Streetism`)
     - No linebreak
     - No tridimensional
@@ -52,7 +52,7 @@ The process to render the expereince gain screen is very verbose and complex so 
     - size of Vector3.one
     - parent being the `textholder`
     - No caller
-- A new UI object called `ExpBar` with a `DelAftBtl` tag, a DialogueAnim and a pure yellow color using `guisprites[4]` (the HUD background sprite) is created as the background of the EXP text
+- A new UI object called `ExpBar` with a `DelAftBtl` tag (destroyed on [ReturnToOverworld](ReturnToOverworld.md)), a DialogueAnim and a pure yellow color using `guisprites[4]` (the HUD background sprite) is created as the background of the EXP text
 - `lvicon` is set to a new UI object named `Icon` using `guisprites[27]` (the EXP icon sprite) childed to the `ExpBar`
 - A DynamicFont is setup childed to the `ExpBar` with a layer of 5 (`UI`) with a pure white color with the starting text being the following appended together:
     - instance.`partyexp` padded to the left with 3 `0`
@@ -66,7 +66,7 @@ The process to render the expereince gain screen is very verbose and complex so 
 This sub section concerns the counting of the EXP gained and the management of its fast version if requested by the player.
 
 - instance.[skiptext](../../../SetText/Related%20Systems/Text%20advance.md#text-skip) is set to false (this isn't used for its SetText use since it will be managed manually)
-- A new GetSkip coroutine is started and stored localled which will yield all frames until input 4 (Confirm) is pressed which wil cause instance.skiptext to be set to true
+- A new GetSkip coroutine is started and stored localled which will yield all frames until input 4 (Confirm) is pressed which wil cause instance.`skiptext` to be set to true
 - The EXP orbs are counted starting with `bigexporbs` then moving to `smallexporbs` that exists (there is a frame yield between the 2 types's counting). A big one will have 1 EXP counted 10 times while a small one will only have it counted once. This is how the counting happens each time:
     - The orb gets destroyed
     - AddExp(1) is called which does the following:
@@ -74,13 +74,13 @@ This sub section concerns the counting of the EXP gained and the management of i
         - An `Exp2` sound is played on `sounds[4]`, `sounds[5]`,`sounds[6]` or `sounds[7]` (the first one that isn't playing with `sounds[7]` being the falback) with a pitch being 1.5 + a random number between -0.1 and 0.1 inclusive
         - If instance.`partyexp` reached instance.`neededexp` (meaning this is a rank up), instance.`partyexp` is decreased by `neededexp` and the rank up is signaled by returning true
         - Otherwise, no rank up occured so false is returned
-    - If the AddExp call resulted in a rank up, Leveled is called which sets `leveled` to true, but if it wasn't treu before, a SpinAround component added to `lvicon` with its `itself` set to (0.0, 20.0, 0.0) followed by a `Lazer` sound being played at 1.2 pitch
+    - If the AddExp call resulted in a rank up, Leveled is called which sets `leveled` to true, but if it wasn't true before, a SpinAround component added to `lvicon` with its `itself` set to (0.0, 20.0, 0.0) followed by a `Lazer` sound being played at 1.2 pitch
     - The DynamicFont of the EXP's text is refreshed using the new instance.`partyexp`
-    - If instance.skiptext is still false, a yield is done. The time of the yield is 0.075 seconds unless `expreward` was at least 10 where it will be 0.045 seconds instead
+    - If instance.`skiptext` is still false, a yield is done. The time of the yield is 0.075 seconds unless `expreward` was at least 10 where it will be 0.045 seconds instead
 - At this point, the GetSkip coroutine call earlier is stopped since it no longer has any use
-- If instance.skiptext was set to true by the end of the counting, the DynamicFont of the EXP's text is refreshed using the new instance.`partyexp` followed by 0.2 seconds being yielded
+- If instance.`skiptext` was set to true by the end of the counting, the DynamicFont of the EXP's text is refreshed using the new instance.`partyexp` followed by 0.2 seconds being yielded
 - A frame is yielded
-- instance.skiptext is set back to false
+- instance.`skiptext` is set back to false
 - For a maximum of 50.0 frames (tracked with a local counter starting at 0.0 and incremented by 1/50 of the game's frametime until it reaches 1.0), all frames are yielded until any input is pressed which interupts this wait early
 - If the `BattleWon` sound was played earlier, all frames are yielded while it's still playing and hasn't reached 2.35 seconds
 - A second is yielded if no `BattleWon` sound was played

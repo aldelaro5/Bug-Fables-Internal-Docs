@@ -20,7 +20,7 @@ In order for this coroutine to process the charm, all of the following must true
 - At least 1 player party member's `hp` is above 0 and isn't `eatenby`
 - EnemyActingOutOfOrder returns false meaning no enemy party member's [hitaction](../BattleControl.md#hitactions) is true
 - Either the type is `ExpUp` (meaning it was invoked from [AddExperience](../Battle%20flow/Terminal%20coroutines/AddExperience.md)) or it's any other type while `cancelupdate` is false (we aren't in a [terminal flow](Update%20flows/Terminal%20flow.md))
-- If the type is `AttackUp`, `playerdata[currentturn]` must not have the `AttackUp` condition already
+- If the type is `AttackUp`, `playerdata[currentturn]` must not have the [AttackUp](../Actors%20states/BattleCondition/AttackUp.md) condition already
 
 The following sections describes what happens when the charm is cleared to be processed.
 
@@ -45,14 +45,14 @@ The logic here depends on the type:
 #### `AttackUp`
 
 - [StatEffect](../Visual%20rendering/StatEffect.md) is called on `playerdata[currentturn]` with type 0 (red up arrow)
-- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on `playerdata[currentturn]` giving the `AttackUp` condition for 1 actor turn
+- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on `playerdata[currentturn]` giving the [AttackUp](../Actors%20states/BattleCondition/AttackUp.md) condition for 1 actor turn
 - The `StatUp` sound is played
 
 #### `DefenseUp`
 
 - All player party members whose `hp` is above 0 and aren't `eatenby` have the following happen to them:
     - [StatEffect](../Visual%20rendering/StatEffect.md) is called on the player party member with type 1 (blue up arrow)
-    - [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on the player party member giving the `DefenseUp` condition for 1 actor turn
+    - [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on the player party member giving the [DefenseUp](../Actors%20states/BattleCondition/DefenseUp.md) condition for 1 actor turn
 - The `StatUp` sound is played
 
 #### `ExpUp`
@@ -89,7 +89,7 @@ The following is paraphrased as it contains verbose animation logic:
 - [flagvar](../../Flags%20arrays/flagvar.md) 22 is decremented (this consumes the charm)
 - `charmcooldown` is set to a random number from 3 to 7 inclusive (this means a minimum amount of main turn needs to advance before the next charm is able to be processed even if it can be and the amount is between 3 and 7)
 - If [flagvar](../../Flags%20arrays/flagvar.md) 22 reached 0 (meaning the last charm was just consumed):
-    - A [SetText](../../SetText/SetText.md) call occurs in [dialogue move](../../SetText/Dialogue%20mode.md#dialogue-mode) using the text `|boxstyle,4||center||halfline||spd,0|` followed by `menutext[184]` (a message informing the player they no longer have any charms). The call also has these properties:
+    - A [SetText](../../SetText/SetText.md) call occurs in [dialogue move](../../SetText/Dialogue%20mode.md#dialogue-mode) using the text `|`[boxstyle](../../SetText/Individual%20commands/Boxstyle.md)`,4||`[center](../../SetText/Individual%20commands/Center.md)`||`[halfline](../../SetText/Individual%20commands/Halfline.md)`||`[spd](../../SetText/Individual%20commands/Spd.md)`,0|` followed by `menutext[184]` (a message informing the player they no longer have any charms). The call also has these properties:
       - [fonttype](../../SetText/Notable%20states.md#fonttype) of 0 (`BubblegumSans`)
       - linebreak of `messagebreak`
       - No tridimensional

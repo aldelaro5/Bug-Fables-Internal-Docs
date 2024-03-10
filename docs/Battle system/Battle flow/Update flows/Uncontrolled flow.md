@@ -1,7 +1,7 @@
 # Uncontrolled flow
 This is one of the flow of [Update](../Update.md) which happens when Update delegates most controls to an action coroutine.
 
-This flow happens if `action` or `inevent` is true which means that an action coroutine or an EventDialogue took control of the battle flow. This means that Update relegated its control and it features a very reduced logic compared to a [controlled flow](Controlled%20flow.md). It is meant to be entered temporarily where control will eventually be given back to a controlled flow with the exception of terminal cases which ends or retries the battle.
+This flow happens if `action` or `inevent` is true which means that an action coroutine or an EventDialogue took control of the battle flow. This means that Update relegated its control and it features a very reduced logic compared to a [controlled flow](Controlled%20flow.md). It is meant to be entered temporarily where control will eventually be given back to a controlled flow with the exception of [terminal](Terminal%20flow.md) cases which ends or retries the battle.
 
 The main feature of this flow is less UI being shown as they are mostly disabled.
 
@@ -20,7 +20,7 @@ UpdateSwitchIcon is called. It should be noted that in this flow, this will alwa
 This section happens only when all the following are fufilled:
 
 - `enemy` is true (we are in the player phase)
-- `inevent` is false (no EventDialogue is in progress)
+- `inevent` is false (no [EventDialogue](../EventDialogue.md) is in progress)
 - The [message](../../../SetText/Notable%20states.md#message) lock is released (covers cases like [Tattle](../Action%20coroutines/Tattle.md))
 
 [GetBlock](../GetBlock.md) is called here which updates `blockcooldown` and `commandsuccess` according to the current blocking state. Consult the GetBlock documentation to learn more about how the blocking system works.

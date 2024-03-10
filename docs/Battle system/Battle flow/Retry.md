@@ -11,7 +11,7 @@ private void Retry(bool skipdata)
 
 ## Prcedure
 
-- All `delprojs`'s `obj` are destroyed followed by the `delprojs` array set to null
+- All [delprojs](../Actors%20states/Delayed%20projectile.md)'s `obj` are destroyed followed by the `delprojs` array set to null
 - The `battlemap` is destroyed
 - [SetDefaultCamera](../Visual%20rendering/SetDefaultCamera.md) with reset is called
 - `chompyattacked` is set to false

@@ -2,7 +2,7 @@
 This method processes any [controlled flow](Update%20flows/Controlled%20flow.md) during the [player phase](Main%20turn%20life%20cycle.md#player-phase) when applicable to the currently selected player.
 
 - `actedthisturn` is set to true
-- If `currentaction` is `BaseAction` (the main vine action menu):
+- If [currentaction](../Player%20UI/Pick.md) is `BaseAction` (the main vine action menu):
     - [SetMaxOptions](../Player%20UI/SetMaxOptions.md) is called
     - [ItemList](../../ItemList/ItemList.md)'s `inlist` is set to false
     - For each `playerdata`:

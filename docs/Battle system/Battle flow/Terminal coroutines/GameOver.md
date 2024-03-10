@@ -30,13 +30,13 @@ This entire section is skipped if skipsetup is true.
 - 2.0 seconds are yielded
 - The `cursor` is destroyed if it existed
 - If the `GameOver` sound isn't playing, it is played (as `Gameover`, but it works still) and the audiosource's volume is set to MainManager.`musicvolume` which is needed because it is considered a sound instead of a music
-- The [SetText](../../../SetText/SetText.md) string gets the following ammended to it: `|boxstyle,-1||center||line||line||line||line||line||halfline||spd,0||color,4||sort,10||fadeletter|` followed by `menutext[146]` (the game over text shown at the top) followed by `|`[fwait](../../../SetText/Individual%20commands/Fwait.md)`,4.5|`. This is basically the game over text positioned a bit down using empty lines and fading in for 4.5 seconds
+- The [SetText](../../../SetText/SetText.md) string gets the following ammended to it: `|`[boxstyle](../../../SetText/Individual%20commands/Boxstyle.md)`,-1||`[center](../../../SetText/Individual%20commands/Center.md)`||`[line](../../../SetText/Individual%20commands/Line.md)`||`[line](../../../SetText/Individual%20commands/Line.md)`||`[line](../../../SetText/Individual%20commands/Line.md)`||`[line](../../../SetText/Individual%20commands/Line.md)`||`[line](../../../SetText/Individual%20commands/Line.md)`||`[halfline](../../../SetText/Individual%20commands/Halfline.md)`||`[spd](../../../SetText/Individual%20commands/Spd.md)`,0||`[color](../../../SetText/Individual%20commands/Color.md)`,4||`[sort](../../../SetText/Individual%20commands/Sort.md)`,10||`[fadeletter](../../../SetText/Individual%20commands/Fadeletter.md)`|` followed by `menutext[146]` (the game over text shown at the top) followed by `|`[fwait](../../../SetText/Individual%20commands/Fwait.md)`,4.5|`. This is basically the game over text positioned a bit down using empty lines and fading in for 4.5 seconds
 
 ### [SetText](../../../SetText/SetText.md) call
 The following and any further section happens regardless of skipsetup.
 
 - `actiontext` and `hexpcounter` are destroyed if they exist
-- The SetText string gets its final append and it depends on the value of `canflee` (meaning the battle is escapable). To note, `menutext[78]` only contains `|`[end](../../../SetText/Individual%20commands/End.md)`|` because these prompt options are blanks: they don't cause SetText to continue since they will be handled after the call:
+- The SetText string gets its final append and it depends on the value of `canflee` (meaning the battle was escapable). To note, `menutext[78]` only contains `|`[end](../../../SetText/Individual%20commands/End.md)`|` because these prompt options are blanks: they don't cause SetText to continue since they will be handled after the call:
     - If it's true, `|`[prompt](../../../SetText/Individual%20commands/Prompt.md)`,menu,3,2,78,78,135,36,none|` is appended
     - If it's false, `|`[prompt](../../../SetText/Individual%20commands/Prompt.md)`,menu,4.5,4,78,78,78,78,134,136,135,36,none|` is appended
 - The SetText call happens in [dialogue mode](../../../SetText/Dialogue%20mode.md#dialogue-mode) using the final string generated and the following properties:
@@ -57,7 +57,7 @@ From there, GameOver will yield all frames for a maximum of 330.0 frames until i
 - `gameover` is set to a new GameOver call with skipsetup
 - A yield break happens which abruply stops this coroutine
 
-> NOTE: This failsafe was supposed to be a workaround to a previous [inlist issue](../../../ItemList/inlist%20issue.md), but this did not worked because crucically, it breaks the [dialogue mode](../../../SetText/Dialogue%20mode.md#dialogue-mode) rule because the [message](../../../SetText/Notable%20states.md#message) will still be grabbed if this failsafe triggers. This means the second GameOver call will allow SetText to process a dialogue mode call WHILE ONE IS ONGOING! This is extremely dangerous because it will lead to 2 SetText calls fighting for each other or even allow player control during a dialogue mode call because one of the prompt option reloads a save. This logic should NEVER trigger under any circumstances otherwise, it will break SetText and general game flow! The original inlist issue has been sucessfully workarounded by setting MainManager.`listredirect` to -1 earlier so it provides no benefit.
+> NOTE: This failsafe was supposed to be a workaround to a previous [inlist issue](../../../ItemList/inlist%20issue.md), but this did not worked because crucically, it breaks the [dialogue mode](../../../SetText/Dialogue%20mode.md#dialogue-mode) rule since the [message](../../../SetText/Notable%20states.md#message) lock will still be grabbed if this failsafe triggers. This means the second GameOver call will allow SetText to process a dialogue mode call WHILE ONE IS ONGOING! This is extremely dangerous because it will lead to 2 SetText calls fighting for each other or even allow player control during a dialogue mode call because one of the prompt option reloads a save. This logic should NEVER trigger under any circumstances otherwise, it will break SetText and general game flow! The original inlist issue has been sucessfully workarounded by setting MainManager.`listredirect` to -1 earlier so it provides no benefit.
 
 #### Proper [message](../../../SetText/Notable%20states.md#message) lock wait
 After avoiding the broken failsafe (which happens due to instance.`promptbox` existing after 4.5 seconds instead of 5.5 seconds) instance.`promptbox` local z position is set to 10.0.
@@ -71,15 +71,15 @@ From there, the specific prompt options are handled by checking `canflee` and in
 
 If you can flee, there's 2 prompt options:
 
-- 0: Reload the save
-- 1: Reload the scene (this will reset the whole game and go back to the main menu)
+- 0: Reload save
+- 1: Return to main menu (this will reset the whole game and go back to the main menu)
 
 If you can't flee, there's 4 prompt options (2 are common with the can flee case):
 
 - 0: Retry
-- 1: Open a pause menu allowing to manipulate standard items and medals before retrying
-- 2: Reload the save
-- 3: Reload the scene (this will reset the whole game and go back to the main menu)
+- 1: Change loadout and retry (opens a pause menu allowing to manipulate standard items and medals before retrying)
+- 2: Reload save
+- 3: Return to main menu (this will reset the whole game and go back to the main menu)
 
 The following details what each option's handling does. No matter which one is handled, a frame is yielded at the very end after the option handler is done.
 
@@ -112,7 +112,7 @@ This only calls [Retry](../Retry.md) without skipdata.
 There is a special failsafe that occurs if the existing [save file](../../../External%20data%20format/Save%20File.md) no longer exists for some reasons. Here is what happens in that case:
 
 - A frame is yielded
-- A new [SetText](../../../SetText/SetText.md) call happens in [dialogue mode](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the text being `|boxstyle,4||center||halfline||spd,0|` followed by `menutext[145]` which is an error message informing the player of the problem. The call also has these properties:
+- A new [SetText](../../../SetText/SetText.md) call happens in [dialogue mode](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the text being `|`[boxstyle](../../../SetText/Individual%20commands/Boxstyle.md)`,4||`[center](../../../SetText/Individual%20commands/Center.md)`||`[halfline](../../../SetText/Individual%20commands/Halfline.md)`||`[spd](../../../SetText/Individual%20commands/Spd.md)`,0|` followed by `menutext[145]` which is an error message informing the player of the problem. The call also has these properties:
     - [fonttype](../../../SetText/Notable%20states.md#fonttype) of `BubblegumSans`
     - linebreak of `messagebreak`
     - No tidimensional

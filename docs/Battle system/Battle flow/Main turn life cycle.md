@@ -17,7 +17,7 @@ The following always happen first:
 - [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called
 - `blockcooldown` is set to 0.0
 
-The phase only proceeds if no `enemydata` battleentity is in a `forcemove` (returned by EnemiesAreNotMoving).
+The phase only proceeds if no `enemydata` battleentity is in a [forcemove](../../Entities/EntityControl/EntityControl%20Methods.md#forcemove) (returned by EnemiesAreNotMoving).
 
 From there, what happens in the phase depends on `currentturn` and `avaliableplayers`. The former manages the current player party member selected for the current action while the latter tells if player party members are still free.
 
@@ -59,7 +59,7 @@ This part happens if all of the following are fufilled:
 
 This is what happens when the above are fufilled (otherwise, this part is skipped):
 
-- If `spitout` is in progress, `chompyattacked` is set to true which skips the chompy action
+- If [spitout](../Actors%20states/BattleCondition/Eaten.md#spitout) is in progress, `chompyattacked` is set to true which skips the chompy action
 - Otherwise, if `chompyattack` isn't in progress, it is set to a new [Chompy](Action%20coroutines/Chompy.md) action coroutine starting
 
 ### `aiparty` action
@@ -72,7 +72,7 @@ This part happens if all of the following are fufilled:
 The only thing that happens here is an [AIAttack](Action%20coroutines/AIAttack.md) action coroutine is started.
 
 ### End of the player phase
-If none of the possible parts applied above, the following happens which ultimately ends the player phase:
+If none of the possible parts applied above (or all of the applicable ones are done), the following happens which ultimately ends the player phase:
 
 - `enemy` is set to true
 - All of the instance.`hud`'s first child has their local position reset to Vector3.zero
@@ -88,13 +88,13 @@ If we somehow got here while GetAlivePlayerAmmount returns 0 (all `playerdata`'s
 - `mainturn` is set to an [AdvanceMainTurn](Action%20coroutines/AdvanceMainTurn.md) call if it wasn't in progress already
 - `cancelupdate` is set to true which changes the flow to a [terminal flow](Update%20flows/Terminal%20flow.md)
 
-If at least one player is alive, then the first enemy with a `cantmove` of 0 or below is found. In order for the enemy to get their action, they need to not be considered IsStoppedLite which uses the same standard than [IsStopped](../Actors%20states/IsStopped.md) with `actimmobile` check, but with one difference: if the enemy has the `Flipped` [condition](../Actors%20states/Conditions.md), it isn't considered stopped.
+If at least one player is alive, then the first enemy with a `cantmove` of 0 or below is found. In order for the enemy to get their action, they need to not be considered IsStoppedLite which uses the same standard than [IsStopped](../Actors%20states/IsStopped.md) with [actimmobile](../Actors%20states/Enemy%20features.md#actimmobile) check, but with one difference: if the enemy has the `Flipped` [condition](../Actors%20states/Conditions.md), it isn't considered stopped.
 
 If the game finds it's stopped, their `cantmove` is set to 1 and the next enemy is checked instead. Effectively, this simply readjusts their actor turn counter because it isn't exhausted like it normally would have been in [EndEnemyTurn](EndEnemyTurn.md).
 
 If the enemy isn't stopped, [DoAction](Action%20coroutines/DoAction.md) is called on the battleentity with actionid of the `enemydata` index. This changes to an [uncontrolled flow](Update%20flows/Uncontrolled%20flow.md). At most, this can happen only once and the next enemy in line will need to wait the current one's action is done.
 
-This process is repeated for each enemy until all of them have a `cantmove` above 0 meaning no actions are available on any enemies and the game is ready to proceed to the turn end phase.
+This process is repeated for each enemy party member until all of them have a `cantmove` above 0 meaning no actions are available on any enemy party members and the game is ready to proceed to the turn end phase.
 
 ## Turn end phase
 After both parties performed their phases, an [AdvanceMainTurn](Action%20coroutines/AdvanceMainTurn.md) action coroutine is started and set to `mainturn` if it wasn't in progress already. This immediately move the flow back to [uncontrolled flow](Update%20flows/Uncontrolled%20flow.md) while the coroutine handles the turn advancement.

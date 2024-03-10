@@ -1,5 +1,5 @@
 # ReturnToOverworld
-This terminal coroutine is the last one invoked to transition out of battle. It is always invoked in a finished battle serving as the last step before the battle is completely ended.
+This terminal coroutine is the last one invoked to transition out of battle. It is always invoked in a finished battle except for a save reload serving as the last step before the battle is completely ended.
 
 ```cs
 public IEnumerator ReturnToOverworld(bool flee)
@@ -47,7 +47,7 @@ The following sections are performed in order.
 
 ### Overworld setup
 
-- MainManager.`battlefled` is set to the sent flee
+- MainManager.`battlefled` is set to the sent flee value
 - MainManager.player.entity.`onground` is set to false
 
 The rest has multiple possibilities on how to setup the overworld, but they are mutually exclusive, only the first one mentioned applies. It is possible none applies.
@@ -71,7 +71,7 @@ This means the battle ended due to the player fleeing:
     - All collisions between the `caller.entity.ccol` and the player.entity.`ccol` are ignored    
 
 #### Flee is false and the `caller` exists
-This means the battle ended and it was caused by an [Enemy](../../../Entities/NPCControl/Enemy.md) NPCControl encounter:
+This means the battle ended without fleeing and it was caused by an [Enemy](../../../Entities/NPCControl/Enemy.md) NPCControl encounter:
 
 - MainManager.player.entity.`icooldown` is set to 120.0 frames of invicibility
 - `caller.entity.onground` is set to false

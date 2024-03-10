@@ -36,29 +36,33 @@ Nothing happens here if `enemydata` is empty.
 
 Here is a list of the conditions and what happens with them (only the first one takes effect):
 
-- `calleventnext` is not negative: EventDialogue is called with the value of `calleventnext` followed by the value being set to -1. This is only used for the `eventonfall` feature of enemies
+- `calleventnext` is not negative: [EventDialogue](../EventDialogue.md) is called with the value of `calleventnext` followed by the value being set to -1. This is only used for the [eventonfall](../../Actors%20states/Enemy%20features.md#eventonfall) feature of enemies
 - [flags](../../../Flags%20arrays/flags.md) 15 is false (combat tutorial hasn't been given yet): multiplie events can occur with an additional condition:
-    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 0: EventDialogue 0 is started
-    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 2: EventDialogue 2 is started
-    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 3 and `turns` is 3: ExitBattle is called which start a ReturnToOverworld without flee, set `cancelupdate` and `action` to true and `enemy` to false which also changes the flow to a terminal one
+    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 0: [EventDialogue](../EventDialogue.md) 0 is started
+    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 2: [EventDialogue](../EventDialogue.md) 2 is started
+    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 3 and `turns` is 3: ExitBattle is called which start a [ReturnToOverworld](../Terminal%20coroutines/ReturnToOverworld.md) without flee, set `cancelupdate` and `action` to true and `enemy` to false which also changes the flow to a [terminal](Terminal%20flow.md) one
 - The first `enemydata` has an `animid` (an [enemy](../../../Enums%20and%20IDs/Enemies.md) id) of `Spuder` and [flag](../../../Flags%20arrays/flags.md) 27 is false (haven't gotten past the cutscene of meeting Leif yet), some logic occurs:
     - The `Spuder` enemy gets their `hp` set to 999 and `def` to 99
-    - If the `Spuder` enemy didn't had a weakness of `AntiPierce`, it is added to `weakness`
-    - If `turns` is 2 and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 2, EventDialogue 4 is started
+    - If the `Spuder` enemy didn't had a weakness of `AntiPierce`, it is added to [weakness](../../Actors%20states/Enemy%20features.md#weakness)
+    - If `turns` is 2 and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 2, [EventDialogue](../EventDialogue.md) 4 is started
     - Otherwise, if `turns` is 3 and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 1, [ExitBattle](../Terminal%20wrappers/ExitBattle.md) is called which will change to a [terminal flow](Terminal%20flow.md)
-    - Otherwise, if `turns` % 2 is 0 while being above 0 and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 2, EventDialogue 5 is started
-- [flag](../../../Flags%20arrays/flags.md) 16 is true (Leif can fight in battle) and [flag](../../../Flags%20arrays/flags.md) 27 is false (haven't received the Relay tutorial yet), EventDialogue 3 is started
-- [flag](../../../Flags%20arrays/flags.md) 37 is false (using the B.O.S.S system in EX mode), [flagvar](../../../Flags%20arrays/flagvar.md) 11 is below 200, [flag](../../../Flags%20arrays/flags.md) 27 is true (got past the cutscene of meeting Leif for the first time), the first `enemydata` has an `animid` (an [enemy](../../../Enums%20and%20IDs/Enemies.md) id) of `Spuder` with an `hp` below half of its `maxhp` floored, but above 0 and [GetFreePlayerAmmount](../../Actors%20states/Player%20party%20members/GetFreePlayerAmmount.md) returns 0:
-    - EventDialogue 7 is started
-    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is set to 200
-- [flag](../../../Flags%20arrays/flags.md) 37 is false (using the B.O.S.S system in EX mode), [flagvar](../../../Flags%20arrays/flagvar.md) 11 is below 150, [flag](../../../Flags%20arrays/flags.md) 27 is true (got past the cutscene of meeting Leif for the first time), the first `enemydata` has an `animid` (an [enemy](../../../Enums%20and%20IDs/Enemies.md) id) of `Spuder` and `turns` is 0:
-    - EventDialogue 8 is started
-    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is set to 150
+    - Otherwise, if `turns` % 2 is 0 while being above 0 and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 2, [EventDialogue](../EventDialogue.md) 5 is started
+- [flag](../../../Flags%20arrays/flags.md) 16 is true (Leif can fight in battle) and [flag](../../../Flags%20arrays/flags.md) 27 is false (haven't received the Relay tutorial yet), [EventDialogue](../EventDialogue.md) 3 is started
+- [EventDialogue](../EventDialogue.md) 7 is started followed by [flagvar](../../../Flags%20arrays/flagvar.md) 11 being set to 200 when all of the following are true:
+    - [flag](../../../Flags%20arrays/flags.md) 37 is false (using the B.O.S.S system in EX mode)
+    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is below 200, [flag](../../../Flags%20arrays/flags.md) 27 is true (got past the cutscene of meeting Leif for the first time)
+    - The first `enemydata` has an `animid` (an [enemy](../../../Enums%20and%20IDs/Enemies.md) id) of `Spuder` with an `hp` below half of its `maxhp` floored, but above 0
+    - [GetFreePlayerAmmount](../../Actors%20states/Player%20party%20members/GetFreePlayerAmmount.md) returns 0
+- [EventDialogue](../EventDialogue.md) 8 is started followed by [flagvar](../../../Flags%20arrays/flagvar.md) 11 being set to 150 when all of the following are true:
+    - [flag](../../../Flags%20arrays/flags.md) 37 is false (using the B.O.S.S system in EX mode)
+    - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is below 150, [flag](../../../Flags%20arrays/flags.md) 27 is true (got past the cutscene of meeting Leif for the first time)
+    - The first `enemydata` has an `animid` (an [enemy](../../../Enums%20and%20IDs/Enemies.md) id) of `Spuder`
+    - `turns` is 0
 
 ### EXP counter updates
 The first time this section run, `hexpcounter` wouldn't exist yet so it will get created by doing the following:
 
-- `hexpcounter` is set to a new UI object named `expcounter` with tag `DelAftBtl` childed to the `GUICamera` with position (7.4, -6.5, 10.0) with size (0.5, 0.6, 1.0) using `guisprites[4]` (a HUD backgrond strip) and sortingOrder of 10
+- `hexpcounter` is set to a new UI object named `expcounter` with tag `DelAftBtl` (destroyed on [ReturnToOverworld](../Terminal%20coroutines/ReturnToOverworld.md)) childed to the `GUICamera` with position (7.4, -6.5, 10.0) with size (0.5, 0.6, 1.0) using `guisprites[4]` (a HUD backgrond strip) and sortingOrder of 10
 - The color of the SpriteRenderer of `hexpcounter` is set to instance.`charcolor[0]` (hardcoded to be pure yellow)
 - A new UI object is created called `icon` childed to `hexpcounter` with position (-2.5, 0.0, 0.0) with size (1.25, 1.0, 1.0) using `guisprites[27]` (the EXP icon) and sortingOrder being 1 over the `hexpcounter`'s (11)
 - [SetText](../../../SetText/SetText.md) is called in [non dialogue mode](../../../SetText/Dialogue%20mode.md#non-dialogue-mode):
@@ -75,26 +79,26 @@ The first time this section run, `hexpcounter` wouldn't exist yet so it will get
 
 From there, this section is done, but the logic will change on further updates since `hexpcounter` now exists.
 
-Basically, the game will manage the `idletimer` field which will control the positioning of the `hexpcounter` and the `expholder`. The `idletimer` is reset to 0 constantly until the `currentaction` becomes `BaseAction` (the main vine menu). When that happens, it will get incremented once on this cycle until it reaches 250.
+Basically, the game will manage the `idletimer` field which will control the positioning of the `hexpcounter` and the `expholder`. The `idletimer` is reset to 0 constantly until the [currentaction](../../Player%20UI/Pick.md) becomes `BaseAction` (the main vine menu). When that happens, it will get incremented once on this cycle until it reaches 250.
 
 What will happen from there is the `hexpcounter` local posiiton will be set to a lerp from the existing one to (7.4, -6.5, 10.0) if the `idletimer` hasn't reached 200 or to (7.4, -4.4, 10.0) if it reached it. All with a factor of a 1/10 of the game's frametime in either case. This essentially will hide the counter offscreen at the bottom until at least 200 frames passed when the player was naviguating the main vine action menu where it will smoothly reveal itself.
 
 If the `expholder` still exists, its x local position gets set to 0.0 if `idletimer` hasn't reached 200 yet or to -3.25 if it did. This moves the orbs to the left when the `hexpcounter` is shown so they don't overlap.
 
-### Enemies `hitaction`
-`hitaction` is a field on `BattleData` that tells if an enemy wants to performa an action immediately on the next controlled update. These actions are performed out of the main turn flow because they are ran during the player phase. It's essentially a way for an enemy to temporarilly seize control of the turn flow to perform their action. This section handles these.
+### Enemies [hitaction](../../Actors%20states/Enemy%20features.md#hitaction)
+`hitaction` is a field on [BattleData](../../Actors%20states/BattleData.md) that tells if an enemy wants to perform an action immediately on the next controlled update. These actions are performed out of the main turn flow because they are ran during the player phase. It's essentially a way for an enemy to temporarilly seize control of the turn flow to perform their action. This section handles these.
 
 All `enemydata` elements are checked if any has `hitaction` set to true. If none do, nothing happens. For each that does have it set to true, the following happens:
 
-- If the enemy [IsStopped](../../Actors%20states/IsStopped.md) returns true, their `hitaction` gets set to false and nothing happens as it gets skipped
+- If the enemy [IsStopped](../../Actors%20states/IsStopped.md) returns true (without [actimmobile](../../Actors%20states/Enemy%20features.md#actimmobile) check), their `hitaction` gets set to false and nothing happens as it gets skipped
 - Otherwise, `enemy` is set to true and a [DoAction](../Action%20coroutines/DoAction.md) call occur with the battleentity with actionid being the `enemydata` index. This will also end the update cycle
 
-Setting `enemy` to true here is temporary: it will go back to false as part of DoAction. DoAction is also responsible for setting the enemy's `hitaction` back to false. The overall effect is DoAction temporarily seize control of the battle flow, but for the game, it's as if we were in an enemy phase. The flow will go back to where it was in the player phase once it's handled. Due to `hitaction` being true, DoAction is able to handle this special case in a separate fashion.
+For more information on how this works, check the [hitaction](../../Actors%20states/Enemy%20features.md#hitaction) documentation.
 
 This cycle repeats for all applicable enemies untill all `hitaction` are set to false at which point, the main turn procedure can continue.
 
 ## GUI cooldown
-This only decreases `guicooldown` by the game's frametime if it hasn't expired yet. However, this cooldown isn't actually used anywhere making this dead code.
+This only decreases `guicooldown` by the game's frametime if it hasn't expired yet. However, this cooldown isn't actually used anywhere making this dead logic.
 
 ## Main turn procedure
 This is where the main turn logic happens.

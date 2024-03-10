@@ -6,6 +6,8 @@ A `condition` element contains an int\[\] of 2 elements:
 - 0: The BattleCondition (in int form) representing the kind of effects this condition involves
 - 1: The amount of actor turns left for the effects to apply. 0 and below values are technically allowed, but frequently causes the whole condition to be removed and they are not considered to be present in the actor
 
+It is considered invalid to have duplicate conditions in the list. An existing condition should be amended if it exist already instead of adding a new element to the list.
+
 Some conditions are tested for resistance before being added to `condition`. This usually involves the actor's resistance compared to a random number with immunity starting at a resistance of 100 and a certainty of infliction being 0 with everything in between being (100 - resistance) / 100 chance to inflict. The presence of this test, its methodology and its accuracy (not all have the correct odds) depends on the specific method used to add the condition.
 
 Conditions are used heavily throughout the battle system and even come with a set of utility methods to inflict / amend one, check the presence of one and remove one. Here are links to learn more about these methods:

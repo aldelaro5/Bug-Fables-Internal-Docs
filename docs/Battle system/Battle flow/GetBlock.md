@@ -1,7 +1,7 @@
 # GetBlock
 This is a parameterless void returning method that is called from [Update](Update.md) when in an [uncontrolled flow](Update%20flows/Uncontrolled%20flow.md).
 
-This logic is exclusive to an uncontrolled flow, but it only happens when `enemy` is true (we are in the player phase), `inevent` is false (no EventDialogue is in progress) and the [message](../../SetText/Notable%20states.md#message) lock is released (covers cases like [Tattle](Action%20coroutines/Tattle.md)).
+This logic is exclusive to an uncontrolled flow, but it only happens when `enemy` is true (we are in the player phase / a [delproj](../Actors%20states/Delayed%20projectile.md) is landing / an enemy party member is performing a [hitaction](../Actors%20states/Enemy%20features.md#hitaction)), `inevent` is false (no EventDialogue is in progress) and the [message](../../SetText/Notable%20states.md#message) lock is released (covers cases like [Tattle](Action%20coroutines/Tattle.md)).
 
 GetBlock mainly does 2 things: process the blocking storing the result in `blockcooldown` and `commandsuccess` and update the player party members's [animstate](../../Entities/EntityControl/Animations/animstate.md) to different stages of the blocking.
 
@@ -52,4 +52,4 @@ Other than managing blocking, it also manages animations of the player party mem
         - `blockcooldown` is above 0.0, 
     - Otherwise, [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called with onlyplayer to true
 - Otherwise, if the player party member `isasleep`, battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 14 (`Sleep`)
-- Otherwise, if the player party member `isnumb` or it has the `Freeze` [condition](../Actors%20states/Conditions.md), battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 11 (`Hurt`)
+- Otherwise, if the player party member `isnumb` or it has the [Freeze](../Actors%20states/BattleCondition/Freeze.md) condition, battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 11 (`Hurt`)
