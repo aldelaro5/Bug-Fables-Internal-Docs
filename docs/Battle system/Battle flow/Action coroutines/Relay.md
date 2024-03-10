@@ -29,12 +29,12 @@ If that medal is equipped on the `currentturn`'s player party member's `trueid`,
 
 Essentially, how it works is the `currentturn`'s player party member's [condition](../../Actors%20states/Conditions.md) are checked and all of the ones that aren't in the following list will be removed (by reseting the `condition` field to a new array without the ones to remove):
 
-- `Topple`
-- `Flipped`
-- `Shield`
-- `Eaten`
-- `EventStop`
-- `Reflection`
+- [Topple](../../Actors%20states/BattleCondition/Topple.md)
+- [Flipped](../../Actors%20states/BattleCondition/Flipped.md)
+- [Shield](../../Actors%20states/BattleCondition/Shield.md)
+- [Eaten](../../Actors%20states/BattleCondition/Eaten.md)
+- [EventStop](../../Actors%20states/BattleCondition/EventStop.md)
+- [Reflection](../../Actors%20states/BattleCondition/Reflection.md)
 
 The conditions removed will be added to the `option`'s player party member via [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) using the same `BattleCondition` and actor turn counter. This does imply they can amend existing conditions.
 

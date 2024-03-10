@@ -31,7 +31,7 @@ This section only happens if the `HPScope` [medal](../../../Enums%20and%20IDs/Me
 - [waitinput](../../../SetText/Notable%20states.md#waitinput) is set to false
 - instance.`inputcooldown` is set to 15.0
 - A frame is yielded
-- [SetText](../../../SetText/SetText.md) is called in [dialogue mode](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the text being `|fwait,0.075||spd,-1||stopskip|` followed by the correspondong tattle line from the `currenturn` player party member's `trueid` from [enemytattle](../../../TextAsset%20Data/Enemies%20data.md#enemytattle-data) data using the enemy party member's `animid` as the [enemy](../../../Enums%20and%20IDs/Enemies.md) id. The call also has these properties:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue mode](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the text being `|`[fwait](../../../SetText/Individual%20commands/Fwait.md)`,0.075||`[spd](../../../SetText/Individual%20commands/Spd.md),`-1||`[stopskip](../../../SetText/Individual%20commands/Stopskip.md)`|` followed by the correspondong tattle line from the `currenturn` player party member's `trueid` from [enemytattle](../../../TextAsset%20Data/Enemies%20data.md#enemytattle-data) data using the enemy party member's `animid` as the [enemy](../../../Enums%20and%20IDs/Enemies.md) id. The call also has these properties:
     - [fonttype](../../../SetText/Notable%20states.md#fonttype) of 0 (`BubblegumSans`)
     - linebreak of `messagebreak`
     - No tridimensional
@@ -46,20 +46,20 @@ This section only happens if the `HPScope` [medal](../../../Enums%20and%20IDs/Me
 - A string of text is prepared which are all the following appended together:
     - `|`[single](../../../SetText/Individual%20commands/Single.md)`|`
     - If the [languageid](../../../SetText/languageid.md) is `Japanese` and the enemy party member's `entityname` is 6 or more letters long, `|`[size](../../../SetText/Individual%20commands/size.md)`,X,1|` is appended where `X` is 1.0 - 0.075 * (the enemy party member's `entityname`'s length - 5) all clamped from 0.5 to 0.65 (notthing is appended otherwise)
-    - `|line||halfline||size,1,1,lock|`
+    - `|`[line](../../../SetText/Individual%20commands/Line.md)`||`[halfline](../../../SetText/Individual%20commands/Halfline.md)`||`[size](../../../SetText/Individual%20commands/size.md)`,1,1,lock|`
     - `menutext[14]` (HP)
     - `: `
     - The enemy party member's `maxhp`. If the `DoublePain` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped or [flag](../../../Flags%20arrays/flags.md) 614 is true (HARDEST is active), it's the `maxhp` + `hardhp` instead
-    - `|line|`
+    - `|`[line](../../../SetText/Individual%20commands/Line.md)`|`
     - `menutext[17]` (Defense)
     - `: `
     - The enemy party member's `def`. If the `DoublePain` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped or [flag](../../../Flags%20arrays/flags.md) 614 is true (HARDEST is active), it's the `def` + `harddef` instead. There is an exception however: if that number is negative, `???` is appended instead of the number
-    - `|line|`
-    - If the [languageid](../../../SetText/languageid.md) is `Japanese`, `|size,0.8,1,force|` is appended (nothing otherwise)
+    - `|`[line](../../../SetText/Individual%20commands/Line.md)`|`
+    - If the [languageid](../../../SetText/languageid.md) is `Japanese`, `|`[size](../../../SetText/Individual%20commands/size.md)`,0.8,1,force|` is appended (nothing otherwise)
     - `menutext[137]` (Seen)
     - `: `
     - The seen counter of the matching [bestiary entry](../../../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md) of the enemy party member
-    - `|line|`
+    - `|`[line](../../../SetText/Individual%20commands/Line.md)`|`
     - `menutext[138]` (Defeated)
     - `: `
     - The defeated counter of the matching [bestiary entry](../../../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md) of the enemy party member

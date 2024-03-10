@@ -13,13 +13,19 @@ private IEnumerator DoAction(EntityControl entity, int actionid)
 
 - `entity`: The actor that will be performing the action
 - `actionid`: The meaning changes depending on the entity:
-    - If it's a player party member, this is a number that tells what action entity will be performing. In that case, -555 is reserved to be the player's first strike action and will have a simplified post action logic
+    - If it's a player party member, this is a number that tells what action entity will be performing (-2 is a `LonglegSummoner` [item](../../../Enums%20and%20IDs/Items.md) -1 is a basic attack, anything of 0 or above is a [Skill](../../../Enums%20and%20IDs/Skills.md) id or [item](../../../Enums%20and%20IDs/Items.md) use)
     - If it's an enemy party member, this is its `enemydata` index. Sending an invalid index is considered invalid and will result in an exception being thrown in the vast majority of cases
+    - If the value is -555, this is reserved to perform a blank dummy call, see the section below about performance for more details
+
+## Performance implications
+This coroutine is extremely large in IL code size. This creates a problem because when calling it for the first time, it requires the JIT's full attention to compile it which can stutter the game. This performance penalty goes away once it has been called at least once throughout the entire game's session, but it is still very noticeable (it can be as long as a second or two).
+
+One mitigation the game does is to precipitate the stutter during the battle out loading transition of [StartBattle](../../StartBattle.md). It does this by checking a boolean that belongs to MainManager and is only set to true when this happened for the first time since the last save load. To prevent any destructive logic to happen, StartBattle will send -555 as the actionid which can be seen as a blank dummy call: it will not perform any meaningful logic, but it will still be enough to force the JIT to compile the coroutine as it was explicitly called.
 
 ## Procedure
 Considering how large this method its lifecycle will be divided into different phases.
 
-NOTE: If this is a player action, the coroutine expects `availabletargets`, `target`, `currentaction`, `itemarea` and `currentturn` to be correctly set because they are needed to tell the coroutine the details of the action (notably, `currentturn` tells the `playerdata` index of the player party member performing the action). For a skill, its cost is expected to be in [flagvar](../../../Flags%20arrays/flagvar.md) 0 (TP if it's 0 or above, HP if it's negative using the absolute value).
+NOTE: If this is a player action, the coroutine expects `availabletargets`, `target`, [currentaction](../../Player%20UI/Pick.md), [itemarea](../../Player%20UI/AttackArea.md) and `currentturn` to be correctly set because they are needed to tell the coroutine the details of the action (notably, `currentturn` tells the `playerdata` index of the player party member performing the action). For a [Skill](../../../Enums%20and%20IDs/Skills.md), its cost is expected to be in [flagvar](../../../Flags%20arrays/flagvar.md) 0 (TP if it's 0 or above, HP if it's negative using the absolute value).
 
 ### Setup
 This is the first phase of the coroutine. It ensures the coroutin can proceed and does some preparations logic.
@@ -33,18 +39,20 @@ This is the first phase of the coroutine. It ensures the coroutin can proceed an
 
 What follows is a bunch of field value resets:
 
-- `infinitecommand` to false
-- `hasblocked` to false
-- `dontusecharge` to false
-- `nolifesteal` to false
-- `caninputcooldown` to 0.0
-- `blockcooldown` to 0.0
-- `combo` to 1
-- `barfill` to 0.0
-- `weakenemyfound` to false
-- `killinput` to false
-- `nonphysical` to false
-- `commandsuccess` to false
+|Field|Value|
+|----:|-----|
+|`infinitecommand`|false|
+|`hasblocked`|false|
+|`dontusecharge`|false|
+|`nolifesteal`|false|
+|`caninputcooldown`|0.0|
+|`blockcooldown`|0.0|
+|`combo`|1|
+|`barfill`|0.0|
+|`weakenemyfound`|false|
+|`killinput`|false|
+|`nonphysical`|false|
+|`commandsuccess`|false|
 
 From there, a couple of local variables are initialised that may be used in the actions logic:
 
@@ -71,34 +79,34 @@ From there, the next phase depends on the entity itself. It can either be a play
     - [flags](../../../Flags%20arrays/flags.md) 614 is false (HARDEST is inactive)
     - `actionid` is not 0 (this isn't the first enemy party member)
 
-NOTE: This enemy action exception never applies under normal gameplay. This is because `firststrike` is only true in the case where the enemy had the advantage when [StartBattle](../../StartBattle.md) was called and in that logic, DoAction is only called on the first enemy party member. This means that in practice, whenever `firststrike` is true, actionid should ALWAYS be 0. The exception clause can be considered dead code.
+NOTE: This enemy action exception never applies under normal gameplay. This is because `firststrike` is only true in the case where the enemy had the advantage when [StartBattle](../../StartBattle.md) was called and in that logic, DoAction is only called on the first enemy party member. This means that in practice, whenever `firststrike` is true, actionid should ALWAYS be 0. The exception clause can be considered dead logic.
 
 ### Player action
 This phase applies only if the entity has a `Player` tag.
 
 #### Player action setup
-The setup first begins by initialising a local variable called targetentity which is the actor data of the action's target (if it exists). This is primarily used for an `itemarea` of `SingleAlly` or `SingleEnemy` targetting action, but it is technically initialised for multi targetting, just not very useful. Only some action uses this variable and it may not get a valid actor if it is not needed, but it must be set correctly if it is. Here's the logic for determining the value:
+The setup first begins by initialising a local variable called targetentity which is the actor data of the action's target (if it exists). This is primarily used for an [itemarea](../../Player%20UI/AttackArea.md) of `SingleAlly` or `SingleEnemy` targetting action, but it is technically initialised for multi targetting, just not very useful. Only some action uses this variable and it may not get a valid actor if it is not needed, but it must be set correctly if it is. Here's the logic for determining the value:
 
-- If actionid is -555 (player first strike), the value is left at the [BattleData](../../Actors%20states/BattleData.md)'s default
-- Otherwise, if `currentaction` is `ItemList` (this is an item use action), then it depends on `itemarea` (if none match, the variable is left at the [BattleData](../../Actors%20states/BattleData.md)'s default):
+- If actionid is -555 (blank dummy call), the value is left at the [BattleData](../../Actors%20states/BattleData.md)'s default
+- Otherwise, if [currentaction](../../Player%20UI/Pick.md) is `ItemList` (this is an item use action), then it depends on [itemarea](../../Player%20UI/AttackArea.md) (if none match, the variable is left at the [BattleData](../../Actors%20states/BattleData.md)'s default):
     - `SingleAlly`: The `target` player party member
     - `SingleEnemy`: [GetAvaliableTargets](../../Actors%20states/Targetting/GetAvaliableTargets.md) is called without onlyground and onlyfront with excludeunderground using actionid as the attack id followed by setting the variable to `avaliabletargets[target]`. NOTE: In practice, the GetAvaliableTargets shouldn't change anything under normal gameplay because it was called with similar parameters (attackid was -1, but it doesn't change anything) during [SetItem](../../Player%20UI/SetItem.md)
 - Otherwise, if `target` is less than the length of `avaliabletargets` (it's a valid target), the variable is set to `avaliabletargets[target]`
 - Otherwise, it's left at [BattleData](../../Actors%20states/BattleData.md)'s default
 
-After, if actionid isn't negative (meaning this isn't a basic attack action or player first strike) and `currentaction` isn't `ItemList` (meaning this must be a skill), the cost of the skill is paid by doing the following:
+After, if actionid isn't negative (meaning this isn't a basic attack action or player first strike) and [currentaction](../../Player%20UI/Pick.md) isn't `ItemList` (meaning this must be a [skill](../../../Enums%20and%20IDs/Skills.md)), the cost of the skill is paid by doing the following:
 
 - If the `HPFunnel` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped or [flagvar](../../../Flags%20arrays/flagvar.md) 0 is negative (meaning it's an HP cost), the `hp` of the `currentturn` player party member is decreased by the absolute value of flagvar 0
 - Otherwise, instance.`tp` is decreased by [flagvar](../../../Flags%20arrays/flagvar.md) 0 (TP cost)
 
 If a cost was paid, usedtp is set to the value of [flagvar](../../../Flags%20arrays/flagvar.md) 0 (the TP or HP cost).
 
-After, if actionid isn't -555 (meaning it's not a player first strike) and `currentaction` isn't `ItemList` (meaning it's not an item use so it's a basic attack or skill action), `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `AttackUp`.
+After, if actionid isn't -555 (meaning it's not a player first strike) and [currentaction](../../Player%20UI/Pick.md) isn't `ItemList` (meaning it's not an item use so it's a basic attack or skill action), `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `AttackUp`.
 
 After, `targettedenemy` is set to the `enemydata` index of the targetted enemy using the following logic:
 
-- If actionid is -555 (player first strike), it's 0
-- Otherwise, if `target` is at least `avaliabletargets`'s length - 1 (this is wrong, but safe, see the note below) or `currentaction` is `ItemList` (this is an item use action), it's `target`
+- If actionid is -555 (blank dummy call), it's 0
+- Otherwise, if `target` is at least `avaliabletargets`'s length - 1 (this is wrong, but safe, see the note below) or [currentaction](../../Player%20UI/Pick.md) is `ItemList` (this is an item use action), it's `target`
 - Otherwise, it's the battleentity.`battleid` of the return of GetEnemyFromAvaliable using `avaliabletargets[target]`. Basically, it means if `avaliabletargets[target]`'s battleentity still exists in `enemydata`, it will be its `battleid` (which is the same than the `enemydata` index) and if it doesn't, it will be 0
 
 NOTE: This logic is very broken, but in practice, it's only ever used in 2 actions: the `HeavyStrike` [skill](../../../Enums%20and%20IDs/Skills.md) or `Beetle`'s basic attack. For those actions specifically, this logic happens to always be correct whether it is on accident or not. `targetedenemy` will be correct in these cases, but it should not be relied upon because its value isn't reliable and can easilly point to the wrong enemy party member.
@@ -119,11 +127,11 @@ This part of the enemy action phase occurs before any action is performed:
 - `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `DefenseUp`
 - All frames are yielded while `checkingdead` is in progress
 
-The action can only occur if the enemy party member doesn't have a `Flipped` [condition](../../Actors%20states/Conditions.md) for 2 turns or more (the action is allowed if there's 1 turn left on it or the condition isn't present). If it doesn't occur, the coroutine skips to the post action phase.
+The action can only occur if the enemy party member doesn't have a [Flipped](../../Actors%20states/BattleCondition/Flipped.md) condition for 2 turns or more (the action is allowed if there's 1 turn left on it or the condition isn't present). If it doesn't occur, the coroutine skips to the post action phase.
 
-If the enemy party member has either the `Flipped` or `Topple` [conditions](../../Actors%20states/Conditions.md) for exactly 1 turn left, the following occurs:
+If the enemy party member has either the [Flipped](../../Actors%20states/BattleCondition/Flipped.md) or [Topple](../../Actors%20states/BattleCondition/Topple.md) conditions for exactly 1 turn left, the following occurs:
 
-- Both the `Flipped` and `Topple` [conditions](../../Actors%20states/Conditions.md) are removed via [RemoveCondition](../../Actors%20states/Conditions.md) on the enemy party member
+- Both the [Flipped](../../Actors%20states/BattleCondition/Flipped.md) and [Topple](../../Actors%20states/BattleCondition/Topple.md) conditions are removed via [RemoveCondition](../../Actors%20states/Conditions.md) on the enemy party member
 - [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) is called on the enemy party member with a height of 10.0
 - entity.`overrideanim` is set to false
 - entity.`basestate` and entity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 0 (`Idle`)
@@ -140,7 +148,7 @@ After, a couple of local variables are initialised which are enemy actions speci
     - [flags](../../../Flags%20arrays/flags.md) 166 is true (EX mode active on the B.O.S.S system)
 - pos: A vector starting at Vector3.zero
 
-After, if the enemy party member `isdefending`:
+After, if the enemy party member [isdefending](../../Actors%20states/Enemy%20features.md#isdefending):
     
 - The enemy party member's `isdefending` is set to false
 - startstate is set to entity.`basestate`
@@ -163,7 +171,7 @@ This phase occurs after any actions. It starts with logic that allways occur no 
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) is called
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called
 
-From there, what follows depends on if the actionid is -555 or not (this actionid is reserved for a player first strike).
+From there, what follows depends on if the actionid is -555 or not (whether this is a blank dummy call or not).
 
 If it is, the only logic that happens is `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md) followed by skipping to the cleanup phase.
 
@@ -194,48 +202,48 @@ In either cases, they both end by setting all enemy party members's `lockpositio
 - entity.`flip` is reset to flip
 - entity.`overrideflip` is reset to false
 - 0.15 seconds are yielded
-- If randomposafter is true, an attempt with be made to change the enemy party member's `position` by generating a 50/50 random position between `Ground` and `Flying`. If the position changed from its previous one, the following is performed (in either cases, entity.`oldid` is reset to -1 after):
-    - If the new enemy party member's `position` is `Ground`:
+- If randomposafter is true, an attempt with be made to change the enemy party member's [position](../../Actors%20states/BattlePosition.md) by generating a 50/50 random position between `Ground` and `Flying`. If the position changed from its previous one, the following is performed (in either cases, entity.`oldid` is reset to -1 after):
+    - If the new enemy party member's [position](../../Actors%20states/BattlePosition.md) is `Ground`:
         - As long as entity.`height` is higher than entity.`minheight`, the `Fall` AnimationClip is played on entity.`anim` followed by entity.`height` being decreased by 0.075 of the game's frametime followed by a frame yield
         - entity.`onground` is set to true
         - entity.`height` is set to entity.`minheight`
         - entity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to its `basestate`
         - A frame is yielded
         - If the entity.`originalid` isn't the `BeeBot` [animids](../../../Enums%20and%20IDs/AnimIDs.md), entity.`basestate` in enum string format is played on entity.`anim` (this implies entity.`basestate` must be a [predefind animation](../../../Entities/EntityControl/Animations/animstate.md#predefined-animations-names))
-    - Otherwise (the new `position` is `Flying`):
+    - Otherwise (the new [position](../../Actors%20states/BattlePosition.md) is `Flying`):
         - `Idlef` is played on entity.`anim`
         - All frames are yielded while entity.`height` is less than 1.9 (entity.`height` is increased by 0.075 of the game's frametime each time before the frame yield)
         - entity.`bobrange` is reset to entity.`startbf`
         - entity.`bobspeed` is reset to entity.`startbs`
         - entity.`height` is set to 2.0
     - [UpdateAnimSpecific](../../../Entities/EntityControl/Animations/AnimSpecific.md#updateanimspecific) is called on the entity
-- If the entity has the `Player` tag:
-    - If usedtp is above 0, nocharm is false and `currentaction` isn't `ItemList` (meaning a skill was used that had a paid cost to it while healing charms aren't disallowed):
+- If the entity has the `Player` tag (this is a player party member):
+    - If usedtp is above 0, nocharm is false and [currentaction](../../Player%20UI/Pick.md) isn't `ItemList` (meaning a skill was used that had a paid cost to it while healing charms aren't disallowed):
         - [flagvar](../../../Flags%20arrays/flagvar.md) 1 is set to usedtp / 2 clamped from 1 to usedtp (the integer division floors implicitly)
         - `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `HealTP` which heals for the amoutn set to flagvar 1 just before
         - All frames are yielded while `checkingdead` is in progress
-    - `playerdata[currentturn]`'s `tired` is incremented if `currentaction` isn't `ItemList` and actionid is not among the following (these are all the team moves, the reason they are exempted from exhaustion is because their individual action logic already took care of incremented the proper `tired` fields so this would have been a second, unwanted increment):
+    - `playerdata[currentturn]`'s `tired` is incremented if [currentaction](../../Player%20UI/Pick.md) isn't `ItemList` and actionid is not among the following (these are all the team moves, the reason they are exempted from exhaustion is because their individual action logic already took care of incremented the proper `tired` fields so this would have been a second, unwanted increment):
         - 5 (`BeeFly`)
-        - 26 (`IceBeemerang`)/
+        - 26 (`IceBeemerang`)
         - 27 (`IceDrill`)
         - 31 (`IceSphere`)
     - `playerdata[currentturn]`'s `tired` is incremented again if `turns` is 0 (meaning this is the first turn of the battle) while the `StrongStart` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped
     - Unless `dontusecharge` is true, `playerdata[currentturn]`'s `charge` is reset to 0
     - [EndPlayerTurn](../EndPlayerTurn.md) is called
-    - `currentaction` is set to `BaseAction`
+    - [currentaction](../../Player%20UI/Pick.md) is set to `BaseAction`
     - `option` is set to `lastoption` (this restores the main vine menu's selection to whichever was the last one selected)
     - If [GetFreePlayerAmmount](../../Actors%20states/Player%20party%20members/GetFreePlayerAmmount.md) returns at least 1, [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 - Otherwise, if `selfsacrifice` is false (the enemy party member didn't killed themselves during their action):
     - If the enemy party member had any `delayedcondition`:
         - All `delayedcondition` are processed. See the [delayed condition](../../Actors%20states/Delayed%20condition.md) documentation to learn more
         - If any `delayedcondition`'s processing caused a [condition](../../Actors%20states/Conditions.md) to be inflicted, the enemy party member's `cantmove` is set to 0 (EndEnemyTurn will later advance it making it 1 which means one actor turn needs to pass before an action is available)
-        - If the enemy party member's `position` is `Flying` while its `cantfall` is false, entity.`droproutine` is set to a new [Drop](../../../Entities/EntityControl/EntityControl%20Methods.md#drop) coroutine on the entity
+        - If the enemy party member's [position](../../Actors%20states/BattlePosition.md) is `Flying` while its [cantfall](../../Actors%20states/Enemy%20features.md#cantfall) is false, entity.`droproutine` is set to a new [Drop](../../../Entities/EntityControl/EntityControl%20Methods.md#drop) coroutine on the entity
         - 0.5 seconds are yielded
         - The enemy party member's `delayedcondition` is set to null
     - If nocharm is false (healing charms weren't disallowed):
         - `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `HealHP`
         - All frames are yielded while `checkingdead` is in progress
-    - If the enemy party member was performaning a `hitaction`, `enemy` is set to false, giving control back to the player party
+    - If the enemy party member was performaning a [hitaction](../../Actors%20states/Enemy%20features.md#hitaction), `enemy` is set to false, giving control back to the player party
     - [EndEnemyTurn](../EndEnemyTurn.md) is called with the actionid
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
 - If this isn't a `firststrike`:

@@ -9,7 +9,7 @@ This section runs first and performs any waits or setup needed before switching 
 - A frame is yielded if there's at least one `extraenemies`
 - All frames are yielded while `checkingdead` is in progress, `summonnewenemy` is true or while any enemy party member's battleentity is in a `forcemove`
 - [ReorganizeEnemies(true)](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called which removes all dead enemy party members and orders them by battleentity.position.x
-- RefreshEnemyPos is called which checks all `enemydata` whose `hp` is above 0, whose `cantfall` is false and whose `position` is `Ground` or `Flying`. If the enemy battleentity.`height` is above battleentity.`minheight` + 0.5, the `position` is set to `Flying`, `Ground` otherwise
+- RefreshEnemyPos is called which checks all `enemydata` whose `hp` is above 0, whose [cantfall](../../Actors%20states/Enemy%20features.md#cantfall) is false and whose [position](../../Actors%20states/BattlePosition.md#battleposition) is `Ground` or `Flying`. If the enemy battleentity.`height` is above battleentity.`minheight` + 0.5, the `position` is set to `Flying`, `Ground` otherwise
 - `combo` is set to 1
 - `chompyaction` is set to true informing that the setup is complete
 - `action` is set to true switching to a [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
@@ -35,7 +35,7 @@ This section builds the vine menu.
         - 2 (Ribbon specific action): Depends on the [flagvar](../../../Flags%20arrays/flagvar.md) 56 (the [item](../../../Enums%20and%20IDs/Items.md) id of the ribbon chompy has on her). This also initialises the attack property of the bite specific attack (check the selected option handling for details). The sprite is `guisprites[158]` for the `PoisonRibbon`, `guisprites[159]` for the `NumbRibbon` and `guisprites[160]` for the `SleepRibbon`. Additionally, if instance.`tp` is less than 2, the material of the sprite is set to MainManager.`grayscale`
         - 3: (Switch Ribbon) `guisprites[217]`
     - The sprite of the vine GameObject's flipX is set to true
-- `currentaction` is set to `Chompy`
+- [currentaction](../../Player%20UI/Pick.md) is set to `Chompy`
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 
 ## Vine menu selection loop
@@ -50,7 +50,7 @@ This is an infinite loop that runs until an option has been confirmed in the vin
 - Getting here means a main vine menu option was chosen. If it's 2 (ribbon specific action) while instance.`tp` is less than 2, the buzzer sound is played followed by a frame yield followed by perfoming another iteration of the selection loop
 - If the confimed option isn't 3 (switch ribbons), the slection loop ends (switch ribbon is the only option that needs further handling once chosen)
 - The `Confirm` sound is played if it wasn't already
-- `currentaction` is set to `BaseAction`
+- [currentaction](../../Player%20UI/Pick.md) is set to `BaseAction`
 - [UpdateTect](../../Visual%20rendering/UpdateText.md) is called
 - instance.`multilist` is set to the ribbons list obtained earlier except the one held in [flagvar](../../../Flags%20arrays/flagvar.md) 56 (the one chompy has on her)
 - [SetText](../../../SetText/SetText.md) is called in [dialogue mode](../../../SetText/Dialogue%20mode.md#dialogue-mode) using the text `|`[hide](../../../SetText/Individual%20commands/Hide.md)`||`[pickitem](../../../SetText/Individual%20commands/Pickitem.md)`,35,-11,-11|` (which pops an [ItemList](../../../ItemList/ItemList.md) with the [chompy ribbons list type](../../../ItemList/List%20Types%20Group%20Details/Chompy%20Ribbons%20List%20Type.md)). The call has these properties:
@@ -70,7 +70,7 @@ This is an infinite loop that runs until an option has been confirmed in the vin
 - Getting here means the [ItemList](../../../ItemList/ItemList.md) handling and the dialogue has completed. If MainManager.`listcancelled` is true, it means the selection loop isn't done yet and the following is performed:
     - `option` is set to the value it had before the SetText call (this is because the ItemList system uses it so it restores the value to continue being used for the vine menu)
     - `maxoptions` is set to the amount of `coptions` (this is also because it was used as part of ItemList)
-    - `currentaction` is set back to `Chompy`
+    - [currentaction](../../Player%20UI/Pick.md) is set back to `Chompy`
     - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
     - Another iteration of the vine menu selection loop is performed
 - The value of [flagvar](../../../Flags%20arrays/flagvar.md) 0 is saved locally (this corresponds to the [item](../../../Enums%20and%20IDs/Items.md) id of the selected ribbon)
@@ -80,7 +80,7 @@ This is an infinite loop that runs until an option has been confirmed in the vin
 Getting here means that an option has been confirmed in the vine menu selection loop and the coroutine is ready to handle it.
 
 - `chompyoption` is set to the selected `option`
-- `currentaction` is reset to `BaseAction`
+- [currentaction](../../Player%20UI/Pick.md) is reset to `BaseAction`
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 - The `Confirm` sound is played
 - The `ChompyVine` object is destroyed
@@ -93,7 +93,7 @@ What follows depends on the `coption[option]` selected.
 - If the `coption` is 2 (ribbon specific action), instance.`tp` is decreased by 2
 - All player party members has DestroyConditionIcons called on their entity (not battleentity)
 - All enemy party members has DestroyConditionIcons called on their entity if it exists (this is normally the same than battleentity)
-- The enemy party member to target is obtained by getting the first one whose `position` is `Ground` or `enemydata[0]` if none are found
+- The enemy party member to target is obtained by getting the first one whose [position](../../Actors%20states/BattlePosition.md) is `Ground` or `enemydata[0]` if none are found
 - MainManager.SetCamera is called with no target, the targetted enemy's battleentity's position as the targetpos, 0.03 as the speed and (0.0, 2.85, -7.5) as the offset
 - The x/z position of `chompy` are saved locally (the y component is saved to 0.0)
 - `chompy`'s `overrideflip` is set to true
@@ -101,11 +101,11 @@ What follows depends on the `coption[option]` selected.
 - All frames are yielded while `chompy` is in a `forcemove`
 - `chompy`'s [animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 100
 - The `Chew` sound is played with a pitch of 1.5
-- If the targetted enemy's `position` is indeed `Ground` (always happen unless no grounded enemies existed earlier):
+- If the targetted enemy's [position](../../Actors%20states/BattlePosition.md) is indeed `Ground` (always happen unless no grounded enemies existed earlier):
     - [DoCommand](../../Action%20commands/DoCommand.md) is called with a timer of 60.0, a commandtype of `PressKeyTimer` and a data being a one element array containing a random integer between 4 and 6 converted to float
     - A frame is yielded
     - All frames are yielded while `doingaction` is true
-- If the targetted enemy's `position` is indeed `Ground` (always happen unless no grounded enemies existed earlier) and `commandsuccess` is true:
+- If the targetted enemy's [position](../../Actors%20states/BattlePosition.md) is indeed `Ground` (always happen unless no grounded enemies existed earlier) and `commandsuccess` is true:
     - `chompy`'s [animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 102
     - The `Bite` sound is played with a pitch of 1.25
     - [DoDamage](../../Damage%20pipeline/DoDamage.md) is called without attacker to the targetted enemy for a damage of 2 (or 3 if [flags](../../../Flags%20arrays/flags.md) 404 is true and [flagvar](../../../Flags%20arrays/flagvar.md) 56 is `ChomperRibbon` meaning that ribbon is currently on Chompy) without block. The property depends on the ribbon:

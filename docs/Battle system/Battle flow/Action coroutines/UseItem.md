@@ -11,7 +11,7 @@ This action coroutine allows the player party member to use an [item](../../../E
 - The `currentturn` player party member's battleentity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 4 (`ItemGet`)
 
 ## `BanditLeader` specific logic
-This coroutine has specoial logic if a `BanditLeader` [enemy](../../../Enums%20and%20IDs/Enemies.md) is present in the enemy party. When that happens, this coroutine will not apply any item effects and it will instead end abruptly with a yield break after some animations and cleanup logic. This logic is what this section is about. It doesn't apply if no `BanditLeader` is present.
+This coroutine has special logic if a `BanditLeader` [enemy](../../../Enums%20and%20IDs/Enemies.md) is present in the enemy party. When that happens, this coroutine will not apply any item effects and it will instead end abruptly with a yield break after some animations and cleanup logic. This logic is what this section is about. It doesn't apply if no `BanditLeader` is present.
 
 If it does apply, the enemy party member index of the first `BanditLeader` is saved locally and used for this section.
 
@@ -55,7 +55,7 @@ This section happens if the `BanditLeader` specific logic didn't apply.
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called
 
 ## Item effects
-This section depends on the `itemarea`.
+This section depends on the [itemarea](../../Player%20UI/AttackArea.md).
 
 ### `SingleAlly` or `AllParty`
 This first starts by having all frames yielded while PartyIsDying which means that at least one player party member's `hp` is 0 or below while its battleentity.`deathroutine` is still in progress.
@@ -64,7 +64,7 @@ From there, the ItemUse elements of the item are processed by first calling [DoI
 
 After, there's additional logic depending on the ItemUsage.
 
-#### `HPRecover`, `HPRecoverFull`
+#### `HPRecover` or `HPRecoverFull`
 
 - HealParticle is called on the `option` player party member with a size of Vector3.one and an offset of Vector3.up
 - [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) is called with type 1 (HP) with the ammount being the return of DoItemEffect starting at the `playerdata[option].battleentity`'s position + `playerdata[option].cursoroffset` and ending at Vector3.up
@@ -113,7 +113,7 @@ The `ElecFast` particle are played without sound at the `option` player party me
 #### `AddFreeze`
 
 - The `mothicenormal` particle are played without sound at the `option` player party member's battleentity's position + Vector3.up all scaled by (1.5, 1.5, 1.5)
-- If the `option` player party member has a `Freeze` [condition](../../Actors%20states/Conditions.md) and its battleentity.`icecube` is null or inactive, [Freeze](../../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#freeze) is called on the battleentity
+- If the `option` player party member has a [Freeze](../../Actors%20states/BattleCondition/Freeze.md) ondition and its battleentity.`icecube` is null or inactive, [Freeze](../../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#freeze) is called on the battleentity
 
 #### `AddSleep`
 DeathSmoke particles are played at the `option` player party member's battleentity's position
@@ -146,7 +146,7 @@ DeathSmoke particles are played at the `option` player party member's battleenti
     - `isasleep` is set to false
 - The `CurePoisonAll` effects applies
 
-#### `CurePoison`, `GradualHP`, `GradualTP`, `CureFire` and `CureAll`
+#### `CurePoison`, `GradualHP`, `GradualTP`, `CureFire` or `CureAll`
 
 - The `MagicUp` particle are played without sound at the `option` player party member's battleentity's position
 - If there's more than 1 effect, 0.5 seconds are yielded before processing more
@@ -173,12 +173,12 @@ The `MagicUp` particle are played without sound at each of the player party memb
 
 #### `AtkUpStat`
 
-- [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) is called with the `option` player party member using the `AttackUp` condition with the amount of turns being the returned value from DoItemEffect with effect being true
+- [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) is called with the `option` player party member using the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition with the amount of turns being the returned value from DoItemEffect with effect being true
 - If there's more than 1 effect, 0.5 seconds are yielded before processing more
 
 #### `DefUpStat`
 
-- [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) is called with the `option` player party member using the `DefenseUp` condition with the amount of turns being the returned value from DoItemEffect with effect being true
+- [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) is called with the `option` player party member using the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition with the amount of turns being the returned value from DoItemEffect with effect being true
 - If there's more than 1 effect, 0.5 seconds are yielded before processing more
 
 #### `Sturdy`
@@ -213,7 +213,7 @@ An action will may be set to trigger in the post item effects section depending 
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 - If an action was set to trigger after the item use:
-    - `currentaction` is set to `ItemList`
+    - [currentaction](../../Player%20UI/Pick.md) is set to `ItemList`
     - [DoAction](DoAction.md) is called with the `currentturn` party member using the action id set to trigger earlier
 - Otherwise:
     - 0.5 seconds are yielded

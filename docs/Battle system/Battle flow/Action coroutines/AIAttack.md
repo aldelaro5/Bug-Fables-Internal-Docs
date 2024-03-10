@@ -1,7 +1,7 @@
 # AIAttack
 This action coroutine involves the `aiparty` doing its attack which is hardcoded according to its [animid](../../../Enums%20and%20IDs/AnimIDs.md). 
 
-When the coroutine starts, all frames will be yielded as long as any enemy party member is in a `forcemove`. Once they are all done, the actual logic starts.
+When the coroutine starts, all frames will be yielded as long as any enemy party member is in a [forcemove](../../../Entities/EntityControl/EntityControl%20Methods.md#forcemove). Once they are all done, the actual logic starts.
 
 ## Preparation
 
@@ -15,13 +15,13 @@ This section depends on the [animid](../../../Enums%20and%20IDs/AnimIDs.md) of `
 
 ### `KungFuMantis`
 
-- The first enemy party member whose `position` is `Ground` will be set as the target (`enemydata[0]` is set as falback if no grounded enemies exists)
+- The first enemy party member whose [position](../../Actors%20states/BattlePosition.md) is `Ground` will be set as the target (`enemydata[0]` is set as falback if no grounded enemies exists)
 - aiparty.`overrideflip` is set to true
 - CameraFocus is called on the targetted enemy's battleentity's position which changes instance.`camoffset` to (0.0, 2.6, -6.0), instance.`camtarget` to null and instance.`camtargetpos` to the position of the targetted enemy
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) is called on the aiparty to the targetted enemy's battleentity's position + (-1.25 * the targetted enemy's `size`, 0.0, -0.1) with a multiplier of 2.0 using [animstate](../../../Entities/EntityControl/Animations/animstate.md) 1 (`Walk`) and stopping at animstate 100
 - All frames are yielded while aiparty is in a `forcemove`
 - 0.25 seconds are yielded
-- Damages is only dealt if the targetted enemy's `position` was indeed `Ground` via a [DoDamage](../../Damage%20pipeline/DoDamage.md) call without attacker to the targetted enemy for 1 damage without properties and block. No damage is dealt if the enemy wasn't `Grounded` (meaning none existed in the first place)
+- Damages is only dealt if the targetted enemy's [position](../../Actors%20states/BattlePosition.md) was indeed `Ground` via a [DoDamage](../../Damage%20pipeline/DoDamage.md) call without attacker to the targetted enemy for 1 damage without properties and block. No damage is dealt if the enemy wasn't grounded (meaning none existed in the first place)
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) is called
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) is called on the aiparty to the starting position saved earlier with a multiplier of 2.0 using [animstate](../../../Entities/EntityControl/Animations/animstate.md) 1 (`Walk`) and stopping at animstate 5 (`Angry`)
 - All frames are yielded while aiparty is in a `forcemove`
@@ -29,7 +29,7 @@ This section depends on the [animid](../../../Enums%20and%20IDs/AnimIDs.md) of `
 
 ### `AntCapitain`
 
-- The first enemy party member whose `position` is `Ground` or `Flying` will be set as the target (`enemydata[0]` is set as falback if no enemies exists in either `position`)
+- The first enemy party member whose [position](../../Actors%20states/BattlePosition.md) is `Ground` or `Flying` will be set as the target (`enemydata[0]` is set as falback if no enemies exists in either `position`)
 - aiparty.`overrideflip` is set to true
 - aiparty.`overridejump` is set to true
 - MainManager.SetCamera is called with no target, the targetted enemy's battleentity's position as the targetpos, 0.03 as the speed and (0.0, 2.85, -7.5) as the offset
@@ -39,7 +39,7 @@ This section depends on the [animid](../../../Enums%20and%20IDs/AnimIDs.md) of `
 - aiparty.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 100
 - [LockRigid(false)](../../../Entities/EntityControl/EntityControl%20Methods.md#lockrigid) is called to unlock the `rigid`
 - 0.33 seconds are yielded
-- If the targetted enemy's `position` was flying, [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) is called on the aiparty with aiparty.`jumpheight` * 1.2 as the height followed by the `Jump` sound being played
+- If the targetted enemy's [position](../../Actors%20states/BattlePosition.md) was `Flying`, [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) is called on the aiparty with aiparty.`jumpheight` * 1.2 as the height followed by the `Jump` sound being played
 - 0.33 seconds are yielded
 - The `Woosh3` sound is played
 - [DoDamage](../../Damage%20pipeline/DoDamage.md) is called without attacker to the targgeted enemy for 3 damage without properties and block
@@ -55,8 +55,8 @@ This section depends on the [animid](../../../Enums%20and%20IDs/AnimIDs.md) of `
 ### `Madeleine`
 
 - aiparty.`overrideflip` is set to true
-- The first enemy party member whose `position` is `Ground` will be set as the target (`enemydata[0]` is set as falback if no grounded enemies exists)
-- If the targetted enemy's `position` isn't `Ground` (meaning none was found), the attack won't do any damage and its logic will end after doing the following:
+- The first enemy party member whose [position](../../Actors%20states/BattlePosition.md) is `Ground` will be set as the target (`enemydata[0]` is set as falback if no grounded enemies exists)
+- If the targetted enemy's [position](../../Actors%20states/BattlePosition.md) isn't `Ground` (meaning none was found), the attack won't do any damage and its logic will end after doing the following:
     - aiparty.`overrideanim` is set to false
     - aiparty.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 8 (`Happy`)
     - 0.5 seconds are yielded
@@ -86,7 +86,7 @@ This section depends on the [animid](../../../Enums%20and%20IDs/AnimIDs.md) of `
 
 - aiparty.`overrideflip` is set to true
 - aiparty.`overridejump` is set to true
-- The first enemy party member whose `position` is `Ground` or `Flying` will be set as the target (`enemydata[0]` is set as falback if no enemies exists in either `position`)
+- The first enemy party member whose [position](../../Actors%20states/BattlePosition.md) is `Ground` or `Flying` will be set as the target (`enemydata[0]` is set as falback if no enemies exists in either `position`)
 - MainManager.SetCamera is called with no target, the targetted enemy's battleentity's position as the targetpos, 0.03 as the speed and (0.0, 2.85, -7.5) as the offset
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) is called on the aiparty to the targetted enemy's battleentity's position + (-2.5, 0.0, -0.1) with a multiplier of 2.5
 - All frames are yielded while aiparty is in a `forcemove`
@@ -105,7 +105,7 @@ This section depends on the [animid](../../../Enums%20and%20IDs/AnimIDs.md) of `
 - Over the course of 11 frames (tracked by the game's frametime with a local counter), aiparty's position is lerped from the one it had before the first iteration to the same position incremented by (0.0, -4.0, 0.0) with the factor being the progression of those 11 frames. This essentially makes maki move down to the position he had before the previous 11 frames lerp
 - DeathSmoke is called with the targgeted enemy's battleentity's position with a size of (2.0, 2.0, 2.0)
 - ShakeScreen is called with an amount of 0.2 for 0.5 frames
-- If the targetted enemy's `position` isn't `Underground` (which can only happen if no `Ground` or `Flying` enemy party member existed and the first one happened to be `Underground`), [DoDamage](../../Damage%20pipeline/DoDamage.md) is called without attacked to the targgeted enemy for 6 damages with a `NoException` property and no block
+- If the targetted enemy's [position](../../Actors%20states/BattlePosition.md) isn't `Underground` (which can only happen if no `Ground` or `Flying` enemy party member existed and the first one happened to be `Underground`), [DoDamage](../../Damage%20pipeline/DoDamage.md) is called without attacked to the targgeted enemy for 6 damages with a `NoException` property and no block
 - aiparty.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 107
 - 0.65 seconds are yielded
 - aiparty.`overrideanim` is reset to false
@@ -119,14 +119,14 @@ This section depends on the [animid](../../../Enums%20and%20IDs/AnimIDs.md) of `
 - aiparty.`overrideflip` is set to false
 
 ## Enemy drop
-This section only occurs if a non zero amount of damages was dealt to an enemy party member whose `position` was `Flying` while its `cantfall` is false:
+This section only occurs if a non zero amount of damages was dealt to an enemy party member whose [position](../../Actors%20states/BattlePosition.md) was `Flying` while its [cantfall](../../Actors%20states/Enemy%20features.md#cantfall) is false:
 
 - `startdrop` is set to true
-- If the targetted enemy party member doesn't have the `ToppleAirOnly` in its `weakness` or it does, but with a `Topple` [condition](../../Actors%20states/Conditions.md), the following happens on the enemy:
+- If the targetted enemy party member doesn't have the `ToppleAirOnly` in its [weakness](../../Actors%20states/Enemy%20features.md#weakness) or it does, but with a [Topple](../../Actors%20states/BattleCondition/Topple.md) condition, the following happens on the enemy:
     - StopAllCoroutines is called on the battleentity
     - battleentity.`droproutine` is set to a new [Drop](../../../Entities/EntityControl/EntityControl%20Methods.md#drop) coroutine starting on the battleentity
     - All frames are yielded while battleentity.`droproutine` is in progress
-    - The enemy party member's `position` is set to `Ground`
+    - The enemy party member's [position](../../Actors%20states/BattlePosition.md) is set to `Ground`
 - `startdrop` is set to false
 
 ## Ending

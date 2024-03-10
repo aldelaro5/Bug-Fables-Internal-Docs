@@ -6,7 +6,7 @@ This is an action coroutine that runs at the very end of every main turn when bo
 - `commandsuccess` is reset to false
 - `blockcooldown` is reset to 0.0
 - `action` is set to true which changes to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
-- If the following conditions are met, `delprojs` are processed (see the section below for details):
+- If the following conditions are met, [delprojs](../../Actors%20states/Delayed%20projectile.md) are processed (see the section below for details):
     - `delprojs` isn't empty
     - There are at least one player party member who has their `hp` above 0 while not `eatenby`
     - There are at least one enemy party member who has their `hp` above 0
@@ -64,7 +64,7 @@ From there, for each `delprojs` (going from last to start), the delproj's `turns
 - If the delproj has `deathparticle`, they are played at the `obj` position + the `partoff` command offset if it was parsed
 - The delproj's `obj` is destroyed
 - If the player party member whose index is the `partypointer` corresponding to the delproj's `position` has an `hp` above 0 and doesn't have an `eatenby`, some logic is performed on this player party member:
-    - [DoDamage](../../Damage%20pipeline/DoDamage.md) is called targetting the player party memmber without an attacker for delproj's `damage` damageammount with delproj's `property` property and `commandsuccess` as the block
+    - [DoDamage](../../Damage%20pipeline/DoDamage.md) is called targetting the player party memmber without an attacker for delproj's `damage` damageammount with delproj's `property` as the property and `commandsuccess` as the block
     - If the `hp` of the player party member reached 0 or below, their `turnssincedeath` is set to -1
 - [RemoveDelayedProjectile](../../Actors%20states/Delayed%20projectile.md#removedelayedprojectile) is called on the delproj which removes it from `delprojs`
 - `enemy` is set to false
@@ -89,7 +89,7 @@ This section happens for each player party member.
 - If the turn advancement resulted in hasdelay becoming true, 0.75 seconds are yielded
 - If `eatenkill` is true (meaning a player party member died as a result of an eating attack) the game needs to properly kill the player party member that died by doing the following:
     - `eatenkill` is set to false
-    - All frames are yielded while `spitout` is in progress
+    - All frames are yielded while [spitout](../../Actors%20states/BattleCondition/Eaten.md#spitout) is in progress
     - `checkingdead` is set to a new [CheckDead](CheckDead.md) coroutine starting
     - All frames are yielded while `checkingdead` is in progress
 - battleentity.`shakeice` is set to false
@@ -114,13 +114,13 @@ This section not only manages enemy turn advance, but it also does some end of m
 
 The first thing that happens is relating to the `FavoriteOne` [medal](../../../Enums%20and%20IDs/Medal.md) which is tracked by `attackedally`. If it's not negative, it means the player party member with the matching `trueid` was attacked and the other members should receive the medal's benefits. This is only done if there is more than 1 player party member's `hp` above 0 while not being `eatenby`. The process to apply the medal is as follows:
 
-- For each player party member whose `trueid` isn't `attackedally` with an `hp` above 0 and without the `Eaten` [condition](../../Actors%20states/Conditions.md):
+- For each player party member whose `trueid` isn't `attackedally` with an `hp` above 0 and without the [Eaten](../../Actors%20states/BattleCondition/Eaten.md) condition:
     - battleentity.`emoticoncooldown` is set to 40.0
     - `didnothing` is set to false
     - battleentity.`emoticonid` is set to 2 (red ! mark)
 - If at least one player party member had an emote set, the `Wam` sound is played
 - All frames are yielded while the last player party member's battleentity.`emoticoncooldown` is above 0.0
-- For each player party member whose `trueid` isn't `attackedally` with an `hp` above 0 with a `charge` less than 3 and without the `Eaten` [condition](../../Actors%20states/Conditions.md):
+- For each player party member whose `trueid` isn't `attackedally` with an `hp` above 0 with a `charge` less than 3 and without the [Eaten](../../Actors%20states/BattleCondition/Eaten.md) condition:
     - A [StatEffect](../../Visual%20rendering/StatEffect.md) of type 4 (green up arrow) coroutine is started on the player party member
     - `charge` is incremented
 - If at least one player party member gained a `charge`, the `StatUp` sound is played at 1.25 pitch
@@ -132,7 +132,7 @@ From there, each enemy party members gets their turn advanced by having the foll
 - [AdvanceTurnEntity](../AdvanceTurnEntity.md) is called on the eneny party member with hasdelay starting at false which advances their actor turn
 - If hasdelay got a value of true after the turn advancement, 0.75 seconds are yielded
 - battleentity.`shakeice` is set to false
-- If `cantmove` is 0 (they would have only 1 action available after the actor turn), `cantmove` is set to -`moves` + 1 (this resets the available actions counter to the base one set from the normal amount being `moves`)
+- If `cantmove` is 0 (they would have only 1 action available after the actor turn), `cantmove` is set to -`moves` + 1 (this resets the available actions counter to the base one set from the normal amount being [moves](../../Actors%20states/Enemy%20features.md#moves))
 - battleentity.`spin` is zeroed out
 - `turnsnodamage` is incremented (this value is only written to, but never read so it's UNUSED)
 
@@ -146,7 +146,7 @@ Finally, some end of main turn process logic occurs:
         - [Heal](../../Actors%20states/Heal.md) is called on the player party member with the amount being 2 * the amount of `HappyHeart` medals equipped
         - 0.5 seconds are yielded
     - Every 2 `turns` (same cycle as the one above), if the `HappyTP` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped:
-        - HealTP is called which plays a `Heal2` sound followed by a heal of instance.`tp` by 2 * the amount of `HappyTP` medals equipped clamped from 0 to instance.`maxtp` followed by a [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) with type 2, the amount being the amount of tp healed, the start position being `playerdata[`[GetRandomAvaliablePlayer()](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md)`].battleentity` position + (2.0, 2.0, 2.0) and the end position being (5.0, 5.0, 5.0)
+        - HealTP is called which plays a `Heal2` sound followed by a heal of instance.`tp` by 2 * the amount of `HappyTP` medals equipped clamped from 0 to instance.`maxtp` followed by a [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) with type 2 (TP), the amount being the amount of tp healed, the start position being `playerdata[`[GetRandomAvaliablePlayer()](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md)`].battleentity` position + (2.0, 2.0, 2.0) and the end position being (5.0, 5.0, 5.0)
         - 0.5 seconds are yielded
     - `checkingdead` is set to null which informs the caller the coroutine has ended so it can stop yielding
 - `option` is set to 0
@@ -157,7 +157,7 @@ Finally, some end of main turn process logic occurs:
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 
 ### Inaction failsafe
-There is a failsafe in the game where if after 5 main turns, [PlayerTurn](../PlayerTurn.md) was never called meaning the player party could in no way perform any actions, the game will forcefully allow the player party to act again. This is tracked by `actedthisturn` being false reporting no action could be taken and the total amount of main turn is tracked by `noaction`. This failsafe exists presumably to mitigate a situation where the player party is stunned for too long notably through the results of [conditions](../../Actors%20states/Conditions.md).
+There is a failsafe in the game where if after 5 main turns, [PlayerTurn](../PlayerTurn.md) was never called meaning the player party could in no way perform any actions, the game will forcefully allow the player party to act again. This is tracked by `actedthisturn` being false reporting no action could be taken and the total amount of main turn is tracked by `noaction`. This failsafe exists presumably to mitigate a situation where the player party is stopped for too long notably through the results of stopping [conditions](../../Actors%20states/Conditions.md).
 
 The failsafe is applied by doing the following:
 
