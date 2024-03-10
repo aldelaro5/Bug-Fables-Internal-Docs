@@ -25,9 +25,9 @@ private void RevivePlayer(int id, int hp, bool showcounter)
     - The `playerdata`'s `moreturnnextturn` is set to 0
     - The `playerdata`'s `tired` is set to 0
     - battleentity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 13 (`BattleIdle`)
-- If the hp isn't negative:
-    - If showcounter is false, the player party member's `hp` is increased by hp clamped from 0 to its `maxhp`
-    - Otherwise, [Heal](../Heal.md) is called on the player party member with the hp amount to heal
+- If the sent hp isn't negative:
+    - If showcounter is false, the player party member's `hp` is increased by the sent hp clamped from 0 to its `maxhp`
+    - Otherwise, [Heal](../Heal.md) is called on the player party member with the sent hp amount to heal
 - If battleentity.`deathcoroutine` is in progress, it is stopped
 - battleentity.`deathcoroutine` is set to null
 - A ReviveFix coroutine is started with the id sent which will do the following:
@@ -39,4 +39,3 @@ private void RevivePlayer(int id, int hp, bool showcounter)
     - battleentity has [LockRigid(false)](../../../Entities/EntityControl/EntityControl%20Methods.md) called on it which unlocks its `rigid`
     - battleentity.`shadow` is enabled
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called
-

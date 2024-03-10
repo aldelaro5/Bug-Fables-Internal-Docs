@@ -1,5 +1,5 @@
 # SetTargets
-This method updates `availabletargets` and `helpboxid` according to the `playerdata[currentturn].battleentity.animid`.
+This method updates `availabletargets` and `helpboxid` according to the `playerdata[currentturn].battleentity`.[animid](../../../Enums%20and%20IDs/AnimIDs.md)`.
 
 - If `currentturn` is negative (no player is currently selected), `helpboxid` is set to -1
 - Otherwise, `helpboxid` is set to `playerdata[currentturn].battleentity.animid` and [GetAvaliableTargets](GetAvaliableTargets.md) is called according to that [animid](../../../Enums%20and%20IDs/AnimIDs.md):

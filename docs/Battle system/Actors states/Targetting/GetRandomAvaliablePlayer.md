@@ -15,15 +15,15 @@ The logic depends on nullable's value
 ### nullable is true
 If `forceattack` isn't -1, it is returned.
 
-Otherwise, there will be attempts to find a random player party member to target. Each attempt involves generating a random one using uniformly random probabilities between each of them. For the target to be accepted, its `hp` must be above 0. The amount of times this is attempted is the amount of player party members. If a target is accepted it is returned, otherwise, -1 is returned.
+Otherwise, there will be attempts to find a random player party member to target. Each attempt involves generating a random one using uniformly random probabilities between each of them. For the target to be accepted, its `hp` must be above 0. The amount of times this is attempted is the amount of player party members. If a target is accepted it is returned, otherwise, -1 is returned and the caller has to handle this logic since no one will be targetted.
 
 #### Problems with nullable true logic
 There are some issues with this logic compared to the nullable false version which are bad enough to be considered broken:
 
-- This scheme fails to account for the [eatenby](../BattleCondition/Eaten.md#eatenby-influences) (Only would have mattered for a `Pitcher` [enemy](../../../Enums%20and%20IDs/Enemies.md), but they do not use this targetting scheme under normal gameplay)
 - This scheme fails to account for the front player party member meaning it does not matter who is in the front
 - This scheme fails to account for the `LeafCloak` [medal](../../../Enums%20and%20IDs/Medal.md) even when it is equipped meaning it does not matter if it is equipped on someone or not
 - This scheme may not return a valid target which may force the caller to abort the attack or to try again, but there is never a guarantee that an accepted target is returned
+- This scheme fails to account for the [eatenby](../BattleCondition/Eaten.md#eatenby-influences) (Only would have mattered for a `Pitcher` [enemy](../../../Enums%20and%20IDs/Enemies.md), but they do not use this targetting scheme under normal gameplay)
 
 However, some enemies intentionally uses it in their action codes. The following enemies involves it at least once as part of their [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md) logic:
 
@@ -42,7 +42,7 @@ However, some enemies intentionally uses it in their action codes. The following
 Despite the game using it under normal gameplay, it is highly recommended to never pass true to the nullable parameter. It fails to account for too much and it can lead to undesired logic where the caller might not be able to find a suitable target.
 
 ### nullable is false
-If `forceattack` isn't -1 and the player party member corresponding to it doens't have an `eatenby`, it is returned.
+If `forceattack` isn't -1 and the player party member coresponding to it doens't have an `eatenby`, it is returned.
 
 Otherwise, there is an infinite loop that starts:
 

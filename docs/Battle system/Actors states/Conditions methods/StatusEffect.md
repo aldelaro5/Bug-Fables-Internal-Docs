@@ -20,14 +20,14 @@ If applicable, a resistence check will be performed. The test will be performed 
 
 Here are the statuses where the test is applicable and which resistance will be used for each:
 
-- `Poison`: `poisonres`
-- `Sleep`: `sleepres`
-- `Numb`: `numbres`
-- `Freeze`: `freezeres`
+- [Freeze](../BattleCondition/Freeze.md): `freezeres`
+- [Numb](../BattleCondition/Numb.md): `numbres`
+- [Poison](../BattleCondition/Poison.md): `poisonres`
+- [Sleep](../BattleCondition/Sleep.md): `sleepres`
 
 If the test fails, nothing happens and a return happens immediately.
 
-If it succeeds, [SetCondition](SetCondition.md) is called with the actor, condition and amount of actor turns. This does imply that another resistance check will happen if it amends the condition, but it doesn't matter because it will always pass given the previous test.
+If it succeeds, [SetCondition](SetCondition.md) is called with the actor, condition and amount of actor turns.
 
 The method is done if effect is false.
 
@@ -35,7 +35,7 @@ If it's true, a [StatEffect](../../Visual%20rendering/StatEffect.md) coroutine w
 
 Here are the conditions and how the visual effect is done (other conditions don't have visual effects):
 
-- `AttackUp`: Type 0 with the `StatUp` sound
-- `AttackDown`: Type 2 with the `StatDown` sound
-- `DefenseUp`: Type 1 with the `StatUp` sound
-- `DefenseDown`: Type 3 with the `StatDown` sound
+- [AttackUp](../BattleCondition/AttackUp.md): Type 0 with the `StatUp` sound
+- [AttackDown](../BattleCondition/AttackDown.md): Type 2 with the `StatDown` sound
+- [DefenseUp](../BattleCondition/DefenseUp.md): Type 1 with the `StatUp` sound
+- [DefenseDown](../BattleCondition/DefenseDown.md): Type 3 with the `StatDown` sound

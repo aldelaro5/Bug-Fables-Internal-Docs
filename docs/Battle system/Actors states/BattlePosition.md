@@ -1,5 +1,7 @@
 # BattlePosition
-This is an enum that influences the ability for an enemy party member to be targetted in battle. It can be thought of as the logical position of the enemy.
+This is an enum that influences the ability for an enemy party member to be targetted in battle. It can be thought of as the logical position of the enemy party member.
+
+On [BattleData](BattleData.md), the position of the enemy party member is stored in the `position` field.
 
 |Value|Name|Description|
 |-----|----|-----------|

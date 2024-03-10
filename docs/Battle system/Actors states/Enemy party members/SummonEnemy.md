@@ -98,7 +98,7 @@ The logic depends on the sent type (all position refers to the original sent val
 - entity.`startscale` is set to (1.15, 1.15, 1.15)
 - entity.`spin` is zeroed out
 - 0.5 seconds are yielded
-- entity.`animstate` is set to 0 (`Idle`)
+- entity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 0 (`Idle`)
 
 #### `FromGroundKeepScale`
 The same than `FromGround` / `FromGroundInstant`, but instead of having a final scale of (1.15, 1.15, 1.15) grown smoothly, the target scale is the `startscale` from [endata](../../../TextAsset%20Data/Entity%20data.md#animid-data)
@@ -117,14 +117,14 @@ The same than `FromGround` / `FromGroundInstant`, but instead of having a final 
 - A frame is yielded
 - entity.`rigid` has its gravity disabled
 - During the course of 101.0 frames tracked with a local frame counter (incremented by the game's frametime):
-    - entity position is set to a lerp from the position (or the overriden one if applicable) to the sent position (not the overriden one) with a factor of the ratio of the amount of frames cumulated over 101.0 frames
+    - entity's position is set to a lerp from the position (or the overriden one if applicable) to the sent position (not the overriden one) with a factor of the ratio of the amount of frames cumulated over 101.0 frames
     - The local framecounter is advanced
     - A frame is yielded
 - entity.`rigid` has its gravity enabled
-- entity position is set to the sent position
+- entity's position is set to the sent position
 
 ### Last adjustements
 
-- If the sent cantmove is true, `enemydata[lastaddedid].cantmove` is set to 1 (one actor turn will need to pass for the enemy to act)
+- If the sent cantmove is true, `enemydata[lastaddedid].cantmove` is set to 1 (one actor turn will need to pass for the enemy party member to act)
 - If `summonnewenemy` is false, `checkingdead` is set to null
 - `summonnewenemy` is set to false
