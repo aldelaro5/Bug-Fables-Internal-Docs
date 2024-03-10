@@ -99,7 +99,7 @@ Here's all the ItemUsage's effects from this method:
 - The `Heal` sound is played
 - If we are instance.`inbattle`, value is incremented by the amount of `HealPlus` [medal](../Enums%20and%20IDs/Medal.md) equipped on `lastitemuser`
 - The `hp` of the characterid player party member is increased by value then clamped from 0 to its `maxhp`
-- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 
 #### `HPorDamage`
 
@@ -108,7 +108,7 @@ Here's all the ItemUsage's effects from this method:
     - An RNG check is performed with 2 possible outcomes at 59% and 41% respectively:
         - 59%: The `Heal` sound is played followed by the `hp` of the characterid player party member being increased by value then clamped from 0 to its `maxhp`
         - 41%: The `Damage0` sound is played followed by the `hp` of the characterid player party member being decreased by value then clamped from 1 to its `maxhp`
-- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 
 #### `HPRecoverAll`
 
@@ -116,7 +116,7 @@ Here's all the ItemUsage's effects from this method:
 - If we are instance.`inbattle`, value is incremented by the amount of `HealPlus` [medal](../Enums%20and%20IDs/Medal.md) equipped on `lastitemuser`
 - For each player party member that isn't `eatenby` with an `hp` above 0:
     - The `hp` of the player party member is increased by value then clamped from 0 to its `maxhp`
-    - If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the player party member, an `AddPoison` effect is processed with the corresponding characterid being the player party member's. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+    - If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the player party member, an `AddPoison` effect is processed with the corresponding characterid being the player party member's. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 
 #### `ReviveAll`
 The same then `HPRecoverAll`, but the player party members don't need an `hp` above 0 for the effects to apply.
@@ -124,7 +124,7 @@ The same then `HPRecoverAll`, but the player party members don't need an `hp` ab
 #### `TPRecover`
 - The `Heal2` sound is played
 - instance.`tp` is increased by value then clamped from 0 to instance.`maxtp`
-- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 
 #### `TurnNextTurn`
 
@@ -154,7 +154,7 @@ The same then `HPRecoverAll`, but the player party members don't need an `hp` ab
 - The `StatUp` sound is played
 - An `Attack` stat bonus with the amount being the value is added to the characterid player party member (learn more [here](../External%20data%20format/Save%20File.md#line-10-array-line-stats-bonuses))
 - [ApplyStatBonus](../Battle%20system/ApplyStatBonus.md) is called
-- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 
 #### `AtkDownAfter`
 The `atkdownonloseatkup` of the characterid player party member is set to true
@@ -162,42 +162,42 @@ The `atkdownonloseatkup` of the characterid player party member is set to true
 #### `ChargeUp`
 
 - The `charge` of the characterid player party member is incremented then clamped from 0 to 3
-- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 
 #### `DefenseUp`
 
 - The `StatUp` sound is played
 - An `Defense` stat bonus with the amount being the value is added to the characterid player party member (learn more [here](../External%20data%20format/Save%20File.md#line-10-array-line-stats-bonuses))
 - [ApplyStatBonus](../Battle%20system/ApplyStatBonus.md) is called
-- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+- If we are instance.`inbattle` and the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 
 #### `AddPoison`
-This effect only applies if we are instance.`inbattle` and the characterid player party member doesn't have the `Sturdy` [condition](../Battle%20system/Actors%20states/Conditions.md)
+This effect only applies if we are instance.`inbattle` and the characterid player party member doesn't have the [Sturdy](../Battle%20system/Actors%20states/BattleCondition/Sturdy.md) condition
 
 - The `Poison` sound is played
 - If the characterid player party member doesn't have any `PoisonResistance` or `ResistAll` [medals](../Enums%20and%20IDs/Medal.md) equipped:
-    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called with the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) on the characterid player party member for value amount of turns. The amount is overriden to 9999999 if the characterid player party member has an `EternalPoison` [medals](../Enums%20and%20IDs/Medal.md) equipped and if not, it is increased by 1 if it has the `WeakStomach` medal equipped
+    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called with the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition on the characterid player party member for value amount of turns. The amount is overriden to 9999999 if the characterid player party member has an `EternalPoison` [medals](../Enums%20and%20IDs/Medal.md) equipped and if not, it is increased by 1 if it has the `WeakStomach` medal equipped
 
 #### `AddNumb`
-This effect only applies if we are instance.`inbattle` and the characterid player party member doesn't have the `Sturdy` [condition](../Battle%20system/Actors%20states/Conditions.md)
+This effect only applies if we are instance.`inbattle` and the characterid player party member doesn't have the [Sturdy](../Battle%20system/Actors%20states/BattleCondition/Sturdy.md) condition
 
 - The `Shock` sound is played
 - If the characterid player party member doesn't have any `NumbResis` or `ResistAll` [medals](../Enums%20and%20IDs/Medal.md) equipped:
-    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called with the `Numb` [condition](../Battle%20system/Actors%20states/Conditions.md) on the characterid player party member for value amount of turns
+    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called with the [Numb](../Battle%20system/Actors%20states/BattleCondition/Numb.md) condition on the characterid player party member for value amount of turns
 
 #### `AddFreeze`
-This effect only applies if we are instance.`inbattle` and the characterid player party member doesn't have the `Sturdy` [condition](../Battle%20system/Actors%20states/Conditions.md)
+This effect only applies if we are instance.`inbattle` and the characterid player party member doesn't have the [Sturdy](../Battle%20system/Actors%20states/BattleCondition/Sturdy.md) condition
 
 - The `Freeze` sound is played
 - If the characterid player party member doesn't have any `FreezeResistance` or `ResistAll` [medals](../Enums%20and%20IDs/Medal.md) equipped:
-    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called with the `Freeze` [condition](../Battle%20system/Actors%20states/Conditions.md) on the characterid player party member for value amount of turns
+    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called with the [Freeze](../Battle%20system/Actors%20states/BattleCondition/Freeze.md) condition on the characterid player party member for value amount of turns
 
 #### `AddSleep`
-This effect only applies if we are instance.`inbattle` and the characterid player party member doesn't have the `Sturdy` [condition](../Battle%20system/Actors%20states/Conditions.md)
+This effect only applies if we are instance.`inbattle` and the characterid player party member doesn't have the [Sturdy](../Battle%20system/Actors%20states/BattleCondition/Sturdy.md) condition
 
 - The `Sleep` sound is played
 - If the characterid player party member doesn't have any `SleepyResistance` or `ResistAll` [medals](../Enums%20and%20IDs/Medal.md) equipped:
-    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called with the `Sleep` [condition](../Battle%20system/Actors%20states/Conditions.md) on the characterid player party member for value amount of turns
+    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called with the [Sleep](../Battle%20system/Actors%20states/BattleCondition/Sleep.md) condition on the characterid player party member for value amount of turns
 
 #### `CureFire`
 
@@ -209,13 +209,13 @@ This effect only applies if we are instance.`inbattle` and the characterid playe
 
 - The `Heal3` sound is played
 - A bunch of [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) calls happens in sucession on the characterid player party member to remove the following [condition](../Battle%20system/Actors%20states/Conditions.md):
-    - `Poison`
-    - `Sleep`
-    - `Freeze`
-    - `Numb`
-    - `Fire`
-    - `Inked`
-    - `Sticky`
+    - [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md)
+    - [Sleep](../Battle%20system/Actors%20states/BattleCondition/Sleep.md)
+    - [Freeze](../Battle%20system/Actors%20states/BattleCondition/Freeze.md)
+    - [Numb](../Battle%20system/Actors%20states/BattleCondition/Numb.md)
+    - [Fire](../Battle%20system/Actors%20states/BattleCondition/Fire.md)
+    - [Inked](../Battle%20system/Actors%20states/BattleCondition/Inked.md)
+    - [Sticky](../Battle%20system/Actors%20states/BattleCondition/Sticky.md)
 - If we are instance.`inbattle`, the following happens on the characterid player party member:
     - If `firepart` isn't null, it is destroyed
     - [BreakIce](../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) is called on the battleentity
@@ -225,42 +225,42 @@ This effect only applies if we are instance.`inbattle` and the characterid playe
 #### `CurePoisonAll`
 
 - The `Heal3` sound is played
-- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on each of the player party members to remove the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md)
+- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on each of the player party members to remove the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition
 
 #### `CurePoison`
 
 - The `Heal3` sound is played
-- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md)
+- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition
 
 #### `CureSleep`
 
 - The `Heal3` sound is played
 - The characterid player party member's `isasleep` is set to false
-- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the `Sleep` [condition](../Battle%20system/Actors%20states/Conditions.md)
+- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the [Sleep](../Battle%20system/Actors%20states/BattleCondition/Sleep.md)
 
 #### `CureFreeze`
 
 - The `Heal3` sound is played
-- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the `Freeze` [condition](../Battle%20system/Actors%20states/Conditions.md)
+- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the [Freeze](../Battle%20system/Actors%20states/BattleCondition/Freeze.md)
 - If we are instance.`inbattle`, [BreakIce](../Entities/EntityControl/Notable%20methods/Freeze%20handling.md) is called on the battleentity of the characterid player party member
 
 #### `CureNumb`
 
 - The `Heal3` sound is played
 - The characterid player party member's `isnumb` is set to false
-- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the `Numb` [condition](../Battle%20system/Actors%20states/Conditions.md)
+- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the [Numb](../Battle%20system/Actors%20states/BattleCondition/Numb.md)
 
 #### `CureParty`
 
 - The `Heal3` sound is played
 - A bunch of [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) calls happens in sucession on each of the player party members that isn't `eatenby` with an `hp` above 0 to remove the following [condition](../Battle%20system/Actors%20states/Conditions.md):
-    - `Poison`
-    - `Sleep`
-    - `Freeze`
-    - `Numb`
-    - `Fire`
-    - `Inked`
-    - `Sticky`
+    - [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md)
+    - [Sleep](../Battle%20system/Actors%20states/BattleCondition/Sleep.md)
+    - [Freeze](../Battle%20system/Actors%20states/BattleCondition/Freeze.md)
+    - [Numb](../Battle%20system/Actors%20states/BattleCondition/Numb.md)
+    - [Fire](../Battle%20system/Actors%20states/BattleCondition/Fire.md)
+    - [Inked](../Battle%20system/Actors%20states/BattleCondition/Inked.md)
+    - [Sticky](../Battle%20system/Actors%20states/BattleCondition/Sticky.md)
 - If we are instance.`inbattle`, the following happens on each of the player party members:
     - If `firepart` isn't null, it is destroyed
     - [BreakIce](../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) is called on the battleentity
@@ -276,23 +276,23 @@ This effect only applies if we are instance.`inbattle` and the characterid playe
 
 - If we are instance.`inbattle`
     - The `Heal3` sound is played
-    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called to apply the `GradualHP` [condition](../Battle%20system/Actors%20states/Conditions.md) on the characterid player party member for value amount of turn
-    - If the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called to apply the [GradualHP](../Battle%20system/Actors%20states/BattleCondition/GradualHP.md) condition on the characterid player party member for value amount of turn
+    - If the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 - Otherwise, an `HPRecover` is processed with the same characterid, but the value is doubled
 
 #### `GradualHPParty`
 
 - If we are instance.`inbattle`
     - The `Heal3` sound is played
-    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called to apply the `GradualHP` [condition](../Battle%20system/Actors%20states/Conditions.md) on each player party members that have an `hp` above 0 for value amount of turn
-    - If the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called to apply the [GradualHP](../Battle%20system/Actors%20states/BattleCondition/GradualHP.md) condition on each player party members that have an `hp` above 0 for value amount of turn
+    - If the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 - Otherwise, an `HPRecoverAll` is processed with the same characterid, but the value is doubled
 
 #### `GradualTP`
 - If we are instance.`inbattle`
     - The `Heal3` sound is played
-    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called to apply the `GradualTP` [condition](../Battle%20system/Actors%20states/Conditions.md) on the characterid player party member for value amount of turn
-    - If the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the `Poison` [condition](../Battle%20system/Actors%20states/Conditions.md) is always 3
+    - [SetCondition](../Battle%20system/Actors%20states/Conditions%20methods/SetCondition.md) is called to apply the [GradualTP](../Battle%20system/Actors%20states/BattleCondition/GradualTP.md) condition on the characterid player party member for value amount of turn
+    - If the `WeakStomach` [medal](../Enums%20and%20IDs/Medal.md) is equipped on the characterid player party member, an `AddPoison` effect is processed with the current value and characterid. The only difference is if `EternalPoison` isn's equipped, the amount of turn to apply the [Poison](../Battle%20system/Actors%20states/BattleCondition/Poison.md) condition is always 3
 - Otherwise, an `TPRecover` is processed with the same characterid, but the value is doubled
 
 ## `Items` data

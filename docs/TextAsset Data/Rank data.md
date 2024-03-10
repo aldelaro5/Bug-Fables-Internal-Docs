@@ -33,7 +33,6 @@ The available bonus types are the followings along with their parameters meaning
 The bonus type 0 doesn't actually grant anything. The actual rank check is done in [RefreshSkills](../Battle%20system/RefreshSkills.md), but the data is still used to present the message informing that a skill was available. That however means there is 2 sources of truths about this: the data tells what the game needs to present the message of getting the skill while RefreshData tells if the skill is actually available with the new rank. For the skill availability to function correctly, both information should match. Failure to do so will cause the rank up message to advertise a new skill, but it wouldn't be available or vice versa.
 
 ## A few notes about how the data is handled
-
 For bonus type 0 and 1, the [AnimID](../Enums%20and%20IDs/AnimIDs.md) can only be 0 (`Bee`), 1 (`Beetle`) or 2 (`Moth`) because not doing so can lead to undefined behaviors. Specifically, the game will not be able to get the correct member's name as it is expected to be at menutext 46, 47 and 48 respectively. Any other will resolve to the wrong menutext as it will go past them.
 
 Additionally, the game has a provision that disallow showing the rank up upgrade message if no member with the [AnimID](../Enums%20and%20IDs/AnimIDs.md) exists in the party. The bonus will be applied regardless, but the [SetText](../SetText/SetText.md) command will not be done.

@@ -137,8 +137,8 @@ The `exp` field has particularily complex logic to determine its value:
 The return of GetEXP implies even more logic where the base `exp` field can be changed. Here is the process used to calculate the final value:
 
 1. The base EXP amount is determined. It's the same than the sent exp value unless the enemy is a `WaspTrooper` or `WaspHealer` which can increase this value:
-    - If the current [map](../Enums%20and%20IDs/Maps.md) is `MetalLake` or the [area](../Enums%20and%20IDs/librarystuff/Areas.md) is `Wasp Kingdom Hive`, the value is multiplied by 1.65 and then ceiled
-    - Otherwise, if the current [area](../Enums%20and%20IDs/librarystuff/Areas.md) is `Rubber Prison`, the value is multiplied by 2.5 ceiled. On top of this, if it's a `WaspHealer`, 10 is added to the amount
+    - If the current [map](../Enums%20and%20IDs/Maps.md) is `MetalLake` or the [area](../Enums%20and%20IDs/librarystuff/Areas.md) is `WaspKingdom`, the value is multiplied by 1.65 and then ceiled
+    - Otherwise, if the current [area](../Enums%20and%20IDs/librarystuff/Areas.md) is `RubberPrison`, the value is multiplied by 2.5 ceiled. On top of this, if it's a `WaspHealer`, 10 is added to the amount
 2. The value gets multiplied by map.`expmulti` which is a field that must be defined on the map's prefab. The result isn't rounded yet
 3. The value gets subtracted by (level - 1) * 2.5 and the result is clamped from 1.0 to 99.0 then floored
 5. The now integer value is decremented and returned
@@ -158,7 +158,7 @@ Finally, [StartBattle](../Battle%20system/StartBattle.md) can further change the
 If that happens, the `exp` is incremented by the floored result of a lerp from 10.0 to 3.0 with a factor of instance.`partylevel` / 27.0
 
 #### Special fields logic
-Additionally, some `BattleData` fields have special logic attached to them:
+Additionally, some [BattleData](../Battle%20system/Actors%20states/BattleData.md) fields have special logic attached to them:
 
 - `entityname`: See the section about `EnemyTattle` below
 - `holditem`: always set to -1
@@ -181,7 +181,7 @@ Additionally, some `BattleData` fields have special logic attached to them:
 #### Stats difficulty scaling
 There are some fields in enemy data that are influenced by the different difficulty tiers the game has. This only happens if any of the following is true:
 
-- The `Hard Mode` [Medal](../Enums%20and%20IDs/Medal.md) is equipped
+- The `DoublePain` [Medal](../Enums%20and%20IDs/Medal.md) is equipped
 - [Flags](../Flags%20arrays/flags.md) 614 is true (HARDEST is active)
 - [Flags](../Flags%20arrays/flags.md) 166 is true (EX mode is active on the B.O.S.S. system)  
 
