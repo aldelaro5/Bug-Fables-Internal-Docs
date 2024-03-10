@@ -54,7 +54,7 @@ Otherwise, there is an infinite loop that starts:
 The overall targetting odds are as follows:
 
 |Amount of player party members|Who has `LeafCloak`?|Odds front|Odds second|Odds third|
-|-----------------------------|--------------------|----------|----------|----------|
+|-----------------------------:|--------------------|----------|----------|----------|
 |2|No one|3/4|1/4|N/A|
 |2|Front|9/16|7/16|N/A|
 |2|Second|15/16|1/16|N/A|

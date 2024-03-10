@@ -7,7 +7,7 @@ This is all the BattleControl fields.
 ### Battle setup information
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |battlemap|GameObject|Yes|The parent of all the battles objects notably the battle map prefab. This is a game object named `Battle` created on [StartBattle](StartBattle.md)|
 |caller|[NPCControl](../Entities/NPCControl/NPCControl.md)|No|The [Enemy](../Entities/NPCControl/Enemy.md) NPCControl whose encounters caused this battle. This is set to the calledfrom value sent to [StartBattle](StartBattle.md). If it's null, no encounter caused this battle and it was started manually|
 |sadv|int|No|The starting advantage value. Set to the sent adv value of [StartBattle](StartBattle.md), but adv is set to this field if it's a [retry](Battle%20flow/Retry.md). The only recognised value is 3 which means the enemy party has the advantage, other values do nothing|
@@ -18,7 +18,7 @@ This is all the BattleControl fields.
 ### Battle flow
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |action|bool|Yes|If true, it means an action coroutine or a method controls the battle flow making it an [uncontrolled flow](Battle%20flow/Update%20flows/Uncontrolled%20flow.md). Set to false on [StartBattle](StartBattle.md)|
 |inevent|bool|Yes|Tells if an [EventDialogue](Battle%20flow/EventDialogue.md) is in progress or not. If one is, we enter an [uncontrolled flow](Battle%20flow/Update%20flows/Uncontrolled%20flow.md)|
 |calleventnext|int|No|If not negative, the [EventDialogue](Battle%20flow/EventDialogue.md) whose id is this value will be done on the next [uncontrolled flow](Battle%20flow/Update%20flows/Uncontrolled%20flow.md). This is only used in conjuction with an enemy party member's [eventonfall](Actors%20states/Enemy%20features.md#eventonfall) when it triggers|
@@ -49,7 +49,7 @@ This is all the BattleControl fields.
 ### Actors information
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |partypointer|int\[\]|Yes|The mapping from battle order formation to `playerdata` index. Aligned with the correct order on [StartBattle](StartBattle.md) and changed on [SwitchParty](Battle%20flow/Action%20coroutines/SwitchParty.md) or [SwitchPos](Battle%20flow/Action%20coroutines/SwitchPos.md). Check the [battle party addressing documentation](playerdata%20addressing.md#methods-of-addressing-durring-battle) for more details|
 |partyentities|[EntityControl](../Entities/EntityControl/EntityControl.md)\[\]|No|Set to all the `playerdata` battleentity on [StartBattle](StartBattle.md)|
 |alldata|[BattleData](Actors%20states/BattleData.md)\[\]|Yes|All the `playerdata` followed by all the `enemydata` appended together. Set by RefreshAllData which is only called during [StartBattle](StartBattle.md)|
@@ -65,7 +65,7 @@ This is all the BattleControl fields.
 ### Attack and flow modifiers
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |dontusecharge|bool|No|If true, the `charge` of the enemy party member will not be reset to 0 on [EndEnemyTurn](Battle%20flow/EndEnemyTurn.md)|
 |nonphyscal|bool|No|If true, indicate to the damage pipeline that the damages aren't physical which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md#)|
 |nolifesteal|bool|Yes|If true, disables the effects of the `LifeSteal` [medal](../Enums%20and%20IDs/Medal.md) during the damage pipeline|
@@ -74,7 +74,7 @@ This is all the BattleControl fields.
 ### Actions commands and blocking
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |actionroutine|Coroutine|No|Tracks the progress of a [DoCommand](Action%20commands/DoCommand.md) coroutine|
 |doingaction|bool|Yes|If true, an action command is in progress|
 |successfulchain|int|No|The amount of sucessful inputs perfomred in a `LongRandomBar` action commands during [DoCommand](Action%20commands/DoCommand.md)|
@@ -95,7 +95,7 @@ This is all the BattleControl fields.
 ### Targetting
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |avaliabletargets|BattleData\[\]|No|An ephemeral array of actors to track possible targets for an action which is frequently set by calling [GetAvailableTargets](Actors%20states/Targetting/GetAvaliableTargets.md)|
 |forceattack|int|No|The player party member's [animid](../Enums%20and%20IDs/AnimIDs.md) index that will be forced to be returned during [GetRandomAvaliablePlayer](Actors%20states/Targetting/GetRandomAvaliablePlayer.md). This is only set in the course of the `Taunt` [skill](../Enums%20and%20IDs/Skills.md) during its [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) logic|
 |playertargetID|int|No|The player party member index whom is currently targetted by the enemy. If it's -1, the enemy isn't targetting anyone|
@@ -106,7 +106,7 @@ This is all the BattleControl fields.
 ### Chompy informations
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |chompy|[EntityControl](../Entities/EntityControl/EntityControl.md)|No|If [flags](../Flags%20arrays/flags.md) 402 is true (Chompy is with Team Snakemouth), this is initialised to a new entity created via [CreateNewEntity](../Entities/EntityControl/EntityControl%20Creation.md#createnewentity) with name `chompy` with the `ChompyChan` [animid](../Enums%20and%20IDs/AnimIDs.md) on [StartBattle](StartBattle.md)|
 |chompyattack|Coroutine|Yes|The coroutine of [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) if it's in progress (null if it's not)|
 |chompyaction|bool|No|Tells if [Chompy](Battle%20flow/Action%20coroutines/Chompy.md) is in progress or not|
@@ -118,14 +118,14 @@ This is all the BattleControl fields.
 ### AI party informations
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |aiparty|[EntityControl](../Entities/EntityControl/EntityControl.md)|No|The entity that was created as part of [AddAI](StartBattle%20phases/Post%20haltbattleload.md#ai-setup) if one was created|
 |aiattacked|bool|No|Tells if [AIAttack](Battle%20flow/Action%20coroutines/AIAttack.md) has completed during the player phase when applicable|
 
 ### EXP and berries
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |estimatedexp|int|No|The sum of all the calculated `enemydata`'s `exp`|
 |expreward|int|No|The amount of EXP cumulated in the course of the battle that will be granted if the battle is won. Set to 0 on [StartBattle](StartBattle.md)|
 |oldexp|int|No|The last value of `expreward` observed since the last [RefreshEXP](Visual%20rendering/RefreshEXP.md). If it differs with the current one, RefreshEXP will be called on the next applicable [Update](Battle%20flow/Update.md)|
@@ -135,7 +135,7 @@ This is all the BattleControl fields.
 ### UI naviguation
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |currentaction|[Pick](Player%20UI/Pick.md)|Yes|The current menu being naviguated by the player. Set to `BaseAction` on [StartBattle](StartBattle.md)|
 |currentchoice|[Actions](Player%20UI/Actions.md)|Yes|The current action being selected on the `BaseAction` menu. Set to `Attack` on [StartBattle](StartBattle.md)|
 |itemarea|[AttackArea](Player%20UI/AttackArea.md)|No|Tells what actors are selectable to perform the current action|
@@ -155,7 +155,7 @@ This is all the BattleControl fields.
 ### UI rendering
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |vinebase|Transform|No|A GameObject named `Base` childed to `choicevine`|
 |choicevine|Transform|No|A GameObject named `Vine` that is the root of the vines UI objects, childed to the `battlemap` and initialised on CreateVine as part of [PlayerTurn](Battle%20flow/PlayerTurn.md)|
 |vineicons|SpriteRenderer\[\]|No|The vine icons of the vine menu, childs of `vinebase`|
@@ -175,7 +175,7 @@ This is all the BattleControl fields.
 ### Visual effects
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |wordroutine|Coroutine|No|Tracks the progress of a [ShowSuccessWord](Visual%20rendering/ShowSuccessWord.md) coroutine|
 |commandword|SpriteRenderer|No|The word SpriteRenderer used in [ShowSuccessWord](Visual%20rendering/ShowSuccessWord.md)|
 |combo|int|No|The amount of consecutive successful action commands performed which influences visual and audio effects informing of the input successes|
@@ -192,7 +192,7 @@ This is all the BattleControl fields.
 ### Music
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |overworldmusic|AudioClip|No|On [StartBattle](StartBattle.md), this is set to MainManager.`music[0]`.clip if the map.`music[0]` exists and map.`musicid` is not negative. This is used for restoring the music on [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
 |overmusic|float|No|If `overworldmusic` was saved, the time of that music is saved on this field if MainManager.`keepmusicafterbattle` is true. This is also used for restore on [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
 |keepmusic|bool|Yes|Towards the end of [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md) when instance.`inevent` is true, it is possible to skip the default behavior of fading the current music to silence by having this field set to true before ReturnToOverworld ends which will leave the current music playing instead|
@@ -200,7 +200,7 @@ This is all the BattleControl fields.
 ### Camera
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |campos|Vector3|No|The `camtargetpos` that will be set when [SetDefaultCamera](Visual%20rendering/SetDefaultCamera.md) is called, normally Vector3.zero|
 |camoffset|Vector3|No|The `camoffset` that will be set when [SetDefaultCamera](Visual%20rendering/SetDefaultCamera.md) is called, normally MainManager.`battlecampos`|
 |oldcamoffset|Vector3|No|Set to instance.`camoffset` on [StartBattle](StartBattle.md) when it's not a retry. This is used for restore later on [ReturnToOverWorld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)|
@@ -210,7 +210,7 @@ This is all the BattleControl fields.
 ### Misc coroutines tracking
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |checkingdead|Coroutine|Yes|Store diverse coroutines to track their progression (NOTE: despite the name, it's not just for [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md))|
 |enemybounce|Coroutine\[\]|No|A general purpose coroutines array for use in [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) that is made to track EnemyBounce and SummonArtifact|
 |tryenemyheal|Coroutine|No|Tracks the progress of a TryHealEnemyItem and EnemyFlee coroutines|
@@ -221,14 +221,14 @@ This is all the BattleControl fields.
 ### Spying
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |disablespy|bool|Yes|If true, spying is disabled and cannot be performed on any enemy|
 |scopeequipped|bool|No|Whether or not the `HPScope` [medal](../Enums%20and%20IDs/Medal.md) is equipped. Set as such on [StartBattle](StartBattle.md)|
 
 ### General purpose
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |tempdata|int|Yes|A general purpose integer for use in [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) meant to be set externally. This is only used for the `Spuder` [enemy](../Enums%20and%20IDs/Enemies.md)|
 |extraentities|[EntityControl](../Entities/EntityControl/EntityControl.md)\[\]|Yes|A general purpose array of entities. This is only used when a `VenusBoss` [enemy](../Enums%20and%20IDs/Enemies.md) is involved|
 
@@ -236,7 +236,7 @@ This is all the BattleControl fields.
 These fields are never referenced or never used in any meaningful ways.
 
 |Name|Type|Public?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |weakenemyfound|bool|No|UNUSED, this is only set to false at the start of [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) and to true on TryHealEnemyItem when a heal occured, but the field is never read making it unused|
 |actionid|int|No|UNUSED, this is only read during the damage pipeline, but never written to making it unused|
 |oldmusicchannel|int|No|UNUSED|
@@ -254,7 +254,7 @@ These fields belongs to MainManager, but they are mostly related to BattleContro
 ### Player party
 
 |Name|Type|Static?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |playerdata|[BattleData](Actors%20states/BattleData.md)\[\]|No|The battle data of the players. The game keeps track of them constantly even outside of battle, but [StartBattle](StartBattle.md) resets their fields to a default state|
 |tp|int|No|The amount of TP the player party has (usually clamped from 0 to `maxtp`)|
 |tpt|int|No|The displayed amount of TP the player party has in the HUD|
@@ -269,14 +269,14 @@ These fields belongs to MainManager, but they are mostly related to BattleContro
 ### Battle modifiers
 
 |Name|Type|Static?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |haltbattleload|bool|Yes|If this is set to true right after [StartBattle](StartBattle.md) starts by the caller, StartBattle will wait that it goes to false right after the fade in transition played|
 |battlelossevent|bool|Yes|Tells if [ReturnToOverworld](Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md) should be called without flee if [DeadParty](Battle%20flow/Terminal%20coroutines/DeadParty.md) happens|
 
 ### Battle state and results
 
 |Name|Type|Static?|Description|
-|----|----|---------|-----------|
+|----:|----|---------|-----------|
 |battle|[BattleControl](BattleControl.md)|Yes|The current battle (null if no battle is in progress). Set on [StartBattle](StartBattle.md) when it's null (meaning it wasn't a [retry](Battle%20flow/Retry.md))|
 |inbattle|bool|No|Whether we are in battle or not. Set to true on [StartBattle](StartBattle.md) after the fade out transition and set to false in a [terminal](Battle%20flow/Update%20flows/Terminal%20flow.md) case where we know the battle will end without [retry](Battle%20flow/Retry.md)|
 |partyorder|int\[\]|No|The list of player party members by their [animid](../Enums%20and%20IDs/AnimIDs.md) ordered by their formation in the overworld. Used to align the `partypointer` on [StartBattle](StartBattle.md)|

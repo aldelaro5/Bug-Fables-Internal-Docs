@@ -5,7 +5,6 @@ NOTE: If multiple occurences of the condition exists, only the first one is remo
 
 ```cs
 public static void RemoveCondition(BattleCondition condition, BattleData entity)
-
 ```
 
 ## Parameters

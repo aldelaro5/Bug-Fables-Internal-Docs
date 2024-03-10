@@ -6,7 +6,7 @@ The order in which they are specified in the parameter matters as they are proce
 The vast majority are processed in DoDamage, but some are in [CalculateBaseDamage](CalculateBaseDamage.md) and they can influence the logic there.
 
 |Value|Name|Description|
-|-----|----|-----------|
+|-----:|----|-----------|
 |0|LeftMovement|UNUSED|
 |1|RightMovement|UNUSED|
 |2|UpMovement|UNUSED|

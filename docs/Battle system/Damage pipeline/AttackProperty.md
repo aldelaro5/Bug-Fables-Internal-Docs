@@ -6,7 +6,7 @@ They are not to be confused with [DamageOverride](DamageOverride.md) which can o
 Here are the different AttackProperty, how they are meant to be passed to the damage pipeline and a summary of their effects.
 
 |Value|Name|DoDamage parameter?|`weakness`?|Description|
-|-----|----|-------------------|-----------|-----------|
+|-----:|----|-------------------|-----------|-----------|
 |0|Pierce|Yes|No|Ignores all calculations related to defense in CalculateBaseDamage. Only valid for enemy party member targets that do not have `AntiPierce` in their `weakness`|
 |1|Flip|Yes|Yes|When used as a DoDamage parameter, 1 point of defense in CalculateBaseDamage will be ignored when the target doesn't have the [Flipped](../Actors%20states/BattleCondition/Flipped.md) condition (this is done incorrectly, see the CalculateBaseDamage documentation to learn more). It will also attempt to inflict the `Flipped` condition if the target has this property in its `weakness` and some other conditions are fufilled. It will also bypass [defenseonhit](../Actors%20states/Enemy%20features.md#defenseonhit-and-isdefending) and prevent `isdefending` from being set to true (it can even break the guard)|
 |2|Freeze|Yes|No|Attempts to inflict the [Freeze](../Actors%20states/BattleCondition/Freeze.md) condition during CalculateBaseDamage|

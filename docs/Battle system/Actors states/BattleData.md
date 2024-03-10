@@ -178,7 +178,7 @@ These fields applies to actors from either parties.
 |cantmove|int|The amount of actor turns that needs to pass until an action is possible. 0 Means one action is possible and anything negative further adds possible actions on the same main turn|
 |moreturnnextturn|int|When above 0, on the next main turn, the actor's `cantmove` will be decreased by it which gives it this amount of additional actor turns available|
 
-### [Conditions] tracking
+### [Conditions](Conditions.md) tracking
 
 |Name|Type|Description|
 |---:|---|---|
