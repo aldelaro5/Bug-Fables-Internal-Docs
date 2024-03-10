@@ -78,6 +78,6 @@ If the [Topple](../Actors%20states/BattleCondition/Topple.md) logic above didn't
 The following applies on top of all the animations logic above if entity.`hp` is above 0:
 
 - entity.battleentity.`overrideanim` is set to false
-- if entity has the `Sleep` [condition](../Actors%20states/Conditions.md), entity.battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 14 (`Sleep`)
+- if entity has the [Sleep](../Actors%20states/BattleCondition/Sleep.md) condition, entity.battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 14 (`Sleep`)
 - Otherwise, if the entity is a player party member with an `hp` of 4 or below, its [animstate](../../Entities/EntityControl/Animations/animstate.md) is set to 17 (`WeakBattleIdle`)
 - Otherwise, entity.battleentity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to its value before this coroutine started unless it was 31 (`Dig`) or 32 (`DigMove`) where it's the `basestate` it had at the start instead

@@ -202,7 +202,7 @@ This effect only applies if we are instance.`inbattle` and the characterid playe
 #### `CureFire`
 
 - The `Heal3` sound is played
-- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the `Fire` [condition](../Battle%20system/Actors%20states/Conditions.md)
+- [RemoveCondition](../Battle%20system/Actors%20states/Conditions%20methods/RemoveCondition.md) is called on the characterid player party member to remove the [Fire](../Battle%20system/Actors%20states/BattleCondition/Fire.md) condition
 - If we are instance.`inbattle` and the characterid player party member's `firepart` isn't null, it is destroyed
 
 #### `CureAll`
