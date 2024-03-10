@@ -16,7 +16,7 @@ For player party member, the resistance can only be increased by processing the 
 For player party member target when property is `Numb` or `Numb1Turn` and when successfully inflicting this condition, [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md), target.`numbres` is increased by 17. The increase is 22 instead if [HardMode](../../Damage%20pipeline/HardMode.md) returns true
 
 ## [IsStopped](../IsStopped.md)
-This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a `actimmobile` is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
+This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
 
 ## [GetFreePlayerAmmount](../Player%20party%20members/GetFreePlayerAmmount.md)
 This condition makes a player party member not count as free. This affects many logic such as knowing if a player can act.
@@ -24,10 +24,10 @@ This condition makes a player party member not count as free. This affects many 
 ## [SetCondition](../Conditions%20methods/SetCondition.md)
 When amending the condition: 
 
-- If the actor is an enemy party member, `isdefending` is set to false and the infliction overwrites the turn counter to the new one (meaning it won't stack)
+- If the actor is an enemy party member, [isdefending](../Enemy%20features.md#isdefending) is set to false and the infliction overwrites the turn counter to the new one (meaning it won't stack)
 - If the actor is a player party member, the infliction overwrites the turn counter if the new one is higher (meaning it won't stack, it can just reset it to a higher amount). An exception to this is when using an item that inflicted it which makes it stack
 
-When inflicted as a new condition, if the actor is an enemy party member, its `isdefending` is set to false.
+When inflicted as a new condition, if the actor is an enemy party member, its [isdefending](../Enemy%20features.md#isdefending) is set to false.
 
 Any method call updates `isnumb` accordingly.
 
@@ -48,7 +48,7 @@ This condition allows a target with a `ShockTrooper` [medal](../../../Enums%20an
 ## [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
 This condition may be inflicted if the property is `Numb` or `Numb1Turn` (it's the same as `Numb`, but it always inflict for 1 turn). This means it's also supported by the `StatusMirror` [medal](../../../Enums%20and%20IDs/Medal.md).
 
-This condition prevents toppling on enemy party members with a `ToppleFirst` or `ToppleAirOnly` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) in their `weakness`.
+This condition prevents toppling on enemy party members with a `ToppleFirst` or `ToppleAirOnly` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) in their [weakness](../Enemy%20features.md#weakness).
 
 This condition gives a point of defense recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#TrueDef) and will result in a -1 damage. NOTE: this has several caveats, check CalculateBaseDamage's documentation to learn more.
 

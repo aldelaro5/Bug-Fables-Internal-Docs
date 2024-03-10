@@ -10,7 +10,7 @@ For player party member, the resistance can only be increased by processing the 
 ## Resistance increases for enemy party members
 Here are the potential increases for the resistance associated (only applies to enemy party members):
 
-- On [StartBattle](../../StartBattle.md) (not mutually exclusive):
+- On [StartBattle](../../StartBattle.md):
     - If the calledfrom.entity or the battleentity is `inice` while it's a `Krawler` or `CursedSkull` [enemy](../../../Enums%20and%20IDs/Enemies.md), the enemy party member's `freezeres` is increased by 70
     - If battleentity.`forcefire` or we are in the `GiantLair` [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) except for the `GiantLairFridgeInside` [map](../../../Enums%20and%20IDs/Maps.md) while the enemy is a `Krawler`, `CursedSkull` or `Cape`, the enemy party member's `freezeres` is set to 110 making them immune (this override the clause above if it applied)
 - On [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) when sucessfully inflicting this condition when property is `Freeze` (mutually exclusive, only the first that applies):
@@ -19,7 +19,7 @@ Here are the potential increases for the resistance associated (only applies to 
     - Otherwise, target.`freezeres` is increased by 13. The increase is 18 instead if [HardMode](../../Damage%20pipeline/HardMode.md) returns true
 
 ## [IsStopped](../IsStopped.md)
-This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a `actimmobile` is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
+This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
 
 ## [GetFreePlayerAmmount](../Player%20party%20members/GetFreePlayerAmmount.md)
 This condition makes a player party member not count as free. This affects many logic such as knowing if a player can act.
@@ -27,10 +27,10 @@ This condition makes a player party member not count as free. This affects many 
 ## [SetCondition](../Conditions%20methods/SetCondition.md)
 When amending the condition: 
 
-- If the actor is an enemy party member, `isdefending` is set to false and the infliction overwrites the turn counter to the new one (meaning it won't stack)
+- If the actor is an enemy party member, [isdefending](../Enemy%20features.md#isdefending) is set to false and the infliction overwrites the turn counter to the new one (meaning it won't stack)
 - If the actor is a player party member, the infliction overwrites the turn counter if the new one is higher (meaning it won't stack, it can just reset it to a higher amount). An exception to this is when using an item that inflicted it which makes it stack
 
-When inflicted as a new condition, if the actor is an enemy party member, its `isdefending` is set to false.
+When inflicted as a new condition, if the actor is an enemy party member, its [isdefending](../Enemy%20features.md#isdefending) is set to false.
 
 ## [AddDelayedCondition](../Delayed%20condition.md)
 This condition supports delayed infliction via AddDelayedCondition. Check its documentation to learn more.
@@ -47,7 +47,7 @@ This condition overrides block to be false meaning blocking is always denied for
 ## [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
 This condition may be inflicted if the property is `Freeze`. This means it's also supported by the `StatusMirror` [medal](../../../Enums%20and%20IDs/Medal.md).
 
-This condition prevents toppling on enemy party members with a `ToppleFirst` or `ToppleAirOnly` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) in their `weakness`.
+This condition prevents toppling on enemy party members with a `ToppleFirst` or `ToppleAirOnly` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) in their [weakness](../Enemy%20features.md#weakness).
 
 This condition also implicates entire logic related to it unless the `NoIceBreak` [override](../../Damage%20pipeline/DamageOverride.md) is present. Check the CalculateBaseDamage documentation to learn more, but in summary:
 
@@ -55,7 +55,7 @@ This condition also implicates entire logic related to it unless the `NoIceBreak
 - A +1 damage when `FrostBite` didn't apply followed by the removal of this condition alongside some other ice thawing logic
 
 ## [EndPlayerTurn](../../Battle%20flow/EndPlayerTurn.md)
-All enemy party members who still have this condition on EndPlayerTurn without `actimmobile` will have their `cantmove` set to 1. NOTE: It means removing the condition on the same main turn it was inflicted may leave the `cantmove` at 1 even if the enemy party member should have been able to act during their phase.
+All enemy party members who still have this condition on EndPlayerTurn without [actimmobile](../Enemy%20features.md#actimmobile) will have their `cantmove` set to 1. NOTE: It means removing the condition on the same main turn it was inflicted may leave the `cantmove` at 1 even if the enemy party member should have been able to act during their phase.
 
 ## [AdvanceTurnEntity](../../Battle%20flow/AdvanceTurnEntity.md)
 When the condition is processed (when `hp` is above 0):
@@ -91,7 +91,7 @@ For all alive (`hp` above 0) player party members with this condition and whose 
 All player party members who still had this condition when AddExperience occurs will have [BreakIce](../../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md) called on their battleentity.
 
 ## GetEnemySize
-This condition causes this method to return the enemy party member's `freezesize` if it is above 0.1 instead of its `size`. This can affect the following [skills](../../../Enums%20and%20IDs/Skills.md) and  player party members' attacks where the attacker will move to a slightly different position towards the target during the action:
+This condition causes this method to return the enemy party member's [sizeonfreeze](../Enemy%20features.md#sizeonfreeze) if it is above 0.1 instead of its `size`. This can affect the following [skills](../../../Enums%20and%20IDs/Skills.md) and  player party members' attacks where the attacker will move to a slightly different position towards the target during the action:
 
 - `firststrike` action (when the [animid](../../../Enums%20and%20IDs/AnimIDs.md) is `Beetle`)
 - `Beetle`'s basic attack (when the [animid](../../../Enums%20and%20IDs/AnimIDs.md) is `Beetle`)

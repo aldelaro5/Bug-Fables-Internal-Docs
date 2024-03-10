@@ -16,7 +16,7 @@ For player party member, the resistance can only be increased by processing the 
 For player party member target when property is `Sleep` and when successfully inflicting this condition, [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md), target.`sleepres` is increased by 9. The increase is 13 instead if [HardMode](../../Damage%20pipeline/HardMode.md) returns true
 
 ## [IsStopped](../IsStopped.md)
-This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a `actimmobile` is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
+This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
 
 ## [GetFreePlayerAmmount](../Player%20party%20members/GetFreePlayerAmmount.md)
 This condition makes a player party member not count as free. This affects many logic such as knowing if a player can act.
@@ -24,10 +24,10 @@ This condition makes a player party member not count as free. This affects many 
 ## [SetCondition](../Conditions%20methods/SetCondition.md)
 When amending the condition: 
 
-- If the actor is an enemy party member, `isdefending` is set to false and the infliction overwrites the turn counter to the new one (meaning it won't stack)
+- If the actor is an enemy party member, [isdefending](../Enemy%20features.md#isdefending) is set to false and the infliction overwrites the turn counter to the new one (meaning it won't stack)
 - If the actor is a player party member, the infliction overwrites the turn counter if the new one is higher (meaning it won't stack, it can just reset it to a higher amount). An exception to this is when using an item that inflicted it which makes it stack
 
-When inflicted as a new condition, if the actor is an enemy party member, its `isdefending` is set to false.
+When inflicted as a new condition, if the actor is an enemy party member, its [isdefending](../Enemy%20features.md#isdefending) is set to false.
 
 ## [AddDelayedCondition](../Delayed%20condition.md)
 This condition supports delayed infliction via AddDelayedCondition. Check its documentation to learn more.
@@ -44,14 +44,14 @@ This condition overrides block to be false meaning blocking is always denied for
 ## [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
 This condition may be inflicted if the property is `Sleep`. This means it's also supported by the `StatusMirror` [medal](../../../Enums%20and%20IDs/Medal.md).
 
-This condition prevents toppling on enemy party members with a `ToppleFirst` or `ToppleAirOnly` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) in their `weakness`.
+This condition prevents toppling on enemy party members with a `ToppleFirst` or `ToppleAirOnly` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) in their [weakness](../Enemy%20features.md#weakness).
 
 In [DefaultDamageCalc](../../Damage%20pipeline/CalculateBaseDamage.md#defaultdamagecalc), this condition allows the `HeavySleeper` [medal](../../../Enums%20and%20IDs/Medal.md) to process by dividing the damage amount by 2 floored.
 
 This condition my be removed during [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) or after its return in DoDamage damage calculation from a target with it after when sustaining damages under certain conditions (with caveats, check the methods's documentation to learn more). Notably, it won't happen if the target has the `HeavySleeper` [medal](../../../Enums%20and%20IDs/Medal.md). NOTE: If DoDamage decides to wake up the target, there is a known issue when setting their `cantmove` value. Check DoDamage's documentation to learn more.
 
 ## [EndPlayerTurn](../../Battle%20flow/EndPlayerTurn.md)
-All enemy party members who still have this condition on EndPlayerTurn without `actimmobile` will have their `cantmove` set to 1. NOTE: It means removing the condition on the same main turn it was inflicted may leave the `cantmove` at 1 even if the enemy party member should have been able to act during their phase.
+All enemy party members who still have this condition on EndPlayerTurn without [actimmobile](../Enemy%20features.md#actimmobile) will have their `cantmove` set to 1. NOTE: It means removing the condition on the same main turn it was inflicted may leave the `cantmove` at 1 even if the enemy party member should have been able to act during their phase.
 
 ## [AdvanceTurnEntity](../../Battle%20flow/AdvanceTurnEntity.md)
 When the condition is processed (when `hp` is above 0, but less than `maxhp`):

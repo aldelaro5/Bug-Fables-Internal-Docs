@@ -2,7 +2,7 @@
 An ephemeral condition specific to enemy party members that is only inflicted with a `Flip` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) to an enemy party member with a `Flip` [weakness](../../Damage%20pipeline/AttackProperty.md). It causes all the enemy party member's `def` to be ignored during damage calculation which is recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md). This process can be hampered by [Topple](Topple.md)'s defense mechanism if it applies. NOTE: The condition logic has caveats, check the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation to learn more.
 
 ## [IsStopped](../IsStopped.md)
-This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a `actimmobile` is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to. 
+This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to. 
 
 NOTE: In practice, this being a stop condition doesn't do much because the battle system ensure it only has 1 turn on it and it gets removed manually before the enemy party member attacks.
 

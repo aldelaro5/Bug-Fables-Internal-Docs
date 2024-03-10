@@ -14,7 +14,7 @@ Before an enemy party member acts, if it has this condition or [Flipped](Flipped
 - 0.1 seconds are yielded
 
 ## [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
-This condition prevents toppling an enemy party members with a `ToppleFirst` or `ToppleAirOnly` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) in their `weakness` (because it would be redundant).
+This condition prevents toppling an enemy party members with a `ToppleFirst` or `ToppleAirOnly` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) in their [weakness](../Enemy%20features.md#weakness) (because it would be redundant).
 
 This condition is removed if [Freeze](Freeze.md) is inflicted.
 

@@ -11,4 +11,4 @@ This condition causes the vine icons for the `Item` [Actions](../../Player%20UI/
 This condition may be inflicted if the property is `Sticky`. This means it's also supported by the `StatusMirror` [medal](../../../Enums%20and%20IDs/Medal.md). It does not use a resistance field, check the method's documentation to learn more on the conditions needed for the infliction to work.
 
 ## [UpdateEntities](../../Visual%20rendering/UpdateEntities.md)
-This condition includes the initialisation of the actor's `firepart` as a new instance of `Prefabs/Particles/StickyDrip` childed to the `sprite` with a `DelAftBtl` tag and a local position of Vector3.up.
+This condition includes the initialisation of the actor's `firepart` as a new instance of `Prefabs/Particles/StickyDrip` childed to the `sprite` with a `DelAftBtl` tag (gets destroyed on [ReturnToOverworld](../../Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md)) and a local position of Vector3.up.
