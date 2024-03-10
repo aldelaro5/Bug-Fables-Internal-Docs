@@ -8,6 +8,7 @@ Both Shades's and Merab's shops medals available pools and stock are also saved 
 The IDs are mapped directly to the badge data entries and the name to the `BadgeTypes` enum value name.
 
 ## Medals table
+The following table shows all the `BadgeTypes` enum value and their English names for convenience.
 
 |Id|Name|English Name|
 |-:|----|------------|

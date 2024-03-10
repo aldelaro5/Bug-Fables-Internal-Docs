@@ -950,7 +950,7 @@ Calls DestroyConditionIcons and then update `statusicons` and initialise `status
 public void UpdateConditionBubbles(bool right, MainManager.BattleData data)
 ````
 
-This includes setting up the sprites of every conditions and medals icons during battle. The text inside these icons includes [SetText](../../SetText/SetText.md) calls. The method calls this one internally if `isplayer` with the player specific conditions and medals icons.
+This includes setting up the sprites of every conditions and medals icons during battle. The text inside these icons includes [SetText](../../SetText/SetText.md) calls. The method calls this one internally if `isplayer` with the player specific conditions and medals icons. TODO: Add more details
 
 ````cs
 private Transform NewConditionIcon(Sprite csprite, Vector3 pos)

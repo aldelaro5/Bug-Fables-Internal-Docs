@@ -51,4 +51,4 @@ It uses the default rendering scheme described in [Description box rendering](..
 
 The confirmation handling only applies when in battle in MainManager's Update which is the only circumstances this list type can be called under normal gameplay. If we weren't in battle, the [Items List Type](Items%20List%20Type.md)'s confirmation handling logic will be used instead which will cause an exception to be thrown.
 
-In that handler, it checks if the option is available to be used and if it is, it calls SetItem on the current battle with the option selected. Otherwise, the buzzer sound plays. The specific logic on what to do with a valid option is entirely within BattleControl's SetItem.
+In that handler, it checks if the option is available to be used and if it is, it calls BattleControl's [SetItem](../../Battle%20system/Player%20UI/SetItem.md) on the current battle with the option selected. Otherwise, the buzzer sound plays. The specific logic on what to do with a valid option is entirely within SetItem.

@@ -1,4 +1,4 @@
-# Chompy Rubbons list type
+# Chompy Ribbons list type
 
 Display a list of items from `multilist`. This is intended to show the Chompy Ribbons available.
 
