@@ -75,16 +75,16 @@ This is all the BattleControl fields.
 
 |Name|Type|Public?|Description|
 |----:|----|---------|-----------|
-|actionroutine|Coroutine|No|Tracks the progress of a [DoCommand](Action%20commands/DoCommand.md) coroutine|
+|actionroutine|Coroutine|No|Tracks the progress of a [DoCommand](DoCommand.md) coroutine|
 |doingaction|bool|Yes|If true, an action command is in progress|
-|successfulchain|int|No|The amount of sucessful inputs perfomred in a `LongRandomBar` action commands during [DoCommand](Action%20commands/DoCommand.md)|
-|presskey|int|No|A general purpose input id for use in [DoCommand](Action%20commands/DoCommand.md)|
-|barfill|float|No|A number between 0.0 and 1.0 that tells the ratio of an action command's bar's filled portion which is managed by [DoCommand](Action%20commands/DoCommand.md)|
-|infinitecommand|bool|No|If true, action commands processed by [DoCommand](Action%20commands/DoCommand.md) will use their infinite variant TODO: define what this is in part 3|
-|killinput|bool|No|Used for the `PressKey` action command that when set to true, [DoCommand](Action%20commands/DoCommand.md) will stop listening for inputs|
+|successfulchain|int|No|The amount of sucessful inputs perfomred in a `LongRandomBar` action commands during [DoCommand](DoCommand.md)|
+|presskey|int|No|A general purpose input id for use in [DoCommand](DoCommand.md)|
+|barfill|float|No|A number between 0.0 and 1.0 that tells the ratio of an action command's bar's filled portion which is managed by [DoCommand](DoCommand.md)|
+|infinitecommand|bool|No|If true, action commands processed by [DoCommand](DoCommand.md) will use their infinite variant TODO: define what this is in part 3|
+|killinput|bool|No|Used for the `PressKey` action command that when set to true, [DoCommand](DoCommand.md) will stop listening for inputs|
 |commandsuccess|bool|Yes|Tells if the last action command succeeded or tell if the player is currently blocking (tracked by [GetBlock](Battle%20flow/GetBlock.md))|
-|buttons|ButtonSprite\[\]|No|A general purpose array of ButtonSprites for use in [DoCommand](Action%20commands/DoCommand.md)|
-|commandsprites|SpriteRenderer\[\]|No|A general purpose SpriteRenderer array for use in [DoCommand](Action%20commands/DoCommand.md) or other action commands related needs|
+|buttons|ButtonSprite\[\]|No|A general purpose array of ButtonSprites for use in [DoCommand](DoCommand.md)|
+|commandsprites|SpriteRenderer\[\]|No|A general purpose SpriteRenderer array for use in [DoCommand](DoCommand.md) or other action commands related needs|
 |helpboxid|int|No|The id of the current action command whose description should be rendered in `helpbox` by [CreateHelpBox](Visual%20rendering/CreateHelpBox.md#createhelpbox)|
 |helpbox|DialogueAnim|No|The 9box containing the action command description whose id is `helpboxid` rendered by [CreateHelpBox](Visual%20rendering/CreateHelpBox.md#createhelpbox)|
 |superblockedthisframe|float|No|A short lived cooldown in frames that allows a super block to still count until it expires, check [GetBlock](Battle%20flow/GetBlock.md) to learn more. Used in the damage pipeline and maintained by [LateUpdate](Visual%20rendering/LateUpdate.md)|

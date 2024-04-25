@@ -17,7 +17,7 @@ The coroutine expects `playerdata[currentturn]` to be the player party member th
 
 From there, if the `HPScope` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped, this will bypass the action command portion and the logic will be limited to playing the `AtkSuccess` sound and everything will continue as if `commandsuccess` was true.
 
-Otherwise, the action command is done by calling [DoCommand](../../Action%20commands/DoCommand.md) with the timer being 60.0, the type being `Crosshais` and the data being {3.0, the battleentity.`battleid` of the target enemy party member converted to float, 3.25, 10.0}. From there, all frames are yielded while `doingaction` is true.
+Otherwise, the action command is done by calling [DoCommand](../../DoCommand.md) with the timer being 60.0, the type being `Crosshais` and the data being {3.0, the battleentity.`battleid` of the target enemy party member converted to float, 3.25, 10.0}. From there, all frames are yielded while `doingaction` is true.
 
 ## Spying process
 This section only happens if the `HPScope` [medal](../../../Enums%20and%20IDs/Medal.md) was equipped or `commandsuccess` is true meaning the player passed the action command. If these conditions are fufilled, the logic of this section is limited to setting the player party member's battleentity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) to 11 (`Hurt`).

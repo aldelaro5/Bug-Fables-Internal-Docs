@@ -102,7 +102,7 @@ What follows depends on the `coption[option]` selected.
 - `chompy`'s [animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 100
 - The `Chew` sound is played with a pitch of 1.5
 - If the targetted enemy's [position](../../Actors%20states/BattlePosition.md) is indeed `Ground` (always happen unless no grounded enemies existed earlier):
-    - [DoCommand](../../Action%20commands/DoCommand.md) is called with a timer of 60.0, a commandtype of `PressKeyTimer` and a data being a one element array containing a random integer between 4 and 6 converted to float
+    - [DoCommand](../../DoCommand.md) is called with a timer of 60.0, a commandtype of `PressKeyTimer` and a data being a one element array containing a random integer between 4 and 6 converted to float
     - A frame is yielded
     - All frames are yielded while `doingaction` is true
 - If the targetted enemy's [position](../../Actors%20states/BattlePosition.md) is indeed `Ground` (always happen unless no grounded enemies existed earlier) and `commandsuccess` is true:

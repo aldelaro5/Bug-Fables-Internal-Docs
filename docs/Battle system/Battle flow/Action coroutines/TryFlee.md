@@ -17,7 +17,7 @@ This action coroutine allows the player to attempt to flee from the battle if an
     - `overrideanim` is set to true
     - [animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 1 (`Walk`)
 - 0.4 seconds are yielded
-- A [DoCommand](../../Action%20commands/DoCommand.md) coroutine is started with a commandtype of `SequentialKeys` using 250.0 as the timer and the data being one element whose value is 6 unless the `SpeedUp` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped which makes the value 3 instead
+- A [DoCommand](../../DoCommand.md) coroutine is started with a commandtype of `SequentialKeys` using 250.0 as the timer and the data being one element whose value is 6 unless the `SpeedUp` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped which makes the value 3 instead
 
 ## Performing the action command
 This section is in effect as long as `doingaction` is true. It's where the berry loss happens periodically when applicable. A frame is yielded at the end of every cycle when this section is in effect.

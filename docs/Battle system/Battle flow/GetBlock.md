@@ -1,7 +1,7 @@
 # GetBlock
 This is a parameterless void returning method that is called from [Update](Update.md) when in an [uncontrolled flow](Update%20flows/Uncontrolled%20flow.md).
 
-This logic is exclusive to an uncontrolled flow, but it only happens when `enemy` is true (we are in the player phase / a [delproj](../Actors%20states/Delayed%20projectile.md) is landing / an enemy party member is performing a [hitaction](../Actors%20states/Enemy%20features.md#hitaction)), `inevent` is false (no EventDialogue is in progress) and the [message](../../SetText/Notable%20states.md#message) lock is released (covers cases like [Tattle](Action%20coroutines/Tattle.md)).
+This logic is exclusive to an uncontrolled flow, but it only happens when `enemy` is true (we are in the player phase / a [delproj](../Actors%20states/Delayed%20projectile.md) is landing / an enemy party member is performing a [hitaction](../Actors%20states/Enemy%20features.md#hitaction)), `inevent` is false (no EventDialogue is in progress), `doingaction` is false (we aren't in a [DoCommand](../DoCommand.md)) and the [message](../../SetText/Notable%20states.md#message) lock is released (covers cases like [Tattle](Action%20coroutines/Tattle.md)).
 
 GetBlock mainly does 2 things: process the blocking storing the result in `blockcooldown` and `commandsuccess` and update the player party members's [animstate](../../Entities/EntityControl/Animations/animstate.md) to different stages of the blocking.
 
@@ -39,6 +39,9 @@ Let's take a typical attack action as an example. [DoAction](Action%20coroutines
 This allows GetBlock to not touch any of the damage pipeline, but still report and track whether the player is blocking and for how long they been blocking. Meanwhile, DoAction runs indepedently from this which allows very tight control on the animations and the moment to call DoDamage which can have an intuitive visual and auditive timing to assist the player in performing the block. It is free to use the results GetBlock gathered at any time because it is guaranteed to be correct since Update always run before DoAction gets any attention if it was set to resume on that frame.
 
 This results in the blocking timing to work no matter how the enemy action is performed. There is no need to define any timing anywhere because it's implicitly handled by the asynchronous nature of the system. The one downside however is the entire timing window leads up to the actual damage frame meaning that intuitively, the player could be a frame after and still miss the block while they were within 4 frames of the damage. There is no coyote frames to account for this (adding any would introduce visual delays to present the damage counter and other effects).
+
+## Known issues with [DoCommand](../DoCommand.md)
+This system behaves unexpectedly when interacting with DoCommand. Check its documentation to learn more as it can end up splitting the block timing into 2 distrinct moments.
 
 ## Animation updates
 Other than managing blocking, it also manages animations of the player party members. The following happens happens for every player party members whose battleentity.`overrideanim` is false:
