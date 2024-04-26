@@ -19,4 +19,4 @@ This enum represents all the different action commands implemented in the game t
 |13|[LongRandomBar](Action%20commands/LongRandomBar.md)|???|
 |14|[SequentialKeys](Action%20commands/SequentialKeys.md)|???|
 |15|[Crosshairs](Action%20commands/Crosshairs.md)|???|
-|16|[PressKeyTimer](Action%20commands/PressKeyTimer.md)|???|
+|16|[PressKeyTimer](Action%20commands/PressKeyTimer.md)|An single input press prompt that lasts a certain amount of frames. The goal of the command is to press the correct input (and only the correct one) on the last 30.0 frames of the command. If no input is taken for the entire duration or if the input is pressed before the last 30.0 frames or if any other inputs recognised by the game is pressed at any point (even if done at the same time than the correct one), the command will be failed. This command has caveats about its UI.|
