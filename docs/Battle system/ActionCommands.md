@@ -12,7 +12,7 @@ This enum represents all the different action commands implemented in the game t
 |6|RandomPressKeysTimer|UNREFERENCED|
 |7|RandomTappingKeys|UNREFERENCED|
 |8|RandomTappingKeysTimer|UNREFERENCED|
-|9|[RandomPressBar](Action%20commands/RandomPressBar.md)|???|
+|9|[RandomPressBar](Action%20commands/RandomPressBar.md)|A prompt to press the Confirm input timed in such a way that a cursor who goes back and forth on a bar lands in a specific target area. The goal of the command is to hit the input when the cursor falls in that area. The command is failed when the cursor falls outside of the target or if the input isn't pressed before `timer` expires. This command features forgiveness logic in `demomode` where it is impossible to fail the command.|
 |10|[RandomTappingBar](Action%20commands/RandomTappingBar.md)|A variation of [TappingKey](TappingKey.md) where the mashing input prompt has a random starting one between Confirm, Cancel or Switch Party (it is not possible to use left/right mode). The input will change to a random one periodically at random intervals. This action command is UNUSED under normal gameplay.|
 |11|[RandomPressKeyTimer](Action%20commands/RandomPressKeyTimer.md)|???|
 |12|[MultiPressBar](Action%20commands/MultiPressBar.md)|???|
