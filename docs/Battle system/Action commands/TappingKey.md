@@ -1,7 +1,7 @@
 # TappingKey
 An input mashing prompt where the input can be one of the 4 main ones (Confirm, Cancel, Switch Party or Show HUD) or be a prompt where the player needs to alternate between the left and right input (with caveats, see the sections below for details). Each correct input press increases `barfill` from 0.0 to 1.0. The goal of the command is to make `barfill` reach 1.0 before the `timer` expires.
 
-> NOTE: This action command will be overriden to [SequentialKeys](SequentialKeys.md) if MainManager.`mashcommandalt` is true (the game settings are configured for Sequential Keys commands instead of the mashing ones).
+> NOTE: This action command will be overriden to [SequentialKeys](SequentialKeys.md) if MainManager.`mashcommandalt` is true (the game settings are configured for Sequential Keys commands instead of the mashing ones). If `data[9]` exists, the SequentialKeys command will have a `data` of {`data[9]`} which allows to configure the number of inputs (without hiding the future inputs) in case of override. If `data[9]` doesn't exist, the command will have a `data` of {6.0} meaning a series of 6 inputs without hiding the future inputs.
 
 > NOTE: This action command exceptionally sets `overridechallengeblock` to true which allows regular blocks to be processed in [DoDamage](../Damage%20pipeline/DoDamage.md) when FRAMEONE is active. This only happens if the action command was not overriden to [SequentialKeys](SequentialKeys.md).
 
@@ -17,6 +17,7 @@ This represents the amount of frames to give to the player before the command fa
     - With Vsync on, 1.0 means `barfill` increases by the game's frametime / 80.0 * (The monitor's refresh rate / 60.0). NOTE: This implies that the monitor's refresh rate acts as a multiplier on top of `data[1]`'s value if VSync is on
 - `data[2]`: If `data[0]` is not -1 after being truncated to int, `barfill` will decrease every frame by a fraction of the game's frametime equal to 0.005 * this value. However, when calculating the decrease, it will be clamped from 0.005 to 0.0025 * `data[1]`. If `data[0]` is -1 after being truncated to int, this does nothing
 - `data[3]`: This value does nothing, but its existence in the array is mandatory because if it is not present, it becomes impossible for the command to succeed, even if `barfill` reaches 1.0
+- `data[9]`: See the note above about the [SequentialKeys](SequentialKeys.md) override. This value only applies here and it does require to supply dummy values from `data[4]` through `data[8]` if its usage is desired, but it is optional and it won't apply if the override doesn't
 
 ## High level explanation
 Since the logic of this action command is complex, a high level explanation is provided. For the details, check the setup and execution phase's details.

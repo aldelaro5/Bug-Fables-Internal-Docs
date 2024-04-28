@@ -1,7 +1,7 @@
 # RandomTappingBar
 A variation of [TappingKey](TappingKey.md) where the mashing input prompt has a random starting one between Confirm, Cancel or Switch Party (it is not possible to use left/right mode). The input will change to a random one periodically at random intervals. This action command is UNUSED under normal gameplay.
 
-> NOTE: This action command will be overriden to [SequentialKeys](SequentialKeys.md) if MainManager.`mashcommandalt` is true (the game settings are configured for Sequential Keys commands instead of the mashing ones).
+> NOTE: This action command will be overriden to [SequentialKeys](SequentialKeys.md) if MainManager.`mashcommandalt` is true (the game settings are configured for Sequential Keys commands instead of the mashing ones). It will have a `data` of {6.0, 1.0} meaning a series of 6 inputs where all future inputs are hidden
 
 > NOTE: This action command exceptionally sets `overridechallengeblock` to true which allows regular blocks to be processed in [DoDamage](../Damage%20pipeline/DoDamage.md) when FRAMEONE is active. This only happens if the action command was not overriden to [SequentialKeys](SequentialKeys.md).
 
