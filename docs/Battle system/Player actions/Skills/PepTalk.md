@@ -19,7 +19,7 @@ This action sets `dontusecharge` to true and as such, it will not consume any at
 - Yield for 0.75 seconds
 - `Taunt2` sound stops playing
 - If `target` player party member's `hp` is above 0 (this shouldn't happen under normal gameplay because the skill can normally only be used on dead player party members):
-    - `target` player party member animstate is set to the return of AngryAnim which is a value that depends on the player [animid](../../Enums%20and%20IDs/AnimIDs.md): 10 (`Flustered`) for `Bee`, 5 (`Angry`) for `Beetle` and 102 for `Moth`
+    - `target` player party member animstate is set to the return of AngryAnim which is a value that depends on the player [animid](../../../Enums%20and%20IDs/AnimIDs.md): 10 (`Flustered`) for `Bee`, 5 (`Angry`) for `Beetle` and 102 for `Moth`
     Yield for 0.75 seconds
 - Otheriwse:
     - Yield until the `target` player party member's `deathcoroutine` is done
