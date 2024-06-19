@@ -6,7 +6,7 @@ An input mashing prompt where the input can be one of the 4 main ones (Confirm, 
 > NOTE: This action command exceptionally sets `overridechallengeblock` to true which allows regular blocks to be processed in [DoDamage](../Damage%20pipeline/DoDamage.md) when FRAMEONE is active. This only happens if the action command was not overriden to [SequentialKeys](SequentialKeys.md).
 
 ## `timer` usage
-This represents the amount of frames to give to the player before the command fails. A value of -1 means inifnite time where it is not possible to fail the command.
+This represents the amount of frames to give to the player before the command fails. A value of -1.0 means inifnite time where it is not possible to fail the command.
 
 ## `data` array
 

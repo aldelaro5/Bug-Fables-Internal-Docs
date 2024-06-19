@@ -17,7 +17,7 @@ There are 4 parts to the coroutine, 2 of them depends on the commandtype.
 ### MainManager.`mashcommandalt` override
 If MainManager.`mashcommandalt` is true (meaning the game settings has Sequential Keys set), it overrides some parameters sent to the coroutine:
 
-- timer: If it's 0 or lower, it's overriden to 300.0 TODO: does this affect other commands than the 2 ???
+- timer: If it's 0 or lower, it's overriden to 300.0. NOTE: while the `timer` gets overriden regardless of the commandtype, in practice, this will only affect [TappingKey](Action%20commands/TappingKey.md) assuming correct usage because it is the only action command that supports a negative `timer` value as being valid. It does however mean that if a negative `timer` value is incorrectly sent, this logic will apply
 - commandtype: If it's [TappingKey](Action%20commands/TappingKey.md) or [RandomTappingBar](Action%20commands/RandomTappingBar.md), it is overriden to [SequentialKeys](Action%20commands/SequentialKeys.md)
 - data: This can be overriden depending on the commandtype (not overriden if it isn't in the list):
     - [TappingKey](Action%20commands/TappingKey.md): overriden to a new array with one element being `data[9]` if it exists or the value 6.0 if it doesn't.

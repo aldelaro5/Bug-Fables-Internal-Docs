@@ -41,7 +41,7 @@
     - Take 2.0 * `barfill` (3.0 * `barfill` instead if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped)
     - Ceil the result and clamp it from 1 to 99
     - Add 1 (Add 2 instead if `barfill` is 1.0 or higher)
-- `enemybounce` is set to a new array of one element being either null if targetentity's [deathtype](../../Actors%20states/Enemy%20features.md#deathtype) is 12 or if it isn't, a new BounceEnemy coroutine starting on targetentity TODO detail
+- `enemybounce` is set to a new array of one element being either null if targetentity's [deathtype](../../Actors%20states/Enemy%20features.md#deathtype) is 12 or if it isn't, a new BounceEnemy coroutine starting on targetentity. In practice, it means all but the `KeyR`, `KeyL`, `Tablet` [enemies](../../../Enums%20and%20IDs/Enemies.md#enemies) will have a BounceEnemy coroutine started on them if they are the target of this action
 - `Prefabs/Particles/Hurricane`'s particle emission's RateOverTime is set to 50.0 * `barfill` clamped from 20.0 to 50.0
 - `Prefabs/Objects/BeerangBattle` has a SpinAround added to it with a z `itself` of 35.0
 - `HurricaneBig` particles are played without destroy at the targetentity position

@@ -9,7 +9,7 @@
 ## Icicle launch
 This action doesn't feature an action command, but it does feature some logic involving an icicle being launch at an angle determined by the player. In a way, it's a "fake" action command because it's logic specific to this action, but it does involve user inputs.
 
-The way it works is after some initial animations, a new UI object called `crosshair` is created rooted to the scene with a sprite of `guisprites[41]` (a crosshair without its ring) on layer 15 (`3DUI`). From there TODO.
+The way it works is after some initial animations, a new UI object called `crosshair` is created rooted to the scene with a sprite of `guisprites[41]` (a crosshair without its ring) on layer 15 (`3DUI`).
 
 From there, all frames are yielded until the Confirm input is pressed, but before the yield, the `crosshair` z angle and x/y position changes. The angle is only for visual effects (it gets incremented by 5x the game's frametime each frame), but the position is what affects the action's logic. The x and y changes with a sin and cos curve respectively (the t term is Time.time):
 
