@@ -12,3 +12,6 @@ Most of the system is documented, but not all of it as they will be done at a la
 - Action commands
 - EventDialogue
 - All actions logic
+
+## Note regarding the 1.1.3 update
+These documentation aren't yet updated with the changes included in 1.1.3. Most of them impacts SetText. They will be updated at a later time.
