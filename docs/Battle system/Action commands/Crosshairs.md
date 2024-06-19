@@ -2,7 +2,7 @@
 A simple Confirm input prompt consisting of a ring that renders on an actor with its matching crosshair moving from a random position towards it which is then repeated multiple times. The goal of the command is to press Confirm when the crosshair falls inside its ring visually and to hit all of the Confirm inputs correctly in a row. If no Confirm inputs is done for any crosshairs or if Confirm is pressed too early, the command is a failure.
 
 ## `timer` usage
-The amount of frames the first crosshair will move before the command is considered a failure. This frames amount never changes for all crosshairs if `data[3]` doesn't exist and if it does, it will decrease by `data[3]` after each successful crosshair.
+The amount of frames the first crosshair will move before the command is considered a failure. -1.0 is not a supported value for this action command. This frames amount never changes for all crosshairs if `data[3]` doesn't exist and if it does, it will decrease by `data[3]` after each successful crosshair.
 
 ## `data` array
 
