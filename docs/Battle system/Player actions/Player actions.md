@@ -12,55 +12,55 @@ Here is the player actions table:
 
 |ID|Name|English Name|Notes|
 |-:|----|------------|-----|
-|-2|-|-|The action for using a `LonglegSummoner` [items](../../Enums%20and%20IDs/Items.md), documentation here TODO|
+|-2|-|-|The action for using a `LonglegSummoner` [items](../../Enums%20and%20IDs/Items.md). This action is documented [here](Items%20usage/LonglegSummoner.md)|
 |-1|-|-|Any player party member's basic attacks performed when confirming an [Attack](../Player%20UI/Confirmation%20handling/SelectEnemy.md#attack) in the player UI:<ul><li>[Bee](Basic%20attacks/Bee.md)</li><li>[Beetle](Basic%20attacks/Beetle.md)</li><li>[Moth](Basic%20attacks/Moth.md)</li></ul>|
-|0|RESERVED|RESERVED||
-|1|RESERVED2|RESERVED||
-|2|BeeRangMultiHit|Tornado Toss||
-|3|BeetleTaunt|Taunt||
-|4|Icefall|Icefall||
-|5|BeeFly|Fly Drop||
-|6|BeetleDig|Under Strike||
-|7|BubbleShield|Bubble Shield||
-|8|Empower|Charge Up||
-|9|PeebleToss|Pebble Toss||
-|10|HornDash|Dash Through||
-|11|SecretStash|Secret Stash||
-|12|DefenseBreak1|Break||
-|13|DefenseBreakAll|Break+||
-|14|AttackUp|Empower||
-|15|DefenseUp|Fortify||
-|16|NeedleToss|Needle Toss||
-|17|BubbleShieldLite|Bubble Shield Lite||
-|18|HurricaneBeemerang|Hurricane Toss||
-|19|PebbleTossPlus|Boulder Toss||
-|20|RevivalMassage|Revival Massage||
-|21|FrigidCoffin|Frigid Coffin||
-|22|ChargeUpPlus|Charge Up+||
-|23|EmpowerPlus|Empower+||
-|24|NeedlePincer|Needle Pincer||
-|25|IceRain|Ice Rain||
-|26|IceBeemerang|Frost Relay||
-|27|IceDrill|Frozen Drill||
-|28|AttackDown|Enfeeble||
-|29|AttackDownPlus|Enfeeble+||
-|30|DefenseUpPlus|Fortify+||
-|31|IceSphere|Frost Bowling||
-|32|HeavyStrike|Heavy Strike||
-|33|Sturdy|Sturdy||
-|34|FieldBeemerang|Beemerang Toss||
-|35|FieldHalt|Beemerang Halt||
-|36|FieldFly|Bee Fly||
-|37|FieldHorn|Horn Slash||
-|38|FieldDash|Horn Dash||
-|39|FieldDig|Beetle Dig||
-|40|FieldFreeze|Freeze||
-|41|FieldIcecle|Icicle||
-|42|FieldShield|Shield||
-|43|PepTalk|Pep Talk||
-|44|HeavyThrow|Heavy Throw||
-|45|SharingStash|Sharing Stash||
-|46|RoyalDecree|Royal Decree||
-|47|Cleanse|Cleanse||
-|48|HardCharge|Hard Charge||
-|49|FirstDash|Dash||
+|0|RESERVED|RESERVED|This action is UNUSED|
+|1|RESERVED2|RESERVED|This action is UNUSED|
+|2|[BeeRangMultiHit](Skills/BeeRangMultiHit.md)|Tornado Toss||
+|3|[BeetleTaunt](Skills/BeetleTaunt.md)|Taunt||
+|4|[Icefall](Skills/Icefall.md)|Icefall||
+|5|[BeeFly](Skills/BeeFly.md)|Fly Drop||
+|6|[BeetleDig](Skills/BeetleDig.md)|Under Strike||
+|7|[BubbleShield](Skills/BubbleShield.md)|Bubble Shield||
+|8|[Empower](Skills/Empower.md)|Charge Up||
+|9|[PeebleToss](Skills/PeebleToss.md)|Pebble Toss|This is also the action used for every toss item usage other than `LonglegSummoner`. Anything not in the following list will default to the [default item toss action](Items%20usage/Default%20toss%20action.md):<ul><li>[abombhoney](Items%20usage/Abombhoney.md)</li><li>[BurlyBomb](Items%20usage/BurlyBomb.md)</li><li>[CherryBomb](Items%20usage/CherryBomb.md)</li><li>[ClearBomb](Items%20usage/ClearBomb.md)</li><li>[FlameRock](Items%20usage/FlameRock.md)</li><li>[FrostBomb](Items%20usage/FrostBomb.md)</li><li>[HardSeed](Items%20usage/HardSeed.md)</li><li>[Ice](Items%20usage/Ice.md)</li><li>[NumbBomb](Items%20usage/NumbBomb.md)</li><li>[NumbDart](Items%20usage/NumbDart.md)</li><li>[PoisonBomb](Items%20usage/PoisonBomb.md)</li><li>[PoisonDart](Items%20usage/PoisonDart.md)</li><li>[SleepBomb](Items%20usage/SleepBomb.md)</li><li>[SpicyBomb](Items%20usage/SpicyBomb.md)</li></ul>|
+|10|[HornDash](Skills/HornDash.md)|Dash Through||
+|11|[SecretStash](Skills/SecretStash.md)|Secret Stash||
+|12|[DefenseBreak1](Skills/DefenseBreak1.md)|Break||
+|13|[DefenseBreakAll](Skills/DefenseBreakAll.md)|Break+||
+|14|[AttackUp](Skills/AttackUp.md)|Empower||
+|15|[DefenseUp](Skills/DefenseUp.md)|Fortify||
+|16|[NeedleToss](Skills/NeedleToss.md)|Needle Toss||
+|17|[BubbleShieldLite](Skills/BubbleShieldLite.md)|Bubble Shield Lite||
+|18|[HurricaneBeemerang](Skills/HurricaneBeemerang.md)|Hurricane Toss||
+|19|[PebbleTossPlus](Skills/PebbleTossPlus.md)|Boulder Toss||
+|20|RevivalMassage|Revival Massage|There is no action for this skill|
+|21|[FrigidCoffin](Skills/FrigidCoffin.md)|Frigid Coffin||
+|22|[ChargeUpPlus](Skills/ChargeUpPlus.md)|Charge Up+||
+|23|[EmpowerPlus](Skills/EmpowerPlus.md)|Empower+||
+|24|[NeedlePincer](Skills/NeedlePincer.md)|Needle Pincer||
+|25|[IceRain](Skills/IceRain.md)|Ice Rain||
+|26|[IceBeemerang](Skills/IceBeemerang.md)|Frost Relay||
+|27|[IceDrill](Skills/IceDrill.md)|Frozen Drill||
+|28|[AttackDown](Skills/AttackDown.md)|Enfeeble||
+|29|[AttackDownPlus](Skills/AttackDownPlus.md)|Enfeeble+||
+|30|[DefenseUpPlus](Skills/DefenseUpPlus.md)|Fortify+||
+|31|[IceSphere](Skills/IceSphere.md)|Frost Bowling||
+|32|[HeavyStrike](Skills/HeavyStrike.md)|Heavy Strike||
+|33|[Sturdy](Skills/Sturdy.md)|Sturdy||
+|34|FieldBeemerang|Beemerang Toss|There is no action for this skill|
+|35|FieldHalt|Beemerang Halt|There is no action for this skill|
+|36|FieldFly|Bee Fly|There is no action for this skill|
+|37|FieldHorn|Horn Slash|There is no action for this skill|
+|38|FieldDash|Horn Dash|There is no action for this skill|
+|39|FieldDig|Beetle Dig|There is no action for this skill|
+|40|FieldFreeze|Freeze|There is no action for this skill|
+|41|FieldIcecle|Icicle|There is no action for this skill|
+|42|FieldShield|Shield|There is no action for this skill|
+|43|[PepTalk](Skills/PepTalk.md)|Pep Talk||
+|44|[HeavyThrow](Skills/HeavyThrow.md)|Heavy Throw||
+|45|[SharingStash](Skills/SharingStash.md)|Sharing Stash||
+|46|[RoyalDecree](Skills/RoyalDecree.md)|Royal Decree||
+|47|[Cleanse](Skills/Cleanse.md)|Cleanse||
+|48|[HardCharge](Skills/HardCharge.md)|Hard Charge||
+|49|FirstDash|Dash|There is no action for this skill|
