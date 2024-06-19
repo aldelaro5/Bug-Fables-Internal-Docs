@@ -3,7 +3,7 @@ This action coroutine allows an actor to perform an action which is an hardcoded
 
 The vast majority of the logic of this coroutine are contained in the individual actions, but this page will focus on documenting the surrounding code as the actions will be documented somewhere else.
 
-TODO: Document all player and enemy actions in part 3 of the battle docs
+TODO: Document all enemy actions
 
 ```cs
 private IEnumerator DoAction(EntityControl entity, int actionid)
@@ -116,7 +116,7 @@ Finally, all frames are yielded while `checkingdead` is in progress (which would
 #### Player action procedure
 The actionid directly tells what action will be performed by a switch on it. Unlike enemy actions, there is no loop so the action is performed once and then completes.
 
-TODO: document the player actions in part 3 of the battle docs in a separate place
+For more information on the player actions logic, consult the main [player actions](../../Player%20actions/Player%20actions.md) documentation page.
 
 ### Enemy action
 This phase applies if the entity doesn't have a `Player` tag unless it's not the first `enemydata` whenever `firststrike` is true, but as mentioned in the setup phase, this never happens under normal gameplay.
