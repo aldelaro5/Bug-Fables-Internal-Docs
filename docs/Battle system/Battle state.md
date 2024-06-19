@@ -80,7 +80,7 @@ This is all the BattleControl fields.
 |successfulchain|int|No|The amount of sucessful inputs perfomred in a `LongRandomBar` action commands during [DoCommand](DoCommand.md)|
 |presskey|int|No|A general purpose input id for use in [DoCommand](DoCommand.md)|
 |barfill|float|No|A number between 0.0 and 1.0 that tells the ratio of an action command's bar's filled portion which is managed by [DoCommand](DoCommand.md)|
-|infinitecommand|bool|No|If true, action commands processed by [DoCommand](DoCommand.md) will use their infinite variant TODO: define what this is in part 3|
+|infinitecommand|bool|No|If true, action commands processed by [DoCommand](DoCommand.md) will use their infinite variant. NOTE: Only the [SequentialKeys](Action%20commands/SequentialKeys.md#infinitecommand-feature) support this feature|
 |killinput|bool|No|Used for the `PressKey` action command that when set to true, [DoCommand](DoCommand.md) will stop listening for inputs|
 |commandsuccess|bool|Yes|Tells if the last action command succeeded or tell if the player is currently blocking (tracked by [GetBlock](Battle%20flow/GetBlock.md))|
 |buttons|ButtonSprite\[\]|No|A general purpose array of ButtonSprites for use in [DoCommand](DoCommand.md)|
