@@ -7,7 +7,7 @@ private IEnumerator DoCommand(float timer, ActionCommands commandtype, float[] d
 
 ## Parameters
 
-- `timer`: ???
+- `timer`: A parameter to send to the action command. Its specific meaning varies depending on the command.
 - `commandtype`: The [ActionCommands](ActionCommands.md) to process
 - `data`: General purpose array that controls the action commands
 
