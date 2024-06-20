@@ -14,7 +14,7 @@ A single target slashing attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This `CodrdycepsAnt`|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
