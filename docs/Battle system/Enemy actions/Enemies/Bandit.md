@@ -1,0 +1,5 @@
+# `Bandit`
+
+## Action logic
+
+TODO

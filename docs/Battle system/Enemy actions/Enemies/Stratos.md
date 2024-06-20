@@ -1,0 +1,5 @@
+# `Stratos`
+
+## Action logic
+
+TODO

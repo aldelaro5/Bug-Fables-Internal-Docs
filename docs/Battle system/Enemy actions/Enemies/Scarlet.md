@@ -1,0 +1,5 @@
+# `Scarlet`
+
+## Action logic
+
+TODO
