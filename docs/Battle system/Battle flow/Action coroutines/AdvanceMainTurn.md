@@ -43,7 +43,7 @@ This is an action coroutine that runs at the very end of every main turn when bo
 ### `delprojs` advance
 `delprojs` (or [delayed projectiles](../../Actors%20states/Delayed%20projectile.md#delayedprojectiledata)) are projectiles that an enemy can launch and the projectile will only hit the targetted player party member after a certain amount of main turns passed. This section processes them.
 
-The first thing that happens is `nonphysical` is set to true (it will be set to false after this section).
+The first thing that happens is `nonphyscal` is set to true (it will be set to false after this section).
 
 From there, for each `delprojs` (going from last to start), the delproj's `turns` gets decremented and if it reached 0, it will land by doing the following:
 
