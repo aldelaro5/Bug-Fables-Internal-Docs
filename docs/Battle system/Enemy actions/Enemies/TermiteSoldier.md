@@ -1,0 +1,5 @@
+# `TermiteSoldier`
+
+## Action logic
+
+TODO

@@ -1,0 +1,5 @@
+# `Mantidfly`
+
+## Action logic
+
+TODO

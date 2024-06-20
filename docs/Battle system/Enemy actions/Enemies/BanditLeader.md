@@ -1,0 +1,5 @@
+# `BanditLeader`
+
+## Action logic
+
+TODO

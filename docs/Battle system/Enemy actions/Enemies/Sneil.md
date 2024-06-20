@@ -1,0 +1,5 @@
+# `Sneil`
+
+## Action logic
+
+TODO

@@ -1,0 +1,5 @@
+# `ChomperBrute`
+
+## Action logic
+
+TODO
