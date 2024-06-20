@@ -62,3 +62,10 @@ The overall targetting odds are as follows:
 |3|Front|9/25|8/25|8/25|
 |3|Second|18/25|1/25|6/25|
 |3|Third|18/25|6/25|1/25|
+
+### GetSingleTarget
+This is a parameterless method that ends up calling GetRandomAvailablePlayer with nullable to false. That method is called GetSingleTarget.
+
+The only thing it does is take the return of GetRandomAvailablePlayer and set it to `playertargetID` which is better for use in [DoAction](../../Battle%20flow/Action%20coroutines/DoAction.md) for an enemy party member because it allows to easily set who the enemy will be targetting.
+
+It also sets `playertargetentitty` to the corresponding battleentity of the `playertargetID`, but only if it's not negative (which can't happen normally).
