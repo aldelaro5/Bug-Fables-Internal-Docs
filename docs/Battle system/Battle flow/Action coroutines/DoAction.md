@@ -51,7 +51,7 @@ What follows is a bunch of field value resets:
 |`barfill`|0.0|
 |`weakenemyfound`|false|
 |`killinput`|false|
-|`nonphysical`|false|
+|`nonphyscal`|false|
 |`commandsuccess`|false|
 
 From there, a couple of local variables are initialised that may be used in the actions logic:

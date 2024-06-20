@@ -11,7 +11,7 @@ The coroutine expects `playerdata[currentturn]` to be the player party member th
 - `blockcooldown` is set to 0.0
 - `combo` is set to 0
 - `killinput` is set to false
-- `nonphysical` is set to false
+- `nonphyscal` is set to false
 - `commandsuccess` is set to false
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called
 

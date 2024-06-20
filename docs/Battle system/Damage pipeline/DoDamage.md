@@ -167,7 +167,7 @@ This part only happens if all of the following are true:
 - The `SpikeBod` [medal](../../Enums%20and%20IDs/Medal.md) is equipped
 - target.`trueid` is 1 (The target's [animid](../../Enums%20and%20IDs/AnimIDs.md) is `Beetle`)
 - block is true
-- `nonphysical` is false
+- `nonphyscal` is false
 - There is an attacker (assumed to be an enemy party member)
 
 In that case, the attacker will get damaged which goes like the following:
@@ -182,7 +182,7 @@ This part only happens if all of the following are true:
 - The `PoisonTouch` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the target
 - The target has the [Poison](../Actors%20states/BattleCondition/Poison.md) condition
 - There is an attacker (assumed to be an enemy party member) and its `poisonres` is less than 100 (it's not immune to [poison](../Actors%20states/BattleCondition/Poison.md) inflictions)
-- `nonphysical` is false
+- `nonphyscal` is false
 
 If all of the above are fufilled, [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called to set the [Poison](../Actors%20states/BattleCondition/Poison.md) condition on the corresponding enemy party member of the attacker for 2 turns
 

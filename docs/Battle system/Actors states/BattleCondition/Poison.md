@@ -37,7 +37,7 @@ This condition allows the The `PoisonTouch` [medal](../../../Enums%20and%20IDs/M
 
 - The attacker is an enemy party member
 - The attacker's `poisonres` is less than 100 (it's not immune)
-- `nonphysical` is false
+- `nonphyscal` is false
 
 If all of the above are fufilled, [SetCondition](../Conditions%20methods/SetCondition.md) is called to set the [Poison](Poison.md) condition on the corresponding enemy party member of the attacker for 2 turns.
 
