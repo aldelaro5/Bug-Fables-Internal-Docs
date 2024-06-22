@@ -4,12 +4,14 @@ Certain [enemies](../../Enums%20and%20IDs/Enemies.md) can opt in to some feature
 ## `eventondeath`
 This feature allows to trigger an [EventDialogue](../Battle%20flow/EventDialogue.md) when the enemy party member dies.
 
-If the value isn't -1 and the enemy party member was detected dead (without `flee`) by [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) while `inevent` is false, an [EventDialogue](../Battle%20flow/EventDialogue.md) whose id is the `eventondeath` will be triggered.
+If the value isn't -1 and the enemy party member was detected dead (without `flee`) by [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) while `inevent` is false (meaning an EventDialogue wasn't in progress already), an [EventDialogue](../Battle%20flow/EventDialogue.md) whose id is the `eventondeath` will be triggered.
 
 ## `eventonfall`
 This feature allows to trigger an [EventDialogue](../Battle%20flow/EventDialogue.md) when the enemy party member drops.
 
 When set to any non negative value, whenever [CalculateBaseDamage](../Damage%20pipeline/CalculateBaseDamage.md) detects that the enemy party memeber should be dropped, it won't do it as it would have normally. Instead, it will set `calleventnext` to `eventonfall` which has the effect that on the next [CheckEvent](../Battle%20flow/Update%20flows/Controlled%20flow.md), the [EventDialogue](../Battle%20flow/EventDialogue.md) whose id was `eventonfall` will be triggered.
+
+NOTE: This feature, while fully functional is UNUSED in practice. No actual [enemy data](../../TextAsset%20Data/Enemies%20data.md#enemydata-data) entry has any non negative values.
 
 ## `moves`
 The value of this field determines the base amount of actor turn an enemy is allowed to have per main turn.
