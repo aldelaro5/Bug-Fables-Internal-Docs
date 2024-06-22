@@ -44,10 +44,10 @@ Here is a list of the conditions and what happens with them (only the first one 
 - The first `enemydata` has an `animid` (an [enemy](../../../Enums%20and%20IDs/Enemies.md) id) of `Spuder` and [flag](../../../Flags%20arrays/flags.md) 27 is false (haven't gotten past the cutscene of meeting Leif yet), some logic occurs:
     - The `Spuder` enemy gets their `hp` set to 999 and `def` to 99
     - If the `Spuder` enemy didn't had a weakness of `AntiPierce`, it is added to [weakness](../../Actors%20states/Enemy%20features.md#weakness)
-    - If `turns` is 2 and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 2, [EventDialogue](../EventDialogue.md) 4 is started
+    - If `turns` is 2 and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 0, [EventDialogue](../EventDialogue.md) 4 is started
     - Otherwise, if `turns` is 3 and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 1, [ExitBattle](../Terminal%20wrappers/ExitBattle.md) is called which will change to a [terminal flow](Terminal%20flow.md)
     - Otherwise, if `turns` % 2 is 0 while being above 0 and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 2, [EventDialogue](../EventDialogue.md) 5 is started
-- [flag](../../../Flags%20arrays/flags.md) 16 is true (Leif can fight in battle) and [flag](../../../Flags%20arrays/flags.md) 27 is false (haven't received the Relay tutorial yet), [EventDialogue](../EventDialogue.md) 3 is started
+- [flag](../../../Flags%20arrays/flags.md) 16 is true (Leif can fight in battle) and [flag](../../../Flags%20arrays/flags.md) 24 is false (haven't received the Relay tutorial yet), [EventDialogue](../EventDialogue.md) 3 is started
 - [EventDialogue](../EventDialogue.md) 7 is started followed by [flagvar](../../../Flags%20arrays/flagvar.md) 11 being set to 200 when all of the following are true:
     - [flag](../../../Flags%20arrays/flags.md) 37 is false (using the B.O.S.S system in EX mode)
     - [flagvar](../../../Flags%20arrays/flagvar.md) 11 is below 200, [flag](../../../Flags%20arrays/flags.md) 27 is true (got past the cutscene of meeting Leif for the first time)
