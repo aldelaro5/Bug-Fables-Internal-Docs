@@ -34,11 +34,11 @@ Here are all the EventDialogues defined along with links to their detail:
 |[1](Combat%20tutorials.md#eventdialogue-1)|Part of the combat tutorial about turn flow|
 |[2](Combat%20tutorials.md#eventdialogue-2)|Skills tutorial|
 |[3](Combat%20tutorials.md#eventdialogue-3)|Turn Relay tutorial|
-|4|`Spuder` first encounter event|
-|5|`Spuder` second encounter event|
-|6|`MothWeb` death event|
-|7|`Spuder` third encounter event when they are past an `hp` treshold|
-|8|`Spuder` third encounter event when starting the battle with its `moves` set to 2|
+|[4](EventDialogues/Spuder.md#eventdialogue-4)|`Spuder` first encounter event|
+|[5](EventDialogues/Spuder.md#eventdialogue-5)|`Spuder` second encounter event|
+|[6](EventDialogues/Spuder.md#eventdialogue-6)|`MothWeb` death event|
+|[7](EventDialogues/Spuder.md#eventdialogue-7)|`Spuder` third encounter event when they are past an `hp` treshold|
+|[8](EventDialogues/Spuder.md#eventdialogue-8)|`Spuder` third encounter event when starting the battle with its `moves` set to 2|
 |9|`Acolyte` and `AcolyteVine` death event|
 |10|`VenusBos` death event|
 |11|`Scarlet` death event|
