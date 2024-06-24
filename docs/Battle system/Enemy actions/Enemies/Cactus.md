@@ -28,7 +28,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
-## Logic sequence
+### Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - Camera moves to look near this enemy, but zoomed in
@@ -61,7 +61,7 @@ A single target spin attack
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
-## Logic sequence
+### Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - Camera moves to look near `playerdata[playertargetID]`, but zoomed in
