@@ -62,6 +62,7 @@ A single target bite attack
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - `Scuttle2` sound plays via PlayMoveSound on loop using `sounds[9]` with 0.9 pitch and 0.8 volume
+- Camera moves to look near `playerdata[playertargetID]`
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) the `playertargetID` player party member postion + (1.1, 0.0, -0.25) with a multiplier of 1.3333334
 - Yield all frames until `forcemove` is done
 - `sounds[9]` stopped
@@ -119,10 +120,12 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 - `Blosh` sound plays
 - animstate set to 113
+- Camera moves to look at this enemy, but zoomed in
 - Yield for 1 second
 - `Clomp` sound plays
 - Yield for 0.75 seconds
 - animstate set to 104
+- [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
 - `Mist` sound plays
 - `poisonsmoke` particles plays near this enemy
 - [CreateHelpBox](../../Visual%20rendering/CreateHelpBox.md) called with 4 (the `TappingKey` command's help)
@@ -149,7 +152,9 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 - animstate set to 109
 - `Blosh` sound plays
+- Camera moves to look at this enemy, but zoomed in
 - Yield for 1.25 seconds
+- Camera moves to look near the center between this enemy and `playerdata[0]`
 - animstate set to 111
 - `Wub` sound plays on loop using `sounds[9]` with 0.7 pitch
 - The amount of bubbles to throw is determined which depends on if `hp` is less than `maxhp` / 2 floored. If it's not, it's 1 bubble thrown and if it is, it's 2 bubbles

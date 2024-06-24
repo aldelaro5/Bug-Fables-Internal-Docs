@@ -20,6 +20,7 @@ A single target slashing attack
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - `Scuttle` sound plays on `sounds[9]` at 0.8 pitch 0.7 volume on loop
+- Camera moves to look near `playerdata[playertargetID]`
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) slightly to the right of `playertargetID` player party member with a walkstate of 23 (`Chase`)
 - Yield until `forcemove` is done
 - `sounds[9]` stopped

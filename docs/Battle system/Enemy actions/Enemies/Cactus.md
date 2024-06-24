@@ -31,6 +31,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 ## Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
+- Camera moves to look near this enemy, but zoomed in
 - `Charge7` sound plays
 - animstate set to 102
 - Yield for 0.5 seconds
@@ -40,6 +41,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - TempSpin called for (0.0, 20.0, 0.0) for 0.5 time
 - [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) called
 - 4 SpriteRenderers are created to be new sprite object using the instance.`projectilepsrites[8]` sprite (a small spike) near the startp with z angles being 0.0, -45.0, -45.0 and -90.0 (meaning only 3 are visible, but one is vertically aligned with the player party) Each have their normalized left vector stored in a local array which represents their heading direction (which is in a straight line away from the enemy)
+- Camera moves to look near the `playertargetentity`
 - `PingShot` sound plays
 - Over the course of 30.0 frames (25.0 if hardmode is true), all 4 spike projectiles moves away from the enemy in their heading direction towards the distance between startp and `playertargetentity`. The first one however specifically goes towards the `playertargetentity` position + 1.0 in y. Before each frame yield, the z angle of the projectly increased by 5 * the game's frametime
 - DoDamage 1 call happens
@@ -62,6 +64,7 @@ A single target spin attack
 ## Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
+- Camera moves to look near `playerdata[playertargetID]`, but zoomed in
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) `playerdata[playertargetID]` + 3.5 in x with 2.0 multiplier using the current animstate for start and stop
 - Yield all frames until `forcemove` is done
 - `Charge7` sound plays
