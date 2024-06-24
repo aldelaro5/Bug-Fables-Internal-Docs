@@ -37,6 +37,7 @@ A single target aerial spin attack
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) called
 - `Fly` sound played on loop using `sounds[8]` with 0.5 pitch
+- Camera moves to look near `playerdata[playertargetID]`
 - [position](../../Actors%20states/BattlePosition.md) changes to `Flying`
 - `height` set to 0.125
 - `Idlef` animation clip played
@@ -72,12 +73,14 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) called
 - Yield all frames so that `height` decreases to 0.1 or below at a rate of 0.07 the game's frametime while using animstate 3 (`Fall`)
 - [position](../../Actors%20states/BattlePosition.md) changed to `Ground`
+- Camera moves to look at this enemy, but zoomed in
 - `height` set to 0.0
 - animstate set to 102
 - `Charge` sound plays with 0.8 pitch
 - Yield for 1.25 seconds
 - animstate set to 104
 - `Prefabs/Objects/PoisonBubble` instantiated at the enemy + (0.0, 2.0, 0.0)
+- [SeDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
 - `Blosh` sound plays
 - `Wub` sound plays on loop using `sounds[9]` with 0.7 pitch
 - Yield for 60.0 frames so that the `Prefabs/Objects/PoisonBubble` moves towards the target + (0.0, 1.0, 0.0) using a BeizierCurve3 with a ymax of 5.0
