@@ -66,7 +66,7 @@ The second encounter is similar to the first, but with some key differences with
 
 This goes on infinetely because `Spuder`'s `hp` starts at 999 and `def` starts at 99. He is effectively not beatable (even if defeated, the event will proceed as normal). One thing does changes with its action logic compared to their first encounter: `tempdata` should be 1 at this point as it was set by the event that started this encounter.
 
-This means that he will always rise in the air to `Flying` if they were on `Ground`. He still will not drop down to `Ground` on his own even after 2 main turns, but if they fall as a result of a [DoDamage](../../Damage%20pipeline/DoDamage.md#dodamage), they will always rise back up to `Flying`.
+This means that he will always rise in the air to `Flying` on their first main turn. He still will not drop down to `Ground` on his own even after 2 main turns, but if they fall as a result of a [DoDamage](../../Damage%20pipeline/DoDamage.md#dodamage), their move selection changes to be a 50/50 between their bite attack and rising in the air. This is because at the end of the air rising move, `tempdata` is set to 0 if it was 1 so it won't get overriden again.
 
 ### EventDialogue 5
 This EventDialogue is some dialogues that reminds the player to defeat `MothWeb` after 2 main turns have passed:
