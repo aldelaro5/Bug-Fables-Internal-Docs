@@ -19,6 +19,12 @@ At the start of the action, if `data` is null or empty, it's initialised to be 1
     - 1: This enemy rose in the air to be `Flying` 2 main turns ago and it will drop down to `Ground` on the next main turn if it is still `Flying` by then which will change the value to -1
     - 2: This enemy rose in the air to be `Flying` on the last main turn and it will continue to be `Flying` on the next main turn if it is still `Flying` by then, but the value will decrease to 1
 
+## hardmode changes
+hardmode being true has 2 changes:
+
+- In the poison breath move, the [DoCommand](../../DoCommand.md) call (which is a [TappingKey](../../Action%20commands/TappingKey.md)) has `barfill` decrease 25% faster each frame. However, this change doesn't affect anything if `mashcommandalt` is true making the command a [SequentialKeys](../../Action%20commands/SequentialKeys.md)
+- In the poison bubble throw move, each bubbles takes 1 / 0.02 frames (50.0) for the projectile to move to its target instead of 1 / 0.0175 frames (~57.1429)
+
 ## Move selection
 4 moves are possible:
 

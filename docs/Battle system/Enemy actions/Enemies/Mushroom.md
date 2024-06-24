@@ -3,6 +3,9 @@
 ## randomposafter set to true
 This enemy action always sets the randomposafter local to true. This means that in [post-action](../../Battle%20flow/Action%20coroutines/DoAction.md#no-fled-enemy-post-action) when no enemy fled, this enemy's [position](../../Actors%20states/BattlePosition.md) will be randomly determined between `Ground` and `Flying`.
 
+## hardmode changes
+hardmode being true changes the odds in move selection to be unbiased to use any moves instead of being biased towards the aerial spin attack.
+
 ## Move selection
 2 moves are possible:
 
