@@ -7,7 +7,7 @@
 
 Move 1 is always done.
 
-## Move 1 - slash attack
+## Move 1 - Slash attack
 A single target slashing attack
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls

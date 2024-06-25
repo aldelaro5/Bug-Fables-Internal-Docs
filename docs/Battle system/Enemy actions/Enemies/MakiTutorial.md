@@ -14,7 +14,7 @@ It is also assumed that [flags](../../../Flags%20arrays/flags.md) 15 is false (h
 
 Move 1 is always done.
 
-## Move 1 - sword slash attack
+## Move 1 - Sword slash attack
 A single target sword slash attack
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls

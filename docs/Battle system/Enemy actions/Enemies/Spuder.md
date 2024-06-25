@@ -19,7 +19,7 @@ At the start of the action, if `data` is null or empty, it's initialised to be 1
     - 1: This enemy rose in the air to be `Flying` 2 main turns ago and it will drop down to `Ground` on the next main turn if it is still `Flying` by then which will change the value to -1
     - 2: This enemy rose in the air to be `Flying` on the last main turn and it will continue to be `Flying` on the next main turn if it is still `Flying` by then, but the value will decrease to 1
 
-## [HardMode](../../Damage%20pipeline/HardMode.md) changes changes
+## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true has 2 changes:
 
 - In the poison breath move, the [DoCommand](../../DoCommand.md) call (which is a [TappingKey](../../Action%20commands/TappingKey.md)) has `barfill` decrease 25% faster each frame. However, this change doesn't affect anything if `mashcommandalt` is true making the command a [SequentialKeys](../../Action%20commands/SequentialKeys.md)
