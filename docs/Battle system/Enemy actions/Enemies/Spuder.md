@@ -26,7 +26,7 @@ HardMode being true has 2 changes:
 - In the poison bubble throw move, each bubbles takes 1 / 0.02 frames (50.0) for the projectile to move to its target instead of 1 / 0.0175 frames (~57.1429)
 
 ## Move selection
-4 moves are possible:
+5 moves are possible:
 
 1. A Single target bite attack
 2. Rise in the air
