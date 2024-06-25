@@ -14,7 +14,7 @@ HardMode being true does 2 changes:
 
 The odds of which one is used is 50% each.
 
-## Move 1 - spike throw
+## Move 1 - Spike throw
 A single target spike throw
 
 ### `nonphyscal` set to true
@@ -50,7 +50,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - animstate set to 105
 - Yield for 0.8 seconds
 
-## Move 2 - spin attack
+## Move 2 - Spin attack
 A single target spin attack
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
