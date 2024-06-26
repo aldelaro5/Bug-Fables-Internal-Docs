@@ -42,7 +42,7 @@ The following logic is performed instead of any moves:
     - [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition on this enemy for 999999 turns
     - [StatEffect](../../Visual%20rendering/StatEffect.md) called with type 0 (red up arrow)
     - `BugWingFast` sound plays
-- Otherwise (there are at least 2 enemy party members):
+- Otherwise, if `charge` is less than 1:
     - `charge` is incremented
     - [StatEffect](../../Visual%20rendering/StatEffect.md) called with type 4 (green up arrow)
 - Yield for 0.65 seconds
