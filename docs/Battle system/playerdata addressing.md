@@ -66,9 +66,9 @@ This works because after [StartBattle](StartBattle.md), `partypointer` will hold
 This leads to different ways to address the party. Let's explore them.
 
 ### By `playerdata` index directly
-Unlike in the overworld, this addressing method is much less useful because it gives the player party member at a specific overworld formation position still (they aren't changed), but this is obviously not interesting in battles.
+The `battleentity` of the `playerdata` array will always be in `trueid` order no matter way. This essentially means that by addressing by `playerdata` index, it addresses by `trueid`, but only if it specifically concerns their `battleentity` which is separate from their `entity`. For example, [GetSingleTarget](Actors%20states/Targetting/GetRandomAvaliablePlayer.md) sets `playertargetID` to the `playerdata` index of the targetted player party member, but the same information tells who was targetted because this number is the `trueid` of the element too. It also represents the `animid` of the `battleentity` for the same reasons.
 
-Due to this, this mode of addressing is specific to just address all player party members regarless of anything such as in a standard loop as it's still the simplest way to address the party.
+Effectively, it's a way to address by `trueid` as long as it only concerns the `battleentity`.
 
 ### By the player party member's `trueid`
 Addressing by `trueid` becomes much more interesting in battle because since the party order didn't change any `animid` fields, it means `partypointer` resolves to the `trueid` and it now means it acomplishes a similar goal than what the overworld `animid` addressing means.
