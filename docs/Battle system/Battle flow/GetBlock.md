@@ -43,6 +43,11 @@ This results in the blocking timing to work no matter how the enemy action is pe
 ## Known issues with [DoCommand](../DoCommand.md)
 This system behaves unexpectedly when interacting with DoCommand. Check its documentation to learn more as it can end up splitting the block timing into 2 distrinct moments.
 
+## Known issue with FRAMEONE ([flags](../../Flags%20arrays/flags.md) 615)
+The way FRAMEONE is handled makes the value of `commandsuccess` missleading when used in [enemy actions](Action%20coroutines/DoAction.md#enemy-action). This is because GetBlock can report true making it seem like the player blocked, but it could have just been a regular block on FRAMEONE which aren't supposed to be allowed ([DoDamage](../Damage%20pipeline/DoDamage.md) will override it).
+
+It means that if an enemy action reads `commandsuccess`, it wouldn't be sufficient to determine if the blocking should count. If FRAMEONE is active, it will cause the enemy to change behavior even if a regular block was done which shouldn't count.
+
 ## Animation updates
 Other than managing blocking, it also manages animations of the player party members. The following happens happens for every player party members whose battleentity.`overrideanim` is false:
 

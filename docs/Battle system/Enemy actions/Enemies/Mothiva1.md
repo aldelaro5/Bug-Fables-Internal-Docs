@@ -136,7 +136,7 @@ If this move is performed as a result from a redirection of move 3 or 4 (singing
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
 |1|Always happen|This enemy|The selected `playertargetID`|2|null|null if `commandsuccess` is false and {[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim)} if it's true|`commandsuccess`|
-|2|Only happens if `commansuccess` was false in DoDamage 1 and if it does, done 3 times|null|The same as DoDamage 1|1|null|null|false|
+|2|Only happens if `commansuccess` was false in DoDamage 1 and if it was, done 3 times. NOTE: This doesn't take into account FRAMEONE meaning a regular block will prevent this call from happening even if DoDamage 1 ignored it due to FRAMEONE|null|The same as DoDamage 1|1|null|null|false|
 
 ### Logic sequence
 
