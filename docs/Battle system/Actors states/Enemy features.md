@@ -6,6 +6,8 @@ This feature allows to trigger an [EventDialogue](../Battle%20flow/EventDialogue
 
 If the value isn't -1 and the enemy party member was detected dead (without `flee`) by [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) while `inevent` is false (meaning an EventDialogue wasn't in progress already), an [EventDialogue](../Battle%20flow/EventDialogue.md) whose id is the `eventondeath` will be triggered.
 
+Note that this will intercept the normal death process that CheckDead normally does because it's possible that the EventDialogue wants to either not have the enemy party member dead or to handle the death in a custom manner.
+
 ## `eventonfall`
 This feature allows to trigger an [EventDialogue](../Battle%20flow/EventDialogue.md) when the enemy party member drops.
 
