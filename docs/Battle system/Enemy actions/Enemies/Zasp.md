@@ -190,7 +190,7 @@ This move always sets `dontusecharge` to true which means `charges` will get zer
 - animstate set to 8 (`Happy`)
 - Yield for 0.85 seconds
 - `Prefabs/Particles/AngryParticle` destroyed
-- `playertargetentity` animstated restored to its value before this action
+- `playertargetentity` animstate restored to its value before this action
 - If hardmode is true, `cantmove` is decremented (gives an additional actor turn to this enemy immediately)
 - `data[0]` set to 1 (this does effectively nothing, see the `data` usage section for why)
 
