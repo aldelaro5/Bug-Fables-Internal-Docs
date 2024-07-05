@@ -74,7 +74,7 @@ A single target undergound strike attack. [position](../../Actors%20states/Battl
 ### Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
-- `checkingdead` is set to a new UndergroundStrike coroutine with 3 damage, this enemy, no properties without saying underground
+- `checkingdead` is set to a new UndergroundStrike coroutine with 3 damage, this enemy, no properties without staying underground
 - Yield all frames until `checkingdead` goes to null (the coroutine is done)
 
 This is effectively what the coroutine does:

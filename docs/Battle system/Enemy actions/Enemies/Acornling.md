@@ -67,7 +67,7 @@ A single target headbonk attack
 - `checkingdead` set to a new SeedlingHeadbonk coroutine with 2 damage, actionid as the attacker id, no property and with skipwalk. This coroutine sets `checkingdead` to null when completed
 - Yield all frames until `checkingdead` is null
 
-Here is what Seedlingbonk effectively does with those parameters:
+Here is what SeedlingHeadbonk effectively does with those parameters:
 
 - `Jump` sound plays
 - [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) called

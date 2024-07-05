@@ -47,7 +47,7 @@ A single target aerial strike attack
 - `bobspeed` reset to `startbs`
 - FlipAngle called with setangle
 
-## Move 1 - Tackle attack
+## Move 2 - Tackle attack
 A single target tackle attack
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
