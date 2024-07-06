@@ -1,4 +1,4 @@
-# `Spuder` EventDialogues
+# [Spuder](../../Enemy%20actions/Enemies/Spuder.md) EventDialogues
 `Spuder` has very complex action logic involving [EventDialgoue](../EventDialogue.md) because there are 3 different encounters behavior for them that greatly changes their action logic:
 
 1. The first encounter happens when [flags](../../../Flags%20arrays/flags.md) 27 is false (not yet met with `Moth`) and [flagvar](../../../Flags%20arrays/flagvar.md) 11 is 0
