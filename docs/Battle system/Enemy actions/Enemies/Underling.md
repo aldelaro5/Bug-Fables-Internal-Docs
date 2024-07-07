@@ -92,7 +92,7 @@ Here is what SeedlingHeadbonk effectively does with those parameters:
 - Yield all frames until `onground` is true
 - Camera moves to look near `playertargetID`
 - Yield a frame
-- animstate set to 102
+- animstate set to 100
 - `Turn` sound plays
 - Over the course of 35.0 frames (but visually occurs as if it was 32.0 frames with the last 3 being padding), this enemy moves to `playertargetentity` position + (0.25, 2.8, -0.1) via a BeizierCurve3 with a ymax of 5.5 while the z angle gets a LerpAngle done to 180.0
 - DoDamage 1 call happens
