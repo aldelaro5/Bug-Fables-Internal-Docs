@@ -233,7 +233,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - `Sprites/Particles/plainheart` gets destroyed
 - DoDamage 1 call happens
 - `StatDown` sound plays
-- [StatEffect](../../Visual%20rendering/StatEffect.md) called on 
+- [StatEffect](../../Visual%20rendering/StatEffect.md) called on `playertargetentity` with type 3 (blue down arrow)
 - [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called on `playertargetentity` to inflict [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) for 3 main turns (2 main turns instead if `commandsuccess` is true which means the player blocked ignoring FRAMEONE). Effectively, it's 2 or 1 main turns since the current main turns ends soon after
 - Yield for 0.5 seconds
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
