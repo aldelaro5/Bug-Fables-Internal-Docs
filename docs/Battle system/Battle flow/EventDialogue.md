@@ -39,9 +39,9 @@ Here are all the EventDialogues defined along with links to their detail:
 |[6](EventDialogues/Spuder.md#eventdialogue-6)|`MothWeb` death event|
 |[7](EventDialogues/Spuder.md#eventdialogue-7)|`Spuder` third encounter event when they are past an `hp` treshold|
 |[8](EventDialogues/Spuder.md#eventdialogue-8)|`Spuder` third encounter event when starting the battle with its `moves` set to 2|
-|9|`Acolyte` and `AcolyteVine` death event|
-|10|`VenusBos` death event|
-|11|`Scarlet` death event|
+|[9](EventDialogues/Acolyte.md)|`Acolyte` and `AcolyteVine` death event|
+|[10](EventDialogues/VenusBoss.md)|`VenusBos` death event|
+|[11](EventDialogues/Scarlet.md)|`Scarlet` death event|
 |12|`Kali` death event|
 |13|`SandWyrmTail1` death event|
 |14|`SandWyrm` death event|
