@@ -65,27 +65,6 @@ This is what the coroutine effectively does:
 - `flip` is set to false
 - `checkingdead` set to null indicating the caller that the coroutine completed
 
-### Logic sequence
-
-- Yield a frame
-- [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
-- Camera moves to look near this enemy
-- `PingUp` sound plays
-- animstate set to 100
-- Over the course of 40.0 frames, `height` increases by 2.0 via a lerp
-- animstate set to 23 (`Chase`)
-- `trail` set to true
-- `sprite` z angle set to 20.0
-- Camera moves to look near `playertargetentity`
-- `PingShot` sound plays
-- `FastWoosh` sound plays
-- Over the course of 20.0 frames, `height` is lerped to 1.0 and position is lerped to from startp to `playertargetentity` position + (1.0, 0.0, -0.1)
-- `trail` set to false
-- DoDamage 1 call happens
-- Yield for 0.2 seconds
-- `sprite` angles reset to Vector3.zero
-- Over the course of 20.0 frames, `height` is lerped to `initialheight` and position is lerped to +1.5 in x
-
 ## Move 2 - Headbonk attack
 A single target headbonk attack.
 
