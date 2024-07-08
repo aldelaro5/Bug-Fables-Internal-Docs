@@ -112,7 +112,11 @@ If all the conditions are met, the revive occurs as follows:
 ### Enemy party advance and end of main turn process
 This section not only manages enemy turn advance, but it also does some end of main turn process because being in this section means the battle is not going to end.
 
-The first thing that happens is relating to the `FavoriteOne` [medal](../../../Enums%20and%20IDs/Medal.md) which is tracked by `attackedally`. If it's not negative, it means the player party member with the matching `trueid` was attacked and the other members should receive the medal's benefits. This is only done if there is more than 1 player party member's `hp` above 0 while not being `eatenby`. The process to apply the medal is as follows:
+The first thing that happens is relating to the `FavoriteOne` [medal](../../../Enums%20and%20IDs/Medal.md) which is tracked by `attackedally`. If it's not negative, it means the player party member with the matching `trueid` was attacked and the other members should receive the medal's benefits. This is only done if there is more than 1 player party member's `hp` above 0 while not being `eatenby`.
+
+NOTE: This imply that if the `attackedally` player party member got hit as well as another player party member on the same main turn, the logic won't happen because the game requires more than 1 player party members alive. This isn't correct: it should require at least 1 player party member alive instead of 2 or more.
+
+The process to apply the medal is as follows:
 
 - For each player party member whose `trueid` isn't `attackedally` with an `hp` above 0 and without the [Eaten](../../Actors%20states/BattleCondition/Eaten.md) condition:
     - battleentity.`emoticoncooldown` is set to 40.0
