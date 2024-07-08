@@ -40,9 +40,6 @@ After this enemy is loaded, there are some logic that happens with them on Start
 - `activeonpause` is set to true
 - A VenusBattle is added to the entity and SetUp such that it targets this enemy's `battleentity`. This allows the 2 entities to have special animation logic depending on each other's animation state. It's updated during Update, but it only includes visual changes.
 
-### Logic sequence
-
-
 ## Move selection
 6 moves are possible:
 
