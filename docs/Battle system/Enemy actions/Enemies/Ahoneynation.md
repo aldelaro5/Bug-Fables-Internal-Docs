@@ -18,7 +18,7 @@ HardMode being true does the following changes:
 3. Braces themselves to set `charge` to 2
 4. A party wide jump attack
 
-Move 4 is always used (and only used) if `basestate` isn't 0 (`Idle`). NOTE: This is assumed to be the case after move 3 was performed last actor turn since this one ultimately changes the `basestate` away from 0 (`Idle`) meaning it is assumed that move 4 will only be used when move 3 was the last move performed.
+Move 4 is always used (and only used) if `basestate` isn't 0 (`Idle`). NOTE: This is assumed to be the case after move 3 was performed last actor turn since this one ultimately changes the `basestate` away from 0 (`Idle`) meaning it is assumed that move 4 will only be used when move 3 was the last move performed. It doesn't seem to be possible under normal gameplay to get into a false positive.
 
 Move 1, 2 and 3 usage are determined from odds which changes when `hp` / `maxhp` floored is 0.6 or less (less than 60% `hp` remaining). However, move 2 and 3 have additional requirements that if failed when selecting the move, move 1 will be performed instead. Here are the odds and requirements"
 
@@ -106,7 +106,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
         - animstate and `basestate`: 0 (`Idle`)
         - `startscale`: 0.75x
         - `hp` and `maxhp`: divided by 3 floored
-        - `def`: decremented. NOTE: This can incorrectly result in a value of -1 which can impact the damage pipeline in unexpected ways and to cause [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#truedef) to incorrectly report a `?` defense value when this enemy won't have a `LimitX10` [weakness](../../Actors%20states/Enemy%20features.md#weakness)
+        - `def`: decremented. NOTE: This can incorrectly result in a value of -1 which can impact the damage pipeline in unexpected ways (such as increasing the result by 1) and to cause [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#truedef) to incorrectly report a `?` defense value when this enemy won't have a `LimitX10` [weakness](../../Actors%20states/Enemy%20features.md#weakness)
         - `exp`: 1 (0 instead if the `Ahoneynation`'s `hologram` is true)
         - `locktri`: true
         - `cantmove`: 1 (meaning this enemy cannot act on this main turn and needs to wait the current main turn advances)
