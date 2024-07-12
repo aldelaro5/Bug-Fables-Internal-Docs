@@ -121,6 +121,8 @@ While the DoDamage call features a `Pierce` property, the move ends up doing an 
 - The amount of turns to inflict is 3 instead of 2
 - The [Sturdy](../../Actors%20states/BattleCondition/Sturdy.md) condition on the target won't prevent the condition to be inflicted when it normally would have
 - The `StatusMirror` [medal](../../../Enums%20and%20IDs/Medal.md) does nothing when equipped on the target when it should have inflicted the condition back to this enemy
+- The `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) won't work despite the attack being physical
+- The condition infliction can still happen if the target has the [Numb](../../Actors%20states/BattleCondition/Numb.md) while having the `ShockTrooper` [medal](../../../Enums%20and%20IDs/Medal.md) equipped
 - The `Poison` sound is not played when it should have been
 
 ### Logic sequence
