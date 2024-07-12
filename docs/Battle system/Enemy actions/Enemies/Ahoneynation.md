@@ -115,7 +115,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 Braces themselves to set `charge` to 2. No damages are dealt. The `basestate` changes allowing move 4 (party wide jump attack) to be used on the next actor turn.
 
 ### `dontusecharge` set to true
-The `hitaction` logic always sets `dontusecharge` to true which means `charges` will get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
+This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
 
 ### Logic sequence
 

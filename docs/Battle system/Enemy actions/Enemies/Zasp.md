@@ -27,7 +27,7 @@ HardMode being true has 2 changes:
 This enemy supports `hitaction` logic and it will be performed when `hitaction` is true instead of any moves
 
 ### `dontusecharge` set to true
-The `hitaction` logic always sets `dontusecharge` to true which means `charges` will get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
+The `hitaction` logic always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
 
 ### Logic sequence
 The following logic is performed instead of any moves:
@@ -170,7 +170,7 @@ Instead of the move being performed, the action will continue to the next enemy 
 - `hp` / `maxhp` floored is less than 0.2 (less than 20% left)
 
 ### `dontusecharge` set to true
-This move always sets `dontusecharge` to true which means `charges` will get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action)
+This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action)
 
 ### Logic sequence
 
@@ -205,7 +205,7 @@ Instead of the move being performed, the action will continue to the next enemy 
 - `hp` / `maxhp` floored is more than 0.65 (more than 65% left)
 
 ### `dontusecharge` set to true
-This move always sets `dontusecharge` to true which means `charges` will get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action)
+This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action)
 
 ### Logic sequence
 
