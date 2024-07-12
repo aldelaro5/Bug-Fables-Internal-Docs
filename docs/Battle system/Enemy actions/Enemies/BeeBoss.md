@@ -8,6 +8,12 @@ At the start of the action, if `data` is null or empty, it's initialised to be 4
 - `data[2]`: This is set to 1 when the phase transition occurs in the pre move logiic when `hp` / `maxhp` reaches lower than 0.6 (less than 60% `hp` remaining) so it prevents the transition to happen again
 - `data[3]`: A counter that is set to 3 when the charge move is used and gets decremented if it was above 0 in the post move logic on every actor turns except when the charged dash attack move is used. The charge move requires this value to be at 0 to be used again which effectively means that when the charge move is used, it will not be used for the next 3 actor turns (the next one isn't counted and the next 2 won't have a charge usage because this value will be above 0). If the charge move is selected and this value is above 0, the missiles throw move will be used instead
 
+## [StartBattle](../../StartBattle.md) special logic
+This enemy has some special logic that happens on StartBattle after they are loaded:
+
+- `battlepos` set to (4.5, 0.0, 0.0)
+- position set to their `battlepos`
+
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
