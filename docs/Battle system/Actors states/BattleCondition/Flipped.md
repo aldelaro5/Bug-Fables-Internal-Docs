@@ -2,9 +2,9 @@
 An ephemeral condition specific to enemy party members that is only inflicted with a `Flip` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) to an enemy party member with a `Flip` [weakness](../../Damage%20pipeline/AttackProperty.md). It causes all the enemy party member's `def` to be ignored during damage calculation which is recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md). This process can be hampered by [Topple](Topple.md)'s defense mechanism if it applies. NOTE: The condition logic has caveats, check the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation to learn more.
 
 ## [IsStopped](../IsStopped.md)
-This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to. 
+This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
 
-NOTE: In practice, this being a stop condition doesn't do much because the battle system ensure it only has 1 turn on it and it gets removed manually before the enemy party member attacks.
+This however does not include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase) meaning enemy party members are allowed to act even with this condition. However, this will only have an effect if there are more than 1 main turns left on the condition because as explained further in the DoAction logic below, if only 1 main turn is left, DoAction will remove the condition immediately and the enemy party member gets to act. DoAction is called regardless, it's just that if there were more than 1 main turns, the enemy action logic part won't happen.
 
 ## [Relay](../../Battle%20flow/Action%20coroutines/Relay.md)
 This condition will not be transfered to the target of the relay if the relayer had a `RelayTransfer` [medal](../../../Enums%20and%20IDs/Medal.md). It should be noted that it is not possible to inflict this condition on a player party member under normal gameplay so this clause effectively does nothing.
@@ -27,6 +27,8 @@ Before an enemy party member acts, if it has this condition or [Topple](Topple.m
 - entity.`basestate` and entity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 0 (`Idle`)
 - startstate is set to 0 (`Idle`)
 - 0.1 seconds are yielded
+
+However, if more than 1 main turns is left, the entire enemy action is skipped and the coroutine proceeds to [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
 
 ## [ClearStatus](../Conditions%20methods/ClearStatus.md)
 This condition is excluded from removal meaning it will remain even after calling this method.
