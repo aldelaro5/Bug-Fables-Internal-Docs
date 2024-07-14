@@ -126,6 +126,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - Over the course of 61.0 frames (46.0 instead if hardmode is true), the `Prefabs/Objects/CrackedRock` moves to (-4.5, 1.0, 0.0) via a BeizierCurve3 with a ymax of 6.0
 - `Thud5` sound plays
 - `impactsmoke` particles plays at the `Prefabs/Objects/CrackedRock` position
+- ShakeScreen called with an ammount of 0.25 and frametimer of 0.65
 - A `Prefabs/Objects/CrackRockBreak` is instantiated with same position and scale as the `Prefabs/Objects/CrackedRock` (this gets destroyed in 60.0 seconds via the CrackRockBreak component attached to it) 
 - `Prefabs/Objects/CrackedRock` is destroyed
 - PartyDamage 1 call happens
