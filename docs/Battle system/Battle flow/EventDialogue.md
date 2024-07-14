@@ -42,7 +42,7 @@ Here are all the EventDialogues defined along with links to their detail:
 |[9](EventDialogues/Acolyte.md)|`Acolyte` and `AcolyteVine` death event|
 |[10](EventDialogues/VenusBoss.md)|`VenusBos` death event|
 |[11](EventDialogues/Scarlet.md)|`Scarlet` death event|
-|12|`Kali` death event|
+|[12](../Enemy%20actions/Enemies/Kali.md)|`Kali` death event|
 |[13](EventDialogues/SandWyrm%20and%20SandWyrmTail.md#eventdialogue-13)|`SandWyrmTail1` death event|
 |[14](EventDialogues/SandWyrm%20and%20SandWyrmTail.md#eventdialogue-14)|`SandWyrm` death event|
 |15|`Cenn` and `Pisci` first encounter fleeing event (also happens on their death)|
