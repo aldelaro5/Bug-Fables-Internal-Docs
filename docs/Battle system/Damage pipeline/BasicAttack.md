@@ -18,9 +18,10 @@ private IEnumerator BasicAttack(int enemyid, int walkstate, int attackstate, int
 - `property`: The property to send to the DoDamage call
 - `shake`: If it is above 0.0, the intensity of a ShakeSprite call to do on the enemy party member after they moved. If it's 0.0 or lower, the call doesn't happen
 - `delay`: The time in seconds to yield for right before the DoDamage call, but after the movement. It also specify 1/60th of the frametimer of the ShakeSprite call if `shake` is above 0.0
-- `sounds`: Specify the sounds to play before the yield and after the yield. 3 formats of this value are possible:
+- `sounds`: Specify the sounds to play before the yield and after the yield. 4 formats of this value are possible:
     - null or empty string: no sounds are played before and after the yield
-    - A non empty string without any `,` or a string that ends with `,`: The string represents the name of the AudioClip under `Audio/Sounds/` from the ressources tree to play before the yield, but no sound will be played after the yield
+    - A non empty string without any `,` or a string that ends with `,`: The string without any `,` represents the name of the AudioClip under `Audio/Sounds/` from the ressources tree to play before the yield, but no sound will be played after the yield
+    - A non empty string beginning with `,`: The string without any `,` represents the name of the AudioClip under `Audio/Sounds/` from the ressources tree to play after the yield, but no sound will be played before the yield
     - A non empty string with a `,` in the middle: The portion of the string before the `,` represents the name of the AudioClip under `Audio/Sounds/` from the ressources tree to play before the yield and the portion after the `,` represents the same, but played after the yield 
 - `dontgettarget`: If true, [GetSingleTarget](../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) won't be called. This is meant to only be used if it was called already by the caller as this coroutine will call it if the value is false
 
