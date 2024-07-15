@@ -27,7 +27,7 @@ A single target claw swipe that can hit twice.
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
 |1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
-|2|Only happens if after DoDamage 1, `hp` / `maxhp` floored is 0.5 or less (50% or less `hp` remaining)|This enemy|The same `playertargetID` as DoDamage 1|3|null|null|`commandsuccess`|
+|2|Only happens if after DoDamage 1, [HPPercent](../../Actors%20states/HPPercent.md) is 0.5 or less|This enemy|The same `playertargetID` as DoDamage 1|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -42,7 +42,7 @@ A single target claw swipe that can hit twice.
 - `ScorpionClaw2` sound plays
 - Yield for 0.05 seconds
 - DoDamage 1 call happens
-- If `hp` / `maxhp` is 0.5 or less (50% or less `hp` remaining):
+- If [HPPercent](../../Actors%20states/HPPercent.md) is 0.5 or less:
     - Yield for 0.35 seconds
     - `ScorpionClaw1` sound plays with 0.95 pitch
     - animstate set to 104

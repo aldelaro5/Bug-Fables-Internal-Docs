@@ -46,7 +46,7 @@ Here are all the move's base odds and their possible redirections:
 |Move|Base odds|Possible redirections|
 |---:|----------|----------------------|
 |1|3/7|None|
-|2|2/7|Move 1 if `hp` / `maxhp` is higher than 60%|
+|2|2/7|Move 1 if [HPPercent](../../Actors%20states/HPPercent.md) is higher than 0.6|
 |3|1/7|<ul><li>Move 1 or 2 determined randomly if any of the following is true<sup>1</sup>:<ul><li>`forceattack` isn't -1 (meaning the enemy party is affected by [BeetleTaunt](../../Player%20actions/Skills/BeetleTaunt.md))</li><li>[Zasp](Zasp.md) is not present in `enemydata`</li><li>[Zasp](Zasp.md) is [stopped](../../Actors%20states/IsStopped.md)</li></ul></li><li>Move 1 if the above didn't apply, but [Zasp](Zasp.md) already has the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition<sup>1</sup></li></ul>|
 |4|1/7|Move 1 or 2 determined randomly if any of the following is true<sup>1</sup>:<ul><li>hardmode is false</li><li>`forceattack` isn't -1 (meaning the enemy party is affected by [BeetleTaunt](../../Player%20actions/Skills/BeetleTaunt.md))</li><li>[Zasp](Zasp.md) is not present in `enemydata`</li><li>[Zasp](Zasp.md) is [stopped](../../Actors%20states/IsStopped.md)</li></ul>|
 |5|N/A|Move 2 if `data[0]` (amount of times revive was done) is at least 2 (at least 1 instead if hardmode is true) and a 51% RNG check passes|

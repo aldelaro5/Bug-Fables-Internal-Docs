@@ -13,8 +13,8 @@ At the start of the action, if `data` is null or empty, it's initialised to be 1
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does 5 changes:
 
-- The `hp` / `maxhp` threshold for getting a 999999 main turns [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition changes to 0.65 from 0.5 (meaning to 65% `hp` remaining from 50%) until `hp` goes above this threshold at which point, the condition is removed until it reaches the threshold again. This threshold also changes the moment that the `hp` drain fraction increases from 1/2 ceiled to 2/3 ceiled for every applicable move except the party wide explosion
-- On the first actor turn that `hp` / `maxhp` threshold reaches less than 0.4 (less than 40% `hp` remaining), this enemy will get a 999999 turns [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition which is never removed
+- The [HPPercent](../../Actors%20states/HPPercent.md) threshold for getting a 999999 main turns [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition changes to 0.65 from 0.5 until `hp` goes above this threshold at which point, the condition is removed until it reaches the threshold again. This threshold also changes the moment that the `hp` drain fraction increases from 1/2 ceiled to 2/3 ceiled for every applicable move except the party wide explosion
+- On the first actor turn that [HPPercent](../../Actors%20states/HPPercent.md) threshold reaches less than 0.4, this enemy will get a 999999 turns [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition which is never removed
 - In the shockwave attack move, the wave takes 25.0 frames instead of 35.0 frames to reach its target
 - In the heart projectile attack move, the heart takes 60.0 frames to reach its target instead of 80.0
 - In the umbrealla throw move, each half of the umbrealla trajectory takes 50.0 frames instead of 60.0 frames
@@ -30,9 +30,9 @@ HardMode being true does 5 changes:
 6. A party wide explosion attack that drains `hp`
 7. A single target umbrella throw that hits twice and drains `hp`
 
-The usage odds depends on odds and those odds changes depending if `hp` / `maxhp` floored is less than 0.45 or not (less than 45% of `hp` reamaining). Here are the odds in either situations:
+The usage odds depends on odds and those odds changes depending if [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.45 or not. Here are the odds in either situations:
 
-|Move|`hp` / `maxhp` >= 0.45|`hp` / `maxhp` < 0.45|
+|Move|[HPPercent](../../Actors%20states/HPPercent.md) >= 0.45|[HPPercent](../../Actors%20states/HPPercent.md) < 0.45|
 |---:|----------------------|---------------------|
 |1|2/9|3/13|
 |2|2/9|1/13|
@@ -44,13 +44,13 @@ The usage odds depends on odds and those odds changes depending if `hp` / `maxhp
 
 Selecting move 5 however will reroll the move selection if this enemy already has the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition.
 
-Selecting move 6 will also reroll the move selection if `hp` / `maxhp` is higher than 0.7 (more than 70% of `hp` remaining) or if `data[0]` is higher than 0 (meaning the actor turns cooldown on the move hasn't yet expired, see the `data` usage section for details).
+Selecting move 6 will also reroll the move selection if [HPPercent](../../Actors%20states/HPPercent.md) is higher than 0.7 or if `data[0]` is higher than 0 (meaning the actor turns cooldown on the move hasn't yet expired, see the `data` usage section for details).
 
 ## Pre move logic
 There's logic that always happen at the start of the action. There's 3 parts to it: the inifinite [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md), the infinite [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) and some logic that always happen.
 
 ### Infinite [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md)
-If `hp` / `maxhp` is less than 0.5 (0.65 is hardmode is true) and this enemy doesn't already have the `AttackUp` condition, the following happens to inflict it (it also increases the drain fractions of all moves except the explosion attack from 1/2 to 2/3):
+If [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.5 (0.65 is hardmode is true) and this enemy doesn't already have the `AttackUp` condition, the following happens to inflict it (it also increases the drain fractions of all moves except the explosion attack from 1/2 to 2/3):
 
 - `Charge10` sound plays
 - animstate set to 120
@@ -69,7 +69,7 @@ However, if they are above the `hp` threshold and they have the `AttackUp` condi
 - `basestate` set to 5 (`Angry`)
 
 ### Inifinite [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md)
-If hardmode is true, `hp` / `maxhp` is less than 0.4 and this enemy doesn't already have the `DefenseUp` condition, the following happens to inflict it (it is never removed):
+If hardmode is true, [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.4 and this enemy doesn't already have the `DefenseUp` condition, the following happens to inflict it (it is never removed):
 
 - `Charge10` sound plays
 - animstate set to 120

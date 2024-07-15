@@ -33,7 +33,7 @@ Supports another enemy party member by either healing them or inflicting them an
 
 ### Logic sequence
 
-- An enemy party member other than this enemy is searched to see if any has their `hp` / `maxhp` floored less than 0.6 (less than 60% `hp` remaining). If any exists, the first one will be selected for healing. Otherwise, a condition infliction will happen on a random enemy party member other than this enemy
+- An enemy party member other than this enemy is searched to see if any has their [HPPercent](../../Actors%20states/HPPercent.md) less than 0.6. If any exists, the first one will be selected for healing. Otherwise, a condition infliction will happen on a random enemy party member other than this enemy
 - `Toss2` sound plays on loop using `sounds[9]` with 1.1 pitch and 0.5 volume using PlayMoveSound
 - Camera moves to look near the targeted enemy party member
 - [ForceMove](../../../Entities/EntityControl/EntityControl%20Methods.md#forcemove) called to move to the targetted enemy party member's position + their `cursoroffset` + (0.0, 0.25, -0.1) with 60.0 frametime using 1 (`Walk`) as movestate and 0 (`Idle`) as stopstate

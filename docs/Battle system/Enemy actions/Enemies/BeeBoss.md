@@ -5,7 +5,7 @@ At the start of the action, if `data` is null or empty, it's initialised to be 4
 
 - `data[0]`: The amount of actor turns left before being able to use the summon move again after it was just used. When the move is used, the value is set to 3 meaning this enemy cannot use the summon move for the next 3 actor turns (the missiles throw move will be used instead if selected). The value is decremented in the pre move logic
 - `data[1]`: The amount of actor turns left before being able to launch a [delayed projectile](../../Actors%20states/Delayed%20projectile.md) in the post move logic again after one was just launched. When a delayed projectile is launched, the value is set to 4 meaning this enemy cannot launch another delayed projectile for the next 4 actor turns. The value is decremented in the pre move logic
-- `data[2]`: This is set to 1 when the phase transition occurs in the pre move logiic when `hp` / `maxhp` reaches lower than 0.6 (less than 60% `hp` remaining) so it prevents the transition to happen again
+- `data[2]`: This is set to 1 when the phase transition occurs in the pre move logiic when [HPPercent](../../Actors%20states/HPPercent.md) reaches lower than 0.6 so it prevents the transition to happen again
 - `data[3]`: A counter that is set to 3 when the charge move is used and gets decremented if it was above 0 in the post move logic on every actor turns except when the charged dash attack move is used. The charge move requires this value to be at 0 to be used again which effectively means that when the charge move is used, it will not be used for the next 3 actor turns (the next one isn't counted and the next 2 won't have a charge usage because this value will be above 0). If the charge move is selected and this value is above 0, the missiles throw move will be used instead
 
 ## [StartBattle](../../StartBattle.md) special logic
@@ -32,14 +32,14 @@ HardMode being true does the following changes:
 
 Move 5 will always be used (and can only be used) when `basestate` isn't 0 (`Idle`) or `charge` is above 0. NOTE: This is assumed to be the case after move 4 was performed last actor turn since this one ultimately changes the `basestate` away from 0 (`Idle`) meaning it is assumed that move 4 will only be used when move 3 was the last move performed. It doesn't seem to be possible under normal gameplay to get into a false positive.
 
-Move 1 through 4 usage are based on odds, but the odds changes depending if `hp` / `maxhp` floored is less than 0.5 or not (less than 50% `hp` remaining or not). Additionally, some moves have additional requirements that needs to be fufilled upon selecting the move. If those requirements aren't fufilled when the move is selected, another move will be used instead.
+Move 1 through 4 usage are based on odds, but the odds changes depending if [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.5 or not. Additionally, some moves have additional requirements that needs to be fufilled upon selecting the move. If those requirements aren't fufilled when the move is selected, another move will be used instead.
 
-|Move|Odds when `hp` / `maxhp` floored >= 0.5|Odds when `hp` / `maxhp` floored < 0.5|Requirements|Move used when requirements failed|
+|Move|Odds when [HPPercent](../../Actors%20states/HPPercent.md) >= 0.5|Odds when [HPPercent](../../Actors%20states/HPPercent.md) < 0.5|Requirements|Move used when requirements failed|
 |---:|-------------------------------|-----------------------------|------------|---------------------------------|
 |1|1/4|1/6|None|N/A|
 |2|1/4|2/6|None|N/A|
-|3|1/4|1/6|<ul><li>This is the last enemy party member left</li><li>`data[0]` is 0 (the actor turn cooldown on this move exhausted)</li><li>`hp` / `maxhp` floored is above 0.2 (more than 20% `hp` remaining)</li></ul>|Move 2|
-|4|1/4|2/6|<ul><li>`data[3]` is 0 (the actor turn cooldown on this move exhausted)</li><li>`hp` / `maxhp` floored is between 0.15 exclusive and 0.65 exclusive (between 15% exclusive and 65% exclusive `hp` remaining)</li></ul>|Move 2|
+|3|1/4|1/6|<ul><li>This is the last enemy party member left</li><li>`data[0]` is 0 (the actor turn cooldown on this move exhausted)</li><li>[HPPercent](../../Actors%20states/HPPercent.md) is above 0.2</li></ul>|Move 2|
+|4|1/4|2/6|<ul><li>`data[3]` is 0 (the actor turn cooldown on this move exhausted)</li><li>[HPPercent](../../Actors%20states/HPPercent.md) is between 0.15 exclusive and 0.65 exclusive</li></ul>|Move 2|
 
 ## Pre move logic
 There is logic that always happen at the start of the action. It's split in 3 parts that happens in the order mentioned.
@@ -64,7 +64,7 @@ The following logic always happen:
 - If `data[1]` is higher than 0, it is decremented (this is the [delayed projectile](../../Actors%20states/Delayed%20projectile.md) cooldown)
 
 ### Phase transition
-The following logic always happen if `data[2]` is 0 (this phase transition hasn't happened yet) and `hp` / `maxhp` is less than 0.65 (less than 65% `hp` remaining):
+The following logic always happen if `data[2]` is 0 (this phase transition hasn't happened yet) and [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.65:
 
 - animstate set to 108
 - `B33BotMalfunction` sound plays

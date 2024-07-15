@@ -3,7 +3,7 @@
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 1 element with a starting value of 0.
 
-- `data[0]`: When the value is 0, it means this enemy hasn't went through its phase transition yet which happens on the start of the actor turn if their `hp` / `maxhp` reaches 0.5 or below (50% or less `hp` remaining). When this transition occurs, the value is set to 1 so the transition only happens once per battle
+- `data[0]`: When the value is 0, it means this enemy hasn't went through its phase transition yet which happens on the start of the actor turn if their [HPPercent](../../Actors%20states/HPPercent.md) reaches 0.5 or below. When this transition occurs, the value is set to 1 so the transition only happens once per battle
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does 3 changes:
@@ -20,9 +20,9 @@ HardMode being true does 3 changes:
 3. Summons up to 2 new enemies from the seedlings family of enemies
 4. Multiple seeds throws targetting random player party members
 
-The move usage is based on odds, but those odds changes if `hp` / `maxhp` becomes 0.5 or lower (less than 50% `hp` remaining). Here are the base odds of each move in either situations:
+The move usage is based on odds, but those odds changes if [HPPercent](../../Actors%20states/HPPercent.md) becomes 0.5 or lower. Here are the base odds of each move in either situations:
 
-|Move|Odds when `hp` / `maxhp` > 0.5|Odds when `hp` / `maxhp` <= 0.5|
+|Move|Odds when [HPPercent](../../Actors%20states/HPPercent.md) > 0.5|Odds when [HPPercent](../../Actors%20states/HPPercent.md) <= 0.5|
 |---:|------------------------------|------------------------------|
 |1|Never used|4/11|
 |2|Never used|3/11|
@@ -31,14 +31,14 @@ The move usage is based on odds, but those odds changes if `hp` / `maxhp` become
 
 However, move 3 will not be used if there are already 3 or more enemy party members. What happens in that situation when it is selected is decided by the following logic:
 
-- If `hp` / `maxhp` is 0.5 or lower, Move 1 is used
+- If [HPPercent](../../Actors%20states/HPPercent.md) is 0.5 or lower, Move 1 is used
 - Otherwise, if hardmode is false, the entire action ends with no moves being used
 - Otherwise (hardmode is true), move 4 is used
 
 ## Pre move logic
 The following logic always happen at the start of the actor turn.
 
-The game determines if we are before or after phase transition threshold by checking if `hp` / `maxhp` floored is 0.5 or below. If it is and `data[0]` is 0, it means the transition has yet to happen. Notably, it sets `moves` to 2 which grants 2 actor turns per main turns to this enemy (excluding the current main turns). This is the phase transition logic:
+The game determines if we are before or after phase transition threshold by checking if [HPPercent](../../Actors%20states/HPPercent.md) is 0.5 or below. If it is and `data[0]` is 0, it means the transition has yet to happen. Notably, it sets `moves` to 2 which grants 2 actor turns per main turns to this enemy (excluding the current main turns). This is the phase transition logic:
 
 - If hardmode is true, [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition on the new enemy for 9999999 main turns (effectively infinite)
 - [Emoticon](../../../Entities/EntityControl/EntityControl%20Methods.md) called with emote `Exclamation` for 50 time

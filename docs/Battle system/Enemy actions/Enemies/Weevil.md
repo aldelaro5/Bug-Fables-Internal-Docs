@@ -14,7 +14,7 @@ HardMode being true does 2 changes:
 
 Move 2 is always used if all of the following conditions are fufilled:
 
-- `hp` / `maxhp` is less than 0.65 (less than 65% remaining `hp`)
+- [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.65
 - A 5/10 RNG check passes (8/10 instead if hardmode is true)
 - A [Seedling](Seedling.md), [AngryPlant](AngryPlant.md) or [FlyTrap](FlyTrap.md) is present among the enemy party
 - The applicable enemy party member's [position](../../Actors%20states/BattlePosition.md) is `Ground`

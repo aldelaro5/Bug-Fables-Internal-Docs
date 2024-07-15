@@ -9,7 +9,7 @@ During the action, if `data` is null or empty, it's initialised to be 1 element 
 HardMode being true does the following changes:
 
 - The RNG check required to use the [Ahoneynation](Ahoneynation.md) healing move when all other conditions are fufilled has its odds changed to 51% from 41%
-- The `hp` / `maxhp` floored threshold required to use the bomb transform move when all other conditions are fufilled changes to being below 0.75 from 0.5 (meaning 75% `hp` remaining instead of 50%)
+- The [HPPercent](../../Actors%20states/HPPercent.md) threshold required to use the bomb transform move when all other conditions are fufilled changes to being below 0.75 from 0.5
 - The RNG check required to use the bomb transform move when all other conditions are fufilled has its odds changed to 41% from 31%
 - In the bomb transformation move, this enemy gets a [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition for 99999 main turns (effectively infinite)
 
@@ -41,13 +41,13 @@ Every moves requires specific conditions to be used and some of them requires an
 - If [position](../../Actors%20states/BattlePosition.md) is `Underground`, move 2 is used
 - Otherwise, if all of the following conditions are fufilled, move 3 is used:
     - A [Ahoneynation](Ahoneynation.md) is present
-    - The first [Ahoneynation](Ahoneynation.md) in `enemydata` has an `hp` / `maxhp` floored below 0.6 (less than 60% `hp` remaining)
+    - The first [Ahoneynation](Ahoneynation.md) in `enemydata` has an [HPPercent](../../Actors%20states/HPPercent.md) below 0.6
     - `locktri` is true (this can only happen under normal gameplay if this enemy was summoned by [Ahoneynation](Ahoneynation.md))
     - A 41% RNG check passes (51% instead if hardmode is true)
 - Otherwise, if `data[0]` is 1 (meaning move 4 was used on their last actor turn), move 5 is used
 - Otherwise, move 4 is used if all of the following conditions are fufilled:
     - `locktri` is false (meaning this isn't an enemy summoned by [Ahoneynation](Ahoneynation.md))
-    - `hp` / `maxhp` floored is less than 0.5 (0.75 instead if hardmode is true). This means less than 50% (or 75%) `hp` remaining
+    - [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.5 (0.75 instead if hardmode is true)
     - A 31% RNG check passes (41% instead if hardmode is true)
 - Otherwise (no other moves was slated for usage), move 1 is used
 

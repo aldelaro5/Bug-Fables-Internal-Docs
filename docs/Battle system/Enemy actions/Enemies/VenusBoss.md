@@ -15,8 +15,8 @@ At the start of the action, if `data` is null or empty, it's initialised to be 3
     - 1: Set when using the arm sweep move which allows to play the `ArmSweep` animation clip on `extraanims[1]` (the arm of `VenusGuardian` facing the camera) when the animstate is 102
     - 2: Set when using the grounded seeds throw move or flying in the air move which allows to play the `ArmHold` animation clip on all `extraanims` (both arms of `VenusGuardian`) when the animstate is 100 or 102
 - `data[1]`: A phase tracker. There are 3 possible states:
-    - 0: The initial state. Nothing special happens until `hp` / `maxhp` floored is 0.65 or lower (65% or less `hp` remaining). On the first actor turn this happens, the first phase transition happens (more details in the pre logic section) and the value is set to 1
-    - 1: The second state reached when `hp` / `maxhp` floored reached 0.65 or lower. The value will stay at this state until `hp` / `maxhp` floored is 0.375 or lower (37.5% or less `hp` remaining) where the second phase transition happens (more details in the pre logic section) as well as using the enemy summon move for this actor turn. The value is then set to 2
+    - 0: The initial state. Nothing special happens until [HPPercent](../../Actors%20states/HPPercent.md) is 0.65 or lower. On the first actor turn this happens, the first phase transition happens (more details in the pre logic section) and the value is set to 1
+    - 1: The second state reached when [HPPercent](../../Actors%20states/HPPercent.md) reached 0.65 or lower. The value will stay at this state until [HPPercent](../../Actors%20states/HPPercent.md) is 0.375 or lower where the second phase transition happens (more details in the pre logic section) as well as using the enemy summon move for this actor turn. The value is then set to 2
     - 2: The last state. This value can no longer influence the action logic from now on when set to it
 - `data[2]`: This value is UNUSED
 
@@ -123,7 +123,7 @@ This logic happens when `data` first initialises. Since this can only happen on 
 - Yield for 0.5 seconds
 
 #### First phase transition
-When `data[1]` transitions from 0 to 1 as `hp` / `maxhp` floored reached 0.65 or lower (65% or less `hp` remaining), this is the logic that occurs:
+When `data[1]` transitions from 0 to 1 as [HPPercent](../../Actors%20states/HPPercent.md) reached 0.65 or lower, this is the logic that occurs:
 
 - Camera moves to look near (1.25, 1.5, 2.0)
 - Yield for 0.5 seconds
@@ -143,7 +143,7 @@ When `data[1]` transitions from 0 to 1 as `hp` / `maxhp` floored reached 0.65 or
 On top of this, until the second phase transition, move 4 (flying in the air) will always be used from now on if [position](../../Actors%20states/BattlePosition.md) is `Ground` meaning move 6 (aerial seed throw) will always be used.
 
 #### Second phase transition
-When `data[1]` transitions from 1 to 2 as `hp` / `maxhp` floored is 0.375 or lower (37.5% or less `hp` remaining), this is the logic that occurs:
+When `data[1]` transitions from 1 to 2 as [HPPercent](../../Actors%20states/HPPercent.md) is 0.375 or lower, this is the logic that occurs:
 
 - `extraentities[0]` (`Venus`) animstate set to 17 (`WeakBattleIdle`)
 - Camera moves to look near (1.25, 1.5, 2.0)
@@ -168,7 +168,7 @@ There is some logic that may happen after a move's usage, but only if all of the
 
 - Either move 1 or 2 was used or move 3 was used, but the additional quantity of seeds to throw was either 1 or 2 which has 2/3 chances to happen (2/4 instead if hardmode is true)
 - Either an RNG check passes with 21% (36% if hardmode is true) or all of the following conditions are fufilled at once:
-    - `hp` / `maxhp` floored is 0.33 or lower (33% or lower `hp` remaining)
+    - [HPPercent](../../Actors%20states/HPPercent.md) is 0.33 or lower
     - This enemy is the only enemy party member left
     - A 61% RNG check passes
 - This enemy doesn't already have the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition

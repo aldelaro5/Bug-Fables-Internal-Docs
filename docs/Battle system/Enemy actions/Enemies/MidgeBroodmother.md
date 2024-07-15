@@ -3,7 +3,7 @@
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
-- On the start of the first actor turn that `hp` / `maxhp` floored gets lower than 0.5 (50% `hp` remaining), a phase transition will happen that decrements this enemy's `cantmove` and sets the `moves` of this enemy to 2. The overall effect is this enemy now gets 2 actor turns per main turns including the current one
+- On the start of the first actor turn that [HPPercent](../../Actors%20states/HPPercent.md) gets lower than 0.5, a phase transition will happen that decrements this enemy's `cantmove` and sets the `moves` of this enemy to 2. The overall effect is this enemy now gets 2 actor turns per main turns including the current one
 - In the dash attack move, the total amount of frames the enemy moves towards the target and past it changes to 37.0 from 48.0
 - In the electric ball projectile throw move, the odds to use the [Delayed Projectile](../../Actors%20states/Delayed%20projectile.md) version when there are no `delprojs` changes to 41% from 33%
 - In the electric ball projectile throw move (multiple hits version), the amount of projectiles to throw changes to be random between 2 and 3 instead of always being 2
@@ -35,7 +35,7 @@ The following logic always happen at the start of the actor turn:
 
 - `checkingdead` is set to a new [ChangePosition](../ChangePosition.md) call to set the [position](../../Actors%20states/BattlePosition.md) of this enemy. The position to set is `Flying` unless move 2 (electric projectile throw) is slated for usage where the position is set to `Ground` instead
 - Yield all frames until `checkingdead` is null (the coroutine completed)
-- If hardmode is true, `hp` / `maxhp` floored is less than 0.5 (less than 50% `hp` remaining) and `moves` is 1 (meaning the phase transition hasn't happened yet), a phase transition occurs which notably sets `moves` to 2:
+- If hardmode is true, [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.5 and `moves` is 1 (meaning the phase transition hasn't happened yet), a phase transition occurs which notably sets `moves` to 2:
     - ShakeSprite called with 0.1 intensity and 30.0 frametimer
     - animstate set to 103
     - `Charge7` sound plays

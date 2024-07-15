@@ -57,7 +57,7 @@ If this enemy is the last enemy party member remaining, the following happens:
 - Yield all frames until `checkingdead` is null (the coroutine completed)
 
 ### Phase transition
-If `hp` / `maxhp` floored is less than 0.6 (less than 60% of `hp` remaining) and `moves` is still 1 (meaning the phase transition hasn't happened yet), the following phase transition occurs which notably sets `move` to 2 granting 2 actor turns per main turn to this enemy (excluding the current main turn):
+If [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.6 and `moves` is still 1 (meaning the phase transition hasn't happened yet), the following phase transition occurs which notably sets `move` to 2 granting 2 actor turns per main turn to this enemy (excluding the current main turn):
 
 - animstate set to 5 (`Angry`)
 - `Roat` sound plays with 1.1 pitch

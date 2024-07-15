@@ -20,13 +20,13 @@ HardMode being true does the following changes:
 
 Move 4 is always used (and only used) if `basestate` isn't 0 (`Idle`). NOTE: This is assumed to be the case after move 3 was performed last actor turn since this one ultimately changes the `basestate` away from 0 (`Idle`) meaning it is assumed that move 4 will only be used when move 3 was the last move performed. It doesn't seem to be possible under normal gameplay to get into a false positive.
 
-Move 1, 2 and 3 usage are determined from odds which changes when `hp` / `maxhp` floored is 0.6 or less (less than 60% `hp` remaining). However, move 2 and 3 have additional requirements that if failed when selecting the move, move 1 will be performed instead. Here are the odds and requirements"
+Move 1, 2 and 3 usage are determined from odds which changes when [HPPercent](../../Actors%20states/HPPercent.md) is 0.6 or less. However, move 2 and 3 have additional requirements that if failed when selecting the move, move 1 will be performed instead. Here are the odds and requirements"
 
-|Move|Odds when `hp` / `maxh` floored > 0.6|Odds when `hp` / `maxhp` floored <= 0.6|Additional requirments|
+|Move|Odds when [HPPercent](../../Actors%20states/HPPercent.md) floored > 0.6|Odds when [HPPercent](../../Actors%20states/HPPercent.md) <= 0.6|Additional requirments|
 |---:|----|----|----|
 |1|1/4|1/6|None, the move is always used when selected|
 |2|2/4|2/6|The enemy party must have less than 3 enemy party members|
-|3|1/4|3/6|`hp` / `maxhp` must be between 0.15 exclusive and 0.65 exclusive (between 15% exclusive and 65% exclusive `hp` remaining)|
+|3|1/4|3/6|[HPPercent](../../Actors%20states/HPPercent.md) must be between 0.15 exclusive and 0.65 exclusive (between 15% exclusive and 65% exclusive `hp` remaining)|
 
 ## Move 1 - Punch attack
 A single target punch attack.

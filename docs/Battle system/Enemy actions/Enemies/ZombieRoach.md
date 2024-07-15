@@ -21,7 +21,7 @@ At the start of the action, if `data` is null or empty, it's initialised to be 4
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
-- The `hp` / `maxhp` floored threshold changes for getting a [moves](../../Actors%20states/Enemy%20features.md#moves) of 2 and a decremented `cantmove` (2 actor turns per main turns including the current one). It changes to be when it reaches lower than 0.5 (less than 50% `hp` remaining) from 0.33 (less than 33% `hp` remaining)
+- The [HPPercent](../../Actors%20states/HPPercent.md) threshold changes for getting a [moves](../../Actors%20states/Enemy%20features.md#moves) of 2 and a decremented `cantmove` (2 actor turns per main turns including the current one). It changes to be when it reaches lower than 0.5 from 0.33
 - In the energy spheres throw move, the amount of projectiles to throw changes to be random between 2 and 3 inclusive instead of always being 2
 - In the energy spheres throw move, the base damage dealt per each projectile changes to 2 from 3
 - In the energy spheres throw move, the yield time before each Projectile calls changes to 0.5 seconds from 0.65 seconds
@@ -84,7 +84,7 @@ The following logic always happen at the start of the action:
 Next is a phase transition that happens if all of the following conditions are fufilled:
 
 - [BattlePosition](../../Actors%20states/BattlePosition.md) isn't `Underground`
-- `hp` / `maxhp` floored (the percentage of remaining `hp`) is less than 0.33 (0.5 instead if hardmode is true)
+- [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.33 (0.5 instead if hardmode is true)
 - This enemy's [moves](../../Actors%20states/Enemy%20features.md#moves) is 1 (meaning this transition didn't happen yet)
 
 Here is what happens in the phase transition:
@@ -331,7 +331,7 @@ Uses magic to boost or heal themselves, then performs move 1 (Energy spheres / S
 From there, 3 effects can occur: a heal, [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition or [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition. The one that will be done depends on 2 checks:
 
 1. `locktri` is false and a 2.5/10.0 RNG check passes
-2. `hp` / `maxhp` floored is less than 0.4 (less than 40% `hp` remaining) and a 5/10 RNG check passes
+2. [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.4 and a 5/10 RNG check passes
 
 Here is a table that summarises which one will be done when according to these 2 checks (note that check 2 is only tested if check 1 was true):
 

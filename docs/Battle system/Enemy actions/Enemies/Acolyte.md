@@ -14,8 +14,8 @@ At the start of the action, if `data` is null or empty, it's initialised to be 2
 
 - `data[0]`: The amount of times the vine spawn move needs to be redirected to a vine attack move before being able to spawn an `AcolyteVine` again. When the vine spawn move is used for the first time, this value is set to 2. From there, everytime the vine spawn move is used, if this value is still higher than 0, it is decremented and the vine attack move is used instead. When it reaches 0, the vine spawn move can be used again if selected. There is an exception to this: once `data[1]` gets set to 1 (when the phase transition will occur), this value will be set to 0 on the same actor turn and the vine spawn move will be used. Essentially, once `data[1]` gets set to 1, this enemy will ignore the existing value and proceed with using the vine spawn move anyway
 - `data[1]`: A phase transition tracker with three possible states depending on the value:
-    - 0: The initial state before `hp` / `maxhp` floored becomes 0.4 or lower (40% or less `hp` remaining). From this state, the value is only set to 1 when `hp` / `maxhp` reaches 0.4 or lower
-    - 1: `hp` / `maxhp` reached 0.4 or lower, but the phase transition hasn't fully occured yet. It occurs on the same actor turn and when it occurs, the value is set to 2 as well as `data[0]` set to 0 on top of using the vine spawn move
+    - 0: The initial state before [HPPercent](../../Actors%20states/HPPercent.md) becomes 0.4 or lower. From this state, the value is only set to 1 when [HPPercent](../../Actors%20states/HPPercent.md) reaches 0.4 or lower
+    - 1: [HPPercent](../../Actors%20states/HPPercent.md) reached 0.4 or lower, but the phase transition hasn't fully occured yet. It occurs on the same actor turn and when it occurs, the value is set to 2 as well as `data[0]` set to 0 on top of using the vine spawn move
     - 2: The phase transition happened and from this point, this value can no longer influence the action logic
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
@@ -38,7 +38,7 @@ Move 4 can only be used and will always be used if [position](../../Actors%20sta
 For move 5, it can only be used once in the entire battle and it will always be used if all of the following conditions are fufilled:
 
 - [position](../../Actors%20states/BattlePosition.md) is `Ground` (so move 1 isn't used)
-- `hp` / `maxhp` floored is 0.4 or lower (40% or less `hp` remaining)
+- [HPPercent](../../Actors%20states/HPPercent.md) is 0.4 or lower
 - `data[1]` is 0 at the start of the actor turn (meaning move 5 was never used before)
 
 Move 5 marks a phase transition whose state is tracked by `data[1]`. It becomes 1 once all of the above is detected and on the same actor turn, it becomes 2 once the transition is completed which prevents to use the move again.

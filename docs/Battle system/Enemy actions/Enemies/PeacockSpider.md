@@ -3,7 +3,7 @@
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
-- At the start of the action, if this enemy is the last `enemydata` remaining, the enemy they will summon is always going to be a [DivingSpider](DivingSpider.md) instead of only being one when `hp` / `maxhp` floored is less than 0.5 (less than 50% `hp` remaining) and being a [JumpingSpider](JumpingSpider.md) when it is 0.5 or above
+- At the start of the action, if this enemy is the last `enemydata` remaining, the enemy they will summon is always going to be a [DivingSpider](DivingSpider.md) instead of only being one when [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.5 and being a [JumpingSpider](JumpingSpider.md) when it is 0.5 or above
 
 ## Move selection
 6 moves are possible:
@@ -19,7 +19,7 @@ The decision of which move to use is based on odds, but each moves except move 6
 
 |Move|Odds|Requirement|
 |---:|----|-----------|
-|1|3/12|`hp` / `maxhp` floored is 0.65 or less (65% or less `hp` remaining)|
+|1|3/12|[HPPercent](../../Actors%20states/HPPercent.md) is 0.65 or less|
 |2|2/12|The enemy party member this enemy summoned doesn't already have the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition|
 |3|2/12|The enemy party member this enemy summoned doesn't already have the [DefenseUp](../../Actors%20states/BattleCondition/AttackUp.md) condition|
 |4|2/12|The enemy party member this enemy summoned has a `charge` of 0|
@@ -40,7 +40,7 @@ There is logic that is always performed at the start of the action.
 - If this enemy is the last `enemydata` remaining, an enemy will be summoned:
     - animstate set to 101
     - `PeacockSpiderNPCSummon` sound plays
-    - `checkingdead` is set to a new [SummonEnemy](../../Actors%20states/Enemy%20party%20members/SummonEnemy.md) call to summon an enemy with the type `Offscreen` at Vector3.zero. The enemy to summon is always a [DivingSpider](DivingSpider.md) unless hardmode is false and `hp` / `maxhp` floored is 0.5 or above (50% or more `hp` remaining) where the enemy is a [JumpingSpider](JumpingSpider.md)
+    - `checkingdead` is set to a new [SummonEnemy](../../Actors%20states/Enemy%20party%20members/SummonEnemy.md) call to summon an enemy with the type `Offscreen` at Vector3.zero. The enemy to summon is always a [DivingSpider](DivingSpider.md) unless hardmode is false and [HPPercent](../../Actors%20states/HPPercent.md) is 0.5 or above where the enemy is a [JumpingSpider](JumpingSpider.md)
     - Yield all frames until `checkingdead` is null (the coroutine completed)
     - `PeacockSpiderNPCSummonSuccess` sound plays
     - animstate set to 0 (`Idle`)

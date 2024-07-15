@@ -167,7 +167,7 @@ Instead of the move being performed, the action will continue to the next enemy 
 
 - `data[0]` is above 1 (this is never the case, see the `data` usage section above for why)
 - This enemy already has the [Taunted](../../Actors%20states/BattleCondition/Taunted.md) condition
-- `hp` / `maxhp` floored is less than 0.2 (less than 20% left)
+- [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.2
 
 ### `dontusecharge` set to true
 This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action)
@@ -201,8 +201,8 @@ Uses a `VitalitySeed` item to get the [AttackUp](../../Actors%20states/BattleCon
 Instead of the move being performed, the action will continue to the next enemy loop iterations if any of the following conditions are true:
 
 - This enemy already has the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition
-- `hp` / `maxhp` floored is less than 0.2 (less than 20% left)
-- `hp` / `maxhp` floored is more than 0.65 (more than 65% left)
+- [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.2
+- [HPPercent](../../Actors%20states/HPPercent.md) is more than 0.65
 
 ### `dontusecharge` set to true
 This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action)

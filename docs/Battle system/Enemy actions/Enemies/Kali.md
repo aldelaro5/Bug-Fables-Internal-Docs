@@ -29,7 +29,7 @@ Move 1 through 4's usage all requires that `Beetle` is present in the enemy part
 |3|2/6|
 |4|1/6|
 
-However, move 1 will not be used if `Beetle`'s `hp` / `maxhp` floored is 0.9 or higher (at least 90% `hp` remaining). If the move is selected and fails this requirement, move 2 is used instead
+However, move 1 will not be used if `Beetle`'s [HPPercent](../../Actors%20states/HPPercent.md) is 0.9 or higher. If the move is selected and fails this requirement, move 2 is used instead
 
 ## Move 1 - Heals [Beetle](Beetle.md)
 Heals 5 `hp` to [Beetle](Beetle.md). No damages are dealt
