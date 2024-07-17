@@ -15,7 +15,7 @@ HardMode being true does the following changes:
 5. Sets the `moves` of the enemy party member this enemy summoned to 2 which grants them 2 actor turns per main turns (excluding the current main turn)
 6. A single target triple slash attack
 
-The decision of which move to use is based on odds, but each moves except move 6 has an additional requirement that must be fufilled for the move to be used after it is selected. If the requirement isn't fufilled, the move is rerolled with the same odds. If the requirement is still failed after the second attempt, move 5 will be used. Here are the odds and requirements of each moves:
+The decision of which move to use is based on odds, but each moves except move 6 has an additional requirement that must be fufilled for the move to be used after it is selected. If the requirement isn't fufilled, the move is rerolled with the same odds. If the requirement is still failed after the second attempt, move 6 will be used. Here are the odds and requirements of each moves:
 
 |Move|Odds|Requirement|
 |---:|----|-----------|

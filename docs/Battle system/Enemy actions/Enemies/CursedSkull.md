@@ -115,7 +115,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 Brace themselves by increasing their `charge` to explode on the next actor turn. No damages are dealt.
 
 ### `dontusecharge` set to true
-This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action)
+This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
 
 ### Logic sequence
 

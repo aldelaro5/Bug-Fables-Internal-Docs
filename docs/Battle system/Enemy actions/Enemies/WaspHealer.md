@@ -120,7 +120,7 @@ This move always set the nocharm local to true which will prevent any [UseCharm]
 - animstate set to 106
 - Yield for 0.3 seconds
 - `Whistle` sound plays with 0.9 pitch and 0.7 volume
-- `checkingdead` set to a new [SummonEnemy](../../Actors%20states/Enemy%20party%20members/SummonEnemy.md) call to summon a new `WaspHealer` with an `Offscreen` type at a random location whose between (0.25, 0.0, -0.75) and (7.0, 0.0, 0.75) where the distance between any enemy party member is less than its `size` * 1.75 with cantmove (meaning the enemy needs to wait on the next main turn to act)
+- `checkingdead` set to a new [SummonEnemy](../../Actors%20states/Enemy%20party%20members/SummonEnemy.md) call to summon a new `WaspHealer` with an `Offscreen` type at a random location between (0.25, 0.0, -0.75) and (7.0, 0.0, 0.75) where the distance between any enemy party member is less than its `size` * 1.75 with cantmove (meaning the enemy needs to wait on the next main turn to act)
 - Yield for 0.85 seconds
 - animstate set to 0 (`Idle`)
 - `locktri` set to true (prevents from using this move again)
