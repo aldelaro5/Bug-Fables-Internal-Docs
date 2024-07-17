@@ -1,7 +1,7 @@
 # `LeafbugNinja`
 
 ## About the clones special logic
-This enemy is able to summon clones of themselves, but with a special property: their [weakness](../../Actors%20states/Enemy%20features.md#weakness) is set to be one element being [DieInOneHit](../../Damage%20pipeline/AttackProperty.md). This not only changes the damage pipeline such that their `hp` is unconditionally set to 0 upon any [DoDamage](../../Damage%20pipeline/DoDamage.md) calls, but it allows this action to tell that they are indeed a clone. This assumes that this enemy's data do NOT contain this property in the `weakness` field as it would otherwise break this system.
+This enemy is able to summon clones of themselves in the post move logic, but with a special property: their [weakness](../../Actors%20states/Enemy%20features.md#weakness) is set to be one element being [DieInOneHit](../../Damage%20pipeline/AttackProperty.md). This not only changes the damage pipeline such that their `hp` is unconditionally set to 0 upon any [DoDamage](../../Damage%20pipeline/DoDamage.md) calls, but it allows this action to tell that they are indeed a clone. This assumes that this enemy's data do NOT contain this property in the `weakness` field as it would otherwise break this system.
 
 Clones have very reduced logic as besides the [hitaction](../../Actors%20states/Enemy%20features.md#hitaction) logic and the initialisation of `data` (which won't do anything for them), they do not share the logic of the original enemy who summoned them. If at the start of the action, their `hitaction` is false, but they have the `DieInOneHit` in their `weakness`, the ENTIRE action logic is reduced to this:
 
