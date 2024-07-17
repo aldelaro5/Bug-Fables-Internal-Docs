@@ -40,7 +40,7 @@ Otherwise, the deicision of which move to use is based on the following odds:
 |2|3/8|
 
 ## Pre move logic
-The following logic always happen if all of the following conditions are met to summon a new enemy from the leafbug family:
+The following logic always happen at the start of the action if all of the following conditions are met to summon a new enemy from the leafbug family:
 
 - This enemy is the last `enemydata` left
 - [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.5
