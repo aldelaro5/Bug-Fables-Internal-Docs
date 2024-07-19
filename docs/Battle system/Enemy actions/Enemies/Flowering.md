@@ -23,7 +23,7 @@ If any of the above aren't fufilled, Move 2 is used instead.
 Move 3 is never used under normal gameplay, but remains functional. This is because this move requires the [position](../../Actors%20states/BattlePosition.md) to not be `Flying`, but the pre move logic will always set it to `Flying`.
 
 ## Pre move logic
-The following logic is always done at the start of the actor turn:
+The following logic is always done at the start of the actor turn if [position](../../Actors%20states/BattlePosition.md) isn't `Flying`:
 
 - `checkingdead` is set to a new [ChangePosition](../ChangePosition.md) call to set the [position](../../Actors%20states/BattlePosition.md) to `Flying` (`checkingdead` set to null when completed)
 - Yield all frames until `checkingdead` is null
