@@ -45,7 +45,7 @@ Here are all the EventDialogues defined along with links to their detail:
 |[12](../Enemy%20actions/Enemies/Kali.md)|`Kali` death event|
 |[13](EventDialogues/SandWyrm%20and%20SandWyrmTail.md#eventdialogue-13)|`SandWyrmTail1` death event|
 |[14](EventDialogues/SandWyrm%20and%20SandWyrmTail.md#eventdialogue-14)|`SandWyrm` death event|
-|15|`Cenn` and `Pisci` first encounter fleeing event (also happens on their death)|
+|[15](EventDialogues/Cenn%20and%20Pisci.md)|`Cenn` and `Pisci` first encounter fleeing event (also happens on their death)|
 |16|`UltimaxTank` death event|
 |17|`WaspKing` death event|
 |18|`EverlastingKing` death event|
