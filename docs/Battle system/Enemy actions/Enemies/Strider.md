@@ -89,7 +89,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 2 times (random between 2 and 3 times instead if hardmode is true), but the call and further calls won't happen if there's not at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|null|This enemy|`playertargetID`|A new sprite objected named `temp` rooted using the `projectilepsrites[15]` sprite (an inverted honey projectile so it looks like a water projectile) positioned at this enemy + (-0.5, 1.4, -0.1) with a scale of (0.65, 0.4, 1.0)|32.0 (25.0 instead if hardmode is true)|0.0|null|`WaterSplash`|`WaterSplash`|null|Vector3.zero|false|
+|1|Always happen 2 times (random between 2 and 3 times instead if hardmode is true), but the call and further calls won't happen if there's not at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|null|This enemy|`playertargetID`|A new sprite object named `temp` rooted using the `projectilepsrites[15]` sprite (an inverted honey projectile so it looks like a water projectile) positioned at this enemy + (-0.5, 1.4, -0.1) with a scale of (0.65, 0.4, 1.0)|32.0 (25.0 instead if hardmode is true)|0.0|null|`WaterSplash`|`WaterSplash`|null|Vector3.zero|false|
 
 ### Logic sequence
 
