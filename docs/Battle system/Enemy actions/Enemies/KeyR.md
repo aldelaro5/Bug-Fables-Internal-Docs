@@ -1,5 +1,0 @@
-# `KeyR`
-
-## Action logic
-
-TODO

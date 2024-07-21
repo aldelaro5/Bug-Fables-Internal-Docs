@@ -115,8 +115,8 @@ TODO: Add the links and files
 |98|[Pitcher](Enemies/Pitcher.md)|Devourer||
 |99|[SandWyrmTail](Enemies/SandWyrmTail.md)|Tail||
 |100|PisciWall|Rock Wall|This enemy has no action logic|
-|101|[KeyR](Enemies/KeyR.md)|Ancient Key||
-|102|[KeyL](Enemies/KeyL.md)|Ancient Key||
+|101|[KeyR](Enemies/KeyR%20and%20KeyL.md)|Ancient Key||
+|102|[KeyL](Enemies/KeyR%20and%20KeyL.md)|Ancient Key||
 |103|[Tablet](Enemies/Tablet.md)|Ancient Tablet||
 |104|[PitcherFlytrap](Enemies/PitcherFlytrap.md)|Flytrap||
 |105|FireKrawler|FireKrawler|This enemy has no action logic|
