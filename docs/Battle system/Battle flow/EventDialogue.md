@@ -49,4 +49,4 @@ Here are all the EventDialogues defined along with links to their detail:
 |16|`UltimaxTank` death event|
 |[17](EventDialogues/WaspKing.md)|`WaspKing` death event|
 |18|`EverlastingKing` death event|
-|19|`Pitcher` event where either their death or [early spit out](../Actors%20states/BattleCondition/Eaten.md#spitout) are processed|
+|[19](EventDialogues/Pitcher.md)|`Pitcher` event where either their death or [early spit out](../Actors%20states/BattleCondition/Eaten.md#spitout) are processed|
