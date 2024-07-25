@@ -46,7 +46,7 @@ Here are all the EventDialogues defined along with links to their detail:
 |[13](EventDialogues/SandWyrm%20and%20SandWyrmTail.md#eventdialogue-13)|`SandWyrmTail1` death event|
 |[14](EventDialogues/SandWyrm%20and%20SandWyrmTail.md#eventdialogue-14)|`SandWyrm` death event|
 |[15](EventDialogues/Cenn%20and%20Pisci.md)|`Cenn` and `Pisci` first encounter fleeing event (also happens on their death)|
-|16|`UltimaxTank` death event|
+|[16](EventDialogues/UltimaxTank.md)|`UltimaxTank` death event|
 |[17](EventDialogues/WaspKing.md)|`WaspKing` death event|
 |18|`EverlastingKing` death event|
 |[19](EventDialogues/Pitcher.md)|`Pitcher` event where either their death or [early spit out](../Actors%20states/BattleCondition/Eaten.md#spitout) are processed|
