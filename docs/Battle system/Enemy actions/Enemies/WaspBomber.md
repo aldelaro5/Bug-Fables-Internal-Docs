@@ -24,6 +24,8 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 |-:|---------|-----|-------|-------|-----|----------|-----------|--------------|---------|
 |1|Always happen|This enemy|2 (4 instead if the bomb thrown is a `SpicyBomb`)|Depends on the bomb thrown:<ul><li>`SpicyBomb` or `BurlyBomb`<sup>1</sup>: null</li><li>`NumbBomb`: [Numb](../../Damage%20pipeline/AttackProperty.md)</li><li>`FrostBomb`: [Freeze](../../Damage%20pipeline/AttackProperty.md)</li><li>`SleepBomb`: [Sleep](../../Damage%20pipeline/AttackProperty.md)</li><li>`PoisonBomb`: [Poison](../../Damage%20pipeline/AttackProperty.md)</li></ul>|`commandsuccess`|0.0|Vector3.zero|false|null|
 
+1: This is unexpected because of an issue where no effects are applied to this bomb type. It was expected to inflict [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md), but that doesn't happen even after this call
+
 ### Logic sequence
 The bomb type is determined with random odds:
 
