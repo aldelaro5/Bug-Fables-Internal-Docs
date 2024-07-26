@@ -10,6 +10,12 @@ However, it turns out that this is inconsequential. Due to how [GetChoiceInput](
 
 Effectively, while this field is used when it shouldn't on this eneny, it has no consequential impact on the rest of the battle system. The field that should have been used for this purpose is either a local or `playertargetID` which is designed to hold the enemy's targetting and it is constantly written to before usage for most enemies.
 
+## [StartBattle](../../StartBattle.md) special logic
+After loading this enemy, the following special adjustements happens to them if [flags](../../../Flags%20arrays/flags.md) 614 is true (HARDEST is active):
+
+- `maxhp` and `hp` gets increased by 10
+- `def` gets incremented
+
 ## Move selection
 6 moves are possible:
 

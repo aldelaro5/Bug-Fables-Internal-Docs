@@ -3,6 +3,14 @@
 ## Assumptions
 This enemy is assumed to be fought with [Maki](Maki.md) for the move selection to function otherwise, unexpected logic will occur.
 
+It is also assumed that the [DeathType](../../Actors%20states/Enemy%20features.md#deathtype) of the enemy supports the `reservedata` feature as it is needed by [Maki](Maki.md) in case they want to revive this enemy.
+
+## [StartBattle](../../StartBattle.md) special logic
+After loading this enemy, the following special adjustements happens to them if [flags](../../../Flags%20arrays/flags.md) 614 is true (HARDEST is active):
+
+- `maxhp` and `hp` gets increased by 10
+- `def` gets incremented
+
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 1 element with a starting value of 0.
 
