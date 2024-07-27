@@ -48,5 +48,5 @@ Here are all the EventDialogues defined along with links to their detail:
 |[15](EventDialogues/Cenn%20and%20Pisci.md)|`Cenn` and `Pisci` first encounter fleeing event (also happens on their death)|
 |[16](EventDialogues/UltimaxTank.md)|`UltimaxTank` death event|
 |[17](EventDialogues/WaspKing.md)|`WaspKing` death event|
-|18|`EverlastingKing` death event|
+|[18](EventDialogues/EverlastingKing.md)|`EverlastingKing` death event|
 |[19](EventDialogues/Pitcher.md)|`Pitcher` event where either their death or [early spit out](../Actors%20states/BattleCondition/Eaten.md#spitout) are processed|
