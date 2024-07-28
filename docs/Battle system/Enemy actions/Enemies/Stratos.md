@@ -6,7 +6,7 @@ At the start of the action, if `data` is null or empty, it's initialised to be 5
 - `data[0]`: The amount of times the reviving move or the enemy party healing move are used. The value is incremented each time either of these moves are used and once it reaches 5, the usage of these moves are no longer allowed. Essentially, it's a hard limit to this enemy where they cannot use either moves more than 5 times combined in the entire battle
 - `data[1]`: The amount of times the reviving move was used. The value is incremented each time the reviving move is used. When the value reaches 3, the odds that the move is used when all other conditions are fufilled lowers to 20% from 70%. Essentially, it's a deterrent on the usage of the reviving move more than 3 times
 - `data[2]`: A cooldown on the usage of the reviving move and the enemy party healing move. When either move is used, the value is set to 2. On every actor turns that either of these move isn't used, the value is decremented in the post move logic. For either of the moves to become usable again, the value must be 0 or below. Essentially, it's a 2 actor turn antispams where both moves can't be used again
-- `data[3]`: Prevents the usage of the reviving move and the enemy party heal move when the value is not 0. The value is reset to 0 in the post move logic on any actor turn other than the usage of either of these moves. This enemy doesn't write to this value because ??? TODO: Likely involves `Delilah`
+- `data[3]`: A lock on the usage of the reviving move and the enemy party healing move. When the value is 1, it prevents either move to be used. The value is reset to 0 in the post move logic after any moves is used except these 2 moves. The lock is never activated by this enemy, but rather by [Delilah](Delilah.md) which sets it to 1 when they use their reviving move
 - `data[4]`: This doesn't do anything meaningful in practice. It is set to 1 when the party wide sword jump attack is used and it is supposed to prevent the use of the charging move if the value is 1, but this doesn't work. This is because the value is always set to 0 on the same actor turn as the usage of the party wide sword jump attack move is used which undoes the effect it would have had.
 
 ## Move selection
@@ -26,7 +26,7 @@ Move 7 and 8 are isolated in the move selection process and their usage consider
 ### 7 and 8 selection process
 To have a chance to use either move 7 or 8, all of the following conditions must be fufilled:
 
-- `data[3]` is 0 (??? TODO: likely involves `Delilah`)
+- `data[3]` is 0 (the lock on using either moves wasn't activated by [Delilah](Delilah.md))
 - `charge` is 0 (this doesn't necessarily mean that move 4 was used previously as it is possible the player cleared this enemy's `charge`)
 - `data[0]` is less than 5 (this enemy hasn't reached its limit of move 7 or 8's usage)
 - `turns` is above 1 (at least 2 main turns passed since the start of the battle)
@@ -92,7 +92,7 @@ The following logic is always done after the usage of a move except fot the revi
 
 - `data[4]` is set to 0 (this undoes any effect this value would have had, see the `data` section above for details)
 - `data[2]` is decremented (the cooldown for the usage of the reviving move and the enemy party healing move)
-- `data[3]` is set to 0 (??? TODO: likely involves `Delilah`)
+- `data[3]` is set to 0 (resets the lock on the usage of the reviving move and the enemy party healing move that was activated by [Delilah](Delilah.md))
 
 ## Move 1 - Single downward sword slash
 A single target downard sword slash that can inflict [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md).
@@ -303,7 +303,7 @@ Heals 15 `hp` and calls [ClearStatus](../../Actors%20states/Conditions%20methods
 - [ClearStatus](../../Actors%20states/Conditions%20methods/ClearStatus.md) called on `Delilah`
 - This enemy animstate set to the local startstate
 - Yield for 0.5 seconds
-- `Delilah`'s `data[1]` is set to 1 (??? TODO: explain what it is after `Delilah` documentation)
+- `Delilah`'s `data[1]` is set to 1 which activates the lock on `Delilah`'s usage of any moves from their support items move selection set (see their [move selection](Delilah.md#move-selection) documentation for details)
 - `data[2]` is set to 2 (the cooldown on the usage of this move and the enemy party healing one)
 
 ## Move 8 - Revives [Delilah](Delilah.md)
