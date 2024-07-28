@@ -84,6 +84,7 @@ The following logic is always done before the usage of a move:
     - [StatEffect](../../Visual%20rendering/StatEffect.md) called with type 5 (yellow up arrow)
     - `StatUp` sound plays
     - animstate set to the local startstate
+    - Yield for 0.5 seconds
     - `moves` set to 2 and `cantmove` is decremented which gives 2 actor turn per main turn to this enemy including the current one
 
 ## Post move logic
