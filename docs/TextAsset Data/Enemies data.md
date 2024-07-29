@@ -57,7 +57,7 @@ The asset contains one line per [enemy](../Enums%20and%20IDs/Enemies.md) whose i
 |40|itemoffset.y|float|The y component of the offset to render an item relative to the enemy|
 |41|itemoffset.z|float|The z component of the offset to render an item relative to the enemy|
 |42|<No field>|bool|If true, the battleentity.`basestate` is set to 13 (`BattleIdle`)|
-|43|Portrait sprite index|int|Index of the sprite in `Sprites/Items/EnemyPortraits` (if this is negative, this defaults to the enemy id, see the section below about this for more details)|
+|43|Portrait sprite index|int|Index of the sprite in `Sprites/Items/EnemyPortraits` (if this is negative, this defaults to the enemy id, see the GetEnemyPortrait section below about this for more details)|
 |44|[notattle](../Battle%20system/Actors%20states/Enemy%20features.md#notattle)|bool|Tells if the enemy is not spy-able. Check the feature's documentation for more details. This fields also has special loading logic that can override it to true, check the section below for more detials|
 |45|[eventonfall](../Battle%20system/Actors%20states/Enemy%20features.md#eventonfall)|int|The [EventDialogue](../Battle%20system/Battle%20flow/EventDialogue.md) to trigger when the enemy drops, can be ommited if it's -1|
 |46|[onhitaction](../Battle%20system/Actors%20states/Enemy%20features.md#onhitaction)|int|If 1, the enemy will process a [hitaction](../Battle%20system/Actors%20states/Enemy%20features.md#hitaction) when hit. If 2, it will only when its [position](../Battle%20system/Actors%20states/BattlePosition.md) is `Flying` and if 3, it will only when its `position` is `Ground`|
@@ -132,9 +132,9 @@ The `exp` field has particularily complex logic to determine its value:
 - It is always 0 if the sent noexp value is true
 - It is left at the default value of 0 if instance.`partylevel` is at least 27 (it's maxed) or if [flag](../Flags%20arrays/flags.md) 613 is true (RUIGEE is active)
 - If the `fixedexp` field is true, then the amount is always the raw one coming from `enemydata` with no modifications to it
-- If none of the cases above applied, the result is the return of GetEXP with the `exp` field from `enemydata`, the instance.`partylevel` and the enemy id (the base id if it's a variant)
+- If none of the cases above applied, the result is the return of MainManager.GetEXP with the `exp` field from `enemydata`, the instance.`partylevel` and the enemy id (the base id if it's a variant)
 
-The return of GetEXP implies even more logic where the base `exp` field can be changed. Here is the process used to calculate the final value:
+The return of MainManager.GetEXP implies even more logic where the base `exp` field can be changed. Here is the process used to calculate the final value:
 
 1. The base EXP amount is determined. It's the same than the sent exp value unless the enemy is a `WaspTrooper` or `WaspHealer` which can increase this value:
     - If the current [map](../Enums%20and%20IDs/Maps.md) is `MetalLake` or the [area](../Enums%20and%20IDs/librarystuff/Areas.md) is `WaspKingdom`, the value is multiplied by 1.65 and then ceiled
@@ -148,7 +148,7 @@ Additionally, GetEnemyData can also change yet again the value after it was calc
 1. [flag](../Flags%20arrays/flags.md) 162 is true (during a B.O.S.S or Cave Of Trials session): the value gets multiplied by 0.2, floored and then clamped from 0 to 5
 2. createentity is true, [flag](../Flags%20arrays/flags.md) 166 is false (EX mode isn't active on the B.O.S.S. system) and the `battleentity` is a `hologram` (see the section above about the `battleentity` initialisation for when this happens): the value is multiplied by 0.1 and floored
 
-Finally, [StartBattle](../Battle%20system/StartBattle.md) can further change the `exp` If all of the following conditions are true:
+Then, [StartBattle](../Battle%20system/StartBattle.md) can further change the `exp` If all of the following conditions are true:
 
 - The [enemy](../Enums%20and%20IDs/Enemies.md) is a `Krawler`, `CursedSkull` or `Cape`
 - battleentity.`forcefire` is true or we are in the `GiantLair` [area](../Enums%20and%20IDs/librarystuff/Areas.md) except for the `GiantLairFridgeInside` [map](../Enums%20and%20IDs/Maps.md)
@@ -156,6 +156,17 @@ Finally, [StartBattle](../Battle%20system/StartBattle.md) can further change the
 - [flags](../Flags%20arrays/flags.md) 613 is false (RUIGEE is inactive)
 
 If that happens, the `exp` is incremented by the floored result of a lerp from 10.0 to 3.0 with a factor of instance.`partylevel` / 27.0
+
+Finally, while all of the above describes the `exp` field itself, [CheckDead](../Battle%20system/Battle%20flow/Action%20coroutines/CheckDead.md) calls BattleControl.GetEXP (not to be confused with MainManager.GetEXP) to determine the rewarded exp amount. This method contains further special logic where it receives the `exp` and `fixedexp` fields of the enemy as well as its enemy id. Here's what the method does:
+
+- If [flags](../Flags%20arrays/flags.md) 613 is true (RUIGEE is active) or `partylevel` is 27 (max rank), the return is 0 (effectively disables all exp gains to the player)
+- Otherwise:
+    - If the `DoublePain` [medal](../Enums%20and%20IDs/Medal.md) is equipped or [flags](../Flags%20arrays/flags.md) 614 is true (HARDEST is active), `exp` increases by (`exp` * 0.15 ceiled which is basically 15% ceiled)
+    - If the `EXPBoost` [medal](../Enums%20and%20IDs/Medal.md) is equipped, `exp` increases by (`exp` * 0.50 ceiled which is basically 50% ceiled)
+    - A result is determined from there (only the first one that applies is returned):
+        - If [Flags](../Flags%20arrays/flags.md) 166 is true (during a B.O.S.S session in EX mode), the return is `exp` clamped from 0 to 5
+        - Otherwise, if the enemy is among [ChomperBrute](../Battle%20system/Enemy%20actions/Enemies/ChomperBrute.md), [ToeBitter](../Battle%20system/Enemy%20actions/Enemies/ToeBiter.md), [DeadLanderA](../Battle%20system/Enemy%20actions/Enemies/DeadLanderA.md), [DeadLanderB](../Battle%20system/Enemy%20actions/Enemies/DeadLanderB.md) or [DeadLanderG](../Battle%20system/Enemy%20actions/Enemies/DeadLanderG.md), the return is `exp` clamped from 0 to 20
+        - Otherwise (neither of the above applied), the return is clamped from 0 to 15
 
 #### Special fields logic
 Additionally, some [BattleData](../Battle%20system/Actors%20states/BattleData.md) fields have special logic attached to them:
@@ -203,8 +214,10 @@ On top of this, if EX mode is active on the B.O.S.S. system, then there are addi
 - `hp`: Gets increased by 15% ceiled. If the result ends up above 90, it is then decreased by 15% ceiled.
 - `def`: Gets clamped from 1 to 99
 
-### About the portrait srpite index
-This field is overridden to 225 for a `Cape`, 226 for a `Krawler` and 227 for a `CursedSkull` if [flag](../Flags%20arrays/flags.md) 664 is true (Approached the oven during Chapter 7). This overrides the portrait sprite to include the fire variants of the [enemy](../Enums%20and%20IDs/Enemies.md)
+### GetEnemyPortrait
+This field is loaded, but never written to. Its only usage is in the GetEnemyPortrait method which by default returns the value directly (or the enemy id if the value is negative).
+
+However, the return can be overridden to 225 for a `Cape`, 226 for a `Krawler` and 227 for a `CursedSkull` if [flag](../Flags%20arrays/flags.md) 664 is true (approached the oven during Chapter 7). This overrides the portrait sprite to include the fire variants of the [enemy](../Enums%20and%20IDs/Enemies.md) under this condition.
 
 ## `EnemyTattle` data
 The asset contains one line per [Enemy](../Enums%20and%20IDs/Enemies.md) whose id corresponds to the line index. Each line contains fields separated by `@`:
