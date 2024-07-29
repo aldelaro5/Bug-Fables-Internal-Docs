@@ -1,5 +1,8 @@
 # `Stratos`
 
+## Assumptions
+It is assumed this enemy is fought with them and [Delilah](Delilah.md) only in the enemy party as they strongly interact together. If this assumption isn't respected, exceptions may be thrown.
+
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 5 element with a starting value of 0.
 
