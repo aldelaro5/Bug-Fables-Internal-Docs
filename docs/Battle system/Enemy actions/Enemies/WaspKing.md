@@ -5,6 +5,9 @@ It is assumed that this enemy is loaded with [actimmobile](../../Actors%20states
 
 It is also assumed this enemy's [eventondeath](../../Actors%20states/Enemy%20features.md#eventondeath) is set to its [matching EventDialogue](../../Battle%20flow/EventDialogues/WaspKing.md).
 
+## [Fire](../../Actors%20states/BattleCondition/Fire.md) damage infliction logic in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
+This enemy has a 30% chance to be on fire on a `Fire` property attack.
+
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 1 element with a starting value of 0.
 

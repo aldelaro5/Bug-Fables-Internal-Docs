@@ -8,8 +8,19 @@ This enemy has special logic that happens on StartBattle after it is loaded:
     - `inice` set to true
     - [weakness](../../Actors%20states/Enemy%20features.md#weakness) set to a new list with one element being [HornExtraDamage](../../Damage%20pipeline/AttackProperty.md)
 
+Additionally, if all of the following is true, the `exp` is incremented by the floored result of a lerp from 10.0 to 3.0 with a factor of instance.`partylevel` / 27.0:
+
+- battleentity.`forcefire` is true or we are in the `GiantLair` [area](../Enums%20and%20IDs/librarystuff/Areas.md) except for the `GiantLairFridgeInside` [map](../Enums%20and%20IDs/Maps.md)
+- instance.`partylevel` is less than 27 (meaning it's not maxed)
+- [flags](../Flags%20arrays/flags.md) 613 is false (RUIGEE is inactive)
+
+For more information, consult the [exp logic](../../../TextAsset%20Data/Enemies%20data.md#exp-logic) documentation.
+
 ## [Fire](../../Actors%20states/BattleCondition/Fire.md) damage infliction logic in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
 This enemy has a 50% chance to be on fire on a `Fire` property attack if the current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`. It cannot be on fire otherwise.
+
+## [GetEnemyPortrait](../../../TextAsset%20Data/Enemies%20data.md) logic
+If [flag](../Flags%20arrays/flags.md) 664 is true (approached the oven during Chapter 7), the portrait sprite index field of this enemy is ignored and 226 is returned instead which includes the fire variant of this enemy in the portrait.
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:

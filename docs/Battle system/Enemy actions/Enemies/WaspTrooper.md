@@ -1,6 +1,6 @@
 # `WaspTrooper`
 
-## [GetEXP](../../../TextAsset%20Data/Enemies%20data.md#exp-logic) special logic
+## MainManager.[GetEXP](../../../TextAsset%20Data/Enemies%20data.md#exp-logic) special logic
 This enemy features special exp handling logic. Check the documentation to learn more.
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes

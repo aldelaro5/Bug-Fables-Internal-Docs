@@ -1,7 +1,10 @@
 # `Tablet`
 
 ## Assumptions
-It is assumed that a [EverlastingKing](EverlastingKing.md) is always present alongside this enemy otherwise, this enemy will cause an exception to be thrown.
+It is assumed that a [EverlastingKing](EverlastingKing.md) is always present alongside this enemy as otherwise, this enemy will cause an exception to be thrown.
+
+## [Fire](../../Actors%20states/BattleCondition/Fire.md) damage infliction logic in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
+This enemy has cannot be on fire meaning any `Fire` property damages will not inflict the [Fire](../../Actors%20states/BattleCondition/Fire.md) condition.
 
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 1 element with a starting value of 0.

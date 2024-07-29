@@ -7,6 +7,11 @@ It is also assumed that this enemy is fought alone otherwise, his [PitcherFlytra
 
 It is also assumed this enemy is loaded with the `Pitcher` [animid](../../../Enums%20and%20IDs/AnimIDs.md) because the eating logic assumes the presence of `extra[0]` which is initialised by [CheckSpecialID](../../../Entities/EntityControl/Notable%20methods/CheckSpecialID.md) for this animid.
 
+## [StartBattle](../../StartBattle.md) special logic
+There is special logic in StartBattle that applies to this enemy after it is loaded:
+
+- This enemy x position is increased by 1.0
+
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 3 element with a starting value of 0.
 

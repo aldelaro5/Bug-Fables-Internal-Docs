@@ -25,6 +25,11 @@ This part of the logic also changes the `battlepos` of this enemy and the [SandW
 - The [SandWyrm](SandWyrm.md): (3.0, 0.0, 0.0)
 - This enemy: (5.9, 0.0, 0.0)
 
+Additionally, the following adjustements also happens to this enemy:
+
+- `height` is set to 0.0
+- `initialheight` is set to 0.0
+
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 

@@ -1,5 +1,14 @@
 # `ChomperBrute`
 
+## BattleControl.[GetEXP](../../../TextAsset%20Data/Enemies%20data.md#exp-logic) special logic
+This enemy is part of the set of the enemies that yields a different clamping on the rewarded amount of exp given their scaled `exp` field when they die (processed by [CheckDead](../../Battle%20flow/Action%20coroutines/CheckDead.md)).
+
+If all of these conditions are fufilled, the rewarded amount of exp is clamped to 20 instead of 15 like most other enemies:
+
+- [flags](../Flags%20arrays/flags.md) 613 is false (RUIGEE is inactive)
+- `partylevel` is less than 27 (not yet at max rank)
+- [Flags](../Flags%20arrays/flags.md) 166 is false (not during an EX mode B.O.S.S session)
+
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 

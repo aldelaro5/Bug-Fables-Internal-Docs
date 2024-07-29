@@ -9,6 +9,9 @@ It is also assumed this enemy's [eventondeath](../../Actors%20states/Enemy%20fea
 
 It is also assumed this enemy is loaded with [actimmobile](../../Actors%20states/Enemy%20features.md#actimmobile) set to true which allows them to cure themseolves of [stopping condition](../../Actors%20states/IsStopped.md).
 
+## [Fire](../../Actors%20states/BattleCondition/Fire.md) damage infliction logic in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
+This enemy has a 30% chance to be on fire on a `Fire` property attack.
+
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 5 element with a starting value of 0.
 
