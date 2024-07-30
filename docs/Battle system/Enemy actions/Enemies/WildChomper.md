@@ -72,7 +72,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen 1 to 3 times inclusive determined randomly (2 to 3 times inclusive instead if hardmode is true), but the call and no further calls happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable returns -1|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup>|3|null ([Poison](../../Damage%20pipeline/AttackProperty.md) instead if hardmode is true and a 5/10 RNG check passes)|null|`commandsuccess`|
+|1|Always happen 1 to 3 times inclusive determined randomly (2 to 3 times inclusive instead if hardmode is true), but the call and no further calls happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable returns -1|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup> (target changes for each calls)|3|null ([Poison](../../Damage%20pipeline/AttackProperty.md) instead if hardmode is true and a 5/10 RNG check passes)|null|`commandsuccess`|
 
 1: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details.
 
@@ -111,7 +111,7 @@ A single target vine attack that may hit multiple times.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|`playerdata[playertargetID]`'s `hp` is above 0. Done once if hardmode is false, from 1 to 2 times if it is true as long as `playerdata[playertargetID]`'s `hp` is above 0|This enemy|The selected `playertargetID`|3 on the first hit, 2 on the second hit|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|`playerdata[playertargetID]`'s `hp` is above 0. Done once if hardmode is false, from 1 to 2 times if it is true as long as `playerdata[playertargetID]`'s `hp` is above 0|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|3 on the first hit, 2 on the second hit|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 

@@ -54,7 +54,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 3 times, but each calls requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Poison](../../Damage%20pipeline/AttackProperty.md) or [Numb](../../Damage%20pipeline/AttackProperty.md) determined randomly with uniform odds|This enemy|`playertargetID`||A new sprite object rooted using the `projectilepsrites[15]` sprite (an inverted honey projectile) positioned at this enemy + (-1.6, 1.0, -0.1) with a and material color of pure yellow with a ShadowLite SetUp with 0.3 opacity and 0.5 size|Random between 20 and 31 inclusive then cast to float (between 20 and 25 inclusive then cast to float instead if harmode is true)|0.0|`keepcolor`|`ElecFast`|`BubbleBurst`|null|Vector3.zero|false|
+|1|Always happen 3 times, but each calls requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Poison](../../Damage%20pipeline/AttackProperty.md) or [Numb](../../Damage%20pipeline/AttackProperty.md) determined randomly with uniform odds|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)||A new sprite object rooted using the `projectilepsrites[15]` sprite (an inverted honey projectile) positioned at this enemy + (-1.6, 1.0, -0.1) with a and material color of pure yellow with a ShadowLite SetUp with 0.3 opacity and 0.5 size|Random between 20 and 31 inclusive then cast to float (between 20 and 25 inclusive then cast to float instead if harmode is true)|0.0|`keepcolor`|`ElecFast`|`BubbleBurst`|null|Vector3.zero|false|
 
 ### Logic sequence
 
@@ -81,7 +81,7 @@ A single target bite attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 

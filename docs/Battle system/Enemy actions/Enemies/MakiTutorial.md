@@ -21,7 +21,7 @@ A single target sword slash attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`<sup>1</sup>|2|null|null|`commandsuccess`<sup>1</sup>|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)<sup>1</sup>|2|null|null|`commandsuccess`<sup>1</sup>|
 
 1: In the case of the basic combat tutorial, the tartget is `playerdata[0]` (should always be `Bee`) and the block value is true which guarantees a regular block, but not necessarily a super block. More info available at the [block tutorial documentation](../../Battle%20flow/Combat%20tutorials.md#block-tutorial)
 
@@ -31,7 +31,7 @@ A single target sword slash attack
     - The [turn flow tutorial](../../Battle%20flow/Combat%20tutorials.md#turn-flow-tutorial) logic occurs
 - Otherwise
     - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) is called
-- [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) the `plauyertargetID` player party member + (2.0, -0.15 * `globalcamdir.forward`, 0.0) with a multipler of 1.3333334
+- [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) the `plauyertargetID` position + (2.0, -0.15 * `globalcamdir.forward`, 0.0) with a multipler of 1.3333334
 - Yield all frames until `forcemove` is done
 - animstate set to 101
 - Yield for 0.25 seconds

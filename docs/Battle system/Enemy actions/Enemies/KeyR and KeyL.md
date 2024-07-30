@@ -3,7 +3,7 @@
 > NOTE: Both `KeyR` and `KeyL`, while different enemies, they share the exact same action logic so they are documented together.
 
 ## [Fire](../../Actors%20states/BattleCondition/Fire.md) damage infliction logic in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
-This enemy has cannot be on fire meaning any `Fire` property damages will not inflict the [Fire](../../Actors%20states/BattleCondition/Fire.md) condition.
+This enemy cannot be on fire meaning any `Fire` property damages will not inflict the [Fire](../../Actors%20states/BattleCondition/Fire.md) condition.
 
 ## HPBarOnOther special logic
 This enemy has special logic in a method called HPBarOnOther which is used by [RefreshEnemyHP](../../Visual%20rendering/RefreshEnemyHP.md) to know if the `hpbar` should be shown despite this enemy not being spied yet. It returns true if [EverlastingKing](EverlastingKing.md) was spied which is needed because it's not possible under normal gameplay to spy this enemy, but it is possible to spy `EverlastingKing`. This means that this logic allows this enemy's `hpbar` to be displayed by spying `EverlastingKing`.
@@ -42,7 +42,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -74,7 +74,7 @@ A single target aerial spinning strike.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 

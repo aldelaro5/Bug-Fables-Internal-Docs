@@ -19,7 +19,7 @@ HardMode being true does the following changes:
 - In the thrusting dash attack move, the amount of frames this enemy moves changes to 36.0 frames from 46.0 frames
 
 ## Move selection
-7 moves are possible:
+6 moves are possible:
 
 1. A multiple targets canonballs throws
 2. A party wide bomb throw of a random type
@@ -71,9 +71,9 @@ The following logic happens after a move is used only if all of the following co
 
 |#|Conditions|obj|targetpos|damage|turnstohit|areadamage|property|framespeed|summonedby|hitsound|hitparticle|whilesound|
 |-:|---------|---|---------|------|---------|----------|--------|----------|----------|--------|----------|----------|
-|1|Happens up to 2 times, but each calls requires that a [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) call with nullable doesn't return -1<sup>1</sup>|A new `Prefabs/Objects/BeeRocket` GameObject rooted whose SpriteRenderer's sprite uses the `projectilepsrites[17]` sprite (a brown missile projectile) positioned at (0.0, 20.0, 0.0) and with a z angle of 75.0|A random `playerdata` with uniform probability among the elements|4|2|0|null|60.0|This enemy|`Explosion3`|`explosion`|`MisseleFall`|
+|1|Happens up to 2 times, but each calls requires that a [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) call with nullable doesn't return -1<sup>1</sup>|A new `Prefabs/Objects/BeeRocket` GameObject rooted whose SpriteRenderer's sprite uses the `projectilepsrites[17]` sprite (a brown missile projectile) positioned at (0.0, 20.0, 0.0) and with a z angle of 75.0|A random `playerdata` with uniform probability among the elements (NOTE: all [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) calls with nullable do NOT have their returns used to determine the target, only to check that the call may happen)|4|2|0|null|60.0|This enemy|`Explosion3`|`explosion`|`MisseleFall`|
 
-1: This is separate from the post move logic requirement. NOTE: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details. The actual return value isn't used, the target is determined separately from this call
+1: This is separate from the post move logic requirement. NOTE: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details. The actual return value isn't used, the target is determined separately from this call, but it actually makes it more broken because it not only disregard the player party formation, but it also disregard `forceattack`.
 
 ### Logic sequence
 
@@ -104,7 +104,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen 2 times (3 times instead if hardmode is true), but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|This enemy|The selected `playertargetID`|4 (3 if hardmode is true)|null|null|`commandsuccess`|
+|1|Always happen 2 times (3 times instead if hardmode is true), but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|4 (3 if hardmode is true)|null|null|`commandsuccess`|
 
 ### Logic sequence
 

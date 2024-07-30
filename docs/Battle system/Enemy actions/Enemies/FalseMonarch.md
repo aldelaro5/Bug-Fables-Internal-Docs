@@ -48,7 +48,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4 (5 instead if hardmode is true)|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4 (5 instead if hardmode is true)|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -85,7 +85,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 3 to 4 times inclusive determined randomly (3 to 5 times inclusive instead if hardmode is true), but each call can only happens if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable returns doesn't return -1|2 (3 instead if hardmode is true)|null (if hardmode is true, this has 40% chance to be [Poison](../../Damage%20pipeline/AttackProperty.md) instead)|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup>|A new `Prefabs/Objects/MothflyLite` GameObject rooted positioned at this enemy + (0.0, 1.0, -0.1) whose SpriteRenderer uses the `holosprite` material if `hologram` is true and with a pure magenta color if the porperty is [Poison](../../Damage%20pipeline/AttackProperty.md) with a ShadowLite that is SetUp with 0.5 opacity and 0.1 size|27.0 (20.0 instead if hardmode is true)|0.0|`keepcolor,wait@0.5,anim@Attack,destoffscr@30@5`|null|null|`@Toss14`|Vector3.zero|false|
+|1|Always happen 3 to 4 times inclusive determined randomly (3 to 5 times inclusive instead if hardmode is true), but each call can only happens if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable returns doesn't return -1|2 (3 instead if hardmode is true)|null (if hardmode is true, this has 40% chance to be [Poison](../../Damage%20pipeline/AttackProperty.md) instead)|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup> (target changes for each calls)|A new `Prefabs/Objects/MothflyLite` GameObject rooted positioned at this enemy + (0.0, 1.0, -0.1) whose SpriteRenderer uses the `holosprite` material if `hologram` is true and with a pure magenta color if the porperty is [Poison](../../Damage%20pipeline/AttackProperty.md) with a ShadowLite that is SetUp with 0.5 opacity and 0.1 size|27.0 (20.0 instead if hardmode is true)|0.0|`keepcolor,wait@0.5,anim@Attack,destoffscr@30@5`|null|null|`@Toss14`|Vector3.zero|false|
 
 1: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details.
 
@@ -120,7 +120,7 @@ This move always sets `nonphyscal` to true which doesn't affects anything for th
 - `checkingdead` set to a new SummonMothFly coroutine (`checkingdead` is set to null when it completes)
 - Yield all frames until `checkingdead` is null
 - If hardmode is true:
-    - [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) is called twice on every enemy party members except this enemy to inflict them the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) and [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) conditions for 999999 main turns each (effectively infinite)
+    - [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) is called twice on every enemy party members except this enemy to inflict them the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) and [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) conditions for 999999 main turns each (infinite)
     - `cantmove` is decremented on this enemy which grants tham an additional actor turn
 - The local startstate is set to `basestate`
 
@@ -177,7 +177,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4 (5 instead if hardmode is true)|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4 (5 instead if hardmode is true)|null|null|`commandsuccess`|
 
 ### Logic sequence
 

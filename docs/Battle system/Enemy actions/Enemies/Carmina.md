@@ -6,20 +6,20 @@
 - `extrastuff[1]`: The first child of `extrastuff[0]` which is an arrow that points to an element on the wheel used in the pre logic
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 1 changes:
+HardMode being true does the following changes:
 
 - In the pre move logic on effect number 2 ([AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) infliction on this enemy), the amount of main turns to inflict the condition is 3 instead of 2
 - In the pre move logic on effect number 3 ([DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) infliction on this enemy), the amount of main turns to inflict the condition is 3 instead of 2
-- In the pre move logic on effect number 7 ([Poison](../../Actors%20states/BattleCondition/Poison.md) infliction on the player party), the amount of main turns to inflict the condition is 3 instead of 2 (assuming they do not have the `EternalPoison` [medal](../../../Enums%20and%20IDs/Medal.md) equipped where the main turn count is always 99999)
-- In the pre move logic on effect number 10 ([DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) infliction on the player party), the amount of main turns to inflict the condition is 3 instead of 2
-- In the pre move logic on effect number 11 ([AttackDown](../../Actors%20states/BattleCondition/AttackDown.md) infliction on the player party), the amount of main turns to inflict the condition is 3 instead of 2
+- In the pre move logic on effect number 7 ([Poison](../../Actors%20states/BattleCondition/Poison.md) infliction on the player party), the amount of main turns to inflict the condition is 3 instead of 2 for each player party members (assuming they do not have the `EternalPoison` [medal](../../../Enums%20and%20IDs/Medal.md) equipped where the main turn count is always 99999 which is infinite)
+- In the pre move logic on effect number 10 ([DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) infliction on the player party), the amount of main turns to inflict the condition is 3 instead of 2 for each player party members
+- In the pre move logic on effect number 11 ([AttackDown](../../Actors%20states/BattleCondition/AttackDown.md) infliction on the player party), the amount of main turns to inflict the condition is 3 instead of 2 for each player party members
 - In the cards throw move, the amount of cards to throw is random between 2 to 3 inclusive rather than always being 2.
-- In the cards throw move, the speed changes to 22 from 29
+- In the cards throw move, the speed of each Projectile calls changes to 22.0 from 29.0
 - In the heart projectile throw move, the heart takes 60.0 frames to reach its target instead of 80.0 frames
 - In the dice block hit move, the dice takes 11.0 frames to reach its target instead of 16.0 frames. NOTE: This effectively doesn't do anything in regards to blocking because the [DoDamage](../../Damage%20pipeline/DoDamage.md) call receives false as the block parameter meaning the move is unblockable
 
 ## Move selection
-1 moves are possible:
+3 moves are possible:
 
 1. A single target multiple cards throw
 2. A single target heart projectile throw that also inflict [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md)
@@ -62,7 +62,7 @@ Depending on the effect number generated, the corresponding effect is applied am
 - 0: [Heal](../../Actors%20states/Heal.md) is called on each player party members whose `hp` is above 0 has to heal 3 of their `hp`
 - 1: [Heal](../../Actors%20states/Heal.md) is called on this enemy to heal 5 of their `hp`
 - 2: [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition on this enemy with effect for 2 main turns including the current one (3 main turns instead if hardmode is true)
-- 3: [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition on this enemy with effect for 2 main turns (3 main turns instead if hardmode is true). The main turn count is effectively 1 (2 instead if hardmode is true) because the current main turn ends soon after this action
+- 3: [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition on this enemy with effect for 2 main turns (3 main turns instead if hardmode is true). The main turn count is effectively 1 (2 instead if hardmode is true) because the current main turn advances soon after this action
 - 4: If `playerdata[partypointer[0]]` (the player party member in front)'s `hp` is 1 or below, `AtkFail` sound plays, otherwise:
     - [DoDamage](../../Damage%20pipeline/DoDamage.md) called to inflict an unblockable 5 damage to `playerdata[partypointer[0]]` without an attacker, property or any overrides
     - If their `hp` became 0 or lower, it is set to 1 meaning this DoDamage call can't be lethal to them
@@ -120,7 +120,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 2 times (random between 2 to 3 times instead if hardmode is true)|3|Random among the following:<ul><li>null</li><li>[Sleep](../../Damage%20pipeline/AttackProperty.md)</li><li>[Poison](../../Damage%20pipeline/AttackProperty.md)</li></ul>|This enemy|`playertargetID`|A new sprite object rooted with a SpriteRenderer using a `guisprite` sprite whose index depends on the property sent (90 for null which is a regular spy card, 116 for `Sleep` which is a mini boss spy card and 117 for `Poison` which is a boss spy card) positioned at this enemy + (-1.0, 1.5, -0.1) with a ShadowLite that is SetUp with 0.3 opacity and 0.5 size scaled at 0.2x and 90.0 z angle|29 (22 instead if hardmode is true)|0.0|null|null|null|null|(0.0, 0.0, -30.0)|false|
+|1|Always happen 2 times (random between 2 to 3 times instead if hardmode is true)|3|Random among the following:<ul><li>null</li><li>[Sleep](../../Damage%20pipeline/AttackProperty.md)</li><li>[Poison](../../Damage%20pipeline/AttackProperty.md)</li></ul>|This enemy|`playertargetID` after [GetSingleTarger](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for all calls)|A new sprite object rooted with a SpriteRenderer using a `guisprite` sprite whose index depends on the property sent (90 for null which is a regular spy card, 116 for `Sleep` which is a mini boss spy card and 117 for `Poison` which is a boss spy card) positioned at this enemy + (-1.0, 1.5, -0.1) with a ShadowLite that is SetUp with 0.3 opacity and 0.5 size scaled at 0.2x and 90.0 z angle|29 (22 instead if hardmode is true)|0.0|null|null|null|null|(0.0, 0.0, -30.0)|false|
 
 ### Logic sequence
 
@@ -149,7 +149,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Numb](../../Actors%20states/BattleCondition/Numb.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Numb](../../Actors%20states/BattleCondition/Numb.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -182,7 +182,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|null|`playerdata[playertargetID]`|Random between 1 and 6 inclusive|[NoExceptions](../../Damage%20pipeline/AttackProperty.md)|null|false|
+|1|Always happen|null|`playerdata[playertargetID]` after [GetSingleTarger](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|Random between 1 and 6 inclusive|[NoExceptions](../../Damage%20pipeline/AttackProperty.md)|null|false|
 
 ### Logic sequence
 

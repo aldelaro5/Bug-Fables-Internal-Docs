@@ -41,7 +41,7 @@ A single target slash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -68,7 +68,7 @@ A single target aerial dash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|[Sleep](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Sleep](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -101,7 +101,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Only happens if `barfill` is less than 0.975 (almost filled) after DoCommand 1|This enemy|The selected `playertargetID`|5|null|null|`commandsuccess`|
+|1|Only happens if `barfill` is less than 0.975 (almost filled) after DoCommand 1|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|5|null|null|`commandsuccess`|
 
 ### Logic sequence
 

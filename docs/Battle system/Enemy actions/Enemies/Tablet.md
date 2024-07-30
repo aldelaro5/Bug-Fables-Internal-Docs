@@ -4,12 +4,12 @@
 It is assumed that a [EverlastingKing](EverlastingKing.md) is always present alongside this enemy as otherwise, this enemy will cause an exception to be thrown.
 
 ## [Fire](../../Actors%20states/BattleCondition/Fire.md) damage infliction logic in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md)
-This enemy has cannot be on fire meaning any `Fire` property damages will not inflict the [Fire](../../Actors%20states/BattleCondition/Fire.md) condition.
+This enemy cannot be on fire meaning any `Fire` property damages will not inflict the [Fire](../../Actors%20states/BattleCondition/Fire.md) condition.
 
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 1 element with a starting value of 0.
 
-- `data[0]`: An actor cooldown before using the shield move. When the move is used, the value is set to 2 (1 instead if hardmode is true). Every actor turn that this value is above 0, it is decremented, but at the expense of using the shield move meaning it prevents it. The move only becomes usable again when the value is 0 or lower. Effectively, it's an antispam of 2 (1 if hardmode is true) completed actor turns before the shield move can be used
+- `data[0]`: An actor cooldown before using the shield move. When the move is used, the value is set to 2 (1 instead if hardmode is true). Every actor turn that this value is above 0, it is decremented, but at the expense of not using the shield move meaning it prevents it. The move only becomes usable again when the value is 0 or lower. Effectively, it's an antispam of 2 (1 if hardmode is true) completed actor turns before the shield move can be used
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
@@ -21,7 +21,9 @@ HardMode being true does the following changes:
 
 1. Places a shield on [EverlastingKing](EverlastingKing.md) which inflicts them the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition
 
-Move 1 is always used.
+Move 1 is always (and only) used if `data[0]` is 0 or below (the cooldown on the usage of the move expired).
+
+Otherwise, the action is limited to `data[0]` being decremented, but move 1 won't be used.
 
 ## Move 1 - Shields [EverlastingKing](EverlastingKing.md)
 Places a shield on [EverlastingKing](EverlastingKing.md) which inflicts them the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition. No damages are dealt.

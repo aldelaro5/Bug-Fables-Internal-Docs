@@ -5,7 +5,7 @@
 
 1. Decrements their `hp` and dies if it reaches 0 after
 
-Move 1 is always used
+Move 1 is always used.
 
 ## Move 1 - `hp` decrements
 Decrements their `hp` and dies if it reaches 0 after. No damages are dealt.

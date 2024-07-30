@@ -88,7 +88,7 @@ A single target triple slap attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen 3 times|This enemy|The selected `playertargetID`|1|null|null|`commandsuccess`|
+|1|Always happen 3 times|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|1|null|null|`commandsuccess`|
 
 ### Logic sequence
 

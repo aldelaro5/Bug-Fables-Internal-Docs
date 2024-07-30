@@ -5,6 +5,8 @@ This enemy is assumed to be fought with [Maki](Maki.md) for the move selection t
 
 It is also assumed that the [DeathType](../../Actors%20states/Enemy%20features.md#deathtype) of the enemy supports the `reservedata` feature as it is needed by [Maki](Maki.md) in case they want to revive this enemy.
 
+It is also assumed that this enemy is loaded with a [chargeonotherenemy](../../Actors%20states/Enemy%20features.md#chargeonotherenemy) configured so their `hitaction` logic works (typically it would be set to [Maki](Maki.md)).
+
 ## [StartBattle](../../StartBattle.md) special logic
 After loading this enemy, the following special adjustements happens to them if [flags](../../../Flags%20arrays/flags.md) 614 is true (HARDEST is active):
 
@@ -20,7 +22,7 @@ At the start of the action, if `data` is null or empty, it's initialised to be 1
 HardMode being true does the following changes:
 
 - In the projectiles throw move, the odds that the property of each Projectile calls is [Poison](../../Damage%20pipeline/AttackProperty.md), [Sleep](../../Damage%20pipeline/AttackProperty.md) or [Numb](../../Damage%20pipeline/AttackProperty.md) changes to 50% from 70%
-- In the projectiles throw move, the speed of each projectile call changes to 12.0 from 19.0
+- In the projectiles throw move, the speed of each Projectile call changes to 12.0 from 19.0
 - In the jump kick attack move, the amount of frames this enemy takes to reach its target changes to 21.0 from 28.0. However, after this, there is always a yield of 0.1 seconds regardless if hardmode is true or not before the DoDamage call
 
 ## [hitaction](../../Battle%20flow/Update%20flows/Controlled%20flow.md#enemies-hitaction) support
@@ -98,7 +100,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 2 to 4 times determined randomly, but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|null, but there is a 70% chance (50% instead if hardmode is true) that the property is determined randomly among the following with uniform odds:<ul><li>[Poison](../../Damage%20pipeline/AttackProperty.md)</li><li>[Sleep](../../Damage%20pipeline/AttackProperty.md)</li><li>[Numb](../../Damage%20pipeline/AttackProperty.md)</li></ul>|This enemy|`playertargetID`|A new sprite object childed to the `battlemap` using the `projectilepsrites[12]` sprite (purple pointy projectile) positioned at this enemy + (-1.5, 1.5, -0.1) with a scale of 0.6x and a z angle of -90.0. The color depends on the property:<ul><li>[Poison](../../Damage%20pipeline/AttackProperty.md): pure magenta</li><li>[Sleep](../../Damage%20pipeline/AttackProperty.md): pure green</li><li>[Numb](../../Damage%20pipeline/AttackProperty.md): pure yellow</li></ul>|19.0 (12.0 instead if hardmode is true)|0.0|`keepcolor,x`|null|null|null|Vector3.zero|false|
+|1|Always happen from 2 to 4 times determined randomly, but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|null, but there is a 70% chance (50% instead if hardmode is true) that the property is determined randomly among the following with uniform odds:<ul><li>[Poison](../../Damage%20pipeline/AttackProperty.md)</li><li>[Sleep](../../Damage%20pipeline/AttackProperty.md)</li><li>[Numb](../../Damage%20pipeline/AttackProperty.md)</li></ul>|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|A new sprite object childed to the `battlemap` using the `projectilepsrites[12]` sprite (purple pointy projectile) positioned at this enemy + (-1.5, 1.5, -0.1) with a scale of 0.6x and a z angle of -90.0. The color depends on the property:<ul><li>[Poison](../../Damage%20pipeline/AttackProperty.md): pure magenta</li><li>[Sleep](../../Damage%20pipeline/AttackProperty.md): pure green</li><li>[Numb](../../Damage%20pipeline/AttackProperty.md): pure yellow</li></ul>|19.0 (12.0 instead if hardmode is true)|0.0|`keepcolor,x`|null|null|null|Vector3.zero|false|
 
 ### Logic sequence
 
@@ -129,7 +131,7 @@ A single target jump kick attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|5|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|5|null|null|`commandsuccess`|
 
 ### Logic sequence
 

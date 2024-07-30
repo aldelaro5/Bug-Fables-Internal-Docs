@@ -24,6 +24,7 @@ Move 5 is always used (and only used) when this is the last `enemydata` left and
 Move 1 through 4's usage all requires that `Beetle` is present in the enemy party (this should be guaranteed since if they weren't, they would normally be revived by move 5). If he is present, the move usage decision is done based on the following odds:
 
 |Move|Odds|
+|---:|----|
 |1|1/6|
 |2|2/6|
 |3|2/6|

@@ -1,14 +1,17 @@
 # `Flowering`
 
+## [EnemyCheck](../../StartBattle%20phases/Pre%20haltbattleload.md#enemycheck) special logic
+Before this enemy is loaded, it's possible that StartBattle overrides it to a `GoldenSeedling`. See the documentation to learn more.
+
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
 - In the enemy support move, when healing the enemy, the minimum amount of `hp` they will be healed by is 3 instead of 2
 
 ## Move selection
-3 move is possible:
+3 move are possible:
 
-1. Supports another enemy party member by either healing them or inflicting them an [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) or [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition
+1. Supports another enemy party member by either healing their `hp` or inflicting them an [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) or [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition
 2. A single target aerial strike attack
 3. A single target tackle attack, UNUSED
 
@@ -64,7 +67,7 @@ A single target aerial strike attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|1|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|1|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -105,7 +108,7 @@ A single target tackle attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 

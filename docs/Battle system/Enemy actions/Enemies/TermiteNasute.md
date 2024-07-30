@@ -56,7 +56,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 2 to 3 times (always 2 time if hardmode is true)|2|[Poison](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID`|A new sprite object rooted using the `projectilepsrites[10]` sprite (a honey projectile) positioned at this enemy + (-1.85, 1.65, -0.1) with scale of 0.75x and a color of pure magenta|37.5 (31.0 instead if hardmode is true)|0.0|null|`PoisonEffect`|`PingDown`|null|Vector3.zero|false|
+|1|Always happen from 2 to 3 times (always 2 time if hardmode is true)|2|[Poison](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|A new sprite object rooted using the `projectilepsrites[10]` sprite (a honey projectile) positioned at this enemy + (-1.85, 1.65, -0.1) with scale of 0.75x and a color of pure magenta|37.5 (31.0 instead if hardmode is true)|0.0|null|`PoisonEffect`|`PingDown`|null|Vector3.zero|false|
 
 ### Logic sequence
 
@@ -89,7 +89,7 @@ A single target slash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 

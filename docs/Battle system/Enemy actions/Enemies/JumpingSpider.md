@@ -27,7 +27,7 @@ A single target small jump attack that may steal a standard [item](../../../Enum
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -52,7 +52,7 @@ A single target high jump attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|5|null|[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|5|null|[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)|`commandsuccess`|
 
 ### Logic sequence
 

@@ -29,14 +29,14 @@ HardMode being true does the following changes:
     - `forcefire` is true
     - The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`
 - In the laser attack move, the yield time while charging the laser changes to 0.75 seconds from 0.85 seconds
-- In the charging move, this enemy gets a [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition for 2 main turns
+- In the charging move, this enemy gets a [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition for 2 main turns (effectively 1 main turn as the current main turn advances soon)
 
 ## Move selection
-3 moves are possible:
+4 moves are possible:
 
 1. A single target aerial strike
 2. A single target laser attack
-3. Brace themselves by increasing their `charge` to explode on the next actor turn
+3. Prepares themselves to explode on the next actor turn by setting their `charge` to 2
 4. A party wide explosition attack that self sacrifice
 
 The decision of which moves to use is based on odds and they change depending on if [HPPercent](../../Actors%20states/HPPercent.md) is at least 0.9 or not. Here are the odds (move 3 and 4 are treated the same in this selection process):
@@ -76,8 +76,8 @@ A single target aerial strike.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Happens if at least one of the following is true:<ul><li>`forcefire` is true</li><li>The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`</li></ul>|This enemy|The selected `playertargetID`|3|[Fire](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
-|3|Happens if DoDamage 1 didn't|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Happens if at least one of the following is true:<ul><li>`forcefire` is true</li><li>The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`</li></ul>|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Fire](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|2|Happens if DoDamage 1 didn't|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -105,9 +105,9 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Happens if at least one of the following is true:<ul><li>`forcefire` is true</li><li>The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`</li></ul>|This enemy|The selected `playertargetID`|3|[Fire](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
-|2|Happens if DoDamage 1 didn't and `inice` is true|This enemy|The selected `playertargetID`|2|[Freeze](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
-|3|Happens if DoDamage 1 and 2 didn't|This enemy|The selected `playertargetID`|2|[Numb](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Happens if at least one of the following is true:<ul><li>`forcefire` is true</li><li>The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`</li></ul>|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Fire](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|2|Happens if DoDamage 1 didn't and `inice` is true|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Freeze](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|3|Happens if DoDamage 1 and 2 didn't|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Numb](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -133,8 +133,8 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - DoDamage 1, 2 or 3 happens depending on which one fits its condition requirements
 - Yield for 0.5 seconds
 
-## Move 3 - Prepare for explosion
-Brace themselves by increasing their `charge` to explode on the next actor turn. No damages are dealt.
+## Move 3 - Prepare for explosion with 2 `charge`
+Prepares themselves to explode on the next actor turn by setting their `charge` to 2. No damages are dealt.
 
 ### `dontusecharge` set to true
 This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).

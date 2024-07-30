@@ -10,7 +10,7 @@ The purpose of such an enemy is for testing purposes only since it allows to att
 
 1. Heals their `hp` to their `maxhp` as well as the player party's `tp` to their `maxtp`
 
-Move 1 is always done
+Move 1 is always used.
 
 ## Move 1 - Healing
 Heals their `hp` to their `maxhp` as well as the player party's `tp` to their `maxtp`. No damages are dealt

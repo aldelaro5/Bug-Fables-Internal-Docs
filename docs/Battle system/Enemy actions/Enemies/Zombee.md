@@ -27,7 +27,7 @@ A single target double slash.
 |#|Conditions|enemyid|walkstate|attackstate|attackstate2|damage|offset|property|shake|delay|sounds|dontgettarget|
 |-:|---------|-------|--------|------------|------------|------|-----|--------|-----|-----|------|-------------|
 |1|Always happen|This enemy|1 (`Walk`)|100|102|2|(1.25, 0.0, -0.1)|[Poison](../../Damage%20pipeline/AttackProperty.md)|0.0|0.5 seconds|`,Toss7`|false|
-|2|Always happen|This enemy|1 (`Walk`)|102|103|2|(1.25, 0.0, -0.1)|[Sleep](../../Damage%20pipeline/AttackProperty.md)|0.0|0.2 seconds|`,Toss8`|true|
+|2|Always happen after BasicAttack 1|This enemy|1 (`Walk`)|102|103|2|(1.25, 0.0, -0.1)|[Sleep](../../Damage%20pipeline/AttackProperty.md)|0.0|0.2 seconds|`,Toss8`|true|
 
 ### Logic sequence
 
@@ -46,7 +46,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 3 times, but each calls requires to have at least 1 player party member whose `hp` is above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences)|3|[Sleep](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID`|A new sprite object using the `projectilepsrites[2]` sprite (spiky projectile) positioned at this enemy + (-1.0, 1.0, -0.1) with a pure gray color and a z angle of -90.0|32.0 (21.0 instead if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
+|1|Always happen 3 times, but each calls requires to have at least 1 player party member whose `hp` is above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences)|3|[Sleep](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|A new sprite object using the `projectilepsrites[2]` sprite (spiky projectile) positioned at this enemy + (-1.0, 1.0, -0.1) with a pure gray color and a z angle of -90.0|32.0 (21.0 instead if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
 
 ### Logic sequence
 

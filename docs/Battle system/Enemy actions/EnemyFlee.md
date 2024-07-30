@@ -25,7 +25,7 @@ private IEnumerator EnemyFlee(int walkstate, bool afterimage, int enemyid)
 - The enemy party member's `trail` set to afterimage
 - `Flee` sound plays
 - `sounds[9]` stop with 0.001 delay
-- Over the course of 50.0 frames, position is lerped to offscreen at (15.0, 0.0, 0.0) while the animstate is set to the sent walkstate
+- Over the course of 50.0 frames, the enemy party member's position changes to offscreen at (15.0, 0.0, 0.0) via a lerp. Before each frame yield, the animstate is set to the sent walkstate
 - The enemy party member's `fled` set to true
 - `tryenemyheal` set to null informing the caller that the coroutine completed
 - `enemyfled` set to true

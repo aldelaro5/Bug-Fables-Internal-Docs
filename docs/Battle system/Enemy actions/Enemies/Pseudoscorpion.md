@@ -1,37 +1,39 @@
 # `Pseudoscorpion`
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true has 1 change:
+HardMode being true does the following changes:
 
-- When using the pincer slash attack move, there's a 6/10 chance for the enemy to do a fake slash animation before the real one. This will be will be indicated by jumping 2 times at the start of the move. If they do that, the DoDamage will have the [sleep](../../Damage%20pipeline/AttackProperty.md) property as opposed to be [poson](../../Damage%20pipeline/AttackProperty.md)
+- In the pincer slash attack move, there's now a 6/10 chance for the enemy to do a fake slash animation before the real one. This will be will be indicated by jumping 2 times at the start of the move. If they do that, the DoDamage will have the [sleep](../../Damage%20pipeline/AttackProperty.md) property as opposed to be [poison](../../Damage%20pipeline/AttackProperty.md)
 
 ## Move selection
 3 moves are possible:
 
 1. A single target pincer slash attack
-2. Digging underground
+2. Changes their [position](../../Actors%20states/BattlePosition.md) to `Underground` by digging
 3. A single target undergound strike attack
 
-Move 3 is only used if [position](../../Actors%20states/BattlePosition.md) is `Underground` and it is the only move used with this `position`.
+Move 3 is always (and only) used if [position](../../Actors%20states/BattlePosition.md) is `Underground`.
 
-If [position](../../Actors%20states/BattlePosition.md) is `Ground`, Move 1 and 2 is chosen with these odds:
+As for the other moves, the decision of which moves to use depends on the following odds:
 
-- Move 1: 3/5
-- Move 2: 2/5
+|Move|Odds|
+|---:|----|
+|1|3/5|
+|2|2/5|
 
 ## Move 1 - pincer slash attack
-A single target pincer slash attack
+A single target pincer slash attack.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|If hardmode is false, it's [poison](../../Damage%20pipeline/AttackProperty.md). If it's true, it has 6/10 chance to be [sleep](../../Damage%20pipeline/AttackProperty.md) and 4/10 chance to be [poison](../../Damage%20pipeline/AttackProperty.md)|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|If hardmode is false, it's [poison](../../Damage%20pipeline/AttackProperty.md). If it's true, it has 6/10 chance to be [sleep](../../Damage%20pipeline/AttackProperty.md) instead (4/10 chance to still be [poison](../../Damage%20pipeline/AttackProperty.md))|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
 
 ### Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
-- This is where the 2 jumps may happen. It will if hardmode is true and a 6/10 RNG check passes. This is what happens 2 times if that is the case:
+- This is where the 2 jumps may happen. It will if hardmode is true and a 6/10 RNG check passes (also makes the property of the Damage 1 call [sleep](../../Damage%20pipeline/AttackProperty.md)). This is what happens 2 times if that is the case:
     - `Jump` sound plays with 1.1 pitch and 0.8 volume
     - [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) called
     - Yield for 0.33 seconds
@@ -48,26 +50,26 @@ A single target pincer slash attack
     - animstate set to 100
     - Yield for 0.6 seconds
 - animstate set to 102
-- DoDamage 1 call happens (the property was already decided earlier with the jump RNG check)
+- DoDamage 1 call happens
 - `Hit2` sound plays
 - Yield for 0.75 seconds
 
-## Move 2 - Digging underground
-The enemy digs underground to change its [position](../../Actors%20states/BattlePosition.md) to `Underground`. No damages are dealt.
+## Move 2 - Changes their [position](../../Actors%20states/BattlePosition.md) to `Underground`
+Changes their [position](../../Actors%20states/BattlePosition.md) to `Underground` by digging. No damages are dealt.
 
 ### Logic sequence
 
 - `checkingdead` set to a new [Dig](../Dig.md) call on this enemy
 - Yield all frames until `checkingdead` goes to null (the Dig coroutine completed)
 
-## Move 3 - Undergound strike attack
+## Move 3 - Undergound strike attack then change [position](../../Actors%20states/BattlePosition.md) to `Ground`
 A single target undergound strike attack. [position](../../Actors%20states/BattlePosition.md) is set to `Ground` after.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -81,7 +83,7 @@ This is effectively what the coroutine does:
 
 - Camera moves to look near `playerdata[playertargetID]`, but zoomed in
 - `Digging` sound plays on loop using `sounds[9]` with 1.1 pitch and 0.75 volume
-- Over the course of 100.0 frames, position moves to `playertargetentity`'s position + -0.25 in z
+- Over the course of 100.0 frames, this enemy moves to `playertargetentity` position + -0.25 in z
 - Yield for 0.25 seconds
 - `sounds[9]` stopped
 - `DigPop` sound plays

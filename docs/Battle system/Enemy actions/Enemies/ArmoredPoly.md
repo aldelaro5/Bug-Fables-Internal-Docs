@@ -1,9 +1,9 @@
 # `ArmoredPoly`
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 1 change:
+HardMode being true does the following changes:
 
-- The rolling attack move has the [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) call use a multiplier of 3.65 instead of 3.0. This makes the enemy moves ~21.6666667% faster
+- In the rolling attack move, the multiplier of the [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) call changes to 3.65 from of 3.0. This makes the enemy moves ~21.6666667% faster
 
 ## Move selection
 1 move is possible:
@@ -19,7 +19,7 @@ A single target rolling attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -38,7 +38,7 @@ A single target rolling attack
 - Yield all frames until `forcemove` is done
 - DoDamage 1 call happens
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
-- If `commandsuccess` is false (failed to block, does not take into account FRAMEONE's enablement):
+- If `commandsuccess` is false (failed to block, ignores FRAMEONE):
     - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) (-20.0, 0.0, this enemy's z position) using the same multiplier as the call before and both the current animstate as the walkstate and stopstate
     - Yield all frames until `forcemove` is done. Before each frame yield, `playerdata[playertargetID]` has their animstate set to 11 (`Hurt`) and y `spin` to (0.0, 30.0, 0.0) * the distance between this enemy position and its `forcetarget` clamped from 0.0 to 1.0
     - `playerdata[playertargetID]` animstate set to 13 (`BattleIdle`)
@@ -52,7 +52,7 @@ A single target rolling attack
 - [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) called
 - Yield for 0.1 seconds
 - Yield all frames until `onground` is true
-- If `commandsuccess` is true (sucessfully blocked, does not take into account FRAMEONE's enablement), `flip` is toggled
+- If `commandsuccess` is true (blocked, ignores FRAMEONE), `flip` is toggled
 - animstate set to 0 (`Idle`)
 - [Jump](../../../Entities/EntityControl/EntityControl%20Methods.md#jump) called
 - Yield for 0.4 seconds

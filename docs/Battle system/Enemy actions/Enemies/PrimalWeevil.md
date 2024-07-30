@@ -82,8 +82,8 @@ A single target swipe attack that may hit twice.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
-|2|Happens only if at least one of the following is true:<ul><li>`commandsuccess` is true after DoDamage 1 (ignores FRAMEONE)</li><li>[HPPercent](../../Actors%20states/HPPercent.md) is less than 0.6</li></ul>|This enemy|The selected `playertargetID`|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|2|Happens only if at least one of the following is true:<ul><li>`commandsuccess` is true after DoDamage 1 (blocked, ignores FRAMEONE)</li><li>[HPPercent](../../Actors%20states/HPPercent.md) is less than 0.6</li></ul>|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -112,7 +112,7 @@ A single target tail slash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|5|null|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|5|null|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
 
 ### Logic sequence
 
@@ -145,8 +145,8 @@ A single target grab attack that may hit twice.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|null|null|`commandsuccess`|
-|2|Happens only if `commandsuccess` is false after DoDamage 1 (ignores FRAMEONE)|This enemy|The selected `playertargetID`|2|null|{[NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|false|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|null|null|`commandsuccess`|
+|2|Happens only if `commandsuccess` is false after DoDamage 1 (din't blocked, ignores FRAMEONE)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|{[NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|false|
 
 ### Logic sequence
 

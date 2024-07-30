@@ -27,7 +27,7 @@ A single target bite attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Sleep](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Sleep](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -58,7 +58,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 2 times (random between 2 to 3 times inclusive instead if hardmode is true), each calls requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|[Poison](../../Damage%20pipeline/AttackProperty.md) (if hardmode is true, this has 50% chance to be [Sticky](../../Damage%20pipeline/AttackProperty.md) instead)|This enemy|`playertargetID`|A new `Prefabs/Objects/PoisonBubble` (`Prefabs/Objects/StickyBubble` instead if the property is `Sticky`) GameObject rooted positioned at this enemy + (-1.5, 1.0, -0.1) with a scale of 0.35x|37.0 (30.0 instead if hardmode is true)|0.0|null|`PoisonEffect` (`StickyGet` instead if property is `Sticky`)|`BubbleBurst`|null|Vector3.zero|false|
+|1|Always happen 2 times (random between 2 to 3 times inclusive instead if hardmode is true), each calls requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|[Poison](../../Damage%20pipeline/AttackProperty.md) (if hardmode is true, this has 50% chance to be [Sticky](../../Damage%20pipeline/AttackProperty.md) instead)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|A new `Prefabs/Objects/PoisonBubble` (`Prefabs/Objects/StickyBubble` instead if the property is `Sticky`) GameObject rooted positioned at this enemy + (-1.5, 1.0, -0.1) with a scale of 0.35x|37.0 (30.0 instead if hardmode is true)|0.0|null|`PoisonEffect` (`StickyGet` instead if property is `Sticky`)|`BubbleBurst`|null|Vector3.zero|false|
 
 ### Logic sequence
 

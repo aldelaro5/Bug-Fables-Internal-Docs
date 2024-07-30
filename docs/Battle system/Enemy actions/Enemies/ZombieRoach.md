@@ -3,7 +3,7 @@
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 4 element with a starting value of 0 for each element except `data[1]` where the starting value is 2.
 
-- `data[0]`: This tells the "mode" this enemy is on which drastically changes the move selection process because it changes the sets of move they can use. It can only be 0 or 1 and it is toggled between the 2 when `data[1]` is 0 at the end of the action which will cause them to switch the current mode in the post move logic and have `data[1]` set back to 2 (meaning the current mode won't change until 2 main turns). Here are the details of the 2 modes:
+- `data[0]`: This tells the "mode" this enemy is on which drastically changes the move selection process because it changes the sets of move they can use. The value can only be 0 or 1 and it is toggled between the 2 when `data[1]` is 0 at the end of the action which will cause them to switch the current mode in the post move logic and have `data[1]` set back to 2 (meaning the current mode won't change until 2 main turns). Here are the details of the 2 modes:
     - 0: Sand mode. Here are the moveset changes:
         - The energy spheres throw move is accessible, but not the single target ice attack move
         - The moving sand attack move is accessible, but not the party wide icicle throw move
@@ -29,7 +29,7 @@ HardMode being true does the following changes:
 - In the single target ice attack move, the amount of frames the ice pillar takes to reach its target and appear changes to 71.0 frames from 81.0 frames
 - In the moving sand attack move, the [DoCommand](../../DoCommand.md) call (which is a [TappingKey](../../Action%20commands/TappingKey.md)) has `barfill` decrease 25% faster each frame. However, this change doesn't affect anything if `mashcommandalt` is true making the command a [SequentialKeys](../../Action%20commands/SequentialKeys.md)
 - In the moving sand attack move, the damageammount of each DoDamage calls changes to 0 from 1 (this doesn't mean the call no longer does damages because it is meant for the `hardatk` effect to apply which could deal a non zero amount of damages and the call also has [AtLeast1Pierce](../../Damage%20pipeline/AttackProperty.md) which guarantees a non zero amount of damages)
-- In the enemy summon move, `cantmove` gets decremented which grants another free actor turn to this enemy
+- In the enemy summon move, `cantmove` gets decremented which grants an additonal actor turn to this enemy
 
 ## Move selection
 6 moves are possible:
@@ -64,7 +64,7 @@ Next, the odds to use a move. Here are the base odds to use each move:
 However, there are 2 special cases to this:
 
 - If [position](../../Actors%20states/BattlePosition.md) is `Underground`, move 3-4 is always used (this should only and always be the case after using move 3 and in such case, move 3 will be used again)
-- If move 3/4 was selected and `data[2]` is above 0 (after the decrement), the move can't be selected because the actor turn cooldown on it hasn't expired yet
+- If move 3-4 was selected and `data[2]` is above 0 (after the decrement), the move can't be selected because the actor turn cooldown on it hasn't expired yet
 
 In that second case, the entire move selection is rerolled with different odds that don't include move 3/4. Here are those special odds:
 
@@ -144,7 +144,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 2 times (random between 2 and 3 times instead if hardmode is true), but each call requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3 (2 instead if hardmode is true)|null|This enemy|`playertargetID` (changes foor each call)|A new `Prefabs/Objects/EnergySphere` GameObject rooted positioned at this enemy position + (-2.0, 4.0, 0.0) + a random vector between (-1.5, -1.0, 0.0) and (1.5, 1.0, 0.0) with a `NoMapColor` tag|50.0 (40.0 instead if hardmode is true)|1.0 (-0.5 instead if it's the second hit)|`SepPart@3@1,keepcolor`|`Stars`|`PingShot`|null|Vector3.zero|false|
+|1|Always happen from 2 times (random between 2 and 3 times instead if hardmode is true), but each call requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3 (2 instead if hardmode is true)|null|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each call)|A new `Prefabs/Objects/EnergySphere` GameObject rooted positioned at this enemy position + (-2.0, 4.0, 0.0) + a random vector between (-1.5, -1.0, 0.0) and (1.5, 1.0, 0.0) with a `NoMapColor` tag|50.0 (40.0 instead if hardmode is true)|1.0 (-0.5 instead if it's the second hit)|`SepPart@3@1,keepcolor`|`Stars`|`PingShot`|null|Vector3.zero|false|
 
 ### Logic sequence
 
@@ -182,7 +182,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Freeze](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Freeze](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -222,7 +222,7 @@ A single target moving sand attack that may hit multiple times and drain `hp`.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Called once if `barfill` is less than 1.0 (not full) during DoCommand 1 once 0.5 seconds passed and then continously called again every 1.25 seconds until either `barfill` reaches 1.0 (checked 0.75 seconds after each call) or that `playerdata[playertargetID]`'s `hp` becomes 0|This enemy|The selected `playertargetID`|1 (0 instead if hardmode is true<sup>1</sup>)|[Atleast1pierce](../../Damage%20pipeline/AttackProperty.md)<sup>2</sup>|null|false|
+|1|Called once if `barfill` is less than 1.0 (not full) during DoCommand 1 once 0.5 seconds passed and then continously called again every 1.25 seconds until either `barfill` reaches 1.0 (checked 0.75 seconds after each call) or that `playerdata[playertargetID]`'s `hp` becomes 0|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|1 (0 instead if hardmode is true<sup>1</sup>)|[Atleast1pierce](../../Damage%20pipeline/AttackProperty.md)<sup>2</sup>|null|false|
 
 1: This doesn't mean the call won't deal any damage because not only `Atleast1pierce` guarantees 1 damage is dealt, but also because it is meant to function with `hardatk` in mind which takes effect when hardmode is true
 2: Enemy piercing damages are disabled, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
@@ -313,7 +313,7 @@ Summons a new [SandWall](SandWall.md) or [IceWall](IceWall.md) enemy. No damages
 - `impactsmoke` particles plays at this enemy position - 3.0 in x
 - `checkingdead` set to a new [SummonEnemy](../../Actors%20states/Enemy%20party%20members/SummonEnemy.md) call to summon a [SandWall](SandWall.md) enemy (in sand mode) or [IceWall](IceWall.md) enemy (in ice mode) at this enemy position - 3.0 in x
 - Yield all frames until `checkingdead` is null (the coroutine completed)
-- If hardmode is true, `cantmove` is decremented which grants a free actor turn to this enemy
+- If hardmode is true, `cantmove` is decremented which grants an additional actor turn to this enemy
 - `enemydata[1]` (which should always be the wall that was just summoned) has its `diebyitself` set to true which mean if they are the only enemy party member alive, [CheckDead](../../Battle%20flow/Action%20coroutines/CheckDead.md) will kill them
 
 ## Move 6 - Magic boost or heal followed by move 1 or 2

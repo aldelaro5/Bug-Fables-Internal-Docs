@@ -1,7 +1,10 @@
 # `Seedling`
 
+## [EnemyCheck](../../StartBattle%20phases/Pre%20haltbattleload.md#enemycheck) special logic
+Before this enemy is loaded, it's possible that StartBattle overrides it to a `GoldenSeedling`. This also applies to the `FlyingSeedling` variant. See the documentation to learn more.
+
 ## Move selection
-2 move is possible:
+2 move are possible:
 
 1. A single target aerial strike attack
 2. A single target tackle attack
@@ -15,7 +18,7 @@ A single target aerial strike attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -29,17 +32,17 @@ A single target aerial strike attack
 - y position set to the `height` value before this action
 - animstate set to 26 (`AirTackle`)
 - `FastWoosh` sound plays
-- Over the course of 1 / 0.055 frames (~18.181818 frames), position moves to its current position + 0.75 in x via a BeizierCurve3 with a ymax of -0.01
+- Over the course of 1 / 0.055 frames (~18.181818 frames), this enemy moves to its current position + 0.75 in x via a BeizierCurve3 with a ymax of -0.01
 - animstate set to 100
 - Yield for 0.2 seconds
 - animstate set to 26 (`AirTackle`)
 - `Turn2` sound plays
-- Over the course of 1 / 0.07 frames (~14.285714 frames), position lerps to `playerdata[playertargetID]` position + (0.0, 1.0, -0.1)
+- Over the course of 1 / 0.07 frames (~14.285714 frames), this enemy moves to `playerdata[playertargetID]` position + (0.0, 1.0, -0.1) via a lerp
 - DoDamage call 1 happens
 - Yield for 0.15 seconds
 - `height` set to 0.2
 - animstate set to 1 (`Walk`)
-- Over the course of 1 / 0.045 frames (~22.22222 frames), position lerps to its position before the BeizierCurve3 movement earlier
+- Over the course of 1 / 0.045 frames (~22.22222 frames), this enemy moves to its position before the BeizierCurve3 movement earlier via a lerp
 - y position is set to 0.0
 - `height` is restored to its value before this action
 - Yield for 0.2 seconds
@@ -54,7 +57,7 @@ A single target tackle attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 

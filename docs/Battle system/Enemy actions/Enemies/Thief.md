@@ -1,7 +1,7 @@
 # `Thief`
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true has 1 change:
+HardMode being true does the following changes:
 
 - In the gust attack move, the [DoCommand](../../DoCommand.md) call (which is a [TappingKey](../../Action%20commands/TappingKey.md)) has `barfill` decrease 25% faster each frame. However, this change doesn't affect anything if `mashcommandalt` is true making the command a [SequentialKeys](../../Action%20commands/SequentialKeys.md)
 
@@ -12,15 +12,17 @@ HardMode being true has 1 change:
 2. A party wide wind gust attack
 3. Flees the battle
 
-Move 3 is only used if this enemy has an `holditem` and it is the only one that will be used under this condition.
+Move 3 is always (and only) used if this enemy has an `holditem`.
 
-Otherwise, move 1 and 2 is chosen with these odds:
+As for the other moves, the decision of which moves to use is based on the following odds:
 
-- Move 1: 4/10
-- Move 2: 6/10
+|Move|Odds|
+|---:|----|
+|1|4/10|
+|2|6/10|
 
 ## Pre move logic
-If move 3 (flee) won't be used, the enemy will always change its [position](../../Actors%20states/BattlePosition.md) to `Flying` if it was `Ground` by doing the following:
+If the fleeing move wasn't used, the enemy will always change its [position](../../Actors%20states/BattlePosition.md) to `Flying` if it was `Ground` by doing the following:
 
 - Over the course of 20.0 frames, `height` is lerped from 0 to `initialheight`
 - `height` set to `initialheight`
@@ -28,27 +30,27 @@ If move 3 (flee) won't be used, the enemy will always change its [position](../.
 - `bobspeed` set to `startbs`
 - [position](../../Actors%20states/BattlePosition.md) set to `Flying`
 
-## Move 1 - Aerial strike attack
+## Move 1 - Aerial strike attack with potential [item](../../../TextAsset%20Data/Items%20data.md) steal
 A single target aerial strike attack that may steal an [item](../../../Enums%20and%20IDs/Items.md).
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - animstate set to 102
 - Yield for 0.1 seconds
-- `Gleam` particles played with `Gleam` sound near this enemy + `height` with an alivetime of 0.5
+- `Gleam` particles played with `Gleam` sound at this enemy position + (0.25, 1.0 + `height`, -0.1) with an alivetime of 0.5
 - Yield for 0.5 seconds
 - `BugWing` sound plays via PlayMoveSound on loop using `sounds[9]`
 - animstate set to 1 (`Walk`)
 - Over the course of 30.0 frames:
-    - `height` is lerped to 4.0
-    - position is lerped from startp to (-1.0, 0.0, 0.0)
+    - `height` changes to 4.0 via a lerp
+    - position is changes to (-1.0, 0.0, 0.0)
 - `sounds[9]` is stopped
 - `spin4` sound plays
 - z `spin` set to 30.0
@@ -66,7 +68,7 @@ A single target aerial strike attack that may steal an [item](../../../Enums%20a
 - DoDamage 1 call happens
 - If `playerdata[playertargetID]` doesn't have the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition, [StealItem](../StealItem.md) is called
 - If an [item](../../../Enums%20and%20IDs/Items.md) was stolen from the call above, the local startstate is set to 4 (`ItemGet`)
-- Over the course of 20.0 frames, moves to startp + the `height` before this action in y via a BeizierCurve3 with a ymax of 7.0
+- Over the course of 20.0 frames, this enemy moves to startp + the `height` before this action in y via a BeizierCurve3 with a ymax of 7.0
 - position set to startp
 - `height` set to the value before this action
 - `trail` set to false
@@ -90,7 +92,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|Each player party member whose `hp` is above 0 (dealt each in their own DoDamage call)|1|null|null|`barfill` >= 1<sup>1</sup>|
+|1|Always happen for each player party member whose `hp` is above 0|This enemy|The player party member|1|null|null|`barfill` >= 1<sup>1</sup>|
 
 1: The super block timing is affected by the [DoCommand timing caveat](../../Battle%20flow/GetBlock.md#known-issues-with-docommand) even if the regular block is true from suceeding DoCommand 1
 
@@ -98,7 +100,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 - `BugWing` sound plays via PlayMoveSound on loop using `sounds[9]`
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) (-1.5, 0.0, -0.2)
-- `blockcooldown` set to 0.0 which resets the blocking state to be expired
+- `blockcooldown` set to 0.0 which resets the blocking state to be expired (doesn't matter since there is enough yields later to make up for this)
 - Camera moves to look near `partypos[0]` which is the front player party member position
 - Yield all frames until `forcemove` is done
 - `sounds[9]` stopped

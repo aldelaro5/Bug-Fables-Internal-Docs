@@ -1,7 +1,7 @@
 # `Bandit`
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true has 1 change:
+HardMode being true does the following changes:
 
 - In the projectile throw, the projectile takes 1 / 0.045 frames (~22.22222223 frames) for the projectile to move to its target instead of 1 / 0.025 frames (40.0 frames)
 
@@ -14,37 +14,39 @@ HardMode being true has 1 change:
 
 Move 3 is only used if this enemy has an `holditem` and it is the only one that will be used under this condition.
 
-Otherwise, move 1 and 2 is chosen with these odds:
+As for the other moves, the decision of which moves to use is based on the following odds:
 
-- Move 1: 4/10
-- Move 2: 6/10
+|Move|Odds|
+|---:|----|
+|1|4/10|
+|2|6/10|
 
-## Move 1 - Tackle attack
+## Move 1 - Tackle attack with potential [item](../../../TextAsset%20Data/Items%20data.md) steal
 A single target tackle attack that may steal an [item](../../../Enums%20and%20IDs/Items.md).
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - animstate set to 101
 - Yield for 0.1 seconds
-- `Gleam` particles played with `Gleam` sound near this enemy with an alivetime of 0.5
+- `Gleam` particles played with `Gleam` sound at this enemy position + (0.25, 2.0, -0.1) with an alivetime of 0.5
 - Yield for 0.5 seconds
 - `trail` set to true
 - animstate set to 1 (`Walk`)
 - `Scuttle` sound plays on loop using `sounds[9]`
-- Over the course of 25.0 frames position lerped from startp to `playertargetentity` position via a BeizierCurve3 with a ymax of the midpoint between startp and `playertargetentity` + -3.0 in z
+- Over the course of 25.0 frames this enemy moves to `playertargetentity` position via a BeizierCurve3 with a ymax of the midpoint between startp and `playertargetentity` + -3.0 in z
 - Once the 25.0 frames are done:
     - `flip` set to true
     - DoDamage 1 call happens
     - If `playerdata[playertargetID]` doesn't have the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition, [StealItem](../StealItem.md) is called
     - If an [item](../../../Enums%20and%20IDs/Items.md) was stolen from the call above, the local startstate is set to 4 (`ItemGet`)
-- Over the course of 25.0 frames position lerped from `playertargetentity` position to startp via a BeizierCurve3 with a ymax of the midpoint between startp and `playertargetentity` + 3.0 in z
+- Over the course of 25.0 frames this enemy moves to startp via a BeizierCurve3 with a ymax of the midpoint between startp and `playertargetentity` + 3.0 in z
 - `sounds[9]` is stopped
 - position set to startp
 - `flip` set to false
@@ -60,13 +62,13 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen|2|null|This enemy|`playertargetID`|A new GameObject named `proj` rooted with a SpriteRenderer using the `projectilepsrites[3]` sprite (a triwing projectile)|0.025 (40.0 frames of movement) if hardmode is false, 0.045 if it's true (~22.222223 frames of movement)|0.0|null|null|null|null|(0.0, 0.0, 20.0)|false|
+|1|Always happen|2|null|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|A new GameObject named `proj` rooted with a SpriteRenderer using the `projectilepsrites[3]` sprite (a triwing projectile)|0.025 (40.0 frames of movement) if hardmode is false, 0.045 if it's true (~22.222223 frames of movement)|0.0|null|null|null|null|(0.0, 0.0, 20.0)|false|
 
 ### Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - Camera moves to look near the midpoint between this enemy and `playertargetentity`
-- A new GameObject named `proj` is created with a SpriteRenderer rooted
+- A new GameObject named `proj` is created rooted with a SpriteRenderer
 - animstate set to 100
 - Yield for 0.5 seconds
 - `proj` position set to this enemy + (0.75, 2.0, -0.1)

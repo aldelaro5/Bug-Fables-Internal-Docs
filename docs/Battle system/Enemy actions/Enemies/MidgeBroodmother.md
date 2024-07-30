@@ -10,8 +10,8 @@ HardMode being true does the following changes:
 - In the electric ball projectile throw move (multiple hits version), the yield time before each [Projectile](../../Damage%20pipeline/Projectile.md) calls changes to 0.5 seconds instead of 0.65 seconds
 - In the electric ball projectile throw move (multiple hits version), the speed of each projectile changes to 40.0 from 50.0
 - In the electric ball projectile throw move ([Delayed Projectile](../../Actors%20states/Delayed%20projectile.md) version), the framespeed changes to 60.0 from 80.0
-- In the electric ball projectile throw move ([Delayed Projectile](../../Actors%20states/Delayed%20projectile.md) version), `cantmove` gets decremented at the end which grants a free actor turn to this enemy
-- In the enemy summon moves, `cantmove` gets decremented at the end which grants a free actor turn to this enemy
+- In the electric ball projectile throw move ([Delayed Projectile](../../Actors%20states/Delayed%20projectile.md) version), `cantmove` gets decremented at the end which grants an additional actor turn to this enemy
+- In the enemy summon moves, `cantmove` gets decremented at the end which grants an additional actor turn to this enemy
 
 ## Move selection
 3 moves are possible:
@@ -20,7 +20,7 @@ HardMode being true does the following changes:
 2. An electric ball projectile throw that either hits multiple times on multiple targets or is added as a [Delayed projectile](../../Actors%20states/Delayed%20projectile.md)
 3. Summons a new [Midge](Midge.md) enemy
 
-The move usage is selected by the following odds:
+The decision of which move to use is based on the following odds:
 
 |Move|Odds|
 |---:|----|
@@ -53,7 +53,7 @@ A single target dash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -61,7 +61,7 @@ A single target dash attack.
 - animstate set to 103
 - Camera moves to look near the midpoint between this enemy and `playertargetentity`
 - `BMCharge` sound plays
-- Over the course of 41.0 frames, this enemy moves +2.0 in x via a BeizierCurve3 with a ymax of -2.0
+- Over the course of 41.0 frames, this enemy moves + 2.0 in x via a BeizierCurve3 with a ymax of -2.0
 - ShakeSprite called with 0.1 intensity for 30.0 frametimer
 - Yield for 0.5 seconds
 - animstate set to 100
@@ -84,7 +84,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Happens only if the multiple hits version of the move is used which always happen if `delprojs` isn't empty or if it is, it's used if a 67% RNG check passes (59% instead if hardmode is true). When this call happens, it is done 2 times (from 2 to 3 times instead if hardmode is true), but each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1|2|[Numb](../../Damage%20pipeline/AttackProperty.md)|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup>|A new `Prefabs/Objects/EnergySphere` GameObject rooted positioned at this enemy + (1.15, 2.8, -0.1) with `NoMapColor` tag|50.0 (40.0 instead if hardmode is true)|Random integer between 3 and 5 inclusive then cast to float|`SepPart@3@1,keepcolor`|`Stars`|`PingShot`|null|Vector3.zero|false|
+|1|Happens only if the multiple hits version of the move is used which always happen if `delprojs` isn't empty or if it is, it's used if a 67% RNG check passes (59% instead if hardmode is true). When this call happens, it is done 2 times (from 2 to 3 times instead if hardmode is true), but each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1|2|[Numb](../../Damage%20pipeline/AttackProperty.md)|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup> (target changes for each calls)|A new `Prefabs/Objects/EnergySphere` GameObject rooted positioned at this enemy + (1.15, 2.8, -0.1) with `NoMapColor` tag|50.0 (40.0 instead if hardmode is true)|Random integer between 3 and 5 inclusive then cast to float|`SepPart@3@1,keepcolor`|`Stars`|`PingShot`|null|Vector3.zero|false|
 
 1: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details.
 
@@ -92,7 +92,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|obj|targetpos|damage|turnstohit|areadamage|property|framespeed|summonedby|hitsound|hitparticle|whilesound|
 |-:|---------|---|---------|------|---------|----------|--------|----------|----------|--------|----------|----------|
-|1|Happens only if the delayed projectile version of the move is used which only happen if `delprojs` is empty and a 33% RNG check passes (41% instead if hardmode is true)|A new `Prefabs/Objects/EnergySphere` GameObject rooted positioned at (0.0, 20.0, 0.0) with `NoMapColor` tag|`playertargetID`|3|Random between 2 and 3|0|[Numb](../../Damage%20pipeline/AttackProperty.md)|80.0 (60.0 instead if hardmode is true)|This enemy|null|null|`Fall2`|
+|1|Happens only if the delayed projectile version of the move is used which only happen if `delprojs` is empty and a 33% RNG check passes (41% instead if hardmode is true)|A new `Prefabs/Objects/EnergySphere` GameObject rooted positioned at (0.0, 20.0, 0.0) with `NoMapColor` tag|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|Random between 2 and 3|0|[Numb](../../Damage%20pipeline/AttackProperty.md)|80.0 (60.0 instead if hardmode is true)|This enemy|null|null|`Fall2`|
 
 ### Logic sequence
 
@@ -134,7 +134,7 @@ If using the delayed projectile version of the move:
 - animstate set to 101
 - Over the course of 51.0 frames, `Prefabs/Objects/EnergySphere` moves to (0.0, 20.0, 0.0) via a lerp
 - AddDelayedProjectile 1 call happens
-- If hardmode is true, `cantmove` is decremented which gives another free actor turn to this enemy
+- If hardmode is true, `cantmove` is decremented which gives an additional actor turn to this enemy
 
 #### Cleanup
 This happens no matter which version of the move used:
@@ -156,4 +156,4 @@ Summons a new [Midge](Midge.md) enemy. No damages are dealt, but the enemy gains
 - The new enemy's `exp` is set to 0
 - animstate set to 0 (`Idle`)
 - [RegorganizeEnemies](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) called
-- If hardmode is true, `cantmove` is decremented which gives a free actor turn to this enemy
+- If hardmode is true, `cantmove` is decremented which gives an additional actor turn to this enemy

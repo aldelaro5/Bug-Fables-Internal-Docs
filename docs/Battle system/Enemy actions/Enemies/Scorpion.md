@@ -3,7 +3,7 @@
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
-- In the bould throw move, the time the boulder takes to reach its target changes to 46.0 frames from 61.0 frames
+- In the boulder throw move, the time the boulder takes to reach its target changes to 46.0 frames from 61.0 frames
 
 ## Move selection
 3 moves are possible:
@@ -15,6 +15,7 @@ HardMode being true does the following changes:
 The decision of which move to use is determined by the following odds:
 
 |Move|Odds|
+|---:|----|
 |1|3/7|
 |2|2/7|
 |3|2/7|
@@ -26,7 +27,7 @@ A single target claw swipe that can hit twice.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 |2|Only happens if after DoDamage 1, [HPPercent](../../Actors%20states/HPPercent.md) is 0.5 or less|This enemy|The same `playertargetID` as DoDamage 1|3|null|null|`commandsuccess`|
 
 ### Logic sequence
@@ -59,7 +60,7 @@ A single target tail thrust that may inflict [Sleep](../../Actors%20states/Battl
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 

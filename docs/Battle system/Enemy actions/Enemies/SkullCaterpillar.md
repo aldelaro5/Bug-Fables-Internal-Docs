@@ -23,7 +23,9 @@ The decision of which move to use is based on the following odds:
 |1|3/5|
 |2|2/5|
 
-However, move 2 won't be used if `data[0]` (its usage cooldown) hasn't expired yet. If this happens, move 1 is used instead. The cooldown is set to expire after either 1 or 2 decrements determined randomly. Move 1 always causes a decrement when used, but move 2 will too if it is selected and the cooldown hasn't expired yet. This means that effectively:
+However, move 2 won't be used if `data[0]` (its usage cooldown) hasn't expired yet. If this happens, move 1 is used instead. 
+
+The cooldown is set to expire after either 1 or 2 decrements determined randomly. Move 1 always causes a decrement when used, but move 2 will too if it is selected and the cooldown hasn't expired yet. This means that effectively:
 
 - If it was set to expire after 1 decrement, move 2 becomes usable after the next actor turn no matter which move is selected and used
 - If it was set to expire after 2 decrements, then it depends on which move is selected on the next actor turn:

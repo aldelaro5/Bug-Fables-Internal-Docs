@@ -1,5 +1,8 @@
 # `Plumpling`
 
+## [EnemyCheck](../../StartBattle%20phases/Pre%20haltbattleload.md#enemycheck) special logic
+Before this enemy is loaded, it's possible that StartBattle overrides it to a `GoldenSeedling`. See the documentation to learn more.
+
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
@@ -19,7 +22,7 @@ A single target jump attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
 
 ### Logic sequence
 

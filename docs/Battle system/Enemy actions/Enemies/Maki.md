@@ -100,7 +100,7 @@ From there, because `data[0]` is above 0 and this enemy doesn't have the [Attack
 ## Post move logic
 The following logic happens after the usage of the single target single and double sword slash moves:
 
-- If `data[1]` is above 0 (the party wide sword slash and charging move cooldowns), it is decremented
+- If `data[1]` is above 0 (the party wide sword slash move and charging move cooldowns), it is decremented
 
 ## Move 1 - Single sword slash
 A single target sword slash.
@@ -109,7 +109,7 @@ A single target sword slash.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|8|null|{[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim), [NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|8|null|{[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim), [NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
 
 ### Logic sequence
 
@@ -145,8 +145,8 @@ A single target double sword slash.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|5|null|{[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim), [NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
-|2|Always happen|This enemy|The same `playertargetID` as DoDamage 1|5|null|{[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim), [NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|5|null|{[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim), [NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
+|2|Always happen|This enemy|The same target as DoDamage 1|5|null|{[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim), [NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
 
 ### Logic sequence
 
@@ -279,7 +279,7 @@ A single target double hitting attack involving the consumption of [Kina](Kina.m
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|6|null|{[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim), [NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|6|null|{[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim), [NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
 |2|Always happen|This enemy|The same `playertargetID` as DoDamage 1|5|null|{[NoDamageAnim](../../Damage%20pipeline/DoDamage.md#nodamageanim)}|`commandsuccess`|
 |3|Happens if there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences)) after DoDamage 2|null|The last `playerdata` element whose `hp` is above 0 and is not the target of DoDamage 1 and 2|4|null|null|`commandsuccess`|
 

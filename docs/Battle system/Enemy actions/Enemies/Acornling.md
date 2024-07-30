@@ -1,10 +1,13 @@
 # `Acornling`
 
-## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 2 changes:
+## [EnemyCheck](../../StartBattle%20phases/Pre%20haltbattleload.md#enemycheck) special logic
+Before this enemy is loaded, it's possible that StartBattle overrides it to a `GoldenSeedling`. See the documentation to learn more.
 
-- The rolling attack move now has 50% chance to end up being a headbonk attack move which can misslead the block timing. This is signaled with a slight animation changes compared to the regular rolling attack
-- The rolling attack move's [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) call uses a 2.5 multiplier instead of 2.25 which makes this enemy moves ~11.111111% faster. This also applies to the headbonk attack move that is disguised as a rolling one
+## [HardMode](../../Damage%20pipeline/HardMode.md) changes
+HardMode being true does the following changes:
+
+- In the rolling attack move, there is now a 50% chance to end up being a disguised headbonk attack move which can misslead the block timing. This is signaled with a slight animation changes compared to the regular rolling attack
+- In the rolling attack move, the multiplier of the [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) call changes to 2.5 multiplier from 2.25 which makes this enemy moves ~11.111111% faster. This also applies to the headbonk attack move that is disguised as a rolling one
 
 ## Move selection
 3 moves are possible:
@@ -13,9 +16,14 @@ HardMode being true does 2 changes:
 2. A single target headbonk attack
 3. A single target headbonk attack disguised as a rolling attack
 
-Move 1 and 2 have 50% each to be used.
+Move 1 and 2 have's decision on which move to use is based on the following odds:
 
-Move 3 however can only be used when move 2 is used and hardmode is true. When these conditions are met, move 3 is done if a 50% RNG check passes.
+|Move|Odds|
+|---:|----|
+|1|50%|
+|2|50%|
+
+As for move 3, it can only be used when move 2 is used and hardmode is true. When these conditions are met, move 3 is done if a 50% RNG check passes.
 
 ## Move 1 - Rolling attack
 A single target rolling attack
@@ -24,7 +32,7 @@ A single target rolling attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -43,7 +51,7 @@ A single target rolling attack
 - Yield all frames until `forcemove` is done
 - `sounds[9]` stopped
 - DoDamage 1 call happens
-- Over the course of 40.0 frames, this enemy is moved by +2.5 in x via a BeizierCurve3 with a ymax of 4.0
+- Over the course of 40.0 frames, this enemy moves to + 2.5 in x via a BeizierCurve3 with a ymax of 4.0
 - animstate set to 23 (`Chase`)
 - Yield for 0.5 seconds
 
@@ -54,7 +62,7 @@ A single target headbonk attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -93,7 +101,7 @@ A single target headbonk attack disguised as a rolling attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 

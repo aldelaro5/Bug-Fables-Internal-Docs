@@ -6,7 +6,7 @@ At the start of the action, if `data` is null or empty, it's initialised to be 1
 - `data[0]`: When the value is 0, it means this enemy hasn't went through its phase transition yet which happens on the start of the actor turn if their [HPPercent](../../Actors%20states/HPPercent.md) reaches 0.5 or below. When this transition occurs, the value is set to 1 so the transition only happens once per battle
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 3 changes:
+HardMode being true does the following changes:
 
 - When the phase transition occurs in the pre move logic, this enemy gains a [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition for 9999999 main turns (effectively infinite)
 - In the enemy summon move, the summoned enemy gains an [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) and a [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) conditions for 999999 each (effectively infinite)
@@ -20,7 +20,7 @@ HardMode being true does 3 changes:
 3. Summons up to 2 new enemies from the seedlings family of enemies
 4. Multiple seeds throws targetting random player party members
 
-The move usage is based on odds, but those odds changes if [HPPercent](../../Actors%20states/HPPercent.md) becomes 0.5 or lower. Here are the base odds of each move in either situations:
+The decision of which move to use is based on odds, but those odds changes if [HPPercent](../../Actors%20states/HPPercent.md) becomes 0.5 or lower. Here are the base odds of each move in either situations:
 
 |Move|Odds when [HPPercent](../../Actors%20states/HPPercent.md) > 0.5|Odds when [HPPercent](../../Actors%20states/HPPercent.md) <= 0.5|
 |---:|------------------------------|------------------------------|
@@ -75,7 +75,7 @@ A single target tackle attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|null|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|null|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
 
 ### Logic sequence
 
@@ -93,7 +93,7 @@ A single target tackle attack.
 - `HugeHit` sound plays
 - ShakeScreen called with ammount (0.2, 0.0, 0.0) with 0.75 time with dontreset
 - DoDamage 1 call happens
-- Over the course of 31.0 frames, this enemy moves +1.5 in x via a BeizierCurve3 with a ymax of 3.0
+- Over the course of 31.0 frames, this enemy moves + 1.5 in x via a BeizierCurve3 with a ymax of 3.0
 - `ThumpSoft` sound plays
 
 ## Move 2 - Rolling attack
@@ -165,7 +165,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen for half the amount of seeds thrown ceiled, but each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1. The amount of seeds thrown is random between 3 and 5 inclusive|2|null|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup>|A new GameObject rooted with a SpriteRenderer using the `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) sprite  positioned at this enemy + (0.0, 3.0, 0.1) using the `spritemat` material on layer 0 (Default)|55.0|A random integer between 6 and 8 inclusive which is then cast to float|null|null|`WoodHit`|Empty string|(0.0, 0.0, random integer between -20 and 20 which is then cast to float)|false|
+|1|Always happen for half the amount of seeds thrown ceiled, but each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1. The amount of seeds thrown is random between 3 and 5 inclusive|2|null|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup> (target changes for each calls)|A new GameObject rooted with a SpriteRenderer using the `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) sprite  positioned at this enemy + (0.0, 3.0, 0.1) using the `spritemat` material on layer 0 (Default)|55.0|A random integer between 6 and 8 inclusive which is then cast to float|null|null|`WoodHit`|Empty string|(0.0, 0.0, random integer between -20 and 20 which is then cast to float)|false|
 
 1: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details.
 

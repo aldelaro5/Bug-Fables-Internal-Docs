@@ -34,6 +34,7 @@ Move 3 usage is always considered first and it is used if all of the following c
 If move 3 isn't used, move 1 or 2 is used and their usage is based on these odds:
 
 |Move|Odds|
+|---:|----|
 |1|51%|
 |2|49%|
 
@@ -44,7 +45,7 @@ A single target tackle attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|7|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|7|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -84,7 +85,7 @@ A single target headbonk attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|8|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|8|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -134,7 +135,7 @@ A single target undergound strike attack. [position](../../Actors%20states/Battl
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -145,6 +146,8 @@ While the DoDamage call features a `Pierce` property, the move ends up doing an 
 - The amount of turns to inflict is 3 instead of 2
 - The [Sturdy](../../Actors%20states/BattleCondition/Sturdy.md) condition on the target won't prevent the condition to be inflicted when it normally would have
 - The `StatusMirror` [medal](../../../Enums%20and%20IDs/Medal.md) does nothing when equipped on the target when it should have inflicted the condition back to this enemy
+- The `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) won't work despite the attack being physical
+- The condition infliction can still happen if the target has the [Numb](../../Actors%20states/BattleCondition/Numb.md) while having the `ShockTrooper` [medal](../../../Enums%20and%20IDs/Medal.md) equipped
 - The `Poison` sound is not played when it should have been
 
 ### Logic sequence
@@ -163,7 +166,7 @@ This is effectively what the coroutine does:
 - `DigPop` sound plays
 - DoDamage 1 call happens
 - If all of the following conditions are fufilled, [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) is called to inflict the [Poison](../../Actors%20states/BattleCondition/Poison.md) condition to `playerdata[playertargetID]` for 3 main turns (NOTE: this has a lot of caveats, see the section above for details):
-    - `commandsuccess` is false (the player didn't blocked, ignores FRAMEONE)
+    - `commandsuccess` is false (didn't blocked, ignores FRAMEONE)
     - `playerdata[playertargetID]`'s `poisonres` is less than 100 (it's not immune)
     - A `poisonres` resistance check passes
     - `playerdata[playertargetID]` doesn't have the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition

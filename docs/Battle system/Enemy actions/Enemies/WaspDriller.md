@@ -6,25 +6,25 @@ At the start of the action, if `data` is null or empty, it's initialised to be 1
 - `data[0]`: This is set to 2 when using the digging underground move and every actor turn where this enemy attacks with [position](../../Actors%20states/BattlePosition.md) set to `Underground`, it is decremented. Once it reaches 0 after the decrement, the enemy goes back to `Ground`. Effectively, this value represents the amount of actor turns left that this enemy can stay `Underground` before going back to `Ground` by themselves.
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 5 changes:
+HardMode being true does the following changes:
 
-- In the underground attack move, the total amount of frames for the enemy  to move is 31.0 frames instead of being 39.0 frames. The [DoDamage](../../Damage%20pipeline/DoDamage.md) calls still happens on the first frame the enemy x position becomes lower than the `playertargetentity` one, but since the total amount of frames is reduced, this moment happens sooner.
-- In the grounded drill attack move, the enemy takes 26.0 frames to move to its target instead of 32.25 frames.
-- In the triple hits version of the grounded drill attack move, the yield time befor the second and third hit changes to 0.45 seconds from 0.65 seconds
+- In the underground attack move, the total amount of frames for the enemy to move is 31.0 frames instead of being 39.0 frames. The [DoDamage](../../Damage%20pipeline/DoDamage.md) calls still happens on the first frame the enemy x position becomes lower than the `playertargetentity` one, but since the total amount of frames is reduced, this moment happens sooner
+- In the grounded drill attack move, the enemy takes 26.0 frames to move to its target instead of 32.25 frames
+- In the triple hits version of the grounded drill attack move, the yield time before the second and third hit changes to 0.45 seconds from 0.65 seconds
 - In the rock debris attack move, the amount of rocks thrown is random between 2 and 4 inclusive instead of being random between 2 and 3 inclusive
-- In the tock debris attack move, the speed of each projectile is random between 40 and 49 instead of being random between 40 and 57
+- In the rock debris attack move, the speed of each projectile is random between 40 and 48 inclusive cast to float instead of being random between 40 and 56 cast to float
 
 ## Move selection
 4 moves are possible:
 
 1. A single target drill dash attack
-2. A single target multiple hits rock debris thrown from drilling the ground
+2. A multiple targets rock debris thrown from drilling the ground
 3. Digs to set the [position](../../Actors%20states/BattlePosition.md) to `Underground`
 4. A single target underground drill attack
 
-Move 4 is only used when [position](../../Actors%20states/BattlePosition.md) is `Underground` and it is always used under this condition.
+Move 4 is always (and only) used when [position](../../Actors%20states/BattlePosition.md) is `Underground`.
 
-Move 1, 2 and 3 are selected with odds when [position](../../Actors%20states/BattlePosition.md) is not `Underground`:
+As for the other moves, the decision of which move to use is based on the following odds:
 
 |Move|Odds|
 |---:|----|
@@ -42,11 +42,10 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|`commandsuccess` is false (the player didn't blocked)<sup>1</sup>|This enemy|The selected `playertargetID`|4|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>2</sup>|null|false|
-|2|`commandsuccess` is true (the player blocked)<sup>1</sup>, done 3 times|This enemy|The selected `playertargetID`|1|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>2</sup>|null|`commandsuccess`|
+|1_a|`commandsuccess` is false (didn't blocked, ignores FRAMEONE)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>2</sup>|null|false|
+|1_b|`commandsuccess` is true (blocked, ignores FRAMEONE), done 3 times|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|1|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
-1: This incorrectly ignores FRAMEONE meaning a regular block on FRAMEONE will cause DoDamage 2 to happen instead of 1 even if DoDamage 2 will correctly ignore the block.
-2: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more.
+1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more.
 
 ### Logic sequence
 
@@ -61,7 +60,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - `WaspDrill` sound plays on loop using `sounds[9]`
 - Over the course of 32.25 frames (26.0 frames instead if hardmode is true), this enemy moves to `playertargetentity` position + (2.5, 0.0, -0.1) via a lerp
 - If `commandsuccess` is false (the player didn't blocked, ignores FRAMEONE):
-    - DoDamage 1 call happens
+    - DoDamage 1_a call happens
     - Over the course of 61.0 frames, this enemy moves to (-20.0, 0.0, z doesn't change) via a lerp
     - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
     - `sounds[9]` stopped
@@ -69,13 +68,13 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - Otherwise (the player blocked, ignores FRAMEONE):
     - `playertargetentity` animstate set to 11 (`Hurt`)
     - Done 3 times:
-        - DoDamage 2 call happens
+        - DoDamage 1_b call happens
         - Yield for 0.65 seconds (0.45 seconds instead if harmode is true)
-    - Over the course of 31.0 frames, this enemy moves to +2.0 in x via a lerp
+    - Over the course of 31.0 frames, this enemy moves to + 2.0 in x via a lerp
     - `sounds[9]` stopped
 
 ## Move 2 - Rock debris throw
-A single target multiple hits rock debris thrown from drilling the ground.
+A multiple targets rock debris thrown from drilling the ground.
 
 ### `nonphyscal` set to true
 This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
@@ -84,7 +83,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 2 to 3 times (2 to 4 times instead if hardmode is true) as long as GetAlivePlayerAmmount returns higher than 0 (not all `playerdata`'s `hp` is 0 or below or their `eatenby` isn't null which means they got eaten)|2|null|This enemy|The return of [GetRandomAvailablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) without nullable|A new sprite object rooted with a SpriteRenderer using the `MightyPeeble` [medal](../../../Enums%20and%20IDs/Medal.md) sprite positioned at this enemy|Random between 40 and 56 inclusive then cast to float (random between 40 and 48 inclusive instead if hardmode is true)|6.0|null|null|null|null|(0.0, 0.0, 20.0)|false|
+|1|Always happen from 2 to 3 times (2 to 4 times instead if hardmode is true), but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|null|This enemy|The return of [GetRandomAvailablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) without nullable (target changes each calls)|A new sprite object rooted with a SpriteRenderer using the `MightyPeeble` [medal](../../../Enums%20and%20IDs/Medal.md) sprite positioned at this enemy|Random between 40 and 56 inclusive then cast to float (random between 40 and 48 inclusive instead if hardmode is true)|6.0|null|null|null|null|(0.0, 0.0, 20.0)|false|
 
 ### Logic sequence
 
@@ -98,14 +97,13 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - ShakeScreen called with an ammount of 0.05 and -1.0 time
 - Yield for 0.5 seconds
 - A new SpriteRenderer array is created with the amount of rocks to throw as the length. The amount is random between 2 and 3 inclusive (between 2 and 4 inclusive if hardmode is true)
-- For each rock to throw:
-    - If GetAlivePlayerAmmount returns higher than 0 (not all `playerdata`'s `hp` is 0 or below or their `eatenby` isn't null which means they got eaten):
-        - [GetRandomAvailablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) without nullable is called
-        - `DigPop` sound plays
-        - The rock element is assigned to a new sprite object rooted with a SpriteRenderer using the `MightyPeeble` [medal](../../../Enums%20and%20IDs/Medal.md) sprite positioned at this enemy
-        - Projectile 1 call happens
-        - Yield for a random interval between 0.65 and 0.85 seconds
-- Yield all frames until all rocks array elements are null (meaning all Projectile call completed)
+- For each rock to throw, if there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences)):
+    - [GetRandomAvailablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) without nullable is called
+    - `DigPop` sound plays
+    - The rock element is assigned to a new sprite object rooted with a SpriteRenderer using the `MightyPeeble` [medal](../../../Enums%20and%20IDs/Medal.md) sprite positioned at this enemy
+    - Projectile 1 call happens
+    - Yield for a random interval between 0.65 and 0.85 seconds
+- Yield all frames until all rocks array elements are null (meaning all Projectile 1 calls completed)
 - The `DirtFlying` particles created earlier are moved offscreen and destroyed in 5.0 seconds
 - MainManager.`screenshake` zeroed out
 - Yield for 0.3 seconds
@@ -139,7 +137,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 

@@ -1,7 +1,10 @@
 # `Midge`
 
+## Assumptions
+It is assumed that this enemy is loaded with a [chargeonotherenemy](../../Actors%20states/Enemy%20features.md#chargeonotherenemy) configured so their `hitaction` logic works (typically it would be set to `Midge` so hitting them causes others `Midge` to enter in a `hitaction`).
+
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 1 changes:
+HardMode being true does the following changes:
 
 - The odds of move usage changes to be 1/2 for either move instead of being 3/5 for the aerial strike and 2/5 for the bite
 
@@ -10,11 +13,11 @@ This enemy supports `hitaction` logic and it will be performed when `hitaction` 
 
 ### Logic sequence
 
-- [Emoticon](../../../Entities/EntityControl/EntityControl%20Methods.md#emoticon) called with type 2 (red ! mark) with a time of 35
+- [Emoticon](../../../Entities/EntityControl/EntityControl%20Methods.md#emoticon) called with the `Exclamation` emote with a time of 35
 - `charge` is incremented
 - `Wam` sound plays
 - Yield all frames until `emoticoncooldown` expires
-- Move 1 (aerial strike) is immediately done
+- Move 1 (aerial strike) is immediately used
 
 ## Move selection
 2 moves are possible:
@@ -25,6 +28,7 @@ This enemy supports `hitaction` logic and it will be performed when `hitaction` 
 The odds to use each move depends on if hardmode is true or note:
 
 |Move|Odds if hardmode is false|Odds if hardmode is true|
+|---:|-----|----|
 |1|3/5|1/2|
 |2|2/5|1/2|
 
@@ -52,7 +56,7 @@ A single target aerial strike.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|1|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|1|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -84,7 +88,7 @@ A single target bite attack that may drain `hp`.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -105,7 +109,7 @@ A single target bite attack that may drain `hp`.
 - For the next 30.0 frames, `playertargetentity` animstate is set to 11 (`Hurt`) unless `blockcooldown` hasn't expired for this frame where it's set to 24 (`Block`) instead
 - Camera moves to look a bit up right
 - DoDamage 1 call happens
-- If `commandsuccess` is false (ignores FRAMEONE), [Heal](../../Actors%20states/Heal.md) is called to heal this enemy by `lastdamage` amount of `hp`
+- If `commandsuccess` is false (didn't block, ignores FRAMEONE), [Heal](../../Actors%20states/Heal.md) is called to heal this enemy by `lastdamage` amount of `hp`
 - The SpriteBounce added earlier is destroyed
 - Yield a frame
 - `rotater` scale is set to the one before this action

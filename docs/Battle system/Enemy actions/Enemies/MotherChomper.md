@@ -1,8 +1,5 @@
 # `MotherChomper`
 
-## About interactions with [FlyTrap](FlyTrap.md)
-The `FlyTrap` enemy has special interactions with this enemy and even can summon them. See their documentation for details on their interactions.
-
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
@@ -10,7 +7,7 @@ HardMode being true does the following changes:
 - In both projectile throw moves, the amount of frames the projectile takes to reach its target changes to 35.0 frames from 41.0
 
 ## Move selection
-4 moves are possible:
+3 moves are possible:
 
 1. A multiple targets seeds projectile throw
 2. A multiple targets spiky projectiles throw that can infllict the [Sleep](../../Actors%20states/BattleCondition/Sleep.md) condition
@@ -19,6 +16,7 @@ HardMode being true does the following changes:
 The move usage decision is based on the following odds:
 
 |Move|Odds|
+|---:|----|
 |1|3/7|
 |2|2/7|
 |3|2/7|
@@ -79,7 +77,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen from 1 to 3 times inclusive (from 2 to 3 times inclusive instead if hardmode is true). Each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1, but this will be guaranteed to be the case if at least one player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup>|3|`None` (same as null)|null|`commandsuccess`|
+|1|Always happen from 1 to 3 times inclusive (from 2 to 3 times inclusive instead if hardmode is true). Each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1, but this will be guaranteed to be the case if at least one player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup> (target changes for each calls)|3|`None` (same as null)|null|`commandsuccess`|
 
 1: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details.
 
@@ -115,7 +113,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen from 1 to 3 times inclusive (from 2 to 3 times inclusive instead if hardmode is true). Each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1, but this will be guaranteed to be the case if at least one player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup>|2|[Sleep](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen from 1 to 3 times inclusive (from 2 to 3 times inclusive instead if hardmode is true). Each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1, but this will be guaranteed to be the case if at least one player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup> (target changes for each calls)|2|[Sleep](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 1: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details.
 

@@ -9,7 +9,7 @@ HardMode being true does the following changes:
 ## Move selection
 3 moves are possible:
 
-1. A single target projectile beam
+1. A multiple targets projectile beams
 2. Prepares for a bigger attach on their next actor turn by setting their `charge` to 2 and gaining the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition
 3. A single target dash attack
 
@@ -23,7 +23,7 @@ As for the other 2 moves, the decision of which move to use is based on the foll
 |2|2/5|
 
 ## Move 1 - Projectile beam
-A single target projectile beam.
+A multiple targets projectile beams.
 
 ### `nonphyscal` set to true
 This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
@@ -32,7 +32,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 2 times, but each calls requires that at least one player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Sleep](../../Damage%20pipeline/AttackProperty.md#attackproperty)|This enemy|`playertargetID`|A new GameObject rooted with a SpriteRenderer using the `projectilepsrites[4]` sprite (a bolt projectile)|0.03 (~33.33333334 frames of movement) if hardmode is false, 0.04 if it's true (25 frames of movement)|0.0|`keepcolor`|`deathsmokelow`|null|null|Vector3.zero|false|
+|1|Always happen 2 times, but each calls requires that at least one player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Sleep](../../Damage%20pipeline/AttackProperty.md#attackproperty)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|A new GameObject rooted with a SpriteRenderer using the `projectilepsrites[4]` sprite (a bolt projectile)|0.03 (~33.33333334 frames of movement) if hardmode is false, 0.04 if it's true (25 frames of movement)|0.0|`keepcolor`|`deathsmokelow`|null|null|Vector3.zero|false|
 
 ### Logic sequence
 
@@ -86,7 +86,7 @@ A single target dash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|null|null|`commandsuccess`|
 
 ### Logic sequence
 

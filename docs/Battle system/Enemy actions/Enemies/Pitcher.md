@@ -1,5 +1,7 @@
 # `Pitcher`
 
+> NOTE: This enemy is involved in the complexities of the [Eaten](../../Actors%20states/BattleCondition/Eaten.md) condition. It is recommended to check the condition's documentation to learn more on how it involves this enemy.
+
 ## Assumptions
 It is assumed that this enemy has its [eventondeath](../../Actors%20states/Enemy%20features.md#eventondeath) set to the [matching EventDialogue](../../Battle%20flow/EventDialogues/Pitcher.md) as otherwise, the [Eating](../../Actors%20states/BattleCondition/Eaten.md) system can break when this enemy dies with a non null `ate`.
 
@@ -90,7 +92,9 @@ This part only happens if `data[0]` is 0 or below (the cooldown on summoning exp
 
 If the above isn't fufilled, `data[0]` is decremented instead.
 
-Here's what the logic does if the above is all fufilled:(1.2f, 0f, 0.95f)ra](../../Visual%20rendering/SetDefaultCamera.md) called
+Here's what the logic does if the above is all fufilled:
+
+- [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
 - `PitcherShake` sound plays
 - animstate set to 11 (`Hurt`)
 - Yield for 0.5 seconds
@@ -118,7 +122,7 @@ The logic sequence section below outlines what happens when all of the above are
 
 |#|Conditions|obj|targetpos|damage|turnstohit|areadamage|property|framespeed|summonedby|hitsound|hitparticle|whilesound|
 |-:|---------|---|---------|------|---------|----------|--------|----------|----------|--------|----------|----------|
-|1|Always happen|A new `Prefabs/Objects/PoisonBubble` GameObject rooted positioned at (-2.0, 15.0, 0.0) with a scale of 0.8x on layer 14 (`Sprite`) with its SpriteBounce's `startscale` set to true and a `PoisonEffect` particles child which has a scale of 1.25x|`playertargetID`|3|2|0|[Poison](../../Damage%20pipeline/AttackProperty.md)|42.0 (35.0 instead if hardmode is true)|This enemy|`BubbleBurst`|`PoisonEffect`|`Fall2`|
+|1|Always happen|A new `Prefabs/Objects/PoisonBubble` GameObject rooted positioned at (-2.0, 15.0, 0.0) with a scale of 0.8x on layer 14 (`Sprite`) with its SpriteBounce's `startscale` set to true and a `PoisonEffect` particles child which has a scale of 1.25x|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|2|0|[Poison](../../Damage%20pipeline/AttackProperty.md)|42.0 (35.0 instead if hardmode is true)|This enemy|`BubbleBurst`|`PoisonEffect`|`Fall2`|
 
 #### Logic sequence
 
@@ -166,7 +170,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 2 to 3 times, but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Poison](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID`|A new `Prefabs/Objects/PoisonBubble` GameObject rooted positioned at this enemy + (-4.25, 1.8, -0.1)|25.0 (19.0 instead if hardmode is true)|4.0|null|`PoisonEffect`|`BubbleBurst`|null|Vector3.zero|false|
+|1|Always happen from 2 to 3 times, but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Poison](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|A new `Prefabs/Objects/PoisonBubble` GameObject rooted positioned at this enemy + (-4.25, 1.8, -0.1)|25.0 (19.0 instead if hardmode is true)|4.0|null|`PoisonEffect`|`BubbleBurst`|null|Vector3.zero|false|
 
 ### Logic sequence
 

@@ -4,11 +4,11 @@
 This enemy features special exp handling logic. Check the documentation to learn more.
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 3 changes:
+HardMode being true does the following changes:
 
 - In the spear thrust move, the [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) call is done with a multiplier of 2.7 instead of 2.5
 - In the spear throw move, the yield interval before the throw is random between 0.6 and 0.9 seconds instead of being between 0.6 and 0.75 seconds
-- In the spear throw move, the amount of frames that the spear takes to reach its target is random between 37 and 49 inclusive instead of always being 60
+- In the spear throw move, the amount of frames that the spear takes to reach its target is random between 37.0 and 49.0 inclusive instead of always being 60.0
 
 ## Move selection
 3 moves are possible:
@@ -17,7 +17,7 @@ HardMode being true does 3 changes:
 2. A single target spear slash
 3. A single target spear throw
 
-Here are the usage odds of the moves:
+The decision of which move to use is based on the following odds:
 
 |Move|Odds|
 |---:|----|
@@ -32,7 +32,7 @@ A single target spear thrust
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -63,7 +63,7 @@ A single target spear slash
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -92,7 +92,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -103,7 +103,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - `Toss3` sound plays
 - `Toss4` sound plays
 - A new sprite object is created rooted using `projectilepsrites[6]` sprite (a spear) at this enemy position + (0.0, 1.5, -0.1)
-- Over the course of 60.0 frames (random between 37.0 and 50.0 frames instead if hardmode is true), the spear moves to `playertargetentity` position + (0.75, 1.25, -0.1) via a BeizierCurve3 with a ymax of 5.0 and its z angle is lerped from 50.0 to 140.0
+- Over the course of 60.0 frames (random between 37.0 and 50.0 frames instead if hardmode is true), the spear moves to `playertargetentity` position + (0.75, 1.25, -0.1) via a BeizierCurve3 with a ymax of 5.0 and its z angle changes from 50.0 to 140.0 via a lerp
 - The spear gets destroyed
 - DoDamage 1 call happens
 - Yield for 0.5 seconds

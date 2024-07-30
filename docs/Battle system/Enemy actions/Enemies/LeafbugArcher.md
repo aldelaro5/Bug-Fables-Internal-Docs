@@ -1,5 +1,8 @@
 # `LeafbugArcher`
 
+## Assumptions
+It is assumed this enemy is loaded with a non empty [chargeonotherenemy](../../Actors%20states/Enemy%20features.md#chargeonotherenemy) as it is needed for their `hitaction` logic to work. Typically, it will be set to other `LeafbugArcher`, [LeafbugNinja](LeafbugNinja.md) and [LeafbugClubber](LeafbugClubber.md).
+
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
@@ -70,7 +73,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|This enemy|`playertargetID`|A new sprite object childed to the `battlemap` using the `projectilepsrites[12]` sprite (purple pointy projectile) positioned at this enemy + (-1.0, 1.2, -0.1) with a scale of 0.65x and a z angle of -90.0|27.0 (20.0 instead if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
+|1|Always happen|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|A new sprite object childed to the `battlemap` using the `projectilepsrites[12]` sprite (purple pointy projectile) positioned at this enemy + (-1.0, 1.2, -0.1) with a scale of 0.65x and a z angle of -90.0|27.0 (20.0 instead if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 

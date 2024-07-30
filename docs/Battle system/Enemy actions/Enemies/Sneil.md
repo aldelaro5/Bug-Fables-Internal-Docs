@@ -1,9 +1,9 @@
 # `Sneil`
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 1 change:
+HardMode being true does the following changes:
 
-- In the projectile beam, the projectile takes 1 / 0.04 frames (25 frames) for the projectile to move to its target instead of 1 / 0.03 frames (~33.3333333334 frames)
+- In the projectile beam move, the projectile takes 1 / 0.04 frames (25 frames) for the projectile to move to its target instead of 1 / 0.03 frames (~33.3333333334 frames)
 
 ## Move selection
 1 move is possible:
@@ -22,7 +22,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen|2|[Sleep](../../Damage%20pipeline/AttackProperty.md#attackproperty)|This enemy|`playertargetID`|A new GameObject rooted with a SpriteRenderer using the `projectilepsrites[4]` sprite (a bolt projectile)|0.03 (~33.33333334 frames of movement) if hardmode is false, 0.04 if it's true (25 frames of movement)|0.0|`keepcolor`|`deathsmokelow`|null|null|Vector3.zero|false|
+|1|Always happen|2|[Sleep](../../Damage%20pipeline/AttackProperty.md#attackproperty)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|A new GameObject rooted with a SpriteRenderer using the `projectilepsrites[4]` sprite (a bolt projectile)|0.03 (~33.33333334 frames of movement) if hardmode is false, 0.04 if it's true (25 frames of movement)|0.0|`keepcolor`|`deathsmokelow`|null|null|Vector3.zero|false|
 
 ### Logic sequence
 

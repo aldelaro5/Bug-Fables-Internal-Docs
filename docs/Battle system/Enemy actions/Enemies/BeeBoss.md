@@ -30,9 +30,9 @@ HardMode being true does the following changes:
 4. Prepares an attack next turn which increments `charge`
 5. A party wide charged dash attack
 
-Move 5 will always be used (and can only be used) when `basestate` isn't 0 (`Idle`) or `charge` is above 0. NOTE: This is assumed to be the case after move 4 was performed last actor turn since this one ultimately changes the `basestate` away from 0 (`Idle`) meaning it is assumed that move 4 will only be used when move 3 was the last move performed. It doesn't seem to be possible under normal gameplay to get into a false positive.
+Move 5 will always be used (and can only be used) when `basestate` isn't 0 (`Idle`) or `charge` is above 0 (meaning move 4 was used last actor turn).
 
-Move 1 through 4 usage are based on odds, but the odds changes depending if [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.5 or not. Additionally, some moves have additional requirements that needs to be fufilled upon selecting the move. If those requirements aren't fufilled when the move is selected, another move will be used instead.
+As for other moves, the decision of which move to use is based on odds, but the odds changes depending if [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.5 or not. Additionally, some moves have additional requirements that needs to be fufilled upon selecting the move. If those requirements aren't fufilled when the move is selected, another move will be used instead.
 
 |Move|Odds when [HPPercent](../../Actors%20states/HPPercent.md) >= 0.5|Odds when [HPPercent](../../Actors%20states/HPPercent.md) < 0.5|Requirements|Move used when requirements failed|
 |---:|-------------------------------|-----------------------------|------------|---------------------------------|
@@ -73,8 +73,8 @@ The following logic always happen if `data[2]` is 0 (this phase transition hasn'
     - DeathSmoke particles plays at this enemy position + (0.0, `height` + 1.5, -0.25) + a random vector between (-2.5, -0.75, 0.0) and (2.5, 0.75, 0.0)
     - `b33BotCracking` sound plays
     - Yield for 0.8 seconds if this isn't the last iteration
-- [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition on this enemy for 9999999 main turns
-- [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) condition on this enemy for 9999999 main turns
+- [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition on this enemy for 9999999 main turns (infinite)
+- [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) condition on this enemy for 9999999 main turns (infinite)
 - The sprite of the `model`'s first child (their main body part) is set to `Sprites/Entities/beeboss` index 12 (a cracked body party)
 - The `model`'s 6th child (weak smoke particles) has its ParticleSystem played
 - `data[2]` set to 1 (so this phase transition doesn't happen again)
@@ -161,7 +161,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 2 times (3 times instead if hardmode is true), but the call and each subsequent ones won't happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable returns -1|2|null|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup>|A new `Prefabs/Objects/BeeRocket` GameObject rooted positioned at this enemy's front canon position (back canon instead if it's the second call) + (-1.0, 0.5, -0.2) with scale (0.5, 0.75, 1.0)|50.0 (40.0 instead if hardmode is true)|4.0|null|`deathsmoke`|`Explosion`|null|Vector3.zero|false|
+|1|Always happen from 2 times (3 times instead if hardmode is true), but the call and each subsequent ones won't happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable returns -1|2|null|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup> (target changes for each calls)|A new `Prefabs/Objects/BeeRocket` GameObject rooted positioned at this enemy's front canon position (back canon instead if it's the second call) + (-1.0, 0.5, -0.2) with scale (0.5, 0.75, 1.0)|50.0 (40.0 instead if hardmode is true)|4.0|null|`deathsmoke`|`Explosion`|null|Vector3.zero|false|
 
 1: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details.
 
@@ -221,7 +221,7 @@ This move always sets `nonphyscal` to true which doesn't affect anything for thi
 - animstate set to 0 (`Idle`)
 - `data[0]` set to 3 (this is the cooldown to use this move again)
 
-## Move 4 - Prepares and charge
+## Move 4 - Prepares a big attack with 1 `charge`
 Prepares an attack next turn which increments `charge`. No damages are dealt.
 
 ### `dontusecharge` set to true

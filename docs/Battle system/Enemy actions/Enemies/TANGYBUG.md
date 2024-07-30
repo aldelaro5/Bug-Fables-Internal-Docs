@@ -46,7 +46,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen for half the amount of seeds thrown ceiled, but each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1. The amount of seeds thrown is random between 3 and 5 inclusive|2|[Poison](../../Damage%20pipeline/AttackProperty.md)|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup>|A new GameObject rooted with a SpriteRenderer using the `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) sprite  positioned at this enemy + 1.0 in y using the `spritemat` material on layer 0 (Default)|50.0|A random integer between 6 and 8 inclusive which is then cast to float|null|null|`WoodHit`|Empty string|(0.0, 0.0, random integer between -20 and 20 which is then cast to float)|false|
+|1|Always happen for half the amount of seeds thrown ceiled, but each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1. The amount of seeds thrown is random between 3 and 5 inclusive|2|[Poison](../../Damage%20pipeline/AttackProperty.md)|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup> (target changes for each calls)|A new GameObject rooted with a SpriteRenderer using the `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) sprite  positioned at this enemy + 1.0 in y using the `spritemat` material on layer 0 (Default)|50.0|A random integer between 6 and 8 inclusive which is then cast to float|null|null|`WoodHit`|Empty string|(0.0, 0.0, random integer between -20 and 20 which is then cast to float)|false|
 
 1: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details.
 
@@ -70,7 +70,7 @@ A single target vine attack that may hit multiple times.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|`playerdata[playertargetID]`'s `hp` is above 0. Done once if hardmode is false, from 1 to 2 times if it is true as long as `playerdata[playertargetID]`'s `hp` is above 0|This enemy|The selected `playertargetID`|3 on the first hit, 2 on the second hit|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|`playerdata[playertargetID]`'s `hp` is above 0. Done once if hardmode is false, from 1 to 2 times if it is true as long as `playerdata[playertargetID]`'s `hp` is above 0|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|3 on the first hit, 2 on the second hit|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 

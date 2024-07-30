@@ -1,7 +1,12 @@
 # `BeeBot`
 
 ## Assumptions
-It is assumed that this enemy uses the `BeeBot` [animid](../../../Enums%20and%20IDs/AnimIDs.md) which is needed for the [CheckSpecialID](../../../Entities/EntityControl/Notable%20methods/CheckSpecialID.md) to work as it is needed for correct move selection logic.
+It is assumed that this enemy gets loaded with the `BeeBot` [animid](../../../Enums%20and%20IDs/AnimIDs.md) which is needed for the [CheckSpecialID](../../../Entities/EntityControl/Notable%20methods/CheckSpecialID.md) to work as it is needed for correct move selection logic.
+
+It is also that this enemy gets laoded with a [onhitaction](../../Actors%20states/Enemy%20features.md#onhitaction) of 1 so their `hitaction` logic works.
+
+## randomposafter set to true
+This enemy action always sets the randomposafter local to true except in a `hitaction` logic. This means that in [post-action](../../Battle%20flow/Action%20coroutines/DoAction.md#no-fled-enemy-post-action) when no enemy fled, this enemy's [position](../../Actors%20states/BattlePosition.md) will be randomly determined between `Ground` and `Flying`.
 
 ## `data` usage
 On [CheckSpecialID](../../../Entities/EntityControl/Notable%20methods/CheckSpecialID.md) for this enemy, if `data` is null or empty, it's initialised to be 1 element with a starting value being 0 or 1 determined randomly with uniform probabilities on top of calling [UpdateAnimSpecific](../../../Entities/EntityControl/Animations/AnimSpecific.md).
@@ -41,7 +46,6 @@ The decision of which moves to use entirely depends on the value of `data[0]`: M
 ## Pre move logic
 The following logic always happen before a move (this excludes `hitaction` where this logic won't happen):
 
-- The local randomposafter is set to true which will randomly change the [position](../../Actors%20states/BattlePosition.md) of this enemy during [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action)
 - If [position](../../Actors%20states/BattlePosition.md) is `Ground`, it is set to flying with the following logic:
     - Over the course of 21.0 frames, `height` changes from `minheight` to 2.0 via a lerp
     - [position](../../Actors%20states/BattlePosition.md) is set to `Flying`
@@ -60,7 +64,7 @@ A single target dash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -96,7 +100,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 3 times (2 times instead if hardmode is true)|1|[Numb](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID`|A new sprite object rooted using the `projectilepsrites[10]` sprite (honey projectile) positioned at this enemy's `model`'s first child's third child (its minigun) + (-0.6, -0.25, -0.1) with a scale of 0.3x, a ShadowLite that is SetUp with 0.4 opacity and 0.5 size and a DialogueAnim with `targetscale` of 0.75x and a 0.1 `shinkspeed`|0.025 (40.0 frames of movement) if hardmode is false, 0.03 if it's true (~33.333334 frames of movement)|0.0|null|`ElecFast`|null|null|Vector3.zero|false|
+|1|Always happen 3 times (2 times instead if hardmode is true)|1|[Numb](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|A new sprite object rooted using the `projectilepsrites[10]` sprite (honey projectile) positioned at this enemy's `model`'s first child's third child (its minigun) + (-0.6, -0.25, -0.1) with a scale of 0.3x, a ShadowLite that is SetUp with 0.4 opacity and 0.5 size and a DialogueAnim with `targetscale` of 0.75x and a 0.1 `shinkspeed`|0.025 (40.0 frames of movement) if hardmode is false, 0.03 if it's true (~33.333334 frames of movement)|0.0|null|`ElecFast`|null|null|Vector3.zero|false|
 
 ### Logic sequence
 

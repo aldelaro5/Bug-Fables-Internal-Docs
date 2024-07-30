@@ -1,7 +1,7 @@
 # `EverlastingKing`
 
 ## Assumptions
-It is assumed this enemy is fought alone as otherwise, it would break theor artifact summoning logic.
+It is assumed this enemy is fought alone as otherwise, it would break their artifact summoning logic.
 
 It is also assumed this enemy is loaded with `SurviveWith10` in their [weakness](../../Actors%20states/Enemy%20features.md#weakness) as it allows their phase transition logic to work as expected.
 
@@ -15,7 +15,7 @@ This enemy has a 30% chance to be on fire on a `Fire` property attack.
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 5 element with a starting value of 0.
 
-- `data[0]`: A cooldown until this enemy uses the [position](../../Actors%20states/BattlePosition.md) change to `Flying` move. If this enemy's `position` is `Ground`, the value is decremented before deciding which of the 2 attacking `Ground` moves. If after this decrement, the value becomes -3, this enemy will use the `position` change move so it will go to `Flying` which also causes this value to be reset to 0. Effectively, it means that at most, this enemy will remain on `Ground` for 2 actor turns in a row before using the `position` change move. NOTE: Since the value is only decremented when their `position` is `Ground`, if the player causes them to change to `Flying`, it freezes this cooldown, but it will apply still the moment this enemy comes back to `Ground`
+- `data[0]`: A cooldown until this enemy uses the [position](../../Actors%20states/BattlePosition.md) change to `Flying` move. If this enemy's `position` is `Ground`, the value is decremented before deciding which of the 2 attacking `Ground` moves to use. If after this decrement, the value becomes -3, this enemy will use the `position` change move so it will go to `Flying` which also causes this value to be reset to 0. Effectively, it means that at most, this enemy will remain on `Ground` for 2 actor turns in a row before using the `position` change move. NOTE: Since the value is only decremented when their `position` is `Ground`, if the player causes them to change to `Flying`, it freezes this cooldown, but it will still apply the moment this enemy comes back to `Ground`
 - `data[1]`: A value that tracks the last move that was used when this enemy's [position](../../Actors%20states/BattlePosition.md) was `Flying`. This is used as an antispam on the fire pillar attack move, the artifact summoning move and the combined [KeyL](KeyR%20and%20KeyL.md) and [KeyR](KeyR%20and%20KeyL.md) attack move. See the move selection process section below for more details on how this is enforced. The value is set in the post move logic so it doesn't track the moves used when on `Ground` and it also means that the value stays the same as long as `position` is `Ground`. Here are the different possible values and their mappings:
     - 0: Vine attack move (`Flying` version)
     - 1: Fire pillar attack move
@@ -86,7 +86,7 @@ The decision of which move to use is based on odds, but some moves have addition
 |9|7/24|<ul><li>`data[1]` isn't 3 (meaning move 7 wasn't used on the last actor turn)</li><li>A [KeyL](KeyR%20and%20KeyL.md) is present in `enemydata`</li><li>A [KeyR](KeyR%20and%20KeyL.md) is present in `enemydata`</li></ul>|
 
 #### Move 7 override case
-Move 7 has is handled in a special way on top of the table above. It is possible that the initial move selection is overriden to select move 7 if all of the following conditions are fufilled:
+Move 7 is handled in a special way on top of the table above. It is possible that the initial move selection is overriden to select move 7 if all of the following conditions are fufilled:
 
 - `data[3]` is 0 or lower (the countdown to force the usage of move 7 expired)
 - There's less than 4 `enemydata`
@@ -221,7 +221,7 @@ This part only happens if `hp` is 10 or lower and `data[2]` is less than 2 (mean
 ## Post move logic
 The following logic applies after a move is used, but only if [position](../../Actors%20states/BattlePosition.md) is `Flying` meaning it only applies when the `Flying` move selection process happened and a move was used.
 
-If it's any move other than these, the following happens:
+If the above requirements are met, the following happens:
 
 - `data[1]` is set to a value that tracks the move that was just used. See the `data` section above for the values mapping
 - If the move that was just used isn't the artifacts summoning move:
@@ -238,7 +238,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|`playerdata[playertargetID]`'s `hp` is above 0. Done once if hardmode is false, from 2 to 3 times if it is true as long as `playerdata[playertargetID]`'s `hp` is above 0|This enemy|The selected `playertargetID`|5 on the first hit, 2 on the second hit and 1 on the third hit|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|`playerdata[playertargetID]`'s `hp` is above 0. Done once if hardmode is false, from 2 to 3 times if it is true as long as `playerdata[playertargetID]`'s `hp` is above 0|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|5 on the first hit, 2 on the second hit and 1 on the third hit|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -277,7 +277,7 @@ This is what the coroutine effectively ends up doing:
         - Yield for 0.5 seconds
     - The amount of damage to deal on the next hit becomes half of this one's damage floored then clamped from 1 to 99
 - Over the course of 60.0 frames, all `Prefabs/Objects/VenusRoot` instances has ther scale lerped to Vector3.zero
-- Yield a frame
+- Yield for a frame
 - All `Prefabs/Objects/VenusRoot` instances gets destroyed
 - `checkingdead` set to null which informs the caller that the coroutine is done
 
@@ -299,7 +299,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Called once if `barfill` is less than 1.0 (not full) during DoCommand 1 once 0.5 seconds passed and then continously called again every 1.0 seconds until either `barfill` reaches 1.0 (checked 1.0 seconds after each call) or that `playerdata[playertargetID]`'s `hp` becomes 0 (checked after each call)|This enemy|The selected `playertargetID`|1|[Atleast1pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|false|
+|1|Called once if `barfill` is less than 1.0 (not full) during DoCommand 1 once 0.5 seconds passed and then continously called again every 1.0 seconds until either `barfill` reaches 1.0 (checked 1.0 seconds after each call) or that `playerdata[playertargetID]`'s `hp` becomes 0 (checked after each call)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|1|[Atleast1pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|false|
 
 1: Enemy piercing damages are disabled, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -373,7 +373,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|`playerdata[playertargetID]`'s `hp` is above 0. Done once if hardmode is false, from 1 to 2 times if it is true as long as `playerdata[playertargetID]`'s `hp` is above 0|This enemy|The selected `playertargetID`|3 on the first hit, 1 on the second hit (4 on the first hit and 2 on the second hit instead if `data[2]` is 2 meaning this enemy went through both phase transitions)|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|`playerdata[playertargetID]`'s `hp` is above 0. Done once if hardmode is false, from 1 to 2 times if it is true as long as `playerdata[playertargetID]`'s `hp` is above 0|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|3 on the first hit, 1 on the second hit (4 on the first hit and 2 on the second hit instead if `data[2]` is 2 meaning this enemy went through both phase transitions)|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -459,8 +459,8 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
-|2|Happens after DoDamage 1 if the target's `hp` is above 0 and either [HPPercent](../../Actors%20states/HPPercent.md) is lower than 0.6 or `data[2]` is 2 (this enemy went through both phase transitions)|This enemy|The same target as DoDamage 1|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|2|Happens after DoDamage 1 if the target's `hp` is still above 0 and either [HPPercent](../../Actors%20states/HPPercent.md) is lower than 0.6 or `data[2]` is 2 (this enemy went through both phase transitions)|This enemy|The same target as DoDamage 1|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -514,7 +514,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 2 times, but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Fire](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID`|A new `Prefabs/Particles/Fireball` GameObject childed to the `battlemap` positioned at this enemy's `sprite` position + (0.0, 4.0, -0.1) with a scale of 1.0x|Random between 29.0 and 35.0 (random between 22.0 and 28.0 instead if hardmode is true)|2.0|`SepPart@2@4`|`Fire`|`WaspKingMFireball2`|null|Vector3.zero|false|
+|1|Always happen 2 times, but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Fire](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|A new `Prefabs/Particles/Fireball` GameObject childed to the `battlemap` positioned at this enemy's `sprite` position + (0.0, 4.0, -0.1) with a scale of 1.0x|Random between 29.0 and 35.0 (random between 22.0 and 28.0 instead if hardmode is true)|2.0|`SepPart@2@4`|`Fire`|`WaspKingMFireball2`|null|Vector3.zero|false|
 
 ### Logic sequence
 
@@ -544,7 +544,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|10 (9 instead if hardmode is true)|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|10 (9 instead if hardmode is true)|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 

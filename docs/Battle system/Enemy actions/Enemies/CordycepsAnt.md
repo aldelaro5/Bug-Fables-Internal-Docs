@@ -14,15 +14,15 @@ A single target slashing attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
-- `Scuttle` sound plays on `sounds[9]` at 0.8 pitch 0.7 volume on loop
+- `Scuttle` sound plays on loop using `sounds[9]` at 0.8 pitch and 0.7 volume on loop
 - Camera moves to look near `playerdata[playertargetID]`
-- [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) slightly to the right of `playertargetID` player party member with a walkstate of 23 (`Chase`)
-- Yield until `forcemove` is done
+- [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) `playertargetID` position + (1.3, 0.0, -0.15) with 1.3333334 multiplier using 23 (`Chase`) as walkstate and 0 (`Idle`) as stopstate
+- Yield all frames until `forcemove` is done
 - `sounds[9]` stopped
 - Yield for 0.1 seconds
 - `Blosh` sound plays
@@ -31,5 +31,5 @@ A single target slashing attack
 - animstate set to 101
 - `Chew` sound plays
 - Yield for 0.1 seconds
-- DoDamage 1 happens
+- DoDamage 1 call happens
 - Yield for 0.5 seconds

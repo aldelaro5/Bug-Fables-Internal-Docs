@@ -20,6 +20,7 @@ HardMode being true does the following changes:
 The usage of the moves is determined by these odds:
 
 |Move|Odds|
+|---:|----|
 |1|4/7|
 |2|3/7|
 
@@ -58,7 +59,7 @@ A single target sword thrust that hits multiple times
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen 2 times (random between 2 and 3 times instead if [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.65)|This enemy|The selected `playertargetID`|2 (1 instead if hardmode is true)|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen 2 times (random between 2 and 3 times instead if [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.65)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (targer is the same for each calls)|2 (1 instead if hardmode is true)|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -87,7 +88,7 @@ A single target sword slash.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 

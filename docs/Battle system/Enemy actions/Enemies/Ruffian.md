@@ -88,7 +88,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|null ([DefDownOnBlock](../../Damage%20pipeline/AttackProperty.md) instead if hardmode is true)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|null ([DefDownOnBlock](../../Damage%20pipeline/AttackProperty.md) instead if hardmode is true)|null|`commandsuccess`|
 
 ### Logic sequence
 

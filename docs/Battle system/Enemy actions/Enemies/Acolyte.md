@@ -19,25 +19,25 @@ At the start of the action, if `data` is null or empty, it's initialised to be 2
     - 2: The phase transition happened and from this point, this value can no longer influence the action logic
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 1 changes:
+HardMode being true does the following changes:
 
 - The prayer move, vine spawn move and vine attack moves have their base odds changed
-- The vine attack move may hit twice instead of only, but for 2 base damage on the first hit instead of 3 (the second hit does 2 base damage if it happens)
+- The vine attack move may hit twice instead of only once, but for 2 base damage on the first hit instead of 3 (the second hit does 2 base damage if it happens)
 
 ## Move selection
 5 moves are possible:
 
 1. A prayer that inflicts [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) to themselves
-2. Spawns a new `AcolyteVine` enemy and gets on top of it which changes the [position](../../Actors%20states/BattlePosition.md) to `Flying`
+2. Spawns a new `AcolyteVine` enemy and gets on top of it which changes their [position](../../Actors%20states/BattlePosition.md) to `Flying`
 3. A single target vine attack that may hit multiple times
 4. A single target aerial strike that also changes the [position](../../Actors%20states/BattlePosition.md) to `Ground`
-5. Transition to the second phase which spawns a new [AngryPlant](AngryPlant.md) enemy and performs move 2
+5. Transition to the second phase which spawns a new [AngryPlant](AngryPlant.md) enemy then performs move 2
 
 Move 4 can only be used and will always be used if [position](../../Actors%20states/BattlePosition.md) is `Flying`.
 
 For move 5, it can only be used once in the entire battle and it will always be used if all of the following conditions are fufilled:
 
-- [position](../../Actors%20states/BattlePosition.md) is `Ground` (so move 1 isn't used)
+- [position](../../Actors%20states/BattlePosition.md) is `Ground` (move 2 wasn't used)
 - [HPPercent](../../Actors%20states/HPPercent.md) is 0.4 or lower
 - `data[1]` is 0 at the start of the actor turn (meaning move 5 was never used before)
 
@@ -51,17 +51,17 @@ Here are all the move's base odds and their possible redirections:
 |---:|-----------------------------|---------------------------|---------------------|
 |1|2/7|1/3|Move 3 if this enemy already has the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition|
 |2|2/7|1/3|Move 3 if `data[0]` is above 0 (set to 2 as part of using this move otherwise). An exception to this is when move 5 (phase transition) is used since the usage of move 5 sets `data[0]` to 0 and then uses move 2. `data[0]` decrements when this redirection occurs|
-|3|3/7|1/3|None|
+|3|3/7|1/3|None, the move is always used once selected|
 
 ## Pre move logic
 The following logic is always performed at the start of the action logic:
 
-- `sprite` local position is set to Vector3.zero
+- `sprite` local position is reset to Vector3.zero
 
 ## Post move logic
 The following logic is always performed at the end of the action logic:
 
-- `sprite` local position is set to Vector3.zero
+- `sprite` local position is reset to Vector3.zero
 
 ## Move 1 - Prayer
 A prayer that inflicts [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) to themselves. No damages are dealt
@@ -81,7 +81,7 @@ This move always sets `nonphyscal` to true, but it doesn't affect anything for t
 - [StatEffect](../../Visual%20rendering/StatEffect.md) called on this enemy with type 1 (blue up arrow)
 - Yield for 0.75 seconds
 
-## Move 2 - Vine spawn
+## Move 2 - `AcolyteVine` spawn
 Spawns a new `AcolyteVine` enemy and gets on top of it which changes the [position](../../Actors%20states/BattlePosition.md) to `Flying`. No damages are dealt.
 
 ### About status resistance
@@ -106,14 +106,14 @@ This move always sets `nonphyscal` to true, but it doesn't affect anything for t
 - [AddNewEnemy](../../Actors%20states/Enemy%20party%20members/AddNewEnemy.md) called to add a new `AcolyteVine` enemy at this enemy position + (1.1, 45.0, 0.1)
 - Yield a frame
 - `DirtExplode` particles played at the `AcolyteVine` enemy
-- Over the course of 30.0 frames, `AcolyteVine` has their position lerped to go up by 5.0 in y, scale lerped to their `startscale` from [endata](../../../TextAsset%20Data/Entity%20data.md#entity-data) and y angles lerped from 720.0 to 0.0
+- Over the course of 30.0 frames, `AcolyteVine` moves to + 5.0 in y with their scale changed to their `startscale` from [endata](../../../TextAsset%20Data/Entity%20data.md#entity-data) via a lerp and their y angle changes from 720.0 to 0.0 via a lerp
 - Yield for 0.1 seconds
 - animstate set to 100
 - Yield for 0.8 seconds
 - `Jump` sound plays
 - animstate set to 2 (`Jump`)
 - y `spin` set to 15.0
-- Over the course of 40.0 frames, `height` is lerped to the y output of a BeizierCurve3 (that goes for the first 36.0 frames) from startp to startp + 0.34 in y with a ymax of 8.0
+- Over the course of 40.0 frames, `height` is changed via a lerp to the y output of a BeizierCurve3 (that goes for the first 36.0 frames) from startp to startp + 0.34 in y with a ymax of 8.0
 - `AcolyteVine`'s `basestate` and animstate set to 101
 - `height` set to 3.4
 - ShakeSprite called with intensity (0.1, 0.1, 0.0) with 0.2 frametimer
@@ -135,7 +135,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|`playerdata[playertargetID]`'s `hp` is above 0. Done once if hardmode is false, from 1 to 2 times if it is true as long as `playerdata[playertargetID]`'s `hp` is above 0|This enemy|The selected `playertargetID`|<ul><li>If harmode is false, 3</li><li>If hardmode is true, 2 on the first hit, 1 on the second hit</li></ul>|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen 1 time (from 1 to 2 times instead if hardmode us true, but the second hit requires the targer's `hp` to still be above 0)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (same target for each calls)|<ul><li>If harmode is false, 3</li><li>If hardmode is true, 2 on the first hit, 1 on the second hit</li></ul>|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -161,7 +161,7 @@ This is what the coroutine effectively ends up doing:
 - Yield for 0.75 seconds
 - For each hit:
     - `Charge8` sound plays
-    - Over the course of 10.0 frames, the matching `Prefabs/Objects/VenusRoot` position lerps to its position + the matching heading direction vector * 5.0. The first time reaching the 5th frame or later when `playerdata[playertargetID]`'s `hp` is above 0, DoDamage 1 call happens before the frame yield
+    - Over the course of 10.0 frames, the `Prefabs/Objects/VenusRoot` position changes to its position + the matching heading direction vector * 5.0. The first time reaching the 5th frame or later when `playerdata[playertargetID]`'s `hp` is above 0, DoDamage 1 call happens before the frame yield
     - Yield for 0.5 seconds
     - If this is the last hit:
         - `Rumble3` sound plays
@@ -183,7 +183,7 @@ This move will undo any resitance increases of [Poison](../../Actors%20states/Ba
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -224,7 +224,7 @@ This move will undo any resitance increases of [Poison](../../Actors%20states/Ba
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
 - animstate set to 110
 - z `spin` set to -20.0
-- Over the course of 40.0 frames, position moves to startp + Vector3.up via a BeizierCurve3 with a ymax of 7.0 and `AcolyteVine` has its `startscale` and its `rotater` angles lerped to Vector3.zero
+- Over the course of 40.0 frames, this enemy moves to startp + Vector3.up via a BeizierCurve3 with a ymax of 7.0 and `AcolyteVine` has its `startscale` and its `rotater` angles lerped to Vector3.zero
 - position set to startp
 - animstate set to 108
 - `spin` zeroed out

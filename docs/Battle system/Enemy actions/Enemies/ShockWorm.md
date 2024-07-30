@@ -6,7 +6,7 @@ HardMode being true does the following changes:
 - After attacking, the odds to set [isdefending](../../Actors%20states/Enemy%20features.md#isdefending) to true with 2 `defenseonhit` changes to 51% from 31% which also means that the chances they set `isdefending` to false with 0 `defenseonhit` changes to 49% from 69%
 
 ## Move selection
-1 moves is possible:
+1 move is possible:
 
 1. A single target electric shock attack
 
@@ -29,14 +29,14 @@ The following logic is always done after using a move:
     - `isdefending` set to false
     - `defenseonhit` set to 0
 
-## Move 1 - 
+## Move 1 - Electric shock attack
 A single target electric shock attack.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|[Numb](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Numb](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 

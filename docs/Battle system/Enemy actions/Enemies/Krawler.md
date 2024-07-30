@@ -53,9 +53,9 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Happens if at least one of the following is true:<ul><li>`forcefire` is true</li><li>The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`</li></ul>|This enemy|The selected `playertargetID`|3|[Fire](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
-|2|Happens if DoDamage 1 didn't and `inice` is true|This enemy|The selected `playertargetID`|2|[Freeze](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
-|3|Happens if DoDamage 1 and 2 didn't|This enemy|The selected `playertargetID`|2|[Numb](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Happens if at least one of the following is true:<ul><li>`forcefire` is true</li><li>The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`</li></ul>|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Fire](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|2|Happens if DoDamage 1 didn't and `inice` is true|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Freeze](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|3|Happens if DoDamage 1 and 2 didn't|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Numb](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -89,8 +89,8 @@ A single target dash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Happens if at least one of the following is true:<ul><li>`forcefire` is true</li><li>The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`</li></ul>|This enemy|The selected `playertargetID`|4|[Fire](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
-|2|Happens if DoDamage 1 didn't|This enemy|The selected `playertargetID`|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Happens if at least one of the following is true:<ul><li>`forcefire` is true</li><li>The current [area](../../../Enums%20and%20IDs/librarystuff/Areas.md) is `GiantLair` while the current [map](../../../Enums%20and%20IDs/Maps.md) isn't `GiantLairFridgeInside`</li></ul>|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Fire](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|2|Happens if DoDamage 1 didn't|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 

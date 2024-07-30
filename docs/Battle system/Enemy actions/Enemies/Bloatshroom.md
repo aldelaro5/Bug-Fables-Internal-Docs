@@ -14,7 +14,7 @@ HardMode being true does the following changes:
 1. A party wide numbing mist that may either summon a [Mushroom](Mushroom.md) or targets other enemy party members except ones from the fungi family who are healed instead 
 2. A single target jump attack
 
-The decision of which move to use is based on these odds which changes based on hardmode:
+The decision of which move to use is based on odds, but the odds changes based on hardmode being true or not. The following table shows the odds in either situations:
 
 |Move|Odds when hardmode is false|Odds when hardmode is true|
 |---:|----|----|
@@ -88,7 +88,7 @@ A single target jump attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
 
 ### Logic sequence
 

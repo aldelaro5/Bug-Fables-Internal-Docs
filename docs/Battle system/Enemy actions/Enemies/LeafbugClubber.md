@@ -1,5 +1,8 @@
 # `LeafbugClubber`
 
+## Assumptions
+It is assumed this enemy is loaded with a non empty [chargeonotherenemy](../../Actors%20states/Enemy%20features.md#chargeonotherenemy) as it is needed for their `hitaction` logic to work. Typically, it will be set to other `LeafbugClubber`, [LeafbugArcher](LeafbugArcher.md) and [LeafbugNinja](LeafbugNinja.md).
+
 ## [hitaction](../../Battle%20flow/Update%20flows/Controlled%20flow.md#enemies-hitaction) support
 This enemy supports `hitaction` logic and it will be performed when `hitaction` is true instead of any moves.
 
@@ -50,7 +53,7 @@ A single target club slash.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|null|null|`commandsuccess`|
 
 ### Logic sequence
 

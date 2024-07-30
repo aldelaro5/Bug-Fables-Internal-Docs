@@ -1,7 +1,7 @@
 # `FlyTrap`
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 2 changes:
+HardMode being true does the following changes:
 
 - The [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) or [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) infliction move on a [MotherChomper](MotherChomper.md) has its RNG check odds changed to 41% from 34%
 - The biting attack move has its RNG check odds changed to 65% from 75%
@@ -67,7 +67,7 @@ A single target bite attack that may drain `hp`
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2 (1 instead if `locktri` is true meaning this enemy was spawned from another `FlyTrap`|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2 (1 instead if `locktri` is true meaning this enemy was spawned from another `FlyTrap`)|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -83,7 +83,7 @@ A single target bite attack that may drain `hp`
 - `Bite` sound plays
 - Yield for 0.05 seconds
 - DoDamage 1 call happens
-- If `commandsuccess` is false (blocking was failed, doesn't take into account regular blocking with FRAMEONE active):
+- If `commandsuccess` is false (didn't blocked, ignores FRAMEONE):
     - `hp` is increased by `lastdamage` * 0.75 ceiled then clamped from 0 to `maxhp`
     - [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) called with type 1 (HP counter) starting at this enemy + Vector3.up and ending at this enemy + 3.0 in y
     - `Heal` sound plays
@@ -93,7 +93,9 @@ A single target bite attack that may drain `hp`
 - Yield all frames until `forcemove` is done
 
 ## Move 3 - Spawns a new `FlyTrap`
-Spawns a new `FlyTrap` enemy party member. No damages are dealt. It is possible that attempting this move fails which results in the actor turn ending when hardmode is false or move 2 (bite attack) being used instead when hardmode is true.
+Spawns a new `FlyTrap` enemy party member. No damages are dealt.
+
+It is possible that attempting this move fails which results in the actor turn ending when hardmode is false or move 2 (bite attack) being used instead when hardmode is true.
 
 ### Logic sequence
 

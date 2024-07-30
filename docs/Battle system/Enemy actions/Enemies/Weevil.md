@@ -1,10 +1,11 @@
 # `Weevil`
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 2 changes:
+HardMode being true does the following changes:
 
 - The enemy party member chewing move, if all other conditions applies, has a 8/10 chance to occur instead of 5/10
-- When the player party member chewing move is used, the odds to gain an [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) conditions if it wasn't already inflicted are increased from 3/10 to 5/10
+- In the enemy party member chewing move, this enemy now gets healed their `hp` to their `maxhp` instead of 5 `hp`
+- In the player party member chewing move, the odds to gain an [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) conditions if it wasn't already inflicted changes to 5/10 from 3/10
 
 ## Move selection
 2 moves are possible:
@@ -25,13 +26,13 @@ If these conditions aren't all fufilled, move 1 is always used instead.
 Before the move, the first `enemydata` index who is a [Seedling](Seedling.md), [AngryPlant](AngryPlant.md) or [FlyTrap](FlyTrap.md) is obtained if one exists. This is done to both check if move 2 can be used and also to get the right `enemydata` index for it.
 
 ## Move 1 - Chewing attack on player party member
-A single target chewing attack
+A single target chewing attack.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -69,7 +70,7 @@ Chews on the first [Seedling](Seedling.md), [AngryPlant](AngryPlant.md) or [FlyT
 ### Logic sequence
 
 - `playertargetentity` is set to the targetted enemy party member
-- [Emoticon](../../../Entities/EntityControl/EntityControl%20Methods.md#emoticon) called with type 2 (red ! mark) with a time of 30
+- [Emoticon](../../../Entities/EntityControl/EntityControl%20Methods.md#emoticon) called with the `Exclamation` emote with a time of 30
 - Yield for 0.6 seconds
 - Camera moves to look near `playertargetentitiy`
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) `playertargetentity` position + (1.0, 0.0, -0.1) at 2.0 multiplier using 23 (`Chase`) as walkstate and 103 as stopstate

@@ -4,22 +4,22 @@
 This enemy features special exp handling logic. Check the documentation to learn more.
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 5 changes:
+HardMode being true does the following changes:
 
 - In the needles throw move, the property of all the [Projectile](../../Damage%20pipeline/Projectile.md) calls is always [Poison](../../Damage%20pipeline/AttackProperty.md) instead of only being `Poison` with a 6/10 chance and null with a 4/10 chance
 - In the needles throw move, the damage is always 1 instead of being 2 (3 instead if instance.`areaid` is the `RubberPrison` or `MetalLake` [areas](../../../Enums%20and%20IDs/librarystuff/Areas.md))
-- In the needles throw move, the speed is 10 instead of 15
+- In the needles throw move, the speed is 10.0 instead of 15.0
 - In the needles throw move, the yield time between each hits is 0.35 seconds instead of being 0.25 seconds
 - In the aerial strike move, the amount of frames this enemy takes to reach its target from near the target is 9.0 frames instead of 11.0 frames
 
 ## Move selection
-1 moves are possible:
+3 moves are possible:
 
 1. A single target aerial needles throw that hits twice
 2. A single target aerial strike
 3. Summons another `WaspHealer` enemy and change [position](../../Actors%20states/BattlePosition.md) to `Ground`.
 
-Here are the base odds to use each move:
+The decision of which move to use is based on the following odds:
 
 |Move|Odds|
 |---:|----|
@@ -44,7 +44,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 2 times|<ul><li>If harmode is false, it's 2 (3 instead if instance.`areaid` is the `RubberPrison` or `MetalLake` [areas](../../../Enums%20and%20IDs/librarystuff/Areas.md))</li><li>If hardmode is true, it's always 1</li></ul>|null ([Poison](../../Damage%20pipeline/AttackProperty.md) instead if hardmode is true)|This enemy|`playertargetID`|A new GameObject childed to `battlemap` with a SpriteRenderer using the `projectilepsrites[2]` sprite (a needle) with the `spritemate` material (if hardmode is true color is set to pure magenta) positioned at this enemy's `sprite` + (-1.5, 0.25, -0.1) with a z angle of -45.0 on layer 14 (`Sprite`)|15 (10 if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
+|1|Always happen from 2 times|<ul><li>If harmode is false, it's 2 (3 instead if instance.`areaid` is the `RubberPrison` or `MetalLake` [areas](../../../Enums%20and%20IDs/librarystuff/Areas.md))</li><li>If hardmode is true, it's always 1</li></ul>|null ([Poison](../../Damage%20pipeline/AttackProperty.md) instead if hardmode is true)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for all calls)|A new GameObject childed to `battlemap` with a SpriteRenderer using the `projectilepsrites[2]` sprite (a needle) with the `spritemate` material (if hardmode is true color is set to pure magenta) positioned at this enemy's `sprite` + (-1.5, 0.25, -0.1) with a z angle of -45.0 on layer 14 (`Sprite`)|15 (10 if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
 
 ### Logic sequence
 
@@ -77,7 +77,7 @@ A single target aerial strike.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3 (4 instead if instance.`areaid` is the `RubberPrison` or `MetalLake` [areas](../../../Enums%20and%20IDs/librarystuff/Areas.md))|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3 (4 instead if instance.`areaid` is the `RubberPrison` or `MetalLake` [areas](../../../Enums%20and%20IDs/librarystuff/Areas.md))|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -91,7 +91,7 @@ A single target aerial strike.
 - `height` set to 0.0
 - y position increased by the `height` value before this action
 - `BugWingFast` sound plays
-- Over the course of 31.0 frames, this enemy moves +1.25 in x via a BeizierCurve3 with a ymax of -1.5
+- Over the course of 31.0 frames, this enemy moves + 1.25 in x via a BeizierCurve3 with a ymax of -1.5
 - ShakeSprite called with intensity (0.1, 0.0, 0.0) and 30.0 frametimer
 - Yield for 0.5 seconds
 - animstate set to 105

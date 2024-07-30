@@ -11,10 +11,10 @@ At the start of the action, if `data` is null or empty, it's initialised to be 1
 - `data[0]`: When move 5 is used (the party wide explosion move), this value is set to 4 and decreases at the end of the action including the current actor turn. Everytime that move 5 is selected, it is rerolled if this value is still higher than 0. Effectively, it's a cooldown in amount of actor turns left before being able to use the move again which is 3 full actor turns
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 5 changes:
+HardMode being true does the following changes:
 
-- The [HPPercent](../../Actors%20states/HPPercent.md) threshold for getting a 999999 main turns [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition changes to 0.65 from 0.5 until `hp` goes above this threshold at which point, the condition is removed until it reaches the threshold again. This threshold also changes the moment that the `hp` drain fraction increases from 1/2 ceiled to 2/3 ceiled for every applicable move except the party wide explosion
-- On the first actor turn that [HPPercent](../../Actors%20states/HPPercent.md) threshold reaches less than 0.4, this enemy will get a 999999 turns [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition which is never removed
+- The [HPPercent](../../Actors%20states/HPPercent.md) threshold for getting a 999999 main turns (infinite) [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition changes to 0.65 from 0.5 until `hp` goes above this threshold at which point, the condition is removed until it reaches the threshold again. This threshold also changes the moment that the `hp` drain fraction increases from 1/2 ceiled to 2/3 ceiled for every applicable move except the party wide explosion
+- On the first actor turn that [HPPercent](../../Actors%20states/HPPercent.md) threshold reaches less than 0.4, this enemy will get a 999999 mnain turns (infinite) [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition which is never removed
 - In the shockwave attack move, the wave takes 25.0 frames instead of 35.0 frames to reach its target
 - In the heart projectile attack move, the heart takes 60.0 frames to reach its target instead of 80.0
 - In the umbrealla throw move, each half of the umbrealla trajectory takes 50.0 frames instead of 60.0 frames
@@ -30,7 +30,7 @@ HardMode being true does 5 changes:
 6. A party wide explosion attack that drains `hp`
 7. A single target umbrella throw that hits twice and drains `hp`
 
-The usage odds depends on odds and those odds changes depending if [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.45 or not. Here are the odds in either situations:
+The decision of which move to use is based on odds, but the odds changes depending if [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.45 or not. Here are the odds in either situations:
 
 |Move|[HPPercent](../../Actors%20states/HPPercent.md) >= 0.45|[HPPercent](../../Actors%20states/HPPercent.md) < 0.45|
 |---:|----------------------|---------------------|
@@ -61,7 +61,7 @@ If [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.5 (0.65 is har
 - [StatEffect](../../Visual%20rendering/StatEffect.md) called on this enemy with type 0 (red up arrow)
 - Yield for 0.65 seconds
 - `basestate` set to 13 (`BattleIdle`)
-- [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the `AttackUp` condition on this enemy for 999999 main turns
+- [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the `AttackUp` condition on this enemy for 999999 main turns (infinite)
 
 However, if they are above the `hp` threshold and they have the `AttackUp` condition with more than 10 turns, it is assumed they received the infinite condition before, but are no longer in the `hp` threshold. In that case, it is removed by doing the following (it also reverts the drain fractions of all moves except the explosion attack to 1/2):
 
@@ -78,11 +78,11 @@ If hardmode is true, [HPPercent](../../Actors%20states/HPPercent.md) is less tha
 - animstate set to 113
 - `StatUp` sound plays
 - [StatEffect](../../Visual%20rendering/StatEffect.md) called on this enemy with type 1 (blue up arrow)
-- [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the `DefenseUp` condition on this enemy for 999999 main turns
+- [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to inflict the `DefenseUp` condition on this enemy for 999999 main turns (infinite)
 - Yield for 0.65 seconds
 
 ### Logic that always happen
-The startstate local is always set to `basestate` (after both of the section above occured).
+The local startstate is always set to `basestate` (after both of the section above occured).
 
 ## Post move logic
 The following logic always happen at the end of the action:
@@ -96,7 +96,7 @@ A single target slash attack that drains `hp`.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -132,7 +132,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -165,7 +165,7 @@ A single target faster slash attack that inflicts [AttackDown](../../Actors%20st
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -214,7 +214,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -268,7 +268,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen. Done for each player party member whose `hp` is above 0|This enemy|The player party member|3|null|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
+|1|Always happen, done for each player party member whose `hp` is above 0|This enemy|The player party member|3|null|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
 
 ### Logic sequence
 
@@ -310,8 +310,8 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
-|2|Always happen twice|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
+|2|Always happen after DoDamage 1|This enemy|Same as DoDamage 1|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 

@@ -1,5 +1,8 @@
 # `Abomihoney`
 
+## Assumptions
+It is assumed that this enemy gets loaded with an [onhitaction](../../Actors%20states/Enemy%20features.md#onhitaction) of 3 so this enemy's `hitaction` logic works.
+
 ## `data` usage
 During the action, if `data` is null or empty, it's initialised to be 1 element with a starting value of 0. An unitialised value is possible, but it will be treated the same was as if it was 0.
 
@@ -28,7 +31,7 @@ This enemy supports `hitaction` logic and it will be performed when `hitaction` 
     - The local startstate is set to 31 (`Dig`)
 
 ## Move selection
-1 moves are possible:
+5 moves are possible:
 
 1. A single target grounded bite attack
 2. A single target underground bite attack
@@ -58,7 +61,7 @@ A single target grounded bite attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -84,7 +87,7 @@ A single target underground bite attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 

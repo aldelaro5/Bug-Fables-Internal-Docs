@@ -11,16 +11,16 @@ HardMode being true does the following changes:
 - In the honey throw move, the amount of frames each projectile takes to reach its target changes to 21.0 frames from 23.5 frames
 
 ## Move selection
-5 moves are possible:
+4 moves are possible:
 
 1. A single target punch attack
 2. A single target honey throw that may hit multiple times and summon new [Abomihoney](Abomihoney.md) enemies
-3. Braces themselves to set `charge` to 2
+3. Prepares themselves for a big attack by setting `charge` to 2
 4. A party wide jump attack
 
-Move 4 is always used (and only used) if `basestate` isn't 0 (`Idle`). NOTE: This is assumed to be the case after move 3 was performed last actor turn since this one ultimately changes the `basestate` away from 0 (`Idle`) meaning it is assumed that move 4 will only be used when move 3 was the last move performed. It doesn't seem to be possible under normal gameplay to get into a false positive.
+Move 4 is always used (and only used) if `basestate` isn't 0 (`Idle`) meaning move 3 was performed last actor turn.
 
-Move 1, 2 and 3 usage are determined from odds which changes when [HPPercent](../../Actors%20states/HPPercent.md) is 0.6 or less. However, move 2 and 3 have additional requirements that if failed when selecting the move, move 1 will be performed instead. Here are the odds and requirements"
+As for other moves, the decision of which moves to use is based on odds, but the odds changes when [HPPercent](../../Actors%20states/HPPercent.md) is 0.6 or less. Move 2 and 3 have additional requirements that if failed when selecting the move, move 1 will be performed instead. Here are the odds and requirements:
 
 |Move|Odds when [HPPercent](../../Actors%20states/HPPercent.md) floored > 0.6|Odds when [HPPercent](../../Actors%20states/HPPercent.md) <= 0.6|Additional requirments|
 |---:|----|----|----|
@@ -35,7 +35,7 @@ A single target punch attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|5|null|{[NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|5|null|{[NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
 
 ### Logic sequence
 
@@ -64,7 +64,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen from 1 to 2 times (always 1 time if there's already 2 or more enemy party members). Each call requires that at least one player party member is alive (`hp` above 0 and not [EatenBy](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|This enemy|The selected `playertargetID`|3|[Numb](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen from 1 to 2 times (always 1 time if there's already 2 or more enemy party members). Each call requires that at least one player party member is alive (`hp` above 0 and not [EatenBy](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|3|[Numb](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 

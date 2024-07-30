@@ -1,12 +1,18 @@
 # `Underling`
 
+## Assumptions
+It is assumed that this enemy gets loaded with a [isdefending](../../Actors%20states/Enemy%20features.md#about-isdefending-being--1) of -1 so their `hitaction` logic works.
+
+## [EnemyCheck](../../StartBattle%20phases/Pre%20haltbattleload.md#enemycheck) special logic
+Before this enemy is loaded, it's possible that StartBattle overrides it to a `GoldenSeedling`. See the documentation to learn more.
+
 ## [hitaction](../../Battle%20flow/Update%20flows/Controlled%20flow.md#enemies-hitaction) support
 This enemy supports `hitaction` logic and it will be performed when `hitaction` is true instead of any moves.
 
 ### Logic sequence
 
 - animstate set to 23 (`Chase`)
-- [Emoticon](../../../Entities/EntityControl/EntityControl%20Methods.md#emoticon) called with type 2 (red ! mark) with a time of 35
+- [Emoticon](../../../Entities/EntityControl/EntityControl%20Methods.md#emoticon) called with the `Exclamation` emote with a time of 35
 - `Wam` sound plays
 - `checkingdead` set to a new [Dig](../Dig.md) call on this enemy which changes its [position](../../Actors%20states/BattlePosition.md) to `Underground` (`checkingdead` is set to null when completed)
 - Yield all frames until `checkingdead` is null
@@ -20,9 +26,10 @@ This enemy supports `hitaction` logic and it will be performed when `hitaction` 
 
 Move 3 is always used (and can only be used) when [position](../../Actors%20states/BattlePosition.md) is `Underground`.
 
-As for move 1 and 2, their usage is based on these odds:
+As for other moves, the decision of which move to use is based on the following odds:
 
 |Move|Odds|
+|---:|----|
 |1|51%|
 |2|49%|
 
@@ -33,7 +40,7 @@ A single target tackle attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -72,7 +79,7 @@ A single target headbonk attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -110,7 +117,7 @@ A single target undergound strike attack. [position](../../Actors%20states/Battl
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -141,7 +148,7 @@ This is effectively what the coroutine does:
 - `DigPop` sound plays
 - DoDamage 1 call happens
 - If all of the following conditions are fufilled, [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) is called to inflict the [Poison](../../Actors%20states/BattleCondition/Poison.md) condition to `playerdata[playertargetID]` for 3 main turns (NOTE: this has a lot of caveats, see the section above for details):
-    - `commandsuccess` is false (the player didn't blocked, ignores FRAMEONE)
+    - `commandsuccess` is false (didn't blocked, ignores FRAMEONE)
     - `playerdata[playertargetID]`'s `poisonres` is less than 100 (it's not immune)
     - A `poisonres` resistance check passes
     - `playerdata[playertargetID]` doesn't have the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition

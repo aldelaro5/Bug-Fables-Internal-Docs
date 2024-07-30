@@ -1,9 +1,9 @@
 # `WaspBomber`
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 1 change:
+HardMode being true does the following changes:
 
-- In the bomb throw move, the amount of frames the bomb takes to reach its target is random between 41 and 50 frames instead of being random between 41 and 60 frames
+- In the bomb throw move, the amount of frames the bomb takes to reach its target is random between 41.0 and 50.0 frames instead of being random between 41.0 and 60.0 frames
 
 ## Move selection
 1 moves is possible:
@@ -49,7 +49,7 @@ After determining the bomb type, this is what the logic does:
 - Over the course of 23.0 frames, the bomb moves to this enemy position + (-0.6, 3.2, -0.1)
 - Yield for 0.15 seconds
 - `Toss12` sound plays
-- Over the course of an amount of frames between 41.0 and 60.0 (the upper bound is 50.0 instead), the bomb moves to `partymiddle` via a BeizierCurve3 with a ymax of the total amount of frames / 10.0 + 2. Before each frame yield, the z angle of the bomb increases by 20.0
+- Over the course of an amount of frames between 41.0 and 61.0 (the upper bound is 51.0 instead if hardmode is true), the bomb moves to `partymiddle` via a BeizierCurve3 with a ymax of the total amount of frames / 10.0 + 2. Before each frame yield, the z angle of the bomb increases by 20.0
 - `Explosion` sound plays
 - Different effects happens depending on the bomb type (except for `BurlyBomb` where no effects happen):
     - `SpicyBomb`:

@@ -53,6 +53,7 @@ HardMode being true does the following changes:
 The decision of the move to use is based on odds, but those odds changes if InputIO.IsEditor is true which can't happen under normal gameplay (it would mean the game is being ran inside the Unity editor). Here are the odds:
 
 |Move|Odds in Unity player|Odds in Unity editor|
+|---:|------|------|
 |1|3/6|3/7|
 |2|2/6|4/7|
 |3|1/6|Never used|

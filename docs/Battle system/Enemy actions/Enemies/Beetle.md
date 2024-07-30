@@ -3,7 +3,7 @@
 > NOTE: This page is about the enemy action, NOT the player party member.
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 3 changes:
+HardMode being true does the following changes:
 
 - The odds to taunt before using a move changes to 30% from 20%
 - In the rock throw move, the amount of frames the rock takes to move to the target is 41 frames instead of 48 frames
@@ -58,7 +58,7 @@ A single target horn slash
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -89,7 +89,7 @@ A single target underground strike
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -116,7 +116,7 @@ A single target underground strike
 - `sprite` scale set to `startscale`
 - `DigPop` sound plays
 - `DirtExplode` particles plays at `playertargetentity` position
-- Over the course of 46.0 frames, position moves to startp + Vector3.up via a BeizierCurve3 with a ymax of 0.0
+- Over the course of 46.0 frames, this enemy moves to startp + Vector3.up via a BeizierCurve3 with a ymax of 0.0
 - position set to startp
 - animstate set to 13 (`BattleIdle`)
 - SetAnimForce called
@@ -132,7 +132,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|null|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|null|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 

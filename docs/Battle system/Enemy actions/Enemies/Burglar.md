@@ -12,13 +12,13 @@ HardMode being true has the following changes:
 
 1. A party wide dash attack that may steal an [item](../../../Enums%20and%20IDs/Items.md)
 2. A single target rock throw
-3. Summons a [Bandit](Bandit.md) or [Thief](Thief.md) enemy party member without changes to the `hp`, `maxhp` and `exp`
-4. Summons a [Bandit](Bandit.md) or [Thief](Thief.md) enemy party member with half `hp`, `maxhp` and `exp` floored
+3. Summons a [Bandit](Bandit.md) or [Thief](Thief.md) enemy without changes to their `hp`, `maxhp` and `exp`
+4. Summons a [Bandit](Bandit.md) or [Thief](Thief.md) enemy with half `hp`, `maxhp` and `exp` floored
 5. Flees the battle
 
 Move 5 is always used is `holditem` is above -1 meaning this enemy is holding a stolen item. It is the only way to have move 5 used.
 
-Move 1, 2, 3 and 4 have a complex decision process that goes like this:
+Move 1, through 4 have a complex decision process that goes like this:
 
 - If a 4/10 RNG check passes:
     - If this is the last enemy party member left and a 35% RNG check passes (45% instead if hardmode is true)
@@ -76,7 +76,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -92,7 +92,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - `Toss` sound plays
 - `Fall` sound plays
 - The `MightyPeeble` sprite gets rooted
-- Over the course of 50.0 frames (35.0 frames instead if hardmode is true), the `MightyPeeble` sprite moves to `playertargetentity` position + (0.0, 1.5, -0.2) via a BeizierCurve with a ymax of 6.0. Before each yield, the sprite Rotate in z by -20x the game's frametime
+- Over the course of 50.0 frames (35.0 frames instead if hardmode is true), the `MightyPeeble` sprite moves to `playertargetentity` position + (0.0, 1.5, -0.2) via a BeizierCurve with a ymax of 6.0. Before each yield, the sprite Rotate in z by -20.0x the game's frametime
 - The `MightyPeeble` sprite gets destroyed
 - DoDamage 1 call happens
 - Yield for 0.5 seconds

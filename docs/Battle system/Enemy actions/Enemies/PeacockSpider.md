@@ -1,5 +1,8 @@
 # `PeacockSpider`
 
+## Assumptions
+It is assumed that this enemy is initially fought alone. This is because most of this enemy's moves directly impacts the first `enemydata` that isn't themselves which is intended to be summoned by this enemy. It is possible that inconsistent behaviors occurs if this enemy isn't fought alone initially.
+
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
 
@@ -90,7 +93,7 @@ Inflicts an infinite [AttackUp](../../Actors%20states/BattleCondition/AttackUp.m
 - Camera moves to loop between this enemy and the summoned enemy with a bias towards this enemy, but zoomed in
 - Yield for a second
 - Yield for 0.5 seconds
-- [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition on the summoned enemy for 999999 main turns (basically infinite) with effect
+- [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition on the summoned enemy for 999999 main turns (infinite) with effect
 - `Prefabs/Particles/MagicConstant` moved offscreen at -9999.0 in y then destroyed in 2.0 seconds
 - Yield for 1 second
 - `flip` set to false
@@ -107,7 +110,7 @@ Inflicts an infinite [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp
 - Camera moves to loop between this enemy and the summoned enemy with a bias towards this enemy, but zoomed in
 - Yield for a second
 - Yield for 0.5 seconds
-- [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition on the summoned enemy for 999999 main turns (basically infinite) with effect
+- [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition on the summoned enemy for 999999 main turns (infinite) with effect
 - `Prefabs/Particles/MagicConstant` moved offscreen at -9999.0 in y then destroyed in 2.0 seconds
 - Yield for 1 second
 - `flip` set to false
@@ -156,7 +159,7 @@ A single target triple slash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen 3 times|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen 3 times|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 It is possible that a new `Prefabs/Particles/MagicConstant` GameObject is created rooted at this enemy position with a scale of 2.0x if this move is used after failing to use another move twice in a row. If this is the case, the GameObject gets destroyed first.

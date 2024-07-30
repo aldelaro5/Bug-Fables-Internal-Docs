@@ -83,7 +83,7 @@ A single target tail swipe attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -114,7 +114,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 2 times, but the second call requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Poison](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID`|A new `Prefabs/Objects/ShadowBall` GameObject rooted positioned at this enemy position + (1.5, 3.0, -0.1) on the first hit and this enemy position + (-1.35, 3.0, -0.1) on the second hit|35.0 (27.0 instead if hardmode is true)|0.0|`SepPart@3@1,keepcolor` (`SepPart@3@1,keepcolor,atkdown@3@2@2` instead if hardmode is true)|`Stars`|`PingShot`|null|Vector3.zero|false|
+|1|Always happen 2 times, but the second call requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|3|[Poison](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|A new `Prefabs/Objects/ShadowBall` GameObject rooted positioned at this enemy position + (1.5, 3.0, -0.1) on the first hit and this enemy position + (-1.35, 3.0, -0.1) on the second hit|35.0 (27.0 instead if hardmode is true)|0.0|`SepPart@3@1,keepcolor` (`SepPart@3@1,keepcolor,atkdown@3@2@2` instead if hardmode is true)|`Stars`|`PingShot`|null|Vector3.zero|false|
 
 ### Logic sequence
 

@@ -99,7 +99,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 2 to 4 times (2 to 3 times instead if hardmode is true), but the call and further calls won't happen if there's not at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|null|This enemy|`playertargetID`|A new sprite object rooted using the `MightyPeeble` [medal](../../../Enums%20and%20IDs/Medal.md) sprite positioned at this enemy position + (-0.5, 1.5, -0.1) with a scale of 0.85x|47.5 (random between 38.0 and 44.0 instead if hardmode is true)|3.5|null|null|null|null|(0.0, 0.0, 25.0)|false|
+|1|Always happen from 2 to 4 times (2 to 3 times instead if hardmode is true), but the call and further calls won't happen if there's not at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|null|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|A new sprite object rooted using the `MightyPeeble` [medal](../../../Enums%20and%20IDs/Medal.md) sprite positioned at this enemy position + (-0.5, 1.5, -0.1) with a scale of 0.85x|47.5 (random between 38.0 and 44.0 instead if hardmode is true)|3.5|null|null|null|null|(0.0, 0.0, 25.0)|false|
 
 ### Logic sequence
 

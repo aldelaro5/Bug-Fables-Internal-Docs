@@ -89,7 +89,7 @@ A single target axe slash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|5 (6 instead if `locktri` is true which means the phase transition in the pre move logic occured before)|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|5 (6 instead if `locktri` is true which means the phase transition in the pre move logic occured before)|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -119,7 +119,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|6|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|6|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -193,13 +193,13 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Only happens on the single target version of the move|This enemy|The selected `playertargetID`|5|[Fire](../../Damage%20pipeline/AttackProperty.md)|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
+|1|Only happens on the single target version of the move|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|5|[Fire](../../Damage%20pipeline/AttackProperty.md)|{[BlockSoundOnly](../../Damage%20pipeline/DoDamage.md#blocksoundonly)}|`commandsuccess`|
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Only happens on the multiple targets version of the move from 2 to 3 times (always 3 times instead if `moves` isn't 1 meaning the phase transition in the pre move logic occured before), but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|[Fire](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID`|A new `Prefabs/Particles/Fireball` GameObject childed to the `battlemap` positioned at this enemy + (-1.25, 2.5, 0.0) with a scale of 0.75x|Random between 29.0 and 35.0 (random between 22.0 and 28.0 instead if hardmode is true)|2.0|`SepPart@2@4`|`Fire`|`WaspKingMFireball2`|null|Vector3.zero|false|
+|1|Only happens on the multiple targets version of the move from 2 to 3 times (always 3 times instead if `moves` isn't 1 meaning the phase transition in the pre move logic occured before), but each calls requires that there's at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|[Fire](../../Damage%20pipeline/AttackProperty.md)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|A new `Prefabs/Particles/Fireball` GameObject childed to the `battlemap` positioned at this enemy + (-1.25, 2.5, 0.0) with a scale of 0.75x|Random between 29.0 and 35.0 (random between 22.0 and 28.0 instead if hardmode is true)|2.0|`SepPart@2@4`|`Fire`|`WaspKingMFireball2`|null|Vector3.zero|false|
 
 ### Logic sequence
 

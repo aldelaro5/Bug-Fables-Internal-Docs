@@ -1,9 +1,7 @@
 # `VenusBoss`
 
 ## Assumptions
-It is assumed that this enemy's [animid](../../../Enums%20and%20IDs/AnimIDs.md) (not enemy id) is `VenusGuardian`. This is because this animid has special logic in [UpdateAnimSpecific](../../../Entities/EntityControl/Animations/AnimSpecific.md#updateanimspecific) that involves `data[0]` which can influence animation logic. It also is what contains the logic of a rather complex entity structure with `extras` and `extraanims` involving animations which are bound to this animid and that the action logic assumes is present. There's also logic bound to this animid in [AnimSpecificQuirks](../../../Entities/EntityControl/Animations/AnimSpecific.md#animspecificquirks).
-
-This enemy won't function correctly if another animid is assigned to it in [endata](../../../TextAsset%20Data/Enemies%20data.md#enemydata-data).
+It is assumed that this enemy's [animid](../../../Enums%20and%20IDs/AnimIDs.md) (not enemy id) is `VenusGuardian`. This is because this animid has special logic in [UpdateAnimSpecific](../../../Entities/EntityControl/Animations/AnimSpecific.md#updateanimspecific) that involves `data[0]` which can influence animation logic. It also is what contains the logic of a rather complex entity structure with `extras` and `extraanims` involving animations which are bound to this animid and that the action logic assumes is present. There's also logic bound to this animid in [AnimSpecificQuirks](../../../Entities/EntityControl/Animations/AnimSpecific.md#animspecificquirks). This enemy won't function correctly if another animid is assigned to it in [endata](../../../TextAsset%20Data/Enemies%20data.md#enemydata-data).
 
 Additionally, it is assumed this enemy has [actimmobile](../../Actors%20states/Enemy%20features.md#actimmobile) enabled. This is necessary because if hardmode is true, it is possible for this enemy to cure some [stopping conditions](../../Actors%20states/IsStopped.md) and act instead of skipping their actor turn.
 
@@ -21,15 +19,19 @@ At the start of the action, if `data` is null or empty, it's initialised to be 3
 - `data[2]`: This value is UNUSED
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
-HardMode being true does 8 changes:
+HardMode being true does the following changes:
 
 - If the enemy is affected by [Freeze](../../Actors%20states/BattleCondition/Freeze.md), [Sleep](../../Actors%20states/BattleCondition/Sleep.md) or [Numb](../../Actors%20states/BattleCondition/Numb.md), those conditions will be removed at the start of the actor turn so this enemy get to cure them and act immediately after instead of not performing any logic which simulates as if the actor turn was skipped
 - The single target arm slam move has the yield time between the `Creak2` and `Crea6` sounds changed to be random between 0.7 and 0.9 seconds instead of being random between 0.7 and 1.05 seconds
 - The party wide arm sweep move deals 1 damage per affected player party member instead of 2
 - The grounded seeds throw move deals 1 damage per hit instead of 2 and the amount of seeds thrown is between 3 and 8 inclusive instead of between 3 and 7 inclusive (the amount of [Projectile](../../Damage%20pipeline/Projectile.md) calls is half of that number ceiled)
 - When using the grounded seeds throw move or single target multiple hits version of the aerial seeds throw move, the chances to receive a `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) in the player's standard items inventory is 75% instead of being guaranteed
-- The party wide version of the aerial seeds throw move has each [DoDamage](../../Damage%20pipeline/DoDamage.md) calls deal 2 damages instead of 3. It also changes the amount of frames the seed takes to reach the player party to 22.5 frames from 30.0 frames. The odds of using this version of the move also changes to 1/3 from 1/4
-- The single target multiple hits version of the aerial seeds throw move has each [Projectile](../../Damage%20pipeline/Projectile.md) calls deal 1 damages instead of 2. It also has a speed of 32.5 instead of 40.0 and the yield between throws changes to 0.45 seconds from 0.6 seconds. The odds of using this version of the move also changes to 2/3 from 3/4
+- The party wide version of the aerial seeds throw move has each [DoDamage](../../Damage%20pipeline/DoDamage.md) calls deal 2 damages instead of 3. 
+- In the party wide version of the aerial seeds throw move, the amount of frames the seed takes to reach the player party changes to 22.5 frames from 30.0 frames. 
+- The odds of using the party wide version of the aerial seeds throw move changes to 1/3 from 1/4 meaning the odds of using the single target multiple hits version changes to 2/3 from 3/4
+- The single target multiple hits version of the aerial seeds throw move has each [Projectile](../../Damage%20pipeline/Projectile.md) calls deal 1 damages instead of 2. 
+- In the single target multiple hits version of the aerial seeds throw move, the speed of each Projectile calls changes to 32.5 instead of 40.0 
+- In the single target multiple hits version of the aerial seeds throw move, the yield time between throws changes to 0.45 seconds from 0.6 seconds
 - The base odds of this enemy inflicting themselves the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) or [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) conditions if they didn't already had them after using certain moves (check the post move logic section for details) changes to 36% from 21%
 
 ## [StartBattle](../../StartBattle.md) logic
@@ -56,7 +58,7 @@ Move 4 is only used and always will be used after the first phase transition, bu
 
 Move 5 is only used once in the battle on the actor turn where the second phase transition occurs, but only if [position](../../Actors%20states/BattlePosition.md) is `Ground`. See the pre move logic section below for more details.
 
-As for move 1, 2 or 3, they can only be used when [position](../../Actors%20states/BattlePosition.md) is `Ground` and none of the special conditions mentioned above occurs so it's basically the "standard" moveset. In that case, here are the usage odds:
+As for move 1, 2 or 3, they can only be used when [position](../../Actors%20states/BattlePosition.md) is `Ground` and none of the special conditions mentioned above occurs so it's basically the "standard" moveset. In that case, the decision of which move to use is based on the following odds:
 
 |Move|Odds|
 |---:|----|
@@ -166,7 +168,7 @@ On top of this, move 5 ([AngryPlant](AngryPlant.md#angryplant) summon) will alwa
 ## Post move logic
 There is some logic that may happen after a move's usage, but only if all of the following conditions are fufilled:
 
-- Either move 1 or 2 was used or move 3 was used, but the additional quantity of seeds to throw was either 1 or 2 which has 2/3 chances to happen (2/4 instead if hardmode is true)
+- Either move 1 or 2 was used (arm slam or arm sweep) or move 3 was used (grounded seeds throws), but the additional quantity of seeds to throw was either 1 or 2 which has 2/3 chances to happen (2/4 instead if hardmode is true)
 - Either an RNG check passes with 21% (36% if hardmode is true) or all of the following conditions are fufilled at once:
     - [HPPercent](../../Actors%20states/HPPercent.md) is 0.33 or lower
     - This enemy is the only enemy party member left
@@ -193,7 +195,7 @@ A party wide arm slash attack
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 The arm object is reffered to `extraanims[1]`'s 6th grand children which is a bone attached to `VenusGuardian`'s arm that faces the camera.
@@ -256,7 +258,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen for half the amount of seeds thrown ceiled, but each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1. The amount of seeds thrown is random between 3 and 7 inclusive (between 3 and 8 inclusive instead if hardmode is true)|2 (1 if hardmode is true)|null|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup>|A new GameObject rooted with a SpriteRenderer using the `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) sprite  positioned at this enemy + (0.0, 3.0, 0.5) using the `spritemat` material on layer 0 (Default)|60.0 (50.0 instead if hardmode is true)|A random integer between 6 and 8 inclusive which is then cast to float|null|null|`WoodHit`|Empty string|(0.0, 0.0, random integer between -20 and 20 which is then cast to float)|false|
+|1|Always happen for half the amount of seeds thrown ceiled, but each call can only happen if [GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable doesn't return -1. The amount of seeds thrown is random between 3 and 7 inclusive (between 3 and 8 inclusive instead if hardmode is true)|2 (1 if hardmode is true)|null|This enemy|[GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) with nullable<sup>1</sup> (target changes for each calls)|A new GameObject rooted with a SpriteRenderer using the `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) sprite  positioned at this enemy + (0.0, 3.0, 0.5) using the `spritemat` material on layer 0 (Default)|60.0 (50.0 instead if hardmode is true)|A random integer between 6 and 8 inclusive which is then cast to float|null|null|`WoodHit`|Empty string|(0.0, 0.0, random integer between -20 and 20 which is then cast to float)|false|
 
 1: This targetting scheme is broken. See the [nullable GetRandomAvaliablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for more details.
 
@@ -320,13 +322,13 @@ This move always sets `nonphyscal` to true which doesn't affect anything for thi
     - x angle set to 150.0 for the first wing and -150.0 for the second wing
     - `LeafExplode` sound plays
     - `leafexplode` particles plays at the wing with scale (3.25, 3.25, 1.5)
-- Over the course of 15.0 frames, both wings has their scale lerped to their initial value before they were set to Vector3.zero
+- Over the course of 15.0 frames, both wings has their scale changed to their initial value before they were set to Vector3.zero via a lerp
 - animstate set to 100
 - Yield for 0.75 seconds
 - `extraentities[0]` (`Venus`) animstate set to 102
 - Yield for 0.5 seconds
 - `Flap` sound plays on loop
-- Over the course of 60.0 frames, `height` is lerped to 4.0 and when it goes higher than 0.25, animstate is set to 0 (`Idle`) before each frame yield
+- Over the course of 60.0 frames, `height` changes to 4.0 via a lerp and when it goes higher than 0.25, animstate is set to 0 (`Idle`) before each frame yield
 - `Flap` sound stopped
 - animstate set to 0 (`Idle`)
 - `height` set to 4.0
@@ -370,7 +372,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Only happens in the single target multiple hits version of the move from 2 to 3 times|2 (1 instead if hardmode is true)|null|This enemy|`playertargetID`|A new GameObject rooted with a SpriteRenderer using the `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) sprite  positioned at this enemy + (0.0, 3.0, 0.5) using the `spritemat` material|40.0 (32.5 instead if hardmode is true)|0.0|null|null|`WoodHit`|Empty string|(0.0, 0.0, 20.0)|false|
+|1|Only happens in the single target multiple hits version of the move from 2 to 3 times|2 (1 instead if hardmode is true)|null|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for all calls)|A new GameObject rooted with a SpriteRenderer using the `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) sprite  positioned at this enemy + (0.0, 3.0, 0.5) using the `spritemat` material|40.0 (32.5 instead if hardmode is true)|0.0|null|null|`WoodHit`|Empty string|(0.0, 0.0, 20.0)|false|
 
 ### Logic sequence
 The version of the move to use is decided first with an RNG check. The odds are 3/4 (2/3 instead if hardmode is true) for the single target multiple hits version and 1/4 (1/3 instead if hardmode is true) for the party wide version.
@@ -425,7 +427,7 @@ After, if the single target version of the move was used:
 
 - [GetRandomAvailablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md) called with nullable. NOTE: This targetting scheme is broken, see the [nullable GetRandomAvailablePlayer](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#nullable-is-true) documentation for details
 - `checkingdead` set to a new HardSeedVenus coroutine call with the target player party member index just obtained as a and the hardmode value as harmode which effectively does the following:
-    - The corutine does nothing except setting `checkingdead` to null if not all of the following conditions are fufilled:
+    - The coroutine does nothing except setting `checkingdead` to null if not all of the following conditions are fufilled:
         - `hasblocked` is true (At least one Projectile call had its DoDamage call blocked)
         - The target isn't -1
         - `items[0]` is less than instance.`maxitems` (not full standard [items](../../../Enums%20and%20IDs/Items.md) inventory)

@@ -1,11 +1,14 @@
 # `LeafbugNinja`
 
+## Assumptions
+It is assumed this enemy is loaded with a non empty [chargeonotherenemy](../../Actors%20states/Enemy%20features.md#chargeonotherenemy) as it is needed for their `hitaction` logic to work. Typically, it will be set to other `LeafbugNinja`, [LeafbugArcher](LeafbugArcher.md) and [LeafbugClubber](LeafbugClubber.md).
+
 ## About the clones special logic
-This enemy is able to summon clones of themselves in the post move logic, but with a special property: their [weakness](../../Actors%20states/Enemy%20features.md#weakness) is set to be one element being [DieInOneHit](../../Damage%20pipeline/AttackProperty.md). This not only changes the damage pipeline such that their `hp` is unconditionally set to 0 upon any [DoDamage](../../Damage%20pipeline/DoDamage.md) calls, but it allows this action to tell that they are indeed a clone. This assumes that this enemy's data do NOT contain this property in the `weakness` field as it would otherwise break this system.
+This enemy is able to summon clones of themselves in the post move logic, but with a special property: their [weakness](../../Actors%20states/Enemy%20features.md#weakness) is set to be one element being [DieInOneHit](../../Damage%20pipeline/AttackProperty.md). This not only changes the damage pipeline such that their `hp` is unconditionally set to 0 upon any [DoDamage](../../Damage%20pipeline/DoDamage.md) calls, but it allows this action to tell that they are indeed a clone. This assumes that this enemy's data does NOT contain this property in the `weakness` field as it would otherwise break this system.
 
 Clones have very reduced logic as besides the [hitaction](../../Actors%20states/Enemy%20features.md#hitaction) logic and the initialisation of `data` (which won't do anything for them), they do not share the logic of the original enemy who summoned them. If at the start of the action, their `hitaction` is false, but they have the `DieInOneHit` in their `weakness`, the ENTIRE action logic is reduced to this:
 
-- The nocharm local to true which will prevent any [UseCharm](../../Battle%20flow/UseCharm.md) calls to occur in the post action phase. This means no `HealHP` charm can occur after this action
+- The nocharm local is set to true which will prevent any [UseCharm](../../Battle%20flow/UseCharm.md) calls to occur in the post action phase. This means no `HealHP` charm can occur after this action
 
 This means the clones cannot perform any moves, summons other clones or do anything practical besides their `hitaction` logic. Only the original enemy who summoned them can have access to the full action logic.
 
@@ -21,7 +24,7 @@ HardMode being true does the following changes:
 - In the leaf projectiles throw move, the speed of each Projectile changes to 27.0 from 36.0
 
 ## [hitaction](../../Battle%20flow/Update%20flows/Controlled%20flow.md#enemies-hitaction) support
-This enemy supports `hitaction` logic and it will be performed when `hitaction` is true instead of any moves.
+This enemy supports `hitaction` logic and it will be performed when `hitaction` is true instead of any moves. This logic is supported by the clones, but it's only for visual effects in this case as the `charge` gained won't be useful to them.
 
 ### `dontusecharge` set to true
 This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
@@ -109,7 +112,7 @@ A single target kick attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|2|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|2|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -146,7 +149,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen 2 times, but each calls requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup> (if hardmode is true, this has 5/10 chance to be [Poison](../../Damage%20pipeline/AttackProperty.md) instead)|This enemy|`playertargetID`|A new sprite object childed to the `battlemap` using the `projectilepsrites[13]` sprite (leaf projectile) positioned at this enemy + (-1.0, 1.0, -0.1) with a scale of 0.65x and a z angle of -90.0. If the property is [Poison](../../Damage%20pipeline/AttackProperty.md), the SpriteRenderer's material color is pure magenta|36.0 (27.0 instead if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
+|1|Always happen 2 times, but each calls requires that at least 1 player party member is alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup> (if hardmode is true, this has 5/10 chance to be [Poison](../../Damage%20pipeline/AttackProperty.md) instead)|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|A new sprite object childed to the `battlemap` using the `projectilepsrites[13]` sprite (leaf projectile) positioned at this enemy + (-1.0, 1.0, -0.1) with a scale of 0.65x and a z angle of -90.0. If the property is [Poison](../../Damage%20pipeline/AttackProperty.md), the SpriteRenderer's material color is pure magenta|36.0 (27.0 instead if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 

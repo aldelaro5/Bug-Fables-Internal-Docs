@@ -99,7 +99,6 @@ Gives the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) conditio
 ## Move 4 - Gives [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition on another enemy party member
 Gives the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition on another enemy party member. No damages are dealt.
 
-
 ### Logic sequence
 
 - The selected receiver's y `spin` is set to 15.0

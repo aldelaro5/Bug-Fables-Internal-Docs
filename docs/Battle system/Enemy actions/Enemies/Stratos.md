@@ -104,7 +104,7 @@ A single target downard sword slash that can inflict [DefenseDown](../../Actors%
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|7|[DefDownOnBlock](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|7|[DefDownOnBlock](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -132,7 +132,7 @@ A single target triple downward sword slash.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 |2|Always happen 2 times after DoDamage 1|This enemy|The same target as DoDamage 1|3|null|null|`commandsuccess`|
 
 ### Logic sequence
@@ -177,7 +177,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|6|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|6|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -229,7 +229,7 @@ A single target sideway sword slash that can inflict [AttackDown](../../Actors%2
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|7|[AtkDownOnBlock](../../Damage%20pipeline/AttackProperty.md)|{[NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|7|[AtkDownOnBlock](../../Damage%20pipeline/AttackProperty.md)|{[NoSound](../../Damage%20pipeline/DoDamage.md#nosound)}|`commandsuccess`|
 
 ### Logic sequence
 

@@ -26,7 +26,7 @@ private bool StealItem(int enemyid)
 ## Steal conditions
 Here are all the conditions needed for the enemy party member to actually steal:
 
-- Either always is true or `commandsuccess` is false
+- Either always is true or `commandsuccess` is false (didn't blocked, ignores FRAMEONE)
 - `items[0]` contains at least one standard item
 - The enemy party member doesn't already have a `holditem`
 

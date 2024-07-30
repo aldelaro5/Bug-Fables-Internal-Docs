@@ -3,7 +3,7 @@
 ## Assumptions
 It is assumed this enemy gets loaded with [SurviveWith10](../../Damage%20pipeline/AttackProperty.md) in their [weakness](../../Actors%20states/Enemy%20features.md#weakness) as it is necessary for the low `hp` phase transition move to work.
 
-It is also assumed for the same reason that `Beetle` is present in the player party.
+It is also assumed for the same reason that `Beetle` is present in the player party at `playerdata[1]`.
 
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 3 element with a starting value of 0.
@@ -122,7 +122,7 @@ A single target bite attack that can drain `hp`.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|3|null|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -150,7 +150,7 @@ A single target bite attack with [Flip](../../Damage%20pipeline/AttackProperty.m
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
@@ -291,7 +291,7 @@ A single target underground attack that can drain `hp`.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 

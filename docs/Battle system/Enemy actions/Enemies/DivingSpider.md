@@ -3,7 +3,7 @@
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 1 element with a starting value of 0.
 
-- `data[0]`: An actor turn cooldown for inflicting themselves the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition in the post move logic. When inflicting themselves the condition in the post move logic, the value is set to 2. It is decremented at the end of the action if it's not 0, but the decrement is at the expense of being able to inflict themselves the condition so it prevents it. It's only when the value becomes 0 (after 2 completed actor turns) that this enemy can inflict themsevles with the `Shield` condition again in the post move logic.
+- `data[0]`: An actor turn cooldown for inflicting themselves the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition in the post move logic. When inflicting themselves the condition in the post move logic, the value is set to 2. It is decremented at the end of the action if it's not 0, but the decrement is at the expense of not being able to inflict themselves the condition so it prevents it. It's only when the value becomes 0 (after 2 completed actor turns) that this enemy can inflict themsevles with the `Shield` condition again in the post move logic.
 
 ## [HardMode](../../Damage%20pipeline/HardMode.md) changes
 HardMode being true does the following changes:
@@ -16,7 +16,7 @@ HardMode being true does the following changes:
 
 1. A multiple targets water bubble projectiles throw
 
-Move 1 is always used
+Move 1 is always used.
 
 ## Pre move logic
 The following logic always happen before using a move:
@@ -56,7 +56,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 1 to 2 times (2 to 3 times instead if hardmode is true), but the call and further calls won't happen if there's not at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|null or [Poison](../../Damage%20pipeline/AttackProperty.md) determined randomly|This enemy|`playertargetID`|A new sprite object rooted using the `Sprites/Particles/waterbubble` sprite positioned at this enemy + (-1.0, 0.75, -0.1) with a scale of 0.35x and a pure magenta color if propert is `Poison`|One of the 2 chosen randomly with uniform odds check:<ul><li>35.0 (27.0 instead if hardmode is true)</li><li>42.0 (35.0 instead if hardmode is true)</li></ul>|0.0 if using the faster speed, 3.0 if using the slower speed|`keepcolor`|`WaterSplash` (`PoisonEffect` instead if property is `Poison`)|`BubbleBurst`|null|Vector3.zero|false|
+|1|Always happen from 1 to 2 times (2 to 3 times instead if hardmode is true), but the call and further calls won't happen if there's not at least 1 player party member alive (`hp` above 0 and not [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences))|2|null or [Poison](../../Damage%20pipeline/AttackProperty.md) determined randomly|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target changes for each calls)|A new sprite object rooted using the `Sprites/Particles/waterbubble` sprite positioned at this enemy + (-1.0, 0.75, -0.1) with a scale of 0.35x and a pure magenta color if propert is `Poison`|One of the 2 chosen randomly with uniform odds check:<ul><li>35.0 (27.0 instead if hardmode is true)</li><li>42.0 (35.0 instead if hardmode is true)</li></ul>|0.0 if using the faster speed, 3.0 if using the slower speed|`keepcolor`|`WaterSplash` (`PoisonEffect` instead if property is `Poison`)|`BubbleBurst`|null|Vector3.zero|false|
 
 ### Logic sequence
 

@@ -24,7 +24,7 @@ The decision of which move to use is based on the following odds:
 |2|2/5|
 |3|1/5|
 
-However, move 3 may cause a reroll of the move selection by issuing a continue directive to the enemy action loop which restarts the entire action. The conditions in which this happens is complex and it depends who will receive the condition as well as which condition is selected to be inflicted.
+However, move 3 may cause a reroll of the move selection by issuing a continue directive to the enemy action loop which restarts the entire action. The conditions in which this happens is complex and it depends on who will receive the condition as well as which condition is selected to be inflicted.
 
 The receiver is determined by doing the following:
 
@@ -39,7 +39,7 @@ Whoever the receiver is, the condition to inflict to them is determined randomly
 |[AttackUp](../../Actors%20states/BattleCondition/AttackUp.md)|1/4|
 |[DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md)|1/4|
 
-After selecting both the receive and the condition, the receiver must not have the condition already for the move to be used. If they have it already, a continue directive is issued to the enemy action loop which rerolls the entire move selection process.
+After selecting both the receiver and the condition, the receiver must not have the condition already for the move to be used. If they have it already, a continue directive is issued to the enemy action loop which rerolls the entire move selection process.
 
 ## Pre move logic
 The following logic always happen before using a move:
@@ -56,7 +56,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|damage|property|attacker|playertarget|obj|speed|height|extraargs|destroyparticle|audioonhit|audiomoving|spin|nosound|
 |-:|---------|------|--------|--------|-----------|---|-----|------|---------|--------------|----------|-----------|----|------|
-|1|Always happen from 1 to 2 times (always 1 time if hardmode is true)|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|This enemy|`playertargetID`|A new sprite object rooted using the `projectilepsrites[12]` sprite (a pink pointy projectile) positioned at this enemy + (-1.65, 1.25, -0.1) with scale of 0.5x and a z angle of -90.0|33.0 (27.0 instead if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
+|1|Always happen from 1 to 2 times (always 1 time if hardmode is true)|3|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) (target is the same for each calls)|A new sprite object rooted using the `projectilepsrites[12]` sprite (a pink pointy projectile) positioned at this enemy + (-1.65, 1.25, -0.1) with scale of 0.5x and a z angle of -90.0|33.0 (27.0 instead if hardmode is true)|0.0|null|null|null|null|Vector3.zero|false|
 
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
@@ -89,7 +89,7 @@ A single target slash attack.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|The selected `playertargetID`|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
 
