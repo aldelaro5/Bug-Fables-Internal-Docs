@@ -4,7 +4,7 @@
 
 |#|Conditions|timer|commandtype|data|
 |-:|-----|-----|-----|-----|
-|1|None|<ul><li>220.0 if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is not equipped</li><li>250.0 if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped</li></ul>|[TappingKey](../../Action%20commands/TappingKey.md)|<ul><li>{-1f, 6.5f, 0.15f, 1f, 0f, 0f, 0f, 0f, 0f, 4f} if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is not equipped</li><li>{-1f, 6.5f, 0.15f, 1f, 0f, 0f, 0f, 0f, 0f, 5f} if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped</li></ul>
+|1|None|<ul><li>220.0 if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is not equipped</li><li>250.0 if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped</li></ul>|[TappingKey](../../Action%20commands/TappingKey.md)|<ul><li>{-1f, 6.5f, 0.15f, 1f, 0f, 0f, 0f, 0f, 0f, 4f} if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is not equipped</li><li>{-1f, 6.5f, 0.15f, 1f, 0f, 0f, 0f, 0f, 0f, 5f} if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped</li></ul>|
 
 ## [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 

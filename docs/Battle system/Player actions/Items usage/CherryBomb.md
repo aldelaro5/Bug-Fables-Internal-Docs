@@ -14,7 +14,7 @@ The logic performed is the same than the new value of `selecteditem` with one ex
 
 The rest is the same than if it was the actual overriden item.
 
-There is some dead logic specifically related to this item however and it only contains the following DoDamage call, but it never happens under normal gameplay:
+There is some dead logic specifically related to this item however and it only contains the following [DoDamage](../../Damage%20pipeline/DoDamage.md) call, but it never happens under normal gameplay:
 
 |Conditions|attacker|target|damageammount|property|overrides|block|
 |---|---|---|---|---|---|---|

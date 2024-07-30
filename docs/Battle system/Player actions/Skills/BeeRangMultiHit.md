@@ -4,7 +4,7 @@
 
 |#|Conditions|timer|commandtype|data|
 |-:|-----|-----|-----|-----|
-|1|None|0.01|[LongRandomBar](../../Action%20commands/LongRandomBar.md)|<ul><li>{3.0, 1.25} if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is not equipped</li><li>{4.0, 1.25} if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped</li></ul>
+|1|None|0.01|[LongRandomBar](../../Action%20commands/LongRandomBar.md)|<ul><li>{3.0, 1.25} if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is not equipped</li><li>{4.0, 1.25} if `Beemerang2` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped</li></ul>|
 
 ## [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
