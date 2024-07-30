@@ -77,7 +77,7 @@ Depending on the effect number generated, the corresponding effect is applied am
 - 7: 
     - All player party members whose `hp` is above 0 and do not have the [Sturdy](../../Actors%20states/BattleCondition/Sturdy.md) condition has the folllowing happen on them:
         - animstate set to 11 (`Hurt`)
-        - [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [Poison](../../Actors%20states/BattleCondition/Poison.md) condition on the player party member with effect for 2 main turns including the current one (3 main turns instead if hardmode is true) or 99999 turns if they have the `EternalPoison` [medal](../../../Enums%20and%20IDs/Medal.md) equipped. NOTE: This means that `poisonres` is bypassed
+        - [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [Poison](../../Actors%20states/BattleCondition/Poison.md) condition on the player party member with effect for 2 main turns including the current one (3 main turns instead if hardmode is true) or 99999 turns if they have the `EternalPoison` [medal](../../../Enums%20and%20IDs/Medal.md) equipped. NOTE: This means that the `poisonres` check is off by one, check the method's documentation for details
         - `poisoneffect` particles plays at the player party member position
     - `Poison` sound plays
 - 8:
@@ -89,7 +89,7 @@ Depending on the effect number generated, the corresponding effect is applied am
 - 9: 
     - All player party members whose `hp` is above 0 and do not have the [Sturdy](../../Actors%20states/BattleCondition/Sturdy.md) condition has the folllowing happen on them:
         - animstate set to 14 (`Sleep`)
-        - [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [Sleep](../../Actors%20states/BattleCondition/Sleep.md) condition on the player party member with effect for 2 main turns (effectively 1 main turn since the current main turns ends soon after). NOTE: This means that `sleepres` is bypassed
+        - [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called to inflict the [Sleep](../../Actors%20states/BattleCondition/Sleep.md) condition on the player party member with effect for 2 main turns (effectively 1 main turn since the current main turns ends soon after). NOTE: This means that the `sleepres` check is off by one, check the method's documentation for details
     - `Ping` sound plays
     - `Sleep` sound plays
     - `impactsmoke` particles plays at `partymiddle`

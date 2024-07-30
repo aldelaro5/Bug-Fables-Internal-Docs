@@ -68,6 +68,7 @@ A single target tail thrust that may inflict [Sleep](../../Actors%20states/Battl
 While the DoDamage call features a `Pierce` property, the move ends up doing an incorrect version of the `Poison` or `Sleep` property logic due to the [single property shortcoming](../../Damage%20pipeline/Known%20design%20issues.md#it-is-impossible-to-call-dodamage-using-multiple-attackproperty). Here are the differences:
 
 - On FRAMEONE, regular blocking will incorrectly prevent the condition from being inflicted which doesn't happen normally
+- When inflicting either conditions, the resistance check is off by one. See the [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) documentation for details
 - When inflicting `Poison`, the `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) won't work despite the attack being physical
 - When inflicting `Sleep`, the amount of turns to inflict is 2 instead of 3 even if the target didn't already had the condition
 - When inflicting `Poison` and the target had the `Sleep` condition without a `HeavySleeper` [medal](../../../Enums%20and%20IDs/Medal.md), its `Sleep` condition is not removed when it otherwise would have been. NOTE: in practice, nothing changes because the DoDamage 1 call will remove the `Sleep` condition anyway
@@ -90,7 +91,7 @@ While the DoDamage call features a `Pierce` property, the move ends up doing an 
 - `ScorpionTail4` sound plays
 - Yield for 0.05 seconds
 - DoDamage 1 call happens
-- If `commandsuccess` is false (didn't blocked, ignores FRAMEONE) and `playerdata[playertargetID]` doesn't have the [Shield](../../Actors%20states/BattleCondition/Shield.md) or [Sturdy](../../Player%20actions/Skills/Sturdy.md) conditions, [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) is called on `playerdata[playertargetID]` to inflict a randomly chosen condition between [Poison](../../Actors%20states/BattleCondition/Poison.md) and [Sleep](../../Actors%20states/BattleCondition/Sleep.md) for 2 main turns (effectively 1 main turn since the current one is advanced soon). NOTE: This ignores status resistance
+- If `commandsuccess` is false (didn't blocked, ignores FRAMEONE) and `playerdata[playertargetID]` doesn't have the [Shield](../../Actors%20states/BattleCondition/Shield.md) or [Sturdy](../../Player%20actions/Skills/Sturdy.md) conditions, [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) is called on `playerdata[playertargetID]` to inflict a randomly chosen condition between [Poison](../../Actors%20states/BattleCondition/Poison.md) and [Sleep](../../Actors%20states/BattleCondition/Sleep.md) for 2 main turns (effectively 1 main turn since the current one is advanced soon)
 - Yield for 0.75 seconds
 
 ## Move 3 - Boulder throw

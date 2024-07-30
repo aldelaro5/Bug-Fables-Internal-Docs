@@ -69,11 +69,11 @@ The following table summarises the logic for all conditions (stacking means incr
 |[DefenseDown](../BattleCondition/DefenseDown.md)|Yes|Yes|None|
 |[GradualHP](../BattleCondition/GradualHP.md)|Yes|Yes|None|
 |[GradualTP](../BattleCondition/GradualTP.md)|Yes|Yes|None|
-|[Fire](../BattleCondition/Fire.md)|Yes (by half the requested amount of actor turns ceiled)|Yes (by half the requested amount of actor turns ceiled)|None|
-|[poison](../BattleCondition/Poison.md)|Yes if it has the `EternalPoison` [medal](../../../Enums%20and%20IDs/Medal.md) equipped which makes it set to 99999 regardless of the requested amount of actor turns|Yes|None|
-|[Freeze](../BattleCondition/Freeze.md)|Only if [currentchoice](../../Player%20UI/Actions.md) is `Item` (meaning the player party used an item on itself), the condition isn't amended if it already had the requested amount of actor turns or more|No|For an enemy party member, [isdefending](../Enemy%20features.md#isdefending) is set to false|
-|[Numb](../BattleCondition/Numb.md)|Only if [currentchoice](../../Player%20UI/Actions.md) is `Item` (meaning the player party used an item on itself), the condition isn't amended if it already had the requested amount of actor turns or more|No|For an enemy party member, [isdefending](../Enemy%20features.md#isdefending) is set to false. Also, `isnumb` is set to true|
-|[Sleep](../BattleCondition/Sleep.md)|Only if [currentchoice](../../Player%20UI/Actions.md) is `Item` (meaning the player party used an item on itself), the condition isn't amended if it already had the requested amount of actor turns or more|No|For an enemy party member, [isdefending](../Enemy%20features.md#isdefending) is set to false|
+|[Fire](../BattleCondition/Fire.md)|Yes (by half the requested amount of main turns ceiled)|Yes (by half the requested amount of main turns ceiled)|None|
+|[poison](../BattleCondition/Poison.md)|Yes if it has the `EternalPoison` [medal](../../../Enums%20and%20IDs/Medal.md) equipped which makes it set to 99999 regardless of the requested amount of main turns|Yes|None|
+|[Freeze](../BattleCondition/Freeze.md)|Only if [currentchoice](../../Player%20UI/Actions.md) is `Item` (meaning the player party used an item on itself), the condition isn't amended if it already had the requested amount of main turns or more|No|For an enemy party member, [isdefending](../Enemy%20features.md#isdefending) is set to false|
+|[Numb](../BattleCondition/Numb.md)|Only if [currentchoice](../../Player%20UI/Actions.md) is `Item` (meaning the player party used an item on itself), the condition isn't amended if it already had the requested amount of main turns or more|No|For an enemy party member, [isdefending](../Enemy%20features.md#isdefending) is set to false. Also, `isnumb` is set to true|
+|[Sleep](../BattleCondition/Sleep.md)|Only if [currentchoice](../../Player%20UI/Actions.md) is `Item` (meaning the player party used an item on itself), the condition isn't amended if it already had the requested amount of main turns or more|No|For an enemy party member, [isdefending](../Enemy%20features.md#isdefending) is set to false|
 |[Shield](../BattleCondition/Shield.md)|No, the turn amount is always set to 1 regardless of the requested one|No|battleentity.`shieldenabled` is set to true|
 |Any other conditions|No|No|None|
 

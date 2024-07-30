@@ -9,7 +9,7 @@ private void StatusEffect(MainManager.BattleData data, MainManager.BattleConditi
 
 - `data`: The actor to attempt to inflict the condition
 - `status`: The condition to attempt to inflict the actor
-- `turns`: The amount of actor turns to inflict the condition
+- `turns`: The amount of main turns to inflict the condition
 - `effect`: Whether the infliction should include a visual render. There is an overload where this can be ommited and it will send false
 
 ### Procedure
