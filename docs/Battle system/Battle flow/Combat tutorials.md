@@ -20,16 +20,16 @@ The way this works is EventDialogue 0 to 2 and [CheckEvent](Update%20flows/Contr
 The following is how a complete combat tutorial process goes separated by phases.
 
 ### Start
-On the first [controlled flow](Update%20flows/Controlled%20flow.md#controlled-flow) update, CheckEvent will run. It will detect that `flags` 15 is false so it will execute the tutorial flow logic on every controlled flow update from now on. The value of this flag is only be set after the battle is over meaning it always will execute the logic from now on.
+On the first [controlled flow](Update%20flows/Controlled%20flow.md#controlled-flow) update, CheckEvent will run. It will detect that `flags` 15 is false so it will execute the tutorial flow logic on every controlled flow update from now on. The value of this flag is only set after the battle is over meaning it always will execute the logic from now on.
 
-CheckEvent sees that `flagvar` 11 is 0 meaning we just started the tutorial. This causes EventDialogue 0 to happen
+CheckEvent sees that `flagvar` 11 is 0 meaning we just started the tutorial. This causes EventDialogue 0 to happen. It is assumed that the player party is composed of `Bee` and `Beetle` in that order.
 
 ### EventDialogue 0
 The following is the logic of EventDialogue 0 which gives the basic attack tutorial:
 
 - `playerdata[0]` [FaceTowards](../../Entities/EntityControl/EntityControl%20Methods.md#facetowards) `playerdata[1]` (should always be `Bee` facing `Beetle`)
 - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
-    - text: `commondialogue[12]` which is some dialogue followed by a [prompt](../../SetText/Individual%20commands/Prompt.md) giving the choice to skip the dialogue. If the player chooses to skip, a `|`[setvar](../../SetText/Individual%20commands/Setvar.md)`,11,1|` which sets `flagvar` 11 to 1
+    - text: `commondialogue[12]` which is some dialogue followed by a [prompt](../../SetText/Individual%20commands/Prompt.md) giving the choice to skip the dialogue. If the player chooses to skip, a `|`[setvar](../../SetText/Individual%20commands/Setvar.md)`,11,1|` gets processed which sets `flagvar` 11 to 1
     - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
@@ -159,7 +159,7 @@ The tutorial logic is checked by [CheckEvent](Update%20flows/Controlled%20flow.m
 When these conditions are met, EventDialogue 3 starts.
 
 ### EventDialogue 3
-The following is the logic of EventDialogue 1 which gives the Turn Relay tutorial:
+The following is the logic of EventDialogue 3 which gives the Turn Relay tutorial:
 
 - Both `playerdata[0]` (should always be `Bee`) and `playerdata[1]` (should always be `Beetle`) [FaceTowards](../../Entities/EntityControl/EntityControl%20Methods.md#facetowards) `playerdata[2]` (should always be `Moth`)
 - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:

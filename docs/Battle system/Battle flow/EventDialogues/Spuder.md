@@ -10,7 +10,7 @@ These encounters involve different EventDialogue and flows. The first 2 encounte
 These EventDialogue frequently makes use of [CheckEvent](../Update%20flows/Controlled%20flow.md#checkevent) to guide the flow. They also makes use of `flagvar` 11 to track the state of the encounters accross them.
 
 ## First encounter
-This is the first encounter that requires [flags](../../../Flags%20arrays/flags.md) 27 to be false (not yet met with `Moth`) and [flagvar](../../../Flags%20arrays/flagvar.md) 11 to be 0.
+This is the first encounter that requires [flags](../../../Flags%20arrays/flags.md) 27 to be false (not yet met with `Moth`) and [flagvar](../../../Flags%20arrays/flagvar.md) 11 to be 0. It's assumed here that the player party is only composed of `Beetle`.
 
 CheckEvent will detect these conditions when the first `enemydata` is `Spuder` and make it effectively unbeatable by setting its `hp` to 999 and its `def` to 99 as well as add an `AntiPierce` [weakness](../../Actors%20states/Enemy%20features.md#weakness) if it wasn't present which cancels out any `Pierce` attacks. Even if the player can defeat them, the event will proceed as normal.
 
@@ -50,7 +50,7 @@ This EventDialogue represents the dialogue and scripted action of `Spuder` risin
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
-    - parent: `playerdata[0]`
+    - parent: `playerdata[0]` (should be `Beetle`)
     - caller: null
 - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
 - `enemydata[0]` (should always be `Spuder`) has its `cantmove` set to 0 which allows them to act for this main turn since it technically hasn't occured yet (the game forced them to act so this is needed to resync the `cantmove` counter to where it would be)
@@ -142,7 +142,7 @@ This EventDialogue is a mini cutscene where `Spuder` gains 2 `moves`:
 ### First encounter phase
 After, the encounter proceeds as normal. Most of the logic is described in the [Spuder](../../Enemy%20actions/Enemies/Spuder.md) action page, but it's mostly an unrestricted version of their first 2 encounters.
 
-This occurs until their `hp` becomes lower than their `maxhp` / 2 floored. When this happens, CheckEvent detects this which causes EventDialogue 7 starts followed by `flagvar` 11 being set to 200 so it only triggers once for the rest of the battle. This EventDialogue transitions to the second phase of the encounter.
+This occurs until their `hp` becomes lower than their `maxhp` / 2 floored. When this happens, CheckEvent detects this which causes EventDialogue 7 to start followed by `flagvar` 11 being set to 200 so it only triggers once for the rest of the battle. This EventDialogue transitions to the second phase of the encounter.
 
 ### EventDialogue 7
 This EventDialogue transitions the third `Spuder` encounter to its second phase:

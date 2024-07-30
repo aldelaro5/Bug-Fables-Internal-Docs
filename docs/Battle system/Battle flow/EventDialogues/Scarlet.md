@@ -17,7 +17,7 @@
 - Over the course of 60.0 frames:
     - The umbrella moves to (12.0, 1.0, 0.0) via a BeizierCurve3 with a ymax of 4.0
     - `Scarlet` moves +0.5 in x via a BeizierCurve3 with a ymax of 0.25 with a factor of the current frame / 180.0 clamped from 0.0 to 1.0
-    - Before each frame yield, the umbrella Rorate by 20x the game's frametime in z
+    - Before each frame yield, the umbrella rotate by 20.0x the game's frametime in z
 - The umbrella gets destroyed
 - Yield for 0.75 seconds
-- [EndBattleWon](../Terminal%20wrappers/EndBattleWon.md) cllaed with addexp without any skipids
+- [EndBattleWon](../Terminal%20wrappers/EndBattleWon.md) called with addexp without any skipids

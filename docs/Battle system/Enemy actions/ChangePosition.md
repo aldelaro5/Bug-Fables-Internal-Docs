@@ -17,7 +17,7 @@ If the new position is the same than the enemy party memebr's `position`, the co
 
 Otherwise:
 
-- Over the course of 20.0 frames, the enemy party member's `height` is lerped from `initialheight` to `minheight` (from `minheight` to `initialheight` instead if the new position is `Flying`)
+- Over the course of 20.0 frames, the enemy party member's `height` changes from `initialheight` to `minheight` (from `minheight` to `initialheight` instead if the new position is `Flying`) via a lerp
 - If the new position is `Flying`:
     - The enemy party member's `bobrange` and `bobspeed` are set to their `startbf` and `startbs` respectively
     - The enemy party member's `height` is set to their `initialheight`

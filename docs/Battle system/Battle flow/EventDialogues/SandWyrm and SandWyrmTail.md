@@ -1,10 +1,12 @@
 # [SandWyrm](../../Enemy%20actions/Enemies/SandWyrm.md) and [SandWyrmTail](../../Enemy%20actions/Enemies/SandWyrmTail.md) EventDialogues
-
+This event dialogue occurs either by `SandWyrm` or `SandWyrmTail`'s [eventondeath](../../Actors%20states/Enemy%20features.md#eventondeath) which is assumed to be configured to this EventDialogue. Each have their own EventDialogue, but they are documented in the same page as they are closely related.
 
 ## EventDialogue 13
 This EventDialogue is meant to trigger as the [eventondeath](../../Actors%20states/Enemy%20features.md#eventondeath) of `SandWyrmTail`. 
 
 Due to special logic that happened in [EnemyCheck](../../StartBattle%20phases/Pre%20haltbattleload.md#enemycheck), it is guaranteed that a `SandWyrm` and a `SandWyrmTail` are part of the enemy party (the `SandWyrm` couldn't have died because if they did, the `SandWyrmTail` would have been killed too, check the EventDialogue 14 details below for why).
+
+This EventDialogue allows to [stop](../../Actors%20states/IsStopped.md) `SandWyrm` temporarilly when `SandWyrmTail` dies.
 
 - [ClearStatus](../../Actors%20states/Conditions%20methods/ClearStatus.md) called on the `SandWyrm`
 - `SandWyrmTail` has its `deathroutine` set to a new [Death](../../../Entities/EntityControl/Notable%20methods/Death.md) call on it with activatekill
@@ -26,7 +28,7 @@ Due to special logic that happened in [EnemyCheck](../../StartBattle%20phases/Pr
 - [ReorganizeEnemies](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) called
 
 ## EventDialogue 14
-This EventDialogue is meant to trigger as the [eventondeath](../../Actors%20states/Enemy%20features.md#eventondeath) of `SandWyrm`:
+This EventDialogue is meant to trigger as the [eventondeath](../../Actors%20states/Enemy%20features.md#eventondeath) of `SandWyrm`. It thoroughly kills `SandWyrmTail` and themselves:
 
 - The enemy party member of the [SandWyrmTail](../../Enemy%20actions/Enemies/SandWyrmTail.md) is obtained (it's possible it doesn't exist if the `SandWyrm` was called when still [Flipped](../../Actors%20states/BattleCondition/Flipped.md))
 - ShakeScreen called with an ammount of 0.05 and 0.85 time
