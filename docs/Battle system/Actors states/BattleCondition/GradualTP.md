@@ -1,5 +1,5 @@
 # GradualTP
-A condition that increases instance.`tp` by 2 (clamped from 0 to instance.`maxtp`) every actor turn while active.
+A condition that increases instance.`tp` by 2 (clamped from 0 to instance.`maxtp`) every main turn while active.
 
 ## [SetCondition](../Conditions%20methods/SetCondition.md)
 When amending the condition, the turn amount is always increased by the existing one (meaning it stacks).

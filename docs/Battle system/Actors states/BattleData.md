@@ -28,7 +28,6 @@ These fields only applies to player party members.
 |skills|List<int>|The list of available [skills](../../Enums%20and%20IDs/Skills.md), set to the return of [RefreshSkills](../RefreshSkills.md) for this player party member|
 |lockskills|bool|If true, prevents [skills](../../Enums%20and%20IDs/Skills.md) to be used|
 |lockitems|bool|If true, prevents [items](../../Enums%20and%20IDs/Items.md) to be used|
-|locktri|bool|If true, prevents relay to be used|
 |haspassed|bool|If true, this player party member has already relayed which prevents it to relay again|
 |lockrelayreceive|bool|If true, prevents to be relayed to from another player party member|
 |lockcantmove|bool|If true, prevents `cantmove` to be set to 0 (one action available) whenever the `MiracleMatter` [medal](../../Enums%20and%20IDs/Medal.md) triggers. It is set to false after the medal triggers|
@@ -48,7 +47,7 @@ These fields only applies to enemy party members. Some of them are relayed to sp
 
 |Name|Type|Description|
 |---:|---|---|
-|weakness|List<[AttackProperty](../Damage%20pipeline/AttackProperty.md)>|The list of properties that applies on this enemy party member during the damage pipeline|
+|[weakness](Enemy%20features.md#weakness)|List<[AttackProperty](../Damage%20pipeline/AttackProperty.md)>|The list of properties that applies on this enemy party member during the damage pipeline|
 |position|[BattlePosition](BattlePosition.md)|The logical battle position frequently used to determine target availability|
 |[delayedcondition](Delayed%20condition.md)|List<int>|A list of [conditions](Conditions.md) (only the `BattleCondition` part) added by the damage pipeline that will be inflicted later un [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md)|
 
@@ -204,7 +203,8 @@ These fields applies to actors from either parties.
 |Name|Type|Description|
 |---:|---|---|
 |holditem|int|The [item](../../Enums%20and%20IDs/Items.md) id the actor is holding. Defaults to -1 which is no item held. For enemy party members, see the [holditem](Enemy%20features.md#holditem-and-helditem) feature documentation|
-|helditem|SpriteRenderer|The `sprite` of the [item](../../Enums%20and%20IDs/Items.md) held by the actor whose id is `holditem`||cursoroffset|Vector3|The offset to apply to the cursor when selecting this actor|
+|helditem|SpriteRenderer|The `sprite` of the [item](../../Enums%20and%20IDs/Items.md) held by the actor whose id is `holditem`|
+|cursoroffset|Vector3|The offset to apply to the cursor when selecting this actor|
 |itemoffset|Vector3|The offset to render the item relative to the entity|
 
 ### Alive and death turn tracking
@@ -213,6 +213,12 @@ These fields applies to actors from either parties.
 |---:|---|---|
 |turnssincedeath|int|The amount of main turns since death, 0 if the actor is alive|
 |turnsalive|int|The amount of main turns since the battle started or their last death if any occured|
+
+### Miscellaneous
+
+|Name|Type|Description|
+|---:|---|---|
+|locktri|bool|If true, prevents relay to be used for a player party member. For an enemy party members, the meaning differs and depends on the specific enemy|
 
 ## Unused fields
 These fields are never referenced or never used in any meaningful ways.

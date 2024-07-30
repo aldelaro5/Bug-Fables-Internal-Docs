@@ -1,5 +1,5 @@
 # GradualHP
-A condition that increases the actor's `hp` by 2 (clamped from 0 to `maxhp`) every actor turn while active.
+A condition that increases the actor's `hp` by 2 (clamped from 0 to `maxhp`) every main turn while active.
 
 ## [SetCondition](../Conditions%20methods/SetCondition.md)
 When amending the condition, the turn amount is always increased by the existing one (meaning it stacks).

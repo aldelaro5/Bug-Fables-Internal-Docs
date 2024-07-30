@@ -1,5 +1,5 @@
 # Fire
-A condition that deals non lethal damage (more than [Poison](Poison.md)) every actor turn while it is active that may be inflicted in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) if property is `Fire` (without a resistance field) featuring a `Prefabs/Particles/Flame` as a `firepart`.
+A condition that deals non lethal damage (more than [Poison](Poison.md)) every main turn while it is active that may be inflicted in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) if property is `Fire` (without a resistance field) featuring a `Prefabs/Particles/Flame` as a `firepart`.
 
 ## [SetCondition](../Conditions%20methods/SetCondition.md)
 When amending the condition, the turn counter is always increased by absolute value of the sent one / 2.0 ceiled (this means it stacks, but by around half of the sent turns amount).

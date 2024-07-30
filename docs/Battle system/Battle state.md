@@ -28,7 +28,7 @@ This is all the BattleControl fields.
 |mainturn|Coroutine|No|The [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) coroutine if one is in progress (null if it's not)|
 |delprojs|DelayedProjectileData\[\]|Yes|The [delayed projectiles](Actors%20states/Delayed%20projectile.md) currently active|
 |turns|int|No|The amount of completed main turns advanced by [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md). Set to 0 on [StartBattle](StartBattle.md)|
-|demomode|bool|No|If true, indicates the battle operates in tutorial mode|
+|demomode|bool|No|If true, indicates the battle operates in tutorial mode. Used for the [combat tutorials process](Battle%20flow/Combat%20tutorials.md) and [Spuder EventDialogues](Battle%20flow/EventDialogues/Spuder.md)|
 |gameover|Coroutine|No|The current [GameOver](Battle%20flow/Terminal%20coroutines/GameOver.md) coroutine is one is in progress (null if it's not). Set to null on [StartBattle](StartBattle.md)|
 |halfload|bool|Yes|Whether or not [StartBattle](StartBattle.md) roughly got done half of the starting process. This is set to true right after calling SetLastTurns and it's used by the game to yield until this goes to true|
 |avaliableplayers|int|No|The amount of players that are considered free by [GetFreePlayerAmmount](Actors%20states/Player%20party%20members/GetFreePlayerAmmount.md). Set to the current amount on [StartBattle](StartBattle.md) and updated in specific situations|
@@ -40,7 +40,7 @@ This is all the BattleControl fields.
 |attackedally|int|No|The `playerdata` index that was attacked while the `FavoriteOne` [medal](../Enums%20and%20IDs/Medal.md) was equipped on them which will cause it to take effect during [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md). If this medal isn't applicable, the value is -1|
 |firststrike|bool|No|Whether or not the enemy is currently acting as part of the enemy party getting the starting advantage during [StartBattle](StartBattle.md)|
 |summonnewenemy|bool|No|If true, it means that the game is in the process of summoning an enemy from the `extraenemies` to `enemydata` via [SummonEnemy](Actors%20states/Enemy%20party%20members/SummonEnemy.md), called duing [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md). This prevents SummonEnemy to set `checkingdead` to null once completed to not interfere with the ongoing CheckDead and it also allows CheckDead to wait the summon is over|
-|selfsacrifice|bool|No|If true, it indicates that the enemy party member killed themselves during their [DoAction](Battle%20flow/Action%20coroutines/DoAction.md)|
+|selfsacrifice|bool|No|If true, it indicates that the enemy party member killed themselves during their [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) which changes [CleanKill](Actors%20states/CleanKill.md) and the post action logic of DoAction|
 |eatenkill|bool|Yes|If true, it indicates that a player party member was killed by a `Pitcher` [enemy](../Enums%20and%20IDs/Enemies.md) by draining their HP which allows [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) to handle this special case|
 |lastdamage|int|No|The last final amount of damage done at the end of [DoDamage](Damage%20pipeline/DoDamage.md)|
 |damagethisturn|int|No|The amount of damage the player party inflicted in the current main turn. If it gets higher than [flagvar](../Flags%20arrays/flagvar.md) 41 (highest damage in one turn), the flagvar value is set to it before resetting the value of damagethisturn in [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
@@ -56,7 +56,7 @@ This is all the BattleControl fields.
 |enemydata|[BattleData](Actors%20states/BattleData.md)\[\]|Yes|The first enemy party members data with a length up to 4 (the extra ones are stored in `extraenemies`). Set to a new list with the same length as the sent enemyids on [StartBattle](StartBattle.md) (after it was truncated to the first 4) and then filled with the actual enemy data|
 |extraenemies|List<int>|No|This contains the list of [enemy](../Enums%20and%20IDs/Enemies.md) ids that overflows the maximum amount of enemies allowed in `enemydata` which is 4. It is initialised as such on [StartBattle](StartBattle.md)|
 |reservedata|List<BattleData>|No|The list of enemies who are no longer part of `enemydata` because they had died and were moved there by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md) since their [deathtype](Actors%20states/Enemy%20features.md#deathtype) indicated they should be moved there. Doing so prevents a full destruction which allows the enemy to be revived later or to visually have a death animation without disappearing. Reset to a new list on [StartBattle](StartBattle.md)|
-|enemyfled|bool|No|Whether at least one enemy party member fled the battle or not|
+|enemyfled|bool|No|Whether at least one enemy party member fled the battle or not during DoAction|
 |lastaddedid|int|No|The last enemy party member index added via [AddNewEnemy](Actors%20states/Enemy%20party%20members/AddNewEnemy.md)|
 |tempslot|BattleData|No|The last enemy to be added in `enemydata` according to [NewEnemy](Actors%20states/Enemy%20party%20members/NewEnemy.md) if the sent animation value isn't `None`|
 |deadenemypos|List<Vector3>|No|The list of the positions of previously dead enemies as found by [CheckDead](Battle%20flow/Action%20coroutines/CheckDead.md). It is only used by CheckDead in case `extraenemies` needs to be summoned in the place of the dead ones at the same positions they were before|
@@ -82,13 +82,13 @@ This is all the BattleControl fields.
 |barfill|float|No|A number between 0.0 and 1.0 that tells the ratio of an action command's bar's filled portion which is managed by [DoCommand](DoCommand.md)|
 |infinitecommand|bool|No|If true, action commands processed by [DoCommand](DoCommand.md) will use their infinite variant. NOTE: Only the [SequentialKeys](Action%20commands/SequentialKeys.md#infinitecommand-feature) support this feature|
 |killinput|bool|No|Used for the `PressKey` action command that when set to true, [DoCommand](DoCommand.md) will stop listening for inputs|
-|commandsuccess|bool|Yes|Tells if the last action command succeeded or tell if the player is currently blocking (tracked by [GetBlock](Battle%20flow/GetBlock.md))|
+|commandsuccess|bool|Yes|Tells if the last action command succeeded or tell if the player is currently blocking ignoring FRAMEONE (tracked by [GetBlock](Battle%20flow/GetBlock.md))|
 |buttons|ButtonSprite\[\]|No|A general purpose array of ButtonSprites for use in [DoCommand](DoCommand.md)|
 |commandsprites|SpriteRenderer\[\]|No|A general purpose SpriteRenderer array for use in [DoCommand](DoCommand.md) or other action commands related needs|
 |helpboxid|int|No|The id of the current action command whose description should be rendered in `helpbox` by [CreateHelpBox](Visual%20rendering/CreateHelpBox.md#createhelpbox)|
 |helpbox|DialogueAnim|No|The 9box containing the action command description whose id is `helpboxid` rendered by [CreateHelpBox](Visual%20rendering/CreateHelpBox.md#createhelpbox)|
 |superblockedthisframe|float|No|A short lived cooldown in frames that allows a super block to still count until it expires, check [GetBlock](Battle%20flow/GetBlock.md) to learn more. Used in the damage pipeline and maintained by [LateUpdate](Visual%20rendering/LateUpdate.md)|
-|blockcooldown|float|No|The amount of frames left that a block can be processed, check [GetBlock](Battle%20flow/GetBlock.md) for more details|
+|blockcooldown|float|No|The amount of frames left that a block can be processed ignoring FRAMEONE, check [GetBlock](Battle%20flow/GetBlock.md) for more details|
 |hasblocked|bool|No|If true, the damage pipeline detected the player blocked the attack with a valid block (even if FRAMEONE rules would have prevented it). This is only used in HardSeedVenus, a coroutine specific to the `VenusBoss` [enemy](../Enums%20and%20IDs/Enemies.md)|
 |overridechallengeblock|bool|Yes|Normally, standard blocks are disallowed when [flags](../Flags%20arrays/flags.md#flags) 615 and 15 are true (FRAMEONE is active while past the first tutorial fight), but if this field is true, it allows to override that behavior to allow them regardless of these conditions being fufilled or not|
 
@@ -98,8 +98,8 @@ This is all the BattleControl fields.
 |----:|----|---------|-----------|
 |avaliabletargets|BattleData\[\]|No|An ephemeral array of actors to track possible targets for an action which is frequently set by calling [GetAvailableTargets](Actors%20states/Targetting/GetAvaliableTargets.md)|
 |forceattack|int|No|The player party member's [animid](../Enums%20and%20IDs/AnimIDs.md) index that will be forced to be returned during [GetRandomAvaliablePlayer](Actors%20states/Targetting/GetRandomAvaliablePlayer.md). This is only set in the course of the `Taunt` [skill](../Enums%20and%20IDs/Skills.md) during its [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) logic|
-|playertargetID|int|No|The player party member index whom is currently targetted by the enemy. If it's -1, the enemy isn't targetting anyone|
-|playertargetentity|EntityControl|No|An actor to use for targetting purposes (NOTE: despite the name, it can be an enemy party member as enemies can sometimes target other enemy party members outside of the damage pipeline)|
+|playertargetID|int|No|The player party member index whom is currently targetted by the enemy party member. If it's -1, the enemy isn't targetting anyone|
+|playertargetentity|EntityControl|No|An actor to use for targetting purposes, but typically used as a shorthand to `playerdata[playertargetID]` during enemy actions. NOTE: despite the name, it can be an enemy party member as enemies can sometimes target other enemy party members outside of the damage pipeline|
 |targetedenemy|int|No|Indicates the enemy party member index that `Beetle` will target when using his basic attack or the `HeavyStrike` skill during [DoAction](Battle%20flow/Action%20coroutines/DoAction.md)|
 |target|int|No|The index of the selected target when selecting a player or enemy|
 

@@ -1,5 +1,5 @@
 # Poison
-A condition that either deals non lethal damage or heals the actor each actor turn depending on if they have a `ReversePoison` [medal](../../../Enums%20and%20IDs/Medal.md) or not. It also allows several poison specific medals to take effect.
+A condition that either deals non lethal damage or heals the actor each main turn depending on if they have a `ReversePoison` [medal](../../../Enums%20and%20IDs/Medal.md) or not. It also allows several poison specific medals to take effect.
 
 ## Resistance
 This condition has a dedicated resistance field for actors to use: `poisonres`. If it's 100 or above, the actor is immune to it. Inflictions that requires a resistance check will use this field.
