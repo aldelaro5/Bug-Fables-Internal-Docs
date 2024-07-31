@@ -13,7 +13,7 @@ HardMode being true does the following changes:
 
 1. Inflicts [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) or [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) on a [MotherChomper](MotherChomper.md) enemy party member
 2. A single target bite attack that may drain `hp`
-3. Spawns a new `Chomper` enemy party member
+3. Summon another `FlyTrap` enemy
 
 All moves don't just have base odds: they all are selected based on multiple conditions.
 
@@ -92,8 +92,8 @@ A single target bite attack that may drain `hp`
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) startp at 2.5 multiplier with 23 (`Chase`) walkstate and 0 (`Idle`) stopstate
 - Yield all frames until `forcemove` is done
 
-## Move 3 - Spawns a new `FlyTrap`
-Spawns a new `FlyTrap` enemy party member. No damages are dealt.
+## Move 3 - `FlyTrap` summon
+Summon another `FlyTrap` enemy. No damages are dealt.
 
 It is possible that attempting this move fails which results in the actor turn ending when hardmode is false or move 2 (bite attack) being used instead when hardmode is true.
 

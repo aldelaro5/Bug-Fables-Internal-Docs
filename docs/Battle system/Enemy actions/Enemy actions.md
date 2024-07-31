@@ -16,9 +16,9 @@ Each enemy entry has one action, but its complexity allows them to perform many 
 - Post move logic (optional)
 
 ### The move concept
-A "move" in an enemy action page is loosely defined as a specific code path within the enemy action where they perform specific tasks at the expense of others. There isn't any concrete concept of a "move", but it exists loosely throughout the various enemy actions implementations. In fact, they don't have any names so each enemy documentations will indenify them by a number and a description that mostly reflects what the move does.
+A "move" in an enemy action page is loosely defined as a specific code path within the enemy action where they perform specific tasks at the expense of others. There isn't any concrete concept of a "move", but it exists loosely throughout the various enemy actions implementations. In fact, they don't have any names so each enemy documentations will indentify them by a number and a description that mostly reflects what the move does.
 
-Each moves contains all the [damage pipeline](../BattleControl.md#damage-pipeline) and their high level logic. The logic doesn't contain everything, but it contains enough to identify the animations, audio and most importantly, the block timings from the player side. Each moves also contains notices about modifiers applies such as `nonphysical` and `dontusecharge`, see the [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) documentation to learn more about them.
+Each moves contains all the [damage pipeline](../BattleControl.md#damage-pipeline) and their high level logic. The logic doesn't contain everything, but it contains enough to identify the animations, audio and most importantly, the block timings from the player side. Each moves also contains notices about modifiers applied such as `nonphysical` and `dontusecharge`, see the [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) documentation to learn more about them.
 
 The decision of which move to use is often complex and it involves another key concept of enemy actions: the move selection process.
 
