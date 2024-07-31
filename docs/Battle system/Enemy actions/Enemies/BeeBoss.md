@@ -115,7 +115,7 @@ There is logic that always happen after a move is used with the exception of mov
 A party wide laser attack.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [PartyDamage](../../Damage%20pipeline/PartyDamage.md)
 
@@ -155,7 +155,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 A multiple targets missiles throw.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 

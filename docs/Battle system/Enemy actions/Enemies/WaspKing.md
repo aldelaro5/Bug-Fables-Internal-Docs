@@ -113,7 +113,7 @@ A single target axe slash attack.
 A single target axe throw attack.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -148,7 +148,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 A party wide fire pillar attack.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [PartyDamage](../../Damage%20pipeline/PartyDamage.md)
 
@@ -187,7 +187,7 @@ Here is what the coroutine ends up doing:
 A single or multiple targets fire balls projectiles throw.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 

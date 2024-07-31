@@ -87,7 +87,7 @@ A single target aerial dash attack.
 A single target sky drop that the player may prevent from dealing damages.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoCommand](../../DoCommand.md) calls
 

@@ -67,7 +67,7 @@ Here is what the logic does if all the of above are fufilled:
 A single target projectile throw.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 
@@ -95,7 +95,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 Adds a [delayed projectile](../../Actors%20states/Delayed%20projectile.md). No damages are dealt.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### nocharm set to true
 This move always set the nocharm local to true which will prevent any [UseCharm](../../Battle%20flow/UseCharm.md) calls to occur in the post action phase. This means no `HealHP` charm can occur after this action.

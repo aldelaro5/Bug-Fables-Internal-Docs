@@ -159,7 +159,7 @@ Summons up to 2 new enemies from the seedlings family of enemies.
 Multiple seeds throws targetting random player party members.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 

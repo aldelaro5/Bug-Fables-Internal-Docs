@@ -38,7 +38,7 @@ The following logic always happen at the start of the actor turn:
 A multiple target honey projectiles throw that hits twice.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 
@@ -70,7 +70,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 A multiple targets rocket projectiles throw that hits twice.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 

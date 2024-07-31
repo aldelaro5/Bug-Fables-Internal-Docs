@@ -174,7 +174,7 @@ A single target bite attack with [Flip](../../Damage%20pipeline/AttackProperty.m
 A party wide poison breath attack.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoCommand](../../DoCommand.md) calls
 
@@ -365,16 +365,16 @@ Then, the followuing is done for each player party member in the order `Bee`, `M
     - If `chompy` exists:
         - Their `flip` is set to false
         - They [ForceMove](../../../Entities/EntityControl/EntityControl%20Methods.md#forcemove) to (-25.0, 0.0, 0.0) with 30.0 multiplier using 1 (`Walk`) both as walkstate and stopstate
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `|`[size](../../../SetText/Individual%20commands/size.md)`,1.5||`[halfline](../../../SetText/Individual%20commands/Halfline.md)`||`[boxstyle](../../../SetText/Individual%20commands/Boxstyle.md)`,1||`[shaky](../../../SetText/Individual%20commands/Shaky.md)`|` followed by `commondialogue[166]`
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: `playerdata[1]` (`Beetle`)
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called with the player party member so it sets `playertargetID` and `playertargetentity` to their player party member information
 - If the player party member's `hp` is above 0:
     - Camera moves to look near `playerdata[playertargetID]`
@@ -399,30 +399,30 @@ After, the logic continues after the hits were done on the player party members:
 - [MoveTowards](../../../Entities/EntityControl/EntityControl%20Methods.md#movetowards) startp
 - Yield all frames until `forcemove` is done
 - `flip` set to false
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `|`[shaky](../../../SetText/Individual%20commands/Shaky.md)`|` followed by `commondialogue[167]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `playerdata[1]` (`Beetle`)
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - This enemy animstate set to 105
 - `Roar2` sound plays
 - ShakeScreen called with ammount of 0.1 and 0.75 time
 - Yield for 0.75 seconds
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `|`[anim](../../../SetText/Individual%20commands/Anim.md)`,this,Angry|` followed by `commondialogue[168]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `playerdata[1]` (`Beetle`)
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - `Beetle` has ShakeSprite called with 0.1 intensity and 30.0 frametimer
 - Yield for 0.5 seconds
 - [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called on `Beetle` to inflict them them [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition for 9999999 main turns (effectively infinite) with effect

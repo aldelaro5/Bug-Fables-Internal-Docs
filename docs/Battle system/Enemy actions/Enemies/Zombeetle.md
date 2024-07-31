@@ -72,7 +72,7 @@ This is what the coroutine effectively ends up doing:
 A single target boulder throw that has a secondary hit that targets the other player party members.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 

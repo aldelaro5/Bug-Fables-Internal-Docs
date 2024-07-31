@@ -126,7 +126,7 @@ A single target slash attack that drains `hp`.
 A single target shockwave attack.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -208,7 +208,7 @@ A single target faster slash attack that inflicts [AttackDown](../../Actors%20st
 A single target heart projectile attack that inflicts [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) and drains `hp`.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -262,7 +262,7 @@ Have a flower bud appear and inflict [AttackUp](../../Actors%20states/BattleCond
 A party wide explosion attack that drains `hp`.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -304,7 +304,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 A single target umbrella throw that hits twice and drains `hp`.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 

@@ -102,16 +102,16 @@ Revives [Beetle](Beetle.md) leaving them with 33.5% floored of their `hp`. No da
 - If `data[0]` is 0 (this portion of the move wasn't done before in the battle):
     - Yield for 0.5 seconds
     - `data[0]` is set to 1
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `commondialogue[159]`
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: This enemy
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
     - Yield for 0.5 seconds
 - animstate set to 102
 - Yield for 0.66 seconds

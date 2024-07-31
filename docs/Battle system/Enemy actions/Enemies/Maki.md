@@ -73,28 +73,28 @@ From there, because `data[0]` is above 0 and this enemy doesn't have the [Attack
     - `enemydata[lastaddedid]` animstate set to 13 (`BattleIdle`)
     - The `Kina` entity found earlier is destroyed. It means only the actual enemy one is left
     - Yield for 0.5 seconds
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `commondialogue[179]`
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: `enemydata[lastaddedid]` (`Kina`)
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
     - This enemy (`Maki`) animstate set to 13 (`BattleIdle`)
     - Yield for a frame
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `commondialogue[180]`
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: This enemy (`Maki`)
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - `data[0]` is set to 2 (mark the phase transition as completed)
 
 ## Post move logic
@@ -287,16 +287,16 @@ A single target double hitting attack involving the consumption of [Kina](Kina.m
 
 - The `enemydata` index of [Kina](Kina.md) is obtained
 - This enemy `basestate` and the local startstate set to 13 (prevents the usage of this move on the next actor turn)
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[181]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: This enemy (`Maki`)
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - Yield for a frame
 - `Kina` animstate set to 103

@@ -25,7 +25,7 @@ The decision of which move to use is based on odds, but the odds changes based o
 A party wide numbing mist that may either summon a [Mushroom](Mushroom.md) or targets other enemy party members except ones from the fungi family who are healed instead.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoCommand](../../DoCommand.md) calls
 

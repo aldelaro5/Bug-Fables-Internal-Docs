@@ -108,7 +108,7 @@ A single target tail swipe attack.
 A multiple targets shadow balls projectiles throw.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 
@@ -193,23 +193,23 @@ This move always sets `dontusecharge` to true which means `charges` will not get
     - [SetDefault](../../Visual%20rendering/SetDefaultCamera.md) called
     - Yield for 0.5 seconds
     - If `Moth` from the player party has an `hp` of 0 or below, [RevivePlayer](../../Actors%20states/Player%20party%20members/RevivePlayer.md) is called on them leaving them with 1 `hp` without showcounter
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `|`[tail](../../../SetText/Individual%20commands/Tail.md)`,0|` followed by `map.dialogues[5]`
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: null
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - `data[1]` is set to 3 (the move won't be usable for the next 3 actor turns including the laser attack one)
 
 ## Move 6 - Scream attack
 A party wide scream attack.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [PartyDamage](../../Damage%20pipeline/PartyDamage.md)
 
@@ -248,7 +248,7 @@ This is what the coroutine ends up doing:
 A party wide laser attack that hits twice with the ability to inflict [AttackDown](../../Player%20actions/Skills/AttackDown.md).
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [PartyDamage](../../Damage%20pipeline/PartyDamage.md)
 
@@ -300,14 +300,14 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
     - For each player party members:
         - [RemoveCondition](../../Actors%20states/Conditions%20methods/RemoveCondition.md) called to remove their [Shield](../../Actors%20states/BattleCondition/Shield.md) condition
         - Their `shieldenabled` is set to false
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `|`[tail](../../../SetText/Individual%20commands/Tail.md)`,0|` followed by `map.dialogues[6]`
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: null
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
     - `data[0]` is set to 1 indicating that all of the first main turns cutscenes completed

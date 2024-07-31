@@ -162,16 +162,16 @@ This part only happens if `hp` is 10 or lower and `data[2]` is less than 2 (mean
 - If `hologram` is false:
     - Camera moves to look near (this enemy x position, `sprite` local y position + 0.25, 2.5)
     - Yield for 0.5 seconds
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `commondialogue[175]` when `data[2]` is 0 (first phase) or `commondialogue[176]` when `data[2]` is 1 (second phase)
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: This enemy
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
     - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
     - Yield for 0.25 seconds
 - animstate set to 100
@@ -232,7 +232,7 @@ If the above requirements are met, the following happens:
 A single target vine attack (`Ground` version) that may hit multiple times followed by a 3 `hp` heal.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -285,7 +285,7 @@ This is what the coroutine effectively ends up doing:
 A single target flower bud attack that continuously drains `hp` followed by a 3 `hp` heal.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoCommand](../../DoCommand.md) calls
 
@@ -367,7 +367,7 @@ This move always sets `nonphyscal` to true which doesn't affect anything for thi
 A single target vine attack (`Flying` version) that may hit multiple times.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -413,7 +413,7 @@ This is what the coroutine effectively ends up doing:
 A party wide fire pillar attack.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [PartyDamage](../../Damage%20pipeline/PartyDamage.md)
 
@@ -453,7 +453,7 @@ Here is what the coroutine ends up doing:
 A single target axe throw attack that may hit twice.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -496,7 +496,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 Summons an enemy from the artifact family which is composed of [KeyL](KeyR%20and%20KeyL.md), [KeyR](KeyR%20and%20KeyL.md) and [Tablet](Tablet.md). No damages are dealt, but it is possible this enemy gets another actor turn which may deal damages.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### Logic sequence
 
@@ -508,7 +508,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 A multiple targets double fireballs throws.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 
@@ -538,7 +538,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 A single target attack combining [KeyL](KeyR%20and%20KeyL.md) and [KeyR](KeyR%20and%20KeyL.md) into a laser slash attack.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 

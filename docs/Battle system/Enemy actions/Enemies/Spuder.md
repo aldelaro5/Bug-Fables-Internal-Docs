@@ -5,7 +5,7 @@
 ## [StartBattle](../../StartBattle.md#startbattle) special logic
 This enemy has special logic in StartBattle after it is loaded:
 
-- If [flags](../../Flags%20arrays/flags.md) 41 is false (before the end of chapter 1) and either `flags` 613  or 614 are true (RUIGEE or HARDEST are active), the `hp` and `maxhp` are decreased by 15. This happens regardless of the value of hardmode.
+- If [flags](../../../Flags%20arrays/flags.md) 41 is false (before the end of chapter 1) and either `flags` 613  or 614 are true (RUIGEE or HARDEST are active), the `hp` and `maxhp` are decreased by 15. This happens regardless of the value of hardmode.
 
 ## Relation with `SpuderReal`
 `SpuderReal` is an enemy entry that has no action logic and it acts as a variant of this enemy meaning it ends up being loaded as a `Spuder` with the exception of some fields. It is only used when fighting them using the B.O.S.S system.
@@ -104,7 +104,7 @@ Change their [position](../../Actors%20states/BattlePosition.md) to `Flying` by 
 A party wide poison breath attack.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on any player party member whose `hp` is above 0.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on any player party member whose `hp` is above 0.
 
 ### [DoCommand](../../DoCommand.md) calls
 
@@ -144,7 +144,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 A multiple target poison bubble throws
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on any targets.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on any targets.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 

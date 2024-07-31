@@ -4,7 +4,7 @@
 This enemy is meant to function with [Zasp](Zasp.md) present as due to their [hitaction](../../Battle%20flow/Update%20flows/Controlled%20flow.md#enemies-hitaction) logic that changes when they are the only one left in `enemydata`. This enemy also has logic change if `Zasp` is present or not.
 
 ## [StartBattle](../../StartBattle.md#startbattle) special logic
-After this enemy is loaded on StartBattle, if [flags](../../Flags%20arrays/flags.md) 606 is true (won the second round of the Colosseum), the following happens on this enemy:
+After this enemy is loaded on StartBattle, if [flags](../../../Flags%20arrays/flags.md) 606 is true (won the second round of the Colosseum), the following happens on this enemy:
 
 - `hp` and `maxhp` are increased by 15
 - `hardatk` is incremented
@@ -58,13 +58,13 @@ Here are all the move's base odds and their possible redirections:
 |5|1/7|Move 1-2 or 3 determined randomly if any of the following is true<sup>1</sup>:<ul><li>hardmode is false</li><li>`forceattack` isn't -1 (meaning the enemy party is affected by [BeetleTaunt](../../Player%20actions/Skills/BeetleTaunt.md))</li><li>[Zasp](Zasp.md) is not present in `enemydata`</li><li>[Zasp](Zasp.md) is [stopped](../../Actors%20states/IsStopped.md)</li></ul>|
 |6|N/A|Move 3 if `data[0]` (amount of times revive was done) is at least 2 (at least 1 instead if hardmode is true) and a 51% RNG check passes|
 
-1: There is an issue if move 3 or 4 (singing or relay) redirects to move 2 (kick) because `nonphysical` will remain true even if the kick move was not meant to be `nonphysical`. This will incorrectly affect the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target of the kick.
+1: There is an issue if move 3 or 4 (singing or relay) redirects to move 2 (kick) because `nonphysical` will remain true even if the kick move was not meant to be `nonphysical`. This will incorrectly affect the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target of the kick.
 
 ## Move 1 - Party wide music note throw
 A party wide music note throw.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on any targets.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on any targets.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -102,7 +102,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 A single target music note throws that may hit multiple times.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on any targets.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on any targets.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 
@@ -142,7 +142,7 @@ A single target kick attack that may hit multiple times
 This may redirect to move 1-2 (either music note throws moves), check the move selection section above for details.
 
 ### About `nonphyscal` incorrectly being set to true
-If this move is performed as a result from a redirection of move 4 or 5 (singing or relay), `nonphysical` will be set to true, but this move was never supposed to do this meaning this is undesired. This will incorrectly affect the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+If this move is performed as a result from a redirection of move 4 or 5 (singing or relay), `nonphysical` will be set to true, but this move was never supposed to do this meaning this is undesired. This will incorrectly affect the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -195,7 +195,7 @@ Sings which inflicts the [DefenseUp](../../Actors%20states/BattleCondition/Defen
 This may redirect to move 1-2 or 3 (either music note throw moves or kick), check the move selection section above for details.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on any targets.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on any targets.
 
 NOTE: It also incorrectly affects move 3 (kick) if redirected to it from this move.
 
@@ -220,7 +220,7 @@ Relay her turn which gives an actor turn to [Zasp](Zasp.md). No damages are deal
 This may redirect to move 1-2 or 3 (either music note throw moves or kick), check the move selection section above for details.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on any targets.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on any targets.
 
 NOTE: It also incorrectly affects move 3 (kick) if redirected to it from this move.
 
@@ -245,7 +245,7 @@ Revives [Zasp](Zasp.md) from the `reservedata`
 This may redirect to move 3 (kick), check the move selection section above for details.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on any targets.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on any targets.
 
 Unlike move 4 and 5 (singing and relay), it won't incorrectly affect move 3 (kick) if redirected to it from this move.
 

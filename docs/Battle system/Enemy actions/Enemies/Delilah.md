@@ -174,7 +174,7 @@ A multiple targets bazooka projectiles throws in multiple sets that have varying
 This move throws projectils in 3 or 4 sets. Each set has 1 or 3 hits depending on the set itself. Each set has a unique property and amount of hits to do with other additional changes such as the base damage amount and other visual changes. See the information on the Projectile 1 call below to learn their selection odds and their specific effects.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 
@@ -215,7 +215,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 A single target multiple hits dart throws that may inflict [Poison](../../Actors%20states/BattleCondition/Poison.md) or [Sleep](../../Actors%20states/BattleCondition/Sleep.md).
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 
@@ -315,7 +315,7 @@ A single target dash attack followed by an `hp` draining attack.
 A single target attack involving the same effects as the [LongLegSummoner](../../Player%20actions/Items%20usage/LonglegSummoner.md) action where the target is a player party member.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### `dontusecharge` set to true
 This move always sets `dontusecharge` to true which means `charge` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action). This doesn't effectively do anything because this enemy cannot get `charge` normally. 

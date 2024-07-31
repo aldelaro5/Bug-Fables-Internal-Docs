@@ -4,7 +4,7 @@
 This enemy is meant to function with a another `enemydata` one due to their [hitaction](../../Battle%20flow/Update%20flows/Controlled%20flow.md#enemies-hitaction) logic that changes when they are the only one left in `enemydata`. It is meant that this enemy's [chargeonotherenemy](../../Actors%20states/Enemy%20features.md#chargeonotherenemy) has the id of this second enemy. Under normal gameplay, this should be [Mothiva1](Mothiva1.md).
 
 ## [StartBattle](../../StartBattle.md#startbattle) special logic
-After this enemy is loaded on StartBattle, if [flags](../../Flags%20arrays/flags.md) 606 is true (won the second round of the Colosseum), the following happens on this enemy:
+After this enemy is loaded on StartBattle, if [flags](../../../Flags%20arrays/flags.md) 606 is true (won the second round of the Colosseum), the following happens on this enemy:
 
 - `hp` and `maxhp` are increased by 15
 - `hardatk` is incremented
@@ -111,7 +111,7 @@ A multiple targets warp strike attack done multiple times
 A multiple targets needle throw done multiple times
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on any targets.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on any targets.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 

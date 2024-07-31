@@ -111,16 +111,16 @@ This logic happens when `data` first initialises. Since this can only happen on 
 
 - Camera moves to look near (1.25, 1.5, 2.0)
 - Yield for 0.5 seconds
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[89]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `extraentities[0]` (`Venus`)
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md)
 - Yield for 0.5 seconds
 
@@ -129,16 +129,16 @@ When `data[1]` transitions from 0 to 1 as [HPPercent](../../Actors%20states/HPPe
 
 - Camera moves to look near (1.25, 1.5, 2.0)
 - Yield for 0.5 seconds
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[90]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `extraentities[0]` (`Venus`)
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md)
 - `data[1]` is set to 1
 
@@ -150,16 +150,16 @@ When `data[1]` transitions from 1 to 2 as [HPPercent](../../Actors%20states/HPPe
 - `extraentities[0]` (`Venus`) animstate set to 17 (`WeakBattleIdle`)
 - Camera moves to look near (1.25, 1.5, 2.0)
 - Yield for 0.5 seconds
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[91]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `extraentities[0]` (`Venus`)
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md)
 - `data[1]` is set to 2
 
@@ -252,7 +252,7 @@ The arm object is reffered to `extraanims[1]`'s 6th grand children which is a bo
 Multiple seeds throws targetting random player party members.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 
@@ -360,7 +360,7 @@ Summons a new [AngryPlant](AngryPlant.md) enemy and inflicts [DefenseUp](../../A
 An aerial seed throwing move that is either party wide or single target with multiple hits.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
 
@@ -432,5 +432,5 @@ After, if the single target version of the move was used:
         - The target isn't -1
         - `items[0]` is less than instance.`maxitems` (not full standard [items](../../../Enums%20and%20IDs/Items.md) inventory)
         - Either hardmode is false or a 75% RNG check passes if it is true
-    - If the above are all fufilled, some animation logic occurs and `items[0]` gets a `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) appended to it 
+    - If the above are all fufilled, some animation logic occurs and `items[0]` gets a `HardSeed` [item](../../../Enums%20and%20IDs/Items.md) appended to it
 - Yield all frames until `checkingdead` is null (HardSeedVenus completed)

@@ -78,7 +78,7 @@ A single target dash attack.
 An electric ball projectile throw that either hits multiple times on multiple targets or is added as a [Delayed projectile](../../Actors%20states/Delayed%20projectile.md) without damages (but gains an actor turn if hardmode is true where damages may be dealt).
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [Projectile](../../Damage%20pipeline/Projectile.md) calls
 

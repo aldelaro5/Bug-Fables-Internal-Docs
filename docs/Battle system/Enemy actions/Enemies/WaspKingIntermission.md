@@ -25,16 +25,16 @@ The following logic is always done at the start of the action:
 
 - `hp` is set to 999 (effectively making this enemy impossible to kill as their data should also be 999 `maxhp`)
 - If `turns` is 2 or above (2 main turns fully advanced since the start of the battle):
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `commondialogue[119]`
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: This enemy
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
     - Every player party members with a [Shield](../../Actors%20states/BattleCondition/Shield.md) condition has it removed via [RemoveCondition](../../Actors%20states/Conditions%20methods/RemoveCondition.md)
 
 ## Move 1 - Axe slash
@@ -68,7 +68,7 @@ A single target axe slash attack.
 A party wide fire pillar attack that always kills the player party.
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on the target.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
 
 ### [PartyDamage](../../Damage%20pipeline/PartyDamage.md)
 

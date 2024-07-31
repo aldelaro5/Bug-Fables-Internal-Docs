@@ -78,7 +78,7 @@ A single target aerial strike attack that may steal an [item](../../../Enums%20a
 A party wide wind gust attack
 
 ### `nonphyscal` set to true
-This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../Enums%20and%20IDs/Medal.md) if equipped on any player party member whose `hp` is above 0.
+This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on any player party member whose `hp` is above 0.
 
 ### [DoCommand](../../DoCommand.md) calls
 
