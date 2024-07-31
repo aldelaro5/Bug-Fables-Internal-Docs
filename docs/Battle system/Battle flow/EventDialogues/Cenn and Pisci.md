@@ -7,26 +7,26 @@ This EventDialogue will make sure to thoroughly kill both `Cenn` and `Pisci` thr
 - The `enemydata` id of both `Cenn` and `Pisci` are obtained
 - `Cenn` and `Pisci` each gets [BreakIce](../../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) called on them
 - Yield for 0.5 seconds
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[163]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `Cenn`
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[164]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `Pisci`
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - `Flee` sound plays
 - `Cenn` and `Pisci`'s `flip` gets set to true
 - `Cenn` and `Pisci` moves through a [ForceMove](../../../Entities/EntityControl/EntityControl%20Methods.md#forcemove) to (15.0, 0.0, 0.0) with 50.0 frametime with changeanim

@@ -14,14 +14,14 @@
 - `EverlastingKing` animstate set to 110
 - Yield for a frame
 - If `hologram` is false:
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `commondialogue[177]`
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: `EverlastingKing`
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - [EndBattleWon](../Terminal%20wrappers/EndBattleWon.md) called with addexp and without skipids which will end the battle and switch to a [terminal flow](../Update%20flows/Terminal%20flow.md)

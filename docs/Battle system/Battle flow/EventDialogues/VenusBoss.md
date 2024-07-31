@@ -12,16 +12,16 @@
 - Camera moves to look near (1.25, 1.5, 2.0)
 - Yield for 0.75 seconds
 - `cancelupdate` set to true switching to a [terminal flow](../Update%20flows/Terminal%20flow.md) (this is too early to do this, but it is safe because the battle will end here)
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `|`[boxstyle](../../../SetText/Individual%20commands/Boxstyle.md)`,1||`[center](../../../SetText/Individual%20commands/Center.md)`||`[shaky](../../../SetText/Individual%20commands/Shaky.md)`||`[halfline](../../../SetText/Individual%20commands/Halfline.md)`||`[size](../../../SetText/Commands.md)`,1.75|` followed by `commondialogue[92]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `extraentities[0]` (`Venus`)
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - `extraentities[0]` (`Venus`) animstate set to 17 (`WeakBattleIdle`)
 - All `enemydata` has their `hp` set to 0 and their `eventondeath` to -1. This will force the death of everyone to happen normally without triggering this EventDialogue again
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called with reset

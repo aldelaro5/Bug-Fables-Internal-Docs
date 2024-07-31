@@ -27,32 +27,32 @@ This continues until `turns` is 2 meaning after 2 main turns, CheckEvent detects
 ### EventDialogue 4
 This EventDialogue represents the dialogue and scripted action of `Spuder` rising in the air:
 
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[27]` which is some dialogue about the fight
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `playerdata[0]`
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - instance.`camtargetpos` is set to `enemydata[0]`'s position (should always be `Spuder`) with an instance.`camspeed` set to 0.03
 - Yield for 0.5 seconds
 - `demomode` is set to true
 - [DoAction](../Action%20coroutines/DoAction.md) is called with `enemydata[0]` as the entity and 0 as the actionid. Effectively, it forces `Spuder` to do an actor turn, but because `demomode` is true, he always will rise in the air to `Flying` in his action
 - Yield all frames until `action` goes to false (until DoAction is done)
 - `demomode` is set back to false
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[28]` which is some dialogue about the action `Spuder` did
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `playerdata[0]` (should be `Beetle`)
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - `enemydata[0]` (should always be `Spuder`) has its `cantmove` set to 0 which allows them to act for this main turn since it technically hasn't occured yet (the game forced them to act so this is needed to resync the `cantmove` counter to where it would be)
 - `flagvar` 11 is set to 1 which advances to the next phase of the encounter
 
@@ -72,16 +72,16 @@ This means that he will always rise in the air to `Flying` on their first main t
 This EventDialogue is some dialogues that reminds the player to defeat `MothWeb` after 2 main turns have passed:
 
 - If `playerdata[1]` (should always be `Beetle`)'s `hp` is above 0:
-    - [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+    - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `commondialogue[29]` which is some dialogue to remind to defeat `MothWeb`
-        - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+        - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
         - linebreak: `messagebreak`
         - tridimensional: false
         - position: Vector3.zero
         - size: Vector3.one
         - parent: `playerdata[1]` (should always be `Beetle`)
         - caller: null
-    - Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released 
+    - Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released 
 - `flagvar` 11 is set to 3 which prevents this EventDialogue from triggering again
 
 ### EventDialogue 6
@@ -107,16 +107,16 @@ This EventDialogue is assumed to be the [eventondeath](../../Actors%20states/Ene
 - `tmoth`'s `spin` is zeroed out
 - `tmoth` animstate set to 18 (`KO`)
 - Yield for 0.5 seconds
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[30]` which is some dialogue after defeating `MothWeb`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `playerdata[0]` (should always be `Bee`)
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released
 - Yield for 0.25 seconds
 - [ExitBattle](../Terminal%20wrappers/ExitBattle.md#exitbattle) is called which ends the battle and the second encounter
 

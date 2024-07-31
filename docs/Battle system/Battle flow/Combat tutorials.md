@@ -147,14 +147,14 @@ The following is the logic of EventDialogue 1 which gives the skills tutorial:
 ### Combat tutorial ending
 From there, the battle is kind of in a stand still. `MakiTutorial` no longer has special logic and will attack as normal with the regualr block timing being in effect. Essentially, the battle is back to flow as normal.
 
-This goes on until a special condition happens in CheckEvent which is that `turns` is 3. This means that 3 main turns total have passed. When this happens on the first controlled flow update, ExitBattle is called which start a [ReturnToOverworld](../Terminal%20coroutines/ReturnToOverworld.md) without flee, set `cancelupdate` and `action` to true and `enemy` to false which also changes the flow to a [terminal](Terminal%20flow.md) one.
+This goes on until a special condition happens in CheckEvent which is that `turns` is 3. This means that 3 main turns total have passed. When this happens on the first controlled flow update, ExitBattle is called which start a [ReturnToOverworld](Terminal%20coroutines/ReturnToOverworld.md) without flee, set `cancelupdate` and `action` to true and `enemy` to false which also changes the flow to a [terminal](Update%20flows/Terminal%20flow.md) one.
 
 This completely ends the tutorial process. It is expected that `flags` 15 gets set to true by the caller of this battle which prevents the tutorial to be given again.
 
 ## Turn Relay tutorial
 The Turn Relay tutorial is isolated from the bigger combat one and it is relatively isolated overall. While the game heavily scripts the fight that this tutorial is given, the only requirements for this tutorial to work is to have a player party of `Bee`, `Beetle` and `Moth` in default party order.
 
-The tutorial logic is checked by [CheckEvent](Update%20flows/Controlled%20flow.md#checkevent) and its logic runs only when [flag](../../../Flags%20arrays/flags.md) 16 is true (Leif can fight in battle) and [flag](../../../Flags%20arrays/flags.md) 24 is false (haven't received the Relay tutorial yet). This will run if applicable on the first [controlled flow](Update%20flows/Controlled%20flow.md) update. 
+The tutorial logic is checked by [CheckEvent](Update%20flows/Controlled%20flow.md#checkevent) and its logic runs only when [flag](../../Flags%20arrays/flags.md) 16 is true (Leif can fight in battle) and [flag](../../Flags%20arrays/flags.md) 24 is false (haven't received the Relay tutorial yet). This will run if applicable on the first [controlled flow](Update%20flows/Controlled%20flow.md) update. 
 
 When these conditions are met, EventDialogue 3 starts.
 

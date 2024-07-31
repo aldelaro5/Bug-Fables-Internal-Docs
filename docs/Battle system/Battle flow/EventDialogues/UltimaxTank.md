@@ -10,16 +10,16 @@
 - All enemy party members has their animstate set to 11 (`Hurt`)
 - `UltimaxTankShakingDeathLoop` sound plays on loop using `sounds[9]` with 0.75 volume
 - ShakeScreen called with an ammounnt of 0.1 and -1.0 time (infinite)
-- [SetText](../../SetText/SetText.md) is called in [dialogue](../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
+- [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
     - text: `commondialogue[171]`
-    - [fonttype](../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
+    - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)
     - linebreak: `messagebreak`
     - tridimensional: false
     - position: Vector3.zero
     - size: Vector3.one
     - parent: `UltimaxTank`
     - caller: null
-- Yield all frames until the [message](../../SetText/Notable%20states.md#message) lock is released. On the first frame every 30.0 frames, DeathSmoke particles plays at `UltimaxTank` position + (A random number between -1.0 and 3.0, 2.0, -2.0)
+- Yield all frames until the [message](../../../SetText/Notable%20states.md#message) lock is released. On the first frame every 30.0 frames, DeathSmoke particles plays at `UltimaxTank` position + (A random number between -1.0 and 3.0, 2.0, -2.0)
 - ShakeScreen called with 0.2 ammount and 3.0 time
 - Yield for a second
 - `UltimaxTankShakingDeathLoop` sound stopped

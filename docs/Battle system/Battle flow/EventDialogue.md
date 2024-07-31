@@ -20,7 +20,7 @@ private IEnumerator EventDialogue(int id)
 - [UpdateText](../Visual%20rendering/UpdateText.md) is called
 - [RefreshEnemyHP](../Visual%20rendering/RefreshEnemyHP.md) is called
 - The EventDialogue whose id is the sent id value has its logic happen (see the section below for more information on them)
-- [ReorganizeEnemies](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called with order
+- [ReorganizeEnemies](../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called with order
 - `inevent` is set to false
 - UpdateConditionIcons is called which, if we aren't in the [enemy](Main%20turn%20life%20cycle.md#enemy-phase), calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
 - [UpdateText](../Visual%20rendering/UpdateText.md)
