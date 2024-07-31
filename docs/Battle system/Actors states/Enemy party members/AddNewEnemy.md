@@ -1,5 +1,5 @@
 # AddNewEnemy
-This is a method that will initialise add a new enemy and add it to `enemydata`.
+This is a method that will initialise a new enemy and add it to `enemydata`.
 
 There are 3 overloads available:
 
@@ -18,7 +18,7 @@ Ends up doing (1) if animation is `None` (0)
 ```cs
 private Transform AddNewEnemy(int id, EntityControl entity)
 ```
-NOTE: This method is unused under normal gameplay. It is similar to (1), but it will not be documented due to older logic
+NOTE: This overload is unused under normal gameplay. It is similar to (1), but it will not be documented due to older logic
 
 ## Parameters
 

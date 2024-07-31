@@ -23,11 +23,11 @@ This condition may be inflicted if the property is `Poison`. This means it's als
 
 This condition allows the `PoisonAttacker` [medal](../../../Enums%20and%20IDs/Medal.md) to take effect by increasing the damage amount by the amount of `PoisonAttacker` equipped for a player attacker while not in `demomode`. 
 
-A variation of the `PoisonAttacker` logic is also enforced (except the `demomode` check) outside of the damage pipeline in GetMultiDamage with the only difference being that the increase is by (amount of attacker's `PoisonAttacker` - amount of attacker's `ReversePoison`). That method is used by the following [skills](../../../Enums%20and%20IDs/Skills.md):
+A variation of the `PoisonAttacker` logic is also enforced (except the `demomode` check) in [GetMultiDamage](../../Damage%20pipeline/GetMultiDamage.md) with the only difference being that the increase is by (amount of attacker's `PoisonAttacker` - amount of attacker's `ReversePoison`). That method is used by the following [skills](../../../Enums%20and%20IDs/Skills.md):
 
-- `IceSphere`
-- `IceDrill`
-- `BeeFly`
+- [IceSphere](../../Player%20actions/Skills/IceSphere.md)
+- [IceDrill](../../Player%20actions/Skills/IceDrill.md)
+- [BeeFly](../../Player%20actions/Skills/BeeFly.md)
 
 ### [DefaultDamageCalc](../../Damage%20pipeline/CalculateBaseDamage.md#defaultdamagecalc)
 This condition allows the `PoisonDefender` and `ReversePoison` [medals](../../../Enums%20and%20IDs/Medal.md) to take effect by decreasing the damage amount by (amount of target's `PoisonDefender` - amount of target's `ReversePoison`).

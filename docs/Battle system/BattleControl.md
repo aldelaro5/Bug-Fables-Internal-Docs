@@ -83,7 +83,7 @@ As this is a turn based battle system, it has a concept of turns. A main turn is
 
 The player phase is the most involved mainly handling UI naviguations on top of player actions. It is only active when battle,`enemy` is false.
 
-The enemy phase mostly involves each enemies doing their action when `enemy` is true and [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) being the whole procedure that advances the main turn and allows a fresh one to start again.
+The enemy phase mostly involves each enemies doing their action when `enemy` is true, but before [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md) runs which is the procedure that advances the main turn and allows a fresh one to start again.
 
 Each actor also have their own concept of turns called actor turn. An actor turn is composed of their action and other advancement logic such as the `cantmove` advance. `cantmove` is a multi purpose actor turn counter that serves as the way for the game to track that an actor can act, needs to wait before being able to, or has multiple actions available. The actor turn advancement notably includes logic associated with the [conditions](Actors%20states/Conditions.md) currently inflicted on the actor among other details.
 
@@ -97,7 +97,7 @@ During the course of the battle, damages might be processed for various reasons 
 
 The damage might have more effects processed after its calculation for example, by applying some [medals](../Enums%20and%20IDs/Medal.md) that act on it. It is greatly influenced by the property parameter and the enemy party members's [weakness](Actors%20states/Enemy%20features.md#weakness) field, a list of [AttackProperty](Damage%20pipeline/AttackProperty.md) that applies to this enemy party member.
 
-It should be noted however that the caller of DoDamage is free to perform any logic that goes beyond the scope of the damage pipeline which happens very frequently in actions's logic.
+It should be noted however that the caller of DoDamage is free to perform any logic that goes beyond the scope of the damage pipeline which happens very frequently in actions's logic. The damage pipeline have [known design shortcomings](Damage%20pipeline/Known%20design%20issues.md) that limits its usage, check the documentation about them to learn more.
 
 ## Actor state
 The player party's stats are in instance.`playerdata` (which the whole game uses elsewhere in various places) while the enemy party's are specifically inside BattleControl and is called `enemydata`.  The `playerdata` array has complex addressing methods, more info can be found at the [`playerdata` addressing documentation](playerdata%20addressing.md)

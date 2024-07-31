@@ -54,6 +54,8 @@ This condition also implicates entire logic related to it unless the `NoIceBreak
 - Special calculation logic when the target has the `FrostBite` [medal](../../../Enums%20and%20IDs/Medal.md)
 - A +1 damage when `FrostBite` didn't apply followed by the removal of this condition alongside some other ice thawing logic
 
+There is also special logic to remove this condition to the target in enemy to player flow when there's no `NoIceBreak` override. However, this logic is incorrect for enemy party members because it sets their `cantmove` to 0. If they have a [moves](../Enemy%20features.md#moves) higher than 1, they will loose all but 1 actor turn they should have available. The correct logic is the same than what [AdvanceTurnEntity](../../Battle%20flow/AdvanceTurnEntity.md) does which is setting `cantmove` to -`moves` + 1.
+
 ## [EndPlayerTurn](../../Battle%20flow/EndPlayerTurn.md)
 All enemy party members who still have this condition on EndPlayerTurn without [actimmobile](../Enemy%20features.md#actimmobile) will have their `cantmove` set to 1. NOTE: It means removing the condition on the same main turn it was inflicted may leave the `cantmove` at 1 even if the enemy party member should have been able to act during their phase.
 

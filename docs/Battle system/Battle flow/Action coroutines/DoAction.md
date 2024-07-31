@@ -3,8 +3,6 @@ This action coroutine allows an actor to perform an action which is an hardcoded
 
 The vast majority of the logic of this coroutine are contained in the individual actions, but this page will focus on documenting the surrounding code as the actions will be documented somewhere else.
 
-TODO: Document all enemy actions
-
 ```cs
 private IEnumerator DoAction(EntityControl entity, int actionid)
 ```
@@ -23,12 +21,12 @@ This coroutine is extremely large in IL code size. This creates a problem becaus
 One mitigation the game does is to precipitate the stutter during the battle out loading transition of [StartBattle](../../StartBattle.md). It does this by checking a boolean that belongs to MainManager and is only set to true when this happened for the first time since the last save load. To prevent any destructive logic to happen, StartBattle will send -555 as the actionid which can be seen as a blank dummy call: it will not perform any meaningful logic, but it will still be enough to force the JIT to compile the coroutine as it was explicitly called.
 
 ## Procedure
-Considering how large this method its lifecycle will be divided into different phases.
+Considering how large this method is, its lifecycle will be divided into different phases.
 
 NOTE: If this is a player action, the coroutine expects `availabletargets`, `target`, [currentaction](../../Player%20UI/Pick.md), [itemarea](../../Player%20UI/AttackArea.md) and `currentturn` to be correctly set because they are needed to tell the coroutine the details of the action (notably, `currentturn` tells the `playerdata` index of the player party member performing the action). For a [Skill](../../../Enums%20and%20IDs/Skills.md), its cost is expected to be in [flagvar](../../../Flags%20arrays/flagvar.md) 0 (TP if it's 0 or above, HP if it's negative using the absolute value).
 
 ### Setup
-This is the first phase of the coroutine. It ensures the coroutin can proceed and does some preparations logic.
+This is the first phase of the coroutine. It ensures the coroutine can proceed and does some preparations logic.
 
 - `deadmembers` is set to the return of GetDeadParty which are all the player party members indexes whose `hp` is 0 or below
 - If `cancelupdate` is true (which means we had entered into a [terminal flow](../Update%20flows/Terminal%20flow.md)), a frame is yielded followed by the coroutine abruptly ending with a yield break. This can be considered a safeguard in case terminal flow was entered before a DoAction call occured
@@ -101,7 +99,7 @@ After, if actionid isn't negative (meaning this isn't a basic attack action or p
 
 If a cost was paid, usedtp is set to the value of [flagvar](../../../Flags%20arrays/flagvar.md) 0 (the TP or HP cost).
 
-After, if actionid isn't -555 (meaning it's not a player first strike) and [currentaction](../../Player%20UI/Pick.md) isn't `ItemList` (meaning it's not an item use so it's a basic attack or skill action), `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `AttackUp`.
+After, if actionid isn't -555 (not blank dummy call) and [currentaction](../../Player%20UI/Pick.md) isn't `ItemList` (meaning it's not an item use so it's a basic attack or skill action), `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `AttackUp`.
 
 After, `targettedenemy` is set to the `enemydata` index of the targetted enemy using the following logic:
 
@@ -161,7 +159,7 @@ Enemy actions works differently than player action in the sense they are all exe
 
 The action logic is determined by a giant switch on the enemy party member's `animid` which is its [enemy](../../../Enums%20and%20IDs/Enemies.md) id.
 
-TODO: Document the enemy actions in part 3 of the battle docs in a separate place.
+For more information on the enemy actions implementation, consult the [enemy actions](../../Enemy%20actions/Enemy%20actions.md) page.
 
 ### Post action
 This phase occurs after any actions. It starts with logic that allways occur no matter the action:

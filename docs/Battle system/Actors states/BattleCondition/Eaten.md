@@ -1,5 +1,5 @@
 # Eaten
-A special stopping condition specific to the `Pitcher` [enemy](../../../Enums%20and%20IDs/Enemies.md) that allows through unorthodox methods to treat a player party member as if they were dead alongside having their `eatenby` not null.
+A special stopping condition specific to the [Pitcher](../../Enemy%20actions/Enemies/Pitcher.md) enemy that allows through unorthodox methods to treat a player party member as if they were dead alongside having their `eatenby` not being null.
 
 ## [IsStopped](../IsStopped.md)
 This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
@@ -51,7 +51,7 @@ Inflicts this condition to `playerdata[playerid]` for `turns` turns and set thei
 private void Eat(int enemyid, int playerid, int turns)
 ```
 
-NOTE: In practice, this only works if the enemy party member is a `Pitcher` [enemy](../../../Enums%20and%20IDs/Enemies.md) because this eating system wasn't made to handle any other enemies.
+NOTE: In practice, this only works if the enemy party member is a [Pitcher](../../Enemy%20actions/Enemies/Pitcher.md) enemy because this eating system wasn't made to handle any other enemies.
 
 For simplicity, `playerdata[playerid]` will be refered to as the eaten and `enemydata[enemyid]` will be refered as the eater.
 

@@ -112,7 +112,7 @@ For more information on how super blocks are determined, check [GetBlock](../Bat
 
 - [RemoveCondition](../Actors%20states/Conditions%20methods/RemoveCondition.md) is called with the target to remove the [Freeze](../Actors%20states/BattleCondition/Freeze.md) condition
 - [BreakIce](../../Entities/EntityControl/Notable%20methods/Freeze%20handling.md#breakice) is called on the target.battleentity
-- target.`cantmove` is set to 0 if the target is an enemy party member or to 1 if it's a player party member. This allows for the actor to immediately be able to act no matter its party (the enemy party doesn't get their actor turns advanced until the next main turn while the player party have theirs advanced right after enemies).
+- target.`cantmove` is set to 0 if the target is an enemy party member or to 1 if it's a player party member. This allows for the actor to immediately be able to act no matter its party (the enemy party doesn't get their actor turns advanced until the next main turn while the player party have theirs advanced right after enemies). NOTE: This logic is incorrect for enemy party members because if they have a [moves](../Actors%20states/Enemy%20features.md#moves) higher than 1, they will loose all but 1 actor turn they should have available. The correct logic is the same than what [AdvanceTurnEntity](../Battle%20flow/AdvanceTurnEntity.md) does which is setting `cantmove` to -`moves` + 1.
 
 3: This means the attack happened to a toppled flying enemy or the enemy wasn't topplable and was hit while flying meaning it should be dropped to the ground. This is how this happens:
 

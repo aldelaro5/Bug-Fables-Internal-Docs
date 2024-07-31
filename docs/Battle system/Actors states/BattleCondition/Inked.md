@@ -14,3 +14,8 @@ This condition may be inflicted if the property is `Ink` or `InkOnBlock`. This m
 This condition will have the battleentity.`sprite`.material.color to be set to a lerp from the existing one to 0x7200D8 (bright purple) with a factor of 1/5 of the frametime. Check the documentation of the method to learn more about how the alpha channel is determined.
 
 This condition includes the initialisation of the actor's `firepart` as a new instance of `Prefabs/Particles/InkDrip` childed to the `sprite` with a `DelAftBtl` tag and a local position of Vector3.up.
+
+## About enemy party members
+This condition effectively doesn't do anything on its own for enemy party members because the effects described above only concerns the player party.
+
+It is up to the individual [enemy action](../../Enemy%20actions/Enemy%20actions.md) to implement logic to this condition which may include changes to their move selection process.
