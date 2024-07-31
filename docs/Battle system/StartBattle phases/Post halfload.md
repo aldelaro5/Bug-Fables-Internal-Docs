@@ -43,7 +43,7 @@ This resets some important state fields:
 ## Enemy first strike
 This part only happens if adv is 3:
 
-- `enemy` is set to true (we temporarilly go into the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase))
+- `enemy` is set to true (we temporarilly go into the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase))
 - `firststrike` is set to true
 - [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called
 - instance.`hudcooldown` is set to 10.0 which shows the main HP / TP HUD

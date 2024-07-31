@@ -78,7 +78,7 @@ Additionally, there are also wrapper methods available that will call some of th
 As this is a turn based battle system, it has a concept of turns. A main turn is composed of 3 phases executed in order:
 
 - [Player phase](Battle%20flow/Main%20turn%20life%20cycle.md#player-phase)
-- [Enemy phase](Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase)
+- [Enemy phase](Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase)
 - [Turn end phase](Battle%20flow/Main%20turn%20life%20cycle.md#turn-end-phase)
 
 The player phase is the most involved mainly handling UI naviguations on top of player actions. It is only active when battle,`enemy` is false.

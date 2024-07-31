@@ -2,7 +2,7 @@
 A stop condition specifically made for [event](../../../Enums%20and%20IDs/Events.md) 182 (trying to exit the room after approaching the tank in the last room of Upper Snakemouth) that simply disables a party member until it is manually removed (it is not meant to expire naturally).
 
 ## [IsStopped](../IsStopped.md)
-This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
+This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
 
 ## [GetFreePlayerAmmount](../Player%20party%20members/GetFreePlayerAmmount.md)
 This condition makes a player party member not count as free. This affects many logic such as knowing if a player can act.

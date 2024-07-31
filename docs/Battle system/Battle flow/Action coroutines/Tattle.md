@@ -42,7 +42,7 @@ This section only happens if the `HPScope` [medal](../../../Enums%20and%20IDs/Me
     - No caller
 - A frame is yielded
 - A nameless pure white 9Box is created with position (20.0, 0.0, 10.0), size of (10.75, 5.0) type 4 (torn piece of paper), sortorder of -20 without grow and a DialogueAnim attached with a targetpos of (3.5, -1.75, 10.0) and a speed of (0.1) (this DialogueAnim makes the 9Box appear from offsreen to the right slightly down)
-- A new UI object named `enemyimage` is created childed to the 9Box with local position (-2.85, 0.0, 0.0), size of (3.0, 3.0, 3.0) and a sortOrder of 0 using the sprite defined as the portrait from [enemydata](../../../TextAsset%20Data/Enemies%20data.md#about-the-portrait-srpite-index) using the enemy party member's `animid` as the [enemy](../../../Enums%20and%20IDs/Enemies.md) id
+- A new UI object named `enemyimage` is created childed to the 9Box with local position (-2.85, 0.0, 0.0), size of (3.0, 3.0, 3.0) and a sortOrder of 0 using the sprite defined as the portrait from [enemydata](../../../TextAsset%20Data/Enemies%20data.md#getenemyportrait) using the enemy party member's `animid` as the [enemy](../../../Enums%20and%20IDs/Enemies.md) id
 - A string of text is prepared which are all the following appended together:
     - `|`[single](../../../SetText/Individual%20commands/Single.md)`|`
     - If the [languageid](../../../SetText/languageid.md) is `Japanese` and the enemy party member's `entityname` is 6 or more letters long, `|`[size](../../../SetText/Individual%20commands/size.md)`,X,1|` is appended where `X` is 1.0 - 0.075 * (the enemy party member's `entityname`'s length - 5) all clamped from 0.5 to 0.65 (notthing is appended otherwise)

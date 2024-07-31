@@ -16,7 +16,7 @@ For player party member, the resistance can only be increased by processing the 
 For player party member target when property is `Numb` or `Numb1Turn` and when successfully inflicting this condition, [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md), target.`numbres` is increased by 17. The increase is 22 instead if [HardMode](../../Damage%20pipeline/HardMode.md) returns true
 
 ## [IsStopped](../IsStopped.md)
-This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
+This condition is considered a stop condition and will always make this method returns true (unless skipimmobile is false while the actor'a [actimmobile](../Enemy%20features.md#actimmobile) is true). This include the lite version used in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase). Being stopped makes the actor unable to act regardless of their `cantmove` as well as a bunch of feature they no longer get access to.
 
 ## [GetFreePlayerAmmount](../Player%20party%20members/GetFreePlayerAmmount.md)
 This condition makes a player party member not count as free. This affects many logic such as knowing if a player can act.
@@ -50,7 +50,7 @@ This condition may be inflicted if the property is `Numb` or `Numb1Turn` (it's t
 
 This condition prevents toppling on enemy party members with a `ToppleFirst` or `ToppleAirOnly` [AttackProperty](../../Damage%20pipeline/AttackProperty.md) in their [weakness](../Enemy%20features.md#weakness).
 
-This condition gives a point of defense recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#TrueDef) and will result in a -1 damage. NOTE: this has several caveats, check CalculateBaseDamage's documentation to learn more.
+This condition gives a point of defense recognised by [TrueDef](../../Visual%20rendering/RefreshEnemyHP.md#truedef) and will result in a -1 damage. NOTE: this has several caveats, check CalculateBaseDamage's documentation to learn more.
 
 ## [AdvanceTurnEntity](../../Battle%20flow/AdvanceTurnEntity.md)
 When the condition is processed (when `hp` is above 0):

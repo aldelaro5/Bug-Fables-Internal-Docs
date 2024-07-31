@@ -9,7 +9,7 @@ The method then resets the `condition` list by removing everything except any of
 - [Eaten](../BattleCondition/Eaten.md)
 - [Flipped](../BattleCondition/Flipped.md)
 - [Taunted](../BattleCondition/Taunted.md)
-- Any condition whose turn count is above 99 (which only happens if the game manually placed it with the intent of being practically infinite), but this doesn't apply to [Poison](../BattleCondition/Poison.md) (meaning the condition inflicted as a result of the `EternalPoison` [medal](../../../Enums%20and%20IDs/Medal.md#medal--badge) is removed despite this exception)
+- Any condition whose turn count is above 99 (which only happens if the game manually placed it with the intent of being practically infinite), but this doesn't apply to [Poison](../BattleCondition/Poison.md) (meaning the condition inflicted as a result of the `EternalPoison` [medal](../../../Enums%20and%20IDs/Medal.md) is removed despite this exception)
 
 After the reset:
 

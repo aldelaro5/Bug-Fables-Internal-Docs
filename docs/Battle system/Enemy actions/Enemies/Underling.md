@@ -1,7 +1,7 @@
 # `Underling`
 
 ## Assumptions
-It is assumed that this enemy gets loaded with a [isdefending](../../Actors%20states/Enemy%20features.md#about-isdefending-being--1) of -1 so their `hitaction` logic works.
+It is assumed that this enemy gets loaded with a [isdefending](../../Actors%20states/Enemy%20features.md#isdefending) of -1 so their `hitaction` logic works.
 
 ## [EnemyCheck](../../StartBattle%20phases/Pre%20haltbattleload.md#enemycheck) special logic
 Before this enemy is loaded, it's possible that StartBattle overrides it to a `GoldenSeedling`. See the documentation to learn more.

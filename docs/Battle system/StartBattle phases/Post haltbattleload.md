@@ -198,9 +198,9 @@ Here are the different AIs added and their conditions by their animid:
 - `Maki` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 13 (`BattleIdle`) if any of the following is true:
     - The MainManager.map.`mapid` is the `FGClearing` [map](../../Enums%20and%20IDs/Maps.md)
     - [flags](../../Flags%20arrays/flags.md) 594 is true (Chapter 7 when maki should be present in battle) 
-    - `Maki` is a [tempfollower](../../SetText/Individual%20commands/Addfollower.md#Remarks) while the current [area](../../Enums%20and%20IDs/librarystuff/Areas.md) is `FarGrasslands` or `WildGrasslands` or the map is the `TestRoom`
-- `KungFuMantis` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 5 (`Angry`) if they are a [tempfollower](../../SetText/Individual%20commands/Addfollower.md#Remarks)
-- `Madeleine` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 0 (`Idle`) if they are a [tempfollower](../../SetText/Individual%20commands/Addfollower.md#Remarks)
+    - `Maki` is a [tempfollower](../../SetText/Individual%20commands/Addfollower.md) while the current [area](../../Enums%20and%20IDs/librarystuff/Areas.md) is `FarGrasslands` or `WildGrasslands` or the map is the `TestRoom`
+- `KungFuMantis` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 5 (`Angry`) if they are a [tempfollower](../../SetText/Individual%20commands/Addfollower.md)
+- `Madeleine` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 0 (`Idle`) if they are a [tempfollower](../../SetText/Individual%20commands/Addfollower.md)
 - `AntCapitain` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 13 (`BattleIdle`) if map.`mapid` is the `AbandonedCity` [map](../../Enums%20and%20IDs/Maps.md) and [flags](../../Flags%20arrays/flags.md) 400 is true (reserved temporary flag). If they are added, it also causes every element of `enemydata` to have MainManager.[SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) called twice on them as the entity with `AttackUp` and `DefenseUp` for 999999 actor turns
 
 Finally, a frame is yielded.

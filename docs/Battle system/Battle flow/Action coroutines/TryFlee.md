@@ -1,5 +1,5 @@
 # TryFlee
-This action coroutine allows the player to attempt to flee from the battle if an action command is passed. This allows to go directly to the [ReturnToOverworld](../Terminal%20coroutines/ReturnToOverworld.md) in a [terminal flow](../Update.md#terminal-flow) if the action command is passed. If the action command is failed, all player party members gets all their action turns exhausted which leads to [EndPlayerTurn](../EndPlayerTurn.md) earlier than usual.
+This action coroutine allows the player to attempt to flee from the battle if an action command is passed. This allows to go directly to the [ReturnToOverworld](../Terminal%20coroutines/ReturnToOverworld.md) in a [terminal flow](../Update%20flows/Terminal%20flow.md#terminal-flow) if the action command is passed. If the action command is failed, all player party members gets all their action turns exhausted which leads to [EndPlayerTurn](../EndPlayerTurn.md) earlier than usual.
 
 ## Command preparation
 

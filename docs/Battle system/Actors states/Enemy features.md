@@ -67,7 +67,7 @@ During [Update](../Battle%20flow/Update.md), all `enemydata` elements are checke
 - If the enemy [IsStopped](IsStopped.md) returns true, their `hitaction` gets set to false and nothing happens as it gets skipped
 - Otherwise, `enemy` is set to true and a [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) call occur with the battleentity with actionid being the `enemydata` index. This will also end the update cycle
 
-Setting `enemy` to true here is temporary: it will go back to false as part of [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md). DoAction is also responsible for setting the enemy's `hitaction` back to false. The overall effect is DoAction temporarily seize control of the battle flow, but for the game, it's as if we were in an [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase). The flow will go back to where it was in the player phase once it's handled. Due to `hitaction` being true, DoAction is able to handle this special case in a separate fashion.
+Setting `enemy` to true here is temporary: it will go back to false as part of [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md). DoAction is also responsible for setting the enemy's `hitaction` back to false. The overall effect is DoAction temporarily seize control of the battle flow, but for the game, it's as if we were in an [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase). The flow will go back to where it was in the player phase once it's handled. Due to `hitaction` being true, DoAction is able to handle this special case in a separate fashion.
 
 This cycle repeats for all applicable enemies untill all `hitaction` are set to false at which point, the main turn procedure can continue.
 
@@ -91,7 +91,7 @@ This allows the `hitaction` to happen whenever the enemy party member is targett
 ### `chargeonotherenemy`
 There is an alternative way to get `hitaction` set to true automatically during [DoDamage](../Damage%20pipeline/DoDamage.md), but it only applies for enemy party members other than the target. That way is the `chargeonotherenemy` array field which holds an array of [Enemy](../../Enums%20and%20IDs/Enemies.md) ids.
 
-How it works is when the target sustains the damage, every other enemy party members who has the target.`animid` (their [enemy](../../Enums%20and%20IDs/Enemies.md) id) in their `chargeonotherenemy` has their `hitaction` set to !`enemy` (false during the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemies-phase), true during the [player phase](../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase)).
+How it works is when the target sustains the damage, every other enemy party members who has the target.`animid` (their [enemy](../../Enums%20and%20IDs/Enemies.md) id) in their `chargeonotherenemy` has their `hitaction` set to !`enemy` (false during the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase), true during the [player phase](../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase)).
 
 ### About `isdefending` being -1
 There is a second way to automatically set `hitaction` to true when the enemy party member is targetted during [DoDamage](../Damage%20pipeline/DoDamage.md). That was is by having `isdefending` be -1 and the [position](BattlePosition.md) of the enemy party member must not be `Underground`. If this applies, it will override `onhitaction` and take priority by always setting `hitaction` to true.
