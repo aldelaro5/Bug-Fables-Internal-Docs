@@ -6,12 +6,5 @@ This site defaults to dark mode, but you can toggle it to light mode by clicking
 
 Every document will have an eye icon to consult its source md file on GitHub and a pencil icon to edit it on your fork if you want to submit a pull request.
 
-## About the battle system documentation
-Most of the system is documented, but not all of it as they will be done at a later time. The current version includes everything except:
-
-- Action commands
-- EventDialogue
-- All actions logic
-
 ## Note regarding the 1.1.3 update
 These documentation aren't yet updated with the changes included in 1.1.3. Most of them impacts SetText. They will be updated at a later time.
