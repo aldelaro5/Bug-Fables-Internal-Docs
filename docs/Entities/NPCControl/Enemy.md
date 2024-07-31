@@ -21,7 +21,7 @@ The `lockcooldown` of the `arrow` is set to true only if `freezecooldown` is abo
 Only 1 of 3 cases happens here (checked in order):
 
 - This is a frozen enemy (the `freezecooldown` hasn't expired yet)
-- This is a frozen entity of any kind (it has an `icecube`, but in practice, this can only happen if an enemy is frozen because it's only on them that [Freeze](../EntityControl/Notable%20methods/Freeze%20handling.md#Freeze) is called)
+- This is a frozen entity of any kind (it has an `icecube`, but in practice, this can only happen if an enemy is frozen because it's only on them that [Freeze](../EntityControl/Notable%20methods/Freeze%20handling.md#freeze) is called)
 - This is a dizzy enemy (the `dizzytime` is above 0.0)
 
 Additionally, there's logic that happens as part of a standard active update exclusive to an enemy if none of the cases above applied and we aren't `trapped`.
@@ -56,7 +56,7 @@ It is assumed here that it's an enemy ready to be unfrozen, but this actually ch
 
 If the player is present and it is `standingon` this `boxcol`, then the player.entity.`onground` is set to false and its `standingon` to null. This means if the player was standing on the ice block, the game forces the ground detector and its `standingon` field to not report to be on it.
 
-[BreakIce](../EntityControl/EntityControl%20Methods.md#breakice) is called on the entity.
+[BreakIce](../EntityControl/Notable%20methods/Freeze%20handling.md#breakice) is called on the entity.
 
 The layer is set to `templayer` if it wasn't -1 before it is set to -1. This restores the value it had when the entity was frozen previously.
 
@@ -106,7 +106,7 @@ If the `dizzytime` is above -999.0, it is set to -1000.0 with the following adju
 - The player is present and the distance between it and this enemey is \<= the entity.`ccol` radius + 1.1
 
 ## Update (Inactive)
-For every 3 frames, if the entity is in a [forcemove](../EntityControl/EntityControl%20Methods.md#forcemove), [StopForceMove](../EntityControl/EntityControl%20Methods.md#StopForceMove) is called on the entity except if it has a [SetPath](ActionBehaviors/SetPath.md) or [StealhAI](ActionBehaviors/StealthAI.md) behavior
+For every 3 frames, if the entity is in a [forcemove](../EntityControl/EntityControl%20Methods.md#forcemove), [StopForceMove](../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on the entity except if it has a [SetPath](ActionBehaviors/SetPath.md) or [StealhAI](ActionBehaviors/StealthAI.md) behavior
 
 ## LateUpdate (Non `dummy` and entity is `incamera`)
 If the `eventid` is 0 and the entity `iskill` while we aren't in `pause`, `minipause` and `inevent`, some logic occurs depending on the `respawntimer`:

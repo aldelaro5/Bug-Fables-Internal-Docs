@@ -55,7 +55,7 @@ The platform is considered active when either `data` is empty or any of its elem
 
 The position set portion starts by clamping `speedmultiplier` from 0.0 to 1.0 and then setting the position using a Vector3.Lerp from `vectordata[0]` to `vectordata[1]` with a factor of `speedmultiplier`.
 
-Unless entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/AnimIDs.md), `speedmultiplier` is below 1.0 and the entity.`sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called on the entity with the `PlatformMove` clip set to loop.
+Unless entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/AnimIDs.md), `speedmultiplier` is below 1.0 and the entity.`sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#sounds) is called on the entity with the `PlatformMove` clip set to loop.
 
 ### Path mode
 What happens each updates depends on the value of `hit` which gets toggled on and off in a very systematic manner. The details involves many different fields that interacts with each other:
@@ -75,7 +75,7 @@ But it is possible for the platform to go inactive during its forward path. When
 #### When `hit` is true
 There is a special case before anything happens: whenever `hit` goes to true, it is possible that `currentnode` and `bounces` points to the same node. It can happen if there's only one node defined in `vectordata`. If this occurs, the update logic just ends abrutply because there is no need to move the platform and it will remain stationnary forever.
 
-The entity.`model` tag is set to `PlatformNoClock`. Unless entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) and the entity's `sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called on the entity with the `PlatformMove` clip set to loop.
+The entity.`model` tag is set to `PlatformNoClock`. Unless entity.`originalid` is the `Lilypad` [AnimId](../../../Enums%20and%20IDs/AnimIDs.md) and the entity's `sound` is playing, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#sounds) is called on the entity with the `PlatformMove` clip set to loop.
 
 From there, this is where the movement is done until `speedmultipiler` reaches 1.0 or above in which case, it's reset to 0.0 and `hit` is set to false again.
 

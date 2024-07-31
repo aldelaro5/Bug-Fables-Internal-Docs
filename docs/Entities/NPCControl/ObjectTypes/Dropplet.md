@@ -43,7 +43,7 @@ After:
 ## Update
 If the entity.`rigid` isn't in kinematic mode, its y velocity will be set to -10.0 and [RefreshShadow](../../EntityControl/Update%20process/RefreshShadow.md) is called on the entity. This forces the dropplet to drop down at a constant speed.
 
-If the `actioncooldown` hasn't expired yet, it is decremented by the game's frametime. Otherwise [LockRigid(false, false)](../../EntityControl/EntityControl%20Methods.md#LockRigid) is called on the entity. This allows to unlock the entity.`rigid` once a dropplet is ready to be dropped.
+If the `actioncooldown` hasn't expired yet, it is decremented by the game's frametime. Otherwise [LockRigid(false, false)](../../EntityControl/EntityControl%20Methods.md#lockrigid) is called on the entity. This allows to unlock the entity.`rigid` once a dropplet is ready to be dropped.
 
 If the entity.`shadow` is present, it will get enabled if `data[2]` is 0 or `hit` is false and it will get disabled otherwise.
 
@@ -155,7 +155,7 @@ For the sake of brevety, the component won't be fully documented, but a summary 
 To properly add the Hornable, SetUp must be called and in practice, it's always called with the same parameters on this NPCContol's SetUp:
 
 - pushammount is (`vectordata[1].x`, `vectordata[1].y`)
-- pusherenabled is false, but then overriden to true on the component's Start (prevents it to be affected by a `pusher` collider on an [NPC](../NPCType.md#npc))
+- pusherenabled is false, but then overriden to true on the component's Start (prevents it to be affected by a `pusher` collider on an [NPC](../NPC.md))
 - dashbreak is true (this is unused so it does nothing)
 - parent is this NPCControl
 

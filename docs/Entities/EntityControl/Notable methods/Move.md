@@ -3,7 +3,7 @@ This method is called by [FixedUpdate](../Update%20process/Unity%20events/FixedU
 
 First, the entity is unifixed if `fixedentity` is true with the `rigid` constraints being set to freeze only rotations. Unless `overrideanim` is true, the [animstate](../Animations/animstate.md) is set to the state sent in.
 
-This is where the facing logic occurs which involves having `moverotater` look at the target position sent in and call [FaceTowards](../EntityControl%20Methods.md#FaceTowards) with the same position (this sets `flip` and `backsprite` accordingly).
+This is where the facing logic occurs which involves having `moverotater` look at the target position sent in and call [FaceTowards](../EntityControl%20Methods.md#facetowards) with the same position (this sets `flip` and `backsprite` accordingly).
 
 From there, the `rigid`'s velocity is set to a vector where each component is towards the target (uses `moverotater.forward.normalized` which was aligned earlier) * `speed` * the multiplier sent in. However, the y component is exempted from this if `ignorey` or the `rigid` has its gravity enabled. In such case, the y component is the existing one.
 

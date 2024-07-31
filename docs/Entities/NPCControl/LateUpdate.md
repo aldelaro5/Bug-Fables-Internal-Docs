@@ -14,7 +14,7 @@ If we got here, it means that the entity somehow got so far out of bounds that t
 Some specific logic happens if we are `trapped` related to the [CoiledObject](ObjectTypes/CoiledObject.md) object type.
 
 ## Non Dummy logic
-This section starts with the [NPC](NPCType.md#NPC) NPCType exclusive logic involving the `insideid` and whether or not the entity.`rigid` should be locked or unlocked. Consult the corresponding NPCType [section](NPC.md#lateupdate-non-dummy) to learn more.
+This section starts with the [NPC](NPC.md#npc) NPCType exclusive logic involving the `insideid` and whether or not the entity.`rigid` should be locked or unlocked. Consult the corresponding NPCType [section](NPC.md#lateupdate-non-dummy) to learn more.
 
 After this whole logic, the rest of this section only happens if the entity is `incamera`. From there, there are several logic that occurs conditionally:
 

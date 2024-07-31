@@ -23,7 +23,7 @@ All collisions between the colliders in the map.`entityonly` and the `scol` or t
 ## Update
 The tag is set to `BeeRang`.
 
-if the entity.`sound` isn't playing, call [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) on it with the `RangHold` clip set to loop,
+if the entity.`sound` isn't playing, call [PlaySound](../../EntityControl/EntityControl%20Methods.md#sounds) on it with the `RangHold` clip set to loop,
 
 The `hit` value tracks on which half of the path the beemerang is on. If it's false, it's on the first half and if it's true, it's on the way back. Either gives a different branch of logic.
 

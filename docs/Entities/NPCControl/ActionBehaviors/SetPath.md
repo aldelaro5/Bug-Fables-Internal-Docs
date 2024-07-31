@@ -36,7 +36,7 @@ Finally, `actioncooldown` is set to the frequency and the cycle continues.
 Normally, when the entity is in a `forcemove`, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on it, but this behavior is an exception to this where it will not be called here.
 
 ## EntityControl.[Death](../../EntityControl/Notable%20methods/Death.md)
-This behavior forbids an [Enemy](../NPCType.md#enemy) with it to drop an item because the behavior uses `vectordata` for its own purposes which interferes with the enemy item drop system.
+This behavior forbids an [Enemy](../Enemy.md) with it to drop an item because the behavior uses `vectordata` for its own purposes which interferes with the enemy item drop system.
 
 ## [RespawnEnemy](../Notable%20methods/RespawnEnemy.md)
 If the behavior is present on the NPCControl, the `actioncooldown` is set to 0.0 and the `currentnode` to 0

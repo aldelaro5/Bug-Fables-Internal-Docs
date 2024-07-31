@@ -85,7 +85,7 @@ If the `actioncooldown` expired more than 1 cycle ago (checked by being below -1
     - `actionfrequency[2]` is a phase shift that's been determined randomly on SetUp
     - `vectordata[0].x` is 1/6 of the frequency
 - `actionfrequency[1]` is incremented by Time.deltaTime
-- If the entity's `sound` wasn't playing, [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called with the `Waterfall1` clip at 0.075 volume and the entity.`sound` is set to loop
+- If the entity's `sound` wasn't playing, [PlaySound](../../EntityControl/EntityControl%20Methods.md#sounds) is called with the `Waterfall1` clip at 0.075 volume and the entity.`sound` is set to loop
 - If `data[2]` is present and 1 and there is a map.lastwater, the y component of the `internaltransform[3]` position (the spout at the bottom of the main geizer object) is set to map.`lastwater` y position. This basically means the spout will be positioned on the map's water Hazards level.
 - The `internalrender[0]` (the MeshRenderer of the spout of the frozen geizer object) gets disabled and its position set to the `internaltransform[3]` one (the spout at the bottom of the main geizer object)
 

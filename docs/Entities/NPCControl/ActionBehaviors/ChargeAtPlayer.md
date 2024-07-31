@@ -1,5 +1,5 @@
 # ChargeAtPlayer
-Charges at the player with `attacking` set to true during the movement towards the player (this will allow an [Enemy](../NPCType.md#enemy) to initiate a battle with the advantage if it collides with the player and all conditions are met to start a battle with the advantage).
+Charges at the player with `attacking` set to true during the movement towards the player (this will allow an [Enemy](../Enemy.md) to initiate a battle with the advantage if it collides with the player and all conditions are met to start a battle with the advantage).
 
 ## Frequency meaning
 None.

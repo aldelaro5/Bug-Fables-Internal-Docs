@@ -52,7 +52,7 @@ The main logic depends on the `disguisecooldown` which is an int countdown of th
 - If `disguisecooldown` is 40 or 80, entity.`flip` is toggled (this is by default the 2/3 and 1/3 point of the cooldown)
 
 ### `disguisecooldown` hasn't expired yet and it's below 20 while the NPCControl is more than 2.0 away from entity.`startpos`
-- [DetectDirection](../../EntityControl/EntityControl%20Methods.md#DetectDirection) is called on the entity with the entity.`startpos`
+- [DetectDirection](../../EntityControl/EntityControl%20Methods.md#detectdirection) is called on the entity with the entity.`startpos`
 - Align the entity.`moverotater` to the entity.`startpos` via a LookAt call
 - If a [HasGroundAhead](../../EntityControl/EntityControl%20Methods.md#hasgroundahead) call returns true, [MoveTowards](../../EntityControl/EntityControl%20Methods.md#movetowards) is called on the entity to move the entity to its `startpos` ignoring the y component at normal speed with the state being `Walk` and the stopstate being `Idle`. Otherwise, [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on the entity setting the [animstate](../../EntityControl/Animations/animstate.md) to its existing one at the end
 - The entity.[animstate](../../EntityControl/Animations/animstate.md) is set to the entity.`walkstate`
@@ -90,7 +90,7 @@ The `disguiseobj` is disabled with the entity.`sprite` being enabled.
 This behavior prevents the entity.`sprite` from being enabled there. It also goes against this behavior at least as far as the `disguiseobj` is concerned, but this behavior doesn't change this logic in particular, only overrides it.
 
 ## EntityControl.[UpdateSprite](../../EntityControl/Update%20process/UpdateSprite.md#updatesprite)
-This update method is disallowed to change the `sprite` enablement on an [Enemy](../NPCType.md#enemy) with this behavior.
+This update method is disallowed to change the `sprite` enablement on an [Enemy](../Enemy.md) with this behavior.
 
 ## MainManager.RefreshEntities
 This logic only matters if the method was called as a result of MapControl.Start, MapControl.RefreshInsides and BattleControl.ReturnToOverworld:

@@ -26,7 +26,7 @@ A rolling rock that either appears and rolls on its own or is shot from a canon.
 - `internaldata` is initialised to a new array with 2 elements being 0.0 and 100.0
 - If `data[2]` is 1, see the section below about setting up shooting from a canon
 - All collision between the entity.`ccol` and the player.entity.`ccol` are ignored
-- The ground detector is recreated completely via [CreateFeet](../../EntityControl/EntityControl%20Methods.md#CreateFeet)
+- The ground detector is recreated completely via [CreateFeet](../../EntityControl/EntityControl%20Methods.md#createfeet)
 
 ### When we are shooting from a canon (`data[2]` is 1)
 - `actioncooldown` is set to `vectordata[1].z`
@@ -49,7 +49,7 @@ Eventually, the `actioncooldown` expires and this is detected by going below 0.0
 
 - The entity.`rigid` gets its velocity zeroed out
 - This object's position is set to the entity.`startpos` + the normalized version of `vectordata[0]` * `vectordata[1].y` + Vector3.up * 0.25 (this places the rock back to its original position)
-- [LockRigid(false)](../../EntityControl/EntityControl%20Methods.md#LockRigid) is called on the entity to unlock its `rigid`
+- [LockRigid(false)](../../EntityControl/EntityControl%20Methods.md#lockrigid) is called on the entity to unlock its `rigid`
 - The `actioncooldown` is set to -1100.0 which prevents it from entering this code block until the next shooting
 - `internaldata[0]` is set to `internaldata[1]` (100.0)
 - The nozzle of the canon has its local scale set to (1.25, 0.75, 0.75) which warps the canon on the opposite direction than when set earlier the instant the shooting happens
@@ -82,7 +82,7 @@ If it is true:
 
 - The x and z components of the entity.`rigid` velocity are set to `vectordata[0].x` and `vectordata[0].z` respectively
 - The entity.`model` angles are incremented by `vectordata[2]` * framestep
-- If `data[3]` is present and the NPCControl at the map entity id of its value has its `hit` set to true, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called with the `RollingRock` clip looped. If `data[3]` is present, but the `hit` check is violated, the entity.`sound` is stopped. NOTE: see the note on the data arrays section above for a caveat with this
+- If `data[3]` is present and the NPCControl at the map entity id of its value has its `hit` set to true, then [PlaySound](../../EntityControl/EntityControl%20Methods.md#sounds) is called with the `RollingRock` clip looped. If `data[3]` is present, but the `hit` check is violated, the entity.`sound` is stopped. NOTE: see the note on the data arrays section above for a caveat with this
 
 If `hit` is false, the entity.`sound` is stopped as long as it is playing, it exists and the clip is still `RollingRock`. The entity.`sound` is then set to no longer loop.
 
@@ -116,7 +116,7 @@ This is a public method that has logic specific to this object type.
 ## WarpRock
 This is a private method specific to this object type that prepares to respawn the rock.
 
-If we are shooting from a canon (`data[2]` is 1), [LockRigid(true)](../../EntityControl/EntityControl%20Methods.md#LockRigid) is called on the entity and the `actioncooldown` is reset to `vectordata[1].z`.
+If we are shooting from a canon (`data[2]` is 1), [LockRigid(true)](../../EntityControl/EntityControl%20Methods.md#lockrigid) is called on the entity and the `actioncooldown` is reset to `vectordata[1].z`.
 
 If we aren't shooting from a canon:
 

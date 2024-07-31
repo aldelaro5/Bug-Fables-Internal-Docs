@@ -1,5 +1,5 @@
 # CheckSpecialID
-This is a void returning parameterless method on EntityControl that is ran during [Start](../Start.md). It can be considered as part of the [Entity startup](../EntityControl%20Creation.md#entity-startup) process because its name is underselling what the method does as its job is to initialise the fields and structure of any entity based on the [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md). Because of this, it is the method that will assign most fields from [EntityValues](../../../TextAsset%20Data/Entity%20data.md#`EntityValues`%20data) among other things.
+This is a void returning parameterless method on EntityControl that is ran during [Start](../Start.md). It can be considered as part of the [Entity startup](../EntityControl%20Creation.md) process because its name is underselling what the method does as its job is to initialise the fields and structure of any entity based on the [AnimIDs](../../../Enums%20and%20IDs/AnimIDs.md). Because of this, it is the method that will assign most fields from [EntityValues](../../../TextAsset%20Data/Entity%20data.md) among other things.
 
 Since this method implies extremely specific handling of specific AnimIDs, their handling will only be documented on a surface level, not in detail.
 

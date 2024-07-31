@@ -1,5 +1,5 @@
 # RespawnEnemy
-This is a helper method to respawn an [Enemy](../NPCType.md#enemy) at a certain position. It takes in the NPCControl and the Vector3 position. The position will get incremented by Vector3.up * 0.5.
+This is a helper method to respawn an [Enemy](../Enemy.md) at a certain position. It takes in the NPCControl and the Vector3 position. The position will get incremented by Vector3.up * 0.5.
 
 - entity.`destroytype` is set to `SpinSmoke`
 - `attacking` is set to false

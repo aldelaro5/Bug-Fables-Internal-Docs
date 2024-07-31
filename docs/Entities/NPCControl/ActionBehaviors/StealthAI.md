@@ -25,12 +25,12 @@ Normally, when an entity is in a `forcemove`, [StopForceMove](../../EntityContro
 As long as the behavior exist on the NPCControl, `actioncooldown` is set to 1.0 if the player is present and not `digging` while the [message](../../../SetText/Notable%20states.md#message) lock is active. This has the overall effect to have the underlying [SetPath](SetPath.md) logic operate as if it has a frequency of 1.0 meaning 1.0 frames of cooldown between movement.
 
 ## LateUpdate (RefreshPlayer)
-After the new `inrange` value is set and the new value is true a StealthSpot coroutine is called. There is an exception where this doesn't happen if this is an [Enemy](../NPCType.md#enemy) when the `freezecooldown` or `dizzytime` hasn't expired yet.
+After the new `inrange` value is set and the new value is true a StealthSpot coroutine is called. There is an exception where this doesn't happen if this is an [Enemy](../Enemy.md) when the `freezecooldown` or `dizzytime` hasn't expired yet.
 
-## OnTriggerEnter (If this is an [NPC](../NPCType.md#npc))
+## OnTriggerEnter (If this is an [NPC](../NPC.md))
 A StealthSpot coroutine starts if the other collider is the player.`beemerang` and the square distance between this NPCControl and the player is less than 30.0
 
-## OnCollisionEnter (If this is an [NPC](../NPCType.md#npc))
+## OnCollisionEnter (If this is an [NPC](../NPC.md))
 If the other gameObject tag is `Hornable` and the other's Hornable type is `IceCube` (meaning it's a [Dropplet](../ObjectTypes/Dropplet.md) ice cube), [ShatterDroppletIce](../ObjectTypes/Dropplet.md#shatterdroppletice) is called on the other's Hornable `parent` (the `Dropplet` NPCControl). This basically shatters the cube whenever an NPCControl with this behavior present (`inrange` or not) collides with it.
 
 ## StealthSpot

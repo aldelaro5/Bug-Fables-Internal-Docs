@@ -76,7 +76,7 @@ This field is specific to this object and the object being `trapped` receives so
 
 - If it's a [PushRock](PushRock.md), OnTriggerEnter becomes disabled preventing the rock to be moved by Kabbu's Horn Slash
 - [CheckItem](Item.md#checkitem) prevents any `trapped` [Item](Item.md) from being obtained by the player.
-- It won't receive active NPCControl updates unless entity.`activeonpause` is true (and even if it is, it can only receive updates if it's an [Enemy](../NPCType.md#enemy) with one of the 3 active update override cases)
+- It won't receive active NPCControl updates unless entity.`activeonpause` is true (and even if it is, it can only receive updates if it's an [Enemy](../Enemy.md) with one of the 3 active update override cases)
 - Any inactive updates will skip setting the position to entity.`startpos`
 - The entity's [UpdateVelocity](../../EntityControl/Update%20process/UpdateVelocity.md) effects are only active every 2 frames when the npcdata.`entitytype` isn't [NPC](../NPC.md)
 - For all active EntityControl update on the entity, the first child of the `spritetransform`'s enablement is not updated

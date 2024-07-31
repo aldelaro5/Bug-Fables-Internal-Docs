@@ -14,7 +14,7 @@ Calls [SetText](../../../SetText/SetText.md) in [dialogue mode](../../../SetText
 - size is Vector3.one
 - This transform as the parent and this NPCControl as the caller
 
-Once the call is started right after the first yield, all `playerdata` entities have [FaceTowards](../../EntityControl/EntityControl%20Methods.md#FaceTowards) called on them with the position being this position and with forceback.
+Once the call is started right after the first yield, all `playerdata` entities have [FaceTowards](../../EntityControl/EntityControl%20Methods.md#facetowards) called on them with the position being this position and with forceback.
 
 ## MapControl.LateUpdate
 With the exception of the `Kabbu` [animid](../../../Enums%20and%20IDs/AnimIDs.md) and the `keepobjectsalive` being true on the map, all NPC gets their entity.`emoticon` disabled whenever their gameObject enablement needs to be changed (which it does if the x/z distance between the NPC and the player is less than double the `radius` or not).

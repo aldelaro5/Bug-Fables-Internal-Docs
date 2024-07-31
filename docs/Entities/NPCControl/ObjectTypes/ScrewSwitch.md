@@ -34,7 +34,7 @@ From there, the ratio of the switch actuation is calculated by multiplying the g
 
 The entity.`model` angles are set to the actuation ratio * `vectordata[1]` which rotates it proportionally to the crank actuation.
 
-If the ratio is 0 or lower, the entity.`sound` is set to stop looping. Otherwise, [PlaySound](../../EntityControl/EntityControl%20Methods.md#PlaySound) is called with the `SpinSwitch0` clip at half volume if the entity.`sound` wasn't playing already. It also sets the clip to loop at 0.5 + the actuation ratio as the pitch.
+If the ratio is 0 or lower, the entity.`sound` is set to stop looping. Otherwise, [PlaySound](../../EntityControl/EntityControl%20Methods.md#sounds) is called with the `SpinSwitch0` clip at half volume if the entity.`sound` wasn't playing already. It also sets the clip to loop at 0.5 + the actuation ratio as the pitch.
 
 ## OnTriggerEnter
 If the other gameObject tag is `BeetleHorn`, `hit` is set to true and `actioncooldown` is incremented by `vectordata[0].x` * 10.0 then clamped from 0.0 to `vectordata[0].z`. This slightly actuate the crank the moment Kabbu's Horn Slash collides with it.

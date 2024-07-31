@@ -14,7 +14,7 @@ A loading zone to another map with customisable movement before and after the lo
 - `vectordata[4]`: The `camangleoffset` is set when fading in after the map load if `data[2]` is 1. This is optional only if `data[1]` doesn't exist
 - `vectordata[5]`: The `camlimitpos` is set when fading in after the map load if `data[3]` is 1. This is optional only if `data[1]` doesn't exist
 - `vectordata[6]`: The `camlimitneg` is set when fading in after the map load if `data[3]` is 1. This is optional only if `data[1]` doesn't exist
-- `emoticonoffset.x`: If it's higher than 0.1, the movement after the map load is done with a JumpTo call on the player with this value as the height. If it's lower, a standard [MoveTowards](../../EntityControl/EntityControl%20Methods.md#MoveTowards) is used on the player entity instead
+- `emoticonoffset.x`: If it's higher than 0.1, the movement after the map load is done with a JumpTo call on the player with this value as the height. If it's lower, a standard [MoveTowards](../../EntityControl/EntityControl%20Methods.md#movetowards) is used on the player entity instead
 
 ## Additional data
 - `regionalflag`: If it's positive, it's the [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot that is set to true when the player collides with this object.

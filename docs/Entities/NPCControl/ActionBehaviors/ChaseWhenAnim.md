@@ -1,5 +1,5 @@
 # ChaseWhenAnim
-Perform the same logic than [ChasePlayer](ChasePlayer.md) when the entity.[animstate](../../EntityControl/Animations/animstate.md) is `Chase`. Otherwise, if the entity.`animstate` isn't the frequency, entity.`animstate` is set to it with a 20.0 frames `behaviorcooldown` (prevents a [WalkWhenAnim](WalkWhenAnim.md) doing a [Wander](Wander.md) DoBehavior cycle to process for 20.0 frames when entity.`animstate` is `Idle`) and a [StopForceMove](../../EntityControl/EntityControl%20Methods.md) call on the entity.
+Perform the same logic than [ChasePlayer](ChasePlayer.md) when the entity.[animstate](../../EntityControl/Animations/animstate.md) is `Chase`. Otherwise, if the entity.`animstate` isn't the frequency, entity.`animstate` is set to it with a 20.0 frames `behaviorcooldown` (prevents a [WalkWhenAnim](WalkWhenAnim.md) doing a [Wander](Wander.md) DoBehavior cycle to process for 20.0 frames when entity.`animstate` is `Idle`) and a [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) call on the entity.
 
 ## Frequency meaning
 An [animstate](../../EntityControl/Animations/animstate.md) to set the entity.`animstate` when the current one is different and it's not `Chase`.
@@ -15,5 +15,5 @@ If the entity.`animstate` is `Chase`, this acts as an alias to [ChasePlayer](Cha
 Otherwise, if the current entity.`animstate` isn't the `frequency`:
 
 - The `behaviorcooldown` is set to 20.0 (prevents a [WalkWhenAnim](WalkWhenAnim.md) doing a [Wander](Wander.md) DoBehavior cycle to process for 20.0 frames when entity.`animstate` is `Idle`)
-- [StopForceMove](../../EntityControl/EntityControl%20Methods.md#StopForceMove) is called on the entity
+- [StopForceMove](../../EntityControl/EntityControl%20Methods.md#stopforcemove) is called on the entity
 - The entity.`animstate` is set to frequency

@@ -1,8 +1,8 @@
 # EnemySpawner
-An enemy spawner attached to another [Enemy](../NPCType.md#enemy) entity that will continuously respawn in a given circle range whenever it dies after a certain amount of time. The map entity id of the enemy, the time interval to wait before respawn and the range at which the enemy will spawn is configurable with the option to spawn the enemy immediately on the first Update cycle.
+An enemy spawner attached to another [Enemy](../Enemy.md) entity that will continuously respawn in a given circle range whenever it dies after a certain amount of time. The map entity id of the enemy, the time interval to wait before respawn and the range at which the enemy will spawn is configurable with the option to spawn the enemy immediately on the first Update cycle.
 
 ## Data Arrays
-- `data[0]`: The map entity id of the NPCControl that refers to the [Enemy](../NPCType.md#enemy) to spawn
+- `data[0]`: The map entity id of the NPCControl that refers to the [Enemy](../Enemy.md) to spawn
 - `data[1]`: If it's 1, the spawner spawns the enemy on the first active Update cycle instead of having to wait the `data[4]` cooldown expires
 - `data[4]`: The time in frames to wait before the spawner spawns the enemy
 - `data[5]`: OVERRIDEN (the original entity.[animid](../../../Enums%20and%20IDs/AnimIDs.md))

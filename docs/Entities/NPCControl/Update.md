@@ -25,17 +25,17 @@ This Section only applies if any of the following are true:
 - The entity is `activeonpause`
 - We aren't in a `pause`, `minipause`, [message](../../SetText/Notable%20states.md#message), the entity isn't an [item entity](../EntityControl/Item%20entity.md) and isn't `dead`, `iskill` and we aren't `trapped`
 
-> If this is an [Enemy](NPCType.md#enemy), there are 3 special cases that can override the rest of this section (dizzy, frozen or about to be unfrozen). For more information, check the [Enemy](Enemy.md) NPCType documentation.
+> If this is an [Enemy](Enemy.md), there are 3 special cases that can override the rest of this section (dizzy, frozen or about to be unfrozen). For more information, check the [Enemy](Enemy.md) NPCType documentation.
 
 We only continue from here if we aren't `trapped`.
 
-Further [Enemy](NPCType.md#update-active-main-logic-no-overrides) exclusive logic happens here when applicable.
+Further [Enemy](Enemy.md#update-active-main-logic-no-overrides) exclusive logic happens here when applicable.
 
 If `returntoheight` is true, the entity.`initialheight` is above 0.1, the entity.`height` is less than entity.`initialheight` - 0.05 and the `disguisecooldown` hasn't expired yet, entity.`height` is set to a lerp from entity.`height` to entity.`initialheight` with a factor of the frametime / 10. This also sets the entity.`oldfly` to false if its entity.`height` is less then entity.`initialheight` - 0.2 which forces a sprite update. All of this essentially makes the entity progressively comes back to its original height if applicable smoothly.
 
 > If this this is an [Object](Object.md), then perform the Update specific section of the [ObjectTypes](Object.md#objecttypes) which also replaces the rest of this section. Otherwise, the non object logic follows.
 
-Further [Enemy](NPCType.md#update-active-main-logic-no-overrides) exclusive logic happens here when applicable.
+Further [Enemy](Enemy.md#update-active-main-logic-no-overrides) exclusive logic happens here when applicable.
 
 Some logic specific to the [DisguiseOnce](ActionBehaviors/DisguiseOnce.md) behavior occurs here.
 

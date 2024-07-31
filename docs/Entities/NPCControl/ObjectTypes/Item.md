@@ -229,7 +229,7 @@ This is the final part part of the collection phase:
 - If the item isn't `tossed` (it is only when [additemtoss](../../../SetText/Individual%20commands/Additemtoss.md) concluded the player wanted to toss the item), this gameObject is destroyed
 
 ## EntityControl.LateStart
-Any object of this type will have [CreateFeet](../../EntityControl/EntityControl%20Methods.md#CreateFeet) called which gives the entity a ground detector in the `feet` field.
+Any object of this type will have [CreateFeet](../../EntityControl/EntityControl%20Methods.md#createfeet) called which gives the entity a ground detector in the `feet` field.
 
 ## Hazards.OnObjectStay
 If the NPCControl passed has this type, it returns true which allows it to stay in collision with the Hazards.

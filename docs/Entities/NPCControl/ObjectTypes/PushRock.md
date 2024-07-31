@@ -151,7 +151,7 @@ If the `icevel` magnitude is above 0.1 and the entity.`rigid` velocity is not be
 - If the entity.`rigid` y velocity is between -0.15 and 0.15 while entity.`onground` is true, `icevel` is set to Vector3.zero and both the static and dynamic friction of the `internalcollider[0]` material are set to 1.0. Otherwise, the frictions are set to 0.0 and the entity.`rigid` velocity is overriden to (`icevel`.x, entity.`rigid`.velocity.y, `icevel`.z).
 
 ## EntityControl.LateStart
-Any object of this type will have [CreateFeet](../../EntityControl/EntityControl%20Methods.md#CreateFeet) called which gives the entity a ground detector in the `feet` field. Additionally, all collisions between `feet`'s Collider and `internalcollider` are ignored.
+Any object of this type will have [CreateFeet](../../EntityControl/EntityControl%20Methods.md#createfeet) called which gives the entity a ground detector in the `feet` field. Additionally, all collisions between `feet`'s Collider and `internalcollider` are ignored.
 
 ## EntityControl.UpdateGround
 No friction change of the entity.`ccol` can occur with an object of this type because this object's Update can manage it instead.

@@ -46,13 +46,13 @@ From there, there is a guard clause where most of the logic of this method is pe
 #### RespawnPlayer main logic
 As for the main logic, all Hornable objects ([Dropplet](Dropplet.md) ice cubes) are gathered and for any of object type `IceCube` that is less than 4.5 away from this object's position + Vector3.up * 10.0, [ShatterDroppletIce](Dropplet.md#shatterdroppletice) is called on their `parent` dropplet.
 
-The camera is then frozen by placing the `camtarget` and `camtargetpos` to null followed by the `Bite` sound being played and the `Close` animation clip being played on the entity. This animation clip name corresponds to a [non standard animation](../../EntityControl/Animations/animstate.md#Non-standard-animations). All followers are teleported very close to the player using TeleportFollowers and a yield of 0.07 seconds occurs.
+The camera is then frozen by placing the `camtarget` and `camtargetpos` to null followed by the `Bite` sound being played and the `Close` animation clip being played on the entity. This animation clip name corresponds to a [non standard animation](../../EntityControl/Animations/animstate.md#non-standard-animations). All followers are teleported very close to the player using TeleportFollowers and a yield of 0.07 seconds occurs.
 
 After the yield, all the playerdata entities's `rigid` gets placed in kinematic mode. The player is then placed at this object's position, but very high in the air offscreen by having the y component be 1000.0 before the followers are teleported again using TeleportFollowers. From there, `vectordata[0].x` frames are yielded using a while loop and a temporary timer that decrements by the game's frametime before a frame is yielded until the timer is exhausted.
 
 From there, a fadeout to black is played with a speed of 0.1 and then, a second is yielded.
 
-Once this is over, the player's position is set to its `lastpos` field, the followers are teleported once again using TeleportFollowers and the entity of this object has its `Open` animation clip played. This is again a [non standard animation](../../EntityControl/Animations/animstate.md#Non-standard-animations). The camera is reset to default instantaneously and a frame is yieled.
+Once this is over, the player's position is set to its `lastpos` field, the followers are teleported once again using TeleportFollowers and the entity of this object has its `Open` animation clip played. This is again a [non standard animation](../../EntityControl/Animations/animstate.md#non-standard-animations). The camera is reset to default instantaneously and a frame is yieled.
 
 Finally, a fade in from black is done with a speed of 0.1 and all playerdata entities's `rigid` are taken out of kinematic mode.
 
