@@ -17,7 +17,7 @@ Dialogue mode is a superset of non dialogue mode. It allows access to every feat
 To accomplish this, dialogue mode has additional phases in the [SetText Life Cycle](Life%20Cycle.md):
 
 * [Dialogue setup](Life%20Cycle.md#dialogue-setup)
-* [Dialogue pre-processing](Life%20Cycle.md#dialogue-pre-processing)
+* [Dialogue pre-processing](Life%20Cycle.md#dialogue-preprocessing)
 * [Dialogue post-processing](Life%20Cycle.md#dialogue-post-processing)
 * [Dialogue Cleanup](Life%20Cycle.md#dialogue-cleanup)
 

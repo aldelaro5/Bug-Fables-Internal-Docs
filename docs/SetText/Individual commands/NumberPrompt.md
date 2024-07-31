@@ -75,7 +75,7 @@ To render each 12 options (the 10 digits, Confirm and Erase), the following is d
 * Start with the x and y position of the options be -2.25 and -0.25 respectively
 * Render the options such that for each options:
     * Have each text be |[choicewave](Choicewave.md),n,true| where n is the option index from 0 to 11. This is prepanded with menutext 42 (`Confirm`) for option 10 and menutext 74 (`Erase`) for option 11. Option 0-9 are the digits.
-    * Call [SetText](../SetText.md) in [non Dialogue mode](../Dialogue%20mode.md#non-dialoguie-mode) using the text prepanded with |[center](Center.md)\|:
+    * Call [SetText](../SetText.md) in [non Dialogue mode](../Dialogue%20mode.md#non-dialogue-mode) using the text prepanded with |[center](Center.md)\|:
         * [fonttype](../Notable%20states.md#fonttype) is `BubblegumSans`
         * no `linebreak`
         * no `tridimensional`
@@ -92,7 +92,7 @@ To render each 12 options (the 10 digits, Confirm and Erase), the following is d
 
 After the initial setup, the first refresh of the number prompt is performed. This will destroy the text in `npromptholder` and rerender using the one in [flagstring](../../Flags%20arrays/flagstring.md) 0 which will get updated periodically as digits are added in removed during the prompt handling. This also sets [flagvar](../../Flags%20arrays/flagvar.md) 4 to 0. As for the rendering of the number text itself, it is done via a SetText call in non [Dialogue mode](../Dialogue%20mode.md) with the text padded to the right with `_` to fit into `maxlength` prepended with |[center](Center.md)\|:
 
-- [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
+- [fonttype](../Notable%20states.md#fonttype) is `BubblegumSans`
 - no `linebreak`
 - no `tridimensional`
 - `position` is Vector3.zero.

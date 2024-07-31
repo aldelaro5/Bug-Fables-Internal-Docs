@@ -25,8 +25,8 @@ This is the heart of the auto line breaker. For each char in the input string:
         * If the line accumulator width + the word accumulator width exceeds `maxoffset`
             * Add an LF or a [line](../../Individual%20commands/Line.md) command if [singlebreak](../../Individual%20commands/Singlebreak.md) was seen to the result string
             * Set the line accumulator width to the start of the line:
-                * If [languageid](../../languageid.md) is `English`, unless map.`englishbreakfix` is true AND the [message](../../Notable%20states.md#message) lock is grabbed, this is 0 which is broken ([more details here](OrganiseLines%20Known%20Issues.md#not-counting-a-whole-word-s-width-after-the-first-line))
-                * Otherwise, this is the word accumulator which is only slightly wrong as it is missing a space gap ([more details here](OrganiseLines%20Known%20Issues.md#not-counting-a-trailing-space-s-width-after-the-first-line))
+                * If [languageid](../../languageid.md) is `English`, unless map.`englishbreakfix` is true AND the [message](../../Notable%20states.md#message) lock is grabbed, this is 0 which is broken ([more details here](OrganiseLines%20Known%20Issues.md#not-counting-a-whole-words-width-after-the-first-line))
+                * Otherwise, this is the word accumulator which is only slightly wrong as it is missing a space gap ([more details here](OrganiseLines%20Known%20Issues.md#not-counting-a-trailing-spaces-width-after-the-first-line))
             * Otherwise
                 * Add the word accumulator width to the line accumulator width
             * Append the accumulated word and a space to the result string

@@ -17,7 +17,7 @@ The [fonttype](Notable%20states.md#fonttype) parameter is overridden in some lan
 * `Japanese`: `Uzura`
 * `Korean`: `ONEMobilePOP`
 
-Then, the [textholder](Notable%20states.md#textholder.md) is initialized where its parent and position is set to their respective parameters. Finally, all line endings of the input string are normalized to LF if any were in CRLF and [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) is called if the linebreak parameter wasn't null.
+Then, the [textholder](Notable%20states.md#textholder) is initialized where its parent and position is set to their respective parameters. Finally, all line endings of the input string are normalized to LF if any were in CRLF and [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) is called if the linebreak parameter wasn't null.
 
 ## Dialogue setup
 

@@ -30,7 +30,7 @@ The HUD element is creating with a new UI object named `TokenBar` parented to th
 
 The counter is rendered using a SetText call where the object created earlier is the parent in [non Dialogue mode](../Dialogue%20mode.md#non-dialogue-mode) with the input string being |[sort](Sort.md),10||[color](Color.md),4||[dropshadow](Dropshadow.md),0.1,-0.1|" appended with the value of [flagvar](../../Flags%20arrays/flagvar.md) 27 padded with to 4 characters with 0s:
 
-* [fonttype](../Notable%20states.md#Notable%20states.md#fonttype): UNUSED ???
+* [fonttype](../Notable%20states.md#fonttype): UNUSED ???
 * No `linebreak`
 * No `tridimensional`
 * `position` of (-0.75, -0.4, 0.0)

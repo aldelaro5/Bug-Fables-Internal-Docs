@@ -1,6 +1,6 @@
 # Lock
 
-Force a grab on the [message](../Notable%20states.md#message.md) and the `minipause` locks.
+Force a grab on the [message](../Notable%20states.md#message) and the `minipause` locks.
 
 ## Syntax
 

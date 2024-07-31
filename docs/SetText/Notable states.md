@@ -3,7 +3,7 @@
 
 ## message
 
-A global flag on MainManager behaving like a lock that enforces the restriction that only one Dialogue mode call can execute at a given time. It is used to prevent behaviors to take place until its value is set to false. In Dialogue mode, this lock is set to true on [Dialogue setup](Life%20Cycle.md#dialogue%20setup) and released on [Dialogue Cleanup](Life%20Cycle.md##dialogue-cleanup).
+A global flag on MainManager behaving like a lock that enforces the restriction that only one Dialogue mode call can execute at a given time. It is used to prevent behaviors to take place until its value is set to false. In Dialogue mode, this lock is set to true on [Dialogue setup](Life%20Cycle.md#dialogue-setup) and released on [Dialogue Cleanup](Life%20Cycle.md#dialogue-cleanup).
 
 White it is possible to bypass it this restriction by ignoring the value of message, doing so has undefined behaviors.
 

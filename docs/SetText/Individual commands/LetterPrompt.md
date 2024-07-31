@@ -116,7 +116,7 @@ To render each options (the letters, Erase, Space and Confirm), the following is
     * Have the option text be |[choicewave](Choicewave.md),n,true| where n is `maxoptions`.
     * Increment `maxoptions`.
     * Call [SetText](../SetText.md) in non [Dialogue mode](../Dialogue%20mode.md) using the text with |[center](Center.md)\|:
-        * [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
+        * [fonttype](../Notable%20states.md#fonttype) is `BubblegumSans`
         * no `linebreak`
         * no `tridimensional`
         * `position` is (x, y, 0.0) where x and y are the current value of the option's positions.
@@ -138,7 +138,7 @@ After, the help text to the next letter prompt with the switch button is rendere
 
 After the initial setup, the first refresh of the letter prompt is performed. This will destroy the text in `npromptholder` and rerender using the one in [flagstring](../../Flags%20arrays/flagstring.md) 0 which will get updated periodically as letters are added or removed during the prompt handling. This also sets [flagvar](../../Flags%20arrays/flagvar.md) 4 to 0. As for the rendering of the text itself, it is done via a SetText call in non [Dialogue mode](../Dialogue%20mode.md) with the text padded to the right with `_` to fit into `maxlength` prepended with |[center](Center.md)\|:
 
-- [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
+- [fonttype](../Notable%20states.md#fonttype) is `BubblegumSans`
 - no linebreak
 - no tridimensional
 - position is Vector3.zero.

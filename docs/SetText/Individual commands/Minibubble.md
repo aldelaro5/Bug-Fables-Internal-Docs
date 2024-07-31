@@ -83,7 +83,7 @@ The parent of the transform is then set to the GUICamera with a localPosition of
 Finally, the SetText call is done in [non Dialogue mode](../Dialogue%20mode.md#non-dialogue-mode) with the `text` field as the input string:
 
 * `fonttype`: `BubblegumSans`
-* `linebreak`: 3.5 in `English` or 3.25 on any other language (this is to workaround the broken auto line breaker, see [OrganiseLines Known Issues > Not counting a whole word's width after the first line](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines%20Known%20Issues.md#not-counting-a-whole-word-s-width-after-the-first-line) for more details on why)
+* `linebreak`: 3.5 in `English` or 3.25 on any other language (this is to workaround the broken auto line breaker, see [OrganiseLines Known Issues > Not counting a whole word's width after the first line](../Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines%20Known%20Issues.md#not-counting-a-whole-words-width-after-the-first-line) for more details on why)
 * No `tridimensional`
 * `position`: (-1.55, 0.15)
 * No `cameraoffset`

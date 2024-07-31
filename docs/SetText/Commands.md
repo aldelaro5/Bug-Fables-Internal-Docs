@@ -136,7 +136,7 @@ There are 217 commands as of 1.1.2. Here are the different commands grouped by c
 |8|[End](Individual%20commands/End.md)|Signal to SetText to not wait for a confirmation input at the end after the input string has been fully processed|DIALOGUE MODE|
 |9|[Break](Individual%20commands/Break.md)|Wait for a confirmation input before resuming||
 |10|[Blank](Individual%20commands/Blank.md)|Clears the current textbox by freeing all letter slots and go at the start of the first line|BACKTRACK, INFLUENCES ORGANISELINES|
-|11|[Lock](Individual%20commands/Lock.md)|Force a grab on the [message](Notable%20states.md#message.md) and the `minipause` locks|UNUSED, DIALOGUE MODE|
+|11|[Lock](Individual%20commands/Lock.md)|Force a grab on the [message](Notable%20states.md#message) and the `minipause` locks|UNUSED, DIALOGUE MODE|
 |15|[Stopskip](Individual%20commands/Stopskip.md)|Forces a stop on the text skip if one was in progress|DIALOGUE MODE|
 |16|[Noskip](Individual%20commands/Noskip.md)|Forces a stop on the text skip if one was in progress and also prevents any text skip to occur from this point until it is allowed again|DIALOGUE MODE|
 |25|[Spd](Individual%20commands/Spd.md)|Set the wait time in seconds between letters||

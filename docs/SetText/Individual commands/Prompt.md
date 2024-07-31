@@ -77,7 +77,7 @@ While this command manages the creation and setup of the prompt, its handling is
 
 * `promptbox`: The 9box containing the prompt, created during processing using `xminsizeyoffset` and the texts obtained from `prompttexts` using separate SetText calls for each in [non Dialogue mode](../Dialogue%20mode.md#non-dialogue-mode). These calls are done with the following parameters:
     * The input string is the text value appended with |[choicewave](Choicewave.md),o| where o is the corresponding option index. 
-    * [fonttype](../Notable%20states.md#Notable%20states.md#fonttype) is `BubblegumSans`
+    * [fonttype](../Notable%20states.md#fonttype) is `BubblegumSans`
     * No `linebreak`
     * No `tridimensional`
     * `position` is (0.0 - `xminsize` - 0.1, `yoffset`, 0.0)
@@ -103,6 +103,6 @@ Once the prompt handling is complete, MainManager.Update will set [Text advance]
 
 ### Handling the chosen option
 
-When SetText is done yielding, the prompt will be handled immediately after in [Dialogue post-processing#Prompt handling](../Life%20Cycle.md#dialogue-post-processing-prompt-handling). To note, [flagvar](../../Flags%20arrays/flagvar.md) 0 being -555 is supposed to be false because this is the way the game can know it was a [letterprompt](LetterPrompt.md), but its value isn't written by this command. This may cause the [textbox](../Notable%20states.md#textbox) to unhide itself if a [letterprompt](LetterPrompt.md) was processed before.
+When SetText is done yielding, the prompt will be handled immediately after in [Prompt handling](../Life%20Cycle.md#prompt-handling). To note, [flagvar](../../Flags%20arrays/flagvar.md) 0 being -555 is supposed to be false because this is the way the game can know it was a [letterprompt](LetterPrompt.md), but its value isn't written by this command. This may cause the [textbox](../Notable%20states.md#textbox) to unhide itself if a [letterprompt](LetterPrompt.md) was processed before.
 
 After, processing continues as normal with a fresh input string once [Dialogue post-processing](../Life%20Cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.
