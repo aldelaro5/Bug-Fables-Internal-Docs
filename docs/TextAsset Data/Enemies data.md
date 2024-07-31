@@ -165,6 +165,7 @@ Finally, while all of the above describes the `exp` field itself, [CheckDead](..
     - If the `EXPBoost` [medal](../Enums%20and%20IDs/Medal.md) is equipped, `exp` increases by (`exp` * 0.50 ceiled which is basically 50% ceiled)
     - A result is determined from there (only the first one that applies is returned):
         - If [Flags](../Flags%20arrays/flags.md) 166 is true (during a B.O.S.S session in EX mode), the return is `exp` clamped from 0 to 5
+        - Otherwise, if `fixedexp` is true, `exp` is returned without any clamping
         - Otherwise, if the enemy is among [ChomperBrute](../Battle%20system/Enemy%20actions/Enemies/ChomperBrute.md), [ToeBitter](../Battle%20system/Enemy%20actions/Enemies/ToeBiter.md), [DeadLanderA](../Battle%20system/Enemy%20actions/Enemies/DeadLanderA.md), [DeadLanderB](../Battle%20system/Enemy%20actions/Enemies/DeadLanderB.md) or [DeadLanderG](../Battle%20system/Enemy%20actions/Enemies/DeadLanderG.md), the return is `exp` clamped from 0 to 20
         - Otherwise (neither of the above applied), the return is clamped from 0 to 15
 
