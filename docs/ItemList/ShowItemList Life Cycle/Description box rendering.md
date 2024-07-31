@@ -18,7 +18,7 @@
     * Set `listdescbox` as the 9Box created earlier.
 * If the currently selected quest isn't None:
       * Create the `listdescbox`.
-      * Render an image of the quest id `option`'s author using `librarysprites` from the index obtained in [BoardQuestData](../../TextAsset%20Data/BoardQuests%20data.md#BoardQuests%20data) which will have a name of `Image` and a tag of `Text`.
+      * Render an image of the quest id `option`'s author using `librarysprites` from the index obtained in [BoardQuestData](../../TextAsset%20Data/BoardQuests%20data.md#boardquests-data) which will have a name of `Image` and a tag of `Text`.
     * Calls [SetText](../../SetText/SetText.md) with the following in non [Dialogue mode](../../SetText/Dialogue%20mode.md):
         * `text`: |[size](../../SetText/Individual%20commands/size.md),0.75||[sort](../../SetText/Individual%20commands/Sort.md),1| + The `By:` from MenuText 104 + ` ` + The author of the quest id `option` obtained from `boardquestdata` + |[line](../../SetText/Individual%20commands/Line.md)\||[halfline](../../SetText/Individual%20commands/Halfline.md)\| + The `Difficulty:` from MenuText 105 + ` ` + |[Stars](../../SetText/Individual%20commands/Stars.md), + The amount of filled in stars of the quest id `option` obtained from `boardquestdata` + `|`.
         * `position`: (12, 0.35).
