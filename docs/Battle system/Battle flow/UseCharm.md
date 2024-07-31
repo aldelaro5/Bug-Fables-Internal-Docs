@@ -45,14 +45,14 @@ The logic here depends on the type:
 #### `AttackUp`
 
 - [StatEffect](../Visual%20rendering/StatEffect.md) is called on `playerdata[currentturn]` with type 0 (red up arrow)
-- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on `playerdata[currentturn]` giving the [AttackUp](../Actors%20states/BattleCondition/AttackUp.md) condition for 1 actor turn
+- [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on `playerdata[currentturn]` giving the [AttackUp](../Actors%20states/BattleCondition/AttackUp.md) condition for 1 main turn
 - The `StatUp` sound is played
 
 #### `DefenseUp`
 
 - All player party members whose `hp` is above 0 and aren't `eatenby` have the following happen to them:
     - [StatEffect](../Visual%20rendering/StatEffect.md) is called on the player party member with type 1 (blue up arrow)
-    - [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on the player party member giving the [DefenseUp](../Actors%20states/BattleCondition/DefenseUp.md) condition for 1 actor turn
+    - [SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) is called on the player party member giving the [DefenseUp](../Actors%20states/BattleCondition/DefenseUp.md) condition for 1 main turn
 - The `StatUp` sound is played
 
 #### `ExpUp`
