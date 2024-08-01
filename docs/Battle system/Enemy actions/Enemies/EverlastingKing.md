@@ -66,7 +66,7 @@ Move 3 is always (and only) used when `data[0]` is -3 or lower after a decrement
 
 As for move 1 and 2, the decision of which move to use is based on odds, but the odds changes depending if hardmode is true or false. Here are the odds in either situations:
 
-|Move|Odds when hardmode is true|Odds when hardmode is true|
+|Move|Odds when hardmode is false|Odds when hardmode is true|
 |---:|------|-----|
 |1|40%|60%|
 |2|60%|40%|
