@@ -126,9 +126,9 @@ This section only does something if the condition's turn counter just reached 0 
     - [StatEffect](../Visual%20rendering/StatEffect.md) is called on the battleentity with type 2 (red arrow down)
 - The actor's `isasleep` is set to whether or not the actor has the [Sleep](../Actors%20states/BattleCondition/Sleep.md) condition
 - The actor's `isnumb` is set to whether or not the actor has the [Numb](../Actors%20states/BattleCondition/Numb.md) condition
-- If `firststrike` is false, the actor's `turnsalive` or `turnssincedeath` is incremented (the one chosen depends on the `hp` being above 0)
+- If [firststrike](firststrike%20system.md) is false (the enemy party isn't performing a first strike), the actor's `turnsalive` or `turnssincedeath` is incremented (the one chosen depends on the `hp` being above 0)
 - If the actor has the [Freeze](../Actors%20states/BattleCondition/Freeze.md) or [EventStop](../Actors%20states/BattleCondition/EventStop.md) condition or their `isnumb` or `isasleep` is true, their `cantmove` is set to 0 (one action available) if they are a player party member (checked by having the `Player` tag), 1 (one turn before an action is available) if it's an enemy party member
-- Otherwise, if the actor's `hp` is above 0 and it's not a `firststrike`:
+- Otherwise, if the actor's `hp` is above 0 and it's not a [firststrike](firststrike%20system.md):
     - `cantmove` is decremented which passes a turn in the counter
     - If `moreturnnextturn` is above 0, `cantmove` is decreased by it followed by `moreturnnextturn` being set to 0
 - Otherwise, if the actor's `hp` is 0, `cantmove` is set to 0

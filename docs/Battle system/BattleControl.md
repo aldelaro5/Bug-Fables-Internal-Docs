@@ -15,6 +15,7 @@ Here are all the terms that will be used throughout the battle system documentat
 - `party`: Refers to either side of the battle (player or enemy)
 - `actor`: Refers to any party members no matter which side they are on
 - `action`: Refers to what an actor can do during the battle. In more concrete turn, anything that normally consumes an actor turn (usually through `cantmove`) counts as an action
+- `move`: Refer to a series of tasks an [enemy action](Enemy%20actions/Enemy%20actions.md) performs at the expense of others.
 - [player phase](Battle%20flow/Main%20turn%20life%20cycle.md#player-phase): Refers to the processing of all the player party's actions and all logic associated with it. More details in its documentation
 - [enemy phase](Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase): Refers to the processing of all the enemy party's actions and all logic associated with it. More details in its documentation
 - [turn end phase](Battle%20flow/Main%20turn%20life%20cycle.md#turn-end-phase): Refers to the special phase that happens after the player and enemy phases where the main turn is advanced and finished
@@ -91,6 +92,9 @@ When all the actor turns available are consumed, the actor needs to wait their a
 
 ### hitactions
 There is a notable exception to this flow: an enemy is able to do what's known as a [hitaction](Actors%20states/Enemy%20features.md#hitaction). A hitaction occurs when the field of the same name on the enemy party member is true which causes the next Update cycle to process a temporary DoAction call on the enemy while placing `enemy` to true. Check the documentation for more information on this feature.
+
+### The [firststrike](Battle%20flow/firststrike%20system.md) system
+Another exception to the main turn flow can occur during StartBattle where the enemy party is able to act before the player party. This is called a `firststrike`, check the documentation to learn more about how this system works.
 
 ## Damage pipeline
 During the course of the battle, damages might be processed for various reasons such as attacks or using an item. These damages are processed by the damage pipeline which has a single entry point: [DoDamage](Damage%20pipeline/DoDamage.md). This method takes in a target, an optional attacker belonging to the opposte party of the target (it is possible to have damages comes from no actor, but friendly fire attacks aren't possible) and a base amount to inflict. This amount may change for various reasons as part of the damage calculation logic which is held in [CalculateBaseDamage](Damage%20pipeline/CalculateBaseDamage.md). 

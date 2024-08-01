@@ -72,12 +72,12 @@ From there, the next phase depends on the entity itself. It can either be a play
 
 - If the entity has a `Player` tag, it's a player action
 - Otherwise, this is an enemy action, but there is a special case in which it will not be performed and the coroutine will skip to the post action phase if all of the following are true:
-    - `firststrike` is true
+    - [firststrike](../firststrike%20system.md) is true
     - The `DoublePain` [medal](../../../Enums%20and%20IDs/Medal.md) is not equipped
     - [flags](../../../Flags%20arrays/flags.md) 614 is false (HARDEST is inactive)
     - `actionid` is not 0 (this isn't the first enemy party member)
 
-NOTE: This enemy action exception never applies under normal gameplay. This is because `firststrike` is only true in the case where the enemy had the advantage when [StartBattle](../../StartBattle.md) was called and in that logic, DoAction is only called on the first enemy party member. This means that in practice, whenever `firststrike` is true, actionid should ALWAYS be 0. The exception clause can be considered dead logic.
+Effectively, it always allow the first `enemydata` to take their action during a `firststrike`, but other enemy party members requires to be on hardmode or HARDEST to act in a `firststrike`. Check the [firststrike](../firststrike%20system.md) documentation to learn more.
 
 ### Player action
 This phase applies only if the entity has a `Player` tag.
@@ -117,7 +117,7 @@ The actionid directly tells what action will be performed by a switch on it. Unl
 For more information on the player actions logic, consult the main [player actions](../../Player%20actions/Player%20actions.md) documentation page.
 
 ### Enemy action
-This phase applies if the entity doesn't have a `Player` tag unless it's not the first `enemydata` whenever `firststrike` is true, but as mentioned in the setup phase, this never happens under normal gameplay.
+This phase applies if the entity doesn't have a `Player` tag unless the enemy party member was denied their action during a [firststrike](../firststrike%20system.md).
 
 #### Enemy action setup
 This part of the enemy action phase occurs before any action is performed:
@@ -244,10 +244,10 @@ In either cases, they both end by setting all enemy party members's `lockpositio
     - If the enemy party member was performaning a [hitaction](../../Actors%20states/Enemy%20features.md#hitaction), `enemy` is set to false, giving control back to the player party
     - [EndEnemyTurn](../EndEnemyTurn.md) is called with the actionid
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
-- If this isn't a `firststrike`:
+- If this isn't a [firststrike](../firststrike%20system.md):
     - A [CheckDead](CheckDead.md) is done without storing the coroutine
-    - Otherwise, `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md)
-- If this isn't a `firststrike` and any enemy party member has their battleentity.`droproutine` in progress:
+- Otherwise, `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md)
+- If this isn't a [firststrike](../firststrike%20system.md) and any enemy party member has their battleentity.`droproutine` in progress:
     - `action` is set to true switching to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md)
     - `startdrop` is set to true which allows any existing enemy party members to fall during their `droproutine`
     - All frames are yielded while an enemy party member still has its battleentity.`droproutine` in progress (it also constantly set `startdrop` to true to make sure they can drop)

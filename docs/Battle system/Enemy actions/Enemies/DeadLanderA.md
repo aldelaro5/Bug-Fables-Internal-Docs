@@ -23,7 +23,7 @@ HardMode being true does the following changes:
 
 Move 2 is always used if all of the following conditions are fufilled:
 
-- `firststrike` is false (the enemy party isn't performing their first turn advantage)
+- [firststrike](../../Battle%20flow/firststrike%20system.md) is false (the enemy party isn't performing their first main turn advantage)
 - This enemy [position](../../Actors%20states/BattlePosition.md) wasn't `Underground` at the start of the action (before the pre move logic)
 - A 50% RNG check passes
 

@@ -96,7 +96,7 @@ This section happens for each player party member.
 
 Finally, if the `MiracleMatter` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped on the player party member, a revival process will occur, but it can only happen if on top of the medal being equipped, all the following are true:
 
-- This isn't a `firststrike` from the enemy party
+- This isn't a [firststrike](../firststrike%20system.md) from the enemy party
 - At least one player party member has its `hp` above 0 without being `eatenby`
 - `lockmmater` is false
 - The player party member has its `turnssincedeath` be at least (2 - amount of `MiracleMatter` equipped - 1) after clamping from 1 to 3 (essentially, at least 2 if only one is equipped, at least 1 if 2, at least 0 if more is equipped, but this case isn't possible under normal gameplay)

@@ -44,24 +44,24 @@ This resets some important state fields:
 This part only happens if adv is 3:
 
 - `enemy` is set to true (we temporarilly go into the [enemy phase](../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase))
-- `firststrike` is set to true
+- [firststrike](../Battle%20flow/firststrike%20system.md) is set to true
 - [UpdateAnim](../Visual%20rendering/UpdateAnim.md) is called
 - instance.`hudcooldown` is set to 10.0 which shows the main HP / TP HUD
 - instance.`showmoney` is set to -1.0 which hides the berry count HUD
 - `action` is set to true (enter an [uncontrolled flow](../Battle%20flow/Update%20flows/Uncontrolled%20flow.md))
 - [RefreshEnemyHP](../Visual%20rendering/RefreshEnemyHP.md) is called
 - 0.15 seconds are yielded
-- A [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) call is started on `enemydata[0]` with action 0
-- All frames are yielded while `action` is true until it goes to false (waits that DoAction is done)
+- A [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md) call is started on `enemydata[0]`
+- All frames are yielded while `action` is true until it goes to false. This yield doesn't just yield until DoAction is done because [Update](../Battle%20flow/Update.md) has priority over StartBattle as StartBattle is a coroutine. It will yield until 
 - `enemydata[0].tired` is set to 0
 - `enemydata[0].cantmove` is set to 0
 - `action` is set to true (goes back into an [uncontrolled flow](../Battle%20flow/Update%20flows/Uncontrolled%20flow.md))
 - A [CheckDead](../Battle%20flow/Action%20coroutines/CheckDead.md) is started with the coroutine being stored in `checkingdead`
 - All frames are yielded while `checkingdead` is in progress
-- All `enemydata` have their `tired` and `cantmove` set to 0
+- All `enemydata` have their `tired` and `cantmove` set to 0. NOTE: This is incorrect and it should been set to -[moves](../Actors%20states/Enemy%20features.md#moves) + 1. The overall effect of this error is enemies with a `moves` of 2 or above looses all, but one actor turn on the battle's first main turn
 - `currentturns` is set to -1
 - `action` is set to false (resets to a [uncontrolled flow](../Battle%20flow/Update%20flows/Uncontrolled%20flow.md))
-- `firststrike` is set to false
+- [firststrike](../Battle%20flow/firststrike%20system.md) is set to false
 - `enemy` is set to false (reset to be in the [player phase](../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase))
 - SetLastTurns is called which resets `lastturns` to a new array with the length being the amount of free players - 1 and all elements being -1
 

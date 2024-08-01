@@ -27,7 +27,7 @@ Move 4 is always used (and can only be used) when [position](../../Actors%20stat
 
 Move 3 usage is always considered first and it is used if all of the following conditions are fufilled:
 
-- The enemy party isn't doing a `firststrike`
+- The enemy party isn't doing a [firststrike](../../Battle%20flow/firststrike%20system.md)
 - This enemy doesn't have the [Taunted](../../Actors%20states/BattleCondition/Taunted.md) condition
 - A 49% RNG check passes
 
