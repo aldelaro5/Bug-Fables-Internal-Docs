@@ -28,8 +28,10 @@ private IEnumerator LongLeg(EntityControl entity, MainManager.BattleData target)
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1_a|target is a player party member|null|`playerdata[playertargetID]`|6|[Flip](../../Damage%20pipeline/AttackProperty.md)|empty array|`commandsuccess`|
+|1_a|target is a player party member|null|`playerdata[playertargetID]`|6|[Flip](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|empty array|`commandsuccess`|
 |1_b|target is an enemy party member|null|target enemy party member|6|[Flip](../../Damage%20pipeline/AttackProperty.md)|empty array|false|
+
+1: This property gets overriden to null in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) as the target is a player party member so it does nothing.
 
 Here is its logic:
 

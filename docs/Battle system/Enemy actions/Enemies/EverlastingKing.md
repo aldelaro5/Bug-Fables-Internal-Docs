@@ -459,8 +459,10 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
-|2|Happens after DoDamage 1 if the target's `hp` is still above 0 and either [HPPercent](../../Actors%20states/HPPercent.md) is lower than 0.6 or `data[2]` is 2 (this enemy went through both phase transitions)|This enemy|The same target as DoDamage 1|3|[Flip](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
+|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Flip](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|2|Happens after DoDamage 1 if the target's `hp` is still above 0 and either [HPPercent](../../Actors%20states/HPPercent.md) is lower than 0.6 or `data[2]` is 2 (this enemy went through both phase transitions)|This enemy|The same target as DoDamage 1|3|[Flip](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+
+1: This property gets overriden to null in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) as the target is a player party member so it does nothing.
 
 ### Logic sequence
 

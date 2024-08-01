@@ -324,7 +324,9 @@ This move always sets `dontusecharge` to true which means `charge` will not get 
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|null|`playerdata[playertargetID]` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|6|[Flip](../../Damage%20pipeline/AttackProperty.md)|empty array|`commandsuccess`|
+|1|Always happen|null|`playerdata[playertargetID]` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|6|[Flip](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|empty array|`commandsuccess`|
+
+1: This property gets overriden to null in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) as the target is a player party member so it does nothing.
 
 ### Logic sequence
 

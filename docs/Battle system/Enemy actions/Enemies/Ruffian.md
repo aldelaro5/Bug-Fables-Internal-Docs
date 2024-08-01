@@ -51,7 +51,9 @@ A single target arms slam attack.
 
 |#|Conditions|enemyid|walkstate|attackstate|attackstate2|damage|offset|property|shake|delay|sounds|dontgettarget|
 |-:|---------|-------|--------|------------|------------|------|-----|--------|-----|-----|------|-------------|
-|1|Always happen|This enemy|1 (`Walk`)|100|101|3|(1.5, 0.0, -0.1)|[Flip](../../Damage%20pipeline/AttackProperty.md)|0.075|0.5 seconds|`RuffianKickShake,RuffianKickSwing`|false|
+|1|Always happen|This enemy|1 (`Walk`)|100|101|3|(1.5, 0.0, -0.1)|[Flip](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|0.075|0.5 seconds|`RuffianKickShake,RuffianKickSwing`|false|
+
+1: This property gets overriden to null in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) as the target is a player party member so it does nothing.
 
 ### Logic sequence
 
