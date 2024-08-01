@@ -110,6 +110,8 @@ The target is invulnerable if any of the following is true:
 - It has the [Shield](../Actors%20states/BattleCondition/Shield.md) condition
 - It is a player party member with the [Numb](../Actors%20states/BattleCondition/Numb.md) condition and the `ShockTrooper` [medal](../../Enums%20and%20IDs/Medal.md) equipped
 
+NOTE: If the target is invulnerable, it will cause the weaknesshit and superguarded locals to remain with values of false. This can lead to missleading [ShowSuccessWord](../Visual%20rendering/ShowSuccessWord.md) later (see the block processing and player action commands sections below for details).
+
 ### `plating` expiration
 If the target doesn't have the [Shield](../Actors%20states/BattleCondition/Shield.md) condition, its `plating` is set to false. This allows the `plating` to not expire when hit while shielded.
 
@@ -154,8 +156,8 @@ The second case is an edge case where the only thing that happens is `hasblocked
 The first case is the standard one:
 
 - `hasblocked` is set to true (allows HardSeedVenus to give a `HardSeed` to the player if it gets called later as part of the enemy action)
-- If this is a non super block, [ShowComboMessage](../Visual%20rendering/ShowSuccessWord.md#showcombomessage) is called with target.battleentity as the entity and true as the block
-- Otherwise (meaning this was a super block):
+- If this is a non super block (or the target was invulnerable earlier), [ShowComboMessage](../Visual%20rendering/ShowSuccessWord.md#showcombomessage) is called with target.battleentity as the entity and true as the block. NOTE: If the target was invulnerable earlier, this will always count as a regular block because superguarded's value wasn't gathered from [CalculateBaseDamage](CalculateBaseDamage.md). The ShowComboMessage call can be missleading in such case because it can override the presentation of a previous `wordroutine` from a previous DoDamage call since the previous one gets destroyed. This can happen in cases like [PartyDamage](PartyDamage.md) or in any situations where multiple DoDamage calls happens close to each other. Essentially, it means that a super block when the target is invulnerable will be presented as if it was a regular block.
+- Otherwise (meaning this was a super block AND the target wasn't invulnerable earlier):
     - `combo` is set to 2
     - The `AtkSuccess` sound is played at 1.1 pitch and 0.6 volume if it wasn't playing already (or it was, but its time was past 0.1 seconds)
     - [ShowComboMessage](../Visual%20rendering/ShowSuccessWord.md#showcombomessage) is called with target.battleentity as the entity and false as the block
@@ -240,7 +242,7 @@ If the final amount of damages calculated earlier is higher than 0, target.`turn
 If `commandsuccess` is true and the attacker is a player party member:
 
 - `wordroutine` is stopped if it was in progress (followed by the destruction of `commandword` if it was)
-- `wordroutine` is set to a new [ShowSuccessWord](../Visual%20rendering/ShowSuccessWord.md) call with target.battleenetity as the t, without block and the super being the ref weaknessonhit value obtained from [CalculateBaseDamage](CalculateBaseDamage.md) done earlier (false if it wasn't called)
+- `wordroutine` is set to a new [ShowSuccessWord](../Visual%20rendering/ShowSuccessWord.md) call with target.battleenetity as the t, without block and the super being the ref weaknessonhit value obtained from [CalculateBaseDamage](CalculateBaseDamage.md) done earlier (false if it wasn't called). NOTE: If the target was invulnerable earlier, weaknessonhit will always be false since this information wasn't gathered by CalculateBaseDamage
 
 ### target.`hp` decrease and clamping
 target.`hp` gets decreased by the final amount of damage calculated earlier, but it also gets clamped after. The higher bound of the clamp is always target.`maxhp`, but the lower bound depends on some conditions.

@@ -32,3 +32,5 @@ This is a wrapper around ShowSuccessWord (without super) where `wordroutine` is 
 private void ShowComboMessage(EntityControl entity, bool block)
 ```
 The parameters are relayed as they are to ShowSuccessWord with false as super.
+
+NOTE: Since this destroys the `commandword`, it can lead to a situation where this can be missleading during [DoDamage's block processing](../Damage%20pipeline/DoDamage.md#block-processing). Check the documentation to learn more.
