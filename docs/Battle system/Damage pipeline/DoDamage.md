@@ -175,7 +175,7 @@ This part only happens if all of the following are true:
 In that case, the attacker will get damaged which goes like the following:
 
 - The `Damage0` sound is played with 0.8 pitch and 0.5 volume
-- The `hp` of the enemy party member corresponding to the attacker is decreased by 1 + the amount of `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) equipped on `Beetle` then clamped from 1 to its `maxhp` (this implies that this damage cannot be lethal)
+- The `hp` of the enemy party member corresponding to the attacker is decreased by 1 + the amount of `SpikeBod` [medals](../../Enums%20and%20IDs/Medal.md) equipped on `Beetle` then clamped from 1 to its `maxhp` (this implies that this damage cannot be lethal)
 - [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 0 (damage) with the amount of damage dealt just now starting from the attacker.battleentity's position + attacker.`cursoroffset` and ending to (0.0, 1.0, 1.0)
 
 #### `PoisonTouch` [medal](../../Enums%20and%20IDs/Medal.md) processing
