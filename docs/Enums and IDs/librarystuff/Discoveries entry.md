@@ -7,6 +7,8 @@ The entire `librarystuff` two dimensional array is saved on the [Save File](../.
 ## Discovery entries table
 The following table shows all discovery entries with their English names for convenience.
 
+NOTE: The ID is the actual internal index of `librarystuff`, but it isn't necessarily the displayed ID in game. For that, consult the [discoveryorder](../../TextAsset%20Data/Discoveries%20data.md#discoveryorder-data) which gives the displayed order by internal index.
+
 |ID|English Name|
 |-:|------------|
 |0|Snakemouth Den|
@@ -33,29 +35,29 @@ The following table shows all discovery entries with their English names for con
 |21|The Ant Mines|
 |22|Chomper Cavern|
 |23|The Power Plant|
-|24|The Bee Kingdom|
-|25|Balcony Telescope|
-|26|B.O.S.S.|
-|27|Defiant Root|
-|28|Relic Museum|
-|29|The Lost Sands|
-|30|Tardigrade Idol|
-|31|Bandit Hideout|
-|32|Stream Mountain|
-|33|Far Grasslands|
-|34|Fishing Village|
-|35|Wizard's Tower|
-|36|Far Swamplands|
-|37|Wasp Kingdom|
-|38|Forsaken Lands|
-|39|Ancient City|
-|40|Termite Kingdom|
-|41|Termite Statue|
-|42|Termite Coliseum|
-|43|Termacade|
-|44|Sailor's Statue|
-|45|Metal Island|
-|46|Spy Card|
-|47|Peacock Island|
-|48|Rubber Prison|
-|49|Giant's Lair|
+|24|Termite Statue|
+|25|The Bee Kingdom|
+|26|Balcony Telescope|
+|27|B.O.S.S.|
+|28|Defiant Root|
+|29|Relic Museum|
+|30|The Lost Sands|
+|31|Tardigrade Idol|
+|32|Bandit Hideout|
+|33|Stream Mountain|
+|34|Far Grasslands|
+|35|Fishing Village|
+|36|Wizard's Tower|
+|37|Far Swamplands|
+|38|Wasp Kingdom|
+|39|Forsaken Lands|
+|40|Ancient City|
+|41|Termite Kingdom|
+|42|Termacade|
+|43|Termite Coliseum|
+|44|Metal Island|
+|45|Spy Card|
+|46|Peacock Island|
+|47|Rubber Prison|
+|48|Giant's Lair|
+|49|Sailor's Statue|
