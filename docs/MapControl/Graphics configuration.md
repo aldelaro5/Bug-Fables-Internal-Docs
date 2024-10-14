@@ -1,0 +1,2 @@
+# Map graphics configuration
+TODO

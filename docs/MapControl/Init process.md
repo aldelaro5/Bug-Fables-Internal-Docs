@@ -1,4 +1,7 @@
-# MapControl Start
+# MapControl init process
+TODO
+
+## Start
 
 - Reset ScrewPlatform.`camischanging` to false so the camera won't be fixed somewhere else as the map initialises
 - MainManager.FixSamira called which removes the following Musics from instance.`samiramusics`:
@@ -81,3 +84,20 @@ The fog settings are configured with fields:
     - Build an array of CombineInstance where each mesh is each `Merge` GameObject's MeshFilter and each transform is the GameObject's world transform. During the course of building the array, all `Merge` GameObject are destroyed except the first one, but it will have its MeshRenderer destroyed (its materials will be stored)
     - Create a new GameObject named `merged mesh` with a MeshFilter containing a new Mesh then having CombineMeshes called on it with that new mesh using the CombineInstance array built earlier. The GameObject is childed to the first `Merge` GameObject with angles (-90.0, 180.0, 0.0) and uses layer 8 (`Ground`). It has a MeshRenderer using the materials stored from the first `Merge` GameObject. Fionally, it has a MeshCollider with a sharedMesh set to the MeshFilter's mesh
     - The MeshRenderer just added is added to `render`
+
+## First LateUpdate (`latestart`)
+
+- `tempfollowers` gets updated from instance.`extrafollowers`:
+    - If the object's name is `0` (only the case with the `TestRoom` map), MainManager.AddFollower is called with instance.`extrafollowers` without caller (so every followers is allowed)
+    - Otherwise, only the ones with an animid present in `canfollowID` will be added. When each is added, their `tempofollowerid` gets updated to the found `cantfollowID` index and their `onground` is set to false. If the animid is `Maki`, their `ccol` height is set to 3.0 and center to 1.5 in y. NOTE: `tempfollowerid` isn't set correctly because it's supposed to be `tempfollowers` index, NOT `canfollowID` index
+- If flag 402 is true (Chompy is with Team Snakemouth) and the player isn't in a `submarine`:
+    - MainManager.AddFollower is called with animid 169 (`ChompyChan`) without caller
+    - `chompy` is set to the follower that was just added, their `onground` is set to false and their `tempfollowerid` is set to the matching `tempfollowers` index
+- SetParticles called which, if MainManager.`particlelevel` is 0, will look for any GameObject with the `Particable` tag and disable all of them
+- PreloadSprites is invoked in 0.1 seconds which will set `entitysprite` to each of `entities`'s `sprite`'s texture
+- If `faderchange` is true:
+    - `faders` is set to all Fader in this map
+    - `fss` is set to all the enablement of all `faders`
+- SetPlayerColliders is invoked in 0.2 seconds which will find all the first collider of all GameObject with the tag `EntityOnly` and assign them to `entityonly`. These colliders gets their staticFriction and dynamicFriction set to 0.0 and all `playerdata` and `tempfollowers` entities ignores these colliders
+- `latestart` is set to true which blocks this logic from happening again
+

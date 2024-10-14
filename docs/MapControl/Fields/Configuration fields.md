@@ -1,15 +1,13 @@
-# MapControl fields
+# MapControl configuration fields
 
-## Configuration from prefab
-
-### Identification
+## Identification
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
 |mapid|MainManager.Maps|From prefab|The unique identifier of this map. Every map should have a different value set from the others|`TestRoom` (must be assigned to a unique value)|
 |areaid|MainManager.Areas|From prefab|The area this map belongs to. On Start, if this field is different than instance.areaid, UpdateArea is called|`BugariaOutskirts` (should be assigned to the logically accurate value)|
 
-### Camera
+## Camera
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
@@ -25,7 +23,7 @@
 |tetherYLerp|Vector3|From prefab|Only applies if `tieYtoplayer` is true and `camtarget` isn't null. This field contains the 3 parameters to a lerp operation to do on FixedUpdate to update `tetherdistance` if the x component is above 0. The lerp will be done from the x component to the y component with a factor of `camtarget` y position / the z component TODO: what does this do intuitively?|Vector3.zero|
 |tetherdistance|float|From prefab|If above 0 (meaning `tetherYLerp` took effect), this becomes the max radius from `actualcenter` the camera can be positioned at during RefreshCamera TODO: recheck why this restriction is needed on top of cam limits which would already do this|-1.0|
 
-### Graphics
+## Graphics
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
@@ -40,7 +38,7 @@
 |overrideskybox|bool|From prefab|If true, it prevents FixedUpdate to update the `_Rotation` shader property of the skybox. It also prevents any material's color to be updated in FixedUpdate when entering or exiting an inside|false|
 |skycolor|Color|From prefab|If a Fader is set to fade its GameObject's materials (forced to be the case if `faderchange` is true), this is the color tint to set the materials's colors to in RGB (the A component is ignored since Fader controls it)|Pure white|
 
-### Battles
+## Battles
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
@@ -51,7 +49,7 @@
 |nobattlemusic|bool|From prefab|If this is true, it will prevent StartBattle from changing the music. This is a way for a map to keep the music the game was already playing during the battle without interruption|false|
 
 
-### Music
+## Music
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
@@ -60,7 +58,7 @@
 |keepmusic|bool|From prefab|When this is true and instance.`inevent` is false, Music won't be called which means the current music playing won't change and `musicid`'s value won't be changed. Essentially, it prevents the music that was playing before loading this map from changing when loading this map|false|
 |musicflags|Vector2Int[]|From prefab|A list of directives to follow regardinig the assignement of `musicid` in the Music method. When not empty, `musicid` defaults to -1 followed by each element being processed in reverse order. The first one whose x component is either -1 or a flags slot that is true will be selected. When selected, `musicid` gets set to the y component's value and it will be used as the current music. If no suitable element is selected, `musicid` stays at -1 and the current music will fade into silence before it stops playing|Empty array|
 
-### Insides
+## Insides
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
@@ -71,7 +69,7 @@
 |tieinsidedoorentities|bool|From prefab|If this is true, when entering any inside via MoveInside, all DoorSameMap except the caller will have their `vectordata[4]` and `vectordata[5]` set to the ones from the caller which were just set to the instance.`camoffset` and instance.`camangleoffset` respectively. This effectively allows an inside to have multiple DoorSameMap leading to it, but still maintain camera fields consistency when exiting it from a different DoorSameMap than the one that was used to enter the inside|false|
 |fadingspeed|float|From prefab|The fraction of TieFramerate to use in FixedUpdate when updating `fadeammount` when entering or exiting an inside|0.2|
 
-### SetText
+## SetText
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
@@ -79,7 +77,7 @@
 |tattleid|int|From prefab|The SetText dialogue line id that will be used when pressing the Help input on this map away from an NPC|0|
 |englishbreakfix|bool|From prefab|If true, it changes OrganizeLines when instance.`languageid` is `English` for all SetText calls made in dialogue mode such that the fixed logic applies to fix the issue where the first word width of a line isn't counted in the line length accumulator. This is an optional fix the map needs to opt in because it can have unintended side effects as the entire English script was written with the expectation that this issue was always present|false|
 
-### Followers
+## Followers
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
@@ -87,7 +85,7 @@
 |followerylimit|float|From prefab|The maximum following distance (absolutely value) in y allowed for any entity following another. If the y distance between the entity and its followee gets higher than this value and we aren't in a `minipause`, the DoFollow of the entity will teleport them to their followee instantly. This should NEVER be negative because the distance is meant to be expressed as an absolute value|20.0|
 |closemove|bool|From prefab|This field if true allows the map to force the CloseMove entity follow logic of the player party. However, this field being true isn't alone to force the CloseMove logic: flag 401 needs to be true (during a stealth section) alongside the current map having this field set to true. NOTE: In practice, including some AreaSpecific logic, both are true when needed with the exception of the Bandit Hideout stealth section where flag 401 is true until exiting the first map of the stealth section (right after the event that starts it)|false|
 
-### Entities
+## Entities
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
@@ -97,7 +95,7 @@
 |keepobjectsactive|bool|From prefab|If this is true, LateUpdate won't update the enablement of too far away NPC and disable their `emoticon` every 2 frames (after `alivetime` reached 0.0)|false|
 
 
-### Miscellaneous
+## Miscellaneous
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
@@ -109,7 +107,7 @@
 |cantcompass|bool|From prefab|If this is true, the `AntCompass` key item cannot be used on this map|false|
 |autoevent|Vector2[]|From prefab|A list of events in the y component to automatically start the moment the flag slot of the x component is false. This is checked on each LateUpdate after the first one and when the event starts, the flag slot of the x component becomes true so it doesn't start the event again|Empty array|
 
-### Unused
+## Unused
 
 |Name|Type|Description|
 |---:|----|----------|
@@ -117,47 +115,3 @@
 |transferspeed|float|From prefab|UNUSED|0.2|
 |baseoutline|float|From prefab|UNUSED|20.0|
 
-
-## Public tracking fields
-
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|actualcenter|Vector3|From Start|The origin point of the map for the purpose of positioning the camera. If `rotatecam` is true, this is the point to look at. If it's false, this is the center of a circle with radius `tetherdistance` that the camera position must be in (this isn't enforced if `tetherdistance` isn't above 0.0 or in an inside)|Always set to `centerpoint` on Start|
-|entities|EntityControl[]|From Start (CreateEntities)|The list of NPCControl of this map which is initialised in CreateEntities from the map entity data of this map|Empty list|
-|dialogues|string[]|From Start|The list of SetText lines this map offers, read from the matching TextAsset data corresponding to the current instance.`languageid`|Empty list (only if the dialogue file couldn't be loaded)|
-|mapflags|bool[]|From Start|A list of flags whose value only live throughout the lifetime of this map. Only contains 10 slots all initialised to false|A new array of 10 elements, all set to false|
-|tempfollowers|List<EntityControl>|Always empty list initially|The current list of entities that is following the player party in the map including `chompy`|Always empty list initially|
-|mainrender|Renderer|From Start (has HideInInspector attribute)|The first Renderer component in the children of `mainmesh`, UNUSED|Always set by Start when not null (which is always the case)|
-|commandlines|string[]|From Start|The list of commands strings read from the matching TextAsset data if `useglobalcommand` is true|Empty array|
-|hiddenitem|int?|From Start when needed|The value is used like a flag where a null value is false and true for anything not null. This value is only set to true when the `Detector` medal should beep if equipped on the next applicable LateUpdate (not in a `pause`, `minipause`, `inevent` or `message`). It is not meant to have the value come from the prefab as the value can be set to 100 in CheckDisc when verifying the `discoveryids` values. This can be set externally to force the medal to beep|null|
-|chompy|EntityControl|From LateUpdate (`latestart`)|The entity corresponding to a special `tempfollowers` element with the `ChompyChan` animid. This follower is only added on the first LateUpdate when flag 402 is true (Chompy is with Team Snakemouth) and the player isn't in a `submarine`. If the follower is never added, this field remains null which the game can check for Chompy's presence. This value should NEVER be non null in the prefab or unexpected behaviors will occur|null|
-|musicrangemain|int|From Start (CreateEntities)|The map entity id of the last MusicRange defined in this map. This MusicRange is the only one that is allowed to control the music's volume. If multiple are defined, this field's value will be the last occurrence's id|-1|
-|samira|NPCControl|Not initialised|This field is meant for event 28 (talking to Samira) to assign the Samira's NPCControl to it. This allows this map to keep a reference so that on MoveInside, the game can make her stop playing her music playing animation if this field isn't null|null (meant to stay null until assigned)|
-|entitysprite|List<Texture2D>|0.1 seconds after the first LateUpdate|A list of all the NPCControl's entities's `sprite`'s texture. This list is kept for faster loading performance when loading the textures again|Empty list (meant to be assigned soon after Start)|
-|waterfloat|Hazards|Hazards's Start if called whode GameObject has a `WaterFloat` tag (has HideInInspector attribute)|This is a reference to the water Hazards which allows specific entities to move over it (as if they were floating over it) when allowed to. If multiple Hazards with a `WaterFloat` tag exists in the map, it is undefined which one will be selected as this value|null (meant to stay null unless a Hazards object exists under the map with a `WaterFloat` tag)|
-|latestart|bool|From the first LateUpdate (has HideInInspector attribute)|A way to track whether or not the first LateUpdate happened. The first LateUpdate contains special initialisation logic outside of Start and this field tracks if this logic already happened or not|false (meant to be set to true on the first LateUpdate)|
-|currentline|int|Not initialised|TODO: explain the command stuff|-1 (meant to stay with that value until needed)|
-|entityonly|Collider[]|From SetPlayerColliders which is invoked 0.2 seconds after the first LateUpdate|A list containing the first Collider of every GameObject with tag `EntityOnly`. Each of these colliders has their staticFriction and dynamicFriction set to 0.0 and are ignored by every `playerdata` and `tewpfollowers` entities TODO: more ???|Empty array, but this is always set to the needed value|
-|stencilid|int|From LateUpdate after the first one|The map entity id of the first StencilSwitch who isn't `iskill` and its `hit` is true. If none are present, the value is -1|-1 (this is meant to constantly get updated)|
-|lastwater|Hazards|From Hazards's Start if needed (has HideInInspector attribute)|This is set to the last Hazards of type `Water` or `Honey` (set on the Hazards's Start). If multiple Hazards of these types exists, this field is set to the last one whose Start was called|null|
-
-## Private fields
-
-|Name|Type|Description|
-|---:|----|----------|
-|tempcpos|Vector3|The value of `camlimitpos` when RemoveLimit was called with settemp. Used for restoring the value of `camlimitpos` in RestoreLimit with restoretemp|
-|tempcneg|Vector3|The value of `camlimitneg` when RemoveLimit was called with settemp. Used for restoring the value of `camlimitneg` in RestoreLimit with restoretemp|
-|tcpos|Vector3?|The value of `camlimitpos` when entering an inside. Used for restoring the value of `camlimitpos` in when exiting an inside TODO: recheck stuff|
-|tcneg|Vector3?|The value of `camlimitneg` when entering an inside. Used for restoring the value of `camlimitneg` in when exiting an inside TODO: recheck stuff|
-|refreshmats|bool|This is to track if it should be needed to restore the sharedMaterials of all `render` to `ogmat`. This defaults to true and is set to true only when `fadeammount` is updating due to an inside transition. Once the fading updates are done, this value will indicate on the next FixedUpdate that the materials should be restored. When the materials are restored, this is set to false so no materials changes will happen until the next inside transition|
-|windobjects|Renderer[]|Practically UNUSED because while it's used in RefreshWind, the method is unused and no one sets a value to this field. Since this is private, it can't be set from the prefab so this field doesn't influence anything|
-|originallimitneg|Vector3|The initial value of `camlimitneg` on Start|
-|originallimitpos|Vector3|The initial value of `camlimitpos` on Start|
-|faders|Fader[]|If `faderchange` is true, this gets assigned to all Fader in the map on the first LateUpdate|
-|fss|bool[]|If `faderchange` is true, this gets assigned to all Fader's enablement on the first LateUpdate|
-|render|MeshRenderer[]|All the MeshRenderer in the children of `mainmesh`|
-|fadeammount|float|An internal tracking value of the r, g and b that each `render` material colors should have updated to from FixedUpdate as the inside state changes. Starts at 1.0 which is fully colored|
-|ogmat|Material[][]|All the materials arrays of every `render` elements|
-|musicpreload|List<AudioClip>|A list of preloaded AudioClip gathered during CreateEntities by accumulating all the DoorSameMap's musics and preloading their AudioClip. This is a caching optimisation. Start always ensure it is not null|
-|digwall|Collider[]|All the first Collider component of every GameObject with the `DigWall` tag|
-|nocolorchange|bool|AreaSpecific may set this to true which prevents FixedUpdate from updating the `render` material color when entering or exiting an inside|
