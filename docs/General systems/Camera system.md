@@ -8,11 +8,13 @@ However, the current MapControl is what has the biggest influence on the camera 
 ## Camera structure
 The only scene the game uses is where the Cameras are defined in the game. It has the following GameObject structure (this is rooted from the scene):
 
+```
 -> MainCam
 ----> Main Camera
 -------> GUICamera
 ----------> RenderTexture (initially disabled)
 -------> 3DGUI
+```
 
 The camera system is mostly concerned with the "MainCam" object since it is a rooted object so moving or rotating it will cause changes to all the other cameras. In other words, moving or rotating this object is all that's needed to position and angle the camera. "Main Camera" is used to relatively displace the cameras by setting its local position.
 
