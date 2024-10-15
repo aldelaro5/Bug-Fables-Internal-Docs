@@ -34,7 +34,7 @@ Camera gets initialised with the following fields (the default value is picked i
 - instance.`battlestage` set to `battlemap` (this becomes the default stage to use on StartBattle if the stageid is -1)
 - The TextAsset of the map's dialogues is located and loaded with the following logic (all from the ressources directory):
     - If the map is `TestRoom`, the file is `Data/TestRoom`
-    - If it's not, the file path starts with `Data/Dialogues/X/Maps/` where `X` is the `languageid`. As for the actual filename within this directory:
+    - If it's not, the file path starts with `Data/DialoguesX/Maps/` where `X` is the `languageid`. As for the actual filename within this directory:
         - If `readdatafromothermap` is set to `TestRoom` (which means it was left at its default value), it's the string representation of `mapid`, otherwise, it's the `readdatafromothermap` one
 - If the dialogues file loaded sucessfully, `dialogues` is set to its data whose endlines are normalised to LF and split by LF
 - If `useglobalcommand` is true, `commandlines` is set to a file within `Data/Commands/` from the ressources directory. As for which file, if `readdatafromothermap` is set to `TestRoom` (which means it was left at its default value), it's the string representation of `mapid`, otherwise, it's the `readdatafromothermap` one
