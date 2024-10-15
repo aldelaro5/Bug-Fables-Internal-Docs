@@ -1,27 +1,34 @@
 # MapControl configuration fields
+These fields are meant to be initialised from a prefab's MapControl. The MapControl is meant to be attached to the root object and it allows to assign values to most of the public fields in the Unity Editor.
 
-## Identification
+Most fields are meant to be initialised this way (some may default to a value if they are optional). These fields are called configuration fields because they configure the game's behavior while on this map.
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|mapid|MainManager.Maps|From prefab|The unique identifier of this map. Every map should have a different value set from the others|`TestRoom` (must be assigned to a unique value)|
-|areaid|MainManager.Areas|From prefab|The area this map belongs to. On Start, if this field is different than instance.areaid, UpdateArea is called|`BugariaOutskirts` (should be assigned to the logically accurate value)|
+They are categorised by the specific documentation page describing the systems they are involved in.
 
-## Camera
+## [Identification](../Map%20identification.md)
+These fields are the bare minimum a map needs and can be considered the only required fields. They allow the game to identify the map and its logical group it belongs in.
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|camlimitneg|Vector3|From prefab|The lower limit of the camera's position for this map expressed in each axises|(-999.0, 0.0, -999.0)|
-|camlimitpos|Vector3|From prefab|The upper limit of the camera's position for this map expressed in each axises|(999.0, 999.0, 999.0)|
-|camangle|Vector3|From prefab|The initial instance.`camangleoffset` of the camera while on this map and the value set when ResetCamera is called while on this map|MainManager.`defaultcamangle` if the magnitude is 0.2 or lower|
-|camoffset|Vector3|From prefab|The initial instance.`camoffset` of the camera while on this map and the value set when ResetCamera is called while on this map|MainManager.`defaultcamoffset` if the magnitude is 0.2 or lower|
-|rotatecam|bool|From prefab|If true, it changes the camera movement to look at the `actualcenter` when RefreshCamera is called which overrides the normal movement logic|false|
-|centralpoint|Vector3|From prefab|The initial value of `actualcenter`. If `tieYtoplayer` is false or `camtarget` is null, this is effectively equivalent to `actualcenter`. Otherwise (`tieYtoplayer` is true and `camtarget` isn't null), the x and x components of `actualcenter` are equivalent to this field, but the y component gets overriden to the `camtarget` y position. Additionally, this field is the `center` of a Wind if its `owncenter` is false on its Start|Vector3.zero|
-|tieYtoplayer|bool|From prefab|When true, it causes the y component of `actualcenter` to be overriden in FixedUpdate to the `camtarget` y poisition if it's not null which effectively lets the camera follow its target in the y axis. If this field and `rotatecam` are true, the camera x angle is always set to 0.0 which fixes the x rotation in place|false|
-|roundways|Transform[]|From prefab|Only the first element matters. If the first element exists, `rotatecam` is true and we aren't in an inside, the corresponding Transform will be positioned relative to the camera's forward vector on FixedUpdate in x and z (the y component is always 5.0). TODO: explain intuitively how this works The position is multiplied by `lightoffset` before being set|Empty array|
-|lightoffset|float|From prefab|If `roundways[0]` exists, `rotatecam` is true and we aren't in an inside, this field will be a multiplier applied to the position to set `roundways[0]` in FixedUpdate|5.0|
-|tetherYLerp|Vector3|From prefab|Only applies if `tieYtoplayer` is true and `camtarget` isn't null. This field contains the 3 parameters to a lerp operation to do on FixedUpdate to update `tetherdistance` if the x component is above 0. The lerp will be done from the x component to the y component with a factor of `camtarget` y position / the z component TODO: what does this do intuitively?|Vector3.zero|
-|tetherdistance|float|From prefab|If above 0 (meaning `tetherYLerp` took effect), this becomes the max radius from `actualcenter` the camera can be positioned at during RefreshCamera TODO: recheck why this restriction is needed on top of cam limits which would already do this|-1.0|
+|Name|Type|Description|Default|
+|---:|----|----------|-------|
+|mapid|MainManager.Maps|The unique identifier of this map. Every map should have a different value set from the others|`TestRoom` (must be assigned to a unique value)|
+|areaid|MainManager.Areas|The area this map belongs to. On Start, if this field is different than instance.areaid, UpdateArea is called|`BugariaOutskirts` (should be assigned to the logically accurate value)|
+
+## [Camera system](../Camera%20system.md)
+These fields allows the configure the [main camera system](../../General%20systems/Camera%20system.md) while on this map.
+
+|Name|Type|Description|Default|
+|---:|----|----------|-------|
+|camoffset|Vector3|The initial instance.`camoffset` of the camera while on this map and the value set when ResetCamera is called while on this map|MainManager.`defaultcamoffset` if the magnitude is 0.2 or lower|
+|camangle|Vector3|The initial instance.`camangleoffset` of the camera while on this map and the value set when ResetCamera is called while on this map|MainManager.`defaultcamangle` if the magnitude is 0.2 or lower|
+|camlimitneg|Vector3|The lower limit of the camera's position for this map expressed in each axises|(-999.0, 0.0, -999.0)|
+|camlimitpos|Vector3|The upper limit of the camera's position for this map expressed in each axises|(999.0, 999.0, 999.0)|
+|rotatecam|bool|If true, it changes the camera movement to look at the `actualcenter` when RefreshCamera is called which overrides the normal movement logic|false|
+|centralpoint|Vector3|The initial value of `actualcenter` which is the center point of the radius limit. If `tieYtoplayer` is false or `camtarget` is null, this is effectively equivalent to `actualcenter`. Otherwise, the x and z components of `actualcenter` are equivalent to this field, but the y component gets overriden to the `camtarget` y position. Additionally, this field is the `center` of a Wind if its `owncenter` is false on its Start|Vector3.zero|
+|tieYtoplayer|bool|When true, it causes the y component of `actualcenter` to be overriden in FixedUpdate to the `camtarget` y poisition if it's not null which effectively lets the camera follow its target in the y axis. If this field and `rotatecam` are true on RefreshCamera, the camera x angle is always set to 0.0 which fixes the x rotation in place|false|
+|tetherdistance|float|If above 0, this becomes the max radius from `actualcenter` the camera can be positioned at during RefreshCamera via the radius limit|-1.0, but it is overriden if `tetherYLerp` x component is above 0.0|
+|tetherYLerp|Vector3|Only applies if `tieYtoplayer` is true and `camtarget` isn't null. This field contains the 3 parameters to a lerp operation to do on FixedUpdate to update `tetherdistance` if the x component is above 0. The lerp will be done from the x component to the y component with a factor of `camtarget` y position / the z component TODO: what does this do intuitively?|Vector3.zero|
+|roundways|Transform[]|Only the first element matters. If the first element exists, `rotatecam` is true and we aren't in an [inside](./Insides.md), the corresponding Transform will be positioned relative to the camera's forward vector on FixedUpdate in x and z (the y component is always 5.0). TODO: explain intuitively how this works The position is multiplied by `lightoffset` before being set|Empty array|
+|lightoffset|float|If `roundways[0]` exists, `rotatecam` is true and we aren't in an inside, this field will be a multiplier applied to the position to set `roundways[0]` in FixedUpdate|5.0|
 
 ## Graphics
 
