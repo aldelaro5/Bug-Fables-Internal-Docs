@@ -43,13 +43,7 @@ Camera gets initialised with the following fields (the default value is picked i
     - If `skyboxmat` exists, skybox gets set to it and if we aren't in an inside, its shader `_Tint` gets set to pure gray
     - Otherwise, skybox gets set to null and the `MainCamera`'s backgroundColor gets set to pure black
 - GetSkyColor called which just sets `skycolor`'s alpha to 1.0 (fully opaque)
-- If not `inevent` and `keepmusic` is false, Music is called which sets the music and initialises some music fields with the following:
-    - If there's no `music`, ChangeMusic is called with null (silence) at 0.1 fadespeed
-    - Otherwise:
-        - If there's `musicflags`, `musicid` is set to -1 followed by the processing of each music flag in reverse order:
-            - The first one with an x of -1 or an x of a flags slot that is true will be selected. Being selected means `musicid` will be set to the y component and the processing is over
-        - If `musicid` isn't negative, ChangeMusic is called with `music[musicid]` with 0.1 fadespeed followed by a CheckSamira call on `music[musicid]`
-        - Otherwise, ChangeMusic is called with null (silence)
+- If not `inevent` and `keepmusic` is false, [Music](Init%20methods/Music.md) is called which sets the music and initialises some music fields
 - CheckDisc is invoked in 1.0 seconds which will set `hiddenitem` to 100 (TODO: ???) if all of the following conditions are fufilled:
     - There's at least 1 `discoveryids`
     - The `Detector` medal is equipped

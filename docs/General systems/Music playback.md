@@ -3,7 +3,7 @@ This game offers many ways to configure how and what background music to play. A
 
 All music playback goes through a single audio source which is stored in MainManager.`music`. This means only one music can play at a given time and it has to go through this AudioSource because the game manages the music system using it. It differ from a sound which is meant to be played once and there might be multiple of them.
 
-This page talks about the music system in general, but a part of this system is managed by [MapControl's map music system](../MapControl/Music.md). Check the documentation there to learn more about MapControl's influence on the music system.
+This page talks about the music system in general, but a part of this system is managed by [MapControl's map music system](../MapControl/Map%20music.md). Check the documentation there to learn more about MapControl's influence on the music system.
 
 ## ChangeMusic
 The only way to play a music or to stop playing the one currently playing is via the MainManager.ChangeMusic method which there are several overloads to choose from.
@@ -46,7 +46,7 @@ public static void ChangeMusic(AudioClip musicclip, float fadespeed, int id, boo
 - (8): Calls (4) with musicclip being the result of loading the ressource asset at `Audio/Music/X` where `X` is musicclip (the fadespeed and id are passed as is). NOTE: This overload is functional, but is UNUSED and calling (7) directly has the same effect because the id should always be 0
 - (9) Calls (main) with musicclip being the result of loading the ressource asset at `Audio/Music/X` where `X` is musicclip (every other parameters are passed as is)
 
-(1) and (5) involve the configuration specific to [MapControl map music](../MapControl/Music.md).
+(1) and (5) involve the configuration specific to [MapControl map music](../MapControl/Map%20music.md).
 
 Since all of them ends up at (main), this will be what is documented.
 
@@ -114,3 +114,14 @@ On the first call, `musicloop` gets initialised with the TextAsset data. From th
 As for how it accesses the `musicloop` element, it's done via `lastmusic` which is only set by ChangeMusic. This allows to address the data by the [Musics](../Enums%20and%20IDs/Musics.md) id that matches the one currently playing.
 
 TODO: There are known issues with looping, recheck
+
+## CheckSamira
+SwitchMusic involves an important method that interacts with music playback and it involves instance.`samiramusics`. This array is saved on the [Save file](../External%20data%20format/Save%20File.md) and it contains all the available songs to purchase from Samira. CheckSamira allows to unlock one when it's being played for the first time by adding it to instance.`samiramusics` if it wasn't present.
+
+However, in practice, 5 [Musics](../Enums%20and%20IDs/Musics.md) are excluded. This is because on [MapControl](../MapControl/MapControl.md)'s Start, another method called FixSamira is called which will always remove these `Musics` from the array if they were present. Here are the `Musics` excluded:
+
+- `Title`
+- `Wind`
+- `Water`
+- `MachineHum`
+- `Breathing`
