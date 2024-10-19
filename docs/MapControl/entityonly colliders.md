@@ -1,2 +1,0 @@
-# `EntityOnly` colliders
-TODO
