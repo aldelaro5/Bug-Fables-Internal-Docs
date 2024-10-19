@@ -23,6 +23,9 @@ There is also the overload that takes a mapid integer parameter. This one allows
 
 Additionally, it's possible to call the [Music method](Init%20methods/Music.md) directly since it is public after setting `musicid` which would change the default and change the music accordingly.
 
+## Another way to play a different `music`
+It's possible to use a [MusicRange](../Entities/NPCControl/ObjectTypes/MusicRange.md) to have a spherical zone where another `music` plays using a different value of `musicid`. Check its documentation to learn more.
+
 ## About [insides](./Insides.md) transitions
 A [DoorSameMap](../Entities/NPCControl/ObjectTypes/DoorSameMap.md) can specify a [Musics](../Enums%20and%20IDs/Musics.md) id to change to when entering the inside. In that case, [MoveInside](Insides.md#moveinside) will call [ChangeMusic](../General%20systems/Music%20playback.md#changemusic) appropriately.
 

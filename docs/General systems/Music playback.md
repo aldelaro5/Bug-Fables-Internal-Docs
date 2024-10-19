@@ -89,7 +89,7 @@ Most of logic happens only if the musicclip isn't the same than the one in `musi
     - If in seamless mode, `sounds` gets fully stopped and `music[id]` takes over. `music[id]` time is set to the `sounds` one and `sounds` gets stopped with time set to 0.0 and loop to false
     - Otherwise, (not in seamless), `music[id]` time is set to 0.0 so it resets the playback from the begining followed by a frame yield
     - If `musicresume` is 0 or above (meaning that [StartBattle](../Battle%20system/StartBattle.md) recorded the time to resume the overworld music):
-        - `music[id]` time is set to `musicresume`
+        - `music[id]` time is set to `musicresume`. NOTE: This may be incorrect, see the section below for details on the music playback issue
         - `musicresume` is reset to -1.0
     - `music[id]` volume is set to `musicvolume`
     - `music[id]` plays
@@ -103,6 +103,19 @@ Regardless if a new music was played or not, the following is done after:
 - Yield for a frame
 - `musiccoroutine` is set to null which signals the rest of the game that the music switch is complete
 
+### Issue with `musicresume`
+This static value is heavily involved in an issue where it's possible the music where this resume feature is used isn't expected. This feature involves the `keepmusicafterbattle` setting where if enabled, this is how it's supposed to work normally:
+
+- On [StartBattle](../Battle%20system/StartBattle.md), as long as the current map contains `music` and its `musicid` isn't negative, battle.`overmusic` will be set to `music[0]`'s time. This records the timestamp to resume the overworld music that's to be played later
+- On [ReturnToOverworld](../Battle%20system/Battle%20flow/Terminal%20coroutines/ReturnToOverworld.md), if we aren't instance.`inevent`, it will set `musicresume` to battle.`overmusic`. This essentially slates the next ChangeMusic call to restore the music timestamp, but only on the next call where musicclip isn't null and isn't the same music than the one playing on `music[0]` at the moment. This is meant to be consumed right away because ReturnToOverworld also does a ChangeMusic to the overworld music
+- On the next SwitchMusic that applies, `music[0]` time is set to `musicresume` and then `musicresume` gets set back to -1. This not only restores the timestamp that was saved earlier, but it also resets the value so it's not used again until needed
+
+However, there is an edgecase that isn't handled correctly: if map.`nobattlemusic` is enabled on the map, the ChangeMusic call that normally happens on ReturnToOverworld won't consume the `musicresume` value. This is because since the music hasn't changed between the moment StartBattle was called and the moment ReturnToOverworld was called, the ChangeMusic call won't switch anything and the `musicresume` value is left dangling.
+
+The result is the next ChangeMusic call that happens on any musicclip that isn't null and isn't the current `music[0]` clip will have the timestamp restored. 
+
+However, this is unexpected: it's possible musicclip is a different AudioClip. It would mean the game can attempt to resume the playback, but at an incorrect or invalid timestamp. In the case of the latter, a Unity assertion will be logged as error, but it will be gracefully handled by not changing the time property of the AudioClip so the music starts playing from the start. In the case of the former however, it will result in the music playback starting from the middle instead of the start.
+
 ## Music looping
 The music are designed to be played in loop. The loop points are defined in the [LoopPoints TextAsset](../TextAsset%20Data/Musics%20data.md#looppoints-data). As for how it is done, it involves a private method on MainManager called LoopMusic which is only called by FixedUpdate.
 
@@ -112,8 +125,6 @@ On the first call, `musicloop` gets initialised with the TextAsset data. From th
 - The `music` time is at or past the ending timestamp
 
 As for how it accesses the `musicloop` element, it's done via `lastmusic` which is only set by ChangeMusic. This allows to address the data by the [Musics](../Enums%20and%20IDs/Musics.md) id that matches the one currently playing.
-
-TODO: There are known issues with looping, recheck
 
 ## CheckSamira
 SwitchMusic involves an important method that interacts with music playback and it involves instance.`samiramusics`. This array is saved on the [Save file](../External%20data%20format/Save%20File.md) and it contains all the available songs to purchase from Samira. CheckSamira allows to unlock one when it's being played for the first time by adding it to instance.`samiramusics` if it wasn't present.
