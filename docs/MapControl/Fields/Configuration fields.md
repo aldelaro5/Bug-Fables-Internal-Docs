@@ -55,7 +55,6 @@ These fields allows the configure the [main camera system](../../General%20syste
 |battleleafcolor|Color|From prefab|The default color of the visual transition of `battleleaftype` when StartBattle is called and adv isn't 3 (not an enemy party advantage)|Pure green|
 |nobattlemusic|bool|From prefab|If this is true, it will prevent StartBattle from changing the music. This is a way for a map to keep the music the game was already playing during the battle without interruption|false|
 
-
 ## Music
 
 |Name|Type|Init|Description|Default|
@@ -80,9 +79,9 @@ These fields allows the configure the [main camera system](../../General%20syste
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
-|useglobalcommand|bool|From prefab|Tells if the global commands system is enabled for this map. Since this system isn't complete in its implementation, this should normally not be true|false|
-|tattleid|int|From prefab|The SetText dialogue line id that will be used when pressing the Help input on this map away from an NPC|0|
-|englishbreakfix|bool|From prefab|If true, it changes OrganizeLines when instance.`languageid` is `English` for all SetText calls made in dialogue mode such that the fixed logic applies to fix the issue where the first word width of a line isn't counted in the line length accumulator. This is an optional fix the map needs to opt in because it can have unintended side effects as the entire English script was written with the expectation that this issue was always present|false|
+|useglobalcommand|bool|From prefab|Tells if the global commands system is enabled for this map. Since this system isn't complete in its implementation, this should normally not be true. See the section below for details|false|
+|tattleid|int|From prefab|The SetText [dialogue line id](../../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md) that will be used when pressing the Help input on this map away from an NPC|0|
+|englishbreakfix|bool|From prefab|If true, it changes OrganizeLines when instance.`languageid` is `English` for all SetText calls made in dialogue mode such that the fixed logic applies to fix the [whole word width line skip](../../SetText/Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines%20Known%20Issues.md#not-counting-a-whole-words-width-after-the-first-line). This is an optional fix the map needs to opt in because it can have unintended side effects as the entire English script was written with the expectation that this issue was always present|false|
 
 ## Followers
 
