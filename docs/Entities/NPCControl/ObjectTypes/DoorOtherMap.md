@@ -20,7 +20,7 @@ A loading zone to another map with customisable movement before and after the lo
 - `regionalflag`: If it's positive, it's the [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot that is set to true when the player collides with this object.
 - `activationflag`: If it's above 0, the [flag](../../../Flags%20arrays/flags.md) slot that is set to true when the player collides with this object. It is not possible to specify 0 and will be treated the same as not providing a value.
 
-## [CreateEntities](../../EntityControl/CreateEntities.md)
+## [CreateEntities](../../../MapControl/Init%20methods/CreateEntities.md)
 The `insideid` is set to -2 which excludes it from the MapControl.RefreshInsides logic where it could toggle the gameObject enablement if the current `insideid` didn't match (or entity.`hideinside` is true while being in the same `insideid`).
 
 ## Setup

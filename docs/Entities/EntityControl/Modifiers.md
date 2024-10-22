@@ -16,7 +16,7 @@ Here are all the modifiers that are known:
 |ALF|Sets `alwaysflip` to true on [Start](Start.md) which calls [UpdateFlip](Update%20process/UpdateFlip.md) every LateUpdate|
 |PAU|Sets `activeonpause` to true on [Start](Start.md) which allows the entity to receive updates and late updates on pause, minipause, [message](../../SetText/Notable%20states.md#message) lock and being dead|
 |HIDE|Sets `hideinside` to true on [Start](Start.md)|
-|ROT|LateAngle is called on [CreateEntities](CreateEntities.md) in 0.25 seconds to set the angle instead of setting it direction. It also sets `lockrotater` to true on [Start](Start.md) which locks the y angle of the rotater.|
+|ROT|LateAngle is called on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md) in 0.25 seconds to set the angle instead of setting it direction. It also sets `lockrotater` to true on [Start](Start.md) which locks the y angle of the rotater.|
 |ShwEm|Sets `alwaysemoticon` to true on [Start](Start.md)|
 |COG|Sets `startpos` to the point a raycast will hit from the transform heading down on [Start](Start.md)|
 |NGS|Sets `onground` to false which forces the GroundDetector to report the entity being in the air on [Start](Start.md)|

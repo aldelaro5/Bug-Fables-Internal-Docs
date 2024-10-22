@@ -11,7 +11,7 @@ A spherical radius that when the player enters it, changes the current music pla
 - `vectordata[0].z`: The max volume multiplier when fading in the music
 - `vectordata[1]`: OVERRIDEN. The x to 0.0 and the y / z to the end and begin loop points respectively of the [music](../../../Enums%20and%20IDs/Musics.md) whose id is `data[2]`
 
-## [CreateEntities](../../EntityControl/CreateEntities.md)
+## [CreateEntities](../../../MapControl/Init%20methods/CreateEntities.md)
 The `musicrangeanim` of the map is set to the map entity id being created here. This means the last music range defined in the map will be allowed control the volume of the main music playing in that music range's Update.
 
 ## Setup
