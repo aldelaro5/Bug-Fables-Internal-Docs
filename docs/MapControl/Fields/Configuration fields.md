@@ -49,20 +49,20 @@ These fields allows the configure the [main camera system](../../General%20syste
 
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
-|battlemap|MainManager.BattleMaps|From prefab|The default BattleMaps to use when BattleControl.StartBattle is called on this map with a stageid of -1. This is also the default BattleMaps used for a CardBattle started with a mapid of -1|`Grasslands1` (should be assigned to the logically accurate value)|
-|battleleaftype|BattleLeafType|From prefab|The type of transition to use on this map when StartBattle is called which differs visually. If the value is `Bee`, the `BattleStart3` sound will play instead of `BattleStart0`|`Common`|
-|expmulti|float|From prefab|An EXP amount multiplier that affects the EXP scaling of GetEXP while called on this map. This should NEVER be negative or unexpected behaviors can occur|1.0|
-|battleleafcolor|Color|From prefab|The default color of the visual transition of `battleleaftype` when StartBattle is called and adv isn't 3 (not an enemy party advantage)|Pure green|
-|nobattlemusic|bool|From prefab|If this is true, it will prevent StartBattle from changing the music. This is a way for a map to keep the music the game was already playing during the battle without interruption|false|
+|battlemap|MainManager.BattleMaps|From prefab|The default BattleMaps to use when BattleControl.[StartBattle](../../Battle%20system/StartBattle.md) is called on this map with a stageid of -1. This is also the default BattleMaps used for a CardBattle started with a mapid of -1|`Grasslands1` (should be assigned to the logically accurate value)|
+|battleleaftype|BattleLeafType|From prefab|The type of transition to use on this map when [StartBattle](../../Battle%20system/StartBattle.md) is called which differs visually. If the value is `Bee`, the `BattleStart3` sound will play instead of `BattleStart0`|`Common`|
+|expmulti|float|From prefab|An EXP amount multiplier that affects the EXP scaling of MainManager.[GetEXP](../../TextAsset%20Data/Enemies%20data.md#exp-logic) while called on this map. This should NEVER be negative or unexpected behaviors can occur|1.0|
+|battleleafcolor|Color|From prefab|The default color of the visual transition of `battleleaftype` when [StartBattle](../../Battle%20system/StartBattle.md) is called and adv isn't 3 (not an enemy party advantage)|Pure green|
+|nobattlemusic|bool|From prefab|If this is true, it will prevent [StartBattle](../../Battle%20system/StartBattle.md) from changing the music. This is a way for a map to keep the music the game was already playing during the battle without interruption. NOTE: This field is involved in the [music playback issue](../../General%20systems/Music%20playback.md#issue-with-musicresume)|false|
 
 ## Music
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
+|Name|Type|Description|Default|
+|---:|----|----------|-------|
 |music|AudioClip[]|The list of AudioClip this map has access to play as background music. If the array is empty, the current music will fade int silence and stop playing|Empty array|
 |musicid|int|The default `music` index to use as the background music, but it can be overriden if `musicflags` isn't empty. If `musicflags` isn't empty, it defaults to -1 before having the value be determined by `musicflags` (or stays at -1 if no element is selected). Regardless of `musicflags`, if the value ends up at -1, the current music will fade into silence before it stops playing|0 (-1 if `musicflags` isn't empty)|
-|keepmusic|bool|When this is true and instance.`inevent` is false, Music won't be called by Start which means the current music playing won't change and `musicid`'s value won't be changed. Essentially, it prevents the music that was playing before loading this map from changing when loading this map|false|
-|musicflags|Vector2Int[]|A list of directives to follow regardinig the assignement of `musicid` in the Music method (called by Start). When not empty, `musicid` defaults to -1 followed by each element being processed in reverse order. The first one whose x component is either -1 or a [flags](../../Flags%20arrays/flags.md) slot that is true will be selected. When selected, `musicid` gets set to the y component's value and it will be used as the current music. If no suitable element is selected, `musicid` stays at -1 and the current music will fade into silence before it stops playing|Empty array|
+|keepmusic|bool|When this is true and instance.`inevent` is false, [Music](../Init%20methods/Music.md) won't be called by Start which means the current music playing won't change and `musicid`'s value won't be changed. Essentially, it prevents the music that was playing before loading this map from changing when loading this map|false|
+|musicflags|Vector2Int[]|A list of directives to follow regardinig the assignement of `musicid` in the [Music](../Init%20methods/Music.md) method. When not empty, `musicid` defaults to -1 followed by each element being processed in reverse order. The first one whose x component is either -1 or a [flags](../../Flags%20arrays/flags.md) slot that is true will be selected. When selected, `musicid` gets set to the y component's value and it will be used as the current music. If no suitable element is selected, `musicid` stays at -1 and the current music will fade into silence before it stops playing|Empty array|
 
 ## Insides
 
