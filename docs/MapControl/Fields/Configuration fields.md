@@ -96,9 +96,9 @@ These fields allows the configure the [main camera system](../../General%20syste
 |Name|Type|Init|Description|Default|
 |---:|----|----|----------|-------|
 |ylimit|float|From prefab (may be overriden by Hazard's Start)|A lower bound limit of the y position of entities in the map. If a player or map entity's y position gets lower than this value, they will respawn. The value is overriden to -150.0 if there's a Hazard present with a `type` of `Hole` due to its Start logic|-50.0|
-|icemap|bool|From prefab|If this is true, the entire map is treated as an ice map meaning every entity's Start marks their `inice` to true, Enemy NPCControl won't thaw out and PushRock configured as sliding ice cube are allowed to be moved|false|
+|icemap|bool|From prefab|If this is true, the entire map is treated as an ice map meaning every entity's Start marks their `inice` to true which has several ice related changes|false|
 |limitbehavior|bool|From prefab|If this is true, it restricts more what is considered an active NPCControl. For Update, it changes the maximum z `campos` allowed before becoming inactive from 25.0 to 15.0. For LateUpdate, it mandates that the entity is `incamera` for `inrange` updates to happen|false|
-|keepobjectsactive|bool|From prefab|If this is true, LateUpdate won't update the enablement of too far away NPC and disable their `emoticon` every 2 frames (after `alivetime` reached 0.0)|false|
+|keepobjectsactive|bool|From prefab|If this is true, LateUpdate won't update the enablement of too far away NPCControl and disable their `emoticon` every 2 frames (after `alivetime` reached 0.0)|false|
 
 
 ## Miscellaneous
