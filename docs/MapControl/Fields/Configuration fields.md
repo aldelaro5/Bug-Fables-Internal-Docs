@@ -32,28 +32,28 @@ These fields allows the configure the [main camera system](../../General%20syste
 
 ## Graphics
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|screeneffect|ScreenEffects|From prefab|If this is `SunRaysTopRight`, inside SetScreenEffect, a new `Prefabs/Particles/SunRay` is instantiated childed to the `GUICamera` with a local position of (9.0, 7.0, 10.0) without rotations|`None`|
-|skyboxmat|Material|From prefab|The skybox material to use for this map when this field isn't null (also will have its shader `_Tint` set to pure gray when not in an inside). If this field is null, skybox is set to null (so no skybox ), but MainManager.`MainCamera`.backgroundColor will be set to pure black|null|
-|fogend|float|From prefab|The starting value of RenderSettings.fogEndDistance|300.0|
-|fogcolor|Color|From prefab|The starting value of RenderSettings.fogColor|Pure white|
-|globallight|Color|From prefab|The starting value of RenderSettings.ambientLight|Pure gray|
-|windspeed|float|From prefab|Configures the range of values possible for the `_ShakeDisplacement` shader property of a material using the MainManager.`windshader`. This shader is only used during the SetUp of a BeetleGrass when MainManager.`nowindeffect` is false where the grass will get this shader as its `sprite`'s material. The shader property will have a random value that range from `X` / 2.0 to `X` where `X` is the value of this field|0.2|
-|windintensity|float|From prefab|Configures the range of values possible for the `_ShakeBending` shader property of a material using the MainManager.`windshader`. This shader is only used during the SetUp of a BeetleGrass when MainManager.`nowindeffect` is false where the grass will get this shader as its `sprite`'s material. The shader property will have a random value that range from `X` / 2.0 to `X` where `X` is the value of this field|0.2|
-|faderchange|bool|From prefab|If true, all Fader will fade all their Renderer instead of culling them completely. Also, on Start, `faders` and `fss` gets their initialised on the first LateUpdate which are used in LateUpdate to reset all the sharedMaterials, shadowCastingMode and sharedMaterials's renderQueue of all disabled Fader's renders that were initially enabled TODO: figure out what exactly this logic does, it's very off and compares ref between materials and sharedMaterials which seems wrong, was changed in 1.1.0 beta rev13|false|
-|overrideskybox|bool|From prefab|If true, it prevents FixedUpdate to update the `_Rotation` shader property of the skybox. It also prevents any material's color to be updated in FixedUpdate when entering or exiting an inside|false|
-|skycolor|Color|From prefab|If a Fader is set to fade its GameObject's materials (forced to be the case if `faderchange` is true), this is the color tint to set the materials's colors to in RGB (the A component is ignored since Fader controls it)|Pure white|
+|Name|Type|Description|Default|
+|---:|----|----------|-------|
+|fogend|float|The starting value of RenderSettings.fogEndDistance|300.0|
+|fogcolor|Color|The starting value of RenderSettings.fogColor|Pure white|
+|screeneffect|ScreenEffects|If this is `SunRaysTopRight`, inside SetScreenEffect, a new `Prefabs/Particles/SunRay` is instantiated childed to the `GUICamera` with a local position of (9.0, 7.0, 10.0) without rotations|`None`|
+|skyboxmat|Material|The skybox material to use for this map when this field isn't null (also will have its shader `_Tint` set to pure gray when not in an inside). If this field is null, skybox is set to null (so no skybox), but MainManager.`MainCamera`.backgroundColor will be set to pure black|null|
+|overrideskybox|bool|If true, it prevents FixedUpdate to update the `_Rotation` shader property of the skybox. It also prevents any material's color to be updated in FixedUpdate when entering or exiting an inside. NOTE: It is NOT recommended to set this to true because it has unintended side effects with [insides](../Insides.md)|false|
+|globallight|Color|The starting value of RenderSettings.ambientLight|Pure gray|
+|windspeed|float|Configures the range of values possible for the `_ShakeDisplacement` shader property of a material using the MainManager.`windshader`. This shader is only used during the SetUp of a [BeetleGrass](../../Entities/NPCControl/ObjectTypes/BeetleGrass.md) when MainManager.`nowindeffect` is false where the grass will get this shader as its `sprite`'s material. The shader property will have a random value that range from `X` / 2.0 to `X` where `X` is the value of this field. NOTE: Because this property is unused in that shader, this value effectively does nothing. The intended property was likely `_ShakeWindspeed` which would have configured the speed of the shaking, but it is not configurable under normal gameplay|0.2|
+|windintensity|float|Configures the range of values possible for the `_ShakeBending` shader property of a material using the MainManager.`windshader` (this property controls the amount of warping to apply to the object as a result of the wind). This shader is only used during the SetUp of a [BeetleGrass](../../Entities/NPCControl/ObjectTypes/BeetleGrass.md) when MainManager.`nowindeffect` is false where the grass will get this shader as its `sprite`'s material. The shader property will have a random value that range from `X` / 2.0 to `X` where `X` is the value of this field|0.2|
+|faderchange|bool|If true, all Fader will fade all their Renderer instead of culling them completely. Also, on Start, `faders` and `fss` gets their initialised on the first LateUpdate which are used in LateUpdate to reset all the sharedMaterials, shadowCastingMode and sharedMaterials's renderQueue of all disabled Fader's renders that were initially enabled|false|
+|skycolor|Color|If a Fader is set to fade its GameObject's materials (forced to be the case if `faderchange` is true), this is the color tint to set the materials's colors to in RGB (the A component is ignored since Fader controls it)|Pure white|
 
 ## Battles
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|battlemap|MainManager.BattleMaps|From prefab|The default BattleMaps to use when BattleControl.[StartBattle](../../Battle%20system/StartBattle.md) is called on this map with a stageid of -1. This is also the default BattleMaps used for a CardBattle started with a mapid of -1|`Grasslands1` (should be assigned to the logically accurate value)|
-|battleleaftype|BattleLeafType|From prefab|The type of transition to use on this map when [StartBattle](../../Battle%20system/StartBattle.md) is called which differs visually. If the value is `Bee`, the `BattleStart3` sound will play instead of `BattleStart0`|`Common`|
-|expmulti|float|From prefab|An EXP amount multiplier that affects the EXP scaling of MainManager.[GetEXP](../../TextAsset%20Data/Enemies%20data.md#exp-logic) while called on this map. This should NEVER be negative or unexpected behaviors can occur|1.0|
-|battleleafcolor|Color|From prefab|The default color of the visual transition of `battleleaftype` when [StartBattle](../../Battle%20system/StartBattle.md) is called and adv isn't 3 (not an enemy party advantage)|Pure green|
-|nobattlemusic|bool|From prefab|If this is true, it will prevent [StartBattle](../../Battle%20system/StartBattle.md) from changing the music. This is a way for a map to keep the music the game was already playing during the battle without interruption. NOTE: This field is involved in the [music playback issue](../../General%20systems/Music%20playback.md#issue-with-musicresume)|false|
+|Name|Type|Description|Default|
+|---:|----|-----------|-------|
+|battlemap|MainManager.BattleMaps|The default BattleMaps to use when BattleControl.[StartBattle](../../Battle%20system/StartBattle.md) is called on this map with a stageid of -1. This is also the default BattleMaps used for a CardBattle started with a mapid of -1|`Grasslands1` (should be assigned to the logically accurate value)|
+|battleleaftype|BattleLeafType|The type of transition to use on this map when [StartBattle](../../Battle%20system/StartBattle.md) is called which differs visually. If the value is `Bee`, the `BattleStart3` sound will play instead of `BattleStart0`|`Common`|
+|expmulti|float|An EXP amount multiplier that affects the EXP scaling of MainManager.[GetEXP](../../TextAsset%20Data/Enemies%20data.md#exp-logic) while called on this map. This should NEVER be negative or unexpected behaviors can occur|1.0|
+|battleleafcolor|Color|The default color of the visual transition of `battleleaftype` when [StartBattle](../../Battle%20system/StartBattle.md) is called and adv isn't 3 (not an enemy party advantage)|Pure green|
+|nobattlemusic|bool|If this is true, it will prevent [StartBattle](../../Battle%20system/StartBattle.md) from changing the music. This is a way for a map to keep the music the game was already playing during the battle without interruption. NOTE: This field is involved in the [music playback issue](../../General%20systems/Music%20playback.md#issue-with-musicresume)|false|
 
 ## Music
 
@@ -66,52 +66,52 @@ These fields allows the configure the [main camera system](../../General%20syste
 
 ## Insides
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|hideinsides|bool|From prefab|If this is true, all `insides` that doesn't match the current one will be disabled. This will also disable any entity with `hideinside` set to true whose `insideid` doesn't match the current one. This is only used in the `AntTunnels` [map](../../Enums%20and%20IDs/Maps.md) to hide the break room part of the map|false|
-|insides|GameObject[]|From prefab|The list of GameObject in this map that is considered an interior part and will get special treatment during rendering and include special transition managed by DoorSameMap map entities. TODO: check more info|Empty array|
-|insidetypes|InsideType[]|From prefab (may be resized on Start)|This is meant to be a matching array for `insides` and each matching element corresponds to the sound that will play when entering or exiting the inside. This field's string value is the prefix to the sound's name: when entering the inside, the name of the sound that will play ends with `DoorEnter` and when exiting it, it will end with `DoorExit`. Concatenating this field's string value as the prefix gives the full sound name to play when entering or exiting the inside|Empty array, but if the length doesn't match `insides` on Start, it is reset to be an array with the same length, but with all values left to `Stretch`|
-|setinsidecenter|bool|From prefab|If this is true, whenener RefreshInsides is called, instance.`camtarget` will be set to the current inside's transform after entering one and set back to MainManager.`player`'s transform when exiting one|false|
-|tieinsidedoorentities|bool|From prefab|If this is true, when entering any inside via MoveInside, all DoorSameMap except the caller will have their `vectordata[4]` and `vectordata[5]` set to the ones from the caller which were just set to the instance.`camoffset` and instance.`camangleoffset` respectively. This effectively allows an inside to have multiple DoorSameMap leading to it, but still maintain camera fields consistency when exiting it from a different DoorSameMap than the one that was used to enter the inside|false|
-|fadingspeed|float|From prefab|The fraction of TieFramerate to use in FixedUpdate when updating `fadeammount` when entering or exiting an inside|0.2|
+|Name|Type|Description|Default|
+|---:|----|-----------|-------|
+|hideinsides|bool|If this is true, all `insides` that doesn't match the current one will be disabled. This will also disable any entity with `hideinside` set to true whose `insideid` doesn't match the current one. This is only used in the `AntTunnels` [map](../../Enums%20and%20IDs/Maps.md) to hide the break room part of the map|false|
+|insides|GameObject[]|The list of GameObject in this map that is considered an interior part and will get special treatment during rendering and include special transition managed by DoorSameMap map entities. TODO: check more info|Empty array|
+|insidetypes|InsideType[]|This is meant to be a matching array for `insides` and each matching element corresponds to the sound that will play when entering or exiting the inside. This field's string value is the prefix to the sound's name: when entering the inside, the name of the sound that will play ends with `DoorEnter` and when exiting it, it will end with `DoorExit`. Concatenating this field's string value as the prefix gives the full sound name to play when entering or exiting the inside|Empty array, but if the length doesn't match `insides` on Start, it is reset to be an array with the same length, but with all values left to `Stretch`|
+|setinsidecenter|bool|If this is true, whenener RefreshInsides is called, instance.`camtarget` will be set to the current inside's transform after entering one and set back to MainManager.`player`'s transform when exiting one|false|
+|tieinsidedoorentities|bool|If this is true, when entering any inside via MoveInside, all DoorSameMap except the caller will have their `vectordata[4]` and `vectordata[5]` set to the ones from the caller which were just set to the instance.`camoffset` and instance.`camangleoffset` respectively. This effectively allows an inside to have multiple DoorSameMap leading to it, but still maintain camera fields consistency when exiting it from a different DoorSameMap than the one that was used to enter the inside|false|
+|fadingspeed|float|The fraction of TieFramerate to use in FixedUpdate when updating `fadeammount` when entering or exiting an inside|0.2|
 
 ## SetText
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|useglobalcommand|bool|From prefab|Tells if the global commands system is enabled for this map. Since this system isn't complete in its implementation, this should normally not be true. See the section below for details|false|
-|tattleid|int|From prefab|The SetText [dialogue line id](../../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md) that will be used when pressing the Help input on this map away from an NPC|0|
-|englishbreakfix|bool|From prefab|If true, it changes OrganizeLines when instance.`languageid` is `English` for all SetText calls made in dialogue mode such that the fixed logic applies to fix the [whole word width line skip](../../SetText/Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines%20Known%20Issues.md#not-counting-a-whole-words-width-after-the-first-line). This is an optional fix the map needs to opt in because it can have unintended side effects as the entire English script was written with the expectation that this issue was always present|false|
+|Name|Type|Description|Default|
+|---:|----|-----------|-------|
+|useglobalcommand|bool|Tells if the global commands system is enabled for this map. Since this system isn't complete in its implementation, this should normally not be true. See the section below for details|false|
+|tattleid|int|The SetText [dialogue line id](../../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md) that will be used when pressing the Help input on this map away from an NPC|0|
+|englishbreakfix|bool|If true, it changes OrganizeLines when instance.`languageid` is `English` for all SetText calls made in dialogue mode such that the fixed logic applies to fix the [whole word width line skip](../../SetText/Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines%20Known%20Issues.md#not-counting-a-whole-words-width-after-the-first-line). This is an optional fix the map needs to opt in because it can have unintended side effects as the entire English script was written with the expectation that this issue was always present|false|
 
 ## Followers
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|canfollowID|int[]|From prefab|The animIDs that are allowed to follow the player party on this map when present in instance.`extrafollowers`. This restriction is ignored if the GameObject's name is `0` (which is normally only the case for the `TestRoom`)|Empty array|
-|followerylimit|float|From prefab|The maximum following distance (absolutely value) in y allowed for any entity following another. If the y distance between the entity and its followee gets higher than this value and we aren't in a `minipause`, the DoFollow of the entity will teleport them to their followee instantly. This should NEVER be negative because the distance is meant to be expressed as an absolute value|20.0|
-|closemove|bool|From prefab|This field if true allows the map to force the CloseMove entity follow logic of the player party. However, this field being true isn't alone to force the CloseMove logic: flag 401 needs to be true (during a stealth section) alongside the current map having this field set to true. NOTE: In practice, including some AreaSpecific logic, both are true when needed with the exception of the Bandit Hideout stealth section where flag 401 is true until exiting the first map of the stealth section (right after the event that starts it)|false|
+|Name|Type|Description|Default|
+|---:|----|-----------|-------|
+|canfollowID|int[]|The animIDs that are allowed to follow the player party on this map when present in instance.`extrafollowers`. This restriction is ignored if the GameObject's name is `0` (which is normally only the case for the `TestRoom`)|Empty array|
+|followerylimit|float|The maximum following distance (absolutely value) in y allowed for any entity following another. If the y distance between the entity and its followee gets higher than this value and we aren't in a `minipause`, the DoFollow of the entity will teleport them to their followee instantly. This should NEVER be negative because the distance is meant to be expressed as an absolute value|20.0|
+|closemove|bool|This field if true allows the map to force the CloseMove entity follow logic of the player party. However, this field being true isn't alone to force the CloseMove logic: flag 401 needs to be true (during a stealth section) alongside the current map having this field set to true. NOTE: In practice, including some AreaSpecific logic, both are true when needed with the exception of the Bandit Hideout stealth section where flag 401 is true until exiting the first map of the stealth section (right after the event that starts it)|false|
 
 ## Entities
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|ylimit|float|From prefab (may be overriden by Hazard's Start)|A lower bound limit of the y position of entities in the map. If a player or map entity's y position gets lower than this value, they will respawn. The value is overriden to -150.0 if there's a Hazard present with a `type` of `Hole` due to its Start logic|-50.0|
-|icemap|bool|From prefab|If this is true, the entire map is treated as an ice map meaning every entity's Start marks their `inice` to true which has several ice related changes|false|
-|limitbehavior|bool|From prefab|If this is true, it restricts more what is considered an active NPCControl. For Update, it changes the maximum z `campos` allowed before becoming inactive from 25.0 to 15.0. For LateUpdate, it mandates that the entity is `incamera` for `inrange` updates to happen|false|
-|keepobjectsactive|bool|From prefab|If this is true, LateUpdate won't update the enablement of too far away NPCControl and disable their `emoticon` every 2 frames (after `alivetime` reached 0.0)|false|
+|Name|Type|Description|Default|
+|---:|----|-----------|-------|
+|ylimit|float|A lower bound limit of the y position of entities in the map. If a player or map entity's y position gets lower than this value, they will respawn. The value is overriden to -150.0 if there's a Hazard present with a `type` of `Hole` due to its Start logic|-50.0|
+|icemap|bool|If this is true, the entire map is treated as an ice map meaning every entity's Start marks their `inice` to true which has several ice related changes|false|
+|limitbehavior|bool|If this is true, it restricts more what is considered an active NPCControl. For Update, it changes the maximum z `campos` allowed before becoming inactive from 25.0 to 15.0. For LateUpdate, it mandates that the entity is `incamera` for `inrange` updates to happen|false|
+|keepobjectsactive|bool|If this is true, LateUpdate won't update the enablement of too far away NPCControl and disable their `emoticon` every 2 frames (after `alivetime` reached 0.0)|false|
 
 
 ## Miscellaneous
 
-|Name|Type|Init|Description|Default|
-|---:|----|----|----------|-------|
-|mainmesh|Transform|From prefab|The transform containing the "main" mesh which can be used as a reference point to other objects of the map|The first child of MapControl if null|
-|discoveryids|int[]|From prefab|The list of discovery ids that this map contains. The ones whose flags are still false becomes detectable by the `Detector` medal when equipped (except if the `mapid` is `TermiteIndustrial` while the player z position is less than 20.0 where no discoveries can be detected)|Empty array|
-|readdatafromothermap|MainManager.Maps|From prefab|When set to any value other than `TestRoom`, it will cause Start to read the `dialogues`, `commandlines` and `entities` TextAsset data from that map instead of the ones from `mapid`|`TestRoom`|
-|preloadobjs|GameObject[]|From prefab|A dummy list of GameObject that allows to preemptively load prefabs so they can be cached if they get loaded again. This only holds references, the actual GameObjects aren't used from this field|Empty array|
-|alivetime|float|From prefab|The amount of frames (excluding the first one) before LateUpdate is allowed to update the faders (???) and some specific NPCControl every 2 frames (DoorOtherMap and NPC)|20.0|
-|cantcompass|bool|From prefab|If this is true, the `AntCompass` key item cannot be used on this map|false|
-|autoevent|Vector2[]|From prefab|A list of events in the y component to automatically start the moment the flag slot of the x component is false. This is checked on each LateUpdate after the first one and when the event starts, the flag slot of the x component becomes true so it doesn't start the event again|Empty array|
+|Name|Type|Description|Default|
+|---:|----|-----------|-------|
+|mainmesh|Transform|The transform containing the "main" mesh which can be used as a reference point to other objects of the map|The first child of MapControl if null|
+|discoveryids|int[]|The list of discovery ids that this map contains. The ones whose flags are still false becomes detectable by the `Detector` medal when equipped (except if the `mapid` is `TermiteIndustrial` while the player z position is less than 20.0 where no discoveries can be detected)|Empty array|
+|readdatafromothermap|MainManager.Maps|When set to any value other than `TestRoom`, it will cause Start to read the `dialogues`, `commandlines` and `entities` TextAsset data from that map instead of the ones from `mapid`|`TestRoom`|
+|preloadobjs|GameObject[]|A dummy list of GameObject that allows to preemptively load prefabs so they can be cached if they get loaded again. This only holds references, the actual GameObjects aren't used from this field|Empty array|
+|alivetime|float|The amount of frames (excluding the first one) before LateUpdate is allowed to update the faders (???) and some specific NPCControl every 2 frames (DoorOtherMap and NPC)|20.0|
+|cantcompass|bool|If this is true, the `AntCompass` key item cannot be used on this map|false|
+|autoevent|Vector2[]|A list of events in the y component to automatically start the moment the flag slot of the x component is false. This is checked on each LateUpdate after the first one and when the event starts, the flag slot of the x component becomes true so it doesn't start the event again|Empty array|
 
 ## Unused
 
