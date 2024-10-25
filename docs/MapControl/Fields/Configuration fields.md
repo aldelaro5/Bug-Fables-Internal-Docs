@@ -87,9 +87,9 @@ These fields allows the configure the [main camera system](../../General%20syste
 
 |Name|Type|Description|Default|
 |---:|----|-----------|-------|
-|canfollowID|int[]|The animIDs that are allowed to follow the player party on this map when present in instance.`extrafollowers`. This restriction is ignored if the GameObject's name is `0` (which is normally only the case for the `TestRoom`)|Empty array|
-|followerylimit|float|The maximum following distance (absolutely value) in y allowed for any entity following another. If the y distance between the entity and its followee gets higher than this value and we aren't in a `minipause`, the DoFollow of the entity will teleport them to their followee instantly. This should NEVER be negative because the distance is meant to be expressed as an absolute value|20.0|
-|closemove|bool|This field if true allows the map to force the CloseMove entity follow logic of the player party. However, this field being true isn't alone to force the CloseMove logic: flag 401 needs to be true (during a stealth section) alongside the current map having this field set to true. NOTE: In practice, including some AreaSpecific logic, both are true when needed with the exception of the Bandit Hideout stealth section where flag 401 is true until exiting the first map of the stealth section (right after the event that starts it)|false|
+|canfollowID|int[]|The [animIDs](../../Enums%20and%20IDs/AnimIDs.md) that are allowed to follow the player party on this map when present in instance.`extrafollowers`. This restriction is ignored if the GameObject's name is `0` (which is normally only the case for the `TestRoom` [map](../../Enums%20and%20IDs/Maps.md))|Empty array|
+|followerylimit|float|The maximum following distance (absolutely value) in y allowed for any entity following another. If the y distance between the entity and its followee gets higher than this value and we aren't in a `minipause`, the [DoFollow](../../Entities/EntityControl/Notable%20methods/Follow.md#dofollow) of the entity will teleport them to their followee instantly. This should NEVER be negative because the distance is meant to be expressed as an absolute value|20.0|
+|closemove|bool|This field if true allows the map to force the CloseMove entity follow logic of the player party. NOTE: The influence of this fiels is extremely complex and inconsistent, primarily during the `BanditHideout` stealth section, more details can be found in the [follower system](../Follower%20system.md) documentation|false|
 
 ## Entities
 
