@@ -105,13 +105,13 @@ These fields allows the configure the [main camera system](../../General%20syste
 
 |Name|Type|Description|Default|
 |---:|----|-----------|-------|
-|mainmesh|Transform|The transform containing the "main" mesh which can be used as a reference point to other objects of the map|The first child of MapControl if null|
-|discoveryids|int[]|The list of discovery ids that this map contains. The ones whose flags are still false becomes detectable by the `Detector` medal when equipped (except if the `mapid` is `TermiteIndustrial` while the player z position is less than 20.0 where no discoveries can be detected)|Empty array|
-|readdatafromothermap|MainManager.Maps|When set to any value other than `TestRoom`, it will cause Start to read the `dialogues`, `commandlines` and `entities` TextAsset data from that map instead of the ones from `mapid`|`TestRoom`|
+|mainmesh|Transform|The transform containing the "main" mesh which is a major reference points for the map. It determines the default value of `mainrender` (the Renderer of `mainmesh`) and the value of `render` (all the Renderer childed under `mainmesh`)|The first child of MapControl if null|
+|discoveryids|int[]|The list of [discovery](../Enums%20and%20IDs/librarystuff/Discoveries%20entry.md) ids that this map contains. The ones whose flags are still false becomes detectable by the `Detector` [medal](../Enums%20and%20IDs/Medal.md) when equipped (except if the `mapid` is the `TermiteIndustrial` [map](../Enums%20and%20IDs/Maps.md) while the player z position is less than 20.0 where no discoveries can be detected)|Empty array|
+|readdatafromothermap|MainManager.Maps|From prefab|When set to any value other than `TestRoom`, it will cause Start to read the `dialogues`, `commandlines` and `entities` TextAsset data from that map instead of the ones from `mapid`|`TestRoom`|
 |preloadobjs|GameObject[]|A dummy list of GameObject that allows to preemptively load prefabs so they can be cached if they get loaded again. This only holds references, the actual GameObjects aren't used from this field|Empty array|
-|alivetime|float|The amount of frames (excluding the first one) before LateUpdate is allowed to update the faders (???) and some specific NPCControl every 2 frames (DoorOtherMap and NPC)|20.0|
-|cantcompass|bool|If this is true, the `AntCompass` key item cannot be used on this map|false|
-|autoevent|Vector2[]|A list of events in the y component to automatically start the moment the flag slot of the x component is false. This is checked on each LateUpdate after the first one and when the event starts, the flag slot of the x component becomes true so it doesn't start the event again|Empty array|
+|alivetime|float|The amount of frames (excluding the first one) before LateUpdate is allowed to restore the disabled, but initially enabled [Fader](Graphics%20configuration.md#fader-control) and also to update the enablement of [DoorOtherMap](../Entities/NPCControl/ObjectTypes/DoorOtherMap.md) and [NPC](../Entities/NPCControl/NPC.md) (including their `emoticon`) |20.0|
+|cantcompass|bool|If this is true, the `AntCompass` [key item](../Enums%20and%20IDs/Items.md) cannot be used on this map|false|
+|autoevent|Vector2[]|A list of [events](../Enums%20and%20IDs/Events.md) in the y component to automatically start the moment the [flag](../Flags%20arrays/flags.md) slot of the x component is false. This is checked on each LateUpdate after the first one and when the event starts, the flag slot of the x component becomes true so it doesn't start the event again|Empty array|
 
 ## Unused
 
