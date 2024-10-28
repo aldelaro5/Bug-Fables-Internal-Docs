@@ -186,7 +186,7 @@ This happens regardless if we entered or exited an inside:
 - Yield all frames until MainManager.`musiccoroutine` is null (in case entering the inside caused a music change)
 - The `minipause` is ended
 
-### RefresInsides
+### RefreshInsides
 A method that handles updating the map's state after instance.`insideid` changes. It should always and only be called once that value changes. It is involved in MoveInside described above, but the game can call it manually to perform custom inside transitions.
 
 ```cs
