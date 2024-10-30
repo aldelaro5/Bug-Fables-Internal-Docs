@@ -12,8 +12,8 @@ The [camera system](../General%20systems/Camera%20system.md) is greatly influenc
 |tieYtoplayer|bool|When true, it causes the y component of `actualcenter` to be overriden in FixedUpdate to the `camtarget` y poisition if it's not null which effectively lets the camera follow its target in the y axis. If this field and `rotatecam` are true on RefreshCamera, the camera x angle is always set to 0.0 which fixes the x rotation in place|false|
 |tetherdistance|float|If above 0, this becomes the max radius from `actualcenter` the camera can be positioned at during RefreshCamera via the radius limit|-1.0, but it is overriden if `tetherYLerp` x component is above 0.0|
 |tetherYLerp|Vector3|Only applies if `tieYtoplayer` is true and `camtarget` isn't null. This field contains the 3 parameters to a lerp operation to do on FixedUpdate to update `tetherdistance` if the x component is above 0. The lerp will be done from the x component to the y component with a factor of `camtarget` y position / the z component. NOTE: This feature is complicated, see the section below for details|Vector3.zero|
-|roundways|Transform[]|Only the first element matters. If the first element exists, `rotatecam` is true and we aren't in an [inside](./Insides.md), the corresponding Transform will be positioned relative to the camera's forward vector on FixedUpdate in x and z (the y component is always 5.0). TODO: explain intuitively how this works The position is multiplied by `lightoffset` before being set|Empty array|
-|lightoffset|float|If `roundways[0]` exists, `rotatecam` is true and we aren't in an inside, this field will be a multiplier applied to the position to set `roundways[0]` in FixedUpdate|5.0|
+|roundways|Transform[]|Only the first element matters. If the first element exists, `rotatecam` is true and we aren't in an [inside](./Insides.md), the corresponding Transform will be positioned relative to the camera's forward vector on FixedUpdate in x and z (the y component is always 5.0). The position is multiplied by `lightoffset` before being set. NOTE: This is very specific to the `AntTunnels` [map](../Enums%20and%20IDs/Maps.md)|Empty array|
+|lightoffset|float|If `roundways[0]` exists, `rotatecam` is true and we aren't in an inside, this field will be a multiplier applied to the position to set `roundways[0]` in FixedUpdate. NOTE: This is very specific to the `AntTunnels` [map](../Enums%20and%20IDs/Maps.md)|5.0|
 
 Most of the camera system is actually managed by MainManager via some fields that act as a state machine and via the RefreshCamera method which is invoked on FixedUpdate (after LoadEverything is done).
 
@@ -62,4 +62,10 @@ Other than `WizardTowerStairs`, the only other map that technically uses this fe
 In the end, it is not recommended to use this feature and to instead configure the map properly. The `actualcenter`'s y value already correctly follows the `camtarget`'s y so it is not necessary to apply such a questionable workaround.
 
 ### `roundways[0]`
-TODO: need to intuitively understands how this works before explaining it
+This configuration field is not really a feature, but more a specific implementation of a moving light present in the `AntTunnels` [map](Init%20methods/AreaSpecific.md#anttunnels).
+
+It only cares about the first element of the array and it only positions it in a way that make sense specifically on this map. This implies it's not a feature meant to be used on any other map. In that map, `roundways[0]` is a point light that needs to move such that it is aligned with the `MainCamera`'s forward vector such that it is positioned towards it from the origin in x/z (the y is hardcoded to be 5.0). This also involved another specific field to this map: `lightoffset` which scales the whole vector.
+
+The math is incorrect and wrong, but it does overall achieve the effect of moving alongside the camera in a relatively aligned fashion. It allows the map to have this moving light effect.
+
+However, it is not meant to be used on any other map and it also assumes the map it is used is a `rotatecam` one which `AntTunnel` happens to be. Using this feature on any other map can have unintended consequences.
