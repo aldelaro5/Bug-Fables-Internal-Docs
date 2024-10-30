@@ -41,7 +41,7 @@ If it's true when entering an inside, every DoorSameMap in the map has their `ve
 ## `hideinsides`
 If this field is true, all `insides` that doesn't match the current one will be disabled. This will also disable any entity with `hideinside` set to true whose `insideid` doesn't match the current one.
 
-This is only used in the `AntTunnels` [map](../../Enums%20and%20IDs/Maps.md) to hide the break room part of the map
+This is only used in the `AntTunnels` [map](../Enums%20and%20IDs/Maps.md) to hide the break room part of the map
 
 ## `setinsidecenter`
 If this is true, it overrides the camera system more by setting instance.`camtarget` to the `insides`'s transform when entering it. It will be reset to the `player`'s transform when exiting the inside

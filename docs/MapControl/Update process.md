@@ -37,7 +37,7 @@ It is decreased by 1.0 and no further logic happens from here. Essentially, it b
 
 - If `tieYtoplayer` is true while instance.`camtarget` isn't null (the camera is following a transform):
     - `actualcenter` is set to `centralpoint`, but the y is instance.`camtarget` y position
-    - If `tetherYLerp`.x is higher than 0.0, `tetherdistance` is set to a lerp from `tetherYLerp`.x to `tetherYLerp`.y with a factor of instance.`camtarget` y position / `tetherYLerp`.z. NOTE: This is complicated, see the [tetherYLerp details](../Camera%20system.md#more-details-on-tetherylerp) section in the camera system page for more details
+    - If `tetherYLerp`.x is higher than 0.0, `tetherdistance` is set to a lerp from `tetherYLerp`.x to `tetherYLerp`.y with a factor of instance.`camtarget` y position / `tetherYLerp`.z. NOTE: This is complicated, see the [tetherYLerp details](Camera%20system.md#more-details-on-tetherylerp) section in the camera system page for more details
 - If `overrideskybox` is false and RenderSettings.skybox isn't null:
     - If `nocolorchange` is false, the skybox and `render`'s material's color are updated when entering or exiting an inside (see the section below)
     - The `_Rotation` material property of the skybox is set to 180.0 + MainCamera x position
