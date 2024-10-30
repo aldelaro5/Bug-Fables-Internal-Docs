@@ -10,7 +10,7 @@ Here are the configurations fields used to configure SetText:
 |englishbreakfix|bool|From prefab|If true, it changes OrganizeLines when instance.`languageid` is `English` for all SetText calls made in dialogue mode such that the fixed logic applies to fix the [whole word width line skip](../SetText/Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines%20Known%20Issues.md#not-counting-a-whole-words-width-after-the-first-line). This is an optional fix the map needs to opt in because it can have unintended side effects as the entire English script was written with the expectation that this issue was always present|false|
 
 ## `dialogues`
-The map determines the `dialogues` data to use. The value of `dialogues` is set to the result of loading a TextAsset. The location of this TextAsset is at `Data/DialoguesX/Maps/Y` where `X` is the [languageid](../SetText/languageid.md) and `Y` is the string representation of a [Maps](../Enums%20and%20IDs/Maps.md) value. By default, it's the one being initialised, but it can be changed by [readdatafromothermap](Miscellaneous%20featues.md#readdatafromothermap).
+The map determines the `dialogues` data to use. The value of `dialogues` is set to the result of loading a TextAsset. The location of this TextAsset is at `Data/DialoguesX/Maps/Y` where `X` is the [languageid](../SetText/languageid.md) and `Y` is the string representation of a [Maps](../Enums%20and%20IDs/Maps.md) value. By default, it's the one being initialised, but it can be changed by [readdatafromothermap](Miscellaneous%20features.md#readdatafromothermap).
 
 There is an exception to this: if `mapid` is `TestRoom`, the data is always loaded from `Data/TestRoom`.
 
@@ -35,6 +35,6 @@ It should be noted that this feature is effectively UNUSED because the only map 
 ## Global commands system
 SetText has an unused feature called [GlobalCommand](../SetText/Related%20Systems/GlobalCommand.md). It's an incomplete attempt at addressing a flaw of SetText where dialogues lines have to be specified at the same place than their commands which can complicate localisations.
 
-The feature is only enabled if `useglobalcommand` is set to true. When it is, Start will assign a value to `commandlines`. The value is the result of loading the TextAsset located at `Data/Commands/X` where `X` is the string representation of a [Maps](../Enums%20and%20IDs/Maps.md) value. By default, it's the one being initialised, but it can be changed by [readdatafromothermap](Miscellaneous%20featues.md#readdatafromothermap).
+The feature is only enabled if `useglobalcommand` is set to true. When it is, Start will assign a value to `commandlines`. The value is the result of loading the TextAsset located at `Data/Commands/X` where `X` is the string representation of a [Maps](../Enums%20and%20IDs/Maps.md) value. By default, it's the one being initialised, but it can be changed by [readdatafromothermap](Miscellaneous%20features.md#readdatafromothermap).
 
 For how `commandlines` work, check the [GlobalCommand](../SetText/Related%20Systems/GlobalCommand.md) documentation to learn more.

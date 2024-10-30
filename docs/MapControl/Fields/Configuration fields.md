@@ -3,7 +3,7 @@ These fields are meant to be initialised from a prefab's MapControl. The MapCont
 
 Most fields are meant to be initialised this way (some may default to a value if they are optional). These fields are called configuration fields because they configure the game's behavior while on this map.
 
-They are categorised by the specific documentation page describing the systems they are involved in.
+They are categorised by the specific documentation page describing the systems they are involved in. This page shows the overall descriptions, but more details can be found in their linked page in their respective headers (except for the unused section below).
 
 ## [Identification](../Map%20identification.md)
 These fields are the bare minimum a map needs and can be considered the only required fields. They allow the game to identify the map and its logical group it belongs in.
@@ -30,7 +30,7 @@ These fields allows the configure the [main camera system](../../General%20syste
 |roundways|Transform[]|Only the first element matters. If the first element exists, `rotatecam` is true and we aren't in an [inside](../Insides.md), the corresponding Transform will be positioned relative to the camera's forward vector on FixedUpdate in x and z (the y component is always 5.0). The position is multiplied by `lightoffset` before being set. NOTE: This is very specific to the `AntTunnels` [map](../../Enums%20and%20IDs/Maps.md)|Empty array|
 |lightoffset|float|If `roundways[0]` exists, `rotatecam` is true and we aren't in an inside, this field will be a multiplier applied to the position to set `roundways[0]` in FixedUpdate. NOTE: This is very specific to the `AntTunnels` [map](../../Enums%20and%20IDs/Maps.md)|5.0|
 
-## Graphics
+## [Graphics](../Graphics%20configuration.md)
 
 |Name|Type|Description|Default|
 |---:|----|----------|-------|
@@ -45,7 +45,7 @@ These fields allows the configure the [main camera system](../../General%20syste
 |faderchange|bool|If true, all Fader will fade all their Renderer instead of culling them completely. Also, on Start, `faders` and `fss` gets their initialised on the first LateUpdate which are used in LateUpdate to reset all the sharedMaterials, shadowCastingMode and sharedMaterials's renderQueue of all disabled Fader's renders that were initially enabled|false|
 |skycolor|Color|If a Fader is set to fade its GameObject's materials (forced to be the case if `faderchange` is true), this is the color tint to set the materials's colors to in RGB (the A component is ignored since Fader controls it)|Pure white|
 
-## Battles
+## [Battles](../Battles%20configuration.md)
 
 |Name|Type|Description|Default|
 |---:|----|-----------|-------|
@@ -55,7 +55,7 @@ These fields allows the configure the [main camera system](../../General%20syste
 |battleleafcolor|Color|The default color of the visual transition of `battleleaftype` when [StartBattle](../../Battle%20system/StartBattle.md) is called and adv isn't 3 (not an enemy party advantage)|Pure green|
 |nobattlemusic|bool|If this is true, it will prevent [StartBattle](../../Battle%20system/StartBattle.md) from changing the music. This is a way for a map to keep the music the game was already playing during the battle without interruption. NOTE: This field is involved in the [music playback issue](../../General%20systems/Music%20playback.md#issue-with-musicresume)|false|
 
-## Music
+## [Music](../Map%20music.md)
 
 |Name|Type|Description|Default|
 |---:|----|----------|-------|
@@ -64,7 +64,7 @@ These fields allows the configure the [main camera system](../../General%20syste
 |keepmusic|bool|When this is true and instance.`inevent` is false, [Music](../Init%20methods/Music.md) won't be called by Start which means the current music playing won't change and `musicid`'s value won't be changed. Essentially, it prevents the music that was playing before loading this map from changing when loading this map|false|
 |musicflags|Vector2Int[]|A list of directives to follow regardinig the assignement of `musicid` in the [Music](../Init%20methods/Music.md) method. When not empty, `musicid` defaults to -1 followed by each element being processed in reverse order. The first one whose x component is either -1 or a [flags](../../Flags%20arrays/flags.md) slot that is true will be selected. When selected, `musicid` gets set to the y component's value and it will be used as the current music. If no suitable element is selected, `musicid` stays at -1 and the current music will fade into silence before it stops playing|Empty array|
 
-## Insides
+## [Insides](../Insides.md)
 
 |Name|Type|Description|Default|
 |---:|----|-----------|-------|
@@ -75,7 +75,7 @@ These fields allows the configure the [main camera system](../../General%20syste
 |setinsidecenter|bool|If this is true, whenener RefreshInsides is called, instance.`camtarget` will be set to the current inside's transform after entering one and set back to MainManager.`player`'s transform when exiting one|false|
 |fadingspeed|float|The fraction of TieFramerate to use in FixedUpdate when updating `fadeammount` when entering or exiting an inside|0.2|
 
-## SetText
+## [SetText](../SetText%20configuration.md)
 
 |Name|Type|Description|Default|
 |---:|----|-----------|-------|
@@ -83,7 +83,7 @@ These fields allows the configure the [main camera system](../../General%20syste
 |tattleid|int|The SetText [dialogue line id](../../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md) that will be used when pressing the Help input on this map away from an NPC|0|
 |englishbreakfix|bool|If true, it changes OrganizeLines when instance.`languageid` is `English` for all SetText calls made in dialogue mode such that the fixed logic applies to fix the [whole word width line skip](../../SetText/Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines%20Known%20Issues.md#not-counting-a-whole-words-width-after-the-first-line). This is an optional fix the map needs to opt in because it can have unintended side effects as the entire English script was written with the expectation that this issue was always present|false|
 
-## Followers
+## [Followers](../Follower%20system.md)
 
 |Name|Type|Description|Default|
 |---:|----|-----------|-------|
@@ -91,7 +91,7 @@ These fields allows the configure the [main camera system](../../General%20syste
 |followerylimit|float|The maximum following distance (absolutely value) in y allowed for any entity following another. If the y distance between the entity and its followee gets higher than this value and we aren't in a `minipause`, the [DoFollow](../../Entities/EntityControl/Notable%20methods/Follow.md#dofollow) of the entity will teleport them to their followee instantly. This should NEVER be negative because the distance is meant to be expressed as an absolute value|20.0|
 |closemove|bool|This field if true allows the map to force the CloseMove entity follow logic of the player party. NOTE: The influence of this fiels is extremely complex and inconsistent, primarily during the `BanditHideout` stealth section, more details can be found in the [follower system](../Follower%20system.md) documentation|false|
 
-## Entities
+## [Entities](../Map%20entities.md)
 
 |Name|Type|Description|Default|
 |---:|----|-----------|-------|
@@ -101,7 +101,7 @@ These fields allows the configure the [main camera system](../../General%20syste
 |keepobjectsactive|bool|If this is true, LateUpdate won't update the enablement of too far away NPCControl and disable their `emoticon` every 2 frames (after `alivetime` reached 0.0)|false|
 
 
-## Miscellaneous
+## [Miscellaneous](../Miscellaneous%20features.md)
 
 |Name|Type|Description|Default|
 |---:|----|-----------|-------|
@@ -114,10 +114,11 @@ These fields allows the configure the [main camera system](../../General%20syste
 |autoevent|Vector2[]|A list of [events](../../Enums%20and%20IDs/Events.md) in the y component to automatically start the moment the [flag](../../Flags%20arrays/flags.md) slot of the x component is false. This is checked on each LateUpdate after the first one and when the event starts, the flag slot of the x component becomes true so it doesn't start the event again|Empty array|
 
 ## Unused
+These fields are UNUSED by the game, but remains configurable from the prefab:
 
-|Name|Type|Description|
-|---:|----|----------|
-|insidecamspeed|float|From prefab|UNUSED|1.0|
-|transferspeed|float|From prefab|UNUSED|0.2|
-|baseoutline|float|From prefab|UNUSED|20.0|
+|Name|Type|Description|Default|
+|---:|----|----------|-------|
+|insidecamspeed|float|UNUSED|1.0|
+|transferspeed|float|UNUSED|0.2|
+|baseoutline|float|UNUSED|20.0|
 
