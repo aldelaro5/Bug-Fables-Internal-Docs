@@ -1,5 +1,3 @@
-TODO: talk about the stealth flag (401)'s weirdness
-
 # AreaSpecific
 
 - Test is called which will purposely force a NullReferenceException to be thrown if `mapid` is the `TestRoom` and we aren't in the Unity Editor. The throw is done by casting null to GameObject and then attempting to set its transform position to the default of Vector3. Since the object is null, this will always throw
@@ -19,19 +17,19 @@ Any areas not mentioned here has no special logic defined.
 
 ### `BanditHideout`
 
-- `render[0]`(TODO: ???)'s material color is set to FBFF41 (mostly yellow)
-- `nocolorchange` is set to true TODO: ???
-- At the end of this method, all GameObjects with a `CopyMainColor` tag has their Renderer's material color set to `render[0]`'s material color TODO: ???
+- `render[0]`(the `Base` GameObject's Renderer)'s material color is set to FBFF41 (mostly yellow) which gives a tint of most of the textures
+- `nocolorchange` is set to true which prevents most of the [Fader logic](../Graphics%20configuration.md#fader-control) to happen
+- At the end of this method, all GameObjects with a `CopyMainColor` tag has their Renderer's material color set to `render[0]`'s material color meaning they will also get the tint that `Base` got
 
 ### `ChomperCaves`
 
-- `render[0]`(TODO: ???)'s material color is set to a lerp between red and yellow with a factor of 0.65 (FF9903, mostly orange)
-- `nocolorchange` is set to true TODO: ???
-- At the end of this method, all GameObjects with a `CopyMainColor` tag has their Renderer's material color set to `render[0]`'s material color TODO: ???
+- `render[0]` (the `Base` GameObject's Renderer)'s material color is set to a lerp between red and yellow with a factor of 0.65 (FF9903, mostly orange) which gives a tint of most of the textures
+- `nocolorchange` is set to true which prevents most of the [Fader logic](../Graphics%20configuration.md#fader-control) to happen
+- At the end of this method, all GameObjects with a `CopyMainColor` tag has their Renderer's material color set to `render[0]`'s material color meaning they will also get the tint that `Base` got
 
 ### `SandCastle`
 
-- `nocolorchange` is set to true TODO: ???
+- `nocolorchange` is set to true which prevents most of the [Fader logic](../Graphics%20configuration.md#fader-control) to happen
 
 ### `WaspKingdom`
 

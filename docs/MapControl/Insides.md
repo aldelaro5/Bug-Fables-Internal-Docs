@@ -197,7 +197,7 @@ The `inside` parameter tells if we are entering an inside (true) or exiting one 
 
 Here's what the method does:
 
-- All GameObjects with `DelAftBtl` tag are destroyed TODO: this seems unecessary
+- All GameObjects with `DelAftBtl` tag are destroyed. This is only to destroy [BeetleGrass](../Entities/NPCControl/ObjectTypes/BeetleGrass.md) that are in the process of being faded and desatroyed
 - If the `player`'s `beemerang` exists, it is destroyed
 
 #### inside is true (entering an inside)

@@ -37,7 +37,18 @@ This camera only renders elements on the `UI` layer and it is special because un
 
 It can be accessed from the MainManager.`GUICamera` field and is used to render most UI elements in the game including [SetText](../SetText/SetText.md) lines.
 
-It has a RenderTexture object under it that TODO: explain
+#### RenderTexture
+The `GUICamera` has a `RenderTexture` GameObject under it that has a CRT shader. This is how the game can have Termacade games look the way they do in conjunction with another featrue: downsampling.
+
+There is a game setting for downsampling, but it isn't exposed. It's only used by a method on MainManager called SetRenderTexture which is mostly used as part of Termacada games.
+
+```cs
+public static void SetRenderTexture(int downsampleindex)
+```
+
+Essentially, `RenderTexture` remains disabled until SetRenderTexture is called with a non zero value where it will get enabled and have its material's mainTexture set to a new 1080p RenderTexture. During this process, the `MainCamera` gets its rect set to a smaller area depending on how much downsampling is desired (Termacade games asks for 20% downsampling).
+
+To turn this off, SetRenderTexture needs to be called with 0 as downsampleindex which will cause `RenderTexture` to be disabled and the camera to revert to normal. The reason this is childed to the `GUICamera` is because that rendering is effectively a 2D image rendered on the camera so it shouldn't have depths rendered on it. It's effectively a way to apply post processing effectively and render it as if it was how the game was being rendered.
 
 ### 3DGUI
 This camera only renders elements on the `3DUI` layer. Unlike the other 2 cameras, it's not possible to access it directly, but there's not a need to do this. This is because this camera doesn't need to be rendered directly onto like the `GUICamera` and it isn't needed to address it for it to function.

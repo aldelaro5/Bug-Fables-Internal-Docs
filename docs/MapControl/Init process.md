@@ -1,5 +1,4 @@
 # MapControl init process
-TODO
 
 ## Start
 
@@ -44,7 +43,7 @@ Camera gets initialised with the following fields (the default value is picked i
     - Otherwise, skybox gets set to null and the `MainCamera`'s backgroundColor gets set to pure black
 - GetSkyColor called which just sets `skycolor`'s alpha to 1.0 (fully opaque)
 - If not `inevent` and `keepmusic` is false, [Music](Init%20methods/Music.md) is called which sets the music and initialises some music fields
-- CheckDisc is invoked in 1.0 seconds which will set `hiddenitem` to 100 (TODO: ???) if all of the following conditions are fufilled:
+- CheckDisc is invoked in 1.0 seconds which will set `hiddenitem` to 100 (only the fact it's not null matters) if all of the following conditions are fufilled:
     - There's at least 1 `discoveryids`
     - The `Detector` medal is equipped
     - If `mapid` is `TermiteIndustrial`, the player's z position must be lower than 20.0 (meaning they need to be far back enough to be in front of the Colosseum's entrance)
@@ -66,12 +65,12 @@ The fog settings are configured with fields:
 |ambientLight|`globallight`|
 
 - SetScreenEffect called which will only do something if `screeneffect` is `SunRaysTopRight`. If it is, a new `Prefabs/Particles/SunRay` is instantiated childed to the `GUICamera` with a local position of (9.0, 7.0, 10.0) without rotations
-- RefreshInsides is called without inside and without caller TODO: ???
-- CheckQuests called TODO: ???
+- RefreshInsides is called without inside and without caller which forces the initial state of the map to be outside
+- [CheckQuests](../TextAsset%20Data/BoardQuests%20data.md#checkquests) called
 - RefreshEntities called with forceanim and refreshmap
 - CheckAchievement called which updates the records's states
-- AreaSpecific called TODO: ???
-- If `insidetypes` length isn't the `insides` one, `insidetypes` gets truncated to have a matching length (but the values are left at default) TODO: unused ???
+- [AreaSpecific](Init%20methods/AreaSpecific.md) called
+- If `insidetypes` length isn't the `insides` one, `insidetypes` gets truncated to have a matching length
 - The shader global `GlobalIceRadius` is set to 0.0
 - If `mapid` is `BugariaResidential`, CombineMesh is invoked in 0.1 seconds which will do the following (this combines all `Merge` GameObject's meshes including their MeshCollider into one GameObject childed to the first one):
     - Gather all GameObjects with tag `Merge`, if none exists, the method does nothing
