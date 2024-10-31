@@ -52,3 +52,5 @@ However, not all of them can be configured. Some features are dependant only on 
 - [Merged mesh](Merged%20mesh.md): A feature where GameObjects with a certain tag can have their meshes merged
 - [Particles level](Particles%20level.md): A feature where the rendering of certain particles can be tuned down or turned off completely via a game's setting
 - [EntityOnly](EntityOnly.md) colliders: A feature where GameObjects with a certain tag can have their colliders be ignored for the player entities and their followers, but remain active for map entities
+
+Finally, the way a MapControl is instantiated is brought up in the [map loading](Map%20loading.md) documentation.

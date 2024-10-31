@@ -7,7 +7,7 @@ There are 2 [configuration fields](Fields/Configuration%20fields.md) that identi
 |areaid|MainManager.[Areas](../Enums%20and%20IDs/librarystuff/Areas.md)|The area this map belongs to. On Start, if this field is different than instance.`areaid` (the current area), UpdateArea is called|`BugariaOutskirts` (should be assigned to the logically accurate value)|
 
 ## `mapid`
-The `mapid` is required to be set. While its default value is `TestRoom`, that value already has a map defined in the game meaning it's invalid to leave this value except for the actual test room. It identifies the map specifically and can reliably be used to tell maps appart or to simply know the current map.
+The `mapid` is required to be set. While its default value is `TestRoom`, that value already has a map defined in the game meaning it's invalid to use this value except for the actual test room. It identifies the map specifically and can reliably be used to tell maps appart or to simply know the current map.
 
 ## `areaid`
 The `areaid` on the other hand is more complex. A map must belong to an area and just like the `mapid`, it is expected to always be set (defaults to `BugariaOutskirts`).
@@ -21,7 +21,7 @@ An area has the following properties:
 ### UpdateArea
 The area is responsible for grouping maps in such a way that going to a map with a different area than the current one involves some logic. Most of it happens in MainManager.UpdateArea:
 
-- If exiting area 15 (Giant's Lair) and flag 596 is true (spoke to the Roach Elder in postgame), flag 597 is set to true (changed area after speaking to the Roach Elder in postgame)
+- If exiting area 15 (Giant's Lair) and [flag](../Flags%20arrays/flags.md) 596 is true (spoke to the Roach Elder in postgame), flag 597 is set to true (changed area after speaking to the Roach Elder in postgame)
 - All [regionalflag](../Flags%20arrays/Regionalflags.md) are reset
 - instance.`areaid` is updated to the new area
 - The `librarystuff` flag of the area is set to true

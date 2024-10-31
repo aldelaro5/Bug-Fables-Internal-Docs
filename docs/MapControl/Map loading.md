@@ -1,7 +1,7 @@
 # Map loading
 There's only at most 1 MapControl that can be loaded at once and it will be the current map assigned to instance.`map`.
 
-It means that in order to go to another map, the current one needs to be destroy before instantiating the new one. Since this game doesn't involve traditional Unity scene loading, all of this is done through code. This implies the game is entirely managing the map loading system by itself.
+It means that in order to go to another map, the current one needs to be destroyed before instantiating the new one. Since this game doesn't involve traditional Unity scene loading, all of this is done through code. This implies the game is entirely managing the map loading system by itself.
 
 There's only one way to safely change the current map: via the LoadMap method. This method however only does the map unloading/loading part. To have the complete transition done when using the [transfer](../SetText/Individual%20commands/Transfer.md) SetText command or when going through a [DoorOtherMap](../Entities/NPCControl/ObjectTypes/DoorOtherMap.md), the TransferMap coroutine is used which ends up calling LoadMap, but with scripted party movement and fading transitions.
 
@@ -11,16 +11,19 @@ Basically, to have the complete map loading transition, the TransferMap coroutin
 There are 3 overloads, but all of them ends up at the first one:
 
 (1) The main method that all overloads and TransferMap ends up using. The `id` parameter is the int representation of the new [map](../Enums%20and%20IDs/Maps.md) value to change the current map to. If this value is the current `map`'s id, it will be reloaded.
+
 ```cs
 public static void LoadMap(int id)
 ```
 
 (2) which calls (1) where `id` is `map`.`name` which should always be the matching [maps](../Enums%20and%20IDs/Maps.md) of the current map. Effectively, it reloads the current map to the same map.
+
 ```cs
 public static void LoadMap()
 ```
 
 (3) This calls (1), but before doing so, if `recreateplayers` is true, all `playerdata` entity gets destroyed and the `player` is set to null. This will have the (1) overload recreate the `player` and the `playerdata` entities from scratch.
+
 ```cs
 public static void LoadMap(int id, bool recreateplayers)
 ```
@@ -97,11 +100,13 @@ public static IEnumerator TransferMap(int targetmap, Vector3 moveto, Vector3 tpp
 ```
 
 (2) Starts a coroutine with (1) where `caller` is null then yield null. This is only used by the [transfer](../SetText/Individual%20commands/Transfer.md) SetText command which simulates a transfer, but there's no [DoorOtherMap](../Entities/NPCControl/ObjectTypes/DoorOtherMap.md) involved.
+
 ```cs
 public static IEnumerator TransferMap(int targetmap, Vector3 moveto, Vector3 tppos, Vector3 othermovepos)
 ```
 
 (3) Starts a coroutine with (1) where `moveto` is the `player` position, both `tppos` and `othermovepos` are the sent `targetpos` and `caller` is null, then yield null. This overload is UNUSED.
+
 ```cs
 public static IEnumerator TransferMap(int targetmap, Vector3 targetpos)
 ```

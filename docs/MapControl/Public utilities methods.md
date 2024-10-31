@@ -75,6 +75,7 @@ public void StopMovingEntities()
 ```
 
 Disables all `render`.
+
 ```cs
 public void HideRenders()
 ```

@@ -1,7 +1,7 @@
 # Insides
 Maps can define specific locations within the map called an "inside".
 
-An inside is a portion of the game (defined by its root GameObject) that should only be accessible through a [DoorSameMap](../Entities/NPCControl/ObjectTypes/DoorSameMap.md) where the inside can be "entered" or "exited" through those NPCControl. It shouldn't in practice be possible to access the inside or getting out of it without passing through a DoorSameMap because the current inside the player is in greatly impacts entities's Update logic meaning violating this rule will cause unexpected behaviors. Essentially, most entities aren't considered active when the current inside doesn't match the inside an entity is defined in. There's also transitions that happens when entering or exiting an inside.
+An inside is a portion of the game (defined by its root GameObject) that should only be accessible through a [DoorSameMap](../Entities/NPCControl/ObjectTypes/DoorSameMap.md) where the inside can be "entered" or "exited" through those NPCControl. It shouldn't in practice be possible to access the inside or getting out of it without passing through a DoorSameMap because the current inside the player is in greatly impacts entities's Update logic meaning violating this rule will cause unexpected behaviors. Essentially, most entities aren't considered active when the current inside doesn't match the inside an entity is defined in. There's also transitions that happens when entering or exiting an inside. They are also treated differently visually where entering an inside will cause the outside to be faded and this is only reversed when exiting the inside.
 
 It should be noted that a DoorSameMap acts as both an entry and an exit point, but an inside may have multiple DoorSameMaps leading in and out of it. As long as it's not possible to access the inside or to get out of it without going through a DoorSameMap, it will behave as expected.
 
@@ -23,13 +23,13 @@ This system involves multiple configuration fields to define the insides and to 
 ## Defining an inside
 In order to define an inside, the following must be done on the map's prefab:
 
-- The root GameObject of the inside must be listed in the `insides` configuration field. An inside can only contain a single root GameObject that will also includes its children. This means that if multiple GameObject needs to be part of the inside, they must share a common root GameObject even if it's an empty one
+- The root GameObject of the inside must be listed in the `insides` configuration field. An inside can only contain a single root GameObject that will also includes its children. This means that if multiple GameObject needs to be part of the inside, they must share a common root GameObject even if it's an empty one. This GameObject must NOT be be located under the `mainmesh`'s GameObject because those are what the outside fading will affect so the inside can't be there. It has to sit outside of the `mainmesh`'s tree (it can be a sibling to it which is usually what's done)
 - The index matched of the `insidetypes` configuration field of the `insides` element mentioned above must exists. The type of the value is a special enum called `InsideType` which informs the game which enter and exit sound should play when entering or exiting the inside. It's possible to leave the array empty or to not have its length match `insides`, but doing this will cause all applicable elements to be created and default to `Stretch`. The possible values for this enum are as follows as well as their enter/exit sound they refer to (they are named `Ressources/audio/sounds/XDoorEnter` and `Ressources/audio/sounds/XDoorExit` where `X` is the string representation of the enum value):
     - `Stretch`: `StretchDoorEnter` and `StretchDoorExit`
     - `Slide`: `SlideDoorEnter` and `SlideDoorExit`
     - `Twist`: `TwistDoorEnter` and `TwistDoorExit`
 
-This is all that's needed to define the inside, but to actually leverage it, at least 1 [DoorSameMap](../Entities/NPCControl/ObjectTypes/DoorSameMap.md) must exist whose `data[0]` is bound to the inside's id. This id corresponds to its `insides` / `insidestypes` index.
+This is all that's needed to define the inside, but to actually leverage it, at least 1 [DoorSameMap](../Entities/NPCControl/ObjectTypes/DoorSameMap.md) must exist whose `data[0]` is bound to the inside's id. This id corresponds to its `insides` / `insidestypes` index. Also, as mentioned earlier, the inside shouldn't be able to be reached or escaped physically without going through a DoorSameMap so the colliders needs to be setup appropriately.
 
 Multiple DoorSameMaps may be defined for the same insides, but if this is the case for at least one inside in the map, it is recommended to also set the `tieinsidedoorentities` configuration field to true because it allows the `camoffset` / `camangleoffset` restore function when exiting the inside to be consistent regardless of how the inside was entered. See the section below for more details.
 
@@ -193,7 +193,7 @@ A method that handles updating the map's state after instance.`insideid` changes
 public void RefreshInsides(bool inside, NPCControl caller)
 ```
 
-The `inside` parameter tells if we are entering an inside (true) or exiting one (false). The `caller` parameter is optional, but it tells the [DoorSameMap](../Entities/NPCControl/ObjectTypes/DoorSameMap.md) used if applicable.
+The `inside` parameter tells if we are entering an inside (true) or exiting one (false). The `caller` parameter is optional, but it tells the [DoorSameMap](../Entities/NPCControl/ObjectTypes/DoorSameMap.md) being used if applicable.
 
 Here's what the method does:
 
@@ -207,7 +207,7 @@ Here's what the method does:
         - Disabled if thier `npcdata`.`inisdeid` doesn't match the caller's `data[0]` (the inside we are entering)
         - Otherwise, enabled if `hideinside` is true and thier `npcdata`.`inisdeid` match the caller's `data[0]` (the inside we are entering)
         - If none of the above applies, the enability doesn't change
-    - If the caller's `vectordata` contains at least 6 elements (assumed to contain 7 if true), it means the caller wants to set camera limits when entering the inside:
+    - If the caller's `vectordata` contains at least 6 elements (assumed to contain 8 if true), it means the caller wants to set camera limits when entering the inside:
         - If `vectordata[6]` magnitude is above 0.1, `camlimitpos` is set to it (value saved in `tcpos` for restore later)
         - If `vectordata[7]` magnitude is above 0.1, `camlimitneg` is set to it (value saved in `tcneg` for restore later)
 - Otherwise (there's no caller):

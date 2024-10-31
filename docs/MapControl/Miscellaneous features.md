@@ -14,7 +14,7 @@ They involve the following configuration fields:
 |autoevent|Vector2[]|A list of [events](../Enums%20and%20IDs/Events.md) in the y component to automatically start the moment the [flag](../Flags%20arrays/flags.md) slot of the x component is false. This is checked on each LateUpdate after the first one and when the event starts, the flag slot of the x component becomes true so it doesn't start the event again|Empty array|
 
 ## `mainmesh`
-Maps by convention all have a GameObject typically called `Base` which contains most of the map's meshes, colliders and geometry. The name is only a convenience, what makes this GameObject special is it's the value of the `mainmesh` configuration field. It can either be assigned directly from prefab, but if not, it will default to the first child of the MapControl's GameObject (which also typically happens to be the `Base`).
+Maps by convention all have a GameObject typically called `Base` which contains most of the map's meshes, colliders and geometry. The name is only a convention, what makes this GameObject special is it's the value of the `mainmesh` configuration field. It can either be assigned directly from prefab, but if not, it will default to the first child of the MapControl's GameObject (which also typically happens to be the `Base`).
 
 This GameObject by itself isn't too special. The only thing it influences directly is the default value of `mainrender` which is the `mainmesh`'s Renderer, but that can be overriden by assigning one in the prefab and `mainrender` is UNUSED so this doesn't do anything.
 
@@ -73,7 +73,7 @@ However, there is an additional case where the value can be overriden to true by
 The value from the map's prefab of this configuration field only dictates that usage of the item is forbidden when all of the above cases don't happen.
 
 ## `autoevent`
-Maps have a way to automatically trigger [events](../Enums%20and%20IDs/Events.md) relatively after after the map loaded. This feature is called automatic events which are defined by the `autoevent` configuration field and they allow to conditionally trigger events on the first LateUpdate where all of the following conditions are fufilled:
+Maps have a way to automatically trigger [events](../Enums%20and%20IDs/Events.md) relatively soon after the map loaded. This feature is called automatic events which are defined by the `autoevent` configuration field and they allow to conditionally trigger events on the first LateUpdate where all of the following conditions are fufilled:
 
 - `latestart` happened (in other words, this is the second LateUpdate cycle or later)
 - We aren't in a `pause`
