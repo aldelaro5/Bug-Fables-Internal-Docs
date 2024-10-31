@@ -7,7 +7,7 @@ The system can be configured on the map with the following configuration fields:
 |---:|----|-----------|-------|
 |canfollowID|int[]|The [animIDs](../Enums%20and%20IDs/AnimIDs.md) that are allowed to follow the player party on this map when present in instance.`extrafollowers`. This restriction is ignored if the GameObject's name is `0` (which is normally only the case for the `TestRoom` [map](../Enums%20and%20IDs/Maps.md))|Empty array|
 |followerylimit|float|The maximum following distance (absolutely value) in y allowed for any entity following another. If the y distance between the entity and its followee gets higher than this value and we aren't in a `minipause`, the [DoFollow](../Entities/EntityControl/Notable%20methods/Follow.md#dofollow) of the entity will teleport them to their followee instantly. This should NEVER be negative because the distance is meant to be expressed as an absolute value|20.0|
-|closemove|bool|This field if true allows the map to force the CloseMove entity follow logic of the player party. NOTE: The influence of this fiels is extremely complex and inconsistent, primarily during the `BanditHideout` stealth section, more details can be found in the [follower system](#follower-system) documentation|false|
+|closemove|bool|This field if true allows the map to force the CloseMove entity follow logic of the player party. NOTE: The influence of this fiels is extremely complex and inconsistent, primarily during the `BanditHideout` stealth section, more details can be found in the section below|false|
 
 ## An explanation of the follower system
 There's an important distinction between the player requesting an entity to follow the party and the MapControl allowing said followers. They are actually managed at 2 different places:
@@ -81,7 +81,7 @@ The problem is this isn't always assigned correctly because MainManager.AddFollo
 More confusingly however is the normal case of adding followers other than `chompy`: in this case, MapControl incorrectly sets the follower's `tempfollowerid` to the index of the matching animid found in `canfollowID`. The problem is `canfollowID`'s order isn't guaranteed by this point to give matching indexes because an unknown amount of followers might not have existed in instance.`extrafollowers`. What this means is that it's possible that 2 followers ends up with the same `tempfollowerid` which would cause them to z fight when the `player` is `flying`. Whether or not this can happen depends very specifically on the order of `canfollowID` as specified in the map's prefab (after [AreaSpecific](Init%20methods/AreaSpecific.md) modified it if needed) and which specific animids are present in instance.`extrafollowers`.
 
 ### Issue regarding follower order consistency
-There's another different issue the follower system has, but it's more a design issue than a programming mistake: the order followers are can change between the moment the follower is added and the next map load.
+There's another different issue the follower system has, but it's more a design issue than a programming mistake: the order followers are in can change between the moment the follower is added and the next map load.
 
 This is because AddFollower ALWAYS append the follower to the end of `tempfollower` and it always becomes the last entity in the follow chain. This isn't consistent with how MapControl builds this chain on `latestart`: it adds the requested ones in the order they appear in `canfollowID` and then adds `chompy` if needed.
 

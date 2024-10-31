@@ -59,7 +59,7 @@ This configuration field controls RenderSetting.ambientLight. It allows the game
 - `_ShakeBending` (controlled by `windintensity`): Configures the amount of warping to apply as a result of the wind shaking
 
 ## Fader control
-Fader is a dedicated component that can be applied to any GameObjects on a map. It will through camera distance checking hide its GameObject by setting its Renderer's shadowCastingMode to `ShadowsOnly`. This is done because it's possible some objects could occlude the camera so much that they take a large portion of the screen. Those objects gets a Fader component so they can be hidden earlier than the camera's near clip plane culling would. This works by collecting all Renderer components in a field called `renders` and messing with all of them at once.
+Fader is a dedicated component that can be applied to any GameObjects on a map. It will through camera distance checking hide its GameObject by setting its Renderer's shadowCastingMode to `ShadowsOnly`. This is done because it's possible some objects could occlude the camera so much that they take a large portion of the screen. Those objects gets a Fader component so they can be hidden earlier than the camera's near clip plane culling would. This works by collecting all Renderer components in a field called `renders` and messing with all of them at once (not to be confused with MapControl's `render` which is something different).
 
 The default of a Fader is to simply cull the GameObject when out of range, but there is another opt-in mode: fading the GameObject through a different shader (usually MainManager.`Fade3D` or MainManager.`fadePlane`) before hiding it instead of just changing the shadowCastingMode. Any maps can opt-in to this fading behavior for all Fader present by having the `faderchange` configuration field set to true. However, no matter what the value of this field is, the following [areas](../Enums%20and%20IDs/librarystuff/Areas.md) will always have this behavior:
 
@@ -67,7 +67,7 @@ The default of a Fader is to simply cull the GameObject when out of range, but t
 - `WildGrasslands`
 - `WaspKingdom`
 
-It's also possible for an individual Fader to force itself to operate in this mode if its `alwaysfade` field is true which is expected to be done from the map's prefab.
+It's also possible for an individual Fader to force itself to operate in this mode if its `alwaysfade` field is true which is expected to be done from the map's prefab where the Fader is defined.
 
 That being said, setting `faderchange` to true will also causes some special logic in LateUpdate to happen every 3 frames on every disabled Fader that were initially enabled when MapControl Start happened. This involves the following tracking fields:
 
