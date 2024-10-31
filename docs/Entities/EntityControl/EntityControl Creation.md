@@ -68,4 +68,4 @@ The creation process doesn't stop there because EntityControl defines an OnEnabl
 * If the emoticon object exists, it will be set to -1 (`None`) and its cooldown to 0 frames. Since an entity cannot have one on creation, this only applies when it gets enabled with one present later.
 
 ## Map entities preset
-On top of this, there is a system the game has that allows to define each entities's starting parameters for a map along with an [NPCControl](../NPCControl/NPCControl.md) stored in `npcdata`. This data comes from the [map entity data](../../TextAsset%20Data/Entity%20data.md#map-entity-data) and is done by MapControl's [CreateEntities](CreateEntities.md) which happens on its Start.
+On top of this, there is a system the game has that allows to define each entities's starting parameters for a map along with an [NPCControl](../NPCControl/NPCControl.md) stored in `npcdata`. This data comes from the [map entity data](../../TextAsset%20Data/Entity%20data.md#map-entity-data) and is done by MapControl's [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md) which happens on its Start.

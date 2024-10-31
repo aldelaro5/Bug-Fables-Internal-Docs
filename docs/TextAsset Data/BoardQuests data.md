@@ -22,6 +22,11 @@ The data will be loaded into `questchecks[id, x]` where `id` is the [BoardQuests
 
 It should be noted that a prerequisite of 0 is only supported as it being the only element to indicate there are no prerequisite. Everything after will be ignored as the first element being 0 takes priority.
 
+### CheckQuests
+The method that enforces `questchecks` is MainManager.CheckQuests. It is mostly called by [MapControl](../MapControl/MapControl.md)'s Start meaning this is rechecked on every map load.
+
+What happens in this method is all `questchecks` are checked to see if there's any that corresponds to a quest that isn't in any `boardquests` (meaning not open, taken or done), but satisfies all its prerequesites. Each found quest is added to `boardquests[0]` which is the open quests. It's essentially what updates quests that CAN be taken, but weren't in the open board yet.
+
 ## `BoardData` data
 
 The asset contains one line per [BoardQuests](../Enums%20and%20IDs/BoardQuests.md) whose id corresponds to the line index. Each line contains fields separated by `@`:

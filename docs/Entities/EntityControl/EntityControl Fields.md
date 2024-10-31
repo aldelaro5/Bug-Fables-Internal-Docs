@@ -7,8 +7,8 @@ These fields are intended to ease the navigation and accesses of the different k
 |Name|Type|Description|
 |----|----|-----------|
 |transform|Transform|The transform of the root object of the entity, assigned on [CreateNewEntity](EntityControl%20Creation.md#createnewentity) and [Start](Start.md)|
-|npcdata|NPCControl|The optional [NPCControl](../NPCControl/NPCControl.md) of the entity. This must be set externally or on [CreateEntities](CreateEntities.md)|
-|ccol|CapsuleCollider|The capsule collider of the root object, assigned on [CreateNewEntity](EntityControl%20Creation.md#createnewentity) and [Start](Start.md). The height and radius are loaded on [CreateEntities](CreateEntities.md)|
+|npcdata|NPCControl|The optional [NPCControl](../NPCControl/NPCControl.md) of the entity. This must be set externally or on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md)|
+|ccol|CapsuleCollider|The capsule collider of the root object, assigned on [CreateNewEntity](EntityControl%20Creation.md#createnewentity) and [Start](Start.md). The height and radius are loaded on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md)|
 |rigid|RigidBody|The rigid body of the root object, assigned on [Start](Start.md)|
 |rotater|Transform|The transform of the Rotater object which controls alignement, the first child of the root object, assigned on [Start](Start.md)|
 |sprite|SpriteRenderer|The sprite renderer of the sprite object, assigned on [CreateNewEntity](EntityControl%20Creation.md#createnewentity)|
@@ -33,9 +33,9 @@ These fields manages the animations according to the animid.
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
-|animid|int|Yes|The [AnimID](../../Enums%20and%20IDs/AnimIDs.md) of the entity, dictates the animation controller to use via the anim field. Can be set via [CreateEntities](CreateEntities.md). For an [item entity](Item%20entity.md), this is the item type|
+|animid|int|Yes|The [AnimID](../../Enums%20and%20IDs/AnimIDs.md) of the entity, dictates the animation controller to use via the anim field. Can be set via [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md). For an [item entity](Item%20entity.md), this is the item type|
 |originalid|int|No|The [AnimID](../../Enums%20and%20IDs/AnimIDs.md) at the start of [CheckSpecialID](Notable%20methods/CheckSpecialID.md) which may not be the same then the effective value from the animid field|
-|animstate|int|Yes|The [animstate](Animations/animstate.md) of the entity, dictates the animation clip to play on the controller of the anim field. For an [item entity](Item%20entity.md), this is the item id and set via [CreateEntities](CreateEntities.md)|
+|animstate|int|Yes|The [animstate](Animations/animstate.md) of the entity, dictates the animation clip to play on the controller of the anim field. For an [item entity](Item%20entity.md), this is the item id and set via [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md)|
 |basestate|int|Yes|The [animstate](Animations/animstate.md) to consider as the `Idle` one which overrides the default of 0, assigned during [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when applicable|
 |walkstate|int|Yes|The [animstate](Animations/animstate.md) to consider as the `Walk` one which overrides the default of 1, assigned during [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when applicable|
 |changedstate|bool|Yes|Determines if the [animstate](Animations/animstate.md) was changed externally and thus should bypass the landing on ground logic of [UpdateAirAnim](Update%20process/UpdateAirAnim.md) for all entities with an npcdata. This is only used in the [Anim](../../SetText/Individual%20commands/Anim.md) SetText command.|
@@ -73,12 +73,12 @@ These fields operate with the concept of height which is a visual vertical offse
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
-|height|float|Yes|The vertical offset of the spritetransform to the transform. Set to initialheight on [CreateEntities](CreateEntities.md), but overridden to minheight on [Start](Start.md) when applicable|
+|height|float|Yes|The vertical offset of the spritetransform to the transform. Set to initialheight on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md), but overridden to minheight on [Start](Start.md) when applicable|
 |minheight|float|Yes|The minimum height which is enforced on Start and in [CheckSpecialID](Notable%20methods/CheckSpecialID.md) where it is also assigned from `endata`|
-|initialheight|float|Yes|The starting height, assigned to height on Start and on [CreateEntities](CreateEntities.md)|
+|initialheight|float|Yes|The starting height, assigned to height on Start and on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md)|
 |tempheightoverride|bool|No|This is only used during [Drop](Notable%20methods/Drop.md) when the entity is frozen in the air and therefore should drop to 0.0 instead of minheight|
-|bobrange|float|Yes|The range of the oscillation done during [UpdateHeight](Update%20process/UpdateHeight.md) when the height is higher than 0.1, assigned on [CreateEntities](CreateEntities.md) or on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
-|bobspeed|float|Yes|The speed of the oscillation done during [UpdateHeight](Update%20process/UpdateHeight.md) when the height is higher than 0.1, assigned on [CreateEntities](CreateEntities.md) or on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
+|bobrange|float|Yes|The range of the oscillation done during [UpdateHeight](Update%20process/UpdateHeight.md) when the height is higher than 0.1, assigned on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md) or on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
+|bobspeed|float|Yes|The speed of the oscillation done during [UpdateHeight](Update%20process/UpdateHeight.md) when the height is higher than 0.1, assigned on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md) or on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
 |startbf|float|No|The initial bobrange, assigned to bobrange on [LateStart](Notable%20methods/LateStart.md) but also on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) when applicable. The bobrange is restored to this on [Drop](Notable%20methods/Drop.md) and BreakIce, but it is possible to do so externally|
 |startbs|float|No|The initial bobspeed, assigned to bobspeed on [LateStart](Notable%20methods/LateStart.md) but also on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) and [AnimSpecificQuirks](Animations/AnimSpecific.md#animspecificquirks) when applicable. The bobspeed is restored to this on [Drop](Notable%20methods/Drop.md) and [BreakIce](Notable%20methods/Freeze%20handling.md#breakice), but it is possible to do so externally|
 
@@ -122,8 +122,8 @@ These fields manages any ice related event, particularly during [Freeze handling
 |inice|bool|Yes|Determines if the entity is affected by an ice related event, set to true on [Start](Start.md) if the current map's `icemap` is true|
 |icecubeprefab|GameObject|No|An instance of `Prefabs/Objects/icecube`, assigned on [Start](Start.md)|
 |nofallfrozen|bool|No|Determines if the entity should stay in place when [Drop](Notable%20methods/Drop.md) occurs while the entity is frozen|
-|freezesize|Vector3|No|The size of the ice cube when the entity is frozen, assigned on [CreateEntities](CreateEntities.md), [Enemies data](../../TextAsset%20Data/Enemies%20data.md) loading or [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
-|freezeoffset|Vector3|No|The offset of the ice cube when the entity is frozen, assigned on [CreateEntities](CreateEntities.md), [Enemies data](../../TextAsset%20Data/Enemies%20data.md) loading or [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
+|freezesize|Vector3|No|The size of the ice cube when the entity is frozen, assigned on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md), [Enemies data](../../TextAsset%20Data/Enemies%20data.md) loading or [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
+|freezeoffset|Vector3|No|The offset of the ice cube when the entity is frozen, assigned on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md), [Enemies data](../../TextAsset%20Data/Enemies%20data.md) loading or [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`|
 |initialfrezeoffset|Vector3|No|The initial offset of the ice cube when the entity is frozen, assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) to freezeoffset|
 |shakeice|bool|Yes|Determines if the icecube should shake when being rendered if applicable|
 
@@ -132,8 +132,8 @@ These fields changes the way the entity is rendered or aligned horizontally.
 
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
-|speed|float|Yes|The movement speed of the entity, assigned on [CreateEntities](CreateEntities.md) or during [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when applicable. This defaults to 5.0|
-|flip|bool|Yes|Whether the sprite should be rendered flipped by 180 degrees on the y axis, must be set externally, by [CreateEntities](CreateEntities.md) or if needed internally|
+|speed|float|Yes|The movement speed of the entity, assigned on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md) or during [CheckSpecialID](Notable%20methods/CheckSpecialID.md) when applicable. This defaults to 5.0|
+|flip|bool|Yes|Whether the sprite should be rendered flipped by 180 degrees on the y axis, must be set externally, by [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md) or if needed internally|
 |alwaysflip|bool|No|Determines if [UpdateFlip](Update%20process/UpdateFlip.md) should be called each [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) even without an incamera update, assigned to true on Start with the `ALF` [Modifiers](Modifiers.md)|
 |spin|Vector3|Yes|The rotation in angles to apply on the next [UpdateFlip](Update%20process/UpdateFlip.md) when not digging and overrideflip is false, assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) for a CrystalBerry|
 |lockrotater|bool|No|Determines whether to lock the y angle of the rotater object instead of letting it rotate to the main camera y angle, assigned to true on Start with the `ROT` [Modifiers](Modifiers.md)|
@@ -157,7 +157,7 @@ These fields manages any physics related tasks, particularly movement, but also 
 |----|----|-------------|-----------|
 |startvelocity|Vector3|No|The starting velocity of the rigid, assigned on [Start](Start.md)|
 |deltavelocity|Vector3|No|The last velocity observed since the last [Move](Notable%20methods/Move.md)|
-|startpos|Vector3|Yes|The last starting position of the entity. Initially set on [CreateEntities](CreateEntities.md) or to the transform's position on Start or to the point a raycast will hit from the transform heading down with the `COG` [Modifiers](Modifiers.md) or on [LateStart](Notable%20methods/LateStart.md) to the transform position if it still isn't set. This is also set on SetPosition and it is used to restore the transform position if needed, but it can be done externally|
+|startpos|Vector3|Yes|The last starting position of the entity. Initially set on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md) or to the transform's position on Start or to the point a raycast will hit from the transform heading down with the `COG` [Modifiers](Modifiers.md) or on [LateStart](Notable%20methods/LateStart.md) to the transform position if it still isn't set. This is also set on SetPosition and it is used to restore the transform position if needed, but it can be done externally|
 |onground|bool|Yes|The result of the feet's GroundDetector which determines if the entity is on the ground. It it can be forced externally to force the result. The default value is true, but it is overridden to false on Start with the `NGS` [Modifiers](Modifiers.md)|
 |hitwall|bool|Yes|The result of the detect's RayDetector which determines if the entity has hit a wall, but it can be set externally to force the result.|
 |walktype|WalkType|No|The type of walking of this entity during [Move](Notable%20methods/Move.md)|
@@ -187,7 +187,7 @@ These fields stores the previous values of other fields observed at particular p
 |oldttalk|bool|No|The last talking observed since the last animation updates of [UpdateSprite](Update%20process/UpdateSprite.md)|
 |lastice|bool|No|The last inice observed since the last animation updates of [UpdateSprite](Update%20process/UpdateSprite.md)|
 |oldstate|int|Yes|The last [animstate](Animations/animstate.md) observed by the last animation update of [UpdateSprite](Update%20process/UpdateSprite.md)|
-|lastpos|Vector3|Yes|The last transform's position observed since the last [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) assigned to startpos on [CreateEntities](CreateEntities.md) or on Start|
+|lastpos|Vector3|Yes|The last transform's position observed since the last [LateUpdate](Update%20process/Unity%20events/LateUpdate.md) assigned to startpos on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md) or on Start|
 |oldfly|bool|Yes|The last flyinganim observed since the last animation updates of [UpdateSprite](Update%20process/UpdateSprite.md)|
 |oldtalk|bool|Yes|The last value of talking observed during the last [UpdateSprite](Update%20process/UpdateSprite.md)|
 
@@ -222,7 +222,7 @@ These fields manages both the emoticon to show in `emoticon` or the status condi
 |Name|Type|External set?|Description|
 |----|----|-------------|-----------|
 |emoticonid|int|Yes|The id of the emoticon to play on the next [UpdateEmoticon](Update%20process/UpdateEmoticon.md) when emoticoncooldown hasn't expired yet|
-|emoticonoffset|Vector3|Yes|The offset to render the emoticon from the height during [UpdateEmoticon](Update%20process/UpdateEmoticon.md), assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`'s freezeflipoffset when applicable and on [CreateEntities](CreateEntities.md)|
+|emoticonoffset|Vector3|Yes|The offset to render the emoticon from the height during [UpdateEmoticon](Update%20process/UpdateEmoticon.md), assigned on [CheckSpecialID](Notable%20methods/CheckSpecialID.md) from `endata`'s freezeflipoffset when applicable and on [CreateEntities](../../MapControl/Init%20methods/CreateEntities.md)|
 |emoticoncooldown|float|Yes|The period in frames to listen for emoticon changes and play the one in emoticonid during [UpdateEmoticon](Update%20process/UpdateEmoticon.md)|
 |statusid|int|No|The id of the current status icon to show from statusicons until statuscooldown expires|
 |statusicons|Transform\[\]|Yes|The status transforms of the status icons attached to the entity|

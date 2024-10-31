@@ -17,7 +17,7 @@ A transition zone to and away from an inside of the current map.
 - `regionalflag`: If it's positive, it's the [regionalflag](../../../Flags%20arrays/Regionalflags.md) slot that is set to true when the player collides with this object.
 - `activationflag`: If it's above 0, the [flag](../../../Flags%20arrays/flags.md) slot that is set to true when the player collides with this object. It is not possible to specify 0 and will be treated the same as not providing a value.
 
-## [CreateEntities](../../EntityControl/CreateEntities.md)
+## [CreateEntities](../../../MapControl/Init%20methods/CreateEntities.md)
 The `insideid` is set to -2 which excludes it from the MapControl.RefreshInsides logic where it could toggle the gameObject enablement if the current `insideid` didn't match (or entity.`hideinside` is true while being in the same `insideid`).
 
 This is also where if `data[1]` exists with a [music](../../../Enums%20and%20IDs/Musics.md) id, the corresponding music is loaded and added to the `musicpreload` list. This list isn't read by anyone, it's just to preload the asset for Unity to load it faster after the map load.
