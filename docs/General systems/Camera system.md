@@ -1,3 +1,5 @@
+TODO: talk about `CamDir`
+
 # Camera system
 This game's camera is fully managed by a state machine that can be interfaced via fields in MainManager. It allows to easilly position and angle the camera in many intuitives ways such as either to place it somewhere or to look at a specific object and follow it.
 
