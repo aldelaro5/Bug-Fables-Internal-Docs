@@ -68,7 +68,7 @@ No matter what happens, `lastactionid` is set to 1 which implies `actioncooldown
 - `dashing` is set to false which stops [DashBehavior](../DashBehavior.md) from being called
 - entity.`jumpcooldown` is set to 5.0
 
-However, it should be noted that it's impossible we ever get into this situation. Not only the player `dashing` prevents [GetInput](../GetInput.md) from ever calling this coroutine, if the player was `dashing`, [DashBehavior](../DashBehavior.md) would have stopped the dash already because it would have seen the input was pressed and call StopDash immediately. The logic above is actually incorrect because StopDash more exhaustively clean up things like `tbox` and `smoke` while the logic above doesn't. Effectively, this logic should never happen and if it did, it could leave the dash in a bad state.
+However, it should be noted that it's impossible we ever get into this situation. Not only the player `dashing` prevents [GetInput](../GetInput.md) from ever calling this coroutine, if the player was `dashing`, [DashBehavior](../DashBehavior.md) would have stopped the dash already because it would have seen the input was pressed and call [StopDash](../StopDash.md) immediately. The logic above is actually incorrect because StopDash more exhaustively clean up things like `tbox` and `smoke` while the logic above doesn't. Effectively, this logic should never happen and if it did, it could leave the dash in a bad state.
 
 If the player wasn't `dashing`, then the action happens:
 

@@ -8,6 +8,8 @@ This is a method that is only called by [GetInput](../GetInput.md) when processi
 
 The method attempts to perform the leader party member (`playerdata[0]`)'s hold field action. However, it's possible that the conditions for the actions aren't met. If that's the case, [DoActionTap](DoActionTap.md) is called instead which treats it as a tap action instead of a hold.
 
+Before attempting the action, `lastactionid` is always reset to 0, but it won't be set in this method further.
+
 The specific action depends on the `playerdata[0]`'s `animid` (not its entity's [animid](../../Enums%20and%20IDs/AnimIDs.md), but they should match under normal gameplay).
 
 ## `Bee`'s hold action (Fly)
