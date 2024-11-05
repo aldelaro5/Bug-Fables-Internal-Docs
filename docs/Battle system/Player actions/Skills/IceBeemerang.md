@@ -1,6 +1,8 @@
 # `IceBeemerang`
 This is a [MultiSkillMove](../../Actors%20states/MultiSkillMove.md) with `Bee` and `Moth` and as such, it is assumed that the attacker is either one and it also means that [post-action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action) won't consume their actor turns like normal.
 
+> NOTE: This action is unique in the sense that it is the only [MultiSkillMove](../../Actors%20states/MultiSkillMove.md) that doesn't involve [GetMultiDamage](../../Damage%20pipeline/GetMultiDamage.md) and instead uses the regular damage pipeline directly. This creates unique circumstances in which some issues arises in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) where the user of the move and the attacker sent to [DoDamage](../../Damage%20pipeline/DoDamage.md) may be different and lead to unexpected behaviors. Also, this action is excluded to benefit from the `Magic` weakness bonus in CalculateBaseDamage. For more information, check the CalculateBaseDamage documentation. 
+
 ## [DoCommand](../../DoCommand.md) calls
 
 |#|Conditions|timer|commandtype|data|
