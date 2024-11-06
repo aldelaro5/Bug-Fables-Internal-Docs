@@ -57,8 +57,8 @@ Here's what the inputs does in regards to all of the above:
 
 |Input|`delta` vector added|New entity.`flip` and `trueflip`|New entity.`backsprite`|
 |----:|-----|-----|-----|
-|2 (left)|`CamDir`.right.normalized|false|false|
-|3 (right)|-`CamDir`.right.normalized|true|false|
+|2 (left)|-`CamDir`.right.normalized|false|false|
+|3 (right)|`CamDir`.right.normalized|true|false|
 |0 (up)|`CamDir`.forward.normalized|Left unchanged|Depends on conditions<sup>1</sup>|
 |3 (down)|-`CamDir`.forward.normalized|Left unchanged|false|
 
