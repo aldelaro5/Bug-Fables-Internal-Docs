@@ -1,7 +1,7 @@
-TODO: simplify the collider tags effects and describe more precisely what colliding with the beemerang does
-
 # DoActionTap
-This is a coroutine that where the leader party member's tap action will be performed. It's called a tap action because it involves holding the ability inputs for less than 20.0 frames in [GetInput](../GetInput.md) which is considered a tap.
+This page focuses more on the coroutine which includes the actuation procedure and requirements for all fields abilitis. For information on what these abilities do, check the [fields abilities](../Field%20abilities.md) documentation.
+
+DoActionTap is a coroutine that where the leader party member's tap action will be performed. It's called a tap action because it involves holding the ability inputs for less than 20.0 frames in [GetInput](../GetInput.md) which is considered a tap.
 
 Some actions may go differently when a second tap is detected shortly after the first. This is part of why this is a coroutine: it allows to wait and check for a second tap.
 
@@ -32,7 +32,7 @@ Here's what happens before any actions:
 - An angle is obtained via GetAngle that will be used during the action. Here's what the method does:
     - TODO: complex angle math, need to recheck
 
-### `Bee`'s tap action (Beemerang Toss)
+### `Bee`'s tap action ([Beemerang Toss](../Field%20abilities.md#beemerang-toss))
 This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid`) is 0 which should mean that their entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is `Bee`.
 
 It also requires that any of the following conditions is fufilled, the action doesn't happen and the coroutine goes directly to the action cleanup section below:
@@ -59,7 +59,7 @@ If any of the conditions above are fufilled, the action is performed:
 
 There is technically no double tap action because the second optional part of the action is the Halt feature which is handled separately in the [Beemerang](../../Entities/NPCControl/ObjectTypes/Beemerang.md) logic. It is where the requirements for it are checked as well as the inputs needed.
 
-### `Beetle`'s tap action (Horn Slash / Horn Dash)
+### `Beetle`'s tap action ([Horn Slash](../Field%20abilities.md#horn-slash) / [Horn Dash](../Field%20abilities.md#horn-dash))
 This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid`) is 0 which should mean that their entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is `Beetle`:
 
 No matter what happens, `lastactionid` is set to 1 which implies `actioncooldown` will have a lesser value later, but the action still requires that the player wasn't `dashing` as otherwise, this happens instead of the action:
@@ -116,45 +116,10 @@ This section happens only if a double tap was registered earlier:
     - MainModule's startSize: 1.1 constant curve
     - EmissionModule's rateOverTime: 10.0 constant curve
 - The tag of `tbox` is determined depending on [flag](../../Flags%20arrays/flags.md) 39 (got the upgraded dash):
-    - true: `BeetleDash` (see the section below for details)
-    - false: `BeetleHorn` (see the section below for details)
+    - true: `BeetleDash` (the Horn dash collider)
+    - false: `BeetleHorn` (the Horn slash / Dash collider)
 
-TODO: simplify this with a table
-
-#### Effects of `BeetleHorn`
-Here are the effects of `BeetleHorn` tag for both single or double tap actions:
-
-- [Hornable](../../Entities/NPCControl/ObjectTypes/Dropplet.md#hornable)'s OnTriggerEnter: allows to move the object
-- MusicSpinner's OnTriggerEnter: allows to hit and roll the spinner
-- [BreakableRock](../../Entities/NPCControl/ObjectTypes/BreakableRock.md)'s OnTriggerEnter allows to shake, but not destroy the rock
-- [SavePoint](../../Entities/NPCControl/ObjectTypes/SavePoint.md)'s OnTriggerEnter: allows to interact with the save to save the game
-- [PushRock](../../Entities/NPCControl/ObjectTypes/PushRock.md)'s OnTriggerEnter: allows to move the object
-- [CoiledObject](../../Entities/NPCControl/ObjectTypes/CoiledObject.md)'s OnTriggerEnter: allows to uncoil the object trapped
-- [Switch](../../Entities/NPCControl/ObjectTypes/Switch.md), [StencilSwitch](../../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and [WaterSwitch](../../Entities/NPCControl/ObjectTypes/WaterSwitch.md)'s OnTriggerEnter: allows to `hit` the switch
-- [BeetleGrass](../../Entities/NPCControl/ObjectTypes/BeetleGrass.md)'s OnTriggerEnter: allows to cut the grass
-- [ScrewSwitch](../../Entities/NPCControl/ObjectTypes/ScrewSwitch.md): allows to very slightly actuate the switch, but not enough for useful actuation
-- [Geizer](../../Entities/NPCControl/ObjectTypes/Geizer.md): allows to break a frozen geizer
-- An [Enemy](../../Entities/NPCControl/Enemy.md): allows to move the enemy into a dizzy state
-- Any NPCControl whose entity's name has the `ITAH` [modifier](../../Entities/EntityControl/Modifiers.md): allows for the NPCControl to call [Interact](../../Entities/NPCControl/Notable%20methods/Interact.md)
-- [JumpSpring](../../Entities/NPCControl/ObjectTypes/JumpSpring.md)'s OnTriggerEnter: allows to make the spring bounce
-- Any ShakeHorn: allows to shake the object
-
-#### Effects of `BeetleDash`
-Here are the effects of `BeetleDash` tag for the double tap action:
-
-- [BreakableRock](../../Entities/NPCControl/ObjectTypes/BreakableRock.md)'s OnTriggerEnter allows to break the rock
-- [SavePoint](../../Entities/NPCControl/ObjectTypes/SavePoint.md)'s OnTriggerEnter: allows to interact with the save to save the game
-- [CoiledObject](../../Entities/NPCControl/ObjectTypes/CoiledObject.md)'s OnTriggerEnter: allows to uncoil the object trapped
-- [Switch](../../Entities/NPCControl/ObjectTypes/Switch.md), [StencilSwitch](../../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and [WaterSwitch](../../Entities/NPCControl/ObjectTypes/WaterSwitch.md)'s OnTriggerEnter: allows to `hit` the switch
-- [BeetleGrass](../../Entities/NPCControl/ObjectTypes/BeetleGrass.md)'s OnTriggerEnter: allows to cut the grass
-- [Geizer](../../Entities/NPCControl/ObjectTypes/Geizer.md): allows to break a frozen geizer
-- An [Enemy](../../Entities/NPCControl/Enemy.md): allows to move the enemy into a dizzy state and to break them out of freeze
-- Any NPCControl whose entity's name has the `ITHD` [modifier](../../Entities/EntityControl/Modifiers.md): allows for the NPCControl to call [Interact](../../Entities/NPCControl/Notable%20methods/Interact.md)
-- [JumpSpring](../../Entities/NPCControl/ObjectTypes/JumpSpring.md)'s OnTriggerEnter: allows to make the spring bounce
-- Any ShakeHorn: allows to shake the object
-
-
-### `Moth`'s tap action (Freeze / Icicle)
+### `Moth`'s tap action ([Freeze](../Field%20abilities.md#freeze) / [Icicle](../Field%20abilities.md#icicle))
 This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid`) is 0 which should mean that their entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is `Moth`:
 
 - entity.[animstate](../../Entities/EntityControl/Animations/animstate.md) set to 111
@@ -167,16 +132,6 @@ This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid
 - `OverworldIce` sound plays with 0.8 volume
 - The BoxCollider of the `Prefabs/Particles/mothicenormal` GameObject gets destroyed in 0.25 seconds
 - `Prefabs/Particles/mothicenormal` GameObject gets destroyed in 1.0 seconds
-
-The `Icecle` tag allows the following to happen:
-
-- [SavePoint](../../Entities/NPCControl/ObjectTypes/SavePoint.md)'s OnTriggerEnter: allows to interact with the save to save the game
-- [CoiledObject](../../Entities/NPCControl/ObjectTypes/CoiledObject.md)'s OnTriggerEnter: allows to uncoil the object trapped
-- [Switch](../../Entities/NPCControl/ObjectTypes/Switch.md), [StencilSwitch](../../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and [WaterSwitch](../../Entities/NPCControl/ObjectTypes/WaterSwitch.md)'s OnTriggerEnter: allows to `hit` the switch
-- [Dropplet](../../Entities/NPCControl/ObjectTypes/Dropplet.md)'s OnTriggerEnter: allows to `hit` the dropplet which turns it into an ice cube
-- [Geizer](../../Entities/NPCControl/ObjectTypes/Geizer.md)'s OnTriggerEnter: allows to freeze the geizer
-- An [Enemy](../../Entities/NPCControl/Enemy.md)'s OnTriggerEnter: allows to freeze the enemy or to renew an existing freeze
-- [JumpSpring](../../Entities/NPCControl/ObjectTypes/JumpSpring.md)'s OnTriggerEnter: allows to make the spring bounce
 
 The double tap part of the action may happen here if [flag](../../Flags%20arrays/flags.md) 171 is true (obtained Icicle), but if it's false, the action ends here with a yield for 0.1 seconds.
 
@@ -191,10 +146,7 @@ This section only happens if the double tap was registered earlier:
 - entity.`overrideanim` set to true
 - entity.`animstate` set to 108
 - If `icecle` is null:
-    - `icecle` is initialised to be a new instance of `Prefabs/Objects/icecle`. This has a tag of `icecle` which has the following effect:
-        - Hazard's OnTriggerEnter when `type` is `Water`: Creates an ice platform
-        - [Switch](../../Entities/NPCControl/ObjectTypes/Switch.md), [StencilSwitch](../../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and [WaterSwitch](../../Entities/NPCControl/ObjectTypes/WaterSwitch.md)'s OnTriggerEnter: allows to `hit` the switch
-        - [Geizer](../../Entities/NPCControl/ObjectTypes/Geizer.md)'s OnTriggerEnter: allows to freeze the geizer
+    - `icecle` is initialised to be a new instance of `Prefabs/Objects/icecle`. This has a tag of `icecle`
     - `iceclesize` is reset to 0.0
 - `icecle` position is set to the player position + (0.0, 4.0, 0.0) + `lastdelta` * 2.0
 - Yield all frames until `iceclesize` reaches 1.0 where it is increased by TieFramerate(0.05) before each frame yield (so this lasts ~20.0 frames). Before a frame yield, the following also happens:

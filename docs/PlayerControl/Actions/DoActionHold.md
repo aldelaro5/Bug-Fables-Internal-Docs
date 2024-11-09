@@ -1,7 +1,7 @@
-TODO: detail a bit more what `digging` and `shield` does in the overworld
-
 # DoActionHold
-This is a method that is only called by [GetInput](../GetInput.md) when processing the ability input in the following circumstances:
+This page focuses more on the method which includes the actuation procedure and requirements for all fields abilitis. For information on what these abilities do, check the [fields abilities](../Field%20abilities.md) documentation.
+
+DoActionHold is a method that is only called by [GetInput](../GetInput.md) when processing the ability input in the following circumstances:
 
 - The input was held for 20.0 or more frames
 - The input was released, but the player was `digging` and `keepdig` was above 0.0 (it's still active)
