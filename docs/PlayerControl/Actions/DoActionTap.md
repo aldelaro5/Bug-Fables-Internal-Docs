@@ -16,7 +16,7 @@ This page describes what the coroutine ends up doing to perform each action.
 ## Setup
 The coroutine starts by resetting `lastactionid` to 0 (this will only be used later when `Beetle` performs an action since they get less `actioncooldown`).
 
-From there, it's possible the action isn't performed if the player is in a `submarine`. If this happens, `digging` is toggled. TODO: why ??? If they aren't in a `submarine`, the action is performed.
+From there, it's possible the action isn't performed if the player is in a `submarine`. If this happens, `digging` is toggled. This is because DoActionTap changes completely if the player is in a `submarine` where it toggles whether they are underwater or not. If they aren't in a `submarine`, the action is performed as normal.
 
 No matter what though, `actioncoroutine` is always set to null at the end.
 

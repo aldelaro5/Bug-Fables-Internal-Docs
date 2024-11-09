@@ -58,7 +58,7 @@ The input is processed if all of the following conditions are true:
 - `action` is false (no [DoActionTap](Actions/DoActionTap.md) is in progress)
 - `switchcooldown` is 0.0 or below (there's no ongoing switching)
 - `beemerang` is null (the [Beemerang](../Entities/NPCControl/ObjectTypes/Beemerang.md) hasn't been thrown)
-- `buttonhold` is false TODO: ???
+- `buttonhold` is false (the ability input isn't being held after a `flying` was over)
 - The player isn't `digging` and `startdig` is false
 - The player isn't `flying`
 - The player isn't in a `submarine`
@@ -84,7 +84,7 @@ The input is processed if all of the following conditions are true:
 - No Help input or Switch input was processed above
 - The player `canpause`
 - The entity is `onground`
-- `buttonhold` is false TODO: ???
+- `buttonhold` is false (the ability input isn't being held after a `flying` was over)
 - The player isn't `digging`
 - The player isn't in a `shield`
 - The player isn't `flying`
@@ -106,7 +106,7 @@ This input is processed on its own if all of the following conditions are fufill
 - Either the entity is `onground` OR `jumpcooldown` expired while entity.`offgroundframes` is less than 3.0 (essentially, it accepts the input even if the entity left the ground since less than 3.0 frames so it's coyote time logic)
 - `action` is false (no [DoActionTap](Actions/DoActionTap.md) is in progress)
 - The player isn't `digging`
-- `buttonhold` is false TODO: ???
+- `buttonhold` is false (the ability input isn't being held after a `flying` was over)
 - The player isn't in a `shield`
 - The player isn't `flying`
 
@@ -162,7 +162,7 @@ If neither of the hold action case mentioned above happens, then the tap action 
 
 - If `actionhold` is above 0.0, but below 20.0 while the entity is `onground`, `actionroutine` is set to a new [DoActionTap](Actions/DoActionTap.md) call
 - `actionhold` is reset to 0.0
-- `buttonhold` is reset to false TODO: ???
+- `buttonhold` is reset to false (mark the ability input as being released so if it was held after a `flying`, the inputs processing gets back to a consistent state)
 - If the player is `digging`:
     - `uproot` is set to true (it allows [DigSpot](../Entities/NPCControl/ObjectTypes/DigSpot.md) to reveal their object when colliding)
     - CancelUproot is invoked in 0.1 seconds which will set `uproot` back to false (so it only works for the next 0.1 seconds)

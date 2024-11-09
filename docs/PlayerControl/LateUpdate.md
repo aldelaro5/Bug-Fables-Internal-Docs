@@ -15,7 +15,7 @@ This only happens if the entity is `onground`.
 The only meaningful logic is `canfly` gets set to true. There is logic surrounding `setfolloweronground`, but this field isn't practically used so the logic never happens since the field needed to be true and it never is.
 
 ## `flying` update
-This only happens if the player is `flying` and `buttonhold` TODO: ??? is false: 
+This only happens if the player is `flying` and `buttonhold` (meaning that the ability input was released after the previous `flying`): 
 
 - If `startheight` isn't null and the player y position is less than `startheight` + 1.0, the y player position is lerped from the existing one to `startheight` + 1.0 with a factor of 0.05
 - entity.`overridejump` set to true
@@ -26,7 +26,7 @@ This only happens if the player is `flying` and `buttonhold` TODO: ??? is false:
     - `canfly` is set to false
     - [CancelAction](../SetText/Individual%20commands/Cancelaction.md) called
     - entity.`overridejump` reset to false
-    - `buttonhold` set to true TODO: ???
+    - `buttonhold` set to true (mark the ability input as being held after a `flying` which locks several inputs because it places the inputs processing in an inconsistent state until the input is released where this field is reset to false)
 
 ## `bubbleshield` update
 This only happens if `bubbleshield` exists (should always be the case since it was initialised on Start):
@@ -64,7 +64,7 @@ Several cooldowns are decreased by `framestep` if they were above 0.0 (not expir
 
 If `idletime` is above 250.0, both instance.`showmoney` and instance.`hudcooldown` are set to 10.0 which reveals the HUD and the money counter HUD.
 
-Finally, if the player isn't in a `submarine` and entity.`icooldown` expired (no longer invulnerable), entity.`sprites` gets enabled if `digging` is false, disabled if it's true. TODO: ??? 
+Finally, if the player isn't in a `submarine` and entity.`icooldown` expired (no longer invulnerable), entity.`sprite` gets enabled if `digging` is false, disabled if it's true. This hides the sprite when fully underground and it makes the distinction that `digging` has to apply when not in a `submarine`
 
 ### `Pushable` emoticon update
 This happens only if all of the following are true:
@@ -147,7 +147,7 @@ This only happens when the player was `tattling`, but the [message](../SetText/N
 ## `submarine` sound update
 This is always done:
 
-- If the player is in a `submarine` and isn't `digging`: TODO: this looks sus to check digging
+- If the player is in a `submarine` and isn't `digging` (meaning the player isn't underwater)
     - The `Submarine` sound is played on the entity on loop if entity.`sound` wasn't looping already
     - entity.`sound`.pitch is set to entity.`rigid` velocity's magnitude clamped from 0.65 to 1.0
 - If the player isn't in a `submarine`, but entity.`sound` is still looping, it stops looping

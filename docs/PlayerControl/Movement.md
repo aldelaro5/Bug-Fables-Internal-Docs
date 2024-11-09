@@ -39,7 +39,7 @@ This only happens when any movement inputs is held:
 What happens next relate to the movement sound and it depends if the player is in a `submarine` or not. Only one of the 2 cases applies.
 
 ### `submarine` sonar sound
-It only applies if `digging` is true TODO: ??? and that `Sonar` isn't playing on entity.`sound`. If these conditions are fufilled, `Sonar` is played on entity.`sound` without loop at 0.75 volume.
+It only applies if `digging` is true (the player is underwater) and that `Sonar` isn't playing on entity.`sound`. If these conditions are fufilled, `Sonar` is played on entity.`sound` without loop at 0.75 volume.
 
 ### No `submarine` footstep sound
 First, entity.`sound` is set to not loop.

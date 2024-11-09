@@ -17,7 +17,7 @@ This action is only performed if all of the following conditions are fufilled:
 
 - [flags](../../Flags%20arrays/flags.md) 19 is true (obtained Fly). Otherwise, `actionroutine` is set to a new [DoActionTap](DoActionTap.md) call if the `beemerang` is null (meaning a throw isn't already in progress)
 - There are more than 1 `playerdata`
-- `buttonhold` is false TODO: ???
+- `buttonhold` is false (meaning the ability input is still being held after the previous `flying` so a new flight can't happen until the input is released)
 - `canfly` is true
 - `jumproutine` is null (JumpTo isn't in progress)
 
