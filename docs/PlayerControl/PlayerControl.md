@@ -54,7 +54,7 @@ There's only 2 types of actions that can lead to a field ability being used, but
 At any point, an action in progress can be cancelled by the [CancelAction](Actions/CancelAction.md) method which will revert any stage changes any actions has done and even call [StopDash](StopDash.md) to stop [DashBehavior](DashBehavior.md) if the player was `dashing`.
 
 ## Key states
-The state of PlayerControl is complex and all its fields are outlined in the [PlayerControl fields](Fields.md) documentation, but there are some key ones important to be summarised here:
+The state of PlayerControl is complex and all its fields are outlined in the [PlayerControl fields](Class%20fields.md) documentation, but there are some key ones important to be summarised here:
 
 - `entity`: The [EntityControl](../Entities/EntityControl/EntityControl.md) of the player, usually `playerdata[0]`.`entity`
 - `submarine`: If true, the player is in a submarine which greatly limits their function and changes several aspects of PlayerControl such as moving a bit slower
