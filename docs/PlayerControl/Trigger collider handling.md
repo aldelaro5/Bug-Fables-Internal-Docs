@@ -1,5 +1,5 @@
 # Trigger colliders handing
-PlayerControl has an OnTriggerStay and OnTriggerExit.
+PlayerControl has an OnTriggerStay and OnTriggerExit. They only react to collision whose GameObject have a specific tag.
 
 ## OnTriggerStay
 What happens here depends on the collider's tag (if it's not mentioned here, nothing happens).

@@ -9,7 +9,7 @@ This page documents what the method does by sections.
 - `dashtarget` is set to its normalized version
 
 ## Movement input processing
-The way it works is 2 pairs of inputs are processed in a mutually exclusive way. 2 and 3 (left/right) goes first and they will have at most 1 of the 2 inputs processed with the former taking priority if both are detected. After left or right is processed, 0 and 1 (up/down) goes after in the same manner with up taking priority. Also note that an input must be held here in order to be detected: one frame tap inputs aren't processed.
+The way it works is 2 pairs of inputs are processed in a mutually exclusive way all checking for hold. 2 and 3 (left/right) goes first and they will have at most 1 of the 2 inputs processed with the former taking priority if both are detected. After left or right is processed, 0 and 1 (up/down) goes after in the same manner with up taking priority.
 
 By the end of this process, it ends up doing the following depending on the inputs processed:
 

@@ -38,7 +38,7 @@ From there, the `tattling` will occur with a [SetText](../SetText/SetText.md) ca
 
 As for the parameters of the call, it's always the following (done in [dialogue mode](../SetText/Dialogue%20mode.md)):
 
-- text: `|`[kinematicplayer](../SetText/Individual%20commands/Kinematicplayer.md),temp`|` followed by the string obtained by resolving the [dialogue line id](../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md) determined above
+- text: `|`[kinematicplayer](../SetText/Individual%20commands/Kinematicplayer.md),`temp|` followed by the string obtained by resolving the [dialogue line id](../SetText/Common%20commands%20id%20schemes/Dialogue%20line%20id.md) determined above
 - [fonttype](../SetText/Notable%20states.md#fonttype): `BubblegumSans`
 - linebreak: `messagebreak`
 - tridimensional: false
@@ -121,7 +121,7 @@ If all of the above are fufilled, the meaning of the input is determined if it's
 If all these conditions are fufilled, this is how the inteactions is done:
 
 - [CancelAction](Actions/CancelAction.md) is called
-- If `npc[0]`'s `interactcd` is 0.0 or below (the cooldown on its interaction expired), [Inteact](../Entities/NPCControl/Notable%20methods/Interact.md) is called on `npc[0]` with null as the args
+- If `npc[0]`'s `interactcd` is 0.0 or below (the cooldown on [events](../Enums%20and%20IDs/Events.md#events) expired), [Inteact](../Entities/NPCControl/Notable%20methods/Interact.md) is called on `npc[0]` with null as the args
 
 If the interactions conditions aren't fufilled, then it's a jump if the player isn't in a `submarine`. In that case, DoJump is called which does the following:
 
@@ -133,7 +133,7 @@ If the interactions conditions aren't fufilled, then it's a jump if the player i
 Otheriwse (the player is in a `submarine` and it's not an interaction), the input is ignored and nothing happens.
 
 ## Ability input
-This input is processed on its own if all of the following conditions are fufilled (it doesn't require the input to be pressed in any way, check below for details):
+This input is processed on its own if all of the following conditions are fufilled (it doesn't require the input to be pressed in any way because its release is also processed here, check below for details):
 
 - We aren't in a instance.`pause`, instance.`minipause` or instance.`inevent`
 - `action` is false (no [DoActionTap](Actions/DoActionTap.md) is in progress)
@@ -156,7 +156,7 @@ If the input is still being held:
 
 It means that the threshold for the input to be considered a hold action is 20.0 frames of holding it or more.
 
-However, even if the input isn't being held, DoActionHold can sell be called if the player is `digging` while `keepdig` is above 0.0 (still active). In that case, the hold action happens regardless if the input has been held for 20.0 frames or not.
+However, even if the input isn't being held, DoActionHold can still be called if the player is `digging` while `keepdig` is above 0.0 (a [KeepDig](../MapControl/DigWall.md#keepdig) collider is still active). In that case, the hold action happens regardless if the input has been held for 20.0 frames or not.
 
 If neither of the hold action case mentioned above happens, then the tap action logic is checked since it means the input was just released or it wasn't pressed in general since more than a frame:
 

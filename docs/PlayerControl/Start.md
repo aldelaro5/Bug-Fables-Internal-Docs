@@ -1,4 +1,5 @@
 # PlayerControl Start
+PlayerControl's start contains minimal initialisation logic:
 
 - MainManager.`player` is set to this which assigns the PlayerControl singleton for the rest of the game to use
 - `entity` is set to the EntityControl of this GameObject

@@ -58,9 +58,9 @@ This section includes many updates that only happen when not in an instance.`min
 ### Cooldowns and timers update
 Several cooldowns are decreased by `framestep` if they were above 0.0 (not expired yet):
 
-- `boulderbreak`
-- `interactcd`
-- `keepdig`
+- `boulderbreak` (a [BreakableRock](../Entities/NPCControl/ObjectTypes/BreakableRock.md) just broke which prevents getting stopped from `hitwall`)
+- `interactcd` (an [Event](../Enums%20and%20IDs/Events.md) cooldown before interacting with any [NPC](../Entities/NPCControl/NPC.md) or [SemiNPC](../Entities/NPCControl/Shop%20system.md#seminpc))
+- `keepdig` (a cooldown when in a [KeepDig](../MapControl/DigWall.md#keepdig) collider)
 
 If `idletime` is above 250.0, both instance.`showmoney` and instance.`hudcooldown` are set to 10.0 which reveals the HUD and the money counter HUD.
 
@@ -77,7 +77,7 @@ This happens only if all of the following are true:
 - [flag](../Flags%20arrays/flags.md) 17 is true (got Horn Slash)
 - There is a GameObject with a `Hornable` tag that exists within a distance of less than 2.5 from the player
 
-If all of the above are fufilled, [Emoticon](../Entities/EntityControl/EntityControl%20Methods.md#emoticon) is called on the entity with the `Pushable` emoticon with a time of 5.
+If all of the above are fufilled, [Emoticon](../Entities/EntityControl/EntityControl%20Methods.md#emoticon) is called on the entity with the `Pushable` emoticon (green ! mark) with a time of 5.
 
 ### `npc` interact list update
 This only happens if all of the following conditions are true:
@@ -94,9 +94,9 @@ Here's what happens if all of the above are fufilled:
 - If `npc[0]` is `dead` or `iskill`, it is removed from `npc`. Otherwise, its NPCControl is collected for potential adjustements:
     - If the NPCControl is an [NPC](../Entities/NPCControl/NPC.md) or [SemiNPC](../Entities/NPCControl/Shop%20system.md#seminpc), their `emoticonid` and `emoticoncooldown` may change depending on their [Interaction](../Entities/NPCControl/Interaction.md) (otherwise, if the NPCControl is an [Object](../Entities/NPCControl/Object.md) or [Enemy](../Entities/NPCControl/Enemy.md), it is removed from `npc`):
         - For [Talk](../Entities/NPCControl/Interaction/Talk.md), [ShopKeeper](../Entities/NPCControl/Interaction/ShopKeeper.md), [StorageAnt](../Entities/NPCControl/Interaction/StorageAnt.md) or [VenusHeal](../Entities/NPCControl/Interaction/VenusHeal.md), `emoticonid` is set to 0 (speaking emote) and `emoticoncooldown` is set to 2.0
-        - For [LockedDoor](../Entities/NPCControl/Interaction/LockedDoor.md), [Check](../Entities/NPCControl/Interaction/Check.md), [Shop](../Entities/NPCControl/Interaction/Shop.md), [QuestBoard](../Entities/NPCControl/Interaction/QuestBoard.md), [Event](../Entities/NPCControl/Interaction/Event.md) or [CaravanBadge](../Entities/NPCControl/Interaction/CaravanBadge.md): `emoticonid` is set to 1 (green ! mark) and `emoticoncooldown` is set to 2.0
+        - For [LockedDoor](../Entities/NPCControl/Interaction/LockedDoor.md), [Check](../Entities/NPCControl/Interaction/Check.md), [Shop](../Entities/NPCControl/Interaction/Shop.md), [QuestBoard](../Entities/NPCControl/Interaction/QuestBoard.md), [Event](../Entities/NPCControl/Interaction/Event.md) or [CaravanBadge](../Entities/NPCControl/Interaction/CaravanBadge.md): `emoticonid` is set to 1 (? mark) and `emoticoncooldown` is set to 2.0
     - If the NPCControl has a [Shop](../Entities/NPCControl/Interaction/Shop.md) or [CaravanBadge](../Entities/NPCControl/Interaction/CaravanBadge.md) `Interaction`, instance.`showmoney` changes depending on their `shopkeeper`.`dialogues[1]` being 1:
-        - If it's 1 (the [shop system](../Entities/NPCControl/Shop%20system.md) does accept crystal berries), it's set to 0.0 which hides the berry count HUD
+        - If it's 1 (the [shop system](../Entities/NPCControl/Shop%20system.md) accepts crystal berries), it's set to 0.0 which hides the berry count HUD
         - If it's not 1 (the [shop system](../Entities/NPCControl/Shop%20system.md) only takes regular berries), it's set to 10.0 which reveals the berry count HUD
 
 ## Party switch update

@@ -26,7 +26,7 @@ Being in a `submarine` also have other changes:
 - The player entity, through [EntityControl's Update](../Entities/EntityControl/Update%20process/Unity%20events/Update.md) gets its `sprite` disabled when active
 - The [chompy follower](../MapControl/Follower%20system.md#chompy-following) is never added on the map's first LateUpdate (known as `latestart`)
 - The switch input isn't processed by [GetInput](GetInput.md)
-- It is not possible to jump by using the jump / interact input, but it is still possible to [Interact](../Entities/NPCControl/Notable%20methods/Interact.md) with an NPCControl
+- It is not possible to jump by using the jump / interact input, but it is still possible to [Interact](../Entities/NPCControl/Notable%20methods/Interact.md) with an NPCControl with that input
 - It is not possible to do any [DoActionHold](Actions/DoActionHold.md)
 - On FixedUpdate, the `model`, `extra` and `sprite` of the player entity gets adjusted to align with the movement of the `submarine` and whether is it underwater or not
 - On LateUpdate and when not underwater, the `Submarine` sound is set to play on loop on the entity with a pitch that depends on the entity.`rigid` velocity's magnitude (changes with movement)

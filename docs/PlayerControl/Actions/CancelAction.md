@@ -15,7 +15,7 @@ public void CancelAction(bool keepbeerang)
 
 ## Parameters
 
-- `keepbeerang`: If false, the `beemerang` will get destroyed if it exists
+- `keepbeerang`: If false, the `beemerang` will get destroyed if it exists (this is only called with true when colliding with a [JumpSpring](../../Entities/NPCControl/ObjectTypes/JumpSpring.md))
 
 ## Procedure
 

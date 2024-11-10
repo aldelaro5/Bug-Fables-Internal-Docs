@@ -12,7 +12,7 @@ Before attempting the action, `lastactionid` is always reset to 0, but it won't 
 
 The specific action depends on the `playerdata[0]`'s `animid` (not its entity's [animid](../../Enums%20and%20IDs/AnimIDs.md), but they should match under normal gameplay).
 
-## `Bee`'s hold action (Fly)
+## `Bee`'s hold action ([Bee Fly](../Field%20abilities.md#bee-fly))
 This action is only performed if all of the following conditions are fufilled:
 
 - [flags](../../Flags%20arrays/flags.md) 19 is true (obtained Fly). Otherwise, `actionroutine` is set to a new [DoActionTap](DoActionTap.md) call if the `beemerang` is null (meaning a throw isn't already in progress)
@@ -31,7 +31,7 @@ If all of the above conditions are fufilled, the action is performed:
 
 The actual flying logic is maintained by LateUpdate using `startheight` to change the y position.
 
-## `Beetle`'s hold action (Dig)
+## `Beetle`'s hold action ([Beetle Dig](../Field%20abilities.md#beetle-dig))
 It's possible this action is called even when the player is already `digging` which would simply resume the existing action.
 
 This action is only performed (or resumed) if all of the following conditions are fufilled:
@@ -65,7 +65,7 @@ This is where the logic differs between a new action and a resume which is check
     - RefreshPlayer with onlycollider is called which will cause [ForceHitWall](../../Entities/EntityControl/EntityControl%20Methods.md#forcehitwall) to be called on the player entity if not `inevent` and not in a `battle`
     - `tunnelpart` is initialed to a new `Digging` particles childed to the player at the player position with -90.0 x angle, -1.0 alivetime (infinite) and 2760 rendersort
 
-## `Moth`'s hold action (Shield)
+## `Moth`'s hold action ([Shield](../Field%20abilities.md#shield))
 It's possible this action is called even when the player is already in a `shield` which would simply resume the existing action.
 
 This action is only performed (or resumed) if [flags](../../Flags%20arrays/flags.md) 20 is true (obtained Shield). Otherwise, `actionroutine` is set to a new [DoActionTap](DoActionTap.md) call

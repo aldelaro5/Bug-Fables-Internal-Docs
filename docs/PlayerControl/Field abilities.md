@@ -22,7 +22,7 @@ The travel and colliders management logic as well as Beemerang halt is handled i
     - [CoiledObject](../Entities/NPCControl/ObjectTypes/CoiledObject.md): Allows to untrap the object that's `trapped` in it
     - [Switch](../Entities/NPCControl/ObjectTypes/Switch.md), [StencilSwitch](../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and [WaterSwitch](../Entities/NPCControl/ObjectTypes/WaterSwitch.md): Allows to actuate all of these switches
 
-### Bee fly
+### Bee Fly
 This ability's main feature is setting `flying` to true which mainly causes changes in the movement logic as well as some other visual logic in [EntityControl](../Entities/EntityControl/EntityControl.md) for up to 240.0 frames:
 
 - entity.`rigid` no longer has gravity
@@ -33,7 +33,7 @@ This ability's main feature is setting `flying` to true which mainly causes chan
 ## `Beetle` abilities
 This section will detail `Beetle`s field abilities. They have 4 abilities available.
 
-### Horn slash
+### Horn Slash
 This ability creates a `BeetleHorn` tagged trigger collider that lives for only 0.15 seconds, but it has special properties because it is recognised by many other colliders in the game. Here is how these colliders reacts when colliding with a `BeetleHorn` tagged collider:
 
 - [Hornable](../../Entities/NPCControl/ObjectTypes/Dropplet.md#hornable): Allows to move the object
@@ -65,7 +65,7 @@ Here is what changes when the player is `dashing`:
 - The act of placing an [Enemy](../Entities/NPCControl/Enemy.md) in a dizzy state doesn't happen because while the collider allows it, it doesn't take effect when the player is `dashing`
 - entity.`speed` is always `basespeed` * 2.5. Since `basespeed` should always be 5, it means the entity.`speed` is always 12.5 while it normally would have been 6.5 (when no dynamic friction is on the `ccol`) or 7.8 (when there is dynamic friction on the `ccol`)
 
-### Horn dash
+### Horn Dash
 This ability is almost identical to the dash, but it is upgraded because the only difference besides some visuals changes is the collider tag is not `BeetleHorn`, but `BeetleDash`. The player `dashing` still functions the same way so the only change is the collider tag which generally provides more benefits.
 
 This collider includes all of the effects of `BeetleHorn` and all of the effects of `dashing` with the following changes:
@@ -112,7 +112,7 @@ Due to the `icefall` tag and the presence of a BoxCollider on the GameObject, it
 - [Switch](../Entities/NPCControl/ObjectTypes/Switch.md), [StencilSwitch](../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and [WaterSwitch](../Entities/NPCControl/ObjectTypes/WaterSwitch.md): Allows to actuate all of these switches
 - [Geizer](../../Entities/NPCControl/ObjectTypes/Geizer.md): Allows to freeze the geizer
 
-### Bubble shield
+### Shield
 This abilities allows to reveal the `bubbleshield` GameObject which is a `Prefabs/Objects/BubbleShield` GameObject that lives on PlayerControl.
 
 The GameObject is untagged, but the ability also sets the player to be in a `shield`. This changes some collisions logic:

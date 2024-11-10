@@ -36,7 +36,7 @@ Here's what happens in this update type in order.
 ### Movement inputs
 This is where the main movements inputs are processed. It only happens if `lockkeys` is false.
 
-The way it works is 2 pairs of inputs are processed in a mutually exclusive way. 2 and 3 (left/right) goes firs and they will have at most 1 of the 2 inputs processed with the former taking priority if both are detected. After left or right is processed, 0 and 1 (up/down) goes after in the same manner with up taking priority. Also note that an input must be held here in order to be detected: one frame tap inputs aren't processed.
+The way it works is 2 pairs of inputs are processed in a mutually exclusive way. 2 and 3 (left/right) goes first and they will have at most 1 of the 2 inputs processed with the former taking priority if both are detected. After left or right is processed, 0 and 1 (up/down) goes after in the same manner with up taking priority. Also note that an input must be held here in order to be detected: one frame tap inputs aren't processed.
 
 By the end of this process, it ends up doing the following depending on the inputs processed:
 
@@ -89,7 +89,7 @@ Otherwise, the value is set to 0.0 since the player isn't idling anymore.
 
 - 0 (OFF): Set to `delta`.normalized * entity.`speed`
 - 1 (LOW): Set to `delta`.normalized * entity.`speed` * a number that depends on the absolute value of the magnitude of `delta`. If it's less than 0.4, then this number is 0.6 (so it's decreased by 40%) and 1.0 otherwise (so the number doesn't change the vector)
-- 2 (FULL): Set to `delta` magnitude clamped to 1.0 * entity.`speed`. NOTE: Clamping the magnitude like this is the same than normalizing so it is effectively the same than if the setting was set to 0 (OFF)
+- 2 (FULL): Set to `delta` magnitude clamped to 1.0 * entity.`speed`. The difference with OFF is that any magnitude below 1.0 is kept while on OFF, the vector is rescaled to 1.0
 
 ### `delta`, `lastdelata` and `movecd` updates
 These 3 fields are set in the following ways:

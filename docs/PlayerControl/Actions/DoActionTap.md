@@ -18,7 +18,7 @@ The coroutine starts by resetting `lastactionid` to 0 (this will only be used la
 
 From there, it's possible the action isn't performed if the player is in a `submarine`. If this happens, `digging` is toggled. This is because DoActionTap changes completely if the player is in a `submarine` where it toggles whether they are underwater or not. If they aren't in a `submarine`, the action is performed as normal.
 
-No matter what though, `actioncoroutine` is always set to null at the end.
+No matter what, `actioncoroutine` is always set to null at the end.
 
 ## Action setup
 Here's what happens before any actions:
@@ -29,7 +29,6 @@ Here's what happens before any actions:
 - entity.`backsprite` is reset to false
 - `action` is set to true to mark the tap action being in progress
 - `lockkeys` is set to true which locks all of regular movement inputs processing in Update and [GetInput](../GetInput.md) in general
-
 
 Finally, an angle is obtained via GetAngle that will be used during the action based on entity.`detect` y angle to angle entity.`sprite`. The math for it is incorrect, but it will resolve to these angles (an entity.`detect` y angle of 0.0 means forward towards the screen and a result angle of 0.0 means left which matches how the entity.`sprite` is setup):
 
@@ -45,7 +44,7 @@ Finally, an angle is obtained via GetAngle that will be used during the action b
 
 Single this angle will be used as the new entity.`sprite` y angle, they end up working out when limited to digital movement inputs because moving always sets entity.`flip` in a consistent manner and these angles works with this.
 
-However, when using analogu movement inputs, it's possible to move while entity.`flip` doesn't follow. In such case, it can lead to unexpected behaviors where entity.`sprite` or the action itself doesn't take place in an expected spot.
+However, when using analogue movement inputs, it's possible to move while entity.`flip` doesn't follow. In such case, it can lead to unexpected behaviors where entity.`sprite` or the action itself doesn't take place in an expected spot.
 
 ### `Bee`'s tap action ([Beemerang Toss](../Field%20abilities.md#beemerang-toss))
 This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid`) is 0 which should mean that their entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is `Bee`.
@@ -75,7 +74,7 @@ If any of the conditions above are fufilled, the action is performed:
 There is technically no double tap action because the second optional part of the action is the Halt feature which is handled separately in the [Beemerang](../../Entities/NPCControl/ObjectTypes/Beemerang.md) logic. It is where the requirements for it are checked as well as the inputs needed.
 
 ### `Beetle`'s tap action ([Horn Slash](../Field%20abilities.md#horn-slash) / [Horn Dash](../Field%20abilities.md#horn-dash))
-This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid`) is 0 which should mean that their entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is `Beetle`:
+This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid`) is 1 which should mean that their entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is `Beetle`:
 
 No matter what happens, `lastactionid` is set to 1 which implies `actioncooldown` will have a lesser value later, but the action still requires that the player wasn't `dashing` as otherwise, this happens instead of the action:
 
@@ -135,7 +134,7 @@ This section happens only if a double tap was registered earlier:
     - false: `BeetleHorn` (the Horn slash / Dash collider)
 
 ### `Moth`'s tap action ([Freeze](../Field%20abilities.md#freeze) / [Icicle](../Field%20abilities.md#icicle))
-This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid`) is 0 which should mean that their entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is `Moth`:
+This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid`) is 2 which should mean that their entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is `Moth`:
 
 - entity.[animstate](../../Entities/EntityControl/Animations/animstate.md) set to 111
 - entity.`overrideflip` set to true
