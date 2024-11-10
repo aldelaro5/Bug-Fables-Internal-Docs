@@ -29,8 +29,23 @@ Here's what happens before any actions:
 - entity.`backsprite` is reset to false
 - `action` is set to true to mark the tap action being in progress
 - `lockkeys` is set to true which locks all of regular movement inputs processing in Update and [GetInput](../GetInput.md) in general
-- An angle is obtained via GetAngle that will be used during the action. Here's what the method does:
-    - TODO: complex angle math, need to recheck
+
+
+Finally, an angle is obtained via GetAngle that will be used during the action based on entity.`detect` y angle to angle entity.`sprite`. The math for it is incorrect, but it will resolve to these angles (an entity.`detect` y angle of 0.0 means forward towards the screen and a result angle of 0.0 means left which matches how the entity.`sprite` is setup):
+
+|entity.`detect` y angle|entity.`flip` ? |Result angle|
+|-------|------|------|
+|\[0, 90\]|false|45.0|
+|\]90, 225\[|false|315.0|
+|\[225, 315\]|false|90.0 + entity.`detect` y angle|
+|\[315, 360\[|false|45.0|
+|\[0, 45\[|true|135.0|
+|\[45, 135\]|true|90.0 + entity.`detect` y angle|
+|\]135, 360\[|true|225.0|
+
+Single this angle will be used as the new entity.`sprite` y angle, they end up working out when limited to digital movement inputs because moving always sets entity.`flip` in a consistent manner and these angles works with this.
+
+However, when using analogu movement inputs, it's possible to move while entity.`flip` doesn't follow. In such case, it can lead to unexpected behaviors where entity.`sprite` or the action itself doesn't take place in an expected spot.
 
 ### `Bee`'s tap action ([Beemerang Toss](../Field%20abilities.md#beemerang-toss))
 This action only happens when `playerdata[0]`'s `animid` (not its entity.`animid`) is 0 which should mean that their entity.[animid](../../Enums%20and%20IDs/AnimIDs.md) is `Bee`.
@@ -94,7 +109,7 @@ This section only happens if no double tap was registered earlier:
 This section happens only if a double tap was registered earlier:
 
 - `spin4` sound plays
-- `smoke` is initialised to be the ParticleSystem of a new `Prefabs/Particles/WalkDust` GameObject childed to this player with a local position of (0.0, 0.25, 0.1), an x angle of -90.0 and a Renderer's material.renderQueue of 3001 TODO: ???
+- `smoke` is initialised to be the ParticleSystem of a new `Prefabs/Particles/WalkDust` GameObject childed to this player with a local position of (0.0, 0.25, 0.1), an x angle of -90.0 and a Renderer's material.renderQueue of 3001 (This allows to render over fading [BeetleGrass](../../Entities/NPCControl/ObjectTypes/BeetleGrass.md))
 - `diggingpart` set to `smoke`
 - `smoke` has its ParticleSystem gets some adjustements:
     - MainModule's startlifetime: 1.0 constant curve

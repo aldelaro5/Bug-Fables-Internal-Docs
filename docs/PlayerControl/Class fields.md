@@ -12,7 +12,7 @@
 |shield|bool|Tells if the player is being shielded by using `Moth`'s hold action which implicates that the `bubbleshield` should be visible as enforced by LateUpdate|
 |lockkeys|bool|If this is true, it prevents most form of inputs processing. Notably, GetInput, Movement and most of Update's regular movement inputs processing won't happen anymore except for DashBehavior and the assignement of `lastaxis` where these still can happen (`delta` stays to Vector3.zero)|
 |flying|bool|Tells if the player is flying using `Bee`'s hold action|
-|canpause|bool|Defaults to true. Being false prevents GetInput from processing any pause or HUD toggle inputs as well as prevent updates to `pausecooldown`, `idletime` and NPCControl.LateUpdate ??? TODO: recheck what this does|
+|canpause|bool|Defaults to true. Being false prevents GetInput from processing any pause or HUD toggle inputs as well as prevent updates to `pausecooldown`, `idletime` and prevents any [NPC](../Entities/NPCControl/NPC.md) to have [CheckEmoteFlag](../Entities/NPCControl/Notable%20methods/CheckEmoteFlag.md) called on them to update their emote|
 |dashing|bool|Tells if the player is using `Beetle`'s tap action to dash|
 |trueflip|bool|A value that is assigned during Update's regular movement inputs processing. It is assigned to false for holding input 2 (left) and to true for holding input 3 (right). The value is set to entity.`flip` when processing any tap action|
 |basespeed|int|The default entity.`speed` when converted to float. This defaults to 5 and is never set again|

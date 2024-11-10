@@ -37,9 +37,22 @@ Here's what the inputs does in regards to all of the above:
 ## Angling and entity.`detect` alignement
 
 - [DetectDirection](../Entities/EntityControl/EntityControl%20Methods.md#detectdirection) called on the entity to make entity.`detect` LookAt the player position + `dashdelta` so `detect` gets aligned with where the player is going
-- entity.`sprite` y angle is set to entity.`detect` y angle
-- The new entity.`sprite` local y angle is determined. TODO: figure out the angling math, it looks complex
+- entity.`sprite` y angle is set to entity.`detect` y angle + 90.0 (this done because these 2 GameObjects are already misaligned by 90.0 degrees so this simply aligns the entity.`sprite` y angle to the entity.`detect` y angle)
+- The entity.`sprite` local y angle gets adjusted under certain conditions, check the table below for details (this is to not have the 2D sprite render perfectly perpendicular to the camera which would look off):
+    - If it's between 80.0 exclusive and 91.0 inclusive, it is set to 75.0
+    - If it's between 91.0 exclusive and 100.0 exclusive, it is set to 105.0
+    - If it's between 260.0 exclusive and 271.0 inclusive, it is set to 255.0
+    - If it's between 271.0 exclusive and 280.0 exclusive, it is set to  
 - `tbox` angles are set to entity.`detect` angles if it exists
+
+Here is a table to compute the new entity.`sprite` local y angle:
+
+|Original angle|Adjusted angle|
+|--------------|-------------|
+|\]80.0, 91.0] (forward, left bias)|75.0|
+|\]91.0, 100.0\[ (forward, right bias)|105.0|
+|\]260.0, 271\] (towards camera, right bias)|255.0|
+|\]271.0, 280.0\[ (towards camera, left bias)|285.0|
 
 ## Last dash effects
 
