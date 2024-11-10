@@ -113,5 +113,7 @@ The following fields are all private so they are for internal trackings only:
 
 ### Unused private fields
 
+|Name|Type|Description|
+|---:|----|-----------|
 |tempcamoffset|Vector3?|This is practically UNUSED because while its value would be used to set instance.`camoffset` on [CancelAction](Actions/CancelAction.md) if the value isn't null, the value is never set to any other value than null so it stays at null under normal gameplay and doesn't do anything|
 |ceildetect|GroundDetector|This is practically UNUSED because while it is the GroundDetector of a new `Prefabs/GroundDetector` GameObject created in the Ceiling method, that method is UNUSED under normal gameplay|

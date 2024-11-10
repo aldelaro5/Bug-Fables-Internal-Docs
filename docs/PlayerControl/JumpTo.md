@@ -51,7 +51,7 @@ Where:
 - `X`: The amount selected entities
 - `Y`: Depends on `X`:
     - \> 2: The value is `Y` ^ 3.0
-    - \<= 2: The value is -20.0
+    - <= 2: The value is -20.0
 - multiplier: The parameter sent to the coroutine
 
 We'll call the result "scaler". The total amount of frames the animation will take is scaler - 10.0. Each frames is yielded and counted locally. We'll call this frame counter "t".

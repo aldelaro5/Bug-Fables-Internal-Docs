@@ -75,7 +75,7 @@ Here's the logic of the action if it is performed (or resumed):
 - entity.`overrideanim` is set to true
 - entity.[animstate](../../Entities/EntityControl/Animations/animstate.md) is set to a value that depends on `delta`'s magnitude:
     - \>= 0.1: 123
-    - \< 0.1: 122
+    - < 0.1: 122
 - If the player isn't already in a `shield` (it's a new action):
     - TeleportFollowers is called
     - `Shield` sound plays on the entity

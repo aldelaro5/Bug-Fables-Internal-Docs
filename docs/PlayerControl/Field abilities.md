@@ -36,19 +36,19 @@ This section will detail `Beetle`s field abilities. They have 4 abilities availa
 ### Horn Slash
 This ability creates a `BeetleHorn` tagged trigger collider that lives for only 0.15 seconds, but it has special properties because it is recognised by many other colliders in the game. Here is how these colliders reacts when colliding with a `BeetleHorn` tagged collider:
 
-- [Hornable](../../Entities/NPCControl/ObjectTypes/Dropplet.md#hornable): Allows to move the object
+- [Hornable](../Entities/NPCControl/ObjectTypes/Dropplet.md#hornable): Allows to move the object
 - MusicSpinner: Allows to hit and roll the spinner
-- [BreakableRock](../../Entities/NPCControl/ObjectTypes/BreakableRock.md): Allows to shake, but not destroy the rock
-- [SavePoint](../../Entities/NPCControl/ObjectTypes/SavePoint.md): Allows to interact with the save to save the game
-- [PushRock](../../Entities/NPCControl/ObjectTypes/PushRock.md): Allows to move the object
-- [CoiledObject](../../Entities/NPCControl/ObjectTypes/CoiledObject.md): Allows to uncoil the object trapped
+- [BreakableRock](../Entities/NPCControl/ObjectTypes/BreakableRock.md): Allows to shake, but not destroy the rock
+- [SavePoint](../Entities/NPCControl/ObjectTypes/SavePoint.md): Allows to interact with the save to save the game
+- [PushRock](../Entities/NPCControl/ObjectTypes/PushRock.md): Allows to move the object
+- [CoiledObject](../Entities/NPCControl/ObjectTypes/CoiledObject.md): Allows to uncoil the object trapped
 - [Switch](../Entities/NPCControl/ObjectTypes/Switch.md), [StencilSwitch](../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and [WaterSwitch](../Entities/NPCControl/ObjectTypes/WaterSwitch.md): Allows to actuate all of these switches
-- [BeetleGrass](../../Entities/NPCControl/ObjectTypes/BeetleGrass.md): Allows to cut the grass
-- [ScrewSwitch](../../Entities/NPCControl/ObjectTypes/ScrewSwitch.md): Allows to very slightly actuate the switch, but not enough for sustained actuation
-- [Geizer](../../Entities/NPCControl/ObjectTypes/Geizer.md): Allows to break a frozen geizer
-- An [Enemy](../../Entities/NPCControl/Enemy.md): Allows to move the enemy into a dizzy state
-- Any NPCControl whose entity's name has the `ITAH` [modifier](../../Entities/EntityControl/Modifiers.md): Allows for the NPCControl to call [Interact](../../Entities/NPCControl/Notable%20methods/Interact.md)
-- [JumpSpring](../../Entities/NPCControl/ObjectTypes/JumpSpring.md): Allows to make the spring bounce
+- [BeetleGrass](../Entities/NPCControl/ObjectTypes/BeetleGrass.md): Allows to cut the grass
+- [ScrewSwitch](../Entities/NPCControl/ObjectTypes/ScrewSwitch.md): Allows to very slightly actuate the switch, but not enough for sustained actuation
+- [Geizer](../Entities/NPCControl/ObjectTypes/Geizer.md): Allows to break a frozen geizer
+- An [Enemy](../Entities/NPCControl/Enemy.md): Allows to move the enemy into a dizzy state
+- Any NPCControl whose entity's name has the `ITAH` [modifier](../Entities/EntityControl/Modifiers.md): Allows for the NPCControl to call [Interact](../Entities/NPCControl/Notable%20methods/Interact.md)
+- [JumpSpring](../Entities/NPCControl/ObjectTypes/JumpSpring.md): Allows to make the spring bounce
 - Any ShakeHorn: Allows to shake the object
 
 ### Dash
@@ -70,9 +70,9 @@ This ability is almost identical to the dash, but it is upgraded because the onl
 
 This collider includes all of the effects of `BeetleHorn` and all of the effects of `dashing` with the following changes:
 
-- [BreakableRock](../../Entities/NPCControl/ObjectTypes/BreakableRock.md): Allows to destroy the rock instead of just making it shake
+- [BreakableRock](../Entities/NPCControl/ObjectTypes/BreakableRock.md): Allows to destroy the rock instead of just making it shake
 - The act of placing an [Enemy](../Entities/NPCControl/Enemy.md) in a dizzy state can now happen even while `dashing` and if they were frozen, they are immeditately unfrozen
-- Any NPCControl whose entity's name has the `ITHD` [modifier](../../Entities/EntityControl/Modifiers.md): allows for the NPCControl to call [Interact](../../Entities/NPCControl/Notable%20methods/Interact.md). It now means that both `ITAH` and `ITHD` modifiers are recognised
+- Any NPCControl whose entity's name has the `ITHD` [modifier](../Entities/EntityControl/Modifiers.md): allows for the NPCControl to call [Interact](../Entities/NPCControl/Notable%20methods/Interact.md). It now means that both `ITAH` and `ITHD` modifiers are recognised
 
 ### Beetle dig
 This ability allows to ignore certain colliders and it also include some [NPCControl](../Entities/NPCControl/NPCControl.md) changes as well as some movement changes. Actuating it will set `startdig` to true which will make FixedUpdate decrease the entity.`sprite` local y position so it reaches -2.0. Only when it reaches -1.5 will `digging` be set to true and include all the abilities's benefits and changes.
@@ -95,13 +95,13 @@ This section will detail `Moth`s field abilities. They have 3 abilities availabl
 ### Freeze
 This ability creates an `Icecle` tagged trigger collider that lives for only 1.0 seconds, but it has special properties because it is recognised by many other colliders in the game. Here is how these colliders reacts when colliding with a `Icecle` tagged collider:
 
-- [SavePoint](../../Entities/NPCControl/ObjectTypes/SavePoint.md): Allows to interact with the save to save the game (doing so will call Kill on the `Icecle`'s DestroyOnLayer)
-- [CoiledObject](../../Entities/NPCControl/ObjectTypes/CoiledObject.md): Allows to uncoil the object trapped
+- [SavePoint](../Entities/NPCControl/ObjectTypes/SavePoint.md): Allows to interact with the save to save the game (doing so will call Kill on the `Icecle`'s DestroyOnLayer)
+- [CoiledObject](../Entities/NPCControl/ObjectTypes/CoiledObject.md): Allows to uncoil the object trapped
 - [Switch](../Entities/NPCControl/ObjectTypes/Switch.md), [StencilSwitch](../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and [WaterSwitch](../Entities/NPCControl/ObjectTypes/WaterSwitch.md): Allows to actuate all of these switches
-- [Dropplet](../../Entities/NPCControl/ObjectTypes/Dropplet.md): Allows to `hit` the dropplet which turns it into an ice cube
-- [Geizer](../../Entities/NPCControl/ObjectTypes/Geizer.md): Allows to freeze the geizer
-- Any [Enemy](../../Entities/NPCControl/Enemy.md): Allows to freeze the enemy or to renew an existing freeze
-- [JumpSpring](../../Entities/NPCControl/ObjectTypes/JumpSpring.md): Allows to make the spring bounce
+- [Dropplet](../Entities/NPCControl/ObjectTypes/Dropplet.md): Allows to `hit` the dropplet which turns it into an ice cube
+- [Geizer](../Entities/NPCControl/ObjectTypes/Geizer.md): Allows to freeze the geizer
+- Any [Enemy](../Entities/NPCControl/Enemy.md): Allows to freeze the enemy or to renew an existing freeze
+- [JumpSpring](../Entities/NPCControl/ObjectTypes/JumpSpring.md): Allows to make the spring bounce
 
 ### Icicle
 This ability creates a `Prefabs/Objects/icecle` GameObject with the `icefall` tag with a RigidBody that has its gravity enabled with a y position of 4.0. It will fall down until colliding with layer 8 (`Ground`) or 13 (`NoDigGround`) trigger collider where the GameObject gets destroyed.
@@ -110,7 +110,7 @@ Due to the `icefall` tag and the presence of a BoxCollider on the GameObject, it
 
 - `Water` type Hazards: Creates a `Prefabs/Objects/iceplatform` GameObject that acts as a frozen platform
 - [Switch](../Entities/NPCControl/ObjectTypes/Switch.md), [StencilSwitch](../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and [WaterSwitch](../Entities/NPCControl/ObjectTypes/WaterSwitch.md): Allows to actuate all of these switches
-- [Geizer](../../Entities/NPCControl/ObjectTypes/Geizer.md): Allows to freeze the geizer
+- [Geizer](../Entities/NPCControl/ObjectTypes/Geizer.md): Allows to freeze the geizer
 
 ### Shield
 This abilities allows to reveal the `bubbleshield` GameObject which is a `Prefabs/Objects/BubbleShield` GameObject that lives on PlayerControl.
