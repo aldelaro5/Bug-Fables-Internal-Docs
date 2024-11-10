@@ -29,7 +29,7 @@ What's contained here is miscellaneous updates, but there's one of 3 update type
     - `sprite` angles zeroed out
     - `sprite` scale set to Vector3.zero
     - `model` local y position set to a lerp from the existing one to Sin(Time.time * 3.0) * 0.15 (unless `digging` is true where it's -0.5 instead) with a factor of 0.05
-    - `model`.`extra[1]` (the telescope) local position is set to (0.575, 0.0, `Z`) where `Z` is determined by a lerp from the existing local z position to 0.5 (4.0 instead if `digging` is true) with a factor of 0.025 TOOD: moves the telescope towards the camera ???
+    - `model`.`extra[1]` (the telescope) local position is set to (0.575, 0.0, `Z`) where `Z` is determined by a lerp from the existing local z position to 0.5 (4.0 instead if `digging` is true) with a factor of 0.025 (0.5 is actually the normal position of where the telescope should be)
     - `model`.`extra[0]` (the propeller) is set to rotate in x by 15.0 * entity.`rigid` velocity magnitude
     - `model` angles are updated:
         - x: Always -90.0
