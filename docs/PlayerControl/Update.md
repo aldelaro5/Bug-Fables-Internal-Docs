@@ -85,11 +85,11 @@ If all of them are fufilled, then the value is increased by `framestep` unless i
 Otherwise, the value is set to 0.0 since the player isn't idling anymore.
 
 ### `walkdelta` computation
-`walkdelta` gets set to a value depending on MainManager.`analog`. TODO: ???
+`walkdelta` gets set to a value depending on MainManager.`analog`.
 
-- 0: Set to `delta`.normalized * entity.`speed`
-- 1: Set to `delta`.normalized * entity.`speed` * a number that depends on the absolute value of the magnitude of `delta`. If it's less than 0.4, then this number is 0.6 (so it's decreased by 40%) and 1.0 otherwise (so the number doesn't change the vector)
-- 2: Set to `delta` magnitude clamped to 1.0 * entity.`speed` TODO: same than 0 ???
+- 0 (OFF): Set to `delta`.normalized * entity.`speed`
+- 1 (LOW): Set to `delta`.normalized * entity.`speed` * a number that depends on the absolute value of the magnitude of `delta`. If it's less than 0.4, then this number is 0.6 (so it's decreased by 40%) and 1.0 otherwise (so the number doesn't change the vector)
+- 2 (FULL): Set to `delta` magnitude clamped to 1.0 * entity.`speed`. NOTE: Clamping the magnitude like this is the same than normalizing so it is effectively the same than if the setting was set to 0 (OFF)
 
 ### `delta`, `lastdelata` and `movecd` updates
 These 3 fields are set in the following ways:
