@@ -14,6 +14,7 @@ The only scene the game uses is where the Cameras are defined in the game. It ha
 -------> GUICamera
 ----------> RenderTexture (initially disabled)
 -------> 3DGUI
+-------> CamDir
 ```
 
 The camera system is mostly concerned with the "MainCam" object since it is a rooted object so moving or rotating it will cause changes to all the other cameras. In other words, moving or rotating this object is all that's needed to position and angle the camera. "Main Camera" is used to relatively displace the cameras by setting its local position.
@@ -56,6 +57,15 @@ This camera only renders elements on the `3DUI` layer. Unlike the other 2 camera
 However, it remains important because it is what allows UI elements to be rendered with depths. This camera unlike the `GUICamera` is configured in perspective mode so any UI elements that needs to be rendered with depths to them uses this camera. This is mainly needed to render UI that needs to look relatively close to other objects in games such as icons and emoticons.
 
 [SetText](../SetText/SetText.md) lines can render on it using the [triui](../SetText/Individual%20commands/Triui.md) command.
+
+## `CamDir`
+This GameObject isn't part of the Main scene because the game creates it by itself on LoadEssentials childing it to the Main Camera and assigns it to instance.`globalcamdir` with a local position of Vector3.zero.
+
+The entire reason this object exists is for the game to have access to its relative axis vectors (forward, up and right). Since it's childed to `MainCamera`, it will rotate alongside the camera. However, MainManager's LateUpdate will always zero out the x and z angles of `CamDir` leaving the y angle be the one of the `MainCamera`.
+
+This means the relative vectors of `CamDir` become very useful because it always looks at the camera from the perspective of the screen. Since only the y angle of the camera is tracked by `CamDir`, it allows the game to easily have accesses to vectors that are relative to the camera as it points towards the camera's plane. For example, it means that `globalcamdir`.right gives a general direction of "right" from the perspective of the player looking at the screen. In the same logic, `globalcamdir`.forward gives a relative forward direction which can be used to position objects to prevent z fighting.
+
+However, there is a minor flaw with this system: the x/z angles are only zeroed out on MainManager's LateUpdate. This means that pretty much anything that isn't in LateUpdate or later in the lifecycle won't have accurate informations since RefreshCamera runs during MainManager's FixedUpdate. This is unfortunately the case for many usages of `globalcamdir` in the game. Fortunately, it's at most reporting information that's a frame out of date so it might not be noticed if the camera doesn't rotate too fast.
 
 ## Camera fields
 The camera's logic is driven by a state machine in MainManager that uses the following fields to determine how to position it and angle it:

@@ -53,7 +53,7 @@ Finally, `hasenteredrange` is set to true and [DoBehavior](Notable%20methods/DoB
 As for which behaviors is chosen at which frequency, it depends on 2 conditions:
 
 - Whether or not `forcebehavior` is defined. This forces the behavior to use, but not the frequency (see the second condition for how that is selected)
-- Whether the player is present and its entity is `digging` or its entity.`icooldown` hasn't expired yet. If this is true, it forces the behavior AND the frequency to be the default one. Otherwise, the frequency depends on `inrange` and the behavior (assuming `forcebehavior` isn't defined) is also based on it.
+- Whether the player is present and its entity is `digging` or its entity.`icooldown` hasn't expired yet. If this is true, it forces the behavior AND the frequency to be the default one which effectively ignores all `inrange` behaviors in these conditions. Otherwise, the frequency depends on `inrange` and the behavior (assuming `forcebehavior` isn't defined) is also based on it.
 
 #### Non trapped active item update logic
 This subsection applies if the main one didn't and it's an [item entity](../EntityControl/Item%20entity.md) while not being `trapped`. Most cases involves logic specific to the [Item](ObjectTypes/Item.md) object, but an [item entity](../EntityControl/Item%20entity.md) used as a shelved shop item is also affected, but not in a meaninful way (only calls [StopForceMove](../EntityControl/EntityControl%20Methods.md#stopforcemove) on the 3rd cycle onward effectively making it fixed in place).

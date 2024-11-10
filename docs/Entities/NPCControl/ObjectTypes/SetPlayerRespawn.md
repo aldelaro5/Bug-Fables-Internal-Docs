@@ -1,8 +1,8 @@
 # SetPlayerRespawn
-A trigger zone that sets the player.`lastpos` which is the player last spawn point. It can either be managed by this NPCControl or be a completely independant collider that PlayerControl can collider with.
+A trigger zone that sets the player.`lastpos` which is the player last spawn point. It can either be managed by this NPCControl or be a completely independant collider that [PlayerControl](../../../PlayerControl/PlayerControl.md) can collider with.
 
 ## Data Arrays
-- `vectordata[0]`: The position to set the player `lastpos` when entered. If the magnitude is less than 0.1, the whole collider is managed indepedently from any NPCControl
+- `vectordata[0]`: The position to set the player `lastpos` when entered. If the magnitude is less than 0.1, the whole collider is managed indepedently from any NPCControl and it will instead be used by [PlayerControl](../../../PlayerControl/PlayerControl.md) directly. More information can be found in the [Respawn](../../../MapControl/Respawn.md) documentation
 
 ## Setup
 There are 2 modes this object can operate on:
