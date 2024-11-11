@@ -38,6 +38,7 @@ This is an action coroutine that runs at the very end of every main turn when bo
 - `chompyattacked` is set to false
 - `hideenemyhp` is set to false
 - `mainturn` is set to null (which signals the coroutine is no longer in progress as no yield will be done from now on)
+- `blockcooldown` is set to 0.0 (this resets the [GetBlock](../GetBlock.md) counter so blocking becomes inactive)
 - All GameObjects with tag `DestroyTurn` have their tag set to `Untagged` followed by their destruction in 5.0 seconds
 
 ### `delprojs` advance

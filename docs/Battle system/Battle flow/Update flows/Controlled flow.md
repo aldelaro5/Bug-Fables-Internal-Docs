@@ -98,7 +98,7 @@ For more information on how this works, check the [hitaction](../../Actors%20sta
 This cycle repeats for all applicable enemies untill all `hitaction` are set to false at which point, the main turn procedure can continue.
 
 ## GUI cooldown
-This only decreases `guicooldown` by the game's frametime if it hasn't expired yet. However, this cooldown isn't actually used anywhere making this dead logic.
+This only decreases `guicooldown` by the `framestep` if it hasn't expired yet. However, this cooldown isn't actually used anywhere making this dead logic.
 
 ## Main turn procedure
 This is where the main turn logic happens.

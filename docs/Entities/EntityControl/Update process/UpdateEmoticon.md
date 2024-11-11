@@ -8,3 +8,8 @@ Then, the method ensures the `emoticon` has a runtimeAnimatorController and if i
 Finally, the `emoticoncooldown` expiration logic ensures. If the cooldown hasn't expired yet, it is decreased by framestep and the `emoticonid` is played immediately on the `emoticon`.
 
 It should be noted that if the cooldown has expired, there is an unused feature where if it was set to higher than -100.0 (which is not possible normally without externally doing so), the -1 (blank) animation will play on the `emoticon` while setting `emoticoncooldown` to -101.0 to prevent from reaching this code path again. 
+
+Also, as a performance optimisation, whenever Play is called on the `emoticon`, the strings used are cached in private static readonly fields. This avoids memory allocations because the game can choose the correct string to send depending on `emoticonid` without creating a new string everytime. The fields are:
+
+- `emoticonIDs`: A 7 string array containing the strings `0` through `6`
+- `disableEmoticon`: A string containing `-1`

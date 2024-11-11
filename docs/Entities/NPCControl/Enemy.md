@@ -38,7 +38,7 @@ The following occurs:
 - The entity.`spin` is zeroed out
 - The `disguisecooldown` is set to 120.0 and if a `disguiseobj` is present, it is disabled and the entity.`sprite` is disabled
 - The entity.`emotioncooldown` is set to -1.0
-- `templayer` is set to the current layer if it was negative. This is done because this also causes the current layer to be set to 8 (Ground)
+- `templayer` is set to the current layer if it was negative. This is done because this also causes the current layer of the enemy to be set to 13 (`NoDigGround`) which prevents to dig while on their `icecube` and acts as a platform
 - If the entity doesn't have an `icecube`, [Freeze](../EntityControl/Notable%20methods/Freeze%20handling.md#freeze) is called on the entity. Otherwise, all collisions between the `scol` and the entity.`icecube` are ignored.
 - If the `boxcol` isn't present, it is created non trigger with a size of the entity's `freezesize`
 - The center of the `boxcol` is set to the entity's `freezeoffset`

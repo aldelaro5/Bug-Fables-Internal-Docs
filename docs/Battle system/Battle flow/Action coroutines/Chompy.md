@@ -6,6 +6,7 @@ The actual flow is only switched once the setup is complete meaning this corouti
 ## Setup
 This section runs first and performs any waits or setup needed before switching to an [uncontrolled flow](../Update%20flows/Uncontrolled%20flow.md).
 
+- MainManager.`listredirect` is reset to null which is a workaround of the [inlist issue](../../../ItemList/inlist%20issue.md)
 - A frame is yielded if there's at least one `extraenemies`
 - All frames are yielded while `checkingdead` is in progress, `summonnewenemy` is true or while any enemy party member's battleentity is in a `forcemove`
 - [ReorganizeEnemies(true)](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called which removes all dead enemy party members and orders them by battleentity.position.x
