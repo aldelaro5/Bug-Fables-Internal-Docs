@@ -10,7 +10,14 @@ Display the list of inputs of the game and their bound keyboard key.
 
 ## Option's [SetText](../../SetText/SetText.md) input string
 
-The text is |[button](../../SetText/Individual%20commands/Button.md), followed by the option followed by `,0|` followed by MenuText line 88 + the option. In practice, it means that it will show the currently bound keyboard key of the input followed by the input description as they all fall between line 88 and 98 of MenuText.
+The text is all these strings appended together in order:
+- `|`[button](../../SetText/Individual%20commands/Button.md)
+- The option 
+- `,0|` 
+- If [languageid](../../SetText/languageid.md) is 6 (`Russian`) and the option is between 4 and 7 inclusive (confirm, cancel, switch or toggle hud inputs), `|`[sizemulti](../../SetText/Individual%20commands/Sizemulti.md)`,0.7,1|` is appended here, otherwise, nothing is appended
+- MenuText line 88 + the option
+
+In practice, it means that it will show the currently bound keyboard key of the input followed by the input description as they all fall between line 88 and 98 of MenuText.
 
 ## Description box rendering
 

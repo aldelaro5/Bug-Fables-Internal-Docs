@@ -45,8 +45,9 @@ A letter prompt is a complex system that acts as a superset of [numberprompt](Nu
 |0|Latin alphabet with numbers, accented letters and common punctuation|
 |1|Japanese's Katakana alphabet|
 |2|Japanese's hiragana alphabet|
-|3|Korean's Hangul alphabet split into 3 sections with its own logic|
-|4|Some uncommon symbols such as music note and spade|
+|3|Russian's cyrilic alphabet|
+|4|Korean's Hangul alphabet split into 3 sections with its own logic|
+|5|Some uncommon symbols such as music note and spade|
 
 The current id can be cycled through using the Switch button and once done, it needs to recreate the whole prompt in a similar fashion than the first refresh which is the creation of the whole prompt. The Korean prompt is special as it has its own refreshing logic which is detailed in a section below.
 
@@ -64,7 +65,7 @@ The way a letter prompt works is by reusing some fields used in the [prompt](Pro
 
 Here are the fields in question:
 
-* `letterprompt`: Set to to 1 in `Japanese`, 3 in `Korean` and 0 for any other [languageid](../languageid.md).
+* `letterprompt`: Set to to 1 in `Japanese`, 3 in `Russian`, 4 in `Korean` and 0 for any other [languageid](../languageid.md)
 * `prompt`: Since this command uses the same lock then [prompt](Prompt.md), it works the same way here (set to true during the command processing and to false when SetText is done yielding and handles the outcome)
 * `numberprompt`: Set to true during the command processing which is needed because a letter prompt is a superset of a [numberprompt](NumberPrompt.md) (it's not set to false because its value won't matter after until a [prompt](Prompt.md) command happens which itself would set it to false anyway)
 * `option`: The current option index from 0 (includes spaces, but they are bypassed by the prompt handling)
@@ -83,7 +84,7 @@ As for the [flagvar](../../Flags%20arrays/flagvar.md), this command and its hand
 * 1: Set to the number of letters in each row of the current letter prompt
 * 4: Set to 0 every time the letter prompt is refreshed (NOTE: why?)
 * 5: Set to -1 from this command, then changes to the button id if it's a direction input during the prompt handling. This is used to skip any space selection by repeating the last action of the last direction pressed.
-* 6: Set to the current section of the Korean prompt (id 3) if it's in use
+* 6: Set to the current section of the Korean prompt (id 4) if it's in use
 * 10: Set to `maxlength`
 
 For [flagstring](../../Flags%20arrays/flagstring.md):
@@ -131,8 +132,8 @@ After all the letters have been rendered, [flagstring](../../Flags%20arrays/flag
 `maxoptions` is then incremented by 3 for the bottom 3 options. All the 3 options's SetText call are similar with the main differences between them is the position and the text, but they are all on [non Dialogue mode](../Dialogue%20mode.md#non-dialogue-mode) with the `promptbox` as the parent with no size scaling or anything special. All are menutext prepanded with |[center](Center.md)\| and appended with |[choicewave](Choicewave.md),n| where n is the option index (they are the last 3 in order):
 
 1. Cancel: menutext 74 at (-5.0, -3.0, 0.0)
-1. Space: menutext 192 at (0.0, -3.0, 0.0)
-1. Confirm: menutext 42 at (5.0, -3.0, 0.0)
+2. Space: menutext 192 at (0.0, -3.0, 0.0)
+3. Confirm: menutext 42 at (5.0, -3.0, 0.0). NOTE: On this one, if [languageid](../languageid.md) is 6 (`Russian`), the option text is prepanded with `|`[sizemulti](Sizemulti.md)`,0.8,1|`
 
 After, the help text to the next letter prompt with the switch button is rendered by creating a new GameObject parented to the `promptbox` called `button` with a ButtonSprite set to `Scroll Faster / Switch Party` whose label is the corresponding letterPromptHelp at the current id at (-2.25, -1.9) and a size of (0.5, 0.5).
 
@@ -149,7 +150,7 @@ After the initial setup, the first refresh of the letter prompt is performed. Th
 
 After the first refresh is done, a refresh will only get done after a letter is added/removed during the letter prompt handling.
 
-### About the Korean letter prompt (id 3)
+### About the Korean letter prompt (id 4)
 
 The Korean prompt has special logic related to it. There are 3 sections of different parts of a full letter and one option of each section in order must be confirmed before the full letter is appended at the end of the current text. To accomplish this, there are special fields for this mainly [flagvar](../../Flags%20arrays/flagvar.md) 6 corresponds to the current section starting from 0, `KoreanHL` corresponds to the 2 parts selected in the first 2 sections and a hardcoded array of the mappings of each sections's options called `koreanLimit` (which starts at 3 instead of 0). This letter prompt also has its own refresh handling to render it correctly throughout the selection.
 

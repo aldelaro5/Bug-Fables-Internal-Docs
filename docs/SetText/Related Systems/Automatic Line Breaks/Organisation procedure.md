@@ -19,7 +19,7 @@ This is the heart of the auto line breaker. For each char in the input string:
         * For any commands with `size` (except [battlesize](../../Individual%20commands/Battlesize.md)) where the first param isn't `multi`:
             * Change the size to the x size parameter of the command
         * For [singlebreak](../../Individual%20commands/Singlebreak.md):
-            * Enable single break mode and set the `maxoffset` to the one sent in parameter of the command.
+            * Enable single break mode and set the `maxoffset` to the one sent in parameter of the command. If [languageid](../../languageid.md) is 6 (`Russian`), the `maxoffset` gets multiplied by 1.15
     * ` `: 
         * Add 0.3 * size to the line accumulator width (0.3 is the width of a space gap)
         * If the line accumulator width + the word accumulator width exceeds `maxoffset`

@@ -17,6 +17,14 @@ For more information on each letter prompt id, consult the details of the [Lette
 * `LetterPrompt2`
 * `LetterPrompt3`
 * `LetterPrompt4`
+* `LetterPrompt5`
+
+NOTE: There are additional files that have similar namings, but are unused:
+
+- `LetterPrompt4b`
+- `LetterPrompt101`
+- `LetterPrompt102`
+- `LetterPrompt103`
 
 ## Leaves destination positions during battle transition
 

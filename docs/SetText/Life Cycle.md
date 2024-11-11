@@ -14,8 +14,9 @@ The call starts with the current bleep sound volume set to the size's parameter'
 
 The [fonttype](Notable%20states.md#fonttype) parameter is overridden in some languages if `BubblegumSans` was sent:
 
-* `Japanese`: `Uzura`
-* `Korean`: `ONEMobilePOP`
+- `Japanese`: `Uzura`
+- `Korean`: `ONEMobilePOP`
+- `Russian`: `BalsamiqSans`
 
 Then, the [textholder](Notable%20states.md#textholder) is initialized where its parent and position is set to their respective parameters. Finally, all line endings of the input string are normalized to LF if any were in CRLF and [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md) is called if the linebreak parameter wasn't null.
 
@@ -105,8 +106,9 @@ The first thing it does is if we had [speed](Individual%20commands/Speed.md) set
 
 Next, the [fonttype](Notable%20states.md#fonttype) is overridden again when in [Dialogue mode](Dialogue%20mode.md) and not in a [NumberPrompt](Individual%20commands/NumberPrompt.md) using a similar logic than the setup phase and the [languageid](languageid.md), but this time, this will take into consideration the font locking feature of the [font](Individual%20commands/Font.md) command. If the lock was enabled, this will not do the override:
 
-* `Japanese` and the letter being processed character is Japanese: `Uzura`
-* `Korean` and the letter being processed character is Korean: `ONEMobilePOP`
+- `Japanese` and the letter being processed character `IsHiragana`, `IsKatakana`, `IsKangxiRadicals` or `IsCJKUnifiedIdeographs`: `Uzura`
+- `Russian` and the letter being processed `IsCyrillic`: `BalsamiqSans`
+- `Korean` and the letter being processed character `IsHangulJamo`, `IsHangulSyllables` or `IsHangulCompatibilityJamo`: `ONEMobilePOP`
 
 From there, the rendering of the letter occurs. There are 2 rendering methods and it depends on the current state of [single](Individual%20commands/Single.md). Each method is documented in its own page:
 

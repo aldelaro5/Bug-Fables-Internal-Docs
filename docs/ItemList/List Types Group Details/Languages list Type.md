@@ -4,7 +4,7 @@ Display the list of the available languages of the game.
 
 ## Options generation
 
-`listvar` is the integers between 0 and 5, which represents the [languageid](../../SetText/languageid.md) of the game.
+`listvar` is the integers between 0 and 6, which represents the [languageid](../../SetText/languageid.md) of the game.
 
 `listredirect` is overridden to null.
 
@@ -29,6 +29,12 @@ Normally, any listtype where `questboardobj` is null and not handled by PauseMen
 ## Confirmation handling
 
 The confirmation will cause the [languageid](../../SetText/languageid.md) to be set to the selected option, a complete rewrite (or creation) of `config.dat` and SetVariables to be called which updates all the language dependent data of the game. The list is then destroyed with the [ItemList State Machine](../ItemList%20State%20Machine.md) being reset and finally, the Intro method on the StartMenu is called which starts the title screen.
+
+Finally, if the [languageid](../../SetText/languageid.md) is 4 (`German`), some `guisprites` gets overriden to their German counterpart (these are all the gui sprites where a medal icon can be seen as the letter inside changes from an "M" to an "A"):
+
+- `guisprites[61]` becomes `guisprites[224]`
+- `guisprites[109]` becomes `guisprites[225]`
+- `guisprites[75]` becomes `guisprites[226]`
 
 ## Cancellation handling
 

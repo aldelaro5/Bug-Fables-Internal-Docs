@@ -74,7 +74,7 @@ To render each 12 options (the 10 digits, Confirm and Erase), the following is d
 
 * Start with the x and y position of the options be -2.25 and -0.25 respectively
 * Render the options such that for each options:
-    * Have each text be |[choicewave](Choicewave.md),n,true| where n is the option index from 0 to 11. This is prepanded with menutext 42 (`Confirm`) for option 10 and menutext 74 (`Erase`) for option 11. Option 0-9 are the digits.
+    * Have each text be |[choicewave](Choicewave.md),n,true| (without the true parameter for option 10 and 11) where n is the option index from 0 to 11. This is prepanded with menutext 42 (`Confirm`) for option 10 and menutext 74 (`Erase`) for option 11. Option 0-9 are the digits. If [languageid](../languageid.md) is 6 (`Russian`), option 10 (`Confirm`) is also prepanded with `|`[sizemulti](Sizemulti.md)`,0.8,1|` before the menutext part
     * Call [SetText](../SetText.md) in [non Dialogue mode](../Dialogue%20mode.md#non-dialogue-mode) using the text prepanded with |[center](Center.md)\|:
         * [fonttype](../Notable%20states.md#fonttype) is `BubblegumSans`
         * no `linebreak`

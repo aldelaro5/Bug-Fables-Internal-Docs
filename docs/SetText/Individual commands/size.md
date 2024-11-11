@@ -36,7 +36,7 @@ The text size scaling to set uniformly in the vertical and horizontal direction.
 
 ### `sizex`: float | `x`
 
-The text size scaling to set horizontally. The float form must be a valid float or an exception will be thrown. `x` will cause the existing y size (NOT X SIZE which is likely an error!) to be used instead. Any other value will be interpreted as the float form which will cause an exception to be thrown if it isn't one.
+The text size scaling to set horizontally. The float form must be a valid float or an exception will be thrown. `x` will cause the existing y size (NOT X SIZE which is likely an error!) to be used instead. Any other value will be interpreted as the float form which will cause an exception to be thrown if it isn't one. NOTE: In [single letter rendering](../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md) while [languageid](../languageid.md) is 6 (`Russian`), the actual x size of the letter slot is going to be this parameter value * 0.9 so a decrease by 10%.
 
 ### `sizey`: float | `y`
 
@@ -58,7 +58,7 @@ Any other value is ignored.
 
 ## Remarks
 
-In [Single Letter Rendering](../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), this also sets the localScale of the letter slot to (size.x, size.y, 1.0) * 0.07. This essentially scales everything down to 7% of the new size.
+In [Single Letter Rendering](../Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), this also sets the localScale of the letter slot to (size.x, size.y, 1.0) * 0.07. This essentially scales everything down to 7% of the new size. However, if the [languageid](../languageid.md) is 6 (`Russian`), the localScale becomes (size.x * 0.9, size.y, 1.0) * 0.07. This is the same, but the x size is decreased by 10% and the scaling of the letter slot is 7% after that.
 
 Additionally, the bleep volume is adjusted to the new size's magnitude which will make bleeps go louder or softer depending on the new size.
 

@@ -35,3 +35,5 @@ The [flagvar](../../Flags%20arrays/flagvar.md) slot containing the amount of ber
 More specifically, this command expects line 0 of MenuText to contain the singular form and line 1 of MenuText to contain the plural form.
 
 This command will cause SetText to resume processing at the same character position to accommodate the text replacement of the input string at the position this command is being processed.
+
+TOOD: There are Russian specific logic that depends on the last 2 digits of the number, this is language specific so need to recheck with a native speaker
