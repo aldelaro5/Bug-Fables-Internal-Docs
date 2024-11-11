@@ -17,7 +17,7 @@ Here's the CheckDead procedure:
 - If there are no longer any enemy party members left while `mainturn` isn't in progress, `mainturn` is set to a new [AdvanceMainTurn](AdvanceMainTurn.md) call which will take care of detecting the terminal case of winning the battle and act accordingly
 - Otherwise:
     - A frame is yielded
-    - If EnemyDropping reports that all enemy party members's battleentity.`droproutine` isn't in progress while `mainturn` isn't in progress, `action` is set to false which will change to a [controlled flow](../Update%20flows/Controlled%20flow.md) once CheckDead completes
+    - If EnemyDropping reports that all enemy party members's battleentity.`droproutine` isn't in progress while `mainturn` isn't in progress, `action` is set to false which will change to a [controlled flow](../Update%20flows/Controlled%20flow.md) once CheckDead completes. NOTE: It is possible that [Chompy](Chompy.md) is running by this point because it is possible Chompy killed an enemy and if an `extraenemies` summon happens later, it can lead into a situation where if the killing this enemy leads to other's [hitaction](../../Actors%20states/Enemy%20features.md#hitaction) being triggered, `action` would be set to false causing a [DoAction](DoAction.md) call to happen BEFORE Chompy sees that CheckDead completed which leads to yet another DoAction so 2 concurent calls will be racing against each other
 - If we aren't `inevent`, [ReorganizeEnemies](../../Actors%20states/Enemy%20party%20members/ReorganizeEnemies.md) is called with order
 - `checkingdead` is set to null which reports to the rest of BattleControl that CheckDead is no longer in progress
 
