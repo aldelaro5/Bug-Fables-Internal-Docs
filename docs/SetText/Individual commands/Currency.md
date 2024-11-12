@@ -36,4 +36,16 @@ More specifically, this command expects line 0 of MenuText to contain the singul
 
 This command will cause SetText to resume processing at the same character position to accommodate the text replacement of the input string at the position this command is being processed.
 
-TOOD: There are Russian specific logic that depends on the last 2 digits of the number, this is language specific so need to recheck with a native speaker
+### Russian specific grammar support
+If [languageid](../languageid.md) is 6 (`Russian`), the logic of what menutext line to use changes because the Russian language has very specific rules relating to plurality associated with specific numbers.
+
+Here's a table that explains the menutext line used depending on the effective amount (line 276 is unused and is `ягода`):
+
+|Effective amount|menutext line used|
+|----------------|------------|
+|Any that ends with `11`, `12`, `13` or `14`|275 (`ягод`)|
+|Any that ends with `1`, but doesn't end with `11`|277 (`ягоду`)|
+|Any that ends with `2`, `3` or `4` but doesn't end with `12`, `13` or `14`|278 (`ягоды`)|
+|Any that ends with `5`, `6`, `7`, `8` or `9`|275 (`ягод`)|
+
+It should be noted that in context, the command assumes grammatically that the number refers to a currency cost. This explains why menutext 277 (`ягоду`) is used over menutext 276 (`ягода`) because the former is used to describe cost. In practice, this matches most of the time where this command is used so it is the best compromise to assume the context of cost.
