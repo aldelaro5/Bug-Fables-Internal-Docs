@@ -110,7 +110,7 @@ The second phase involves each shelved items on SetUp:
 ### Refresh process
 Medals shop have a unique capability: it's possible for the game to recreate the entire shop by passing true instead of false to SetBadgeShop. This is notably used during a [kill](../../SetText/Individual%20commands/Kill.md) or [rerollshops](../../SetText/Individual%20commands/Rerollshops.md) SetText commands.
 
-Doing so will destroy all `shopitems` and their `descwindow` if it existed followed by a MainManager.UpdateShops call before recreating the shelved items. The UpdateShops will randomly sort all `availablebadgepool` arrays, not just the one the game wanted to refresh (this changes the items on the shelf because only the first ones are going to be present and the overflow ones discarded due to `iskill` being true).
+Doing so will destroy all `shopitems` and their `descwindow` if it existed followed by a MainManager.UpdateShops call before recreating the shelved items. The UpdateShops will randomly sort all `availablebadgepool` arrays, not just the one the game wanted to refresh (this changes the items on the shelf because only the first ones are going to be present and the overflow ones discarded due to `iskill` being true). It also updates [flags](../Flags%20arrays/flags.md) 587's value which is true only when all Merab's medals were bought (so `badgeshops[0]` is not above 0 as if it is and the flag is true, it's reset to false).
 
 From there, the shelved items are initialised as normal with one extra step: if the entity isn't `iskill` by the end, DeathSmoke particles will play on the entity's `startpos`
 
