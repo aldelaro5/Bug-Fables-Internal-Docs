@@ -115,7 +115,9 @@ The same than Shrink, but no DeathSmoke particles are played.
 - All frames are yielded while in a `pause` or it's not a `battle` entity while we are in a battle
 - For anything except an `npcdata` of type [Enemy](../../NPCControl/Enemy.md) with an `eventid` of 0 or below (meaning no `respawntimer` feature):
     - If `spitmoney` is above 0, the berries drop logic is performed (see the section below for details)
-    - If `npcdata` has a non empty `vectordata` without a [SetPath](../../NPCControl/ActionBehaviors/SetPath.md) or [SetPathJump](../../NPCControl/ActionBehaviors/SetPathJump.md) behaviors, the item drop logic is performed (see the section below for details)
+    - If `npcdata` has a non empty `vectordata` without a [SetPath](../../NPCControl/ActionBehaviors/SetPath.md) or [SetPathJump](../../NPCControl/ActionBehaviors/SetPathJump.md) behaviors:
+        - If any `Pip` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped and either the `BumpAttack` medal is unequipped or `spitmoney` is above 0, the pip drop logic is performed (see the section below for details)
+        - The item drop logic is performed (see the section below for details)
 - A frame is yielded
 - If this GameObject is null (which shouldn't happen), the coroutine is exited early with a yield break
 - If the `destroytype` isn't `KO`, `SpinKO` or `None`, the entity position is set offscreen at (0.0, 9999.0, 0.0) followed by the destruction of the object (only if we aren't in a battle)
@@ -128,6 +130,11 @@ The following is performed until `spitmoney` amount of berries worth total have 
 - The collisions between the item's entity.`ccol` and the item's entity.`detect` or itself are ignored for 5.0 seconds
 - The same RandomBounce vector obtined earlier is set to the item's entity.`rigid` vecity on the next frame
 - The amount of money dropped is increased by 20 if there was more than 20 left to drop. Otherwise, if there's more than 5 left, it's increased by 5 (this means the last 5 berries if exactly 5 are left drops 5 `MoneySmall` instead of one `MoneyMedum`)
+
+## Pip drop logic
+There are 2 types of pips: `HP` and `TP`. Each of the 2 types's drop are determined one after the other separately where the amount dropped for each type is random between 0 and 2 + the amount of `Pip` [medal](../../../Enums%20and%20IDs/Medal.md) equipped (since it's always 1 under normal gameplay, it's random between 0 and 3 in practice).
+
+Each time a pip is dropped, it involves instantiating a `Prefabs/Objects/Pip0` for `HP` pips or `Prefabs/Objects/Pip1` for `TP` pips (childed to the `map` in either case). These prefabs contains a special Pips component that will let the object stay for up to 600.0 frames until they get destroyed, but on their OnTriggerEnter, if they collide with the player, all party members's `hp` gets incremented clamped from 0 to their `maxhp` if it's an `HP` pip or instance.`tp` gets incremented clamped from 0 to `maxtp` if it's a `TP` pip.
 
 ### Item drop logic
 The `specialenemy` cases are handled. These are hardcoded [enemy](../../../Enums%20and%20IDs/Enemies.md) ids with hardcoded odds to drop an [item](../../../Enums%20and%20IDs/Items.md) from an hardcoded list of ids with uniform probability each. The way it works is the first occurence of a special enemy in `lastdefeated` (if one exists) will test for a potential drop. If multiple exists, only the first is tested once so if it fails, others will not be attempted to drop. Here are the the hardcoded ids in question as well as their odds:

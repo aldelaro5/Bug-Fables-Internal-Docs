@@ -79,6 +79,11 @@ This happens if the regular update segment didn't occured as long as the `animdi
 Lastly, unless `overrideanim` is true, both the actual sprite of the `sprite` is set to null and `sprite` is disabled if it wasn't.
 
 ## renderQueue adjustment
-This segment happens for any entity where `hologram` is false and that either it's a `battle` entity or that it has no `npcdata` or it has one, but it's either not an NPC type or if it is one, its `startlife` is less than 50.0.
+This segment has 2 possible logic:
 
-When it gets executed, the `sprite`'s material renderQueue is set to 2450 if the alpha was higher than 0.9 or it is set to 3000 otherwise.
+- `hologram` is false and that either it's a `battle` entity or that it has no `npcdata` or it has one, but it's either not an NPC type or if it is one, its `startlife` is less than 50.0.
+- `hologram` is true and it's a `battle` entity
+
+For the first one, the `sprite`'s material renderQueue is set to 2450 if the alpha was higher than 0.9 or it is set to 3000 otherwise.
+
+For the second one, the `sprite`.material.renderQueue is set to 2500.

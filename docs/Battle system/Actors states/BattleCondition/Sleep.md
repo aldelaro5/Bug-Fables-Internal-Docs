@@ -80,3 +80,6 @@ For all alive (`hp` above 0) player party members with this condition and whose 
 For all alive (`hp` above 0) enemy party members with this condition alongside [Flipped](Flipped.md) and whose `droproutine` isn't in progress, their battleentity.[animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 25 (`SleepFallen`) instead of 15 (`Fallen`). If they don't have [Flipped](Flipped.md), it may be set to 14 (`Sleep`).
 
 Check the method's documentation to learn more.
+
+## UpdateConditionBubbles
+If a non `isplayer` entity (assumed to be an enemy party member) has this condtion while the `BadDream` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped, the medal's icon is added to the conditions bubbles.

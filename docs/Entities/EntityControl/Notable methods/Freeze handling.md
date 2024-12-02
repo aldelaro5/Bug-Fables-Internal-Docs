@@ -19,4 +19,4 @@ Them, the `height` logic follows. `tempheightoverride` is set to false which is 
 
 If it's a `battle` entity that isn't the `player`, its size in the battle data is set to the initialsize of the battle data.
 
-Finally, `shakeice` is set to false and the SpriteBounce is enabled back if one existed on the `rotater`. Before return, [UpdateAnimSpecific](../Animations/AnimSpecific.md#updateanimspecific) is invoked in 0.1 seconds.
+Finally, `shakeice` is set to false and the SpriteBounce is enabled back if one existed on the `rotater`. Before return, UpdateSpriteMat is called (sets the `sprite` material accoriding to `hologram`) and [UpdateAnimSpecific](../Animations/AnimSpecific.md#updateanimspecific) is invoked in 0.1 seconds.

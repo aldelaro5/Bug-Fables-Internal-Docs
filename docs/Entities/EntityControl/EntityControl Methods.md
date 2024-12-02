@@ -921,6 +921,12 @@ private void ShieldMove(bool tempf)
 ## Sprite effects
 These methods perform shaking and fading on the sprite.
 
+Update the sprite's material to be MainManager.`spritemat` except if `hologram` is true where it is MainManager.`holosprite` instead.
+
+```cs
+public void UpdateSpriteMat()
+```
+
 For each `frametimer` frames, set the `spritetransform` local position to a random position between -`intensity` and `intensity` and restoring the position it had beforehand when `frametimer` frames elapsed.
 
 ````cs
@@ -1050,10 +1056,10 @@ Returns true only if the entity has the `Follower`, `NPC`, `Enemy`, `PFollower` 
 private bool CheckForCharacterEntity()
 ````
 
-Sets the color of the Chompy's ribbon (stored in `extrasprites` 0) depending on [flag](../../Flags%20arrays/flags.md) 56 (the [Items](../../Enums%20and%20IDs/Items.md) id equipped to Chompy)
+Sets the color of the Chompy's ribbon (stored in the sprite parameter, but is typically `extrasprites[0]`) depending on [flag](../../Flags%20arrays/flags.md) 56 (the [Items](../../Enums%20and%20IDs/Items.md) id equipped to Chompy)
 
 ````cs
-public void ChompyRibbon()
+public static void ChompyRibbon(SpriteRenderer sprite)
 ````
 
 This is the special animation routine for Zasp. He will disappear with `appear` being false and appear if it is true

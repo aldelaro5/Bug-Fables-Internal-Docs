@@ -8,7 +8,7 @@ EntityControl defines a Start Unity event which performs several important steps
 * Initialise `digpart` to an array of 2 new game objects
 * Assign the `rotater` created earlier by getting the first child of the root
 * Apply the `Holo`, `TIME` and `COT` [Modifiers](Modifiers.md) logic as well as `ShwKEY` and `ICE` if this entity has an `npcdata`'s [NPCControl](../NPCControl/NPCControl.md)
-* Set the sprite's material to the game's sprite material or the hologram one depending on the value of `hologram`
+* Calls UpdateSpriteMat which sets the sprite's material to the game's sprite material or the hologram one depending on the value of `hologram`
 * Set the sprite's object's layer to 14 (`Sprite`)
 * Set the sprite to receive shadows
 * Ensure there's a CapsuleCollider assigned to `ccol` and set it's material to the game's default physics material
