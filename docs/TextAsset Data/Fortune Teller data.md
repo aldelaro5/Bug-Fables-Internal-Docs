@@ -85,5 +85,7 @@ Each of these hints is expected to be a [Medal](../Enums%20and%20IDs/Medal.md) b
 |13|42|
 |14|23|
 |15|60|
+|16|721|
+|17|719|
 
 The hint can only be selected if the [flag](../Flags%20arrays/flags.md) slot is false. No hints will be given if they are all true.
