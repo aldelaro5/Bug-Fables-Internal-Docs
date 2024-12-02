@@ -115,7 +115,9 @@ The following occurs:
 - `actionfrequency[2]` is set to `data[0]`
 
 ## OnTriggerEnter if the other gameObject layer is `Ground` or `NoDigGround`
-This does nothing if the other gameObject tag is `DroppletPass` (This would have happened with a [BreakableRock](BreakableRock.md), but the tag gets overriden to `Object` later so in practice, this can't happen under normal gameplay).
+This does nothing if the other gameObject tag is `DroppletPass` (This would have happened with a [BreakableRock](BreakableRock.md), but the tag gets overriden to `Object` later so in practice, this can't happen under normal gameplay). 
+
+This also does nothing if `actionfrequency[1]` is 595.0 or higher which means the first 6.0 frames after reseting the spawn cooldown. This is because it prevents any collisions after the first one since once the first collision happen, the Dropplet will be allowed to go through the collider for 1/6th of a second which is ~6.0 frames.
 
 - `actionfrequency[1]` is set to 600.0
 - If the entity.`rigid` is not in kinematic mode, the following depends on `internalparticle[0]`:
@@ -123,7 +125,10 @@ This does nothing if the other gameObject tag is `DroppletPass` (This would have
     - If it wasn't null, its position is set to this object position and Play is called on it
 - If we aren't in a `pause` and the `startlife` is over 60.0 frames, the `WaterSplash` sound is played at this object position with a volume of the entity sound distance adjusted for the volume settings and multipled by `vectordata[1].z` if it wasn't 0.0.
 - The entity.`rigid` is put in kinematic mode
-- The position is set to be offscreen at (0.0, -2000.0, 0.0)
+- entity.`sprite` is disabled
+- HidePos is invoked in 1/6th of a second which will do the following (the dropplet is allowed to go through the wall at this point, but it won't be visible and it allows an `Icecle` or `IceRadius` collider to collide with it during this short period):
+    - The position is set to be offscreen at (0.0, -2000.0, 0.0)
+    - entity.`sprite` is enabled again
 - `actionfrequency[0]` is set to -1110.0
 - `actionfrequency[2]` is set to `data[0]`
 

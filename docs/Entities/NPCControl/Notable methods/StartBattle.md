@@ -28,6 +28,8 @@ From there, 2 other early returns special cases are checked:
 
 If we still haven't returned, then a battle will occur and the rest is just to setup the StartBattle call.
 
+All `destroyOnBattle` elements that aren't null gets destroyed by this point and the list is then cleared.
+
 All [EntityControl](../../EntityControl/EntityControl.md) will have their `lastpos` set to their current positions. Then, CancelAction is called on the player and the enemy's entity.`spin` is zeroed out. `attacking` is set to false and finally, [StopForceBehavior](StopForceBehavior.md) is called.
 
 The last step is the actual StartBattle call:

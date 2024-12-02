@@ -1,9 +1,10 @@
 # LateUpdate
 The logic depends on the [NPCType](NPCType.md), [ObjectTypes](Object.md#objecttypes), [ActionBehaviors](ActionBehaviors.md) and [Interaction](Interaction.md). Consult each's documentation to learn more.
 
-There are mainly 2 sections to this LateUpdate:
+There are mainly 3 sections to this LateUpdate:
 
 - A handler to a NaN position
+- Cleaning the `destroyOnBattle` list
 - The main logic when it's not a `dummy`
 
 ## NaN position handling
@@ -12,6 +13,9 @@ This section applies if any of the component of the position is a NaN and the en
 If we got here, it means that the entity somehow got so far out of bounds that the components no longer reports valid floating point numbers. This is handled by setting the position to the entity.`startpos` and setting the entity.`onground` to false.
 
 Some specific logic happens if we are `trapped` related to the [CoiledObject](ObjectTypes/CoiledObject.md) object type.
+
+## Cleaning the `destroyOnBattle` list
+The only thing that happens in this section is if `destroyOnBattle` has more than 10 elements, all the null ones are removed. This can happen when a `ToeBiter`'s [ShootProjectile](ActionBehaviors/ShootProjectile.md) causes a lot of projectiles to be added to the list, but got destroyed after landing which made their reference null. Since it's not useful to keep null references as they were already destroyed, this section removes them when the list grows to have more than 10 elements.
 
 ## Non Dummy logic
 This section starts with the [NPC](NPC.md#npc) NPCType exclusive logic involving the `insideid` and whether or not the entity.`rigid` should be locked or unlocked. Consult the corresponding NPCType [section](NPC.md#lateupdate-non-dummy) to learn more.

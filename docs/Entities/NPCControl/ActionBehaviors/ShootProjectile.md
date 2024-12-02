@@ -114,6 +114,7 @@ If there's no `projectiles`:
 - All frames are yielded as long as the player isn't free (ignoring flying) or they are `digging`
 - If `internaltransform[0]` doesn't exist, it is initialised to a `Prefabs/Objects/CrackedRock` prefab without its MeshCollider and Fader with a position of this NPCControl + (0.0, -2.0, 0.0), and a scale of 0.5 uniform
 - `internaltransform[0]` is childed to the map
+- `internaltransform[0]` is added to the `destroyOnBattle` list which slates this object to be destroyed the moement NPCControl.[StartBattle](../Notable%20methods/StartBattle.md) gets called
 - If `dizzytime` or `freezecooldown` aren't expired, this projectile logic ends early, but the coroutine still continues
 - From there, there is a loop that goes on for up to 11.0 frames, but counted by a local variable which only gets incremented towards the end of the loop by the game's frametime (meaning there may be more frames yielded during the loop, but it will stop after 11.0 frames are counted using the local variable):
     - `internaltransform[0]` position is set to a lerp from the existing one to (entity.`sprite` position + the normalised right vector of the entity + 0.3 in y) with a factor of the ratio of the amount of frames counted in this loop over 11.0. This basically moves the rock on a straight line to a position above the entity, but slightly towards them
