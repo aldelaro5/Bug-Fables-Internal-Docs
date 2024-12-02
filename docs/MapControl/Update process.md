@@ -28,8 +28,6 @@ It is decreased by 1.0 and no further logic happens from here. Essentially, it b
 
 ### `alivetime` is 0
 
-- Every 3 frames, if `faderchange` is true and there `faders`, each enabled one whose `fss` is true (it started enabled) has the following happen to them:
-    - The [Fader logic](Graphics%20configuration.md#fader-control) happens
 - Every 2 frames, NPCControl updates happen for any that have their `requires`, `limit` and `regionalflag` condition fufilled to exist:
     - [DoorOtherMap](../Entities/NPCControl/ObjectTypes/DoorOtherMap.md): The enablement is updated to be only enabled only if the player is less than 15.0 units away ignoring the y axis (disabled otherwise). If the enablement changes due to this, the `emoticon` of the entity is disabled
     - [NPC](../Entities/NPCControl/NPC.md) (with an `originalid` defined and only if the map's `keepobjectsactive` is false): The enablement is updated to be only enabled only if the player is less than the NPC's `radius` * 2.0 units away ignoring the y axis (disabled otherwise). If the enablement changes due to this and `interacttype` isn't `Talk`, the `emoticon` of the entity is disabled
@@ -40,7 +38,7 @@ It is decreased by 1.0 and no further logic happens from here. Essentially, it b
     - `actualcenter` is set to `centralpoint`, but the y is instance.`camtarget` y position
     - If `tetherYLerp`.x is higher than 0.0, `tetherdistance` is set to a lerp from `tetherYLerp`.x to `tetherYLerp`.y with a factor of instance.`camtarget` y position / `tetherYLerp`.z. NOTE: This feature is complicated, see the [tetherYLerp details](Camera%20system.md#more-details-on-tetherylerp) section in the camera system page for more details
 - If `overrideskybox` is false and RenderSettings.skybox isn't null:
-    - If `nocolorchange` is false, the skybox and `render`'s material's color are updated when entering or exiting an inside (see the section below)
+    - If `nocolorchange` is false, the [UpdateInsideColor](Insides.md#outside-fading) logic happens here with a targetalpha of 1.0 if not in an inside or 0.0 if in an inside. Check the documentation to learn more
     - The `_Rotation` material property of the skybox is set to 180.0 + MainCamera x position
 - If `rotatecam` is true, there are `roundways` and we are not in an inside, `roundways[0]` position is set to ((0.0 - MainCamera's forward x vector) * 3.0, 5.0, (0.0 - MainCamera's forward z vector) * `lightoffset`). NOTE: This feature is very specific to a the `AntTunnels` [map](../Enums%20and%20IDs/Maps.md), check the [`roundways[0]`](Camera%20system.md#roundways0) documentation to learn more. Also, this math is incorrect
-- The [outside fading](Insides.md#outside-fading) logic happens here. Check the documentation to learn more
+

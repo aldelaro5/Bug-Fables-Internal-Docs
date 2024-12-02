@@ -25,6 +25,5 @@ The area is responsible for grouping maps in such a way that going to a map with
 - All [regionalflag](../Flags%20arrays/Regionalflags.md) are reset
 - instance.`areaid` is updated to the new area
 - The `librarystuff` flag of the area is set to true
-- UpdateShops gets called which will randomly shuffle all `availablebadgepool` arrays (this changes the items on the shelf of the shops)
 
 There are also many other places in the game where the area affects the logic. It's essentially a way to identify groups of maps that belong together logically.

@@ -47,7 +47,9 @@ This is only used in the `AntTunnels` [map](../Enums%20and%20IDs/Maps.md) to hid
 If this is true, it overrides the camera system more by setting instance.`camtarget` to the `insides`'s transform when entering it. It will be reset to the `player`'s transform when exiting the inside
 
 ## Outside fading
-During the course of entering or exiting an inside, FixedUpdate can fade in or out RenderSettings.`skybox` and all `render` who will also end up being disabled using a tracking field called `fadeammount`. Normally, none of the `render` should be in any inside so it's effectively fading in and out the "outside". This involves the `fadingspeed` configuration field which is the fraction of TieFramerate to use in FixedUpdate when updating `fadeammount` when entering or exiting an inside.
+During the course of entering or exiting an inside, FixedUpdate can fade in or out RenderSettings.`skybox` and all `render` who will also end up being disabled using a tracking field called `fadeammount`. It is contained in a method called UpdateInsideColor which receives a targetalpha parameter which is the opacity targetted depending if inside or outside (1.0 if outside, 0.0 if inside). 
+
+Normally, none of the `render` should be in any inside so it's effectively fading in and out the "outside". This involves the `fadingspeed` configuration field which is the fraction of TieFramerate to use in FixedUpdate when updating `fadeammount` when entering or exiting an inside.
 
 This fading logic is relatively complex because it doesn't always happen and is incorrectly intertwined with other unrelated graphical features. For the fading to happen in general, all the following conditions must be fufilled (they don't do anything in practice however because the maps in which these would apply don't have any `insides` defined):
 
@@ -69,7 +71,7 @@ Also, `render`'s GameObjects can have tags that changes the behavior of the fadi
 - `AlwaysShow`: The `render` will never have its materials's colors changed and it will always remain enabled during the fading, but its sharedMaterials will still be restored to `ogmats` during the cleanup part
 
 ### Fading update
-The fading only updates whenever `fadeammount` gets further than 0.025 away from the value it should be which is 0.0 if in an inside and 1.0 if not.
+The fading only updates whenever `fadeammount` gets further than 0.025 away from the value it should be which is 0.0 if in an inside and 1.0 if not (the targetalpha of UpdateInsideColor).
 
 Essentially, `fadeammount` is what controls the materials's color to fade in or out. Everytime `fadeammount` changes, the materials's colors will be set to a color where all r, g and b components will be set to `fadeammount` (except for the skybox where it's clamped from 0.0 to 0.5).
 
@@ -77,29 +79,19 @@ It effectively means that the colors will change to pure black when entering the
 
 The destination value (0.0 or 1.0) is constantly updated, but whether any changes happen depens on if `fadeammount` gets further away then 0.025 from it. It means that the moment instance.`insideid` changes, FixedUpdate will have the fading happen accordingly on its own.
 
-If the fading should happen, `refreshmats` is set to true. This is necessary to queue the cleanup part of the fading that will happen after exiting the inside later (see the section below for details on that).
-
 As for the actual fading, it is done like the following:
 
 - `fadeammount` is set to a lerp from the existing one to the destination value with a factor of TieFramerate(`fadingSpeed`)
 - RenderSettings.`skybox` has its `_Tint` set to a color where r, g and b are `fadeammount` clamped from 0.0 to 0.5
+- If `insidedum` is null, it is created as a new MaterialPropertyBlock
 - Each `render` that isn't null and have an `AlwaysShow` tag will be enabled, but their materials color won't change
 - Each `render` that isn't null and don't have a `AlwaysShow` tag will have the following happen:
     - The `render` enablement is set depending on `fadeammount`. It's enabled if it's higher than 0.15 and disabled otherwise
-    - If the `render` doesn't have a `NoMapColor` tag, its materials's color who fufill certain conditions set to a color where r, g and b are `fadeammount`. Here are the conditions for a `render` material to have its color changed:
+    - If the `render` doesn't have a `NoMapColor` tag and fufills other conditions, `insidedim` will have its `_Color` set to a color where r, g and b are `fadeammount` (the a is the sharedMaterial's color.a) followed by `insidedim` being set on the `render`'s porperty block. Here are the conditions for a `render` material to have its color changed:
         - The shader isn't `emptymat`'s shader
         - The shader isn't `outlinemain`'s shader
         - The shader isn't `fakelight`
         - The material has a property named `_Color`
-
-### Fading cleanup after exit
-This only applies when fully outside (instance.`insideid` is -1). Once the fading is over, `refreshmats` should be true by this point which will cause this part of the fading logic to happen on FixedUpdate.
-
-All `render`'s sharedMaterials will be restored to their `ogmat` counterpart which completely restores their materials and their properties to their original when the MapControl's Start happened.
-
-It's however possible to exclude `render`'s GameObject from this if they have a `NoMapColor` tag.
-
-Once this is done, `refreshmats` is reset to false which ends the fading completely.
 
 ## Inside transition
 The procedure involved in entering or exiting the inside is done in 3 ways:

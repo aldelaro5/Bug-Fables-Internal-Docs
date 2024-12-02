@@ -13,7 +13,7 @@ It involves the following configuration fields:
 |globallight|Color|The starting value of RenderSettings.ambientLight|Pure gray|
 |windspeed|float|Configures the range of values possible for the `_ShakeDisplacement` shader property of a material using the MainManager.`windshader`. This shader is only used during the SetUp of a [BeetleGrass](../Entities/NPCControl/ObjectTypes/BeetleGrass.md) when MainManager.`nowindeffect` is false where the grass will get this shader as its `sprite`'s material. The shader property will have a random value that range from `X` / 2.0 to `X` where `X` is the value of this field. NOTE: Because this property is unused in that shader, this value effectively does nothing. The intended property was likely `_ShakeWindspeed` which would have configured the speed of the shaking, but it is not configurable under normal gameplay|0.2|
 |windintensity|float|Configures the range of values possible for the `_ShakeBending` shader property of a material using the MainManager.`windshader` (this property controls the amount of warping to apply to the object as a result of the wind). This shader is only used during the SetUp of a [BeetleGrass](../Entities/NPCControl/ObjectTypes/BeetleGrass.md) when MainManager.`nowindeffect` is false where the grass will get this shader as its `sprite`'s material. The shader property will have a random value that range from `X` / 2.0 to `X` where `X` is the value of this field|0.2|
-|faderchange|bool|If true, all Fader will fade all their Renderer instead of culling them completely. Also, on Start, `faders` and `fss` gets their initialised on the first LateUpdate which are used in LateUpdate to reset all the sharedMaterials, shadowCastingMode and sharedMaterials's renderQueue of all disabled Fader's renders that were initially enabled|false|
+|faderchange|bool|If true, all Fader will fade all their Renderer instead of culling them completely. Also, on Start, `faders` and `fss` gets their initialised on the first LateUpdate, but they are UNUSED|false|
 |skycolor|Color|If a Fader is set to fade its GameObject's materials (forced to be the case if `faderchange` is true), this is the color tint to set the materials's colors to in RGB (the A component is ignored since Fader controls it)|Pure white|
 
 ## Fog
@@ -68,19 +68,6 @@ The default of a Fader is to simply cull the GameObject when out of range, but t
 - `WaspKingdom`
 
 It's also possible for an individual Fader to force itself to operate in this mode if its `alwaysfade` field is true which is expected to be done from the map's prefab where the Fader is defined.
-
-That being said, setting `faderchange` to true will also causes some special logic in LateUpdate to happen every 3 frames on every disabled Fader that were initially enabled when MapControl Start happened. This involves the following tracking fields:
-
-- `faders`: All Fader found on the scene in MapControl's Start
-- `fss`: All `faders`'s enablement when MapControl's Start happened
-
-For each affected Faders, the following will happen on MapControl's Lwindspeed: 0\n
-- All `renders`'s sharedMaterials's renderQueue gets collected into an array for restore later
-- All `renders`'s sharedMaterials gets set to the Fader's `mats` element which essentially restores the materials to their original (Fader collects `mats` on its Start)
-- All `renders`'s shadowCastingMode's gets set to the Fader's `modes` element which essentially restores them to their original (Fader collects `modes` on its Start)
-- All `renders`'s sharedMaterials's renderQueue gets restored from the saved array
-
-This effectively reverts all `renders`'s materials to their original which is desired for a disabled Fader because it forces the material to revert to their non fadable counterparts. It only applies to Faders that were initially enabled because it is assumed it's not needed to mess with them if that's the case.
 
 ### `skycolor`
 On top of the fading behavior (whether or not it was caused by `faderchange` being true), it's possible to change the color of the fading done (when the fading shader used is MainManager.`Fade3D`). It can be done through changing the `skycolor` configuration field. Since the Fader controls the alpha component of the color, only the r, g and b components of this field will be used. If the fading mode of the Fader isn't used, the `skycolor` configuration field won't do anything.

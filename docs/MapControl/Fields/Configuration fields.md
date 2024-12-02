@@ -112,6 +112,7 @@ These fields allows the configure the [main camera system](../../General%20syste
 |alivetime|float|The amount of frames (excluding the first one) before LateUpdate is allowed to restore the disabled, but initially enabled [Fader](../Graphics%20configuration.md#fader-control) and also to update the enablement of [DoorOtherMap](../../Entities/NPCControl/ObjectTypes/DoorOtherMap.md) and [NPC](../../Entities/NPCControl/NPC.md) (including their `emoticon`) |20.0|
 |cantcompass|bool|If this is true, the `AntCompass` [key item](../../Enums%20and%20IDs/Items.md) cannot be used on this map|false|
 |autoevent|Vector2[]|A list of [events](../../Enums%20and%20IDs/Events.md) in the y component to automatically start the moment the [flag](../../Flags%20arrays/flags.md) slot of the x component is false. This is checked on each LateUpdate after the first one and when the event starts, the flag slot of the x component becomes true so it doesn't start the event again|Empty array|
+|eventPointers|GameObject[]|An array of GameObjects that [events](../../Enums%20and%20IDs/Events.md) can reference if the current map is this one|Empty array|
 
 ## Unused
 These fields are UNUSED by the game, but remains configurable from the prefab:

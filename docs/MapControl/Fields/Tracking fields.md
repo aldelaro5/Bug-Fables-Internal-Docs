@@ -36,7 +36,6 @@ The following fields are private so they are only meant to be used by MapControl
 |tempcneg|Vector3|The value of `camlimitneg` when RemoveLimit was called with settemp. Used for restoring the value of `camlimitneg` in RestoreLimit with restoretemp|
 |tcpos|Vector3?|The value of `camlimitpos` when entering an [inside](../Insides.md). Used for restoring the value of `camlimitpos` in when exiting an inside|
 |tcneg|Vector3?|The value of `camlimitneg` when entering an [inside](../Insides.md). Used for restoring the value of `camlimitneg` in when exiting an inside|
-|refreshmats|bool|This is to track if it should be needed to restore the sharedMaterials of all `render` to `ogmat`. This defaults to true and is set to true only when `fadeammount` is updating due to an [inside](../Insides.md) transition. Once the fading updates are done, this value will indicate on the next FixedUpdate that the materials should be restored. When the materials are restored, this is set to false so no materials changes will happen until the next inside transition|
 |windobjects|Renderer[]|Practically UNUSED because while it's used in RefreshWind, the method is unused and no one sets a value to this field. Since this is private, it can't be set from the prefab so this field doesn't influence anything|
 |originallimitneg|Vector3|The initial value of `camlimitneg` on Start|
 |originallimitpos|Vector3|The initial value of `camlimitpos` on Start|
@@ -44,7 +43,7 @@ The following fields are private so they are only meant to be used by MapControl
 |fss|bool[]|If `faderchange` is true, this gets assigned to all Fader's enablement on the first LateUpdate. More information on the [Fader](../Graphics%20configuration.md#fader-control) section|
 |render|MeshRenderer[]|All the MeshRenderer in the children of `mainmesh`|
 |fadeammount|float|An internal tracking value of the r, g and b that each `render` material colors should have updated to from FixedUpdate as the inside state changes. Starts at 1.0 which is fully colored. More information on the [outside fading](../Insides.md#outside-fading) section|
-|ogmat|Material[][]|All the materials arrays of every `render` elements|
 |musicpreload|List<AudioClip>|A list of preloaded AudioClip gathered during CreateEntities by accumulating all the DoorSameMap's musics and preloading their AudioClip. This is a caching optimisation. Start always ensure it is not null|
 |digwall|Collider[]|All the first Collider component of every GameObject with the `DigWall` tag|
+|insidedim|MaterialPropertyBlock|The MaterialPropertyBlock used to set the `render`'s properties during the [UpdateInsideColor](../Insides.md#outside-fading) logic|
 |nocolorchange|bool|[AreaSpecific](../Init%20methods/AreaSpecific.md) may set this to true which prevents FixedUpdate from updating the `render` material color when entering or exiting an inside|

@@ -38,7 +38,6 @@ Camera gets initialised with the following fields (the default value is picked i
 - CheckDisc is invoked in 1.0 seconds which will set `hiddenitem` to 100 (only the fact it's not null matters) which will allow the `Detector` [medal](../Enums%20and%20IDs/Medal.md) to beep under specific conditions. Check the [discoveryids](Miscellaneous%20features.md#discoveryids) documentation to learn more as this array is heavily involved in the checks for this
 - All `flowerbed` of all `playerdata` entities gets destroyed if any exists
 - `render` gets set to all MeshRenderer under in the children of `mainmesh`
-- `ogmat` is set to all materials array of all `render`
 - `mapflags` is initialised to 10 elements
 - GetDigWalls called which sets `digwall` with the following:
     - All GameObjects with `DigWall` tag are found and all their first Collider are added to `digwall`
@@ -58,6 +57,16 @@ The fog settings are configured with fields:
 - RefreshEntities called with forceanim and refreshmap
 - CheckAchievement called which updates the [records](../Enums%20and%20IDs/librarystuff/Records%20entry.md)'s states
 - [AreaSpecific](Init%20methods/AreaSpecific.md) called
+- HelperMedalCheck called which will set [flags](../Flags%20arrays/flags.md) 716 to true and add the `Helper` [medal](../Enums%20and%20IDs/Medal.md) to `badgeshops[0]` (Merab) if flags 716 was false and any of the following flags is true (NOTE: only 514 and 298 matters because every other should imply 298 under normal gameplay):
+    - 514 (Completed the Help Me Get it Back! quest)
+    - 498 (Completed the Explorer Check! quest)
+    - 610 (Beaten Maki’s team for the first time)
+    - 135 (Completed the Requesting Assistance quest)
+    - 704 (Completed the A New Hope quest)
+    - 391 (Completed the Butler Missing Again! quest)
+    - 298 (Beat the Dune Scorpion in chapter 4)
+    - 709 (Completed the Loose Ends quest)
+- UpdateShops gets called which will randomly shuffle all `availablebadgepool` arrays (this changes the items on the shelf of the shops and updates [flags](../Flags%20arrays/flags.md) 587's value which is true only when all Merab's medals were bought)
 - If `insidetypes` length isn't the `insides` one, `insidetypes` gets truncated to have a matching length
 - The shader global `GlobalIceRadius` is set to 0.0
 - If `mapid` is `BugariaResidential`, CombineMesh is invoked in 0.1 seconds. Check the [merged mesh](Merged%20mesh.md) documentation to learn more
