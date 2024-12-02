@@ -68,7 +68,7 @@ If any of the conditions above are fufilled, the action is performed:
     - `flip`: player's entity.`flip`
 - entity.`overrideflip` is set to true
 - entity.`sprite` y angle is set to the angle obtained earlier in action setup
-- `beemerang`.`vectordata[0]` is set to its position + `lastdelta` * 7.5 which is its attempted destination (check the [Beemerang](../../Entities/NPCControl/ObjectTypes/Beemerang.md) documentation to learn more)
+- `beemerang`.`vectordata[0]` is set to its position + `lastdelta` * 7.5 which is its attempted destination (check the [Beemerang](../../Entities/NPCControl/ObjectTypes/Beemerang.md) documentation to learn more). If MainManager.snapTo8 is true (the 8 directional snap setting is enabled), the value of `lastdelta` used will be a MainManager.Snap version of it with a step of Vector3.one which means all components will get snapped to -1.0, 0.0 or 1.0 depending on the closest one
 - Yield for 0.25 seconds
 
 There is technically no double tap action because the second optional part of the action is the Halt feature which is handled separately in the [Beemerang](../../Entities/NPCControl/ObjectTypes/Beemerang.md) logic. It is where the requirements for it are checked as well as the inputs needed.
