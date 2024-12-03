@@ -92,3 +92,15 @@ The following table shows all the `BadgeTypes` enum value and their English name
 |77|Plating|First Plating|
 |78|Seedling|Seedling Affinity|
 |79|BerryFinder|Berry Finder|
+|80|RoyalDecree|Royal Calling|
+|81|BadDream|Bad Dreams|
+|82|Hook|Bait Hook|
+|83|HoloCloak|Holo Cloak|
+|84|Pip|Pip Finder|
+|85|Helper|We Owe Ya!|
+|86|Ambush|Ambusher|
+|87|LastWind|Last Wind|
+|88|ItemRecycle|Item Recycler|
+|89|BombPlus|Bomb Master|
+|90|HelperBoost|Helper Boost|
+

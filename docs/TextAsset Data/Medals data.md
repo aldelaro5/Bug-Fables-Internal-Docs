@@ -17,6 +17,7 @@ The asset contains one line per [Medal](../Enums%20and%20IDs/Medal.md) whose id 
 |4|Medal effects|`;` separated list of string[] separated by `,`|The list of effects this medal has (see below for details)|
 |5|Value|int|The buying price of the medal in berries|
 |7|Crystal Berries value|int|The buying price of the medal in Crystal Berries|
+|8|items1 sprite index|int|If the medal sprite icon is present in items1 instead of items0, this value contains the sprite index of the medal inside items1. If the medal sprite icon is present in items0, this value is -1 and default indexing lookup will apply|
 
 The data will be loaded into `badgedata[id, x]`, where `id` is the [Medal](../Enums%20and%20IDs/Medal.md) id and `x` is the loaded index.
 

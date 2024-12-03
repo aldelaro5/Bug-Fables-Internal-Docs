@@ -2,10 +2,11 @@
 An `Items` enum value represents an item in the game which can be collected in the overworld. The items in possessions are saved in the [Save File](../External%20data%20format/Save%20File.md) in 3 arrays corresponding to regular inventory, key items and stored items respectively. They are mapped directly to each item data entry.
 
 ## Items table
-The following table shows all the `Items` enum value and their English names for convenience.
+The following table shows all the `Items` enum value and their English names for convenience. NOTE: The "None" entry is a placeholder used to identify the lack of item which is only used for the fishing minigame to identify the lack of a bait.
 
 |ID|Name|English Name|
 |-:|----|------------|
+|-1|None||
 |0|CrunchyLeaf|Crunchy Leaf|
 |1|HoneyDrop|Honey Drop|
 |2|VitalitySeed|Spicy Berry|

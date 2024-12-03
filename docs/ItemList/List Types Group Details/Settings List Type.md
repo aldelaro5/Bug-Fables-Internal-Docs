@@ -29,6 +29,7 @@ Display the list of the game settings which is platform specific.
 |13|157|Use Controller|PC platforms only|
 |17|222|Controller to Use|PC platforms only, only if Use Controller is CHOOSE MANUALLY or PRE-CONFIGURED|
 |22|270|Analog Sensitivity|Only if Use Controller isn't DISABLED|
+|25|282|Beemerang 8 Dir. Snap|None|
 |18|231|Controller Bindings|PC platforms only, only if Use Controller is CUSTOM BINDINGS|
 |14|35|Key Bindings|PC platforms only|
 |15|36|Return to Main Menu / Exit Game|None on PC platforms, only available after save load on console platforms|
@@ -67,6 +68,7 @@ The text string is rendered on the left side of the bar and it corresponds to th
 |13|157|Use Controller|Calls SetText where the input string depends on pausemenu.joystick\*|
 |17|222|Controller to Use|If Use Controller is set to PRE-CONFIGURED, Calls SetText where the input string depends on pausemenu.joystickid\*\*. Otherwise, if pausemenu.joystickid is higher than -1, Calls SetText with \`|
 |22|270|Analog Sensitivity|First, if pausemenu.analog is higher than 2, it is set to 0. Then, SetText is called where the input string is MenuText line id 39 (OFF) when pausemenu.analog is 0, 40 (LOW) when it is 1 and 41 (FULL) when it is 2|
+|25|282|Beemerang 8 Dir. Snap|Calls SetText where the input string is MenuText line id 39 (OFF) when pausemenu.snap is false and 38 (ON) when it is true|
 |18|231|Controller Bindings|Does not render anything including the arrows|
 |14|35|Key Bindings|Does not render anything including the arrows|
 |15|36|Return to Main Menu / Exit Game\*\*\*|Does not render anything including the arrows|

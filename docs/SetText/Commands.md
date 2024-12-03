@@ -98,6 +98,7 @@ There are 217 commands as of 1.1.2. Here are the different commands grouped by c
 |178|[Lore](Individual%20commands/Lore.md)|A helper of `string` where [flagstring](../Flags%20arrays/flagstring.md) 0 is set to the Lore Book's text whose id is in [flagvar](../Flags%20arrays/flagvar.md) 0 with additional commands then the same [flagstring](../Flags%20arrays/flagstring.md) is sent to `string` in its fourth syntax|REPLACE|
 |212|[Maxmedals](Individual%20commands/Maxmedals.md)|Replace this command's text by the number of collectible medals in the game (hardcoded to 108)|REPLACE|
 |215|[GetFromMap](Individual%20commands/GetFromMap.md)|Replace the text of this command to a dialogue line that belongs to a specific [Map](../Enums%20and%20IDs/Maps.md)|REPLACE|
+|217|[Plural](Individual%20commands/Layer.md)|TODO ???|REPLACE, UNUSED|
 
 ### Sprite rendering
 
@@ -225,6 +226,7 @@ There are 217 commands as of 1.1.2. Here are the different commands grouped by c
 |176|[Backbox](Individual%20commands/Backbox.md)|Render a box behind the text with 40% transparency using one of the text colors||
 |183|[Textangle](Individual%20commands/Textangle.md)|Reset or set the angles of the [textholder](Notable%20states.md#textholder)||
 |190|[Limit](Individual%20commands/Limit.md)|Changes the [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)'s `linebreak` value|UNUSED, INFLUENCES ORGANISELINES|
+|218|[Layer](Individual%20commands/Layer.md)|TODO: ???||
 
 ### Camera control
 

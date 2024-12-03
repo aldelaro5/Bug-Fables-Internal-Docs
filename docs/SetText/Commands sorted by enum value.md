@@ -225,3 +225,5 @@ There are 217 commands as of 1.1.2.
 |214|[Pausesize](Individual%20commands/Pausesize.md)|
 |215|[GetFromMap](Individual%20commands/GetFromMap.md)|
 |216|[Listsize](Individual%20commands/Listsize.md)|
+|217|[Plural](Individual%20commands/Plural.md)|
+|218|[Layer](Individual%20commands/Layer.md)|

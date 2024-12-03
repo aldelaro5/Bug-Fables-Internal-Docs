@@ -15,7 +15,7 @@ There are 3 overloads: one where `onlyplayer` is ommited and false is sent, one 
 
 ## Procedure
 
-- All `playerdata` entities have their `hitwall` set to false and their [animid](../../Enums%20and%20IDs/AnimIDs.md) set to their corresponding BattleData.`animid`. If forceanim is true, ForceAnim is called which will call Play on the entity's `anim` using its the current [animstate](../../Entities/EntityControl/Animations/animstate.md) (`f` is appended if the entity's `height` is aboe 0.1 and it has the same meaning than its normal argument)
+- All `playerdata` entities have their `hitwall` set to false and their [animid](../../Enums%20and%20IDs/AnimIDs.md) set to their corresponding BattleData.`animid`. If forceanim is true, ForceAnim is called which will call Play on the entity's `anim` using its the current [animstate](../../Entities/EntityControl/Animations/animstate.md) (`f` is appended if the entity's `height` is aboe 0.1 and it has the same meaning than its normal argument). Finally, all player party members gets UpdateSpriteMat called on their entity which updates their `sprite` material according to their `hologram`
 - We return immediately if `onlyplayer` is true
 - All [EntityControl](../../Entities/EntityControl/EntityControl.md) have the following happen:
   - `oldid` is set to -1

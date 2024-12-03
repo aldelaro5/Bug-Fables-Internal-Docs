@@ -42,6 +42,7 @@ These are used to track a list prompt's options and selections:
 * `listvar`: All the available options, depends on listtype
 * instance.`maxoptions`: The number of available options in the entire list (same use as in a [Prompt](../SetText/Individual%20commands/Prompt.md), [NumberPrompt](../SetText/Individual%20commands/NumberPrompt.md) or [LetterPrompt](../SetText/Individual%20commands/LetterPrompt.md)).
 * instance.`option`: The option index in the entire list (same use as in a [Prompt](../SetText/Individual%20commands/Prompt.md), [NumberPrompt](../SetText/Individual%20commands/NumberPrompt.md) or [LetterPrompt](../SetText/Individual%20commands/LetterPrompt.md)).
+* instance.`lastPrompt`: The `option` value on the last confirmed ItemList (same use as in a [Prompt](../SetText/Individual%20commands/Prompt.md), [NumberPrompt](../SetText/Individual%20commands/NumberPrompt.md) or [LetterPrompt](../SetText/Individual%20commands/LetterPrompt.md)). NOTE: As with the prompts, it is better to use `option` because that only always report the last ItemList option selected regardless if it was confirmed or not which can be checked separately
 * `listoption`: The same then option, but only after the ItemList destruction (which is done after a selection has been done).
 
 ## Scrolling and view

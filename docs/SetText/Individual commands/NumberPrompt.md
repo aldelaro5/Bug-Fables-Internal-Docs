@@ -47,6 +47,7 @@ Here are the fields in question:
 * `prompt`: Since this command uses the same lock then [prompt](Prompt.md), it works the same way here (set to true during the command processing and to false when SetText is done yielding and handles the outcome)
 * `numberprompt`: Set to true during the command processing (it's not set to false because its value won't matter after until a [prompt](Prompt.md) command happens which itself would set it to false anyway)
 * `option`: The current option index from 0 to 11
+* `lastPrompt`: The `option` value that was on the last confirmed prompt. NOTE: `option` is a better field for this because that one always report the last prompt's option no matter if it was confirmed or not which affects other types of prompts.
 * `maxoptions`: The index of the last option being 11 here (NOTE: this isn't the same than [prompt](Prompt.md) or [ItemList](../../ItemList/ItemList.md) where it's the AMOUNT of options)
 * `promptbox`: The 9box containing the prompt itself
 * `npromptholder`: A GameObject that lives as a child of the `promptbox` and it contains the current number text

@@ -24,7 +24,7 @@ The order they will be presented is the same order they will be checked and adde
 |45|SharingStash|flag 445 is true|
 |33|Sturdy|The `Tardigrade` is equipped on `Bee`|
 |48|HardCharge|The `HardCharge` is equipped on `Bee`|
-|46|RoyalDecree|`AntQueen` is a follower or the current [maps](../Enums%20and%20IDs/Maps.md) is `TestRoom` or flag 594 is true (During the fight near the refrigerator or the fire construct fight in chatper 7)|
+|46|RoyalDecree|`RoyalDecree` [medal](../Enums%20and%20IDs/Medal.md) is equipped, `AntQueen` is a follower or the current [maps](../Enums%20and%20IDs/Maps.md) is `TestRoom` or flag 594 is true (During the fight near the refrigerator or the fire construct fight in chatper 7)|
 
 ## `Beetle`'s skills
 
@@ -46,7 +46,7 @@ The order they will be presented is the same order they will be checked and adde
 |43|PepTalk|flag 98 is true|
 |33|Sturdy|The `Tardigrade` medal is equipped on `Beetle`|
 |48|HardCharge|The `HardCharge` medal is equipped on `Beetle`|
-|46|RoyalDecree|`AntQueen` is a follower or the current [maps](../Enums%20and%20IDs/Maps.md) is `TestRoom` or flag 594 is true (During the fight near the refrigerator or the fire construct fight in chatper 7)|
+|46|RoyalDecree|`RoyalDecree` [medal](../Enums%20and%20IDs/Medal.md) is equipped, `AntQueen` is a follower or the current [maps](../Enums%20and%20IDs/Maps.md) is `TestRoom` or flag 594 is true (During the fight near the refrigerator or the fire construct fight in chatper 7)|
 
 ## `Moth`'s skills
 
@@ -76,4 +76,4 @@ The order they will be presented is the same order they will be checked and adde
 |47|Cleanse|instance.`partylevel` is 13 or above|
 |33|Sturdy|The `Tardigrade` medal is equipped on `Moth`|
 |48|HardCharge|The `HardCharge` medal is equipped on `Moth`|
-|46|RoyalDecree|`AntQueen` is a follower or the current [maps](../Enums%20and%20IDs/Maps.md) is `TestRoom` or flag 594 is true (During the fight near the refrigerator or the fire construct fight in chatper 7)|
+|46|RoyalDecree|`RoyalDecree` [medal](../Enums%20and%20IDs/Medal.md) is equipped, `AntQueen` is a follower or the current [maps](../Enums%20and%20IDs/Maps.md) is `TestRoom` or flag 594 is true (During the fight near the refrigerator or the fire construct fight in chatper 7)|

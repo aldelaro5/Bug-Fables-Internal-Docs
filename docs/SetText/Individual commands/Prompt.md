@@ -90,6 +90,7 @@ While this command manages the creation and setup of the prompt, its handling is
 * `promptpointers`: The pointers specified by `promptpointers` which are set during the processing of this command.
 * `maxoptions`: The amount of option the prompt has which is set from this command's `maxoptions` during processing.
 * `option`: The option index the cursor is currently at, initialized to 0 from this command's processing.
+* `lastPrompt`: The `option` value that was on the last confirmed prompt. NOTE: `option` is a better field for this because that one always report the last prompt's option no matter if it was confirmed or not which affects other types of prompts.
 * `listcancel`: The option index that will be the promptpick if a cancel is performed or -1 if cancelling is disabled, set by `canceloption` during this command's processing (-1 is set if the value is `-1` or `none`).
 
 Just before ending the command processing, a 5 frame input cooldown is applied which allows the prompt to appear on the screen. After the command has been processed, SetText will keep yielding frames in the [Dialogue post-processing](../Life%20Cycle.md#dialogue-post-processing) phase until `prompt` is set to false from MainManager's Update. This Update event completely changes the input handling of the game and in general, it restricts actions to interact with the current prompt. Additionally, the `blinker` will be disabled. The actions will be restricted to the following:
@@ -97,7 +98,7 @@ Just before ending the command processing, a 5 frame input cooldown is applied w
 * Up: Moves the cursor to the option above or to the last option if it was on the first one (also sets `option` accordingly).
 * Down: Moves the cursor to the option below or to the first option if it was on the last one (also sets `option` accordingly).
 * Cancel: If `listcancel` is not -1, sets `prompt` to false with `listcancel` as the `promptpick` and play the cancel sound, otherwise, nothing happens.
-* Confirm: Sets `prompt` to false and `promptpick` to `option` and play the confirm sound.
+* Confirm: Sets `prompt` to false, `lastPrompt` and `promptpick` to `option` and play the `Confirm` sound.
 
 Once the prompt handling is complete, MainManager.Update will set [Text advance](../Related%20Systems/Text%20advance.md)'s `skiptext` to false, apply an input cooldown of 10 frames on cancel or 5 frames on confirm and revert its input processing to the standard method.
 

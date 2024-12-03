@@ -122,3 +122,6 @@ The following table shows all the `Enemies` enum value and their English names f
 |110|TANGYBUG|\|[glitchy](../SetText/Individual%20commands/Glitchy.md),1\|TANGYBUG\|[glitchy](../SetText/Individual%20commands/Glitchy.md)\||
 |111|Stratos|Stratos|
 |112|Delilah|Delilah|
+|113|HoloVi|Vi|
+|114|HoloKabbu|Kabbu|
+|115|HoloLeif|Leif|
