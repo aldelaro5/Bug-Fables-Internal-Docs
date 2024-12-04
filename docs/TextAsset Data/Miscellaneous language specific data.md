@@ -14,6 +14,9 @@ There are 2 TextAsset that describes each [Areas](../Enums%20and%20IDs/libraryst
 
 `Credits` contains the text rendered in the credits which has its own rendering scheme. It is loaded on [Event](../SetText/Individual%20commands/Event.md) 204 (credits) and it gets rendered using a list of TextMesh in rich text mode. It is the only notable textual information not rendered using [SetText](../SetText/SetText.md).
 
+# Fishing
+`Fishing` contains some [SetText](../SetText/SetText.md) lines specific to the fishing minigame. They are expected to be used manually. It is loaded by FishingMain's LoadText into the component's `text` field which is done on the component's Start.
+
 # Unused
 
 There is one unused TextAsset called `BoardGame` which presumably was a remnant of the unused [PartyGame](../SetText/Individual%20commands/PartyGame.md) which had its own command. It presumably acted similarly to `CardGame` where it would contain [SetText](../SetText/SetText.md) lines used for the game only.

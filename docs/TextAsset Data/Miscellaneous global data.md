@@ -30,6 +30,11 @@ NOTE: There are additional files that have similar namings, but are unused:
 
 `LeafPos` is a TextAsset in `Ressources/data` loaded on boot by LoadEssentials into the `leafpos` array that tells where the leaves in the standard battle transitions will end up on the screen once they are done moving. While their starting position and final rotation are random, their destination position aren't and they are determined by this data. It is possible to add or remove leaves by changing the amount of lines as each leaf corresponds to one line.
 
+## Fishing
+In the `Ressources/data/fishing` directory, some ScriptableObject are present containing data about the fishing minigames.
+
+The `Items` asset contains data about the bait [items](../Enums%20and%20IDs/Items.md) groups (FishingItems) and the `fish` sub directory contains the worm types informations (one FishData asset per worm type).
+
 ## Unused
 
 There are some unused TextAsset in the game located in `Ressources/data` that are never loaded by the game, but the data is still present:
