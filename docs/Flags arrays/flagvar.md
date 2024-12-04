@@ -89,5 +89,5 @@ A flagvar with the mention "TEMP" means its value in the save is only used for t
 |65|UNUSED|
 |66|Amount of medals bought at Shades's medals shop|
 |67|Seed used in MYSTERY?, 0 if not using MYSTERY?|
-|68|UNUSED|
+|68|Contains an enum flags encoded bits representing all the different worm types caught at least once in the fishing minigame. Here are the bits mapping of the value (1 is caught, 0 is not caught):<ul><li>0x1: Wormling</li><li>0x2: LakeWorm</li><li>0x4: GoldenWorm</li><li>0x8: LakeWyrm</li><li>0x10: LongFin</li><li>0x20: StrippedWorm</li><li>0x40: Biter</li><li>0x80: HornedWyrm</li><li>0x100: RoundOne</li><li>0x200: Delta</li></ul>|
 |69|UNUSED|

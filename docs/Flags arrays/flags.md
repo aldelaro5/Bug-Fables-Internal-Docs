@@ -643,7 +643,7 @@ An empty description means unknown.
 |628|Talked to Maki for the first time after completing the Confidential quest|
 |629|Got introduced to RUIGEE by Eetl for the first time|
 |630|Reached a balance of 500 or above at the Bugaria Bank for the first time|
-|631|Got the Dry Bread at Rubber Prison|
+|631|Got the Poison Cake at Rubber Prison|
 |632|Got the Dark Cherries at the map located south of the Wasp Kingdom Hive entrance at Far Grasslands|
 |633|Got the Dark Cherries in a dig spot at the map located east from the Explorers Associations|
 |634|Took the My Mecha Claw! quest|
@@ -726,34 +726,34 @@ An empty description means unknown.
 |711|Completed the Cave of Trials on Random Mode for the first time|
 |712|Defeated TANGYBUG for the first time|
 |713|Obtained the Agaric Shroom at the map located west of the Lost Sands entrance from the Bugaria Outskirt side|
-|714|Obtained the Burly Berry on the first map in the way of the Devourer (note: this Burly berry is located behind branches out of bounds))|
-|715|UNUSED|
-|716|UNUSED|
-|717|UNUSED|
-|718|UNUSED|
-|719|UNUSED|
-|720|UNUSED|
-|721|UNUSED|
-|722|UNUSED|
-|723|UNUSED|
-|724|UNUSED|
-|725|UNUSED|
-|726|UNUSED|
-|727|UNUSED|
-|728|UNUSED|
-|729|UNUSED|
-|730|UNUSED|
-|731|UNUSED|
-|732|UNUSED|
-|733|UNUSED|
-|734|UNUSED|
-|735|UNUSED|
-|736|UNUSED|
-|737|UNUSED|
-|738|UNUSED|
-|739|UNUSED|
-|740|UNUSED|
-|741|UNUSED|
+|714|Obtained the Burly Bomb on the first map in the way of the Devourer|
+|715|File received the medals upgrade from 1.2.0|
+|716|The `Helper` [medal](../Enums%20and%20IDs/Medal.md) appeared in `badgeshops[0]` (Merab)|
+|717|Obtained the `RoyalDecree` [medal](../Enums%20and%20IDs/Medal.md) at the war room of the palace of Ant Kingdom City|
+|718|Obtained the `HelperBoost` [medal](../Enums%20and%20IDs/Medal.md) at the Termacade|
+|719|Obtained the `BombPlus` [medal](../Enums%20and%20IDs/Medal.md) at the bomb shop of Termite Capitol|
+|720|The party was introduced to fishing for the first time by the fisherman at the Fishing Village|
+|721|Obtained the `Hook` [medal](../Enums%20and%20IDs/Medal.md) at the Fishing Village after catching at least 6 different worm types|
+|722|Caught the first worm in the fishing minigame|
+|723|Caught all worm types (10) in the fishing minigame|
+|724|Obtained the `MushroomCandy` [item](../Enums%20and%20IDs/Items.md) on a mushroom located to the far back and left of `SnakemouthMushroomPit` (the mushrooms room before the treasure room at Snakemouth Den)|
+|725|Obtained the `PoisonDart` [item](../Enums%20and%20IDs/Items.md) on a log located to the back of `GoldenPathTunnel` (the tunnel connecting Bugaria Outskirts and Golden Path)|
+|726|Obtained the `HoneyMilk` [item](../Enums%20and%20IDs/Items.md) on a platform located to the left of `GoldenHillsPath2` (the second room from the right side of Golden Path)|
+|727|Obtained the `CoffeeCandy` [item](../Enums%20and%20IDs/Items.md) on a log located on the back of some dried plant at `GoldenHillsDungeonRightCrank` (the room located up right from the main room of Golden Hills)|
+|728|Obtained the `ShockCandy` [item](../Enums%20and%20IDs/Items.md) on a the Overseer's desk at `HoneyFactoryWorkerRooms` (the down right room from the lobby of the Honey Factory)|
+|729|Obtained the `BakedYam` [item](../Enums%20and%20IDs/Items.md) on a platform located on the far back of `DesertBadlands` (the room with the entrance to the Bandits Hideout at Lost Sands)|
+|730|Obtained the `SucculentCookie` [item](../Enums%20and%20IDs/Items.md) under the book of of `DesertBookArea` (the room with the open book at Lost Sands)|
+|731|Obtained the `ShavedIce` [item](../Enums%20and%20IDs/Items.md) on a platform located on the far back and left of `SandCastleBasement` (the room with located north from the main room of Ancien Castle)|
+|732|Obtained the `FrostBomb` [item](../Enums%20and%20IDs/Items.md) behind the left statue of `SandCastleRoof` (the roof of the Ancient Castle)|
+|733|Obtained the `BerryShake` [item](../Enums%20and%20IDs/Items.md) on a platform on the left side of `DesertOasis` (the entrance room to Stream Mountain at Lost Sands)|
+|734|Obtained the `LeafCroisant` [item](../Enums%20and%20IDs/Items.md) on a crate located to the right of `DefiantRootWell` (the entrance room to Bandits Hideout at Defiant Root)|
+|735|Obtained the `DrowsyCake` [item](../Enums%20and%20IDs/Items.md) on a rock located to the right of `BugariaOutskirtsEast1` (the room with the entrance to Cave Of Trials at Bugaria Outskirts)|
+|736|Obtained the `Coffee` [item](../Enums%20and%20IDs/Items.md) on the far right of `FarGrasslandsLake` (the room located south from the Wasp Kingdom entrance at Far Grasslands)|
+|737|Obtained the `PoisonBomb` [item](../Enums%20and%20IDs/Items.md) under a [DigSpot](../Entities/NPCControl/ObjectTypes/DigSpot.md) located to the the far right of `Swamplands2` (the second room of the Swampslands from the south side)|
+|738|UNUSED (it was supposed to be used to indicated that the `MoneyBig` was obtained under a [DigSpot](../Entities/NPCControl/ObjectTypes/DigSpot.md) at `WaspKingdomDrillRoom`, but while it is configured with this flag slot as a limit, it is not bound to it and it instead is bound to a [regionalflag](Regionalflags.md))|
+|739|Obtained the `PlumplingPie` [item](../Enums%20and%20IDs/Items.md) behind some minecarts at `BarrenLandsAntTunnel` (the ant tunnel access at Forsaken Lands)|
+|740|Obtained the `SleepBomb` [item](../Enums%20and%20IDs/Items.md) on a platform behind a waterfall at `UpperSnekMiddleRoom` (the main room of Upper Snakemouth's lab)|
+|741|Talked to Neolith for the first time in the postgame|
 |742|UNUSED|
 |743|UNUSED|
 |744|UNUSED|

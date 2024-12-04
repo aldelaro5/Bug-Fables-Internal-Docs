@@ -249,3 +249,6 @@ Since they are coroutines, they have the ability to wait for specific amounts of
 |223|A New Hope quest event|
 |224|Getting Bored quest event|
 |225|Interacting with the sign near the north exit of the Explorers's Association|
+|226|Interacting with the `BombPlus` medal sprite on a stump at the bomb shop of Termite Capitol|
+|227|Starting a fishing session at the Fishing Village|
+|228|Interacting with the sign at the Fishing Village that provides information about fishing records|

@@ -72,6 +72,7 @@ Any ID not specified implies UNUSED.
 |13|Depths, Inichas in the room located east from the room with the doors|
 |14|Depths, Jellyshroom in the front of the mushrooms room|
 |15|Depths, Jellyshroom in the back of the mushrooms room|
+|16|Depths, Zombiant in the back of the mushrooms room|
 |17|Depths, Zombiant in the room located west from the room with the doors|
 |18|Depths, Zombiant at the bottom of the room with the left door switch|
 |19|Depths, Zombiant at the top of the room with the left door switch|
@@ -404,6 +405,7 @@ NO REGIONAL FLAGS ARE USED FOR THIS AREA
 |1|Wasp Trooper in the room with the blue save point|
 |2|Wasp Trooper in the prison cells room|
 |3|Wasp Scout in the prison cells room|
+|6|Obtained a yellow berry under a [DigSpot](../Entities/NPCControl/ObjectTypes/DigSpot.md) in the drill room|
 
 ### Bandit Hideout
 

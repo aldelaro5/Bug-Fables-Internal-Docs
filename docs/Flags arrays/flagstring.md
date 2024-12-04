@@ -24,4 +24,4 @@ A flagstring with the mention "TEMP" means its value in the save is meaningless 
 |11|TEMP Holds a comma separated list of the taken quest ID when the command Activateselectedquest is passed to SetText|
 |12|Holds a comma separated list of the card ID (refer to Appendix J) corresponding to the saved deck for Spy Cards|
 |13|Holds a comma separated list of the ordered medals ID (refer to Appendix A) in MYSTERY?, empty if the code is not active|
-|14|UNUSED|
+|14|Contains a `@` list of elements where each element contains 2 float numbers separated by a `:`. Each element's index in the list (starting at 0) contains the information about a worm type for the fishing minigame (meaning under normal gameplay, this should always have 10 elements). For each element, the first float is the amount of worms caught of the matching type (it MUST be parsable as an integer) and the second float is the largest size in cm caught of the matching type|
