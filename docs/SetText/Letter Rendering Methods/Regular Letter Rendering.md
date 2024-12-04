@@ -14,7 +14,7 @@ Its main problem is its inefficiency because it renders each letter in its own o
 * If a slot was available
     * Set the appropriate layer of the letter (this changes the camera that renders the letter):
         * 15 (3DUI) if [triui](../Individual%20commands/Triui.md) is enabled (will render using the 3DGUI camera)
-        * 5 (UI) if the `tridimensional` parameter is false (will render using the GUICamera, this is the default)
+        * Current layer if the `tridimensional` parameter is false (will render using the GUICamera, this is the default). The current layer defaults to 5 (`UI`), but the [layer](../Individual%20commands/Layer.md) command can change it
         * 0 (Default) if the `tridimensional` parameter is true (will render using the main camera of the game)
     * Set the letter's tag to `Letter`
     * Reserve the letter slot to be the current char, with a font of [fonttype](../Notable%20states.md#fonttype), with the parent being the [textholder](../Notable%20states.md#textholder) at (current offset, current line - 0.1, 0.0) + (0.0, -0.1), using the current text [color](../Individual%20commands/Color.md), a sort of [sort](../Individual%20commands/Sort.md) and a size of (size.x, size.y, 1.0) * 0.07
@@ -33,4 +33,4 @@ Its main problem is its inefficiency because it renders each letter in its own o
     * If we are, the current [speed](../Individual%20commands/Speed.md) needs to be above 0 
     * If it is, this is dependant on the [Text advance](../Related%20Systems/Text%20advance.md): if `skiptext` isn't active OR  [noskip](../Individual%20commands/Noskip.md) is active, then the yield will happen
 * If we decided to yield, do it for [Speed](../Individual%20commands/Speed.md) seconds
-* An additional yield could be done of 0.15 seconds except on some conditions using the same base condition than the general yield (with the exception that this ignores [noskip](../Individual%20commands/Noskip.md)). The additional conditions to do this yield are that the current letter passed to charIsPunctuation is true AND it's not among `|`, `)`, `¿`, `¡`, `'`, `/`, `¿`, `)` or `¡` AND It's not among the last 2 letters
+* An additional yield could be done of 0.15 seconds except on some conditions using the same base condition than the general yield (with the exception that this ignores [noskip](../Individual%20commands/Noskip.md)). The additional conditions to do this yield are that the current letter passed to charIsPunctuation is true AND it's not among `\`, `|`, `)`, `¿`, `¡`, `'`, `/`, `¿`, `)` or `¡` AND It's not among the last 2 letters

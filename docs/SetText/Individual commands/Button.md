@@ -62,7 +62,7 @@ The command will first create a GameObject with a ButtonSprite which will get ad
 * tridimentional: set to `tridimensional`
 * parent: set to the [textholder](../Notable%20states.md#textholder)
 * localEulerAngles: Vector3.zero. 
-* If `tridimensional` is false, the layer is set to 5.
+* If `tridimensional` is false, the layer and the gameObject's layer is set to the current one (defaults to 5, but may be changed by a [layer](Layer.md) command).
 
 The ButtonSprite is initialised like so:
 

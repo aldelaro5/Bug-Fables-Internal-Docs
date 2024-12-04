@@ -15,11 +15,12 @@ The performance gain is however still significant to use it when it is possible 
 * if the single letter slot is null
     * Set the single letter slot to the first free slot and if no slot is available, yield for a frame until one is free.
     * Reserve the single letter slot slot to be empty string, with a font of [fonttype](../Notable%20states.md#fonttype), with the parent being the [textholder](../Notable%20states.md#textholder) at Vector3.zero, using the current text [color](../Individual%20commands/Color.md), a sort of [sort](../Individual%20commands/Sort.md) and a size of (size.x, size.y, 1.0) * 0.07. NOTE: If [languageid](../languageid.md) is 6 (`Russian`), the size is (size.x * 0.9, size.y, 1.0) * 0.07 which decreases all x sizes by 10%
+    * Set the letter's GameObject to render on the current layer which defaults to 5 (`UI`), but the [layer](../Individual%20commands/Layer.md) command can change it
 * Add GetLetterOffset of the single letter slot with a size of size.x to the current offset (size.x * 0.9 if `languageid` is `Russian`)
 * Append the current letter to the single letter slot.
 * Set the localPosition of the single letter slot to (`x`, current line, 0.0) * `y` + (0.0, -0.1) where `x` is 0.0 or (0 - the length of the letter slot's text / 2.0) if [center](../Individual%20commands/Center.md) is enabled and `y` is 1.0 unless `languageid` is `Russian` where it's 0.9
 * If [dropshadow](../Individual%20commands/Dropshadow.md) is enabled
     * If the `ds` letter is null
         * Sets `ds` to the first free letter slot (NOTE: NO CHECK IF A SLOT IS AVAILABLE!)
-        * Reserve the `ds` slot to be empty string, with a font of fonttype, with the parent being the single letter at the dropshadow offset, using a half transparent black color, a sort of [sort](../Individual%20commands/Sort.md) - 1 and a size of Vector3.one
+        * Reserve the `ds` slot to be empty string, with a font of fonttype, with the parent being the single letter at the dropshadow offset, rendered on the current layer which defaults to 5 (`UI`) unless a [layer](../Individual%20commands/Layer.md) command changes it, using a half transparent black color, a sort of [sort](../Individual%20commands/Sort.md) - 1 and a size of Vector3.one
     * Sets `ds`'s text to the single letter's text

@@ -98,7 +98,7 @@ There are 217 commands as of 1.1.2. Here are the different commands grouped by c
 |178|[Lore](Individual%20commands/Lore.md)|A helper of `string` where [flagstring](../Flags%20arrays/flagstring.md) 0 is set to the Lore Book's text whose id is in [flagvar](../Flags%20arrays/flagvar.md) 0 with additional commands then the same [flagstring](../Flags%20arrays/flagstring.md) is sent to `string` in its fourth syntax|REPLACE|
 |212|[Maxmedals](Individual%20commands/Maxmedals.md)|Replace this command's text by the number of collectible medals in the game (hardcoded to 108)|REPLACE|
 |215|[GetFromMap](Individual%20commands/GetFromMap.md)|Replace the text of this command to a dialogue line that belongs to a specific [Map](../Enums%20and%20IDs/Maps.md)|REPLACE|
-|217|[Plural](Individual%20commands/Layer.md)|TODO ???|REPLACE, UNUSED|
+|217|[Plural](Individual%20commands/Layer.md)|Replaces this command's text by one of 2 strings depending on if a value or a [flagvar](../../Flags%20arrays/flagvar.md) slot containing it is equal to 1 or not|REPLACE, UNUSED|
 
 ### Sprite rendering
 
@@ -144,7 +144,7 @@ There are 217 commands as of 1.1.2. Here are the different commands grouped by c
 |26|[Speed](Individual%20commands/Speed.md)|An alias of `spd`||
 |31|[Parent](Individual%20commands/Parent.md)|Change the caller to an [Entity](../Entities/Entity.md)'s [NPCControl](../Entities/NPCControl/NPCControl.md)||
 |32|[Tail](Individual%20commands/Tail.md)|Set the [tailtarget](Notable%20states.md#tailtarget) to an [Entity](../Entities/Entity.md) and optionally change the animation state of the new target [Entity](../Entities/Entity.md)  with a hide/unhide of the textbox|DIALOGUE MODE, BACKTRACK, TESTDIAG|
-|42|[Boxstyle](Individual%20commands/Boxstyle.md)|Sets the textbox's sprite or disable its rendering from now on|DIALOGUE MODE|
+|42|[Boxstyle](Individual%20commands/Boxstyle.md)|Sets the textbox's sprite or disable its rendering from now on and optionally specify its sortingOrder|DIALOGUE MODE|
 |50|[Forcewait](Individual%20commands/Forcewait.md)|Yields for a certain amount of seconds if unpaused and stop a [Text advance](Related%20Systems/Text%20advance.md) `skiptext` if one was in progress||
 |51|[Wait](Individual%20commands/Wait.md)|Yields for a certain amount of seconds if a [Text advance](Related%20Systems/Text%20advance.md) `skiptext` isn't in progress||
 |60|[Fwait](Individual%20commands/Fwait.md)|An alias of `forcewait`||
@@ -226,7 +226,7 @@ There are 217 commands as of 1.1.2. Here are the different commands grouped by c
 |176|[Backbox](Individual%20commands/Backbox.md)|Render a box behind the text with 40% transparency using one of the text colors||
 |183|[Textangle](Individual%20commands/Textangle.md)|Reset or set the angles of the [textholder](Notable%20states.md#textholder)||
 |190|[Limit](Individual%20commands/Limit.md)|Changes the [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)'s `linebreak` value|UNUSED, INFLUENCES ORGANISELINES|
-|218|[Layer](Individual%20commands/Layer.md)|TODO: ???||
+|218|[Layer](Individual%20commands/Layer.md)|Changes the current layer to render from now on instead of the default layer which is 5 (`UI`)||
 
 ### Camera control
 
