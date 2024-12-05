@@ -244,6 +244,32 @@ If `commandsuccess` is true and the attacker is a player party member:
 - `wordroutine` is stopped if it was in progress (followed by the destruction of `commandword` if it was)
 - `wordroutine` is set to a new [ShowSuccessWord](../Visual%20rendering/ShowSuccessWord.md) call with target.battleenetity as the t, without block and the super being the ref weaknessonhit value obtained from [CalculateBaseDamage](CalculateBaseDamage.md) done earlier (false if it wasn't called). NOTE: If the target was invulnerable earlier, weaknessonhit will always be false since this information wasn't gathered by CalculateBaseDamage
 
+### [PoisonDamUp](AttackProperty.md) effects
+If all of the following conditions are fufilled, the final damage amount is increased by 2:
+
+- The attacker exists has `PoisonDamUp` in its [weakness](../Actors%20states/Enemy%20features.md#weakness) (assumed to be an enemy party member)
+- The attacker has the [Poison](../Actors%20states/BattleCondition/Poison.md) condition
+- The target doesn't fall into any of the invulnerable cases mentioned in the [damage calculations](#damage-calculation) above
+
+### [DoBlock](AttackProperty.md) effects
+This section applies if all of the following are true:
+
+- The target is an enemy party member that has `DoBlock` in its [weakness](../Actors%20states/Enemy%20features.md#weakness)
+- The target isn't IsStoppedLite (the same as [IsStopped](../Actors%20states/IsStopped.md), but the [Flipped](../Actors%20states/BattleCondition/Flipped.md) condition doesn't count as a stopping condition)
+
+If the conditions above are fufilled, the following happens:
+
+- The target.`blockTimes` is incremented (this is a DoDamage counter)
+- If target.`blockTimes` is 1 (meaning that this is the first DoDamage call done to this target on the same actor turn while they weren't stopped), nothing happens and the game skips to the next section
+- If target.`blockTimes` is 2 or more (second or further DoDamage call on this target for the same actor turn):
+    - The final damage amount gets changed depending if `blockTimes` is 2 or more than 2:
+        - 2 (second DoDamage call): The final amount is / 2 floored
+        - More than 2 (third DoDamage call or further): The final amount is / 3 floored
+    - block is overriden to true (this simulates the target as if they are blocking when DoDamageAnim gets called towards the end later)
+    - A new GameObject is created with a SpriteRenderer using the `battlemessage[4]` sprite (the word BLOCK!) on layer 15 (`3DUI`) positioned at the target + (3.0, 3.0, 0.0) with an intial scale of 0.0x
+    - Start a GradualScale on the SpriteRenderer with a target of 1.0x with a frametime of 10.0 without destroy
+    - The GameObject gets destroyed in 2.0 seconds
+
 ### target.`hp` decrease and clamping
 target.`hp` gets decreased by the final amount of damage calculated earlier, but it also gets clamped after. The higher bound of the clamp is always target.`maxhp`, but the lower bound depends on some conditions.
 
