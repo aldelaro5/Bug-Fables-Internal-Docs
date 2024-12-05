@@ -64,7 +64,7 @@ These effects are shown in the exact order they appear.
 
 |Attack direction|Condition|Damage effect|
 |----------------|---------|-------------|
-|Any to player|block is true OR `superblockedthisframe` hasn't expired yet|Decreased by:<ul><li>1 if it's a non super block</li></li><li>2 + amount of attacker's `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) if it's a super block<sup>1</sup></li></ul>|
+|Any to player|block is true OR `superblockedthisframe` hasn't expired yet|Decreased by<sup>11</sup>:<ul><li>1 if it's a non super block</li></li><li>2 + amount of attacker's `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) if it's a super block<sup>1</sup></li></ul>|
 |Any to Any|property is `Raw`|<u>basevalue is immediately returned with a clamping that depends if blocking happened:</u><ul><li>If blocking happened, the return value is clamped from 0 to 99</li><li>Otherwise, the return value is clamped from 1 to 99</li></ul>|
 |Enemy to player|Attacker is a `TANGYBUG` [enemy](../../Enums%20and%20IDs/Enemies.md)|+ 2|
 |Attacker to Any|Always processed|- attacker.`tired`|
@@ -167,6 +167,8 @@ However, the `PoisonAttacker` bonus case is affected in a much more complex fash
 - `IceBeemerang` is used by someone who doesn't have `PoisonAttacker`, but the other player party member does: The bonus never applies for either player party member, even for the one that has `PoisonAttacker` and regardless of whether or not this member has [Poison](../Actors%20states/BattleCondition/Poison.md) so it incorrectly doesn't apply
 
 10: This incorrectly excludes [IceBeemerang](../Player%20actions/Skills/IceBeemerang.md) so this action cannot benefit from the `Magic` weakness bonus
+
+11: Due to the `DoublePainReal` clamp effect later, player blocking is effectively ignored or has its impact greatly reduced because the player blocking effect is located BEFORE the clamp instead of AFTER
 
 ## Status infliction
 What happens here depends on the property. These typically attempts to inflict a [condition](../Actors%20states/Conditions.md) on the target when applicable and most of them implies a resistance check.
