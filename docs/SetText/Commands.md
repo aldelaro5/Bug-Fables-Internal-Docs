@@ -98,7 +98,7 @@ There are 217 commands as of 1.1.2. Here are the different commands grouped by c
 |178|[Lore](Individual%20commands/Lore.md)|A helper of `string` where [flagstring](../Flags%20arrays/flagstring.md) 0 is set to the Lore Book's text whose id is in [flagvar](../Flags%20arrays/flagvar.md) 0 with additional commands then the same [flagstring](../Flags%20arrays/flagstring.md) is sent to `string` in its fourth syntax|REPLACE|
 |212|[Maxmedals](Individual%20commands/Maxmedals.md)|Replace this command's text by the number of collectible medals in the game (hardcoded to 108)|REPLACE|
 |215|[GetFromMap](Individual%20commands/GetFromMap.md)|Replace the text of this command to a dialogue line that belongs to a specific [Map](../Enums%20and%20IDs/Maps.md)|REPLACE|
-|217|[Plural](Individual%20commands/Layer.md)|Replaces this command's text by one of 2 strings depending on if a value or a [flagvar](../../Flags%20arrays/flagvar.md) slot containing it is equal to 1 or not|REPLACE, UNUSED|
+|217|[Plural](Individual%20commands/Layer.md)|Replaces this command's text by one of 2 strings depending on if a value or a [flagvar](../Flags%20arrays/flagvar.md) slot containing it is equal to 1 or not|REPLACE, UNUSED|
 
 ### Sprite rendering
 

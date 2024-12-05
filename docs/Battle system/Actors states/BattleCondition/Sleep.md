@@ -54,9 +54,9 @@ This condition my be removed during [CalculateBaseDamage](../../Damage%20pipelin
 All enemy party members who still have this condition on EndPlayerTurn without [actimmobile](../Enemy%20features.md#actimmobile) will have their `cantmove` set to 1. NOTE: It means removing the condition on the same main turn it was inflicted may leave the `cantmove` at 1 even if the enemy party member should have been able to act during their phase.
 
 ## [AdvanceTurnEntity](../../Battle%20flow/AdvanceTurnEntity.md)
-When the condition is processed (when `hp` is above 0, but less than `maxhp`), it depends on if they are an enemy party member while the `BadDream` [medal](../../Enums%20and%20IDs/Medal.md) is equipped. If this is the case, it's processed the same as a [Fire](Fire.md) condition.
+When the condition is processed (when `hp` is above 0, but less than `maxhp`), it depends on if they are an enemy party member while the `BadDream` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped. If this is the case, it's processed the same as a [Fire](Fire.md) condition.
 
-Otherwise, it's the same as a [GradualHP](GradualHP.md), but the amount to heal and show is determined with a more complex logic. The amount is determined with a starting value of the actor's `maxhp` * 0.1 ceiled. If the `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the actor (no checks if it's necesarily a player party member), the amount is tripled. On top of this, if it's not a player party member (checked by the battleentity tag not being `Player`), the amount is clamped from 0 to 4.
+Otherwise, it's the same as a [GradualHP](GradualHP.md), but the amount to heal and show is determined with a more complex logic. The amount is determined with a starting value of the actor's `maxhp` * 0.1 ceiled. If the `HeavySleeper` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped on the actor (no checks if it's necesarily a player party member), the amount is tripled. On top of this, if it's not a player party member (checked by the battleentity tag not being `Player`), the amount is clamped from 0 to 4.
 
 Either way, this happens:
 
