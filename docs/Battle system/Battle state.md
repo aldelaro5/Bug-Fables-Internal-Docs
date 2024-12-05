@@ -45,6 +45,7 @@ This is all the BattleControl fields.
 |lastdamage|int|No|The last final amount of damage done at the end of [DoDamage](Damage%20pipeline/DoDamage.md)|
 |damagethisturn|int|No|The amount of damage the player party inflicted in the current main turn. If it gets higher than [flagvar](../Flags%20arrays/flagvar.md) 41 (highest damage in one turn), the flagvar value is set to it before resetting the value of damagethisturn in [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
 |charmcooldown|int|No|The amount of main turns that needs to pass for [UseCharm](Battle%20flow/UseCharm.md) to process the next charm even if one is available and could have been processed otherwise. Set to a random integer between 3 and 7 inclusive after a charm has been processed and decremented on [AdvanceMainTurn](Battle%20flow/Action%20coroutines/AdvanceMainTurn.md)|
+|currentEnemy|int|No|The value of the actionid parameter sent to the last [DoAction](Battle%20flow/Action%20coroutines/DoAction.md) for an enemy party member. This field is primarily done to allow to yield return sub coroutines for enemy actions logic so the value can be accessed from outside DoAction|
 
 ### Actors information
 

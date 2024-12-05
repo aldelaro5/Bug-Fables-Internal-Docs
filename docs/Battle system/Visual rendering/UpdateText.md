@@ -62,6 +62,7 @@ This section depends on the `currentaction`
     - `option` is 0 and the `AntlionJaws` [medal](../../Enums%20and%20IDs/Medal.md) on the `playerdata[currentturn].trueid`: ` |`[size](../../SetText/Individual%20commands/size.md)`,1,0.6||`[icon](../../SetText/Individual%20commands/Icon.md)`,183|` is appended
     - `option` is 1 and the `StatusBoost` [medal](../../Enums%20and%20IDs/Medal.md) on the `playerdata[currentturn].trueid`: ` |`[size](../../SetText/Individual%20commands/size.md)`,1,0.6||`[icon](../../SetText/Individual%20commands/Icon.md)`,220|` is appended
     - `option` is 2 and the `HealPlus` [medal](../../Enums%20and%20IDs/Medal.md) on the `playerdata[currentturn].trueid`: ` |`[size](../../SetText/Individual%20commands/size.md)`,1,0.6||`[icon](../../SetText/Individual%20commands/Icon.md)`,218|` is appended
+    - `option` is 2 and the `ItemRecycle` [medal](../../Enums%20and%20IDs/Medal.md) on the `playerdata[currentturn].trueid`: ` |`[size](../../SetText/Individual%20commands/size.md)`,1,0.6||`[icon](../../SetText/Individual%20commands/Icon.md)`,227|` is appended
     - `option` is 4 and the `RelayTransfer` [medal](../../Enums%20and%20IDs/Medal.md) on the `playerdata[currentturn].trueid`: ` |`[size](../../SetText/Individual%20commands/size.md)`,1,0.6||`[icon](../../SetText/Individual%20commands/Icon.md)`,216|` is appended
 - A SetText call is done in non dialogue mode using the text obtained
 

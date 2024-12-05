@@ -2,7 +2,7 @@
 This method is kind of a wrapper around [SetCondition](SetCondition.md) because it does end up calling it after a resistance check if applicable, but it also renders visually the [conditions](../Conditions.md) being applied by a colored arrow thanks to [StatEffect](../../Visual%20rendering/StatEffect.md).
 
 ```cs
-private void StatusEffect(MainManager.BattleData data, MainManager.BattleCondition status, int turns, bool effect)
+private void StatusEffect(MainManager.BattleData data, MainManager.BattleCondition status, int turns, bool effect, bool force = false)
 ```
 
 ### Parameters
@@ -11,10 +11,11 @@ private void StatusEffect(MainManager.BattleData data, MainManager.BattleConditi
 - `status`: The condition to attempt to inflict the actor
 - `turns`: The amount of main turns to inflict the condition
 - `effect`: Whether the infliction should include a visual render. There is an overload where this can be ommited and it will send false
+- `force`: If true, the resistance check is bypassed if applicable and the condition will always be inflicted
 
 ### Procedure
 
-If applicable, a resistence check will be performed. The test will be performed by generating a random integer in the range \[0, 100\[ and check if the number is strictly higher than the matching resistance. However, if the resistance is 100 or above, the test always fails.
+If applicable and `force` is false, a resistence check will be performed. The test will be performed by generating a random integer in the range \[0, 100\[ and check if the number is strictly higher than the matching resistance. However, if the resistance is 100 or above, the test always fails.
 
 > NOTE: this test is off by one numerically: a 50 resistance actually means a 49% change to inflict for example. This is because doing a strictly higher than comparison splits the ranges like such that the fail group is \[0, resistance\] and the success group is \]resistance, 100\[, but they should be split to \[0, resistance\[ and \[resistance, 100\[ respectively. This means for a given resistance, the chance to inflict in percentage is 100 - resistance - 1 instead of 100 - resistance.
 

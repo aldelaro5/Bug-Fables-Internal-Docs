@@ -29,7 +29,7 @@ This is an action coroutine that runs at the very end of every main turn when bo
 - `playertargetID` is set to -1
 - If `damagethisturn` is higher than [flagvar](../../../Flags%20arrays/flagvar.md) 41 (highest damage in one turn), the flagvar value is set to `damagethisturn`
 - `damagethisturn` is set to 0
-- RefreshAllData is called which sets `alldata` to a new list which consists of all the `playerdata` followed by all the `enemydata` appended together
+- RefreshAllData is called which sets `alldata` to a new list which consists of all the `playerdata` followed by all the `enemydata` appended together and it also resets all enemy party member's `blockTimes` to 0
 - [UpdateEntities](../../Visual%20rendering/UpdateEntities.md) is called
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called
 - `option` is set to `lastaction`

@@ -8,8 +8,8 @@ The object will move to (0.0, 0.0, -0.5) with a ymax of 5.0 instead.
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Done for each player party member whose `hp` is above 0 without an [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences) without `plating` and without a [Shield](../../Actors%20states/BattleCondition/Shield.md) condition|null|The player party member|10|[NoExceptions](../../Damage%20pipeline/AttackProperty.md)|empty array|false|
-|2|Done for each enemy party members without a [Shield](../../Actors%20states/BattleCondition/Shield.md) condition and whose [enemy](../../../Enums%20and%20IDs/Enemies.md) id isn't `Ahoneynation` or `Abomihoney`|null|The enemy party member|10|[NoExceptions](../../Damage%20pipeline/AttackProperty.md)|empty array|false|
+|1|Done for each player party member whose `hp` is above 0 without an [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences) without `plating` and without a [Shield](../../Actors%20states/BattleCondition/Shield.md) condition|null|The player party member|10 + 2 * amount of `BombPlus` [medals](../../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[currentturn]`|[Pierce](../../Damage%20pipeline/AttackProperty.md)|[NoExceptions](../../Damage%20pipeline/AttackProperty.md)|empty array|false|
+|2|Done for each enemy party members without a [Shield](../../Actors%20states/BattleCondition/Shield.md) condition and whose [enemy](../../../Enums%20and%20IDs/Enemies.md) id isn't `Ahoneynation` or `Abomihoney`|null|The enemy party member|10 + 2 * amount of `BombPlus` [medals](../../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[currentturn]`|[Pierce](../../Damage%20pipeline/AttackProperty.md)|[NoExceptions](../../Damage%20pipeline/AttackProperty.md)|empty array|false|
 
 ## Effects on player party members
 Only applies to those with an `hp` above 0 without an [eatenby](../../Actors%20states/BattleCondition/Eaten.md#eatenby-influences):

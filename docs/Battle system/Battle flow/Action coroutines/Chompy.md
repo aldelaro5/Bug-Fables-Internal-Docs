@@ -106,10 +106,11 @@ What follows depends on the `coption[option]` selected.
     - [DoCommand](../../DoCommand.md) is called with a timer of 60.0, a commandtype of `PressKeyTimer` and a data being a one element array containing a random integer between 4 and 6 converted to float
     - A frame is yielded
     - All frames are yielded while `doingaction` is true
+- A base amount of damage to deal is determined. It's 2 + the amount of `HelperBoost` [medals](../../../Enums%20and%20IDs/Medal.md) equipped (under normal gameplay, there's only 1 medal so the value is 3 with the medal, 2 without)
 - If the targetted enemy's [position](../../Actors%20states/BattlePosition.md) is indeed `Ground` (always happen unless no grounded enemies existed earlier) and `commandsuccess` is true:
     - `chompy`'s [animstate](../../../Entities/EntityControl/Animations/animstate.md) is set to 102
     - The `Bite` sound is played with a pitch of 1.25
-    - [DoDamage](../../Damage%20pipeline/DoDamage.md) is called without attacker to the targetted enemy for a damage of 2 (or 3 if [flags](../../../Flags%20arrays/flags.md) 404 is true and [flagvar](../../../Flags%20arrays/flagvar.md) 56 is `ChomperRibbon` meaning that ribbon is currently on Chompy) without block. The property depends on the ribbon:
+    - [DoDamage](../../Damage%20pipeline/DoDamage.md) is called without attacker to the targetted enemy for a damage of the base amount determined earlier (with 1 added if [flags](../../../Flags%20arrays/flags.md) 404 is true and [flagvar](../../../Flags%20arrays/flagvar.md) 56 is `ChomperRibbon` meaning that ribbon is currently on Chompy) without block. The property depends on the ribbon:
         - `PoisonRibbon`: `Poison`
         - `NumbRibbon`: `Numb`
         - `SleepRibbon`: `Sleep`
@@ -136,6 +137,7 @@ What follows depends on the `coption[option]` selected.
 - `startdrop` is set to true (this allows enemies that requires dropping to finish their drops)
 - A frame is yielded (this lets the drops finish)
 - `startdrop` is set back to false (since it's no longer needed)
+- The targetted enemy party member (if any existed) has their `blockTimes` reset to 0
 - `checkingdead` is set to a new [CheckDead](CheckDead.md) coroutine
 - All frames are yielded while `checkingdead` is in progress
 - If there's still any enemy party member with an `hp` above 0, `action` is set to false switching to a [controlled flow](../Update%20flows/Controlled%20flow.md) (this means the flow isn't changed if all enemies are dead)
@@ -151,7 +153,7 @@ The only thing that happens is `action` is set to false switching to a [controll
 - The selected ribbon's [item](../../../Enums%20and%20IDs/Items.md) id is removed from `items[1]` (key items)
 - If [flags](../../../Flags%20arrays/flags.md) 404 is false (Chompy doesn't have a ribbon on her), flags 404 is set to true. Otherwise, [flagvar](../../../Flags%20arrays/flagvar.md) 56 (the [item](../../../Enums%20and%20IDs/Items.md) id of the ribbon chompy has on her) is added to `items[1]` (key items) if it didn't existed in the list already
 - [flagvar](../../../Flags%20arrays/flagvar.md) 56 (the [item](../../../Enums%20and%20IDs/Items.md) id of the ribbon chompy has on her) is set to the selected ribbon item id
-- ChompyRibbon is called on `chompy` which changes its color depending on [flagvar](../../../Flags%20arrays/flagvar.md) 56 (the [item](../../../Enums%20and%20IDs/Items.md) id of the ribbon chompy has on her):
+- ChompyRibbon is called on `chompy` using their `extrasprites[0]` (their ribbon) which changes its color depending on [flagvar](../../../Flags%20arrays/flagvar.md) 56 (the [item](../../../Enums%20and%20IDs/Items.md) id of the ribbon chompy has on her):
     - `PoisonRibbon`: Lerp between pure red and pure blue with a factor of 0.65 (this means purple with a bit more blue)
     - `NumbRibbon`: Lerp between pure yellow and pure black with a factor of 0.2 (mostly yellow) 
     - `SleepRibbon`: Lerp between pure green and pure black with a factor of 0.3 (mostly green)

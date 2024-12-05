@@ -122,6 +122,7 @@ This phase applies if the entity doesn't have a `Player` tag unless the enemy pa
 #### Enemy action setup
 This part of the enemy action phase occurs before any action is performed:
 
+- `currentEnemy` is set to the sent actionid
 - `checkingdead` is set to a new [UseCharm](../UseCharm.md) call with the type being `DefenseUp`
 - All frames are yielded while `checkingdead` is in progress
 

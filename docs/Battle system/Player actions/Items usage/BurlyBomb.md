@@ -5,8 +5,8 @@ This item is a toss item and as such, parts of its logic are based off the [Peeb
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|None|null|`availabletargets[target]`|4|null|empty array|false|
-|2|Done for each enemy party member other than the `target` whose position + `freezeoffset` + their `height` in y has a square distance off the object after movement less than 15.5|null|The enemy party member|2|null|empty array|false|
+|1|None|null|`availabletargets[target]`|4 + 2 * amount of `BombPlus` [medals](../../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[currentturn]`|[Pierce](../../Damage%20pipeline/AttackProperty.md)|null|empty array|false|
+|2|Done for each enemy party member other than the `target` whose position + `freezeoffset` + their `height` in y has a square distance off the object after movement less than 15.5|null|The enemy party member|2 + 2 * amount of `BombPlus` [medals](../../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[currentturn]`|[Pierce](../../Damage%20pipeline/AttackProperty.md)|null|empty array|false|
 
 ## [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) infliction
 After DoDamage 1, the `target` enemy party member will have [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called on it to inflict [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) for 2 turns with visual effects.

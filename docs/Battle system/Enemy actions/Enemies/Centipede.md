@@ -346,7 +346,7 @@ Initiate a low `hp` phase transition where the player party is killed except `Be
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen to every player party members whose `hp` is above 0|This enemy|The player party member|99<sup>1</sup>|[NoExceptions](../../Damage%20pipeline/AttackProperty.md)|null|false|
+|1|Always happen to every player party members whose `hp` is above 0|This enemy|The player party member|The player party member's entire `hp` value<sup>1</sup>|[NoExceptions](../../Damage%20pipeline/AttackProperty.md)|null|false|
 
 1: For `Beetle` specifically, this cannot be lethal as enforced after this call
 
@@ -371,6 +371,7 @@ Then, the followuing is done for each player party member in the order `Bee`, `M
     - If `chompy` exists:
         - Their `flip` is set to false
         - They [ForceMove](../../../Entities/EntityControl/EntityControl%20Methods.md#forcemove) to (-25.0, 0.0, 0.0) with 30.0 multiplier using 1 (`Walk`) both as walkstate and stopstate
+    - If `aiparty` exists, it is destroyed
     - [SetText](../../../SetText/SetText.md) is called in [dialogue](../../../SetText/Dialogue%20mode.md#dialogue-mode) with the following:
         - text: `|`[size](../../../SetText/Individual%20commands/size.md)`,1.5||`[halfline](../../../SetText/Individual%20commands/Halfline.md)`||`[boxstyle](../../../SetText/Individual%20commands/Boxstyle.md)`,1||`[shaky](../../../SetText/Individual%20commands/Shaky.md)`|` followed by `commondialogue[166]`
         - [fonttype](../../../SetText/Notable%20states.md#fonttype): 0 (`BubblegumSans`)

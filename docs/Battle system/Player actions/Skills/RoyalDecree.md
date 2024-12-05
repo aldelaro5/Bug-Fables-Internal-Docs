@@ -5,6 +5,9 @@ This action features no action commands or damages logic. It only does the follo
 - All player party members whose `hp` is above 0 has [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called on them to inflict the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition for 2 turns with visual effects
 - All player party members whose `hp` is above 0 has [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called on them to inflict the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition for 2 turns with visual effects
 
+## No charges usage
+This action sets `dontusecharge` to true and as such, it will not consume any attacker's `charge` as it would normally.
+
 ## Logic sequence
 
 - Camera moves slowly to look at the player party

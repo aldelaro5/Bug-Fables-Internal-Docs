@@ -20,6 +20,17 @@ This part only plays the battle out transition by calling PlayTransition with id
 
 0.2 seconds are yielded after.
 
+## `dizzytime` logic
+This party only happens if calledfrom exists with a `dizzytime` above 0.0 (the player should get the advantage):
+
+- The `playerdata` with a `trueid` (which is the [animid](../../Enums%20and%20IDs/AnimIDs.md)) that matches the first `partypointer` is found and its `cantmove` is set to -1 and `receivedrelay` of the corresponding `playerdata` index is set to true. This essentially gives an additional turn to the lead party member and also allows their `tiredpart` to be enabled by [UpdateAnim](../Visual%20rendering/UpdateAnim.md)
+- calledfrom.`dizzytime` is set to 0.0
+- If at least one `Ambush` [medal](../../Enums%20and%20IDs/Medal.md) is equipped:
+    - Yield for 0.5 seconds
+    - Each enemy party member has [DoDamage](../Damage%20pipeline/DoDamage.md) called with them as the target, null attacker and [NoExceptions](../Damage%20pipeline/AttackProperty.md) property for a damageammount that is the amount of `Ambush` medals equipped. NOTE: This can't be lethal because if the `hp` of the enemy party members becomes 0, it is set to 1
+    - Yield for 0.5 seconds
+    - Yield return DropEenemies with all enemy party members so that if they need to be dropped, it will be done immediately before resuming
+
 ## `switchicon` initialisation
 This part initialises the `switchicon` if it didn't exist as a new GameObject with name `switchicon` childed to the `GUICamera` with a local position of (0.0, 99.0, 0.0). 
 

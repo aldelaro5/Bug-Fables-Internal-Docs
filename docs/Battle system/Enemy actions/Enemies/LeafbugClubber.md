@@ -10,7 +10,9 @@ This enemy supports `hitaction` logic and it will be performed when `hitaction` 
 This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
 
 ### Logic sequence
+This is done by yield returning the EnemyAngryCharge coroutine with the battleentity. It does the following:
 
+- Set `dontusecharge` to true
 - If `charge` is less than 3, it is incremented with the following:
     - animstate set to 5 (`Angry`)
     - `Wam` sound plays

@@ -74,6 +74,7 @@ These fields only applies to enemy party members. Some of them are relayed to sp
 |[hitaction](Enemy%20features.md#hitaction)|bool|When set to true, the enemy party member will perform a hitation on the next controlled update flow|
 |[onhitaction](Enemy%20features.md#onhitaction)|int|If it's 1, [hitaction](Enemy%20features.md#hitaction) will be set to true when hit. If it's 2, it will only if [position](BattlePosition.md#battleposition) is `Flying` and if it's 3, only if it's `Ground`|
 |[chargeonotherenemy](Enemy%20features.md#chargeonotherenemy)|int\[\]|The list of [enemy](../../Enums%20and%20IDs/Enemies.md) ids that when hit, will cause this enemy to have its [hitaction](Enemy%20features.md#hitaction) set to true|
+|`blockTimes`|int|A [DoDamage](../Damage%20pipeline/DoDamage.md) calls counter when the enemy party member is the target for use with the [DoBlock](../Damage%20pipeline/AttackProperty.md) property in their `weakness`. It is only incremented if they aren't IsStoppedLite (same as [IsStopped](IsStopped.md), but the [Flipped](BattleCondition/Flipped.md) condition doesn't count)|
 
 ### Guard feature
 

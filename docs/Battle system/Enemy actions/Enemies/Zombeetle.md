@@ -68,6 +68,7 @@ This is what the coroutine effectively ends up doing:
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
 - animstate set to 1 (`Walk`)
 - Over the course of 61.0 frames, this enemy moves to startp via a lerp while having its animstate set to 1 (`Walk`)
+- `sprite` local position reset to Vector3.zero
 - `checkingdead` set to null which signals the caller that this coroutine completed
 
 ## Move 2 - Boulder throw

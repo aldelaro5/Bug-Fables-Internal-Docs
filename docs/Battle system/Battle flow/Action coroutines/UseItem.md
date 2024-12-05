@@ -208,7 +208,10 @@ An action will may be set to trigger in the post item effects section depending 
 
 ## Post item effects
 
-- The first occurence of the item corresponding to the sent id is removed from instance.`items[0]` (standard items)
+- If the `ItemRecycle` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped and a 31% RNG check passes:
+    - The item will not be removed and instead, the [ItemSpinAnim](../../Visual%20rendering/ItemSpinAnim.md) coroutine is yield returned with a position of `playerdata[currentturn]`'s position + 1.0 in y, a sprite being the `ItemRecycle` medal icon and with playsound
+- Otherwise:
+    - The item is removed from instance.`items[0]` (standard items) using MainManager.`lastprompt` as the index which is basically the [ItemList](../../../ItemList/ItemList.md)'s `option` value set upon confirmation
 - [CancelList](../../Player%20UI/CancelList.md) is called
 - [UpdateAnim](../../Visual%20rendering/UpdateAnim.md) is called
 - [UpdateText](../../Visual%20rendering/UpdateText.md) is called

@@ -83,7 +83,7 @@ From there, the following happens on each `enemydata` after setting it to the re
 - `battlepos` is set to the battleentity's position
 - Some [enemies](../../Enums%20and%20IDs/Enemies.md) have additional logic here:
     - `VenusBoss`: `extraentities` is initialised to a new array with one element being a new entity created via [CreateNewEntity](../../Entities/EntityControl/EntityControl%20Creation.md#createnewentity) with a name of `Venus`, an [animid](../../Enums%20and%20IDs/AnimIDs.md) of 80 (`Venus`) and a position of (0.0, 0.0, 4.0) childed to the `battlemap`. This entity gets further adjustements:
-        - `hologram` gets set to the value of [flag](../../Flags%20arrays/flags.md) 162 (we are in a B.O.S.S or Cave of Trials battle)
+        - `hologram` gets set to the value of [flag](../../Flags%20arrays/flags.md) 162 (we are in a B.O.S.S or Cave of Trials battle), but if they have the [Holographic](../Damage%20pipeline/AttackProperty.md) property in their `weakness`, the value always gets set to true regardless
         - `alwaysactive` gets set to true
         - `activeonpause` gets set to true
         - A VenusBattle component gets added to the gameObject and its SetUp gets called on it with itself as the parent and the battleentity as the target
@@ -129,7 +129,7 @@ From there, the following fields gets initialised to each `playerdata`:
 |----:|-------------|
 |battleentity|A new entity created via [CreateNewEntity](../../Entities/EntityControl/EntityControl%20Creation.md#createnewentity) with the name `PlayerX` where X is the index of the element|
 |`tired`|0|
-|`cantmove`|0|
+|`cantmove`|0, but if the `LastWind` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on them, the value is -1 (2 actor turns on the first main turn)|
 |`charge`|0|
 |`atkdownonloseatkup`|false|
 |battleentity's position|Depends on the `playerdata` index:<ul><li>0: (-3.0, 0.1, 0.0)</li><li>1: (-5.0, 0.1, 1.0)</li><li>2: (-6.0, 0.1, 0.0)</li></ul>|
@@ -162,6 +162,7 @@ From there, the following fields gets initialised to each `playerdata`:
 |`weakness`|New empty list|
 |[condition](../Actors%20states/Conditions.md#conditions)|New empty list|
 |battleentity.`dead`|If `hp` is 0, it's set to true|
+|battleentity.`hologram`|If the `HoloCloak` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on them, this is set to true alongside an UpdateSpriteMat call which updates their material to MainManager.`holosprite`|
 
 Additionally, the following also happens for each `playerdata`:
 
@@ -193,7 +194,7 @@ The method takes an [animid](../../Enums%20and%20IDs/AnimIDs.md) and am [animsta
 
 While technically, the method can be called multiple time, this isn't supported and will likely result in entities not being tracked by the game should this happen.
 
-Here are the different AIs added and their conditions by their animid:
+Here are the different AIs added and their conditions by their animid (`aiparty` starts with a value of null):
 
 - `Maki` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 13 (`BattleIdle`) if any of the following is true:
     - The MainManager.map.`mapid` is the `FGClearing` [map](../../Enums%20and%20IDs/Maps.md)
@@ -202,12 +203,38 @@ Here are the different AIs added and their conditions by their animid:
 - `KungFuMantis` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 5 (`Angry`) if they are a [tempfollower](../../SetText/Individual%20commands/Addfollower.md)
 - `Madeleine` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 0 (`Idle`) if they are a [tempfollower](../../SetText/Individual%20commands/Addfollower.md)
 - `AntCapitain` is added with [animstate](../../Entities/EntityControl/Animations/animstate.md) 13 (`BattleIdle`) if map.`mapid` is the `AbandonedCity` [map](../../Enums%20and%20IDs/Maps.md) and [flags](../../Flags%20arrays/flags.md) 400 is true (reserved temporary flag). If they are added, it also causes every element of `enemydata` to have MainManager.[SetCondition](../Actors%20states/Conditions%20methods/SetCondition.md) called twice on them as the entity with `AttackUp` and `DefenseUp` for 999999 actor turns
+- `LadybugKnight` is added if MainManager.`lastevent` is 47 meaning this battle was caused by [event](../../Enums%20and%20IDs/Events.md) 47 (Chapter 2 approaching the tunnel entrance to the Golden Path)
+- `Gen` is added if MainManager.`lastevent` is 93 meaning this battle was caused by [event](../../Enums%20and%20IDs/Events.md) 93 (Chapter 3 approaching the area where the merchants gets ambushed by bandits and wasps)
 
-Finally, a frame is yielded.
+### `Helper` [medal](../../Enums%20and%20IDs/Medal.md) logic
+If the `helper` medal is equipped and `aiparty` is still null at this point (meaning none of the above conditions were fufilled to get an `aiparty`), it's still possible for an `aiparty` to be assigned, but it will be selected randomly amongst all the possible ones. `aiparty` will stay at null (none) if the medal isn't equipped or it is, but no `aiparty` exists in the possible pool.
+
+For an `aiparty` to be in the pool, each requires to have some [flags](../../Flags%20arrays/flags.md) set to true. Here are all the possible ones with their flags slot required:
+
+|animid|animstate|Required flags slot(s)|
+|-----:|---------|---------------------|
+|`KungFuMantis`|5 (`Angry`)|514 (Completed the Help Me Get it Back! quest)|
+|`Gen`|0 (`Idle`)|498 (Completed the Explorer Check! quest)|
+|`Maki`|13 (`BattleIdle`)|610 (Beaten Maki’s team for the first time)|
+|`LadybugKnight`|0 (`Idle`)|135 (Completed the Requesting Assistance quest)|
+|`ShielderAnt`|13 (`BattleIdle`)|135 (Completed the Requesting Assistance quest)|
+|`AntCapitain`|13 (`BattleIdle`)|709 (Completed the Loose Ends quest)|
+|`Madeleine`|0 (`Idle`)|391 (Completed the Butler Missing Again! quest)|
+|`Zasp`|5 (`BattleIdle`)|298 (Chapter 4, beat the Dune Scorpion) and 189 (Completed the Lost Item quest)|
+
+If at least one exists in the possible pool, then a random one is selected and AddAI will be called with the selected party. This is also followed by their battleentity.`hologram` set to true with an UpdateSpriteMat call which will set their `sprite` material to MainManager.`holosprite`.
+
+### `Gen` special handling as `aiparty`
+This particular `aiparty` is special because it requires 2 entities, but as said earlier, the AI party system doesn't allow to have multiple entities. As a workaround, if the animid of the `aiparty` that was added is 47 (`Gen`), the following will happen:
+
+- A new entity named `eri` is created with animid 48 (`Eri`) using [CreateNewEntity](../../Entities/EntityControl/EntityControl%20Creation.md#createnewentity) childed to the `aiparty` positioned at the `aiparty` + (-1.15, 0.0, 0.5) with a z scale multiplied by -1.0
+- The entity's `hologram` is set to true followed by an UpdateSpriteMat call which will set their `sprite` material to MainManager.`holosprite`
+- The entity's `flip` and `overrideflip` are set to true so they will look to the right
 
 ## Last pre `halfload` initialisations
 This part only contains miscellaneous initialisations logic before `halfload` is set to true:
 
+- Yield for a frame
 - MainManager.[RefreshEntities](../Actors%20states/RefreshEntities.md) is called
 - instance.`camspeed` is set to 0.1
 - If `actiontext` doesn't exist, it is created as a SpriteRenderer component added to a new GameObject named `ActionText` and the following:
@@ -231,14 +258,11 @@ This part only contains miscellaneous initialisations logic before `halfload` is
 - The SpriteRenderer material of the `cursor` has its renderQueue set to 10000
 - [UpdateText](../Visual%20rendering/UpdateText.md) is called
 - MainManager.[RefreshSkills](../RefreshSkills.md) is called
-- RefreshAllData is called which sets `alldata` to a new list which consists of all the `playerdata` followed by all the `enemydata` appended together
+- RefreshAllData is called which sets `alldata` to a new list which consists of all the `playerdata` followed by all the `enemydata` appended together and it also resets all enemy party member's `blockTimes` to 0
 - If the `fronticon` doesn't exist, it is initialised to the SpriteRenderer of a new UI object with the name `attackicon` childed to the `GUICamera` with position of Vector.zero, size of Vector3.one / 3.0, sortingOrder of 20 and with a sprite of `guisprites[63]` (the red arrow of the front icon in battle)
 - A frame is yielded
 - We exit the `pause` entered earlier
-- If there's more than one `playerdata` element, then as long as the first `partypointer` doesn't match the first instance.`partyorder` (meaning the `battle` doesn't point to the leading party member), a [SwitchParty](../Battle%20flow/Action%20coroutines/SwitchParty.md) action coroutine is started with fast (which ends up calling MainManager.SwitchParty immediately) followed by a frame yield until they both match. NOTE: It does mean the coroutine calls can be spammed, but in theory, the while condition gets updated information everytime since the StartCoroutine call immediately causes the party to be updated. For more information on why this is done, check [battle party addressing](../playerdata%20addressing.md#methods-of-addressing-durring-battle).
-- If calledfrom exists with a `dizzytime` above 0.0 (the player should get the advantage):
-    - The `playerdata` with a `trueid` (which is the [animid](../../Enums%20and%20IDs/AnimIDs.md)) that matches the first `partypointer` is found and its `cantmove` is set to -1 and `receivedrelay` of the corresponding `playerdata` index is set to true. This essentially gives an additional turn to the lead party member and also allows their `tiredpart` to be enabled by [UpdateAnim](../Visual%20rendering/UpdateAnim.md)
-    - calledfrom.`dizzytime` is set to 0.0
+- If there's more than one `playerdata` element, then as long as the first `partypointer` doesn't match the first instance.`partyorder` (meaning the `battle` doesn't point to the leading party member), a [SwitchParty](../Battle%20flow/Action%20coroutines/SwitchParty.md) action coroutine is started with fast (which ends up calling MainManager.SwitchParty immediately) followed by a frame yield until they both match. NOTE: It does mean the coroutine calls can be spammed, but in theory, the while condition gets updated information everytime since the StartCoroutine call immediately causes the party to be updated. For more information on why this is done, check [battle party addressing](../playerdata%20addressing.md#methods-of-addressing-durring-battle)
 - If the `StrongStart` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on a party member, the corresponding `playerdata` gets its `cantmove` decremented which gives it an additional turn. NOTE: The `tiredpart` may not render after the first actor turn because the corresponding `receviedrelay` may not be set to true
 - UpdateConditionIcons is called which calls UpdateConditionBubbles on all battleentity (all `playerdata` with right to false and all `enemydata` with `hp` above 0 with right to true)
 - All frames are yielded while `action` is true until it goes to false (this is done to ensure all remainings SwitchParty calls done earlier are fully finished)

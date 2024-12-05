@@ -103,4 +103,3 @@ The following table shows all the `BadgeTypes` enum value and their English name
 |88|ItemRecycle|Item Recycler|
 |89|BombPlus|Bomb Master|
 |90|HelperBoost|Helper Boost|
-

@@ -1,5 +1,5 @@
 # Sleep
-A stopping condition that will heal the attacker on each main turn and be removed on most attacks due to waking up (with caveats, see [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation for details). It also allows the target to process a `HeavySleeper` [medal](../../../Enums%20and%20IDs/Medal.md) which can prevent waking up, halve the damage amount and heal for more per main turn.
+A stopping condition that will heal the actor (or damage them if they are an enemy party member while the `BadDream` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped) on each main turn and be removed on most attacks due to waking up (with caveats, see [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) documentation for details). It also allows the target to process a `HeavySleeper` [medal](../../../Enums%20and%20IDs/Medal.md) which can prevent waking up, halve the damage amount and heal for more per main turn.
 
 ## About `isasleep`
 This condition feature a field that tells if it's present or not called `isasleep`. However, it's redundant: a [HasCondition](../Conditions%20methods/HasCondition.md) call gives the same information. It is nonetheless used in very specific edgecases instead of calling this method. The field is frequently updated to match the presence of the condition so in practice, this field can be ignored and treated as if a HasCondition returns above 0. Calling HasCondition also may set `isasleep` to true if it has the condition (only if it is the condition seeked or it occurs before the seeked one).
@@ -54,12 +54,12 @@ This condition my be removed during [CalculateBaseDamage](../../Damage%20pipelin
 All enemy party members who still have this condition on EndPlayerTurn without [actimmobile](../Enemy%20features.md#actimmobile) will have their `cantmove` set to 1. NOTE: It means removing the condition on the same main turn it was inflicted may leave the `cantmove` at 1 even if the enemy party member should have been able to act during their phase.
 
 ## [AdvanceTurnEntity](../../Battle%20flow/AdvanceTurnEntity.md)
-When the condition is processed (when `hp` is above 0, but less than `maxhp`):
+When the condition is processed (when `hp` is above 0, but less than `maxhp`), it depends on if they are an enemy party member while the `BadDream` [medal](../../Enums%20and%20IDs/Medal.md) is equipped. If this is the case, it's processed the same as a [Fire](Fire.md) condition.
 
-- A heal amount is determined with a starting value of the actor's `maxhp` * 0.1 ceiled. If the `HeavySleeper` [medal](../../../Enums%20and%20IDs/Medal.md) is equipped on the actor, the amount is tripled. On top of this, if it's not a player party member, the amount is clamped from 0 to 4
-- [ShowDamageCounter](../../Visual%20rendering/ShowDamageCounter.md) is called with type 1 (HP) with the amount determined earlier with a start of the actor position + its `cursoroffset` and an end of Vector3.up
-- The actor's `hp` is incremented by the amount determined earlier clamped from 0 to the actor's `maxhp`
-- The `Heal` sound is played
+Otherwise, it's the same as a [GradualHP](GradualHP.md), but the amount to heal and show is determined with a more complex logic. The amount is determined with a starting value of the actor's `maxhp` * 0.1 ceiled. If the `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the actor (no checks if it's necesarily a player party member), the amount is tripled. On top of this, if it's not a player party member (checked by the battleentity tag not being `Player`), the amount is clamped from 0 to 4.
+
+Either way, this happens:
+
 - A yield of 0.75 seconds is set to happen after the method is done
 - The turn counter of the condition is decremented
 - If the condition just expired, the actor's `cantmove` is set to 1 (this will become 0 if their `hp` is above 0 since turn advancement has yet to happen)

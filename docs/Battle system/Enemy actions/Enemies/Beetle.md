@@ -9,6 +9,11 @@ HardMode being true does the following changes:
 - In the rock throw move, the amount of frames the rock takes to move to the target is 41 frames instead of 48 frames
 - In the dash move, the amount of frames the entire dash takes is 25 instead of 33
 
+### `dontusecharge` might be set to true
+This move may sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
+
+It is only done when the taunting pre move logic is performed which has a random chance to occur (20% or 30% if hardmode is true). Due to the randomness of this, it is very likely that this logic is incorrect because it means that if [Kali](Kali.md) were to set their `charge` to 2, there is a random chance that the move performed will not consume any charges no matter what the move is which isn't supposed to happen.
+
 ## Move selection
 4 moves are possible:
 
@@ -29,8 +34,9 @@ Here are the odds of using each move:
 ## Pre move logic
 Before using any moves, if a 20% RNG check passes (30% instead if hardmode is true), this enemy will perform a move that inflicts the [Taunted](../../Actors%20states/BattleCondition/Taunted.md) condition on a target. This isn't a dedicated move because if it is performed, the move selection still proceeds on the same actor turn after that so it's a still a pre move logic
 
-Here is the taunt move logic performed if the RNG check passes:
+Here is the taunt move logic performed if the RNG check passes (done by yield returning the EnemyTaunt coroutine with the entity):
 
+- `dontusecharge` is set to true. NOTE: This is incorrect, see the section above explaining it
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - animstate set to 109
 - Camera moves to look near this enemy
@@ -63,6 +69,7 @@ A single target horn slash
 1: This property gets overriden to null in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) as the target is a player party member so it does nothing.
 
 ### Logic sequence
+This is done by yield returning the EnemyHeavyStrike coroutine with the entity:
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - Camera moves to look near `playerdata[playertargetID]`
@@ -96,6 +103,7 @@ A single target underground strike
 1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
 ### Logic sequence
+This is done by yield returning the EnemyKabbuDig coroutine with the entity:
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - `Dig` sound plays
@@ -118,8 +126,8 @@ A single target underground strike
 - `sprite` scale set to `startscale`
 - `DigPop` sound plays
 - `DirtExplode` particles plays at `playertargetentity` position
-- Over the course of 46.0 frames, this enemy moves to startp + Vector3.up via a BeizierCurve3 with a ymax of 0.0
-- position set to startp
+- Over the course of 46.0 frames, this enemy moves to the value before this coroutine + Vector3.up via a BeizierCurve3 with a ymax of 0.0
+- position set to the value before this coroutine
 - animstate set to 13 (`BattleIdle`)
 - SetAnimForce called
 - `spin` zeroed out
@@ -137,6 +145,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 |1|Always happen|null|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|null|null|`commandsuccess`|
 
 ### Logic sequence
+This is done by yield returning the EnemyPebbleToss coroutine with the entity:
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget) called
 - animstate set to 28 (`TossItem`)
@@ -194,4 +203,5 @@ This is what the coroutine effectively ends up doing:
 - [SetDefaultCamera](../../Visual%20rendering/SetDefaultCamera.md) called
 - animstate set to 1 (`Walk`)
 - Over the course of 61.0 frames, this enemy moves to startp via a lerp while having its animstate set to 1 (`Walk`)
+- `sprite` local position reset to Vector3.zero
 - `checkingdead` set to null which signals the caller that this coroutine completed

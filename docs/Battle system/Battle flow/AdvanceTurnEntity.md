@@ -80,17 +80,18 @@ It is assumed the actor is a player party member here:
 - A ShakeSprite coroutine is started on the battleentity with the intensity being (0.1, 0.15, 0.0) for 40.0 frames
 - The `Shock` sound is played on the battleentity at 1.25 pitch
 
-#### [Sleep](../Actors%20states/BattleCondition/Sleep.md)
+#### [GradualHP](../Actors%20states/BattleCondition/GradualHP.md)
 Nothing happens if the actor's `hp` is at least its `maxhp`, but if it doesn't:
 
-- A heal amount is determined with a starting value of the actor's `maxhp` * 0.1 ceiled. If the `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the actor (no checks if it's necesarily a player party member), the amount is tripled. On top of this, if it's not a player party member (checked by the battleentity tag not being `Player`), the amount is clamped from 0 to 4
-- [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 1 (HP) with the amount determined earlier with a start of the actor position + its `cursoroffset` and an end of Vector3.up
-- The actor's `hp` is incremented by the amount determined earlier clamped from 0 to the actor's `maxhp`
+- [ShowDamageCounter](../Visual%20rendering/ShowDamageCounter.md) is called with type 1 (HP) with the amount being 2 earlier with a start of the actor position + its `cursoroffset` and an end of Vector3.up
+- The actor's `hp` is incremented by 2 clamped from 0 to the actor's `maxhp`
 - The `Heal` sound is played
 - delay is set to true
 
-#### [GradualHP](../Actors%20states/BattleCondition/GradualHP.md)
-The same than `Sleep`, but the amount to heal and show is always 2.
+#### [Sleep](../Actors%20states/BattleCondition/Sleep.md)
+Nothing happens if the actor's `hp` is at least its `maxhp`, but if it doesn't, it depends on if they are an enemy party member while the `BadDream` [medal](../../Enums%20and%20IDs/Medal.md) is equipped. If this is the case, it's processed the same as a `Fire` condition.
+
+Otherwise, it's the same as a `GradualHP`, but the amount to heal and show is determined with a more complex logic. The amount is determined with a starting value of the actor's `maxhp` * 0.1 ceiled. If the `HeavySleeper` [medal](../../Enums%20and%20IDs/Medal.md) is equipped on the actor (no checks if it's necesarily a player party member), the amount is tripled. On top of this, if it's not a player party member (checked by the battleentity tag not being `Player`), the amount is clamped from 0 to 4
 
 #### [GradualTP](../Actors%20states/BattleCondition/GradualTP.md)
 If instance.`tp` is less than instance.`maxtp`:
@@ -131,7 +132,9 @@ This section only does something if the condition's turn counter just reached 0 
 - Otherwise, if the actor's `hp` is above 0 and it's not a [firststrike](firststrike%20system.md):
     - `cantmove` is decremented which passes a turn in the counter
     - If `moreturnnextturn` is above 0, `cantmove` is decreased by it followed by `moreturnnextturn` being set to 0
+    - If the actor is a player party member with the `LastWind` [medal](../../Enums%20and%20IDs/Medal.md) equipped and their `hp` is 4 or less, their `cantmove` is decremented which gives them an additional actor turn for the new main turn
 - Otherwise, if the actor's `hp` is 0, `cantmove` is set to 0
+- The actor's `blockTimes` is reset to 0
 - The actor's `tired` is set to 0
 - The actor's `didnothing` is set to false
 - The actor's `haspassed` is set to false

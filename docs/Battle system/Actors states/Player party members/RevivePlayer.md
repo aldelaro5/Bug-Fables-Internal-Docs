@@ -20,7 +20,10 @@ private void RevivePlayer(int id, int hp, bool showcounter)
 - battleentity.`nocondition` is set to false
 - The `playerdata`'s `turnssincedeath` is set to 0
 - If the player party member is included in `deadmembers`:
-    - The `playerdata`'s `cantmove` is set to 0 (one action available) unless `enemy` is true (we are in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) or later) where it's set to 1 instead (one actor turn is needed for an action to be available)
+    - The `playerdata`'s `cantmove` is set depending on on conditions:
+        - If `enemy` is true (we are in the [enemy phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#enemy-phase) or later), the value is set to 1 meaning one actor turn is needed for an action to be available
+        - Otherwise (we are in the [player phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase)) if the player party member has the `LastWind` [medal](../../../Enums%20and%20IDs/Medal.md) equipped while their `hp` is 4 or lower, the value is set to -1 meaning 2 actor turns become available
+        - Otheriwse (we are in the [player phase](../../Battle%20flow/Main%20turn%20life%20cycle.md#player-phase), but the `LastWind` medal doesn't apply), the value is set to 0 meaning 1 actor turn becomes available
     - [ClearStatus](../Conditions%20methods/ClearStatus.md) is called on the player party member
     - The `playerdata`'s `moreturnnextturn` is set to 0
     - The `playerdata`'s `tired` is set to 0
