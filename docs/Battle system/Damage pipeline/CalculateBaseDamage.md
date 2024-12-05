@@ -64,6 +64,8 @@ These effects are shown in the exact order they appear.
 
 |Attack direction|Condition|Damage effect|
 |----------------|---------|-------------|
+|Any to player|block is true OR `superblockedthisframe` hasn't expired yet|Decreased by:<ul><li>1 if it's a non super block</li></li><li>2 + amount of attacker's `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) if it's a super block<sup>1</sup></li></ul>|
+|Any to Any|property is `Raw`|<u>basevalue is immediately returned with a clamping that depends if blocking happened:</u><ul><li>If blocking happened, the return value is clamped from 0 to 99</li><li>Otherwise, the return value is clamped from 1 to 99</li></ul>|
 |Enemy to player|Attacker is a `TANGYBUG` [enemy](../../Enums%20and%20IDs/Enemies.md)|+ 2|
 |Attacker to Any|Always processed|- attacker.`tired`|
 |Player to enemy|<ul><li>Not in `demomode`</li><li>`currentturn` is `partypointer[0]` (at the front of formation)<sup>9</sup></li></ul>|+ 1|
@@ -73,7 +75,6 @@ These effects are shown in the exact order they appear.
 |Enemy to player|Not in `demomode`|+ attacker.`hardatk` (the scaled attack from [GetEnemyData](../../TextAsset%20Data/Enemies%20data.md#getenemydata))|
 |Enemy to player|<ul><li>Not in `demomode`</li><li>`DoublePainReal` [medal](../../Enums%20and%20IDs/Medal.md) is equipped</li></ul>|<u>Clamped from 2 to 99</u>|
 |Attacker to any|Always processed|+ attacker.`charge`|
-|Any to player|block is true OR `superblockedthisframe` hasn't expired yet|Decreased by:<ul><li>1 if it's a non super block</li></li><li>2 + amount of attacker's `SuperBlock` [medals](../../Enums%20and%20IDs/Medal.md) if it's a super block<sup>1</sup></li></ul>|
 |Enemy to player|<ul><li>Target has [Freeze](../Actors%20states/BattleCondition/Freeze.md) condition</li><li>No `NoIceBreak` override AND (first that applies of the 3 below)</li></ul>|Ice thaw<sup>2</sup> (after the sub effect is processed, doesn't change basevalue)|
 |-|<ul><li>target has a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>`nonphyscal` is false</li><li>attacker.[position](../Actors%20states/BattlePosition.md) isn't `Underground`</li></ul>|A [Freeze](../Actors%20states/BattleCondition/Freeze.md) condition is added as a [delayed condition](../Actors%20states/Delayed%20condition.md) to the attacker AND a counter of the full damage to the attacker is scheduled (see the final results explanation below for details)</sup>|
 |-|<ul><li>target has a `FrostBite` [medal](../../Enums%20and%20IDs/Medal.md)</li><li>The counter effect above didn't apply</li></ul>|<u>Divided by 2 floored</u>|
