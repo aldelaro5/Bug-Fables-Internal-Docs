@@ -31,7 +31,7 @@ At the start of the action, if `data` is null or empty, it's initialised to be 5
 
 Move 1 is always used if `turns` is 0 (the first main turn).
 
-Otherwise, the decision of which move to use is based on the following odds. However, these odds have 3 possible distribution sets which will be numbered as follows (the first one that applies is used):
+Otherwise, the decision of which move to use is based on the weigthed odds. However, these weighted odds have 3 possible distribution sets which will be numbered as follows (the first one that applies is used):
 
 1. All of the following conditions are fufilled:
     - Both [HoloVi](HoloVi.md) and [HoloLeif](HoloLeif.md) are present
