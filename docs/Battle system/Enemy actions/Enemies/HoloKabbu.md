@@ -55,8 +55,8 @@ Here are the odds for all distributions sets, their usage requirements and the s
 |Move|Odds set 1|Odds set 2|Odds set 3|Requirements|
 |---:|----------|----------|----------|------------|
 |1|6/42|6/39|0/11|None, the move is always used when selected||
-|2-3|4/42|2/39|2/11|<ul><li>`data[0]` is less than 5 (move 2 and 3 weren't used 5 times or more)</li><li>`data[1]` is 0 or less (move 2 and 3 weren't used on the last actor turn of this enemy)</li></ul>Also, the decision logic mentioned above applies which has additional requirements|
-|4|2/42|1/39|1/11|<ul><li>`data[0]` is less than 5 (move 2 and 3 weren't used 5 times or more)</li><li>`data[1]` is 0 or less (move 2 and 3 weren't used on the last actor turn of this enemy)</li><li>[HoloVi](HoloVi.md) is present and they do not have the [Poison](../../Actors%20states/BattleCondition/Poison.md) condition</li></ul>|
+|2-3|4/42|2/39|2/11|<ul><li>`data[0]` is less than 5 (move 2 and 3 weren't used 5 times or more)</li><li>`data[1]` is 0 or less (move 2 and 3 weren't used on the last 2 actor turns of this enemy)</li></ul>Also, the decision logic mentioned above applies which has additional requirements|
+|4|2/42|1/39|1/11|<ul><li>`data[0]` is less than 5 (move 2 and 3 weren't used 5 times or more)</li><li>`data[1]` is 0 or less (move 2 and 3 weren't used on the last 2 actor turns of this enemy)</li><li>[HoloVi](HoloVi.md) is present and they do not have the [Poison](../../Actors%20states/BattleCondition/Poison.md) condition</li></ul>|
 |5|3/42|0/39|1/11|`data[4]` is 0 or less (this move wasn't used in the last 2 actor turns of this enemy)|
 |6|3/42|3/39|3/11|`reservedata` isn't empty (there is someone available to be revived)|
 |7|9/42|15/39|1/11|None, the move is always used when selected|
