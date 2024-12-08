@@ -20,6 +20,28 @@ At the start of the action, if `data` is null or empty, it's initialised to be 5
     - Gives the [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) condition to all alive player party members
 - `data[4]`: UNUSED. The only thing that happens with this value is it is decremented at the start of the actor turn if above 0, but it is never set to a value above it and it is not used in any way
 
+## [hitaction](../../Battle%20flow/Update%20flows/Controlled%20flow.md#enemies-hitaction) support
+This enemy supports `hitaction` logic and it will be performed when `hitaction` is true instead of any moves.
+
+### `dontusecharge` set to true
+This move always sets `dontusecharge` to true which means `charges` will not get zeroed out in [post action](../../Battle%20flow/Action%20coroutines/DoAction.md#post-action).
+
+### Logic sequence
+The following all happens in the HoloLeif coroutine:
+
+- The first `enemydata` with an [animid](../../../Enums%20and%20IDs/AnimIDs.md) of `Beetle` is obtained (should be [HoloKabbu](HoloKabbu.md) under normal gameplay) and if it exists, [ItemSpinAnim](../../Visual%20rendering/ItemSpinAnim.md) is called on them with a pos of their position + 1.0 in y using the `FavoriteOne` [medal](../../../Enums%20and%20IDs/Medal.md) icon as sprite and without playSound
+- Yield return on a EnemyAngryCharge call with this enemy's battleentity:
+    - Set `dontusecharge` to true
+    - If `charge` is less than 3, it is incremented with the following:
+        - animstate set to 102
+        - `Wam` sound plays
+        - [Emoticon](../../../Entities/EntityControl/EntityControl%20Methods.md#emoticon) called on this enemy with the `Exclamation` emote with 20 time
+        - Yield all frames until `emoticoncooldown` expires
+        - `StatUp` sound plays
+        - [StatEffect](../../Visual%20rendering/StatEffect.md) called on this enemy with type 4 (green up arrow)
+        - Yield for 0.5 seconds
+        - `charge` is incremented
+
 ## Move selection
 12 moves are possible:
 
