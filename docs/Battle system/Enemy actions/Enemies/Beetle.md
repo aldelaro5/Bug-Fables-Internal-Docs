@@ -64,9 +64,11 @@ A single target horn slash
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Flip](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|`enemydata[actionid]`<sup>1</sup>|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Flip](../../Damage%20pipeline/AttackProperty.md)<sup>2</sup>|null|`commandsuccess`|
 
-1: This property gets overriden to null in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) as the target is a player party member so it does nothing.
+1: This is technically incorrect because `actionid` is unused so it's always 0. However, it ends up accidentally working because under normal gameplay, this enemy is `enemydata[0]` so it still ends up being correct in practice.
+
+2: This property gets overriden to null in [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md) as the target is a player party member so it does nothing.
 
 ### Logic sequence
 This is done by yield returning the EnemyHeavyStrike coroutine with the entity:
@@ -98,9 +100,11 @@ A single target underground strike
 
 |#|Conditions|attacker|target|damageammount|property|overrides|block|
 |-:|---|---|---|---|---|---|---|
-|1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>1</sup>|null|`commandsuccess`|
+|1|Always happen|`enemydata[actionid]`<sup>1</sup>|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|4|[Pierce](../../Damage%20pipeline/AttackProperty.md)<sup>2</sup>|null|`commandsuccess`|
 
-1: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
+1: This is technically incorrect because `actionid` is unused so it's always 0. However, it ends up accidentally working because under normal gameplay, this enemy is `enemydata[0]` so it still ends up being correct in practice.
+
+2: Enemy piercing damages are disabled so this property does nothing, see the [CalculateBaseDamage](../../Damage%20pipeline/CalculateBaseDamage.md#piercing) documentation to learn more
 
 ### Logic sequence
 This is done by yield returning the EnemyKabbuDig coroutine with the entity:

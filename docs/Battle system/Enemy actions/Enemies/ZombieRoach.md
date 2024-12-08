@@ -185,7 +185,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 |1|Always happen|This enemy|`playertargetID` after [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)|3|[Freeze](../../Damage%20pipeline/AttackProperty.md)|null|`commandsuccess`|
 
 ### Logic sequence
-This is done by yield returning the EnemyPebbleToss coroutine with the battleentity:
+This is done by yield returning the EnemyIceAttackBasic coroutine with the battleentity:
 
 - [GetSingleTarget](../../Actors%20states/Targetting/GetRandomAvaliablePlayer.md#getsingletarget)
 - animstate set to 101
