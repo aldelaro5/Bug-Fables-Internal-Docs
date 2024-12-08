@@ -95,7 +95,7 @@ The following logic always happens before the usage of a move (this happens in D
 - entity.`sprite`.material.renderQueue set to 2500
 - CreateShield called on the entity which initialises their `bubbleshield` if it didn't exist yet
 
-## Move 1 - Single target ice attack
+## Move 1 - Single target ice attack with potential [Freeze](../../Actors%20states/BattleCondition/Freeze.md) infliction
 A single target ice attack.
 
 ### `nonphyscal` set to true
@@ -131,7 +131,7 @@ This is done by yield returning the EnemyIceAttackBasic coroutine with the battl
 - The `Prefabs/Objects/icepillar` gets destroyed in 5.0 seconds
 - Yield for 0.5 seconds
 
-## Move 2 - Revives another enemy party member leaving them at 7 `hp`
+## Move 2 - Revives another enemy party member with 7 `hp`
 Revives another enemy party member from `reservedata` leaving them at 7 `hp` with canmove (so they can take an actor turn immediately on the same main turn). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -223,7 +223,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
 - `data[0]` is incremented. If it reaches 5, this move, move 2 and move 4 can't be used anymore
 - `data[1]` is set to 3 so this move, move 2 and move 4 can't be used for the next 2 actor turns
 
-## Move 5 - Party wide icicle throw
+## Move 5 - Party wide icicle throw with potential [Freeze](../../Actors%20states/BattleCondition/Freeze.md) infliction
 A party wide icicle throw.
 
 ### `nonphyscal` set to true
@@ -257,7 +257,7 @@ This is done by yield returning the EnemyIceFall coroutine with the battleentity
 - PartyDamage 1 call happens
 - Yield for 0.5 seconds
 
-## Move 6 - Gives the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition to all enemy party members
+## Move 6 - Enemy party wide [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) infliction
 Gives the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition to all enemy party members including themselves for 3 main turns (effectively 2 main turns since the current main turn ends soon). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -280,7 +280,7 @@ This is done by yield returning the EnemyLeifBuffDebuff coroutine with the battl
 
 After the yield return, `data[3]` is set to 2 so this move alongside move 9, 10, 11 and 12 can't be used on the next actor turn.
 
-## Move 7 - Multiple hits icicle fall attack
+## Move 7 - Multiple hits icicle fall attack with potential [Freeze](../../Actors%20states/BattleCondition/Freeze.md) infliction
 A multiple hits icicle fall attack that hits 4 times where each hit is single target.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
@@ -312,7 +312,7 @@ This is done by yield returning the EnemyIceRain coroutine with the battleentity
 - animstate set to 102
 - Yield for 0.5 seconds
 
-## Move 8 - Calls [ClearStatus](../../Actors%20states/Conditions%20methods/ClearStatus.md) on a player party member
+## Move 8 - [ClearStatus](../../Actors%20states/Conditions%20methods/ClearStatus.md) on a player party member
 Calls [ClearStatus](../../Actors%20states/Conditions%20methods/ClearStatus.md) on a player party member. No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -332,7 +332,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
 - DeathSmoke particles plays at the target position with a size of 3.0x
 - Yield for 1.0 second
 
-## Move 9 - Gives the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition on another enemy party member
+## Move 9 - [Shield](../../Actors%20states/BattleCondition/Shield.md) infliction on another enemy party member
 Gives the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition on an enemy party member (including themselves). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -354,7 +354,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
 - [SetCondition](../../Actors%20states/Conditions%20methods/SetCondition.md) called to give the [Shield](../../Actors%20states/BattleCondition/Shield.md) condition to a random enemy party member whose `hp` is above 0 (including themselves) for 2 main turns (effectively 1 main turn since the current main turn ends soon)
 - Yield for 0.75 seconds
 
-## Move 10 - Gives the [AttackDown](../../Actors%20states/BattleCondition/AttackDown.md) condition to all alive player party members
+## Move 10 - Player party wide [AttackDown](../../Actors%20states/BattleCondition/AttackDown.md) infliction
 Gives the [AttackDown](../../Actors%20states/BattleCondition/AttackDown.md) condition to all alive player party members for 3 main turns (effectively 2 main turns since the current main turn ends soon). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -377,7 +377,7 @@ This is done by yield returning the EnemyLeifBuffDebuff coroutine with the battl
 
 After the yield return, `data[3]` is set to 2 so this move alongside move 6, 9, 11 and 12 can't be used on the next actor turn.
 
-## Move 11 - Gives the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition to all enemy party members
+## Move 11 - Enemy party wide [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) infliction
 Gives the [DefenseUp](../../Actors%20states/BattleCondition/DefenseUp.md) condition to all enemy party members including themselves for 3 main turns (effectively 2 main turns since the current main turn ends soon). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -400,7 +400,7 @@ This is done by yield returning the EnemyLeifBuffDebuff coroutine with the battl
 
 After the yield return, `data[3]` is set to 2 so this move alongside move 6, 9, 10 and 12 can't be used on the next actor turn.
 
-## Move 12 -  Gives the [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) condition to all alive player party members
+## Move 12 - Player party wide [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) infliction
 Gives the [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) condition to all alive player party members for 3 main turns (effectively 2 main turns since the current main turn ends soon). No damages are dealt.
 
 ### `dontusecharge` set to true

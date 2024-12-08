@@ -76,7 +76,7 @@ The following logic always happens before the usage of a move (this happens in D
 - entity.`sprite`.material.renderQueue set to 2500
 - CreateShield called on the entity which initialises their `bubbleshield` if it didn't exist yet
 
-## Move 1 - Single target horn slash
+## Move 1 - Horn slash
 A single target horn slash.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
@@ -133,7 +133,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
     - [ReviveEnemy](../ReviveEnemy.md) called to revive the enemy party member with an hppercent of 6.0 (leaves them at 6 `hp`) with canmove and showcounter
 - Yield for 1.0 second
 
-## Move 3 - Revives another enemy party member leaving them at 7 `hp`
+## Move 3 - Revives another enemy party member with 7 `hp`
 Revives another enemy party member from `reservedata` leaving them at 7 `hp` with canmove (so they can take an actor turn immediately on the same main turn). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -152,7 +152,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
 - [ReviveEnemy](../ReviveEnemy.md) called to revive a random `reservedata` with an hppercent of 7.0 (leaves them at 7 `hp`) with canmove and showcounter
 - Yield for 1.0 second
 
-## Move 4 - Inflict the [Poison](../../Actors%20states/BattleCondition/Poison.md) condition on [HoloVi](HoloVi.md)
+## Move 4 - [Poison](../../Actors%20states/BattleCondition/Poison.md) infliction on [HoloVi](HoloVi.md)
 Inflict the [Poison](../../Actors%20states/BattleCondition/Poison.md) condition on [HoloVi](HoloVi.md) bypassing the `poisonres` check for 3 main turns (effectively 2 main turns since the current main turn ends soon). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -171,7 +171,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
 - `PoisonEffect` particles plays at [HoloVi](HoloVi.md) position
 - Yield return [ItemSpinAnim](../../Visual%20rendering/ItemSpinAnim.md) with a pos of [HoloVi](HoloVi.md) position + 1.0 in y and a sprite of the `PoisonAttacker` [medal](../../../Enums%20and%20IDs/Medal.md) icon
 
-## Move 5 - Inflicts the [Taunted](../../Actors%20states/BattleCondition/Taunted.md) condition on all player party members
+## Move 5 - Party wide [Taunted](../../Actors%20states/BattleCondition/Taunted.md) infliction
 Inflicts the [Taunted](../../Actors%20states/BattleCondition/Taunted.md) condition on all player party members for 2 main turns (effectively 1 main turn since the current main turn ends soon). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -203,7 +203,7 @@ This is done by yield returning the EnemyTaunt coroutine with the battleentity w
 
 Finally, `data[4]` is set to 3 so this move isn't usable for the next 2 actor turns.
 
-## Move 6 - Revives another enemy party member leaving them at 4 `hp`
+## Move 6 - Revives another enemy party member with 4 `hp`
 Revives another enemy party member from `reservedata` leaving them at 4 `hp` with canmove (so they can take an actor turn immediately on the same main turn). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -274,7 +274,7 @@ This is what the coroutine effectively ends up doing:
 - `sprite` local position reset to Vector3.zero
 - `checkingdead` set to null which signals the caller that this coroutine completed
 
-## Move 8 - Single target rock throw
+## Move 8 - Rock throw
 A single target rock throw.
 
 ### `nonphyscal` set to true
@@ -324,7 +324,7 @@ The target is selected randomly between [HoloVi](HoloVi.md) and [HoloLeif](HoloL
 - If the target of the move's `data` isn't yet initialised, it is initialised to 10 blank slots (even if not all of them will be used)
 - The target's `data[2]` is set to 2 which prevents them from using their version of this move on the current main turn
 
-## Move 10 - Single target underground strike
+## Move 10 - Underground strike
 A single target underground strike.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls

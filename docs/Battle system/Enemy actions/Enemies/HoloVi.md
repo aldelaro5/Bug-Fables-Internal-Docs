@@ -85,7 +85,7 @@ The following logic always happens before the usage of a move (this happens in D
 - entity.`sprite`.material.renderQueue set to 2500
 - CreateShield called on the entity which initialises their `bubbleshield` if it didn't exist yet
 
-## Move 1 - Single beemerang throw
+## Move 1 - Simple beemerang throw
 A single target beemerang throw.
 
 ### `nonphyscal` set to true
@@ -122,7 +122,7 @@ This is done by yield returning the EnemyViRegular coroutine with the battleenti
 - `Prefabs/Objects/BeerangBattle` gets destroyed
 - `sounds[8]` stops playing with a delay of 0.1
 
-## Move 2 - Revives another enemy party member leaving them at 7 `hp`
+## Move 2 - Revives another enemy party member with 7 `hp`
 Revives another enemy party member from `reservedata` leaving them at 7 `hp` with canmove (so they can take an actor turn immediately on the same main turn). No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -160,7 +160,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
 - [StatusEffect](../../Actors%20states/Conditions%20methods/StatusEffect.md) called on this enemy to give them the [AttackUp](../../Actors%20states/BattleCondition/AttackUp.md) condition for 3 main turns with effect
 - Yield for 1.0 second
 
-## Move 4 - Heals all enemy party members for 5 `hp` and gives each of them the [GradualHP](../../Actors%20states/BattleCondition/GradualHP.md) condition
+## Move 4 - Heals all enemy party members for 5 `hp` with a [GradualHP](../../Actors%20states/BattleCondition/GradualHP.md) condition
 Heals all enemy party members (including themselves) for 5 `hp` and gives each of them the [GradualHP](../../Actors%20states/BattleCondition/GradualHP.md) condition for 3 main turns. No damages are dealt.
 
 ### `dontusecharge` set to true
@@ -216,7 +216,7 @@ The target is selected randomly between [HoloKabbu](HoloKabbu.md) and [HoloLeif]
 - If the target of the move's `data` isn't yet initialised, it is initialised to 10 blank slots (even if not all of them will be used)
 - The target's `data[2]` is set to 2 which prevents them from using their version of this move on the current main turn
 
-## Move 6 - Single target heavy beemerang throw with [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) infliction with a chance to cause recoil damages
+## Move 6 - Heavy beemerang throw with [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) infliction and a chance of recoil damages
 A single target heavy beemerang throw that inflicts the [DefenseDown](../../Actors%20states/BattleCondition/DefenseDown.md) condition for 3 main turns (effectively 2 main turns since the current main turn ends soon), with a chance to cause recoil damages to this enemy.
 
 ### `nonphscal` set to true
@@ -269,7 +269,7 @@ This is done by yield returning the EnemyHeavyThrow coroutine with the battleent
 - `overrideanim` reset to false
 - FlipAngle called with setangle
 
-## Move 7 - Single targets multiple hits beemerang throws
+## Move 7 - Multiple hits beemerang throws
 A single targets multiple hits beemerang throws.
 
 ### `nonphyscal` set to true
@@ -343,7 +343,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
 - `charge` set to 3
 - `hp` decreased by 3
 
-## Move 9 - Single target multiple hits needles attack with [Numb](../../Actors%20states/BattleCondition/Numb.md), [Poison](../../Actors%20states/BattleCondition/Poison.md) or [Sleep](../../Actors%20states/BattleCondition/Sleep.md) infliction
+## Move 9 - Multiple hits needles attack with potential [Numb](../../Actors%20states/BattleCondition/Numb.md), [Poison](../../Actors%20states/BattleCondition/Poison.md) or [Sleep](../../Actors%20states/BattleCondition/Sleep.md) infliction
 A single target multiple hits needles attack that may inflict the [Numb](../../Actors%20states/BattleCondition/Numb.md), [Poison](../../Actors%20states/BattleCondition/Poison.md) or [Sleep](../../Actors%20states/BattleCondition/Sleep.md) condition.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
