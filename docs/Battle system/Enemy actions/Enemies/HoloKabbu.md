@@ -3,6 +3,10 @@
 ## Assumptions
 This enemy is assumed to be fought with [HoloVi](HoloVi.md) and [HoloLeif](HoloLeif.md) for certain moves to be usable and for the move selection process to work correctly.
 
+It is also assume that this enemy's [chargeonotherenemy](../../Actors%20states/Enemy%20features.md#chargeonotherenemy) contains [HoloVi](HoloVi.md) and [HoloLeif](HoloLeif.md) because of specific logic that involves their `hitaction` logic expecting it to be triggered by hitting this enemy (more specifically, an enemy with an [animid](../../../Enums%20and%20IDs/AnimIDs.md) of `Beetle`).
+
+By the same token, it is assumed that this enemy's `animid` is `Beetle`.
+
 ## `data` usage
 At the start of the action, if `data` is null or empty, it's initialised to be 5 element with a starting value of 0.
 
