@@ -123,7 +123,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
     - A new sprite object gets created rooted at this enemy + its `itemoffset` using the item's icon as sprite
     - Yield for 1.0 second
     - The sprite gets destroyed
-- `data[0]` is incremented. If it reaches 5, this move, move 2 and move 4 can't be used for the next 2 actor turns
+- `data[0]` is incremented. If it reaches 5, this move, move 2 and move 4 can't be used anymore
 - `data[1]` is set to 3 so this move, move 2 and move 4 can't be used for the next 2 actor turns
 - [ReviveEnemy](../ReviveEnemy.md) called to revive a random `reservedata` with an hppercent of 7.0 (leaves them at 7 `hp`) with canmove and showcounter
 - Yield for 1.0 second
@@ -142,7 +142,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
     - A new sprite object gets created rooted at this enemy + its `itemoffset` using the item's icon as sprite
     - Yield for 1.0 second
     - The sprite gets destroyed
-- `data[0]` is incremented. If it reaches 5, this move, move 2 and move 4 can't be used for the next 2 actor turns
+- `data[0]` is incremented. If it reaches 5, this move, move 2 and move 4 can't be used anymore
 - `data[1]` is set to 3 so this move, move 2 and move 4 can't be used for the next 2 actor turns
 - [Heal](../../Actors%20states/Heal.md) called on a random enemy party member to heal them for 7 `hp`. The selection of the enemy party member to heal only includes those whose `hp` is above 0, but their [HPPercent](../../Actors%20states/HPPercent.md) is less than 0.8 (this includes this enemy)
 - Yield for 1.0 second
@@ -198,7 +198,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
     - `Prefabs/Objects/LongLegs` is destroyed
     - Yield for 0.5 seconds
     - `checkingdead` is set to null which signals the caller that the coroutine is done
-- `data[0]` is incremented. If it reaches 5, this move, move 2 and move 4 can't be used for the next 2 actor turns
+- `data[0]` is incremented. If it reaches 5, this move, move 2 and move 4 can't be used anymore
 - `data[1]` is set to 3 so this move, move 2 and move 4 can't be used for the next 2 actor turns
 
 ## Move 5 - Party wide icicle throw

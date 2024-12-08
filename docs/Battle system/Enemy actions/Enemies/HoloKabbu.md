@@ -72,7 +72,7 @@ The following logic always happens before the usage of a move (this happens in D
 - entity.`sprite`.material.renderQueue set to 2500
 - CreateShield called on the entity which initialises their `bubbleshield` if it didn't exist yet
 
-## Move 1 - Single horn slash
+## Move 1 - Single target horn slash
 A single target horn slash.
 
 ### [DoDamage](../../Damage%20pipeline/DoDamage.md) calls
@@ -123,7 +123,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
     - Yield for 1.0 second
     - The sprite gets destroyed
 - `data[3]` is set to 1 which prevents this move from being used again in the battle (move 3 will be used instead if applicable, see the move selection section above for details)
-- `data[0]` is incremented. If it reaches 5, this move, move 3 and move 4 can't be used for the next 2 actor turns
+- `data[0]` is incremented. If it reaches 5, this move, move 3 and move 4 can't be used anymore
 - `data[1]` is set to 3 so this move, move 3 and move 4 can't be used for the next 2 actor turns
 - For each `reservedata`:
     - [ReviveEnemy](../ReviveEnemy.md) called to revive the enemy party member with an hppercent of 6.0 (leaves them at 6 `hp`) with canmove and showcounter
@@ -143,7 +143,7 @@ This move always sets `dontusecharge` to true which means `charges` will not get
     - A new sprite object gets created rooted at this enemy + its `itemoffset` using the item's icon as sprite
     - Yield for 1.0 second
     - The sprite gets destroyed
-- `data[0]` is incremented. If it reaches 5, this move, move 2 and move 4 can't be used for the next 2 actor turns
+- `data[0]` is incremented. If it reaches 5, this move, move 2 and move 4 can't be used anymore
 - `data[1]` is set to 3 so this move, move 2 and move 4 can't be used for the next 2 actor turns
 - [ReviveEnemy](../ReviveEnemy.md) called to revive a random `reservedata` with an hppercent of 7.0 (leaves them at 7 `hp`) with canmove and showcounter
 - Yield for 1.0 second
