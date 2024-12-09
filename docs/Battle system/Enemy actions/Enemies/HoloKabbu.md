@@ -33,7 +33,7 @@ At the start of the action, if `data` is null or empty, it's initialised to be 5
 9. Simulate a turn relay by decrementing the `cantmove` of [HoloVi](HoloVi.md) or [HoloLeif](HoloLeif.md) which grants them an additional actor turn on this main turn
 10. A single target underground strike
 
-Move 1 is always used if `turns` is 0 (the first main turn).
+Move 5 is always used if `turns` is 0 (the first main turn).
 
 Otherwise, the decision of which move to use is based on the weigthed odds. However, these weighted odds have 3 possible distribution sets which will be numbered as follows (the first one that applies is used):
 
