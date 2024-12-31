@@ -76,7 +76,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
 - The local startstate is set to `basestate`
 
 ## Move 2 - Mothflies projectiles throw
- A multiple targets mothflies projectiles throw.
+A multiple targets mothflies projectiles throw.
 
 ### `nonphyscal` set to true
 This move always sets `nonphyscal` to true which affects the effects of the `FrostBite`, `SpikeBod` and `PoisonTouch` [medal](../../../Enums%20and%20IDs/Medal.md) if equipped on the target.
