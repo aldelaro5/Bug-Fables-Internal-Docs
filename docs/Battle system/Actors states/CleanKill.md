@@ -25,7 +25,14 @@ However, ReorganizeEnemies still needs to eventually run because leaving the bla
 
 There is an exception to this: [EventDialogue](../Battle%20flow/EventDialogue.md). ReorganizeEnemies won't run during those either due to `inevent` being true. This is acceptable because EventDialogue needs much more control over how they can kill enemy party members and they can anyway decide to call the method when needed. This is also why CheckDead also won't unconditionally call it when `inevent` is true: the EventDialogue can decide what happens to an enemy that just died as a result of their [eventondeath](Enemy%20features.md#eventondeath) triggering.
 
-NOTE: Under normal gameplay, ReorganizeEnemies is never called by this method. This is because it is always called during an EventDialogue or durin an enemy action to kill themselves after setting `selfsacrifice` to true.
+NOTE: Under normal gameplay, ReorganizeEnemies is never called by this method. This is because it is always called during an EventDialogue or during an enemy action to kill themselves after setting `selfsacrifice` to true.
+
+## Lack of Destroy
+While this method will result in the enemy party member getting removed from `enemydata` by [DoAction](../Battle%20flow/Action%20coroutines/DoAction.md)'s post action, the same can't be said for its `battleentity` from the scene: it WILL NEVER get destroyed as a result of CleanKill.
+
+This is because it is due to a side effect of the `None` [destroytype](../../Entities/EntityControl/Notable%20methods/Death.md#none) since it bypasses the call to Destroy the `battleentity`. Due to the safety concerns mentioned above, this is actually correct for CleanKill itself since it's likely unsafe to do this destruction at this stage. In summary, this method CANNOT guarantee the destruction of the `battleentity` and it is the responsibility of the caller to ensure it gets destroyed later when it becomes safe to do so (typically, after ReorganizeEnemies ran, but this implies a reference to the `battleentity` was obtained before).
+
+In practice however, none of the CleanKill callers ever destroys it manually even though it should be their responsibility to do it once it becomes safe to do so. In other words, due to an oversight with this method's limitation, every CleanKill call under normal gameplay will cause the enemy party member's `battleentity` to remain in the scene even after it is removed from `enemydata`.
 
 ## Procedure
 The following happens on the target enemy party member:
