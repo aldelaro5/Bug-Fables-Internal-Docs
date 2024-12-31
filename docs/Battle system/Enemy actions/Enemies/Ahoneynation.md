@@ -91,7 +91,7 @@ This move always sets `nonphyscal` to true which affects the effects of the `Fro
     - DoDamage 1 call happens
     - `ElecFast` particles plays at `playertargetentity` position + (0.0, 1.0, -0.1)
     - If `commandsuccess` is true (blocked, ignores FRAMEONE), the enemy will be slated for summoning by doing the following:
-        - The location of the enemy is determined. The locations considered in order are (0.5, 0.0, 0.85) and (6.55, 0.0, -0.5). The first free one (no enemy party members within a 1.0 radius) will be selected, but it defaults to (-15.0, 5.0, 0.0) if neither are free the enemy won't be summoned (shouldn't happen under normal gameplay)
+        - The location of the enemy is determined. The locations considered in order are (0.5, 0.0, 0.85) and (6.55, 0.0, -0.5). The first free one (no `battle` EntityControl within a 1.0 radius) will be selected, but it defaults to (-15.0, 5.0, 0.0) if neither are free the enemy won't be summoned (this can happen if other [Abomihoneis](Abomihoney.md) called [CleanKill](../../Actors%20states/CleanKill.md) since they never got destroyed even if they got removed from `enemydata`)
         - `enemy` moves to the location - 0.2 in z via ArcMovement without spin and with a height of the distance of `enemy` to the location clamped from 2.0 to 4.5 for 35.0 frametime without destroyonend
 - animstate set to 0 (`Idle`)
 - Yield for 0.75 seconds if any enemy are slated for summoning through a projectile entity. For each enemy to summon:
