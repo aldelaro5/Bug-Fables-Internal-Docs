@@ -131,11 +131,11 @@ While `closemove` is a configuration field, it can be overriden by [AreaSpecific
     - `WaspKingdomQueen`
     - `WaspKingdomThrone`
 - In the `GiantLair` [area](../Enums%20and%20IDs/librarystuff/Areas.md), `closemove` isn't overriden, but [flag](../Flags%20arrays/flags.md) 401 has its value set to it. The maps in this area correctly have `closemove` defined to true when needed so it means this stealth section is consistently forcing the CloseMove logic to apply
-- `closemove` is always overriden to false in any areas other than `WaspKingdom` or `GiantLair`. This is consistent with the above, but it's not with what is explained below
+- [flag](../Flags%20arrays/flags.md) 401 is always overriden to false in any areas other than `WaspKingdom` or `GiantLair`. This is consistent with the above, but it's not with what is explained below
 
 There is one stealth section in the game where the CloseMove logic isn't applied consistently: the `BanditHideout` [area](../Enums%20and%20IDs/librarystuff/Areas.md). This one has the following management:
 
 - [Event](../Enums%20and%20IDs/Events.md) 109 will set [flag](../Flags%20arrays/flags.md) 401 to true at the `HideoutCentralRoom` [map](../Enums%20and%20IDs/Maps.md) towards the end of the event and set it back to false at the same event in `HideoutWestStorage`
 - `closemove` is set to true on all the `BanditHideout` [maps](../Enums%20and%20IDs/Maps.md) contained in the stealth section
 
-This should mean that the CloseMove logic should be consistent in this section. The problem is [AreaSpecific](Init%20methods/AreaSpecific.md) overrides `closemove` to false at `BanditHideout` because it's not correctly included in that logic where its value shouldn't change there. This leads to the unexpected behavior that while the CloseMove logic applies right when event 109 ends, it will immediately stop to apply the moment another map is loaded from `HideoutCentralRoom`. This can be seen by observing the party's follow distance incorrectly changing.
+This should mean that the CloseMove logic should be consistent in this section. The problem is [AreaSpecific](Init%20methods/AreaSpecific.md) overrides [flag](../Flags%20arrays/flags.md) 401 to false at `BanditHideout` because it's not correctly included in that logic where its value shouldn't change there. This leads to the unexpected behavior that while the CloseMove logic applies right when event 109 ends, it will immediately stop to apply the moment another map is loaded from `HideoutCentralRoom`. This can be seen by observing the party's follow distance incorrectly changing.
