@@ -6,5 +6,5 @@ The logic depends on the [currentaction](Pick.md) and most of the logic involves
 |`currentaction`|Link to its UI handling logic page|
 |--------------:|---------------------------------|
 |`BaseAction`|[BaseAction](Confirmation%20handling/BaseAction.md)|
-|`SelectEnemy`|[BaseAction](Confirmation%20handling/SelectEnemy.md)|
-|`SelectPlayer`|[BaseAction](Confirmation%20handling/SelectPlayer.md)|
+|`SelectEnemy`|[SelectEnemy](Confirmation%20handling/SelectEnemy.md)|
+|`SelectPlayer`|[SelectPlayer](Confirmation%20handling/SelectPlayer.md)|
