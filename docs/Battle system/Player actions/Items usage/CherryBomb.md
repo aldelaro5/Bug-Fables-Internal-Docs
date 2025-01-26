@@ -18,4 +18,4 @@ There is some dead logic specifically related to this item however and it only c
 
 |Conditions|attacker|target|damageammount|property|overrides|block|
 |---|---|---|---|---|---|---|
-|Done for each enemy party member other than the `target` whose position + `freezeoffset` + their `height` in y has a square distance off the object after movement less than 15.5|null|The enemy party member|5 + 2 * amount of `BombPlus` [medals](../../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[currentturn]`|[Pierce](../../Damage%20pipeline/AttackProperty.md)|null|empty array|false|
+|Done for each enemy party member other than the `target` whose position + `freezeoffset` + their `height` in y has a square distance off the object after movement less than 15.5|null|The enemy party member|5 + 2 * amount of `BombPlus` [medals](../../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[currentturn]`|null|null|empty array|false|
