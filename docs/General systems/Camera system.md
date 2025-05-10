@@ -243,19 +243,26 @@ This one calls (1) where target is null and offset is `defaultcamoffset`
 
 (3)
 ```cs
+public static void SetCamera(Vector3 pos)
+```
+
+This one calls (4) where speed is 0.035
+
+(4)
+```cs
 public static void SetCamera(Vector3 targetpos, float speed)
 ```
 
 This one calls the main overload where target is null
 
-(4)
+(5)
 ```cs
 public static void SetCamera(Vector3 targetpos, Vector3 angle, Vector3 offset, float speed)
 ```
 
 This one calls the main overload where target is null and offset is `defaultcamoffset`
 
-(5)
+(6)
 ```cs
 public static void SetCamera(Vector3 targetpos, Vector3 angle, float speed)
 ```
