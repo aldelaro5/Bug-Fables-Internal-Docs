@@ -24,7 +24,15 @@ Here is a summary of the tasks it handles in order:
 ```cs
 private void LateUpdate()
 ```
+TODO: very complex, might need to be documented separately
 
+```cs
+private void FixedUpdate()
+```
+If `basicload` is true (LoadEverything ran to completion), the following happens:
+
+- RefreshCamera is called
+- LoopMusic is called
 
 ## Methods
 
@@ -928,197 +936,265 @@ Returns true if `value` is between `min` and `max`, false otherwise. If `inclusi
 ```cs
 private void RefreshDiscovery()
 ```
+Updates the local position of the `discoverymessage` UI element according to `discoveryhud`. If `discoveryhud` is higher than 0.0, the local position is lerped from the existing one to (-8.0, -3.0, 0.0) with a factor of TieFramerate(0.1) which will smoothly reveal `discoverymessage`. Otherwise, the same lerp happens, but towards (-8.0, -6.0, 0.0) instead which will hide `discoverymessage`.
 
+On the first time this is called, `discoverymessage` will be null which will cause this method to create it from scratch (any subsequent calls reuses the same object). It involves the `Prefabs/Objects/logbookicon` prefab and 3 SetText calls in non dialogue mode. After the creation, `discoverymessage` will be the parent of the prefab.
 
 ```cs
 public static void UpdateOutlines()
 ```
+Calls Shader.SetGlobalFloat to set `GlobalOutline` to a value that depends on `map`.`areaid` and the `enableoutline` setting. Here's the exact logic used:
 
+- If `enableoutline` is 0 (OFF), the value is set to 0.0
+- If `enableoutline` is 1 (LOW), the value is set to 0.1
+- If `enableoutline` is 2 (HIGH), it depends if `map`.`areaid` is `MetalLake` or not:
+    - If it is, the value is set to 0.1
+    - If it is not, the value is set to 0.3
 
 ```cs
 public static int MixIngredients(int item1, int item2)
 ```
+Search `recipedata` for a compatible recipe where `item1` and `item2` matches the ingredients and returns the result of the matching recipe if one is found or 8 (`Mistake`) if no such recipe exists. To search of a single item recipe, `item2` needs to be -1. The method supports having `item1` and `item2` being reversed compared to the recipe for a double item recipe since it will normalise the order before searching.
 
+If `item1` or `item2` is 156 (`Guarana`), no search is performed and instead, the result is a random result determined among the following:
+
+- If `item2` isn't 156 (`Guarana`):
+    - 1/13 to be `RoastBerry`
+    - 2/13 to be `BigMistake`
+    - 1/13 to be `BerryJuice`
+    - 2/13 to be `BerrySmoothie`
+    - 1/13 to be `Mistake`
+    - 3/13 to be `CookedJellyBean`
+    - 1/13 to be `TangyJam`
+    - 1/13 to be `SpicyBomb`
+    - 1/13 to be `BurlyBomb`
+- Otherwise (`item1` is 156, `Guarana`):
+    - 2/11 to be `RoastBerry`
+    - 4/11 to be `Mistake`
+    - 2/11 to be `BigMistake`
+    - 1/11 to be `BerryJuice`
+    - 1/11 to be `CookedJellyBean`
+    - 1/11 to be `BerrySmoothie`
 
 ```cs
 public static bool HasRecipe(int id)
 ```
-
+This is UNUSED, but remains functional. Returns the flag value matching the recipe entry in `librarystuff` where `id` is the resulting item in the recipe. If no such recipe exists, false is always returned.
 
 ```cs
 public static int GetRecipeID(int id)
 ```
-
+Returns the recipe id from `libraryorder` where the resulting item id is `id` or -1 if no such recipe exists.
 
 ```cs
 public static void ResetCamera()
 public static void ResetCamera(bool instant)
 ```
-
+Resets many camera related fields. For more information, check the camera system documentation.
 
 ```cs
 private void ResetCamSpeed()
 ```
-
+A part of ResetCamera(bool instant) where `camspeed` and `camanglespeed` are reset to 0.1.
 
 ```cs
 public static bool PartyIsNotMoving()
 ```
-
+Returns true if no `playerdata`'s `entity` are in a `forcemove`, false otherwise.
 
 ```cs
 public static bool GetKey(int id)
 public static bool GetKey(int id, bool hold)
 ```
-
+TODO: Involves InputIO logic that's not documented yet
 
 ```cs
 public static Vector2 GetPressedDirection(bool hold)
 ```
+This is UNUSED, but remains functional. Returns a normalized vector that represents the accumulation of all 4 cardinal directions that are being pressed with up/down and left/right separation. This results in the following logic to determine the components of the vector tested in order (the vector gets normalised after all of this):
 
-
-```cs
-private void FixedUpdate()
-```
-
+- x: -1.0 for left, 1.0 for right, 0.0 for neither
+- y: 1.0 for up, -1.0 for down, 0.0 for neither
 
 ```cs
 public static float DimishingReturns(float input, float decay)
 ```
-
+This is UNUSED, but remains functionsl. Returns (`input` - 1.0) * `decay`.
 
 ```cs
 public static float[][] LoopPoint()
 ```
-
+Returns the data from `Data/LoopPoints` which is meant to be set to the value of `musicloop`. Check the music loop data documentation to learn more about the data format.
 
 ```cs
 private void LoopMusic()
 ```
+Checks the current `music` playing and if its end loop point in `musicloop` isn't 0.0 and its playback is past that end point, `music[0]`.time is set to the start loop point in `musicloop`.
 
+The first time this is called, `musicloop` will be null so this method will initialise the value to the return of LoopPoint if that is the case.
 
 ```cs
 public static int GetRandomMedal()
 public static int GetRandomMedal(bool dontremove, bool random)
 ```
-
+TODO: This seems simple, but annoying to parse, come back to this later to explain how this works
 
 ```cs
 public static GameObject NewUIObject(string objname, Transform parent, Vector3 pos)
 public static GameObject NewUIObject(string objname, Transform parent, Vector3 pos, Vector3 size, Sprite sprite)
 public static GameObject NewUIObject(string objname, Transform parent, Vector3 pos, Vector3 size, Sprite sprite, int sortorder)
 ```
+Creates and return a new GameObject that has the following properties:
 
+- Childed to `parent` or `GUICamera` if `parent` is null
+- Layer 5 (`UI`)
+- No angles
+- Local position of `pos`
+- Scale of `size`
+- If `sprite` isn't null, the GameObject will have a SpriteRenderer with a sprite of `sprite` and a sortingOrder of `sortorder`
+
+On the first 2 overloads, here are what the parameters defaults to:
+
+- `size`: Vector3.one
+- `sprite`: null
+- `sortorder`: 0
 
 ```cs
 public static bool CheckIfCanExist(int[] requires, int[] limit, int regionalflag)
 ```
+Returns false if all of the following conditions are satisfied which indicates that the conditions sent are satisfied (true otherwise indicating the conditions are NOT satisifed):
 
+- Any flag slots that matches the absolute value of any `limit` elements of -2 or lower must be false
+- If `requires` is considered not empty, all flags slots specified in `requires` must be true. The array is considered not empty if it is not null, not empty and its first element isn't negative
+- If `limit` is considered not empty, all flags slots specified in `limit` must be false. The array is considered not empty if it is not null, not empty and its first element isn't negative
+- If `regionalflag` applies, the regionalflag slot `regionalflag` must be false. The condition applies only if `regionalflag` isn't negative and `map` isn't null (meaning the map isn't being loaded)
+
+This method implements the backing logic of a ConditionChecker and NPCControl's existence logic. NOTE: The return value is inverted: false if conditions are satisifed, true if conditions are NOT satisfied.
 
 ```cs
 private static Vector3 CamLimiter(Vector3 pos)
 ```
-
+Returns `pos` where each of its component was clamped with the matching components from `camlimitneg` to `camlimitpos`
 
 ```cs
 public static Vector3 LimitRadius(Vector3 pos, Vector3 origin, float radius)
 public static Vector3 LimitRadius(Vector3 pos, Vector3 origin, float radius, bool ignoreY)
 ```
+Returns a vector that is `origin` + a vector whose y component is `pos`.y and the x/z components are the ones obtained from a ClampMagnitude vector of `pos` - `origin` with a maxLength of `radius`. If `ignoreY` is true, the resulting vector's y component is always `pos`.y instead of being `origin`.y + `pos`.y.
 
+The first overload doesn't implement the `ignoreY` logic so it's as if its value was false.
+
+The intuitive way to see this method is that the return is `pos`, but limited by magnitude to be within a circle with an origin of `origin` and a radius of `radius`. Having `ignoreY` as true means the y componet of `pos` won't apply to this radius limit.
 
 ```cs
 private void RefreshCamera()
 ```
-
+The main camera update method. Check the camera system documentation to learn more.
 
 ```cs
 public static void SaveCameraPosition()
 public static void SaveCameraPosition(bool set)
 ```
-
+Saves or loads the camera state. Check the camera system documentation to learn more.
 
 ```cs
 public static void LoadCameraPosition()
 ```
-
+Loads the camera state that was saved previously with SaveCameraPosition(true). Check the camera system documentation to learn more.
 
 ```cs
 public static Vector3 LerpVectorAngle(Vector3 input, Vector3 target, float ammount)
 ```
-
+Returns a vector where each of its component is the result of a LerpAngle from `input` to `target` with a factor of `ammount` using matching components for all vectors.
 
 ```cs
 public static Vector3 LerpVectorAngleSmooth(Vector3 input, Vector3 target, Vector3 current, float ammount)
 ```
-
+This is UNUSED, but remains functional. Returns a vector where each of its component is the currentVelocity output of a SmoothDampAngle from `input` to `target` with a smoothTime of `ammount` using matching components for all vectors.
 
 ```cs
 public static void RebuildHUD()
 ```
+Does the following which destroys the existing HUD:
 
+- Calls ApplyBadges
+- Calls ApplyStatBonus
+- Destroys `hud[0]`'s parent if `hud[0]` exists
+- Reset `hud` to null
 
 ```cs
 private static void CreateHUD()
 ```
+A part of RefreshHUD (when `hud` is null or empty). Calls ApplyBadges and ApplyStatBonus followed by the initialisation of various HUD related fields. These fields includes:
 
+- `hud`
+- `hudsprites`
+- `hudfont`
+- `hudvalue`
 
 ```cs
 private static void NewHUDElement(int hudid, Vector2 position, Transform parent)
 ```
-
+Part of CreateHUD. Initialises `hud[hudid]` with a local position of (`position`.x, `position`.y, 10.0) childed to `parent`. TODO: Detail what each hudid represents here
 
 ```cs
 public static float QuadraticY(float x1, float x2, float ymax, float currentx)
 public static float QuadraticY(Vector2 x1, Vector2 x2, float ymax, float currentx)
 ```
+Returns the y component of the vector given by BeizierCurve(`x1`, `x2`, `ymax`, GetPercentage(`x1`.x, `x2`.x, `currentx`)).
 
+The first overload is UNUSED, but remains functional where `x1` and `x2` becomes vector where their x component is the matching float sent and their y/z components are 0.0.
 
 ```cs
 public static string GetItemString(bool emptyinv)
 ```
-
+Returns a string that represents a `,` separated list of all item id in `items[0]` (standard items inventory). If `emptyinv` is true, `items[0]` is reset to a new empty list before returning the string which empty empties the entire standard items inventory.
 
 ```cs
 public static Vector2 BeizierCurve(Vector2 start, Vector2 end, float ymax, float t)
 ```
-
+TODO: explain the math here, it's complex
 
 ```cs
 public static bool EntitiesAreNotMoving(EntityControl[] entities)
 ```
-
+Returns true if no entity in `entities` are in a `forcemove`, false otherwise.
 
 ```cs
 public static string GetBleep(EntityControl entity)
 public static string GetBleep(EntityControl entity, float volume)
 ```
+Returns a string that forms a valid bleep SetText command with the following parameters:
 
+- sound: `entity`.`dialoguebleepid`
+- pitch: `entity`.`bleeppitch`
+- volume: `volume`
 
 ```cs
 public static Vector3 BeizierCurve3(Vector3 start, Vector3 end, float ymax, float t)
 public static Vector3 BeizierCurve3(Vector3 start, Vector3 end, Vector3 mid, float t)
 ```
-
+TODO: explain the math here, it's complex
 
 ```cs
 public static bool AsianLang()
 ```
-
+Returns true if `languageid` is 3 (Japanese), false otherwise.
 
 ```cs
 public static float BeizierFloat(float height, float t)
 ```
-
+TODO: explain the math here, it's complex
 
 ```cs
 public static float QuadraticYSemiClamped(float currentx, float startx, float endx, float modifier)
 ```
-
+This is UNUSED, but remains functional. TODO: explain the math here, it's complex
 
 ```cs
 public static float QuadraticYUnclamped(float currentx, float startx, float endx, float modifier)
 ```
-
+TODO: explain the math here, it's complex
 
 ```cs
 public static Vector3 RandomVector(Vector3 input)
@@ -1127,339 +1203,485 @@ public static Vector3 RandomVector(float input)
 public static Vector3 RandomVector(Vector2 input)
 public static Vector3 RandomVector(float randomx, float randomy)
 ```
+Returns a vector where each components is determined randomly between -`input` and `input` with matching components for all vectors involved.
 
+For the second overload, it's as if the `input` vector was (`randomx`, `randomy`, `randomz`).
+
+For the third overload, it's as if each components of `input` was the float value sent.
+
+The fourth overload is UNUSED, but remains functional and it simply doesn't generate a vector with a z component, but otherwise works the same way.
+
+The fifth overload behaves similarily to the second overload, but it doesn't generate a vector with a z component.
 
 ```cs
 public static float ColorDifference(Color a, Color b)
 ```
-
+Returns the magnitude of a vector whose components is the RGB difference between `a` and `b` (x is the red difference, y is the green difference and z is the blue difference).
 
 ```cs
 public static void GlobalCommand(ref string text)
 ```
-
+Replaces the global commands placeholder text in `text` to their actual commands. This is an unused system, check the global commands system documentation to learn more.
 
 ```cs
 private static void ForceHUD()
 ```
+Sets all `tphp`, `ptmhp`, `tmtp` values and `tempmoneh` to -1.
 
+This essentially forces a call to RefreshHUD on the next LateUpdate because it will find that everything the HUD should display has changed.
 
 ```cs
 private static void RefreshHUD()
 ```
-
+TODO: possibly document the HUD system separately as this gets complex
 
 ```cs
 public static void ShowHUD(bool show)
 ```
-
+TODO: possibly document the HUD system separately as this gets complex
 
 ```cs
 public static Vector3 MiddlePoint(Vector3[] inputs)
 ```
-
+This is UNUSED, but remains functional. Returns a vector that is all `input` added together / the length of `inputs`.
 
 ```cs
 public static int CheckIfMore(int value, int[] values)
 ```
-
+This is UNUSED, but remains functional. Returns the amount of `values` element that is less than `value`.
 
 ```cs
 public static Vector3[] GetEntitiesPos(EntityControl[] e)
 ```
-
+Returns an array where each element is the position of the matching `e`'s entity.
 
 ```cs
 public static void RefreshSkills()
 ```
-
+Refresh each `playerdata`'s `skills` list which represents all the skills that are available to each player party member. Check the skills data documentation for more details.
 
 ```cs
 public static int[] PartyArray()
 ```
-
+This is UNUSED. Returns an array of a single element being `playerdata[0]`.`trueid`.
 
 ```cs
 public static void InventoryFromString(string inp, int itemtype, bool addd)
 ```
+Replace `items[itemtype]` with the list of item ids obtained by splitting `inp` by `,`. If `addd` is true, the items will be added to the existing list instead.
 
+NOTE: `inp` must be a a `,` separated list of valid item ids and `itemtype` must be 0, 1 or 2 or an exception will be thrown.
 
 ```cs
 public static IEnumerator DelayedObj(float delay, string path, Vector3 position, string sound, float destroy)
 ```
-
+After waiting for `delay` amount of seconds, load a GameObject using `path` ressources path placing it at `position`. If `destroy` is above 0.0, the GameObject will be destroyed in `destroy` amount of seconds.
 
 ```cs
 public static bool HasFollower(AnimIDs followerid)
 ```
-
+Returns true if any `tempfollowers` has an `originalid` of `followerid` - 1, false otherwise.
 
 ```cs
 public static bool ForceMoving(EntityControl[] e)
 ```
-
+Returns true if any entity in `e` is in a `forcemove`, false otherwise.
 
 ```cs
 public static void PlayTransition(int id, int data, float speed, Color color)
 ```
+Stops `transition` if it was ongoing and set it to a new Transition coroutine call with the following parameters:
 
+- id: `id`
+- data: `data`
+- speed: `speed`
+- color: `color`, but if each RGB component was higher than 0.95, the color value will be (0.95, 0.95, 0.95, `color`.a) which is almost pure white
+
+Additionally, if `transitionobj` isn't empty and `id` is 0, 2, 4 or 5 TODO: what's the pattern ??? , all non null `transitionobj` elements gets destroyed before the Transition call.
 
 ```cs
 public static void DestroyAllChildren(Transform parent)
 ```
-
+Destroys all children GameObject of `parent`.
 
 ```cs
 public static void DestroyText(Transform parent)
 public static void DestroyText(Transform parent, bool destroy)
 ```
-
+Calls DisableLetter on every child of `parent` with a tag of `Text` where DisableLetter has a destroy parameter of `destroy` if a value is sent (otherwise, the overload used is DisableLetter(Transform) which behaves as if true was sent).
 
 ```cs
 private static void DisableLetter(Transform input)
 private static void DisableLetter(Transform input, bool destroy)
+```
+Performs the following on `input`:
+
+- Destroys all children GameObject with a ButtonSprite component
+- Call DisableLetter on all children's TextMesh
+- If `destroy` is true, `input` gets destroyed
+
+The overload without a `destroy` parameter has its value default to true.
+
+```cs
 private static void DisableLetter(TextMesh input)
 ```
+Either destroys `input` if it doesn't have a `Letter` tag (meaning it's not an active letter slot) or disable the letter slot if it does have a `Letter` tag such that it is considered free again. The disablement process goes as follow:
 
+- Set `input`.text to empty string
+- If `input` has a FontEffects, it is destroyed
+- `input` gets childed to the MainManager instance
+- `input`.tag is reset to `Untagged`
 
 ```cs
 public static SpriteRenderer NewSolidColor(string name, Color color)
 public static SpriteRenderer NewSolidColor(string name, Color color, float pixelsperunit, Vector3 position, Vector2 pivot)
 ```
+Returns the SpriteRenderer of a newly created GameObject named `name` positioned at `position` where the SpriteRenderer was created by applying a 1x1 Texture2D on the entire sprite whose sole pixel color is `color`, the pivot of the sprite is `pivot` and the pixelsPerUnit of the sprite is `pixelsperunit`.
 
+On the first overload, the `pixelsperunit` defaults to 100.0, the `position` defaults to Vector3.zero and the `pivot` defaults to (0.5, 0.5).
 
 ```cs
 public static void FadeOut()
 public static void FadeOut(float speed)
 ```
+Calls PlayTransition(1, 0, `speed`, Color.black).
 
+On the overload without a `speed` parameter, the value defaults to 0.1.
 
 ```cs
 public static void FadeIn()
 public static void FadeIn(float speed)
 public static void FadeIn(float speed, Color color)
 ```
+Calls PlayTransition(0, 0, `speed`, `color`).
 
+On the overload without a `speed` parameter, the value defaults to 0.1.
+
+On the overloads without a `color` parameter, the value defaults to Color.black.
 
 ```cs
 public static void SetCameraInstant(Vector3 pos)
 ```
-
+Calls SetCamera(`pos`, 1.0) which will instantly reposition the camera without doing it over a period of time.
 
 ```cs
 private static IEnumerator Transition(int id, int data, float speed, Color color)
 ```
-
+TODO: document the transition system separately since it gets complex
 
 ```cs
 public static void ForceAnim(EntityControl entity)
 ```
+Calls Play on the `anim` of `entity` with a clip that matches its current `animstate`.
 
+NOTE: This only supports standard animations, extra animations and the `f` argument if the `height` is above 0.1.
 
 ```cs
-public static void RefreshEntities(bool onlyplayer)
 public static void RefreshEntities()
+public static void RefreshEntities(bool onlyplayer)
 public static void RefreshEntities(bool forceanim, bool refreshmap)
 public static void RefreshEntities(bool forceanim, bool refreshmap, bool onlyplayer)
 ```
-
+TODO: document this separately since it's complex
 
 ```cs
 public static void SetMonitor()
 ```
-
+This is an empty method, it does nothing, but remains used by FlappyBee under normal gameplay.
 
 ```cs
 public static void SetEntityLastPos(bool setit)
 ```
-
+If `setit` is true, all EntityControl present in the scene will have their `lastpo` set to their position. If `setit` is false, all EntityControl present in the scene will have their position set to their `lastpos` and if their animid is -1 (None), their `rigid` gets their gravity disabled in kinematic mode.
 
 ```cs
 public static float GetSqrDistance(Vector3 a, Vector3 b)
 public static float GetSqrDistance(Vector3 a, Vector3 b, bool ignorey)
 ```
+Returns (a - b).sqrMagnitude. If `ignoreY` is true, `a` and `b` will have their y components set to 0 before doing the substraction.
 
+On the overload without a `ignoreY` parameter, it acts as if the value was false.
 
 ```cs
 public static float GetDistance(Vector3 a, Vector3 b)
 public static float GetDistance(Vector2 a, Vector2 b)
 public static float GetDistance(Vector3 a, Vector3 b, bool ignoreY)
+```
+Returns (a - b).magnitude. If `ignoreY` is true, `a` and `b` will have their y components set to 0 before doing the substraction.
+
+On the first overload, the method behaves as if `ignoreY` was false.
+
+The second overload is UNUSED, but remains functional. It does the same operations as the first overload, but there's no z component.
+
+```cs
 public static float GetDistance(float a, float b)
 ```
-
+Returns the absolute value of a - b.
 
 ```cs
 public static float LoopValue(float value, float min, float max)
 public static float LoopValue(float value, float min, float max, bool floor)
 ```
+This is UNUSED. Returns a value derived from `value` by doing the following on it:
 
+- Add `max` as long as `value` is lower than `min`
+- Set value to %= `max` as long as `value` is higher than `max`
+- If `floor` is true, `value` gets floored
+- `value` is returned
+
+On the overload without a `floor` parameter, the value defaults to false.
 
 ```cs
-public static GameObject PlayParticle(string name, string sound, Vector3 position)
-public static GameObject PlayParticle(string name, Vector3 position, float time)
 public static GameObject PlayParticle(string name, Vector3 position)
+public static GameObject PlayParticle(string name, Vector3 position, float time)
+public static GameObject PlayParticle(string name, string sound, Vector3 position)
 public static GameObject PlayParticle(string name, string sound, Vector3 position, Vector3 angle, float alivetime)
 public static GameObject PlayParticle(string name, string sound, Vector3 position, Vector3 angle, float alivetime, int rendersort)
 ```
+Returns a newly created GameObject that is instantiated from the prefab at `Prefabs/Particles/X` where `X` is `name` at position `position` with angles of `angle` and whose Renderer has a material.renderQueue of `rendersort`. If `sound` isn't null, PlaySound(`sound`) is called before creating the GameObject. If `alivetime` is higher than 0.0, the GameObject will get destroyed in `alivetime` amount of seconds.
 
+For the overloads without all parameters, their values defaults to the following:
+
+- `sound`: null
+- `angle`: (-90.0, 0.0, 0.0)
+- `alivetime`: 5.0 (or the `time` value for the second overload)
+- `rendersort`: 3000
 
 ```cs
 public static Color RainbowColor(int variant)
 public static Color RainbowColor(int variant, float colorspeed)
 public static Color RainbowColor(int variant, float colorspeed, float min, float limit, float alpha)
 ```
-
+TODO: complex sin math
 
 ```cs
 public static float ColorMagnitude(Color color)
 ```
-
+Returns (`color`.r, `color`.g, `color`.b).magnitude.
 
 ```cs
 public static float Snap(in float value, in float step)
 ```
-
+If `step` is 0.0, `value` is returned, otherwise, the return value is `value` / `step` + 0.5 floored * `step`. The intuitive way to think about this method is it returns the nearest number from `value` that is divisible by `step`.
 
 ```cs
 public static Vector3 Snap(in Vector3 value, in Vector3 step)
 ```
-
+Returns a vector where each component is Snap(`value`.x/y/z, `step`.x/y/z) with matching components for both vectors.
 
 ```cs
 public static IEnumerator LevelUpMessage()
 ```
-
+Applies any rank up bonuses if any exists and recalculate the party stats. Check the LevelUpMessage documentation to learn more.
 
 ```cs
-public static void SetPlayers(Vector3[] newentitypos)
 public static void SetPlayers()
+public static void SetPlayers(Vector3[] newentitypos)
 ```
+A part of the map loading process. Recreate all `playerdata` elements. If `newentitypos` isn't null, the existing `playerdata` gets destroyed before the recreation and after, their position are set to matching `newentitypos` elements (indexed by `playerdata` index).
 
+The parameterless overload acts as if `newentitypos` was null.
+
+The recreation process is documented in the map loading documentation, but the method is also used in certain events that needs to recreate the party.
 
 ```cs
 public static EntityControl[] GetPartyEntities()
 public static EntityControl[] GetPartyEntities(bool idorder)
 ```
-
+Returns an array of all `playerdata`'s `entity`. If `idorder` is false, the array is ordered by `playerdata` index. If `idorder` is true, the order is done by animid of `Bee`, `Beetle` and `Leif` (more precisely, it's GetEntity(-4), GetEntity(-5) and GetEntity(-6)).
 
 ```cs
 private static IEnumerator LowerVolume(int musicid, float volume, float frametime, bool percent)
 ```
-
+Changes `music[musicid]`.volume over `frametime` + 1.0 amount of frames via a lerp to `volume` (or the existing volume * `volume` if `percent` is true).
 
 ```cs
 public static IEnumerator ChapterName(int chapterid)
 ```
-
+Plays the animations and effects for a chapter start cutscene. TODO: document what value chapterid should have
 
 ```cs
 public static float TieFramerate(float value)
 ```
+Returns `value` * Time.smoothDeltaTime * 60.0. This is intended to be used to count game frames or to scale events happening over time. A `value` of 1.0 returns the actual smoothed out frametime while a `value` lower than 1.0 returns a fraction of it.
 
+NOTE: The multiplication by 60.0 implies that a return value of 1.0 means that exactly 1/60th of a second passed since the last couple of frames on average. It strongly assumes that the target FPS is 60 so anything higher will result in the value being lower. The game was NOT designed to handle this and will result in a lot of events that happens over time being much slower than normal due to this strong FPS dependency.
 
 ```cs
 public static IEnumerator ShakeObject(Transform obj, Vector3 shake, float frametime, bool returntostart)
 ```
-
+For `frametime` + 1.0 amount of frames, `obj` position will be offset by RandomVector(`shake`) each frames. Once this is done, if `returntostart` is true, `obj` position is reset to its value at the start of this coroutine.
 
 ```cs
-public static void LoadMap(int id, bool recreateplayers)
 public static void LoadMap()
 public static void LoadMap(int id)
+public static void LoadMap(int id, bool recreateplayers)
 ```
+Decomission and destroy the current `map` before loading a new one with a Maps id of `id`. If `recreateplayers` is true, all `playerdata` gets destroyed followed by setting `player` to null before this process.
 
+This method is documented in detail in the map loading documentation.
 
 ```cs
 public static void FixSamira()
 ```
+If `samiramusics` isn't null or empty, this method will remove the following elements from `samiramusics` as these are intentionally excluded from the Samira purchase list:
 
+- `Title`
+- `Wind`
+- `Water`
+- `MachineHum`
+- `Breathing`
 
 ```cs
 public static Transform Create9Box(Vector3 position, Vector2 size, int type, int sortorder, Color color, bool grow)
 ```
+Returns the transform of a newly created GameObject that is configured as a UI object using a 9 box configured sprites. More precisely, it's configured like the following:
 
+- Name of `9Box`
+- Childed to the `GUICamera`
+- Layer 5 (`UI`)
+- Local position of `position`
+- No Angles
+- If `grow` is false, the scale is Vector3.one. If it's true, it's Vector3.zero, but with a DialogueAnim component added which will bring the scale to Vector3.one over some frames
+- A SpriteRenderer is added with the following properties:
+    - sprite: Loaded from `Sprites/GUI/9Box/boxX` where `X` is `type`
+    - color: `color`
+    - drawMode: Tiled
+    - tileMode: Adaptive
 
 ```cs
 public static IEnumerator LateAngle(Transform obj, Vector3 angle, bool local, WaitForSeconds time)
 ```
-
+Yield for `time` then change the angles of `obj` to `angle`. If `local` is true, the field of `obj` set is localEulerAngles instead of eulerAngles.
 
 ```cs
 public static bool CheckAllBool(bool[] array, int[] values, bool state)
 public static bool CheckAllBool(bool[] array, bool state)
 ```
+Returns true if all `values` elements contains an `array` index whose matching value is `state`, false otherwise. All `values` elements must contain valid `array` indexes or an exception will likely be thrown.
 
+For the overload without a `values` parameter, the method checks all of `array` elements to be `state` instead. It behaves the same then if `values` contained all the valid `array` indexes.
 
 ```cs
 private static float GetLetterOffset(TextMesh letter, float size)
 public static float GetLetterOffset(char letter, int fontid, float size)
 ```
+Returns (`letter`.bounds.extents.x * 2.0 - 2.0) * `size`. If `letter` is null, 0.3 * `size` is returned instead.
 
+This method is a part of SetText's single letter rendering used to calculate the position and scale of the backbox command when applicable.
+
+```cs
+public static float GetLetterOffset(char letter, int fontid, float size)
+```
+Returns the amount of space `letter` takes horizontally when rendered by SetText in normal letter rendering using a font with id `fontid` and a size of `size`. More precisely, this is calculated the following way:
+
+- If `letter` is ` `, the result is 0.3 * `size`
+- If `letter` is not contained in FontID(`fontid`), the result is 0.3 * `size`
+- If nether of the above cases applies, the result is (the CharacterFont's advance * 0.75 - 2.0) * (`size` / the fontSize of the Font)
 
 ```cs
 public static int FontID(int id)
 ```
+Returns `id` mapped to a font id with the following logic:
 
+- Any negative numbers maps to their absolute value + 1
+- 2 (UNUSED) maps to 1 (`D3Streetism`)
+- Any other numbers of 0 or above are unchanged
 
 ```cs
 public static GameObject WaterSplash(Vector3 pos, Vector3 size)
 ```
-
+Instantiates and returns a GameObject using the `Prefabs/Objects/WaterSplash` prefab positioned at `pos` with a scale of `size`. The GameObject will be destroyed in 0.75 seconds.
 
 ```cs
 public static void SystemText(string text, Transform parent, Vector3 pos)
 ```
+Calls SetText with the following parameters:
 
+- text: `text`
+- fonttype: 0
+- linebreak: null
+- dialogue: false
+- tridimensional: false
+- position: `pos`
+- cameraoffset: Vector3.zero
+- size: Vector3.one
+- parent: `parent`
+- caller: null
 
 ```cs
 public static Vector3 VectorFromString(string[] inputs)
 ```
-
+Returns a vector where the x component is `inputs[0]`, the y component is `inputs[1]` and the z component is `inputs[2]` after converting each strings to float.
 
 ```cs
 public static IEnumerator LightingBolt(Vector3 a, Vector3 b, int segments, float variant, Color color, float frametime, float lineduration)
 ```
+Instantiates a `Prefabs/Particles/LightingBolt` prefab initialy positioned at `a` with some configuration of its TrailRenderer:
 
+- material.color: `color`
+- colorGradient: A gradient that has 2 keyframes each with a color of `color`
+- time: `lineduration`
+
+The GameObject will progressively move towards `b` over the course of around `frametime` amount of frames in `segments` amount of movement segments (clamped from 2 so there's always at least 2 segments). These movement segments are evenly distributed in time and positioning over the course of moving from `a` to `b` via a Lerp. On any movement sections except the first and last one, there will be a random offset applied to the target of the movement determined by the return of RandomVector(`variant`). The intuitive way to think about this is that this will result in the trail looking jagged as a random offset gets applied to each target of each movement, but the starting position is always correct so it will result in a random zig zag pattern.
+
+Once the whole movement is completed, the GameObject will be destroyed in 1.0 seconds and a frame is yielded.
 
 ```cs
 private static bool ContainsLine(string command)
 ```
+A part of OrganizeLines that determines if `command` is a SetText command whose name contains `line` and that its condition to cause a line break are satisfied. The only 2 line commands where it might not apply are the following:
 
+- shopline: Doesn't apply if `player`.`npc[0]`.`interacttype` isn't Shop
+- unpauseline: Doesn't apply if the game is in a `pausemenu`
+
+The method doesn't support any other line commands which are expected to be hangled in OrganizeLines. Check the OrganizeLines documentation to learn more.
 
 ```cs
 private static string ReplaceFunctions(string text)
 ```
-
+A part of OrganizeLines that acts as the main commands processor of OrganiseLines for commands that supports this. Check the OrganizeLines documentation to learn more.
 
 ```cs
 private static string OrganizeLines(string text, float maxoffset, float size, int fontid)
 ```
-
+The SetText automatic line breaker system that will automatically insert line breaks when appropriate and process some specific commands on its own. Check the OrganizeLines documentation to learn more.
 
 ```cs
 public static float GetDistance01(float start, float end, float multiplier)
 ```
-
+This is UNUSED, but remains functional. Returns 1.0 - GetDistance(`start`, `end`) * `multiplier` clamped from 0.0 to 1.0.
 
 ```cs
 public static float GetPercentage(float start, float end, float currentvalue)
 ```
-
+Returns 1.0 - (`end` - `currentvalue`) / (`end` - `start` clamped from 0.001 to infiniy). The intuitive way to think about this is it returns the progression ratio of `currentvalue` assuming a starting point of `start` and a goal of `end`. It is assumed that `start` <= `currentvalue` <= `end`.
 
 ```cs
 public static void ScreamWaves(Vector3 pos)
 ```
+Starts a Waves coroutine with the following parameters:
 
+- pos: `pos`
+- ammount: 5
+- frametime: 20.0
+- delay: 0.25 seconds
+- invert: false
+- tridimentional: false
+- color: null
 
 ```cs
 public static IEnumerator Waves(Vector3 pos, int ammount, float frametime, WaitForSeconds delay, bool invert, bool tridimentional, Color? color)
 ```
+Instantiates the `Prefabs/Objects/SphereGlowEffect` prefab `ammount` times all positioned at `pos` each with a Renderer's material.color of `color` if `color` isn't null with a wait of `delay` between each instantiation. The scale of each prefabs is done via a GradualScale with a frametime of `frametime` and a destroy of true so each instances gets destroyed after the scaling has completed. As for the initial and target scale:
 
+- If `invert` is false, the initial scale is Vector3.zero and the target is (50.0, 50.0, 1.0), but the z component is 50.0 instead if `tridimentional` is true
+- If `invert` is true, the initial scale and target are reversed from the above
 
 ```cs
 public static IEnumerator GradualScale(Transform obj, Vector3 target, float frametime, bool destroy)
 ```
-
+Changes `obj` scale towards `target` over `frametime` + 1.0 amount of frames. If `destroy` is true, `obj` gets destroyed once this is over.
 
 ```cs
 public static IEnumerator SetText(string text, Vector3 position, Transform parent)
@@ -1467,245 +1689,380 @@ public static IEnumerator SetText(string text, Transform parent, NPCControl call
 public static IEnumerator SetText(string text, bool dialogue, Vector3 position, Transform parent, NPCControl caller)
 public static IEnumerator SetText(string text, int fonttype, float? linebreak, bool dialogue, bool tridimensional, Vector3 position, Vector3 cameraoffset, Vector2 size, Transform parent, NPCControl caller)
 ```
-
+A combination between a text rendering system, a scripting system and a dialogue management system used by the game for various purposes from presenting dialogues to UI text rendering. Check the SetText documentation to learn more.
 
 ```cs
 public static IEnumerator InnSleep(NPCControl caller, Vector3? position, bool changemusic, bool nofadeout)
 public static IEnumerator InnSleep(NPCControl caller, Vector3? position, bool changemusic, bool nofadeout, Vector3? camn, Vector3? camp)
 ```
+Performs the cutscene animations of the party sleeping and getting healed after. Here are what the parameters do:
 
+- `caller`: If the value is not null, their `entity`.`talking` will be set to false before the animation and their `entity`.`emoticoncooldown` will be reset to 0.0 after the animation
+- `position`: If the value is not null, the `player` position to set during the cutscene while the screen is all black
+- `changemusic`: If true, a ChangeMusic call will happen at the end of the cutscene where the musicclip is `music[0].clip.name` or null if `music[0]`.clip is null
+- `nofadeout`: If true, there will not be a fadeout transition at the end of the cutscene
+- `camn`: If `position` and this value are not null, `map`.`camlimitneg` will be set to this value during the cutscene
+- `camp`: If `position` and this value are not null, `map`.`camlimitpos` will be set to this value during the cutscene
+
+For the second overload, `camn` and `camp` values defaults to null. All the overload does is start a coroutine of the other overload followed by a frame yield.
+
+This coroutine is meant to be stored in `chaptername` as it is set to null at the end of the coroutine so this field can be used to track its progress. The cutscene involves these major steps:
+
+- PlaySound(`Inn`, 5) called
+- FadeMusic(0.1) called
+- PlayTransition(4, 9999, 0.01, Color.black) called
+- All frames will be yielded for up to 700.0 frames until the transition is over
+- If `position` is not null, the `player` is repositioned and the camera limits adjusted if needed with a yield of 0.1 seconds and a TeleportFollowers(true) call
+- Yield all frames for up to 60.0 frames as long as `sounds[5]` is still playing
+- If `nofadeout` is false: PlayTransition(1, 0, 0.15, Color.clear). 0.5 seconds will be yielded after the call
+- Heal called
 
 ```cs
 public static bool FrameDifference(int frames)
 ```
+Returns true if Time.frameCount % the game's framerate / 60.0 ceiled is 0. The `frames` parameter does nothing.
 
+In practice, this will always return true with vsync set to OFF. If vsync is set to ON, the amount of time true is returned varies and it depends on the monitor's refresh rate:
+
+- 60hz and lower: true is always returned
+- Between 60hz and 120hz exclusive: true is returned every 2 frames, false otherwise
+- Between 120hz and 180hz exclusive: true is returned every 3 frames, false otherwise
+- etc... (keep adding 60hz to the bounds to decrease the frequency at which true is returned)
 
 ```cs
 public static string GetDialogueText(int id)
 ```
-
+Resolves a dialogue line id of `id`. Check the dialogue line id documentation to learn more.
 
 ```cs
 public static SpriteRenderer NewSpriteObject(Vector3 position, Transform parent, Sprite sprite)
 public static SpriteRenderer NewSpriteObject(string name, Vector3 position, Vector3 rotation, Transform parent, Sprite sprite, Material mat)
 ```
+Returns the SpriteRenderer of a newly created GameObject with the following properties:
 
+- name of `name`
+- Childed to `parent`
+- Layer 14 (`Sprite`)
+- Local position of `position`
+- Angles of `rotation`
+- sprite of `sprite`
+- material of `mat`
+
+For the first overload, the `name` defaults to `tempsprite`, `rotation` defaults to Vector3.zero and `mat` defaults to the `spritemat`.
 
 ```cs
 public static Sprite GetItemSprite(bool badge, int id)
 ```
-
+Returns `itemsprites[0, id]` if `badge` is false or `itemsprites[1, id]` if `badge` is true.
 
 ```cs
 public static int CrystalBerryAmmount()
 ```
-
+Returns the amount of `crystalbflags` that are true.
 
 ```cs
 public static IEnumerator FadeSound(AudioSource sound, float speed)
 ```
-
+Decreases the volume of `sound` by TieFramerate(`speed`) every frame until it reaches 0.0 or `sound` doesn't play anymore. Stop is called on `sound` once this is over.
 
 ```cs
 public static void TeleportFollowers()
 public static void TeleportFollowers(bool all)
+```
+Does the following to bring all the followers close to the `player`:
+
+- All `playerdata` except the first one has their `entity`.`rigid`.velocity reset to Vector3.zero and their `entity` poisition set to the `player` position + `globalcamdir`.forward.normalized * 0.025
+- If `all` is true, all `map`.`tempfollowers` has their position set to the `player` position
+- If `map`.`chompy` is present, DelayedPosition is called on them with a pos of the `player` position + `globalcamdir`.forward.normalized * 0.3
+
+The parameterless overload has the `all` value default to false.
+
+```cs
 public static void TeleportFollowers(float distance, TPDir dir, Transform caller)
 public static void TeleportFollowers(float distance, TPDir dir, Vector3 caller)
 public static void TeleportFollowers(float distance, float offset, TPDir dir, Vector3 caller, bool alsoTPextras)
 public static void TeleportFollowers(float distance, float offset, TPDir dir, Vector3 caller)
 public static void TeleportFollowers(TPDir direction, Vector3 from)
 ```
-
+TODO: This is complex, document and organise later
 
 ```cs
-public static GameObject Create6Wheel(Sprite[] sprites, Vector3 spritescale, bool gui)
 public static GameObject Create6Wheel(Sprite[] sprites, Vector3 spritescale)
+public static GameObject Create6Wheel(Sprite[] sprites, Vector3 spritescale, bool gui)
 public static GameObject Create6Wheel(Color[] colors, Sprite[] sprites, Vector3 spritescale, bool gui)
 ```
+Returns a newly created GameObject named `Wheel` showing a 6 segments wheel each with a sprite rendered over a colored `guisprites[122]` (???). Here are what the parameters configures:
 
+- `colors`: The material.color of each segment's `guisprites[122]` background sprite
+- `sprites`: The foreground sprite rendered in each segment over their background sprite
+- `spritescale`: The scale of of all foreground sprites
+- `gui`: If this is true, all sprites renders on layer 5 (`UI`) and the GameObject gets childed to the `GUICamera` via SetParenting instead of being rooted to the scene
+
+The first 2 overloads are UNUSED, but remains functional and will have the `colors` value default to 6 elements all being Color.white and the `gui` value default to false.
 
 ```cs
 public static void SetParenting(Transform t, Transform parent)
 ```
+Child `t` to `parent` and does the following on `t` after:
 
+- Reset local position to Vector3.zero
+- Reset scale to Vector3.one
+- Reset angles to Vector3.zero
 
 ```cs
 public static void Reset()
 ```
-
+Reloads the main scene. This is equivalent to resetting the entire game which happens normally when exiting to the main menu.
 
 ```cs
 private static void BreakLine(ref float x, ref float y, float max, Vector2 size)
 ```
+If `x` is at least `max`, `x` is set to 0.0 and `y` is decreased by 0.7 * `size`.y. The method does nothing if `x` isn't at least `max`.
 
+This is only used during SetText when processing an icon command if linebreak isn't null where `x` is currentoffset, `y` is currentline, `max` is linebreak and `size` is the SetText's size.
 
 ```cs
 private static EntityControl GetLastFollowing()
 ```
-
+Returns the last entity in the `player` follow chain or `player`.`entity` if the `player`.`entity` has no `followedby`. This will prioritise the last `playerdata`'s `entity`, but if that one has a `followedby`, the last `map`.`tempfollowers` is returned instead.
 
 ```cs
 public static void StopEntitiesMove()
 ```
-
+Calls StopForceMove on all EntityControl present in the scene.
 
 ```cs
 public static EntityControl AddFollower(EntityControl caller, int id)
 ```
-
+Adds a follower to the follow chain. Check the follower system documentation to learn more.
 
 ```cs
 public static EntityControl GetExtraFollower(int id)
 ```
-
+Returns the first follower entity in `map`.`tempfollowers` whose animid is `id` or null if no such follower exists.
 
 ```cs
 public static IEnumerator LateParent(Transform a, Transform b, float time)
 ```
-
+This is UNUSED, but remains functional. Waits `time` amount of seconds before childing `a` to `b`.
 
 ```cs
 private static void ResetDiag()
 private static void ResetDiag(bool soft)
 ```
+Sets `tempdiag` to `|size,` + `fontdsize` + `|`. This is the starting value of `tempdiag` where no backtracking is in progress. If `soft` is false, `diagstring` is reset to a new empty list and `currentdialogue` is reset to 0.
 
+The parameterless overload behaves as if `soft` was true.
 
 ```cs
-public static void StopDig(bool delayed)
 public static void StopDig()
+public static void StopDig(bool delayed)
 ```
+Does the following on each `playerdata`'s `entity` which ends any digging animations that were ongoing:
 
+- Call LockRigid(false) on the entity
+- Reset `spin` to Vector3.zero
+- Reset `startscale` to Vector3.one
+- Reset the `sprite`'s scale to Vector3.one
+- Reset `overrideanim` to false
+- Enables the `ccol`
+
+The overload with a `delayed` parameter is UNUSED, but remains functional and it will start a DigStop coroutine instead, but all it does is yield for 0.1 seconds before calling the other overload so it's effectively doing the same after waiting for 0.1 seconds.
 
 ```cs
 private static IEnumerator DigStop()
 ```
-
+Part of the UNUSED StopDig overload where it will yield for 0.1 seconds before calling the parameterless overload of StopDig.
 
 ```cs
 public static int GetValueFromString(string input)
 ```
+A SetText command utility used to obtain a value from a string `input` that can be formatted in multiple ways. Here are the format it supports (checked and done in order):
 
+- `money`: Returns instance.`money`
+- `vX` or `varX`: Returns the value of the flagvar slot `X`
+- Anything else: Returns `input` converted to int
 
 ```cs
 public static IEnumerator Shrink(Transform obj, float frametime, bool deleteonend)
 ```
-
+Changes `obj`'s scale towards Vector3.zero over `frametime` + 1.0 amount of frames. If `deleteonend` is true, `obj` is destroyed once this is over.
 
 ```cs
 public static void FaceTowardsY(Transform t, Vector3 pos)
 ```
-
+Make `t` LookAt `pos` whitout changing the x and z angles.
 
 ```cs
 public static void Insert(int value, ref int[] array)
 ```
-
+Sets `array` to a new array with one more element at the end with a value of `value`.
 
 ```cs
 private static int IntFromString(string input)
 ```
+A SetText command utility used to obtain a value from a string `input` that can be formatted in multiple ways. Here are the format it supports (checked and done in order):
 
+- `vX` or `varX`: Returns the value of the flagvar slot `X`
+- Anything else: Returns `input` converted to int
+
+NOTE: It's essentially the same as GetValueFromString, but without support for the `money` value.
 
 ```cs
 public static void EndOfMessage()
 ```
-
+A method that performs many checks and procedures to be done at the end of any SetText call in dialogue mode when not `inevent` and not in a `battle`. Check the SetText life cycle documentation to learn more.
 
 ```cs
 public static bool AllActive(EntityControl[] e)
 ```
-
+Returns true if all entities in `e` either doesn't have an `npcdata` or it has one with a `hit` of true, returns false otherwise.
 
 ```cs
 public static void SetLetter(ref TextMesh letter, int fontid, string text, Transform parent, Vector3 pos, Color color, int sortorder, Vector3 size)
 ```
+Configures the letter slot `letter` with the following:
 
+- SetFont(`letter`, `fontid`) called
+- Childed to `parent`
+- Local position of `pos`
+- text of `text`
+- anchor of LowerLeft
+- color and MeshRenderer's material.color of `color`
+- angles of Vector3.zero
+- scale of `size`
+- MeshRenderer's sortingOrder of `sortorder`
 
 ```cs
-public static Vector3 GetMinibubblePos(Transform target, float y)
 public static Vector3 GetMinibubblePos(Transform target)
+public static Vector3 GetMinibubblePos(Transform target, float y)
 public static Vector3 GetMinibubblePos(float x, float y)
 ```
+Returns a vector with the following components which allows to determine the local position a MiniBubble should use assuming it is childed to `GUICamera`:
 
+- x: `x` * 33.0 clamped from -5.0 to 5.0
+- y: `y`
+- z: 10.0
+
+The second overload has the `x` value be `MainCamera`.WorldToViewportPoint(`target`.position).x - 0.5.
+
+The first overload is UNUSED, but remains functional and it does the same as the second overload, but with a `y` value of 0.85.
 
 ```cs
 public static void ResetEntitySpeed()
+```
+Sets the `anim`.speed of all the following entities to 1.0:
+
+- All `map`.`entities` that aren't null and have their `anim` not null
+- All `playerdata`'s `entity`
+
+```cs
 public static void ResetEntitySpeed(bool all)
 ```
+If `all` is false, calls the parameterless overload of this method.
 
+If `all` is true, sets the `anim`.speed of all EntityControl present in the scene that satisfies all of the following conditions:
+
+- Not `iskill`
+- `originalid` that isn't negative (defined animid)
+- `anim` not null
 
 ```cs
 public static EntityControl FindEntity(int id)
 ```
-
+Returns the first EntityControl present in the scene whose animid is `id` or null if no such entity exists.
 
 ```cs
 public static void SortLights()
 public static void SortLights(MeshRenderer[] r)
 ```
+For every `r` element that isn't null and has a material.shader set to `fakelight`, their material.renderQueue is set to 2500 + `MainCamera`.WorldToViewportPoint(the `r` element).z * 100.0 (or * 10.0 if in a `battle`). If `r` is null, this process will be done on all MeshRenderer present on the scene that satisfies the conditions.
 
+The parameterless overload has a `r` value of null.
+
+Intuitively, this method allows to have all `fakelight` materials in `r` (or the whole scene) be visually sorted due to the renderQueue.
 
 ```cs
 public static int MultipleKeys(bool hold)
 ```
-
+TODO: Involves InputIO logic that's not documented yet
 
 ```cs
 public static void RefreshHUDValues()
 ```
+Does the following to update the displayed HUD values to their backing value:
 
+- Set all `playerdata`'s `hpt` to their `hp`
+- Set `tpt` to `tp`
+- Set `moneyt` to `money`
 
 ```cs
 public static void FixEntities()
 ```
+Does the following on all EntityControl present on the scene except those whose `npcdata` is an NPC or Enemy with an `item`:
 
+- Reset `overrideflip` to false
+- Reset `overrideanim` to false
+- Set `rigid` to have gravity without kinematic
+- Set `onground` to true
+- Reset `rigid`.velocity to Vector3.zero
+- If `anim` isn't null, `anim`.`speed` is reset to 1.0
 
 ```cs
 private static char GetKoreanChar(int[] ids)
 ```
-
+Returns the Korean characters obtained by composing all three segments of its id that are contained in `ids`. Check the Korean letterprompt documentation to learn more.
 
 ```cs
 private void UpdateKoreanPrompt(int type)
 ```
-
+Updates the colors of the different sections of the Korean letterprompt when `type` is the current section needing to be selected. The colors are Color.red for selected, Color.black for not selected, but is selectable in the current section and (0.0, 0.0, 0.0, 0.5) for other sections than the current one. Check the Korean letterprompt documentation to learn more.
 
 ```cs
 public static void ChangeLayer(Transform obj, int layer)
 ```
-
+Changes the layer of all children of `obj` to `layer`.
 
 ```cs
 private void ChangeLetterPrompt(int specific = -1)
 ```
-
+TODO: recheck how letterprompt works to explain this one
 
 ```cs
 private static void CreateLetterPrompt(int id, Color color)
 ```
-
+Renders a letterprompt. Check the letterprompt documentation to learn more.
 
 ```cs
 public static TextMesh GetEmptyLetter()
 ```
-
+Finds and allocate if needed a free letter slot from `letterpool` and return it or return null if no letter slots is available. If the letter slot is null, it is allocated using NewLetter with its `letterpool` index ToString as the id before being returned. For any non null letter slots, only those with an text of empty string are considered free by this method.
 
 ```cs
 public static bool AddExp(int ammount)
 ```
+Increases `partyexp` by `ammount`. If this resulted in a rank up, true is returned, false otherwise. A rank up is detected if after the increase, `partyexp` becomes at least `neededexp`. When that happens, `partyexp` is decreased by `neededexp`.
 
+Before returning, a PlaySound call happens to play the the `Exp2` sound with a volume of 1.0 and a pitch of 1.5 + a random number between -0.1 and 0.1. The `sounds` element to use is the first among `sounds[4]`, `sounds[5]`, `sounds[6]` and `sounds[7]` in that order that isn't playing (always falsback to `sounds[7]` even if it is playing).
 
 ```cs
-public static void DeathSmoke(Vector3 pos, Vector3 size, int render)
-public static void DeathSmoke(Vector3 pos, Vector3 size)
 public static void DeathSmoke(Vector3 pos)
+public static void DeathSmoke(Vector3 pos, Vector3 size)
+public static void DeathSmoke(Vector3 pos, Vector3 size, int render)
 ```
+Does the following to emit some `deathpart`:
 
+- Set `deathpart` scale to `size`
+- Set `deathpart` position to `pos`
+- Emit(20) called on `deathpart`
+- Set `deathpart`'s Renderer's material.renderQueue to `render`
+
+For the first 2 overloads, the `size` value defaults to Vector3.one and the `render` value defaults to 3000.
 
 ```cs
 public static void HitPart(Vector3 pos)
 ```
-
+Set `hitpart` position to `pos` and call Play on it to play its particles.
 
 ```cs
 public static void PlayBleep(AudioClip bleep, float bleeppitch, float bleepvol, int i)
