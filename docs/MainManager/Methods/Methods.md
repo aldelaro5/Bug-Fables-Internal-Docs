@@ -2067,526 +2067,757 @@ Set `hitpart` position to `pos` and call Play on it to play its particles.
 ```cs
 public static void PlayBleep(AudioClip bleep, float bleeppitch, float bleepvol, int i)
 ```
+Play the `bleep` clip on `beeps` if i is an even number and `beeps` wasn't playing already. The pitch used will be `bleeppitch` + a random number between -0.05 and 0.05 and the volume will be `bleepvol` * `bleepvolume` (or `pausemenu`.`dvolume` if the game is in a `pausemenu` so it uses the working value in the settings).
 
+The `i` parameter is meant to be a number that changes each calls to this. This is more suited for SetText where it sends the current character index being processed in the char loop so the playback happens around half the time a character is rendered.
 
 ```cs
-public static bool ArrayIsEmpty(object[] input, bool stringcheck)
 public static bool ArrayIsEmpty(object[] input)
+public static bool ArrayIsEmpty(object[] input, bool stringcheck)
 ```
+Returns true if every elements in `input` is either null or its ToString returns `null`, false otherwise. If `stringcheck` is false, only the null value check is done, not the ToString.
 
+The overload without the `stringcheck` parameter behaves as if its value was false.
 
 ```cs
 public static void UpdateJounal()
 public static void UpdateJounal(Library type, int variable)
 ```
+If `type` is Bestiary and the game is `inbattle`, `librarystuff[1, variable]` is set to true which mark the bestiary entry as obtained.
 
+Otherwise, the following happens to mark a `librarystuff` flag as obtained if applicable as well as revealing in the HUD the obtention of a flag:
+
+- If `variable` isn't negative, `librarystuff[type, variable]` is set to true which marks the entry as obtained
+- `discoveryhud` is set to 350.0 which reveals the HUD element
+- The `Disc` animation clip plays on the child of `discoverymessage` or the `Arch` clip if `type` is Logbook
+- The 2nd, 3rd and 4th child of `discoverymessage` have their enablement changed depending on `type`:
+    - Logbook: Only the 4th child is enabled, 2nd and 3rd are disabled
+    - Other `type` values: Only the 3rd child is enabled, 2nd and 4th are disabled
+
+The parameterless overload has the `type` value default to Discovery and `variable` to -1. This has the effect of not doing any changes to `librarystuff`, but still reveal `discoveryhud`.
 
 ```cs
-private static EntityControl GetEntity(NPCControl caller, string args)
-public static EntityControl GetEntity(string id)
-public static EntityControl GetEntity(string id, EntityControl caller)
 public static EntityControl GetEntity(int id)
+public static EntityControl GetEntity(string id, EntityControl caller)
+public static EntityControl GetEntity(string id)
+private static EntityControl GetEntity(NPCControl caller, string args)
 ```
+This returns the entity matching a certain id `id` with support for various format. The format of the id is documented in the entity id documentation. The `caller` parameter is returned if `id` is `caller` and the game isn't `inbattle`.
 
+The overloads offer various levels of format support:
+
+- First overload only supports numeric id format to address `map`.`tempfollowers`, `playerdata`, `map`.`entities` and `battle`.`extraentities`
+- Second overload acts as the first after converting `id` to int when `inbattle`. Otherwise, it adds supports for an `id` of `this` and `caller` as well as supporting `defines` resolution where if resolved, the `id` is converted to int and used as the first overload. If no string `id` is provided and no `defines` exists for `id`, the overload acts as the first after converting `id` to int
+- Third overload is the same as the second, but without support for `caller` (most likely, an exception will be thrown if `id` is `caller` in such case)
+- Fourth overload acts as the first if `caller` is null. If it's not, it acts as the second overload
 
 ```cs
 private static void SetTalk(bool dialogue, bool talkstate)
 ```
+Changes the `tailtarget`'s EntityControl's `talking` to `talkstate`. If `talkstate` is true, their `backsprite` is also set to false.
 
+This method does nothing if `dialogue` is false or if `tailtarget` is null.
+
+This method is meant to be used in a SetText context where SetText can periodically control visually whether the `tailtarget` should be in their `t` animation or not.
 
 ```cs
 public static float GetTextLenght(string text, int fontid)
 ```
-
+Returns the sum of all GetLetterOffset values of each char in `text` using a fontid of `fontid` and a size of 1.0. Each ` ` in `text` is counted as 0.3 without calling GetLetterOffset.
 
 ```cs
 public static void HealParticle(Transform parent, Vector3 size, Vector3 offset)
 public static void HealParticle(Transform parent, Vector3 size, Vector3 offset, bool UI)
 ```
+Instantiates `Prefabs/Particles/Heal` in a new GameObject with the following properties which will be destroyed in 3.0 seconds:
 
+- Childed to `parent`
+- Scale of `size`
+- Local position of `offset`
+- If `UI` is true, the layer is set to 5 (`UI`)
+
+The overload without an `UI` parameter will have a default value of false.
 
 ```cs
 public static void CreateCursor(Transform parent)
 ```
+Set `cursor` to a newly created GameObject with the following properties:
 
+- Name of `Cursor`
+- Childed to `parent`
+- Layer is 5 (`UI`)
+- Scale of Vector3.one
+- Local position of Vector3.zero
+- Has a SpriteRenderer with a sprite of `cursorsprite[0]` and a sortingOrder of 1
+- Has a SpriteBounce. MessageBounce is called on it after adding it
 
 ```cs
 public static Vector3 RandomItemBounce(float range, float height)
 ```
-
+Returns a vector where the y component is `height` and the x/z components comes the vector returned by ClampMagnitude(RandomVector(`range` / 2, `range` / 2), `range` / 2, `range` / 2). Intuitively, it's a vector with a random x/z direction (each random between -`range` / 2 and `range` / 2) whose magnitude is `range` / 2 and whose y component is `height`.
 
 ```cs
-public static void DestroyTemp(ref GameObject obj, float time)
 public static void DestroyTemp(GameObject obj, float time)
+public static void DestroyTemp(ref GameObject obj, float time)
 ```
+Set `obj` position to (0.0, -9999.0, 0.0) and destroy it in `time` amount of seconds. If `obj` is passed by ref, it is set to null after the Destroy call.
 
+The method does nothing if `obj` is null.
 
 ```cs
 private static int[] GetLibraryIDs(int index)
 ```
-
+Get the array of effectively used `libraryorder[index]` (meaning the length is `librarylimit[index]`). Intuitively, it returns an array of all valid `librarystuff[index]` id so it acts as a Library enum value.
 
 ```cs
 public static IEnumerator DelayedPosition(Transform obj, Vector3 pos, float delay, bool local)
 ```
-
+Waits `delay` amount of seconds (or a frame if it's 0.0 or below) then set `obj` position to `pos` (or local position instead if `local` is true).
 
 ```cs
 public static void DisableRender(Renderer render, float tolerance, Vector3 offset)
-public static void DisableRender(GameObject render, float tolerance, Vector3 offset)
 ```
-
+Changes `render`.shadowCastingMode depending on a CheckIfCamera test on `render` position using a tolerance of `tolerance` and an offset of `offset`. If the test returns true, the new shadowCastingMode is On, ShadowsOnly otherwise.
 
 ```cs
-public static void ShakeScreen(Vector3 ammount, float time)
-public static void ShakeScreen(float ammount, float time, bool dontreset)
-public static void ShakeScreen(Vector3 ammount, float time, bool dontreset)
-public static void ShakeScreen(float ammount, float time)
-public static void ShakeScreen(float time)
-public static void ShakeScreen()
-public static void ShakeScreen(Vector3 ammount)
+public static void DisableRender(GameObject render, float tolerance, Vector3 offset)
 ```
+This is UNUSED, but remains functional. Set the enablement of `render` depending on the return of CheckIfCamera on `render` position using a tolerance of `tolerance` and an offset of `offset`.
 
+```cs
+public static void ShakeScreen()
+public static void ShakeScreen(float time)
+public static void ShakeScreen(float ammount, float time)
+public static void ShakeScreen(float ammount, float time, bool dontreset)
+public static void ShakeScreen(Vector3 ammount)
+public static void ShakeScreen(Vector3 ammount, float time)
+public static void ShakeScreen(Vector3 ammount, float time, bool dontreset)
+```
+Set `camposshake` to `camoffset` and `screenshake` to (`ammount`.x, `ammount`.y / 2.0, 0.0). If `time` is above 0.0, a StopScreenShakeReturn call is invoked in `time` amount of seconds (if `dontreset` is true, the coroutine is StopScreenShake instead). For more information on the screen shaking system, check the camera system documentation.
+
+On all overload not taking a `dontreset` parameter, the value defaults to false.
+
+On all overload not taking a `time` parameter, the value defaults to -1.0 (so no stop coroutine invoked in the future).
+
+On the overloads not taking an `ammount` parameter, the value defaults to (0.1, 0.1, 0.1).
+
+On the overloads taking an `ammount` parameter as float, the value defaults to (`ammount`, `ammount`, `ammount`).
 
 ```cs
 public void StopScreenShakeReturn()
 ```
-
+Part of ShakeScreen when dontreset is false. Reset `screenshake` to Vector3.zero and set the `MainCamera` local position to `camposshake`.
 
 ```cs
 public void StopScreenShake()
 ```
-
+Part of ShakeScreen when dontreset is true. Reset `screenshake` to Vector3.zero.
 
 ```cs
 public static void FadeMusic(float fadespeed)
 ```
-
+Calls ChangeMusic(null, `fadespeed`) to smoothly change the current music to silence.
 
 ```cs
 private static bool CheckIfCamera(Vector3 campos, float tolerance, Vector3 offset)
 ```
+Performs a test to see if `campos` + `offset` is a point that's rendered enough from `MainCamera`'s WorldToViewportPoint. More precisely, the method only returns true if the following conditions are satisfied from the return vector of `MainCamera`.WorldToViewportPoint(`campos` + `offset`):
 
+- x component must be between -0.5 and 1.5 exclusive
+- y component must be between -0.5 and 1.5 exclusive
+- z component must be above `tolerance`
 
 ```cs
 public static int GetTPCost(int player, int id)
 public static int GetTPCost(int player, int id, bool matchid)
 ```
-
+TODO: this should be documented in BattleControl
 
 ```cs
 public static int HowManyItem(int type, int id)
 ```
-
+Returns the number of occurences of the item whose id is `id` are in `items[type]`.
 
 ```cs
 public static IEnumerator ArcMovement(GameObject obj, Vector3 startpos, Vector3 targetpos, Vector3 spin, float height, float frametime, bool destroyonend)
 public static IEnumerator ArcMovement(GameObject obj, Vector3 targetpos, float height, float frametime)
 ```
+TODO: complex math stuff
 
 ```cs
 public static string GetBadgeName(int id)
 ```
+Returns a formatted string using `menutext[268]` to indicate a medal's name whose id is `id` followed by the language specific of the "medal" term.
 
+The way this works is `menutext[268]` only contains the letters `i` and `m`. The `m` part gets replaced by `menutext[159]` which is the language specific "medal" term. The `i` part gets replaced by `badgedata[id, 0]` which is the medal's name whose id is `id`. 
 
 ```cs
 public static void RefreshBadgeOrder()
 ```
-
+Reorder `badges` by creating a new list containing the same elements, but ordered in such a way that each medal id appears in the same order as `badgeorder` medal ids.
 
 ```cs
 public static int[] OrganizeArrayInt(int[] inputarray, int[] order)
 ```
-
+Returns a new array where every elements is `order` in the same order they appear, but every elements that doesn't also exists in `inputarray` are removed.
 
 ```cs
 private static int[] GetBadgeIDs()
 ```
-
+This is UNUSED, but remains functional. Returns an array containing the medal ids in `badges`. NOTE: If the array is empty, but the game isn't in a `pausemenu`, an array of element being -1 is returned instead of an empty array.
 
 ```cs
 public static int[] GetEquippedBadgeIDs()
 ```
-
+Returns an array containing the medal ids in `badges` that are equipped on any player party member or the party. NOTE: If the array is empty, but the game isn't in a `pausemenu`, an array of element being -1 is returned instead of an empty array.
 
 ```cs
 private static int[] GetLibraryOrder(int id)
 ```
-
+Returns all effectively used (meaning length is `librarylimit[id]`) entry ids in `libraryorder` where the first dimension index is `id` (so it acts as a Library enum value).
 
 ```cs
 private static int[] GetOverralQuests()
 ```
-
+Return an array cointaining non zero elements in `boardquests[1]` (taken quests) as they appear followed by all non zero elements in `boardquests[2]` (completed quests), but each elements is a negative number of the value.
 
 ```cs
 public static Vector3[] GetPartyPos(bool inorder)
 ```
-
+Return the `playerdata` positions in an array. If `inorder` is false, they are ordered by `playerdata` index. If `inorder` is true, they are in the following order: GetEntity(-4), GetEntity(-5), GetEntity(-6).
 
 ```cs
 public static void DestroyPlayers(bool remake, bool inorder)
 ```
-
+This is UNUSED, but remains functional. Destroys all `playerdata`'s `entity`.gameObject. If `remake` is true, SetPlayers(GetPartyPos(`inorder`)) is called after.
 
 ```cs
 public static Vector3 MultiplyVector(Vector3 a, Vector3 b)
 ```
-
+Returns a vector where each components is calculated by multiplying the matching components of `a` and `b`.
 
 ```cs
 private static int[] GetQuestsBoard(int type)
 ```
-
+TODO: document the questboard stuff separately as it gets complex
 
 ```cs
 public static int[] GetBosses()
 ```
-
+Returns the value `listvar` should have in the B.O.S.S battles list type. Check the B.O.S.S list type documentation to learn more.
 
 ```cs
 public static void PlaySoundAt(string sound, float volume, Vector3 position)
 ```
+Calls AudioSource.PlayClipAtPoint with the following parameters:
 
+- clip: obtained by loading the `Audio/Sounds/X` AudioClip where `X` is `sound`
+- position: `position`
+- volume: GetSoundDistance(`position`) * `volume` * `soundvolume`
 
 ```cs
-public static int[] GradualFill(int startat, int ammount)
 public static int[] GradualFill(int ammount)
+public static int[] GradualFill(int startat, int ammount)
 ```
+Returns an array with length `ammount` where the first element is `startat` and each subsequent elements increases by 1.
 
+The overload without a `startat` parameter has its value default to 0.
 
 ```cs
 public static int[] GetSettings()
 ```
-
+Returns the value `listvar` should have in the settings list type. Check the settings list type documentation to learn more.
 
 ```cs
 public static string[] Controllers()
 ```
-
+Return Input.GetJoystickNames(), but each element that has a length of 1 or lower are removed.
 
 ```cs
 public static int[] SamiraMissing()
 ```
-
+Return a newly created array that contains all `samiramusics` elements that haven't been bought yet.
 
 ```cs
 public static void ShowItemList(int type, Vector2 position, bool showdescription, bool sell)
 ```
-
+The method used to present an ItemList. Check the ItemList documentation to learn more.
 
 ```cs
 public static Vector3 ChildScale(Vector3 scale, Transform parent, bool swapZY)
 ```
-
+Returns a vector where each components is calculated by dividing the matching components of `scale` over `parent`. If `swapZY` is true, only the x component is calculated with matching components (the y component is `scale`.y / `parent`.z and the z component is `scale`.z / `parent`.y).
 
 ```cs
 public static Transform NewChild(string name, Transform parent)
 ```
-
+Create and return the transform of a newly created GameObject childed to `parent` named `name` with angles and local position of Vector3.zero and a scale of Vector3.one.
 
 ```cs
 public static bool HasQuest(int questid)
 ```
-
+Returns true if `questid` appears in any `boardquests`.
 
 ```cs
 public static int GetFreePlayerAmmount()
 public static int GetFreePlayerAmmount(bool hponly)
 ```
-
+Returns the amount of player party members that are considered free in battle. Check the GetFreePlayerAmmount documentation to learn more.
 
 ```cs
-public static Vector3 CardinalSnap(Vector3 angle, bool cameratied)
-public static Vector3 CardinalSnap(Vector3 obj, int directions)
 public static Vector3 CardinalSnap(Vector3 angle)
-public static Vector3 CardinalSnap(Transform obj, int directions)
+public static Vector3 CardinalSnap(Vector3 angle, bool cameratied)
+```
+Returns a normalized vector with a direction that is the closest of the 4 cardinal directions of `angle`.y. If `cameratied` is true, `globalcamdir`.forward is added to the result and then normalized. More precisely, here's the logic to determine the base direction of the vector based on `angle`.y:
+
+- Between 45.0 and 135.0 exclusive: Vector3.left
+- At least 135.0 and strictly lower than 225.0: Vector3.forward
+- At least 225.0 and strictly lower than 315.0: Vector3.right
+- At least 315.0 or strictly lower than 45.0: Vector3.back
+
+For the overload without a `cameratied` parameter, the value defaults to false.
+
+```cs
 public static Vector3 CardinalSnap(Transform obj)
+public static Vector3 CardinalSnap(Transform obj, int directions)
+public static Vector3 CardinalSnap(Vector3 obj, int directions)
 ```
+Return `obj` where the y component of the vector is Mathf.RoundToInt(`obj`.y / (360.0 / `directions`)) * (360.0 / `directions`). Intuitively, this y component will be the closest delimiter number among the ones that are obtained by splitting 360.0 in `directions` amount of equal length sections. It means it's meant to work with euler angles with an arbitrary amount of cardinal directions (a cardinal direction here is one evenly split segments of 360.0).
 
+The first 2 overloads are UNUSED, but remains functional.
 
-```cs
-public static Vector3 CardinalSnap8(Vector3 angle, bool cameratied)
-```
+For the overloads taking `obj` as a transform instead of a vector, the value becomes `obj`.tansform.eulerAngles.
 
-
-```cs
-public static float ClampToMinMax(float v, float min, float max)
-public static float ClampToMinMax(float v, float min, float max, bool lowest)
-```
-
-
-```cs
-public static bool InBetween(float v, float a, float b)
-```
-
-
-```cs
-public static void LookAt(Transform obj, Vector3 targetp)
-public static void LookAt(Transform obj, Vector3 targetp, bool keepangle)
-```
-
+For the overload not taking a `directions` parameter, the value defaults to 4.
 
 ```cs
 public static float CardinalSnap(float angle)
 public static float CardinalSnap(float angle, int directions)
 ```
+Return Mathf.RoundToInt(`angle` / (360 / `directions`)) * (360 / `directions`). Intuitively, this returns the closest delimiter number among the ones that are obtained by splitting 360 in `directions` amount of equal length sections. It means it's meant to work with euler angles with an arbitrary amount of cardinal directions (a cardinal direction here is one evenly split segments of 360). NOTE: The 360 / `direction` division is incorrect because it's an integer division, NOT a float one so there can be loss of precisions if `directions` isn't a whole divisor of 360 resulting in uneven segments splits.
 
+For the overload without a `directions` parameter, the value defaults to 4.
+
+```cs
+public static Vector3 CardinalSnap8(Vector3 angle, bool cameratied)
+```
+Returns a normalized vector with a direction that is the closest of the 8 cardinal directions of `angle`.y. If `cameratied` is true, `globalcamdir`.forward is added to the result and then normalized. More precisely, here's the logic to determine the base direction of the vector based on `angle`.y (this is the value before the vector gets normalized):
+
+- Between 22.5 and 67.5 exclusive: (-1.0, 0.0, -1.0)
+- At least 67.5 and strictly lower than 112.5: (-1.0, 0.0, 0.0)
+- At least 112.5 and strictly lower than 157.5: (-1.0, 0.0, 1.0)
+- At least 157.5 and strictly lower than 202.5: (0.0, 0.0, 1.0)
+- At least 202.5 and strictly lower than 247.5: (1.0, 0.0, 1.0)
+- At least 247.5 and strictly lower than 292.5: (1.0, 0.0, 0.0)
+- At least 292.5 and strictly lower than 337.5: (1.0, 0.0, -1.0)
+- At least 337.5 or strictly lower than 22.5: (0.0, 0.0, -1.0)
+
+```cs
+public static float ClampToMinMax(float v, float min, float max)
+public static float ClampToMinMax(float v, float min, float max, bool lowest)
+```
+Returns `min` or `max` depending on `v` and Lerp(`min`, `max`, 0.5) which is the midpoint of the range. If `v` is lower than the midpoint, `max` is returned, `min` otherwise. If `lowest` is true, this logic is inverted so `min` is returned if `v` is lower than the midpoint, `max` otherwise.
+
+On the overload without a `lowest` parameter, the value defaults to false.
+
+```cs
+public static bool InBetween(float v, float a, float b)
+```
+Return true if `v` is higher or equal than `a` and strictly lower than `b`, false otherwise.
+
+```cs
+public static void LookAt(Transform obj, Vector3 targetp)
+public static void LookAt(Transform obj, Vector3 targetp, bool keepangle)
+```
+Have `obj` LookAt `targetp` and set `obj` x and z angles to 0.0 after. This effectively changes `obj` y angles to the one aligned with `targetp`. If `keepangle` is true, the x and z angles of `obj` won't change instead of being set to 0.0.
+
+On the overload without a `keepangle` parameter, it behaves as if the value was false.
 
 ```cs
 public static int GetAlivePlayerAmmount()
 ```
-
+Returns the amount of `playerdata` whose `hp` are above 0 and aren't `eatenby`.
 
 ```cs
 public static void ApplySettings()
 ```
-
+TODO: add the config.dat documentation that heavily involves this
 
 ```cs
 public static bool AllPartyFree()
 ```
-
+Returns true if no `playerdata` has a `cantmove` of 1 or higher (no actor turns available on the current main turn), false otherwise.
 
 ```cs
 public static int BadgeHowManyEquipped(int id)
 public static int BadgeHowManyEquipped(int id, int playerid)
 ```
-
+Returns the amount of medals in `badges` whose medal id is `id` and is equipped to the party or to the player party member with a `trueid` of `playerid`.
 
 ```cs
 public static bool BadgeIsEquipped(int id)
 public static bool BadgeIsEquipped(int id, int playerid)
 ```
-
+Returns true if there's at least 1 medal in `badges` whose medal id is `id` and is equipped to the party or to the player party member with a `trueid` of `playerid`. If `playerid` is -1, it includes every equipped medals in the search.
 
 ```cs
 public static bool CheckActiveEntities(int[] ids)
 ```
-
+Returns true if all `map`.`entities` whose index is in `ids` have an `npcdata`.`hit` of true, false otherwise. It is possible for an `ids` element to have this check inverted where an `npcdata`.`hit` of false is considered active by specifying the negative version of the index (this implies this can't be done with id 0).
 
 ```cs
 public static void ReloadSave()
 ```
+This method is a helper to setup an event 22 start (loading a save file). Here are the steps performed:
 
+- StopSound(`CrowdChatter`) called
+- FadeMusic(0.1) called
+- Stop all coroutines of `battle` and destroy it if it exists
+- Stop all coroutines of `events`
+- Destroy all `playerdata` entities's GameObject
+- Set RenderSettings.skybox to null
+- Destroy the `map`
+- `events`.StartEvent called to start event 22 without a caller
 
 ```cs
 public static void ApplyBadges()
 ```
-
+Recalculate the stats effects of all medals to the party. Check the ApplyBadges documentation to learn more.
 
 ```cs
 public static GameObject CreateRock(Vector3 pos, Vector3 size, Vector3 rotation)
 ```
+Returns a newly instantiated GameObject using the `Prefabs/Objects/CrackedRock` prefab with the following properties:
 
+- Position: `pos`
+- Angles: `rotation`
+- Scale: `size`
+- The MeshCollider is destroyed
+- The Fader is destroyed
 
 ```cs
 public static void CrackRock(Transform parent, bool destroyparent)
 ```
-
+Instantiates `Prefabs/Objects/CrackRockBreak` with the same position, angles and scale of `parent`. If `destroyparent` is true, `parent` gets destroyed after the instantiation.
 
 ```cs
 public static void AddBadge(int id)
 ```
-
+Add a `badges` element where the medal id is `id` and the equip state is -2 (unequipped).
 
 ```cs
 public static void SetUpList(int type, bool showdescription, bool sell)
 ```
+This is a helper to preconfigure an ItemList in a standard way before calling ShowItemList. It shouldn't be called during an ItemList processing, only before starting one. It sets some ItemList related fields:
 
+- `storeid`: 0
+- `listtype`: `type`
+- `listammount`: 6
+- `listdesc`: `showdescription`
+- `listsell`: `sell`
+
+The method also sets `inputcooldown` to 5.0 so most inputs processing are disabled for 5.0 frames.
 
 ```cs
 private static void ResetPlayerStat(int id)
 ```
-
+A part of ApplyBadges where `playerdata[id]` has several fields reset to their base value. Check the ApplyBadges documentation to learn more.
 
 ```cs
 public static void ResetList()
 ```
+Sets some ItemList related fields to their starting values. This is meant to be a helper to ShowItemList where calling this can help prepare the setup of the ItemList before calling ShowItemList. It shouldn't be called during an ItemList processing, only before starting one. Here are the fields and their values:
 
+- `listcursor`: 0
+- instance.`option`: 0
+- `listlow`: 0
+- `listmax`: `listammount`
+- `listY`: -1
 
 ```cs
 public static int[] SaveList()
 ```
+Returns the array value meant to be set to `overridedlist` which is meant to save some of the state of the ItemList. The array returned is 5 elements with the following fields values in order:
 
+- instance.`option`
+- `listcursor`
+- `listlow`
+- `listmax`
+- `listoption`
+
+The values can be restored by passing the returned array to LoadList.
 
 ```cs
 public static void LoadList(int[] v)
 ```
+Restore some ItemList fields using the values in `v`. The format has to match the one specified in SaveList where `v` is 5 elements containing these values in order:
 
+- instance.`option`
+- `listcursor`
+- `listlow`
+- `listmax`
+- `listoption`
 
 ```cs
 public static LoadData? Load(int file, bool lite)
 ```
+Completely load the save file with filename `saveX.dat` where `X` is `file` from the game's root directory with various error handling. In practice, only the values 0, 1 and 2 are valid `file` values. For information on the file format itself, check the save file format documentation. The return value is a struct that contains some metadata about the save used to present them in the StartMenu or null if the loading failed. If `lite` is true, the save will be loaded to gather these metadata, but it won't result in any changes to any MainManager fields.
 
+This method handles a lot of potential errors, here is a more detailed list of their logic:
+
+- If the save file doesn't exist, null is returned
+- Reading the save file is enclosed in a try catch block that will return null if the reading of the file failed
+- The entire method is enclosed in a try catch block that will handle any exceptions by a Debug.Log call and returning null
+- In `lite` loading, the reading of the save file's filename is enclosed in a try catch block that will handle exceptions by setting the LoadData's filename to `|color,1|SLOT X - NO FILE NAME` where `X` is `file` + 1
+
+Additionally, in non `lite` loading, the following additional steps are done in this loading process:
+
+- ChangeParty without fromscratch is called with the party composition in the save file once their information have been read sucessfully
+- ApplyBadges is called right before returning on a sucessful load.
 
 ```cs
 public static float[] Divisions(int divisions)
 ```
-
+Return an array of length `divisions` where the first element is 1.0 / (`divisions` + 1) and each subsequent elements increases by 1.0 / (`divisions` + 1). Intuitively, it creates a sequence of increasing fractions where the numerator goes from 1.0 to `divisions` - 1 and the denominator is `divisions` + 1.
 
 ```cs
 public static IEnumerator LatePos(Transform obj, Vector3 pos, float delay, bool keeptrying)
 ```
-
+Wait `delay` amount of seconds before setting `obj` position to `pos` if `obj` isn't null by then. If `keeptrying` is true, it changes the behavior where the coroutine will set `obj` position to `pos` if it isn't null on each frames for the next `delay` amount of frames.
 
 ```cs
 public static int SaveProgressIcons()
 ```
+Returns the amount of progress icons that should be rendered on the StartMenu. Each count if a specific flag slot is true, here's the list:
 
+- 41 (end of chapter 1)
+- 88 (end of chapter 2)
+- 299 (end of chapter 3)
+- 345 (end of chapter 4)
+- 347 (end of chapter 6)
+- 346 (got the flame brooch)
+- 555 (post game)
 
 ```cs
 public static bool Save(Vector3? savepos)
 ```
-
+Calls InputIO.Save(`savepos`) which will persist the game state to the current save file. Check the save file format documentation to learn more.
 
 ```cs
-public static string PromptYesNo(int yes, int no)
 public static string PromptYesNo()
+public static string PromptYesNo(int yes, int no)
 ```
+Returns a SetText prompt command string to present a yes/no prompt. The string returned is the following parts concatenated together:
 
+- `|prompt,map,0.5,2,`
+- The value `yes`
+- `,`
+- The value `no`
+- `,@`
+- `menutext[5]` (yes text)
+- `,@`
+- `menutext[6]` (no text)
+- `|`
+
+The parameterless overload is UNUSED, but remains functional and has both `yes` and `no` default to -11 (it's expected to contain `|boxstyle,-1||end|`).
 
 ```cs
 private static void GetRewardTokens(int score)
 ```
+Changes the value of flagvar 1 (amount of game tokens) depending on `score`, `battleresult` (which indicate if the minigame was beaten) and flagvar 6 (indicates the minigame played, 0 is FlappyBee and 1 is MazeGame). The value is always clamped from 2 to 999999 at the end.
 
+More specifically, this is the logic used to determine the value (before the clamping):
+
+- If `battleresult` is false (the minigame was failed), the value is `score` / 200.0 floored
+- Otherwise, if flagvar 6 is 0 (minigame was FlappyBee), the value is `score` / 95.0 floored
+- Otherwise (minigame is assumed to be MazeGame), the value is `score` / 140.0 floored
 
 ```cs
 public static bool AnyKeyButThis(int id, bool hold)
 ```
-
+TODO: Involves InputIO logic that's not documented yet
 
 ```cs
 public static IEnumerator TransferMap(int targetmap, Vector3 targetpos)
 public static IEnumerator TransferMap(int targetmap, Vector3 moveto, Vector3 tppos, Vector3 othermovepos)
 public static IEnumerator TransferMap(int targetmap, Vector3 moveto, Vector3 tppos, Vector3 othermovepos, NPCControl caller)
 ```
+Changes the current map with a loading transition. Check the map loading documentation to learn more.
 
+The first overload is UNUSED, but remains functional.
 
 ```cs
 public void ForceLoadSprites()
 ```
-
+Start an FLS coroutine.
 
 ```cs
 private static IEnumerator FLS()
 ```
+Forces a reference to be held for one frame of every `map`.`entities`'s `sprite`.`sprite` by creating new GameObject with SpriteRenderer childed to the `map` at the `player` position. Once all the GameObject are created, a frame is yielded. After, all the GameObjects that were created are immediately destroyed.
 
+This method is meant to be a loading optimisation done during the map loading process.
 
 ```cs
 private static string GetText(bool menu, int id)
 ```
-
+Return GetDialogueText(`id`) if `menu` is false or `menutext[id]` if `menu` is true.
 
 ```cs
 public static int GetEnemyPortrait(int id)
 ```
-
+Obtains the `librarysprites` index of the portrait sprite associated with the enemy whose id is `id`. There's some special cases logic to this which is documented in the GetEnemyPortrait documentation.
 
 ```cs
 public static Vector2 GetDirection(in Vector2 a, in Vector2 b)
-```
-
-
-```cs
 public static Vector3 GetDirection(in Vector3 a, in Vector3 b)
 public static Vector3 GetDirection(in Vector3 a, in Vector3 b, bool ignoreY)
 ```
+Returns (`a` - `b`).normalized. If `ignoreY` is true, the vectors used to do the subtraction are `a` and `b` where their y component is 0.0.
 
+For the overloads without the `ignoreY` parameter, the value defaults to false.
 
 ```cs
 public static Vector3 GetDirection4(Vector3 a, Vector3 b, bool ignoreY)
 ```
-
+Returns the same value than GetDirection(`a`, `b`, true). The `ignoreY` parameter doesn't semantically change anything.
 
 ```cs
 public static IEnumerator MoveTowards(Transform obj, Vector3 target, float frametime, bool smooth, bool local)
+```
+Changes `obj` position (or local position if `local` is true) towards `target` via a Lerp (or SmoothLerp if `smooth` is true) over the course of `frametime` amount of frames.
+
+```cs
 public static IEnumerator MoveTowards(Transform obj, Vector3 start, Vector3 end, float frametime, bool smooth, Action<bool> caller)
 public static IEnumerator MoveTowards(Transform obj, Vector3 start, Vector3 end, float frametime, float startdelay, float shrink, float destroytime, bool smooth, Action<bool> caller)
 public static IEnumerator MoveTowards(Transform obj, Vector3 start, Vector3 end, float frametime, float startdelay, float shrink, float destroytime, bool smooth, Action<bool> caller, string soundatend)
 ```
+The following happens to move `obj` from `start` to `end`:
 
+- If `startdelay` is above 0.0, wait for `startdelay` amount of seconds
+- Changes `obj` position from `start` to `end` via a Lerp (or SmoothLerp if `smooth` is true) over the course of `frametime` + 1.0 amount of frames
+- `obj` position is set to `end`
+- If `soundatend` isn't null, PlaySound(`soundatend`) is called
+- A frame is yielded
+- If `shrink` is above 0.0, a DialogueAnim is added to `obj` with a `shrink` of true and a `shrinkspeed` of `shrink`
+- If `destroytime` isn't negative, `obj` is destroyed in `destroytime` amount of seconds (or immediately if the value is 0.0)
+- `caller` is invoked with a parameter of false
+
+The first 2 overloads will start a third overload coroutine and yield a frame.
+
+For the overloads without a `soundatend` parameter, the value defaults to null.
+
+The second overload is UNUSED, but remains functional.
+
+For the first overload, here are the default values for the parameters not sent:
+
+- `startdelay`: 0.0
+- `shrink`: 0.0
+- `destroytime`: -1.0
 
 ```cs
 public static Vector3 GlobalScale(Vector3 desiredscale, Vector3 parentscale, bool flipZY)
 ```
-
+This is UNUSED, but remails functional. Returns a vector where each components is calculated by dividing the matching components of `desiredscale` over `parentscale`. If `flipZY` is true, only the x component is calculated with matching components (the y component is `desiredscale`.z / `parentscale`.z and the z component is `desiredscale`.y / `parentscale`.y).
 
 ```cs
 public static void DialogueText(string text, Transform tailtarget, NPCControl caller)
 ```
+Calls SetText with the following parameters:
 
+- text: `text`
+- fonttype: 0
+- linebreak: `messagebreak`
+- dialogue: true
+- tridimensional: false
+- position: Vector3.zero
+- cameraoffset: Vector3.zero
+- size: Vector3.one
+- parent: `tailtarget`
+- caller: `caller`
 
 ```cs
 public static IEnumerator OpenQuestBoard(EntityControl caretaker, NPCControl caller)
 ```
-
+TODO: document quest board separately since this is complex
 
 ```cs
 public static void ChangeBoardQuest(int id)
 public static void ChangeBoardQuest(int id, int type)
 ```
+If `boardquests[type]` doesn't contain the quest id `id`, the following happens:
 
+- 0 (no quest) is removed from `boardquests[type]`
+- `id` is added to `boardquests[type]`
+- If `type` is 0 (open quests) and `id` is above 0 (not a no quest), flag slot 2 is set to false (indicates that new unchecked open quests are available)
+
+For the overload without a `type` parameter, the value defaults to 0 (open quests).
 
 ```cs
 private static string BoardString()
 ```
-
+Returns a `,` seprated list of all `instance.boardquests[0]` quest ids in a string.
 
 ```cs
 public static void CompleteQuest(int id)
 ```
-
+TODO: document quest board separately since this is complex
 
 ```cs
 public static ItemUse GetItemUse(int id)
 public static ItemUse GetItemUse(int id, int itemtype)
 ```
+Returns the ItemUse of an item with id `id`. Check the ItemUse documentation for more details. NOTE: `itemtype` must be 0 or an exception will be thrown.
 
+The overload without an `itemtype` parameter has its value default to 0.
 
 ```cs
 public static int? GetItemHeal(int id)
 ```
-
+This is UNUSED. it involved the unused BattleControl.TryHealEnemyItem coroutine.
 
 ```cs
 public static int DoItemEffect(ItemUsage type, int value, int? characterid)
 ```
-
+Process an ItemUsage with value `value` on `playerdata[characterid]` if `characterid` isn't null. Check the DoItemEffect documentation to learn more.
 
 ```cs
 public static void IgnoreRadius(Collider col, bool ignore)
 ```
-
+This is UNUSED, but remains functional. If `ignore` is true, causes all NPCControl present in the scene to have their `scol` ignore `col`. If `ignore` is false, they are unignored instead.
 
 ```cs
 private static Sprite GetButtonSpriteD(int id)
 ```
-
+Returns null. The `id` value does nothing. TODO: huh???
 
 ```cs
 public static void SwitchParty(bool battle)
 ```
-
+TODO: this is sort of documented, but not organised right so this needs to be organised
 
 ```cs
 public static int[] PrizeBadges(bool caravan)
 ```
-
+TODO: document the prize medals stuff separately so it's clearer how this is organised
 
 ```cs
 public static int GetEnemyPrizeID(int flagvalue)
 ```
-
+TODO: document the prize medals stuff separately so it's clearer how this is organised
 
 ```cs
 public static EntityControl[] GetEntities(int[] ids)
 public static EntityControl[] GetEntities(int[] ids, EntityControl[] ads)
 ```
+Return the array of entities where each element is a resolved entity id from `ids` using GetEntity(int). If `ads` isn't null, the `ads` entity are appended to the return array.
 
+For the overload not taking a `ads` parameter, the value defaults to null.
 
 ```cs
 public static Vector3 SmoothLerp(Vector3 a, Vector3 b, float t)
 public static Vector3 SmoothLerp(Vector3 a, Vector3 b, float t, float onlythrough, float onlyafter)
 ```
+Return a vector obtained by performing a Mathf.SmoothLerp on each matching components of `a` and `b` using `t` as the factor. If `onlythrough` is above 0.0 and `t` is less than it, a Vector3.Lerp(`a`, `b`, `t`) is returned instead. If `onlyafter` is above 0.0 and `t` is greater than it, a Vector3.Lerp(`a`, `b`, `t`) is returned instead. 
 
+For the first overload, the `onlythrough` and `onlyafter` parameters defaults to 0.0.
