@@ -74,3 +74,5 @@ Here are the events associated with these checks:
 |19|137 (Approaching the Beast at Wild Swampslands)|
 |21|193 (Approaching Ultimax at Rubber Prison)|
 |23|200 (Approaching the Wasp King at Giant's Lair)|
+
+Additionally, all of the above can be unlocked in event 85 (using the B.O.S.S system).
