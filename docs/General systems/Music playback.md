@@ -136,3 +136,101 @@ However, in practice, 5 [Musics](../Enums%20and%20IDs/Musics.md) are excluded. T
 - `Water`
 - `MachineHum`
 - `Breathing`
+
+
+## Music and Samira
+
+```cs
+public static bool SamiraGotAll()
+```
+Returns true if PurchasedMusicAmmount's return value is the amount of Musics enum values - 8, false otherwise. 8 is a hardcoded value that represents the amount of Musics enum values whose music aren't purchasable from Samira.
+
+```cs
+public static int PurchasedMusicAmmount()
+```
+A part of SamiraGotAll.
+
+Returns the amount of `samiramusics` elements which aren't marked as "not bought" (assuming it implies being bought).
+
+```cs
+public static void ChangeMusicVolume(float frametime)
+public static void ChangeMusicVolume(float targetvolume, float frametime)
+public static void ChangeMusicVolume(int clipid, float targetvolume, float frametime)
+```
+Stops `musiccoroutine` if it was in progress and set it to a new ChangeMVolume(`clipid`, `targetvolume`, `frametime`) coroutine. This coroutine will smoothly change `music[clipid]`.volume towards `targetvolume` over the course of `frametime` amount of frames. NOTE: In practice, `clipid` should always be 0 since `music` only contains 1 AudioSource.
+
+The overloads that doesn't take every parameters are UNUSED, but remains functionals where `clipid` defaults to `musicchannel` and `targetvolume` defaults to `musicvolume`.
+
+```cs
+private static IEnumerator ChangeMVolume(int clipid, float volume, float frametime)
+```
+Smoothly changes `music[clipid]`.volume via a Lerp from the current volume to `volume` over the course of `frametime` amount of frames + 1 frame. Once the Lerp completes and the additional frame yield, the volume is set to `volume`. NOTE: In practice, `clipid` should always be 0 since `music` only contains 1 AudioSource.
+
+```cs
+private static IEnumerator SwitchMusic(AudioClip musicclip, float fadespeed, int id)
+private static IEnumerator SwitchMusic(AudioClip musicclip, float fadespeed, int id, bool seamless)
+```
+Performs the necessary procedure to change the current music if the new desired one is different. Check the SwitchMusic documentation to learn more.
+
+The overload without a `seamless` parameter is UNUSED since the coroutine is never called, but it remains functional and the value of the parameter will default to false with an extra frame yield after calling the other coroutine.
+
+```cs
+public static void CheckSamira(AudioClip music)
+public static void CheckSamira(string music)
+```
+TODO: Detail the samira portion of musics since this is complex
+
+```cs
+public static void ChangeMusic(AudioClip musicclip, float fadespeed, int id)
+public static void ChangeMusic(string musicclip, float fadespeed, int id, bool seamless)
+public static void ChangeMusic(AudioClip musicclip, float fadespeed, int id, bool seamless)
+public static void ChangeMusic(string musicclip, float fadespeed)
+public static void ChangeMusic(AudioClip musicclip, float fadespeed)
+public static void ChangeMusic(string musicclip, float fadespeed, int id)
+public static void ChangeMusic()
+public static void ChangeMusic(int mapid)
+public static void ChangeMusic(string musicclip)
+public static void ChangeMusic(AudioClip musicclip)
+```
+Changes the current music. Check the ChangeMusic documentation to learn more.
+
+The overload with parameters (string, float, int) is UNUSED since the coroutine is never called, but it remains functional.
+
+```cs
+public static float[][] LoopPoint()
+```
+Returns the data from `Data/LoopPoints` which is meant to be set to the value of `musicloop`. Check the music loop data documentation to learn more about the data format.
+
+```cs
+private void LoopMusic()
+```
+Checks the current `music` playing and if its end loop point in `musicloop` isn't 0.0 and its playback is past that end point, `music[0]`.time is set to the start loop point in `musicloop`.
+
+The first time this is called, `musicloop` will be null so this method will initialise the value to the return of LoopPoint if that is the case.
+
+```cs
+private static IEnumerator LowerVolume(int musicid, float volume, float frametime, bool percent)
+```
+Changes `music[musicid]`.volume over `frametime` + 1.0 amount of frames via a lerp to `volume` (or the existing volume * `volume` if `percent` is true).
+
+```cs
+public static void FixSamira()
+```
+If `samiramusics` isn't null or empty, this method will remove the following elements from `samiramusics` as these are intentionally excluded from the Samira purchase list:
+
+- `Title`
+- `Wind`
+- `Water`
+- `MachineHum`
+- `Breathing`
+
+```cs
+public static void FadeMusic(float fadespeed)
+```
+Calls ChangeMusic(null, `fadespeed`) to smoothly change the current music to silence.
+
+```cs
+public static int[] SamiraMissing()
+```
+Return a newly created array that contains all `samiramusics` elements that haven't been bought yet.
+
