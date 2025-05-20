@@ -73,11 +73,6 @@ public static bool BadgeIsEquipped(int id, int playerid)
 Returns true if there's at least 1 medal in `badges` whose medal id is `id` and is equipped to the party or to the player party member with a `trueid` of `playerid`. If `playerid` is -1, it includes every equipped medals in the search.
 
 ```cs
-public static void ApplyBadges()
-```
-Recalculate the stats effects of all medals to the party. Check the ApplyBadges documentation to learn more.
-
-```cs
 public static void AddBadge(int id)
 ```
 Add a `badges` element where the medal id is `id` and the equip state is -2 (unequipped).

@@ -1639,6 +1639,43 @@ public static int GetTPCost(int player, int id, bool matchid)
 ```
 TODO: this should be documented in BattleControl
 
+```cs
+public static void RefreshSkills()
+```
+Refresh each `playerdata`'s `skills` list which represents all the skills that are available to each player party member. Check the skills data documentation for more details.
+
+```cs
+public static int GetFreePlayerAmmount()
+public static int GetFreePlayerAmmount(bool hponly)
+```
+Returns the amount of player party members that are considered free in battle. Check the GetFreePlayerAmmount documentation to learn more.
+
+```cs
+public static int GetAlivePlayerAmmount()
+```
+Returns the amount of `playerdata` whose `hp` are above 0 and aren't `eatenby`.
+
+```cs
+public static bool AllPartyFree()
+```
+Returns true if no `playerdata` has a `cantmove` of 1 or higher (no actor turns available on the current main turn), false otherwise.
+
+```cs
+private static bool HasSkillCost(int tpcost, int playerid)
+```
+Returns true if `tp` is at least `tpcost`, false otherwise.
+
+However, if `playerdata[playerid]` has the `HPFunnel` medal equipped or if `tpcost` is negative, this instead returns true when `playerdata[playerid]`.`hp` - 1 is at least the absolute value of `tpcost`, false otherwise.
+
+This method is intended to check if the player is able to pay the cost of a skill whether it is in TP (`tpcost` isn't negative) or HP (`tpcost` is negative or `playerdata[playerid]` has the `HPFunnel` medal equipped). In the case the cost is in HP, the HP cost is the absolute value of `tpcost` - 1.
+
+```cs
+public static bool AddExp(int ammount)
+```
+Increases `partyexp` by `ammount`. If this resulted in a rank up, true is returned, false otherwise. A rank up is detected if after the increase, `partyexp` becomes at least `neededexp`. When that happens, `partyexp` is decreased by `neededexp`.
+
+Before returning, a PlaySound call happens to play the the `Exp2` sound with a volume of 1.0 and a pitch of 1.5 + a random number between -0.1 and 0.1. The `sounds` element to use is the first among `sounds[4]`, `sounds[5]`, `sounds[6]` and `sounds[7]` in that order that isn't playing (always falsback to `sounds[7]` even if it is playing).
+
 ## Library
 
 ```cs
