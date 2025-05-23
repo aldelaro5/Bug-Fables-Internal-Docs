@@ -1,5 +1,5 @@
 # Follower system
-Maps can entirely control the follower systems which is the system that dictates which followers is allowed to follow the player. It also manages the presence of `chompy` as a follower.
+Maps can entirely control the follower systems which is the system that dictates which followers is allowed to follow the player. It also manages the presence of `chompy` as a follower. The general function of the system is documented in the game's followers system documentation, but since MapControl plays an integral part in configuring and controlling it, the MapControl specific parts are documented here.
 
 The system can be configured on the map with the following configuration fields:
 
@@ -9,51 +9,20 @@ The system can be configured on the map with the following configuration fields:
 |followerylimit|float|The maximum following distance (absolutely value) in y allowed for any entity following another. If the y distance between the entity and its followee gets higher than this value and we aren't in a `minipause`, the [DoFollow](../Entities/EntityControl/Notable%20methods/Follow.md#dofollow) of the entity will teleport them to their followee instantly. This should NEVER be negative because the distance is meant to be expressed as an absolute value|20.0|
 |closemove|bool|This field if true allows the map to force the CloseMove entity follow logic of the player party. NOTE: The influence of this fiels is extremely complex and inconsistent, primarily during the `BanditHideout` stealth section, more details can be found in the section below|false|
 
-## An explanation of the follower system
+## MapControl's involvement in the follower system
 There's an important distinction between the player requesting an entity to follow the party and the MapControl allowing said followers. They are actually managed at 2 different places:
 
 - instance.`extrafollowers` tells the [animIDs](../Enums%20and%20IDs/AnimIDs.md) that wants to follow the player party. This array is saved on the [save file](../External%20data%20format/Save%20File.md)
 - instance.`map`.`canfollowID` tells which [animIDs](../Enums%20and%20IDs/AnimIDs.md) are allowed to follow the party. Since it's a configuration field, it is meant to have its value come from prefab, but [AreaSpecific](Init%20methods/AreaSpecific.md) can do modifications on it if needed
 
-This distinction is important because it means that even if instance.`extrafollowers` contains an animid and even if this information is loaded from the save file, the current map has the final say on allowing or denying the following. If the animid isn't in its `canfollowID`, the entity won't appear and no following will happen.
+This distinction is important because it means that even if instance.`extrafollowers` contains an animid and even if this information is loaded from the save file, the current map has the final say on allowing or denying the following. If the animid isn't in its `canfollowID`, the entity won't appear and no following will happen. It's essentially an allow list system.
 
 The only exception to this rule is when the GameObject's name of the MapControl is `0`. Since this name always corresponds to the [map](../Enums%20and%20IDs/Maps.md) id, it means it should only apply to the `TestRoom` map. On that map specifically, the `canfollowID` rule doesn't apply and any animid in instance.`extrafollowers` will be added as a follower.
 
 The followers that are actually present are stored in the map's `tempfollowers`. This array excludes the main player party member, but it does include `chompy` or any other followers.
 
-### MainManager.AddFollower
-As for how a follower is added, it's through the MainManager.AddFollower method:
-
-```cs
-public static EntityControl AddFollower(EntityControl caller, int id)
-```
-
-There are 2 ways to use this method:
-
-- Adding an existing entity as follower: Doing this involves recreating the entity by first destroying it before creating a new one at the same position and the new one will become the follower. To do this, `caller` should be not null and correspond to the entity to add as follower in this fashion. In this mode of operation, `id`'s value won't be used and it will be overriden to the `caller`'s animid
-- Adding a follower from a completely new entity: Doing this simply involves creating the entity and adding it as follower. To do this, `caller` needs to be null and `id` needs to contain a valid [animid](../Enums%20and%20IDs/AnimIDs.md)
-
-Here's the procedure this method does to add the follower and store it into the map's `tempfollowers`:
-
-- If caller isn't null (meaning this entity needs to be destroyed before recreating it):
-    - caller is [unfixed](../Entities/EntityControl/EntityControl%20Methods.md#unfix)
-    - The id parameter is overriden to the caller's `animid` and it is added to instance.`extrafollowers`
-    - The caller is destroyed
-- If id is 0 or above:
-    - The last entity in the follow chain is obtained. It's the `player` if it's not `followedby` anyone otherwise it's the last `playerdata`.entity if that one isn't `followedby` anyone otherwise it's the last `map`.`tempfollowers`
-    - [CreateNewEntity](../Entities/EntityControl/EntityControl%20Creation.md#createnewentity) is called to create an entity with id as the animid, `Follower X` as the name where `X` is the id and the follow being the last entity in the follow chain obtained earlier. The position depends on if this is replacing an entity or not:
-        - If it's replacing an entity, it's the position of that entity before it was destroyed
-        - If it's not replacing an entity, the position is the `player` position + instance.`globalcamdir`.forward.normalized * the length of `playerdata` * 0.05 (this prevents z fighting by offsetting the follower slightly towards the camera)
-    - If `map` exists (it's not being loaded), the newly created entity is childed to the `map` (otherwise, the entity remains rooted)
-    - The entity gets a `PFollower` tag and its `tempfollower` field is set to true which marks it as a player follower. This registers them to be implicated in the EntityControl [follow system](../Entities/EntityControl/Notable%20methods/Follow.md)
-    - The `player`'s `npc` list is reset to a new list
-    - The newly created entity is added to the `map`'s `tempfollowers`
-    - The last entity in the follow chain has its `followedby` set to the newly created entity which completes the link of the new follower in the chain
-
-As for the return value, it's not used by the game, but the method returns the entity whose `followedby` was set to the new follower. It's possible the method returns null, but it's only under an erroneous condition and that is that the value of id (after it's overriden if applicable) is negative which means it's not a valid animid. This isn't supposed to happen because normally, either `caller` is specified and its `animid` isn't negative or `caller` is null, but id has a non negative value. It's still possible that neither case are true and in which case, null will be returned, but it indicates that an invalid follower was attempted to be added.
-
-### MapControl's flow for adding followers
-While AddFollower can be called manually well after the map is loaded, MapControl can call it in its first LateUpdate (known as `latestart`). This is the part that enforces the `canfollowID` whitelist, but also manages the presence or absence of `chompy`
+## MapControl's flow for adding followers
+While AddFollower can be called manually well after the map is loaded, MapControl can call it in its first LateUpdate (known as `latestart`). This is the part that enforces the `canfollowID` allow list, but also manages the presence or absence of `chompy`
 
 For adding any followers other than `chompy`, here's how this process goes:
 
@@ -63,20 +32,10 @@ For adding any followers other than `chompy`, here's how this process goes:
     - If the follower's [animid](../Enums%20and%20IDs/AnimIDs.md) is `Maki`, its `ccol` gets a height of 3.0 and a center of (0.0, 1.5, 0.0)
     - The follower's `onground` is set to false (this is to force an animation update)
 
-#### `chompy` following
-`chompy` is a special kind of follower because it's not part of the main player party, but a regular `tempfollowers` that simply keeps reappearing on each map load. This is acomplished by logic in the first LateUpdate (known as `latestart`) that happens right after the main followers logic described above happens.
-
-It only happens if [flag](../Flags%20arrays/flags.md) 402 is true (Chompy is with Team Snakemouth) and the `player` isn't in a `submarine`. If these conditions are met, the following happens:
-
-- AddFollower is called without a caller and with 169 (`ChompyChan`) as id
-- The map's `chompy` is set to the follower entity just added
-- `chompy`'s `tempfollowerid` is set to the matching index of `tempfollowers`
-- `chompy`'s `onground` is set to false (this is to force an animation update)
-
 ### Issues with followers's `tempfollowerid`
-An entity's `tempfollowerid` field is intended to express the index of the follower in the map's `tempfollowers` array. It tracked purely for EntityControl to perform anti z fighting measures during the [Follow logic](../Entities/EntityControl/Notable%20methods/Follow.md) when the `player` is `flying`.
+An entity's `tempfollowerid` field is intended to express the index of the follower in the map's `tempfollowers` array. It is tracked purely for EntityControl to perform anti z fighting measures during the [Follow logic](../Entities/EntityControl/Notable%20methods/Follow.md) when the `player` is `flying`.
 
-The problem is this isn't always assigned correctly because MainManager.AddFollower doesn't do this so it relies on the caller to do it and not all callers do it correctly. In the case of the `TestRoom` map, it's not assigned at all so z figthing can happen when the `player` is `flying` still.
+The problem is this isn't always assigned correctly because AddFollower doesn't do this so it relies on the caller to do it and not all callers do it correctly. In the case of the `TestRoom` map, it's not assigned at all so z figthing can happen when the `player` is `flying` still.
 
 More confusingly however is the normal case of adding followers other than `chompy`: in this case, MapControl incorrectly sets the follower's `tempfollowerid` to the index of the matching animid found in `canfollowID`. The problem is `canfollowID`'s order isn't guaranteed by this point to give matching indexes because an unknown amount of followers might not have existed in instance.`extrafollowers`. What this means is that it's possible that 2 followers ends up with the same `tempfollowerid` which would cause them to z fight when the `player` is `flying`. Whether or not this can happen depends very specifically on the order of `canfollowID` as specified in the map's prefab (after [AreaSpecific](Init%20methods/AreaSpecific.md) modified it if needed) and which specific animids are present in instance.`extrafollowers`.
 
@@ -86,6 +45,16 @@ There's another different issue the follower system has, but it's more a design 
 This is because AddFollower ALWAYS append the follower to the end of `tempfollower` and it always becomes the last entity in the follow chain. This isn't consistent with how MapControl builds this chain on `latestart`: it adds the requested ones in the order they appear in `canfollowID` and then adds `chompy` if needed.
 
 It means for example that a follower could be following `chompy` when added after the map's `latestart` (which is frequently the case in events), but when loading a map right next to the current one, the follower won't be following `chompy` and rather, `chompy` will be the last follower. This inconsistency can be unexpected and since it's not possible to tell where the follower should be inserted in the chain, it can always happen when calling AddFollower after the map's `latestart`.
+
+### `chompy` following
+`chompy` is a special kind of follower because it's not part of the main player party, but a regular `tempfollowers` that simply keeps reappearing on each map load. This is acomplished by logic in the first LateUpdate (known as `latestart`) that happens right after the main followers logic described above happens.
+
+It only happens if [flag](../Flags%20arrays/flags.md) 402 is true (Chompy is with Team Snakemouth) and the `player` isn't in a `submarine`. If these conditions are met, the following happens:
+
+- AddFollower is called without a caller and with 169 (`ChompyChan`) as id
+- The map's `chompy` is set to the follower entity just added
+- `chompy`'s `tempfollowerid` is set to the matching index of `tempfollowers`
+- `chompy`'s `onground` is set to false (this is to force an animation update)
 
 ## Configuring the entity's [follow logic](../Entities/EntityControl/Notable%20methods/Follow.md)
 There are 2 ways MapControl can configure the actual follow logic entities have: `followerylimit` and `closemove`.
