@@ -23,3 +23,9 @@ Here are the components that defines a language:
 * Several logic changes in [SetText](SetText.md) and UI rendering (this is checked using the languageid directly) such as [OrganiseLines](Related%20Systems/Automatic%20Line%20Breaks/OrganiseLines.md)
 
 The languageid is saved in the config file and the game will prompt for one if it isn't set, but it defaults to English on first boot. It can only be changed using the language selection screen which has its own [listtype](../ItemList/listtype.md) called [Languages list Type](../ItemList/List%20Types%20Group%20Details/Languages%20list%20Type.md).
+
+There is a method that specifically returns true of `languageid` is 3 (Japanese) and it's called AsianLang:
+
+```cs
+public static bool AsianLang()
+```

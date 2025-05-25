@@ -4,15 +4,31 @@ This page lists the procedure of [OrganiseLines](OrganiseLines.md) in other [lan
 
 ## Replace functions
 
-The input string is set to the return of ReplaceFunctions. This is where there is some look ahead and preprocessing of the string, but only [sstring](../../Individual%20commands/Sstring.md) and [menu](../../Individual%20commands/Menu.md) are supported. Check the documentation of either commands to learn more.
+The input string is set to the return of ReplaceFunctions. This is where there is some look ahead and preprocessing of the string, but only [sstring](../../Individual%20commands/Sstring.md) and [menu](../../Individual%20commands/Menu.md) are supported. Check the documentation of either commands to learn more. Here's the method signature:
+
+```cs
+private static string ReplaceFunctions(string text)
+```
 
 ## Char Loop
 
-This is the heart of the auto line breaker. For each char in the input string:
+This is the heart of the auto line breaker. It involves a method that checks if a line command applies: ContainsLine.
+
+```cs
+private static bool ContainsLine(string command)
+```
+A part of OrganizeLines that determines if `command` is a SetText command whose name contains `line` and that its condition to cause a line break are satisfied. The only 2 line commands where it might not apply are the following:
+
+- [shopline](../../Individual%20commands/Shopline.md): Doesn't apply if `player`.`npc[0]`.`interacttype` isn't Shop
+- [unpauseline](../../Individual%20commands/Unpauseline.md): Doesn't apply if the game is in a `pausemenu`
+
+The method doesn't support any other line commands which are expected to be handled in OrganizeLines.
+
+For each char in the input string:
 
 * Pseudo switch on the char (skip every LF):
     * `|`:
-        * For [next](../../Individual%20commands/Next.md), [blank](../../Individual%20commands/Blank.md) or any commands with `line` in it (except if paused with [unpauseline](../../Individual%20commands/Unpauseline.md) and when a Shopkeeper isn't in the interact range of the player for a [shopline](../../Individual%20commands/Shopline.md)):
+        * For [next](../../Individual%20commands/Next.md), [blank](../../Individual%20commands/Blank.md) or any commands where ContainsLine returns true:
             * Act as if a ` ` was processed, but without adding a space width to the line accumulator.
         * For [button](../../Individual%20commands/Button.md):
             * Add 0.7 to the line accumulator. Add another 0.7 if the keyboard input text is not empty and it doesn't have `Arrow`. Reset the word accumulator to 0.

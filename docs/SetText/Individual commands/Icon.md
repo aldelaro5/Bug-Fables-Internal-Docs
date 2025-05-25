@@ -40,7 +40,16 @@ The sortingOrder value to use when rendering the sprite. This must be a valid in
 
 This first creates the sprite childed to the [textholder](../Notable%20states.md#textholder) named after `spriteindex` prepanded with `icon` at the current offset/line with the resolved size and sort. The local position is adjusted so sprite.pivot / (sprite.pixelsPerUnit * 2.0) is added to it (see issue section below, this isn't correct). If the sprite is index 24 (the hp icon), (-0.1, -0.25) is added to the local position too.
 
-The tag of the sprite is set to `Letter` and it is added to the same list than the one [button](Button.md) uses. The current offset/line are then adjusted to be after the icon. Then, the font effects are set so [glitchy](Glitchy.md) and [fadein](FadeIn.md) are forced to be disabled. The rotation effect is enabled if the sprite is index 146 (the Mothfly speaking scribble) on top of that.
+The tag of the sprite is set to `Letter` and it is added to the same list than the one [button](Button.md) uses. The current offset gets increased by the sprite's bounds.size.x. From there, if the linebreak SetText parameter isn't null, both the currentoffset and currentline gets adjusted via a method called BreakLine:
+
+```cs
+private static void BreakLine(ref float x, ref float y, float max, Vector2 size)
+```
+`x` is currentoffset, `y` is currentline, `max` is the linebreak SetText parameter and `size` is the size parameter of SetText.
+
+If `x` is at least `max`, `x` is set to 0.0 and `y` is decreased by 0.7 * `size`.y. The method does nothing if `x` isn't at least `max`.
+
+Then, the font effects are set so [glitchy](Glitchy.md) and [fadein](FadeIn.md) are forced to be disabled. The rotation effect is enabled if the sprite is index 146 (the Mothfly speaking scribble) on top of that.
 
 If in [Dialogue mode](../Dialogue%20mode.md), the [tailtarget](../Notable%20states.md#tailtarget) is set to be talking at the end followed by a bleep play and a yield of the current [speed](Speed.md) if that speed is higher than 0 and there is no [Text advance](../Related%20Systems/Text%20advance.md)'s `skiptext`.
 

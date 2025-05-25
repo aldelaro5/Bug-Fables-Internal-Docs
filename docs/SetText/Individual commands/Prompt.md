@@ -71,6 +71,26 @@ This command requires to be in [Dialogue mode](../Dialogue%20mode.md) or SetText
 
 For the `xminsize` part of `xminsizeyoffset`, the horizontal length of the prompt is calculated by taking the longest among the `prompttexts` text. If that length is smaller than the `xminsize`, the `xminsize` will be the horizontal length of the prompt. Otherwise, the calculated length takes precedence.
 
+There is a method to returns a valid prompt command in syntax (3) made for prompting a yes/no option. The method is called PromptYesNo:
+
+```cs
+public static string PromptYesNo()
+public static string PromptYesNo(int yes, int no)
+```
+Returns a SetText prompt command string to present a yes/no prompt. The string returned is the following parts concatenated together:
+
+- `|prompt,map,0.5,2,`
+- The value `yes`
+- `,`
+- The value `no`
+- `,@`
+- `menutext[5]` (yes text)
+- `,@`
+- `menutext[6]` (no text)
+- `|`
+
+The parameterless overload is UNUSED, but remains functional and has both `yes` and `no` default to -11 (it's expected to contain `|boxstyle,-1||end|`).
+
 ### Prompt handling
 
 While this command manages the creation and setup of the prompt, its handling is left to be handled in MainManager's Update. There are several MainManager instance fields in this command to make this possible:
@@ -107,3 +127,4 @@ Once the prompt handling is complete, MainManager.Update will set [Text advance]
 When SetText is done yielding, the prompt will be handled immediately after in [Prompt handling](../Life%20Cycle.md#prompt-handling). To note, [flagvar](../../Flags%20arrays/flagvar.md) 0 being -555 is supposed to be false because this is the way the game can know it was a [letterprompt](LetterPrompt.md), but its value isn't written by this command. This may cause the [textbox](../Notable%20states.md#textbox) to unhide itself if a [letterprompt](LetterPrompt.md) was processed before.
 
 After, processing continues as normal with a fresh input string once [Dialogue post-processing](../Life%20Cycle.md#dialogue-post-processing) is completed for this iteration of the char loop.
+

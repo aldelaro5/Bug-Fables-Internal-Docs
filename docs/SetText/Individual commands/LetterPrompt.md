@@ -30,7 +30,12 @@ The maximum amount of letters allowed to be entered. This must be a valid int or
 
 This command requires to be in [Dialogue mode](../Dialogue%20mode.md) or SetText will not wait for the prompt to finish and resume processing as normal which can cause undefined behaviors.
 
-Before creating the letter prompt, this command will first assign [flagstring](../../Flags%20arrays/flagstring.md) 2 to this command's text, assign [flagvar](../../Flags%20arrays/flagvar.md) 5 to -1 and hide the current textbox with a shrink animation. Only then is the letter prompt created.
+Before creating the letter prompt, this command will first assign [flagstring](../../Flags%20arrays/flagstring.md) 2 to this command's text, assign [flagvar](../../Flags%20arrays/flagvar.md) 5 to -1 and hide the current textbox with a shrink animation. Only then is the letter prompt created via a method called CreateLetterPrompt:
+
+```cs
+private static void CreateLetterPrompt(int id, Color color)
+```
+The `id` parameter is detailed in a section below. `color` is the color of the sprite of the textbox.
 
 The handling of the letter prompt is done by MainManager's Update which restricts the inputs available to the 4 directions (to move the selected option), confirm, cancel (to erase the last character) and pause (to set the selected option to the confirm one). This is where the `maxlength` constraint is checked: if a letter is entered when the length of the current number text is the max, it will prevent the action. After the letter prompt is confirmed, the `flagstring` [flagstring](../../Flags%20arrays/flagstring.md) slot will have the value of the final result upon the confirmation.
 
@@ -49,7 +54,12 @@ A letter prompt is a complex system that acts as a superset of [numberprompt](Nu
 |4|Korean's Hangul alphabet split into 3 sections with its own logic|
 |5|Some uncommon symbols such as music note and spade|
 
-The current id can be cycled through using the Switch button and once done, it needs to recreate the whole prompt in a similar fashion than the first refresh which is the creation of the whole prompt. The Korean prompt is special as it has its own refreshing logic which is detailed in a section below.
+The current id can be cycled through using the Switch button and once done, it needs to recreate the whole prompt in a similar fashion than the first refresh which is the creation of the whole prompt (meaning it calls CreateLetterPrompt again). The Korean prompt is special as it has its own refreshing logic which is detailed in a section below. The method that does the change is called ChangeLetterPrompt:
+
+```cs
+private void ChangeLetterPrompt(int specific = -1)
+```
+Changes to a specific `letterprompt` with id `specific` or cycle to the next one available if `specific` is -1 followed by calling CreateLetterPrompt(`letterprompt`, `promptbox`'s SpriteRenderer's color). Under normal gameplay, `specific` is always -1.
 
 The actual option index works very differently than typical prompts because while it is contiguous, the navigation involves rows and columns. The first row's length is considered to be the length of every row and it is calculated as the prompt is generated on refresh which allows to determine what option should be selected when using the directional inputs. A prompt's data file is located at `Assets/Ressources/Data` and has the name `LetterPromptX` where `X` is the id. The file contains all the letters the prompt offers where each row is delimited by LF. It may contain spaces, but those spaces won't be selectable: they are only used for visual separations. Since this wouldn't allow to enter a space, a special option is appended after the Erase one for inputting an actual space.
 
@@ -153,7 +163,12 @@ After the first refresh is done, a refresh will only get done after a letter is 
 
 ### About the Korean letter prompt (id 4)
 
-The Korean prompt has special logic related to it. There are 3 sections of different parts of a full letter and one option of each section in order must be confirmed before the full letter is appended at the end of the current text. To accomplish this, there are special fields for this mainly [flagvar](../../Flags%20arrays/flagvar.md) 6 corresponds to the current section starting from 0, `KoreanHL` corresponds to the 2 parts selected in the first 2 sections and a hardcoded array of the mappings of each sections's options called `koreanLimit` (which starts at 3 instead of 0). This letter prompt also has its own refresh handling to render it correctly throughout the selection.
+The Korean prompt has special logic related to it. There are 3 sections of different parts of a full letter and one option of each section in order must be confirmed before the full letter is appended at the end of the current text. To accomplish this, there are special fields for this mainly [flagvar](../../Flags%20arrays/flagvar.md) 6 corresponds to the current section starting from 0, `KoreanHL` corresponds to the 2 parts selected in the first 2 sections and a hardcoded array of the mappings of each sections's options called `koreanLimit` (which starts at 3 instead of 0). This letter prompt also has its own refresh handling to render it correctly throughout the selection called UpdateKoreanPrompt:
+
+```cs
+private void UpdateKoreanPrompt(int type)
+```
+`type` is the current section (from 0 to 2).
 
 Just before the first prompt refresh mentioned above, the Korean one happens if we are using it. This will check each letter in the prompt:
 
@@ -162,6 +177,13 @@ Just before the first prompt refresh mentioned above, the Korean one happens if 
 * If it's a further section than the current one or the letter is in a past section, but isn't the selected one, it is rendered with a pure black color with half transparency
 
 This refresh is then done every time the prompt refreshes if the prompt is the Korean one during the handling.
+
+To obrain the full character composed by all the sections's selection, the method used is GetKoreanChar:
+
+```cs
+private static char GetKoreanChar(int[] ids)
+```
+Returns the Korean characters obtained by composing all three segments of its id that are contained in `ids`. This is further detailed in a section below.
 
 ### Letter prompt handling
 

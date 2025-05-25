@@ -192,11 +192,16 @@ Special cleanup logic if the player isn't null and we aren't in an event:
 - Apply an `actioncooldown` of 20 frames
 - Stops ignoring every collisions between the player's ccol and each entities that were ignored using any [igcolmove](Individual%20commands/Igcolmove.md) commands.
 
-The last step of this phase is If we are not in an event and battle is null, call `EndOfMessage` which does some final logic:
+The last step of this phase is If we are not in an event and battle is null, a method named EndOfMessage is called:
+
+```cs
+public static void EndOfMessage()
+```
+A method that performs many checks and procedures to be done at the end of any SetText call in dialogue mode when not `inevent` and not in a `battle`. Here's what the method does:
 
 * if [flag](../Flags%20arrays/flags.md) 347 (start of ch6) is true, sets the corresponding badgeshop's all bought flags to true (from 587 to 588) if the corresponding shop has 0 medals in stock. NOTE: 589 corresponds to an unused medal shop.
-* If [flag](../Flags%20arrays/flags.md) 470 (Examined the view of Termite Capitol for the first time at the Forsaken Lands) is true and the Termite Kingdom discovery isn't unlocked, unlock it (TODO: recheck this and determine why?)
-* if [flag](../Flags%20arrays/flags.md) 351 (Talked to the person in front of the Termacade for the first time) is true and the Termacade  discovery isn't unlocked, unlock it. TODO: recheck this
+* If [flag](../Flags%20arrays/flags.md) 470 (Examined the view of Termite Capitol for the first time at the Forsaken Lands) is true and the Termite Kingdom discovery isn't unlocked, unlock it.
+* if [flag](../Flags%20arrays/flags.md) 351 (Talked to the person in front of the Termacade for the first time) is true and the Termacade  discovery isn't unlocked, unlock it.
 * if [flag](../Flags%20arrays/flags.md) 605 (Completed the Lost Books quest) is true and the Lost Book quests isn't in the completed array of [boardQuests](../Enums%20and%20IDs/BoardQuests.md), complete it.
 * if the map isn't null, sets map.`currentline` to -1
 * Check the achievements completion.

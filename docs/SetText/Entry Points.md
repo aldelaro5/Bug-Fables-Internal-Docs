@@ -103,3 +103,40 @@ SetText(text, 0, ll, dialogue, false, position, Vector3.zero, Vector2.one, paren
 Then yields for a frame.
 
 (4): Does essentially all the work of the text processing. This is the main SetText coroutine.
+
+## Helper methods
+There are also other methods that calls SetText in specific ways, but aren't named SetText. Here they are.
+
+
+```cs
+public static void SystemText(string text, Transform parent, Vector3 pos)
+```
+Calls SetText with the following parameters:
+
+- text: `text`
+- fonttype: 0
+- linebreak: null
+- dialogue: false
+- tridimensional: false
+- position: `pos`
+- cameraoffset: Vector3.zero
+- size: Vector3.one
+- parent: `parent`
+- caller: null
+
+```cs
+public static void DialogueText(string text, Transform tailtarget, NPCControl caller)
+```
+Calls SetText with the following parameters:
+
+- text: `text`
+- fonttype: 0
+- linebreak: `messagebreak`
+- dialogue: true
+- tridimensional: false
+- position: Vector3.zero
+- cameraoffset: Vector3.zero
+- size: Vector3.one
+- parent: `tailtarget`
+- caller: `caller`
+
