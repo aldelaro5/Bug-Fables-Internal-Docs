@@ -1,7 +1,9 @@
 # Music playback
 This game offers many ways to configure how and what background music to play. A background music is meant to be an AudioClip with loop points defined.
 
-All music playback goes through a single audio source which is stored in MainManager.`music`. This means only one music can play at a given time and it has to go through this AudioSource because the game manages the music system using it. It differ from a sound which is meant to be played once and there might be multiple of them.
+All music playback goes through a single audio source which is stored in MainManager.`music[0]`. This means only one music can play at a given time and it has to go through this AudioSource because the game manages the music system using it. It differ from a sound which is meant to be played once and there might be multiple of them.
+
+They are different than sounds because sounds have 15 pooled AudioSources available to them and they are meant to play short AudioClips in burst as needed. Check the sounds documentation to learn more.
 
 This page talks about the music system in general, but a part of this system is managed by [MapControl's map music system](../MapControl/Map%20music.md). Check the documentation there to learn more about MapControl's influence on the music system.
 
