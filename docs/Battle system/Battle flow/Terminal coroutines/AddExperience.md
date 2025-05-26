@@ -69,11 +69,7 @@ This sub section concerns the counting of the EXP gained and the management of i
 - A new GetSkip coroutine is started and stored localled which will yield all frames until input 4 (Confirm) is pressed which wil cause instance.`skiptext` to be set to true
 - The EXP orbs are counted starting with `bigexporbs` then moving to `smallexporbs` that exists (there is a frame yield between the 2 types's counting). A big one will have 1 EXP counted 10 times while a small one will only have it counted once. This is how the counting happens each time:
     - The orb gets destroyed
-    - AddExp(1) is called which does the following:
-        - Incrementes instance.`partyexp` by 1
-        - An `Exp2` sound is played on `sounds[4]`, `sounds[5]`,`sounds[6]` or `sounds[7]` (the first one that isn't playing with `sounds[7]` being the falback) with a pitch being 1.5 + a random number between -0.1 and 0.1 inclusive
-        - If instance.`partyexp` reached instance.`neededexp` (meaning this is a rank up), instance.`partyexp` is decreased by `neededexp` and the rank up is signaled by returning true
-        - Otherwise, no rank up occured so false is returned
+    - AddExp(1) is called to add the exp (more details below)
     - If the AddExp call resulted in a rank up, Leveled is called which sets `leveled` to true, but if it wasn't true before, a SpinAround component added to `lvicon` with its `itself` set to (0.0, 20.0, 0.0) followed by a `Lazer` sound being played at 1.2 pitch
     - The DynamicFont of the EXP's text is refreshed using the new instance.`partyexp`
     - If instance.`skiptext` is still false, a yield is done. The time of the yield is 0.075 seconds unless `expreward` was at least 10 where it will be 0.045 seconds instead
@@ -84,6 +80,16 @@ This sub section concerns the counting of the EXP gained and the management of i
 - For a maximum of 50.0 frames (tracked with a local counter starting at 0.0 and incremented by 1/50 of the game's frametime until it reaches 1.0), all frames are yielded until any input is pressed which interupts this wait early
 - If the `BattleWon` sound was played earlier, all frames are yielded while it's still playing and hasn't reached 2.35 seconds
 - A second is yielded if no `BattleWon` sound was played
+
+### AddExp
+The method mentioned above called AddExp belongs to MainManager and it adds the exploration points and determines if a rank up happened as a result:
+
+```cs
+public static bool AddExp(int ammount)
+```
+Increases `partyexp` by `ammount`. If this resulted in a rank up, true is returned, false otherwise. A rank up is detected if after the increase, `partyexp` becomes at least `neededexp`. When that happens, `partyexp` is decreased by `neededexp`.
+
+Before returning, a PlaySound call happens to play the the `Exp2` sound with a volume of 1.0 and a pitch of 1.5 + a random number between -0.1 and 0.1. The `sounds` element to use is the first among `sounds[4]`, `sounds[5]`, `sounds[6]` and `sounds[7]` in that order that isn't playing (always falsback to `sounds[7]` even if it is playing).
 
 ## Text UI teardown
 

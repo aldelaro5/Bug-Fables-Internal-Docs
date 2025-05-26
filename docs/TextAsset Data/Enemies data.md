@@ -70,8 +70,13 @@ The data will be loaded by into `enemydata[id, x]`, where `id` is the [enemy](..
 While the data loading happens in `LoadEssentials`, the actual parsing and usage of it is done by another method called `GetEnemyData`. It receives an [enemy](../Enums%20and%20IDs/Enemies.md) to obtain the data, a bool called createentity that tells whether or not the `battleentity` should be created too and a bool called noexp that disallows any positive numbers to be set to `exp`. This returns a `BattleData` containing all the informations of the enemy. 
 
 ```cs
+public static BattleData GetEnemyData(int id)
+public static BattleData GetEnemyData(int id, bool createentity)
 public static BattleData GetEnemyData(int id, bool createentity, bool noexp)
 ```
+The overload without a `noexp` parameter will have its value default to false.
+
+The overload with just the `id` parameter is UNUSED, but remains functional and the `createentity` parameter will default to to false.
 
 All `battleentity` fields are loaded only when the createentity parameter is true. When that happens, `battleentity` will be created via [CreateNewEntity](../Entities/EntityControl/EntityControl%20Methods.md#createnewentity) with name `enemyX` where X is the enemy id with dummy animid and position (animid 0 which is `Bee` and position (0.0, -10.0, 0.0)) as those can be overriden later.
 
@@ -134,7 +139,24 @@ The `exp` field has particularily complex logic to determine its value:
 - If the `fixedexp` field is true, then the amount is always the raw one coming from `enemydata` with no modifications to it
 - If none of the cases above applied, the result is the return of MainManager.GetEXP with the `exp` field from `enemydata`, the instance.`partylevel` and the enemy id (the base id if it's a variant)
 
-The return of MainManager.GetEXP implies even more logic where the base `exp` field can be changed. Here is the process used to calculate the final value:
+The return of MainManager.GetEXP implies even more logic where the base `exp` field can be changed. Here's the method signature:
+
+```cs
+public static int GetEXP(int input)
+public static int GetEXP(int input, int level)
+public static int GetEXP(int input, Enemies enemy)
+public static int GetEXP(int input, int lv, Enemies? enemy)
+```
+Calculates and returns the scaled EXP that `enemy` would give when the player is at rank `lv` and the unscaled EXP value is `input`. Check the GetEXP documentation for the details on how this method calculates the scaled EXP. The enemy scaling part doesn't apply if `enemy` is null, but this never happens under normal gameplay.
+
+The default `lv` value for the third overload is `partylevel`.
+
+The first 2 overloads are UNUSED, but remains functional and works like this:
+
+- First overload: `lv` is `partylevel` and `enemy` is null
+- Second overload: `lv` is `level` and `enemy` is null
+
+Here is the process used to calculate the final value:
 
 1. The base EXP amount is determined. It's the same than the sent exp value unless the enemy is a `WaspTrooper` or `WaspHealer` which can increase this value:
     - If the current [map](../Enums%20and%20IDs/Maps.md) is `MetalLake` or the [area](../Enums%20and%20IDs/librarystuff/Areas.md) is `WaspKingdom`, the value is multiplied by 1.65 and then ceiled
