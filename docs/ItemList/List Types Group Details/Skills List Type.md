@@ -48,7 +48,28 @@ GetTPCost is a method only used for this listtype that will obtain the effective
 public static int GetTPCost(int player, int id)
 public static int GetTPCost(int player, int id, bool matchid)
 ```
-TODO: document this
+It returns the cost in HP (if it's negative) or TP (if it's not negative) of the skill of `playerdata[player].skills[id]` after processing medals that can change skills cost. The `matchid` parameter should always be false because sending a value of true is considered broken and the game never does that under normal gameplay (it will result in `id` being converted to the matching skill id in the skills list and then incorrectly used to address the skills list itself resulting in an exception being thrown or the wrong skill being addressed).
+
+The overload without the `matchid` parameter has its value default to false.
+
+Here's the exact calculation procedure:
+
+- The skill id is obtained from `playerdata[player].skills[id]`
+- Obtains the cost from the [skillsdata](../../TextAsset%20Data/Skills%20data.md) and get its absolute value (it's the cost in HP or TP as a positive number)
+- If the `Beemerang2` [medal](../../Enums%20and%20IDs/Medal.md) is equipped and the skill id is one of the following, the cost increases by 1:
+    - `NeedleToss`
+    - `BeeRangMultiHit`
+    - `HurricaneBeemerang`
+    - `NeedlePincer`
+- If the `HPFunnel` [medal](../../Enums%20and%20IDs/Medal.md) is equipped and the skill id is one of the following, the cost increases by the amount of `HPFunnel` equipped on `playerdata[player].trueid` (this is done to cancel out the cost decrease later in the method for these 2 skills):
+    - `SecretStash`
+    - `SharingStash`
+- At this point, if the cost is 0, it is immediately returned so the skill costs no TP
+- The amount of `TPSaver` [medal](../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[player].trueid` is removed from the cost
+- The amount of `HPFunnel` [medal](../../Enums%20and%20IDs/Medal.md) equipped on `playerdata[player].trueid` is removed from the cost
+- The cost is clamped from 1 to 99
+- If the number obtained from the `skilldata` earlier indicated an HP cost, the cost is negated so it returns in the same format (negative is HP cost, anything else is a TP cost)
+- The final cost is returned
 
 ### HasSkillCost
 HasSkillCost is a method only used for this listtype that will check if the player party member can pay the resources the skill demands:
