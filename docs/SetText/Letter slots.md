@@ -7,6 +7,8 @@ What a letter slot represents depends on the rendering system. In [regular lette
 
 Since 500 characters isn't a whole lot and it would be easy to run out of letter slots, SetText makes sure to periodically free the letter slots it no longer needs to render. Doing this allows to use the same letter slots that were used previously after they were freed. So effectively, the 500 limit only applies for a single moment: there cannot be more than 500 letter slots rendered on screen at the same time, but reusing letter slots that were freed is fine.
 
+> NOTE: Although there are 500 slots available, the first one is always going to be used by the game at all time from boot due to FontSet, more details in a section below.
+
 ## Allocating a letter slot
 Allocating a letter slot involves the method NewLetter:
 
@@ -145,6 +147,18 @@ Even more useful for [OrganizeLines](Related%20Systems/Automatic%20Line%20Breaks
 public static float GetTextLenght(string text, int fontid)
 ```
 It returns the sum of all GetLetterOffset values of each char in `text` using a fontid of `fontid` and a size of 1.0. Each ` ` in `text` is counted as 0.3 without calling GetLetterOffset.
+
+## FontSet
+On LoadEverything, there is a method that gets called towards its end that has an impact on letter slots allocation: FontSet.
+
+```cs
+private void FontSet()
+```
+This method calls SetText in [non dialogue mode](Dialogue%20mode.md#non-dialogue-mode) in such a way that all letters contained in each fonts and whose characters are in any `letterPromptHelp` will be rendered under the game's normal viewport. This is a caching optimisation to force Unity to preload most letters and fonts materials used for future text rendering which avoids the possibility of stutters when loading any of these assets.
+
+The SetText call is done with a position of (0.0, 0.0, -1.0), parent of `MainCamera` and a string of `|`[single](Individual%20commands/Single.md)`|` followed by a list of font commands with all valid indexes each being superceded with every letters of every `letterPromptHelp`.
+
+Because this is done on boot with no explicit destruction later by the game, it remains reserved. It effectively means that while there are 500 letter slots available, only 499 are usable by the game under normal gameplay at all time.
 
 ## TempLetter
 There's an UNUSED (and broken) coroutine related to letter slots: TempLetter.

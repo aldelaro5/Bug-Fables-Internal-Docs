@@ -7,7 +7,11 @@ Entity data are split into 2 TextAssets in the game loaded on boot:
 
 ## [animid](../Enums%20and%20IDs/AnimIDs.md) data
 
-The TextAsset `Resources/data/EntityValues` from the root of the asset tree contains data that apply to every entities of a given [AnimID](../Enums%20and%20IDs/AnimIDs.md). Each line id of the data corresponds to the matching [AnimID](../Enums%20and%20IDs/AnimIDs.md). The data is loaded on boot during LoadEssentials in the `endata` static field of MainManager. The field is an array of struct of type `Entity_Data`.
+The TextAsset `Resources/data/EntityValues` from the root of the asset tree contains data that apply to every entities of a given [AnimID](../Enums%20and%20IDs/AnimIDs.md). Each line id of the data corresponds to the matching [AnimID](../Enums%20and%20IDs/AnimIDs.md). The data is loaded on boot during LoadEssentials in the `endata` static field of MainManager. The field is an array of struct of type `Entity_Data`. Specifically, it's done by a method called by LoadEssentials: LoadEntityData:
+
+```cs
+public static Entity_Data[] LoadEntityData()
+```
 
 NOTE: This asset uses the enum form of the [AnimIDs](../Enums%20and%20IDs/AnimIDs.md), NOT the int form which means the first line represents `None`.
 
