@@ -157,7 +157,7 @@ public void RefreshPlayer(bool onlycollider = false)
 Reset various physical related state to the `player` and `playerdata`:
 
 - `player`.`ceiling` is set to false
-- If `onlycollider` is false, every `playerdata` whose `entity`.`noclock` is false gets their entity rooted to the scene and their `entity`.`onground` set to false
+- If `onlycollider` is false, every `playerdata` whose `entity`.`noclock` is false gets their entity rooted to the scene and their `entity`.`onground` set to false. NOTE: This strangely causes any player entities to be off the ground even if their ground detector disagrees so the overall effect is they are incorrectly marked as in the air for the frame this method is called frame.
 - If the game isn't in a `battle` and not `inevent`, ForceHitWall is called on `player`.`entity`
 
 ```cs
