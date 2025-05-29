@@ -5,7 +5,7 @@ There are 3 boards that a quest can be in:
 
 - 0: Open quests which haven't been started, but could be if they get moved to taken. They will in the overall quests listtype so they only appear in the open quests listtype which only appears as part of a QuestBoard NPC interaction
 - 1: Taken quests which are started, but unfinished quests. They will in the overall quests listtype
-- 2: Completed quests which are finished quests that also appears in the overall quests listtype. A quest in this board normally stays there indefinetely.
+- 2: Completed quests which are finished quests that also appears in the overall quests listtype. A quest in this board normally stays there indefinetely and [LateUpdate](../MainManager/LateUpdate.md) will make sure that any quests in this board won't appear in the open and taken boards
 
 This system implies that all quests aren't visible by default because they must be added to the open board or taken board for them to be visible. This is typically done by the game as the player progresses through various events.
 
