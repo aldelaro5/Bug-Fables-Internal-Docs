@@ -1,5 +1,5 @@
 # Achvievements
-Achievements are essentially what are backed by Logbook `librarystuff` entries. They have hardcoded requirements that when met, will unlock the matching logbook entry as well as perform the platform specific steps to unlock the achievement on the appropriate platform (Steam, GOG or console platforms).
+Achievements are essentially what are backed by [Logbook](../Enums%20and%20IDs/librarystuff/Records%20entry.md) `librarystuff` entries. They have hardcoded requirements that when met, will unlock the matching logbook entry as well as perform the platform specific steps to unlock the achievement on the appropriate platform (Steam, GOG or console platforms).
 
 ## CheckAchievement
 This method is what will perform the checks to see if Logbook entries conditions have been met and unlock them if that is the case. It has the following signature:
