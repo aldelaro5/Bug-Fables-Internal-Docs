@@ -97,6 +97,7 @@ This page documents every fields on MainManager, except the ones that are unused
 |linebr|float|Yes|Yes|The last observed value of linebreak during a SetText call in dialogue mode updated at the start of the char loop. This is used for the backtracking system to use as the maxoffset parameter to OrganiseLines when adding the current textbox to `diagstring`|
 |fontdsize|float|Yes|Yes|The last observed value of size during a SetText call in dialogue mode updated at the start of the char loop. This is used for the backtracking system to use as the size parameter to OrganiseLines when adding the current textbox to `diagstring`|
 |fontdtype|int|Yes|Yes|The last observed value of fonttype during a SetText call in dialogue mode updated at the start of the char loop. This is used for the backtracking system to use as the fontid parameter to OrganiseLines when adding the current textbox to `diagstring`|
+|textboxsprites|Sprite[]|Yes|Yes|Set to the return of the `Sprites/GUI/textbox` resource on [LoadEssentials](Boot%20and%20reset%20process.md#loadessentials). This isn't used, but is kept in a cached referenced for faster loading later|
 
 ## [Prompt](../SetText/Individual%20commands/Prompt.md), [numberprompt](../SetText/Individual%20commands/NumberPrompt.md) and [letterprompt](../SetText/Individual%20commands/LetterPrompt.md)
 
@@ -234,7 +235,6 @@ TODO: document these after InputIO docs
 |inputcooldown|float|No|No|The amount of frames that must ellapse before any ItemList, PauseMenu and SetText related inputs (including prompt, numberprompt or letterprompt) inputs are processed again. Maintained by LateUpdate|
 |preconfigjoy|int[]|Yes|No|TODO: only the length is used in PauseMenu and related to PauseMenu's joystickid ??? The value is hardcoded to {0, 1, 2, 3, 4, 5, 6, 7, 8}|
 |precjoystring|int[]|Yes|No|The `menutext` indexes of all the pre configured controller's names in the settings ordered by TODO: ??? The value is hardcoded to {225, 226, 227, 232, 233, 228, 229, 242, 269}|
-
 
 ## Library
 
