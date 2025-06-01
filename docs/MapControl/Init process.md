@@ -8,7 +8,7 @@ The init process involves 2 phases:
 Here is what Start does:
 
 - Reset ScrewPlatform.`camischanging` to false so the camera won't be fixed somewhere else as the map initialises
-- MainManager.FixSamira called. For more information, consult the [samira section](../General%20systems/Music%20playback.md#checksamira) section of the music playback system
+- MainManager.FixSamira called. For more information, consult the [samira section](../General%20systems/Music%20playback.md#samira) section of the music playback system
 - Reset the DeadLanderOmega state (`state` to 0, `detected` to false, `activeid` to -1 and `hand` to null)
 - If the skybox is present and we are not in an inside, the skybox's shader `_Tint` is set to pure gray
 
