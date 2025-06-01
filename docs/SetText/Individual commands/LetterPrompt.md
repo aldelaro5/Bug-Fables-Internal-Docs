@@ -37,7 +37,7 @@ private static void CreateLetterPrompt(int id, Color color)
 ```
 The `id` parameter is detailed in a section below. `color` is the color of the sprite of the textbox.
 
-The handling of the letter prompt is done by MainManager's Update which restricts the inputs available to the 4 directions (to move the selected option), confirm, cancel (to erase the last character) and pause (to set the selected option to the confirm one). This is where the `maxlength` constraint is checked: if a letter is entered when the length of the current number text is the max, it will prevent the action. After the letter prompt is confirmed, the `flagstring` [flagstring](../../Flags%20arrays/flagstring.md) slot will have the value of the final result upon the confirmation.
+The handling of the letter prompt is done by MainManager's [Update](../../MainManager/Update%20and%20FixedUpdate.md) which restricts the inputs available to the 4 directions (to move the selected option), confirm, cancel (to erase the last character) and pause (to set the selected option to the confirm one). This is where the `maxlength` constraint is checked: if a letter is entered when the length of the current number text is the max, it will prevent the action. After the letter prompt is confirmed, the `flagstring` [flagstring](../../Flags%20arrays/flagstring.md) slot will have the value of the final result upon the confirmation.
 
 Once the outcome is determined, control goes back to SetText inside the [Dialogue post-processing](../Life%20Cycle.md#dialogue-post-processing) where it will redirect the input string to `confirmline`.
 

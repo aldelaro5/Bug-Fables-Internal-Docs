@@ -107,7 +107,6 @@ Then yields for a frame.
 ## Helper methods
 There are also other methods that calls SetText in specific ways, but aren't named SetText. Here they are.
 
-
 ```cs
 public static void SystemText(string text, Transform parent, Vector3 pos)
 ```
@@ -139,4 +138,3 @@ Calls SetText with the following parameters:
 - size: Vector3.one
 - parent: `tailtarget`
 - caller: `caller`
-

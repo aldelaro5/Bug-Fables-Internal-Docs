@@ -1,13 +1,13 @@
 # Quest boards
-The quest board system consists of all the facilities the game needs to interact with quests. At its heart is the `boardquests` 2 dimensional array which contains all BoardQuests ids (second dimension) grouped by the board in which they appear (first dimension).
+The quest board system consists of all the facilities the game needs to interact with [quests](../Enums%20and%20IDs/BoardQuests.md). At its heart is the `boardquests` 2 dimensional array which contains all BoardQuests ids (second dimension) grouped by the board in which they appear (first dimension).
 
 There are 3 boards that a quest can be in:
 
-- 0: Open quests which haven't been started, but could be if they get moved to taken. They will in the overall quests listtype so they only appear in the open quests listtype which only appears as part of a QuestBoard NPC interaction
+- 0: Open quests which haven't been started, but could be if they get moved to taken. They will be in the overall quests [listtype](../ItemList/listtype.md) so they only appear in the open quests listtype which only appears as part of a [QuestBoard](../Entities/NPCControl/Interaction/QuestBoard.md) NPC interaction
 - 1: Taken quests which are started, but unfinished quests. They will in the overall quests listtype
 - 2: Completed quests which are finished quests that also appears in the overall quests listtype. A quest in this board normally stays there indefinetely and [LateUpdate](../MainManager/LateUpdate.md) will make sure that any quests in this board won't appear in the open and taken boards
 
-This system implies that all quests aren't visible by default because they must be added to the open board or taken board for them to be visible. This is typically done by the game as the player progresses through various events.
+This system implies that all quests aren't visible by default because they must be added to the open board or taken board for them to be visible. This is typically done by the game as the player progresses through various [events](../Enums%20and%20IDs/Events.md).
 
 There is a special BoardQuest element being id 0 called the `NoQuest` element. It's a placeholder that should only appear if the board would be empty were it not for this element. This implies that any of subarrays in `boardquests` shouldn't be empty and instead, contain this one element. The system automatically manages the presence or absence of this element. It is only there for UI presentation purposes.
 
@@ -17,7 +17,7 @@ The simplest way to add a BoardQuest to the open board is via the AddQuest metho
 ```cs
 public static void AddQuest(int id)
 ```
-`id` is a BoardQuest id and it's meant to be called on a BoardQuest that isn't in any boards. It's used in the addquest SetText command which means it's possible to add any quests to the open boards via SetText.
+`id` is a BoardQuest id and it's meant to be called on a BoardQuest that isn't in any boards. It's used in the [addquest](../SetText/Individual%20commands/Addquest.md) SetText command which means it's possible to add any quests to the open boards via SetText.
 
 The process of adding a quest to the open board actually involves a different method: ChangeBoardQuest. What AddQuest actually does is it calls ChangeBoardQuest(`id`, 0) which is what does the actual adding:
 
@@ -29,7 +29,7 @@ If `boardquests[type]` doesn't contain the quest id `id`, the following happens:
 
 - 0 (no quest) is removed from `boardquests[type]`
 - `id` is added to `boardquests[type]`
-- If `type` is 0 (open quests) and `id` is above 0 (not a no quest), flag slot 2 is set to false (indicates that new unchecked open quests are available)
+- If `type` is 0 (open quests) and `id` is above 0 (not a no quest), [flag](../Flags%20arrays/flags.md) slot 2 is set to false (indicates that new unchecked open quests are available)
 
 For the overload without a `type` parameter, the value defaults to 0 (open quests).
 
@@ -41,16 +41,16 @@ Several quests in the game automatically manages their requirements before they 
 ```cs
 public static void CheckQuests()
 ```
-It involves a different multidimensional array called `questchecks`. The format of this array is documented in the QuestChecks data documentation, but basically, it contains a list of prerequesite for BoardQuests to be added to the open board. This data comes from a TextAsset which is also documented.
+It involves a different multidimensional array called `questchecks`. The format of this array is documented in the [QuestChecks](../TextAsset%20Data/BoardQuests%20data.md) data documentation, but basically, it contains a list of prerequesite for BoardQuests to be added to the open board. This data comes from a TextAsset which is also documented.
 
 CheckQuests is the method that will enforce these. It will go over every `questchecks` whose quest id doesn't appear in any `boardquests` and whose first requirement isn't 0 (no requirements). If all of the requirements are fufilled, AddQuest is called with the matching BoardQuest id.
 
-The game calls the method on MapControl.Start (which covers every map load) and towards the end of event 3 (cooking).
+The game calls the method on MapControl.[Start](../MapControl/Init%20process.md#start) (which covers every map load) and towards the end of event 3 (cooking).
 
 ## Accessing the quest board
-Quest boards in the game are accessed through a complex system involving NPCControl interaction, ItemList and SetText.
+Quest boards in the game are accessed through a complex system involving NPCControl [interaction](../Entities/NPCControl/Interaction.md), [ItemList](../ItemList/ItemList.md) and [SetText](../SetText/SetText.md).
 
-It starts with the QuestBoard interaction. When interacting with an NPC that has this interaction, it will load to an OpenQuestBoard coroutine:
+It starts with the [QuestBoard](../Entities/NPCControl/Interaction/QuestBoard.md) interaction. When interacting with an [NPC](../Entities/NPCControl/NPC.md) that has this interaction, it will load to an OpenQuestBoard coroutine:
 
 ```cs
 public static IEnumerator OpenQuestBoard(EntityControl caretaker, NPCControl caller)
@@ -61,19 +61,19 @@ The coroutine is documented in more details inside the QuestBoard interaction do
 - instance.`questboardobj`: The GameObject containing all the quest board UI. It is created here with a complex arrangement of UI objects and a container for an ItemList.
 - The game enters a `minipause`
 
-Crucially, it ultimately sets up an ItemList with listtype 14 (open quests) and calls ShowItemList which is how the open quests can be accessed through the custom `questboardobj` UI and the ItemList within it.
+Crucially, it ultimately sets up an ItemList with [listtype](../ItemList/listtype.md) 14 (open quests) and calls [ShowItemList](../ItemList/ShowItemList.md) which is how the open quests can be accessed through the custom `questboardobj` UI and the ItemList within it.
 
-These listtype uses a method to generate their `listvar` options which is GetQuestBoard:
+These [listtype](../ItemList/List%20Types%20Group%20Details/Quest%20Board%20List%20Type.md) uses a method to generate their `listvar` options which is GetQuestBoard:
 
 ```cs
 private static int[] GetQuestsBoard(int type)
 ```
-This method is necessary because not all the BoardQuest can be listed for the respective board. Some requires the `map` to be `UndergroundBar` and some aren't listed in these listtypes at all. Check the quest board listtype group documentation for more details.
+This method is necessary because not all the [BoardQuest](../Enums%20and%20IDs/BoardQuests.md) can be listed for the respective board. Some requires the `map` to be `UndergroundBar` and some aren't listed in these listtypes at all. Check the quest board listtype group documentation for more details.
 
 The last step the OpenQuestBoard coroutine does is call UpdateQuestBoard which is detailed in the section below.
 
 ## Quest board UI handling
-Once OpenQuestBoard is done, this is where some special inputs handling kicks in in Update. It happens during the process of handling the listtype 14, 15 and 16 which are respectively the open, taken and completed listtype. By pressing the left and right inputs, the player can cycle between these listtype to change the board to consult. Doing this involves calling ResetList, adjusting `listtype` and calling ShowItemList again so the entire ItemList is remade with the new listtype.
+Once OpenQuestBoard is done, this is where some special inputs handling kicks in in [Update](../MainManager/Update%20and%20FixedUpdate.md). It happens during the process of handling the listtype 14, 15 and 16 which are respectively the open, taken and completed listtype. By pressing the left and right inputs, the player can cycle between these listtype to change the board to consult. Doing this involves calling ResetList, adjusting `listtype` and calling ShowItemList again so the entire ItemList is remade with the new listtype.
 
 Changing the listtype also involves the method UpdateQuestBoard:
 
@@ -103,18 +103,18 @@ It can be summed up as doing the following:
 - `questboardobj` is destroyed in 0.1 seconds
 - `player`.`actioncooldown` is set to 20.0 frames which prevents most inputs processing
 - The game exits its `minipause`
-- `inlist` is set to false (the ItemList gets destroyed later with a DestroyList after returning)
+- `inlist` is set to false (the ItemList gets destroyed later with a [DestroyList](../ItemList/Utility%20methods.md#destroylist) after returning)
 
 ### Confirming an open quest
 This is only possible with the open quest list type and it is the main way an open quest can be moved to the taken board. All options are confirmable except 0 (`NoQuest`).
 
-When this happens, CloseQuestBoard is still called (details above), and DestroyList still happens, but the difference is there's a special SetText call that happens. It happens with the caretaker of the NPC that was interacted with earlier which is another NPCControl that can handle the confirmation of taking an open quest. Check the QuestBoard interaction documentation for more details on how this works. The dialogue line to use with SetText is also defined from the NPC that was interacted with earlier. Right when the SetText call starts, flagvar 0 is set to the confirmed BoardQuest id.
+When this happens, CloseQuestBoard is still called (details above), and DestroyList still happens, but the difference is there's a special [SetText](../SetText/SetText.md) call that happens. It happens with the caretaker of the NPC that was interacted with earlier which is another NPCControl that can handle the confirmation of taking an open quest. Check the [QuestBoard](../Entities/NPCControl/Interaction/QuestBoard.md) interaction documentation for more details on how this works. The dialogue line to use with SetText is also defined from the NPC that was interacted with earlier. Right when the SetText call starts, [flagvar](../Flags%20arrays/flagvar.md) 0 is set to the confirmed BoardQuest id.
 
-What's important in that SetText call is the dialogue line is prepanded with `|questprompt|` which is a special commands that marks all prompt command in the call as quest board prompts. They behave like regular prompts, but when an option is chosen, SetText will handle it in a special way by replacing the text to go to entirely. This implies that it's assumed that the caretaker dialogue line contains a prompt command otherwise, this whole interaction won't work.
+What's important in that SetText call is the dialogue line is prepanded with `|`[questprompt](../SetText/Individual%20commands/Questprompt.md)`|` which is a special commands that marks all prompt command in the call as quest board prompts. They behave like regular prompts, but when an option is chosen, SetText will handle it in a special way by replacing the text to go to entirely. This implies that it's assumed that the caretaker dialogue line contains a [prompt](../SetText/Individual%20commands/Prompt.md) command otherwise, this whole interaction won't work.
 
-Selecting the first `option` (which is assumed to be the confirm one) will cause SetText to eventually process a activateselectedquest command as part of the new text. This command is what will move the BoardQuest contained in flagvar 0 to the taken board via a ChangeBoardQuest call and a removal of the BoardQuest from the open board.
+Selecting the first `option` (which is assumed to be the confirm one) will cause SetText to eventually process a [activateselectedquest](../SetText/Individual%20commands/Activateselectedquest.md) command as part of the new text. This command is what will move the BoardQuest contained in flagvar 0 to the taken board via a ChangeBoardQuest call and a removal of the BoardQuest from the open board.
 
-There's a lot more details involved not mentioned here for brevety on how SetText handles this. For more detail, check the questprompt command documentation.
+There's a lot more details involved not mentioned here for brevety on how SetText handles this. For more detail, check the [questprompt](../SetText/Individual%20commands/Questprompt.md) command documentation.
 
 ## Completing a quest
 Completing a quest involves the CompleteQuest method:
@@ -132,9 +132,9 @@ This method will do all needed tasks to move the BoardQuest `id` from the taken 
 - The `Quest` AnimationClip is played on `discoverymessage`'s Animator
 
 ## SetText interface
-SetText supports multiple commands that interfaces with BoardQuest in similar ways than the methods mentioned in this page. It allows to call AddQuest or ChangeBoardQuest in various ways through these commands. One such command even allows to move all open quests to the taken board.
+[SetText](../SetText/SetText.md) supports multiple commands that interfaces with BoardQuest in similar ways than the methods mentioned in this page. It allows to call AddQuest or ChangeBoardQuest in various ways through these commands. One such command even allows to move all open quests to the taken board.
 
-Check the BoardQuest section of the SetText commands documentation to learn more.
+Check the [BoardQuest control](../SetText/Commands.md#boardquest-control) section of the SetText commands documentation to learn more.
 
 ## Utilities methods
 The following methods operates on BoardQuests in various useful ways.
@@ -149,11 +149,11 @@ private static string BoardString()
 ```
 Returns a `,` seprated list of all `instance.boardquests[0]` quest ids in a string.
 
-This is used as part of the activateselectedquest SetText command where the return of this is set to flagvar 11 which has no known usage.
+This is used as part of the [activateselectedquest](../SetText/Individual%20commands/Activateselectedquest.md) SetText command where the return of this is set to flagvar 11 which has no known usage.
 
 ```cs
 private static int[] GetOverralQuests()
 ```
 Return an array cointaining non zero elements in `boardquests[1]` (taken quests) as they appear followed by all non zero elements in `boardquests[2]` (completed quests), but each elements is a negative number of the value.
 
-This is only used as part of the overall quests listtype which doesn't restrict which quests can be listed as long as it's from the taken or completed boards.
+This is only used as part of the [overall quests listtype](../ItemList/List%20Types%20Group%20Details/Overall%20Quests%20List%20Type.md) which doesn't restrict which quests can be listed as long as it's from the taken or completed boards.

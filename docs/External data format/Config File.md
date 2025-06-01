@@ -1,5 +1,8 @@
+# Config file
+TODO: complete this page
 
-## Settings
+## Related methods
+TODO: document these when documenting InputIO.
 
 ```cs
 public static void ReadSettings(string[] c)

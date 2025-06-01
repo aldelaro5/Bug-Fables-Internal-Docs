@@ -10,7 +10,7 @@ The game can present UI elements showing some game informations in a HUD fashion
 There's also the `discoverymessage` HUD element which is handled completely separately. It represents a HUD notification that only pops temporarilly when `discoveryhud` cooldown hasn't expired yet. This typically happens when a new `librarystuff` entry was unlocked.
 
 ## RefreshHUD
-RefreshHUD is the heart of the HUD system that manages all the `hud` elements and their related data. It's a method called on LateUpdate as long as `playerdata` isn't empty (a map isn't being loaded) and `basicload` is true (LoadEverything ran once). It has the following signature:
+RefreshHUD is the heart of the HUD system that manages all the `hud` elements and their related data. It's a method called on LateUpdate as long as `playerdata` isn't empty (a map isn't being loaded) and `basicload` is true ([LoadEverything](../MainManager/Boot%20and%20reset%20process.md#loadeverything-part-12) ran once). It has the following signature:
 
 ```cs
 private static void RefreshHUD()
@@ -44,8 +44,8 @@ private static void CreateHUD()
 ```
 More precisely, here's what this method does:
 
-- Calls ApplyBadges
-- Calls ApplyStatBonus
+- Calls [ApplyBadges](Player%20party.md#applybadges)
+- Calls [ApplyStatBonus](Player%20party.md#applystatbonus)
 - Reset `hud`, `husprites` and `hudfont` to new arrays (length is 5 except for `hudsprites` which is 4)
 - Creates a new GameObject named `HUD` childed to the `GUICamera` with no angles or local position
 - `hudvalue` is reset to {6.5, 7.5, 8.5, 9.5, -6.5, -7.0}
@@ -142,8 +142,8 @@ public static void RebuildHUD()
 ```
 It does the following:
 
-- Calls ApplyBadges
-- Calls ApplyStatBonus
+- Calls [ApplyBadges](Player%20party.md#applybadges)
+- Calls [ApplyStatBonus](Player%20party.md#applystatbonus)
 - Destroys `hud[0]`'s parent if `hud[0]` exists
 - Reset `hud` to null
 

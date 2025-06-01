@@ -3,7 +3,7 @@ SetText operates on specialised TextMesh that are configured to be rendered. The
 
 Such a TextMesh is refered to as a letter slot. Letter slots are the building blocks of SetText's rendering. Every piece of text rendered from SetText is done with letter slots. Since the game enforces a limit of 500, it means that at any given moment, at most 500 letter slots may be in use by SetText.
 
-What a letter slot represents depends on the rendering system. In [regular letter rendering](Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md), each letter slot is a single character while in [single letter rendering](Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), each letter slot is a complete line. The main purpose of the latter is to use the least amount of letter slots whily having much less, but sufficient compatibility with the various visual effects the former rendering method provides.
+What a letter slot represents depends on the rendering system. In [regular letter rendering](Letter%20Rendering%20Methods/Regular%20Letter%20Rendering.md), each letter slot is a single character while in [single letter rendering](Letter%20Rendering%20Methods/Single%20Letter%20Rendering.md), each letter slot is a complete line. The main purpose of the latter is to use the least amount of letter slots whily having much less, but sufficient compatibility with the various visual effects the former rendering method provides. Using less letter slots has many performance benefits since less TextMesh and font Materials are in use.
 
 Since 500 characters isn't a whole lot and it would be easy to run out of letter slots, SetText makes sure to periodically free the letter slots it no longer needs to render. Doing this allows to use the same letter slots that were used previously after they were freed. So effectively, the 500 limit only applies for a single moment: there cannot be more than 500 letter slots rendered on screen at the same time, but reusing letter slots that were freed is fine.
 
@@ -18,7 +18,7 @@ private static TextMesh NewLetter(string id)
 ```
 It creates a GameObject whose name is `letterX` where `X` is the value of `id` with a TextMesh that is setup as a SetText letter slot and is then returned. The parameterless version of the method is UNUSED, but remains functional and it calls the other overload with an `id` value of empty string.
 
-This is primarily called as part of LoadEssentials when setting up the initial 500 letter slots in the `letterpool`, but it's also possible GetEmptyLetter (more details in a section below) calls it if it finds out that a letter slot is null.
+This is primarily called as part of [LoadEssentials](../MainManager/Boot%20and%20reset%20process.md#loadessentials) when setting up the initial 500 letter slots in the `letterpool`, but it's also possible GetEmptyLetter (more details in a section below) calls it if it finds out that a letter slot is null.
 
 A letter slot is a TextMesh that is setup with the following characteristics which are optimised for SetText usage:
 

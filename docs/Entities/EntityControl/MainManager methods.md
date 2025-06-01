@@ -1,5 +1,5 @@
 # MainManager methods
-Since entities is such a central concept in the game, MainManager also offers a wide variety of utility methods to work with entities (either with NPCControl or not).
+Since entities is such a central concept in the game, MainManager also offers a wide variety of utility methods to work with entities (either with [NPCControl](../NPCControl/NPCControl.md) or not).
 
 This page documented them.
 
@@ -9,7 +9,7 @@ public static EntityControl GetEntity(string id, EntityControl caller)
 public static EntityControl GetEntity(string id)
 private static EntityControl GetEntity(NPCControl caller, string args)
 ```
-This returns the entity matching a certain id `id` with support for various format. The format of the id is documented in the entity id documentation. The `caller` parameter is returned if `id` is `caller` and the game isn't `inbattle`.
+This returns the entity matching a certain id `id` with support for various format. The format of the id is documented in the [entity id](../../SetText/Common%20commands%20id%20schemes/Entity%20id.md) documentation. The `caller` parameter is returned if `id` is `caller` and the game isn't `inbattle`.
 
 The overloads offer various levels of format support:
 
@@ -38,7 +38,7 @@ public static void ForceAnim(EntityControl entity)
 ```
 Calls Play on the `anim` of `entity` with a clip that matches its current `animstate`.
 
-NOTE: This only supports standard animations, extra animations and the `f` argument if the `height` is above 0.1.
+NOTE: This only supports [standard animations](Animations/animstate.md#standard-animations), extra animations and the `f` argument if the `height` is above 0.1.
 
 ```cs
 public static void SetEntityLastPos(bool setit)
@@ -48,7 +48,7 @@ If `setit` is true, all EntityControl present in the scene will have their `last
 ```cs
 public static void StopEntitiesMove()
 ```
-Calls StopForceMove on all EntityControl present in the scene.
+Calls [StopForceMove](EntityControl%20Methods.md#stopforcemove) on all EntityControl present in the scene.
 
 ```cs
 public static void ResetEntitySpeed()
@@ -97,16 +97,16 @@ public static bool CheckActiveEntities(int[] ids)
 Returns true if all `map`.`entities` whose index is in `ids` have an `npcdata`.`hit` of true, false otherwise. It is possible for an `ids` element to have this check inverted where an `npcdata`.`hit` of false is considered active by specifying the negative version of the index (this implies this can't be done with id 0).
 
 ```cs
-public void ForceLoadSprites()
-```
-Start an FLS coroutine.
-
-```cs
 private static IEnumerator FLS()
 ```
 Forces a reference to be held for one frame of every `map`.`entities`'s `sprite`.`sprite` by creating new GameObject with SpriteRenderer childed to the `map` at the `player` position. Once all the GameObject are created, a frame is yielded. After, all the GameObjects that were created are immediately destroyed.
 
 This method is meant to be a loading optimisation done during the map loading process.
+
+```cs
+public void ForceLoadSprites()
+```
+Start an FLS coroutine.
 
 ```cs
 public static EntityControl[] GetEntities(int[] ids)

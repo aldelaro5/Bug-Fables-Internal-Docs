@@ -1,5 +1,5 @@
 # Follower system
-Maps can entirely control the follower systems which is the system that dictates which followers is allowed to follow the player. It also manages the presence of `chompy` as a follower. The general function of the system is documented in the game's followers system documentation, but since MapControl plays an integral part in configuring and controlling it, the MapControl specific parts are documented here.
+Maps can entirely control the follower systems which is the system that dictates which followers is allowed to follow the player. It also manages the presence of `chompy` as a follower. The general function of the system is documented in the game's [followers system](../General%20systems/Followers.md) documentation, but since MapControl plays an integral part in configuring and controlling it, the MapControl specific parts are documented here.
 
 The system can be configured on the map with the following configuration fields:
 
@@ -22,7 +22,7 @@ The only exception to this rule is when the GameObject's name of the MapControl 
 The followers that are actually present are stored in the map's `tempfollowers`. This array excludes the main player party member, but it does include `chompy` or any other followers.
 
 ## MapControl's flow for adding followers
-While AddFollower can be called manually well after the map is loaded, MapControl can call it in its first LateUpdate (known as `latestart`). This is the part that enforces the `canfollowID` allow list, but also manages the presence or absence of `chompy`
+While [AddFollower](../General%20systems/Followers.md#addfollower) can be called manually well after the map is loaded, MapControl can call it in its first LateUpdate (known as `latestart`). This is the part that enforces the `canfollowID` allow list, but also manages the presence or absence of `chompy`
 
 For adding any followers other than `chompy`, here's how this process goes:
 
@@ -35,7 +35,7 @@ For adding any followers other than `chompy`, here's how this process goes:
 ### Issues with followers's `tempfollowerid`
 An entity's `tempfollowerid` field is intended to express the index of the follower in the map's `tempfollowers` array. It is tracked purely for EntityControl to perform anti z fighting measures during the [Follow logic](../Entities/EntityControl/Notable%20methods/Follow.md) when the `player` is `flying`.
 
-The problem is this isn't always assigned correctly because AddFollower doesn't do this so it relies on the caller to do it and not all callers do it correctly. In the case of the `TestRoom` map, it's not assigned at all so z figthing can happen when the `player` is `flying` still.
+The problem is this isn't always assigned correctly because [AddFollower](../General%20systems/Followers.md#addfollower) doesn't do this so it relies on the caller to do it and not all callers do it correctly. In the case of the `TestRoom` map, it's not assigned at all so z figthing can happen when the `player` is `flying` still.
 
 More confusingly however is the normal case of adding followers other than `chompy`: in this case, MapControl incorrectly sets the follower's `tempfollowerid` to the index of the matching animid found in `canfollowID`. The problem is `canfollowID`'s order isn't guaranteed by this point to give matching indexes because an unknown amount of followers might not have existed in instance.`extrafollowers`. What this means is that it's possible that 2 followers ends up with the same `tempfollowerid` which would cause them to z fight when the `player` is `flying`. Whether or not this can happen depends very specifically on the order of `canfollowID` as specified in the map's prefab (after [AreaSpecific](Init%20methods/AreaSpecific.md) modified it if needed) and which specific animids are present in instance.`extrafollowers`.
 

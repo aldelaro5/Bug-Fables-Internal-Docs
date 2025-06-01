@@ -1,10 +1,10 @@
 # Medals
-A medal (often internally refered to as a "badge") is piece of equipable gear to the player party or a specific player party member. They are defined in the game using various pieces of TextAsset documented in the medals data documentation page. Medals are notable because they are a central concept in the game referenced by many other data or systems.
+A medal (often internally refered to as a "badge") is piece of equipable gear to the player party or a specific player party member. They are defined in the game using various pieces of TextAsset documented in the medals data documentation page and are uniquely identified by a [medal id](../Enums%20and%20IDs/Medal.md) Medals are notable because they are a central concept in the game referenced by many other data or systems.
 
 ## Equip system
 At the simplest level, a medal is composed of:
 
-- A medal id
+- A [medal id](../Enums%20and%20IDs/Medal.md)
 - An equip state int value:
     - -2: Unequipped
     - -1: Equipped to the party
@@ -53,7 +53,7 @@ Returns the amount of times the medal whose id is `badgeid` is equipped to anyon
 This is presumably a previous implementation of BadgeIsEquipped.
 
 ## Medals shops
-Some medals can only be obtained by purchasing them in a medal shop. There are only 2 defined in the game: Merab (id 0) and Shades (id 1). The actual shops themselves are defined by a shop system which is also where the information of whose shop it is can be found. The informations related to the shops are also saved to the save file:
+Some medals can only be obtained by purchasing them in a medal shop. There are only 2 defined in the game: Merab (id 0) and Shades (id 1). The actual shops themselves are defined by a [shop system](../Entities/NPCControl/Shop%20system.md) which is also where the information of whose shop it is can be found. The informations related to the shops are also saved to the [save file](../External%20data%20format/Save%20File.md#line-4-array-line-medals-available-in-medal-shops):
 
 - `badgeshops[X]` where `X` is the shop id: The list of medals ids currently in stock in the shop
 - `avaliablebadgepool[X]` where `X` is the shop id: The ordered list of medals ids displayed (only the first ones will be displayed, the rest won't be)
@@ -65,7 +65,7 @@ Each `badgeshops` and `avaliablebadgepool` have a starting value that is enforce
 ```cs
 public void SetUpBadges()
 ```
-It is as part of SetVariables.
+It is as part of [SetVariables](../MainManager/Boot%20and%20reset%20process.md#setvariables).
 
 It sets `badgeshops[0]` (Merab) and `badgeshops[1]` (Shades) to their starting list and also set their matching `avaliablebadgepool` to be new lists containing the same elements. Here are the starting list of medals set:
 
@@ -75,7 +75,7 @@ It sets `badgeshops[0]` (Merab) and `badgeshops[1]` (Shades) to their starting l
 These are only truly valid when starting a new game because if a save file is loaded, both `badgeshops` and `avaliablebadgepool` gets set to the loaded values from the save file.
 
 ## Prize medals
-Some medals can only be obtained during some events, typically after beating a boss fight. The way they are obtained depends on whether or not the `DoublePain` medal was equipped when the medal becomes obtainable and it involves a complex system involving flagsvars. It's also a system used to make a medal obtainable when progressing through the game would have made the medal unobtainable otherwise.
+Some medals can only be obtained during some events, typically after beating a boss fight. The way they are obtained depends on whether or not the `DoublePain` medal was equipped when the medal becomes obtainable and it involves a complex system involving [flagvars](../Flags%20arrays/flagvar.md). It's also a system used to make a medal obtainable when progressing through the game would have made the medal unobtainable otherwise.
 
 This is what is called a prize medal. Prize medals are composed of the following:
 
@@ -83,9 +83,9 @@ This is what is called a prize medal. Prize medals are composed of the following
 - A flagvar slot reserved to hold the state of the prize medal. Here are what the value of such a flagvar slot indicates about the prize medal:
     - 0: The prize medal isn't obtainable yet, but could become obtainable later
     - 1: The prize medal is claimable from Artis
-    - 2: The prize medal is available for purchase at the Caravan shop
+    - 2: The prize medal is available for purchase at the [Caravan](../Entities/NPCControl/Interaction/CaravanBadge.md) shop
     - 3: The prize medal was obtained and won't appear again
-- An enemy id whose name would be displayed when claiming the prize medal from Artis
+- An [enemy](../Enums%20and%20IDs/librarystuff/Bestiary%20entry.md) id whose name would be displayed when claiming the prize medal from Artis
 
 Prize medals also have their own id, but the data about them doesn't come from any TextAsset data. All the information above are hardcoded in various array fields initialised during SetVariables. This includes the amount: there are 23 prize medals defined in the game.
 
@@ -135,22 +135,22 @@ public static void AddPrizeMedal(int id)
 It makes the prize medal id `id` available to be obtained or purchased. More precisely, the following is done:
 
 - If `DoublePain` medal is equipped or flag 614 is true (HARDEST is enabled):
-    - flagvar of `prizeflags[id]` is set to 1 (obtainable by talking to Artis)
+    - [flagvar](../Flags%20arrays/flagvar.md) of `prizeflags[id]` is set to 1 (obtainable by talking to Artis)
     - flag 56 is set to true (puts a ! emoticon above Artis)
 - Otherwise:
     - flagvar of `prizeflags[id]` is set to 2 (obtainable by purchasing the medal at a Caravan shop)
 - flagvar 55 is incremented (amount of prize medals avaible or obtained)
 
-This is only manually called by the game during events and the addprize SetText command. The enemy id bound to each prize medal is only for presentation purposes when claiming the prize medal through Artis, but there are no automated managed of making prize medals obtainable.
+This is only manually called by the game during events and the [addprize](../SetText/Individual%20commands/Addprize.md) SetText command. The enemy id bound to each prize medal is only for presentation purposes when claiming the prize medal through Artis, but there are no automated managed of making prize medals obtainable.
 
 Alongside this method, there's a few utility methods to work with prize medals. Here there are.
 
 ```cs
 public static int[] PrizeBadges(bool caravan)
 ```
-If `caravan` is false, returns an array of all the `prizeflags` (prize medals's bound flagvar slot) elements whose value is 1 (claimable from Artis).
+If `caravan` is false, returns an array of all the `prizeflags` (prize medals's bound [flagvar](../Flags%20arrays/flagvar.md) slot) elements whose value is 1 (claimable from Artis).
 
-If `caravan` is true, returns an array of all the `prizeids` elements (prize medals's medal id) whose matching `prizeflags` (bound flagvar slot) is 2 (available for purchase at the Caravan shop).
+If `caravan` is true, returns an array of all the `prizeids` elements (prize medals's medal id) whose matching `prizeflags` (bound flagvar slot) is 2 (available for purchase at the [Caravan](../Entities/NPCControl/Interaction/CaravanBadge.md) shop).
 
 ```cs
 public static int GetEnemyPrizeID(int flagvalue)
@@ -161,7 +161,7 @@ Returns the prize medal id whose `prizeflags` element (bound flagvar slot) is `f
 There are 2 secret menu codes that heavily involves medals: MYSTERY? and RUIGEE.
 
 ### MYSTERY?
-This code changes the way medals are obtained throughout the game by shuffling the order they are given. Normally, when collecting one via an NPCControl's CheckItem call or a giveitem SetText command, the associated medal is simply given to the player.
+This code changes the way medals are obtained throughout the game by shuffling the order they are given. Normally, when collecting one via an NPCControl's [CheckItem](../Entities/NPCControl/ObjectTypes/Item.md#checkitem) call or a [giveitem](../SetText/Individual%20commands/Giveitem.md) SetText command, the associated medal is simply given to the player.
 
 MYSTERY? changes this so that the medal id is the return of a special method called GetRandomMedal.
 
@@ -169,7 +169,7 @@ MYSTERY? changes this so that the medal id is the return of a special method cal
 public static int GetRandomMedal()
 public static int GetRandomMedal(bool dontremove, bool random)
 ```
-This method is at the center of the MYSTERY? system. It involves a reserved flagstring slot for this purpose (slot 13) that contains a `,` separated list of the medals ids that have yet to be obtained and that should also be included in the shuffle (some aren't present on purpose to make them deterministic still). NOTE: If flagstring 13 is empty when calling this method, it is set to `0,1,2,3,4,5,6,7,8,9` which is a dummy value. To avoid this, the flagstring needs to be initialised before using this method.
+This method is at the center of the MYSTERY? system. It involves a reserved [flagstring](../Flags%20arrays/flagstring.md) slot for this purpose (slot 13) that contains a `,` separated list of the medals ids that have yet to be obtained and that should also be included in the shuffle (some aren't present on purpose to make them deterministic still). NOTE: If flagstring 13 is empty when calling this method, it is set to `0,1,2,3,4,5,6,7,8,9` which is a dummy value. To avoid this, the flagstring needs to be initialised before using this method.
 
 The order of the medals ids in flagstring 13 is what matters here: it dictates the order in which the medals will be returned each time this method is called where `dontremove` and `random` are both false. Calling the method in sucession in such a fasion effectively enumerates the medal ids in the flagstrings in the same order.
 
@@ -179,7 +179,7 @@ If `dontremove` is true, the medal id obtained from the list (whether or not `ra
 
 To summarise the way these parameters work:
 
-- To initialise the medal ids pool, all elements that should be in the pool should be built and the flagstring 13 set to a `,` separated list of them. Since they aren't shuffled, this medal should be called with both `dontremove` and `random` being true which won't remove anything from the pool, but it will permanently shuffle it
+- To initialise the [medal](../Enums%20and%20IDs/Medal.md) ids pool, all elements that should be in the pool should be built and the flagstring 13 set to a `,` separated list of them. Since they aren't shuffled, this medal should be called with both `dontremove` and `random` being true which won't remove anything from the pool, but it will permanently shuffle it
 - To obtain a medal id from an already initialised pool, this method should be call with both `random` and `dontremove` set to false. This will obtain the first medal id, remove it from the pool and return it, but it won't shuffle the list
 
 The parameterless overloads has both `dontremove` and `random` parameters default to a false value.

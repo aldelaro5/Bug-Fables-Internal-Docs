@@ -1,9 +1,9 @@
 # Sounds playback
 The game has a system made to play short SFX using a pooled set of AudioSources with configurable pich and volume with the optional ability to loop.
 
-These are internally refered to as sounds. A sound unlike a music is made to be played using an AudioSource from the `sounds` array. There are 15 of them available on boot and any playback will by default pick the first one that is free. These AudioClip are meant to be played in short burst as needed while a music is meant to play on `music[0]` only and for a longer period. Check the music playback documentation for how music works.
+These are internally refered to as sounds. A sound unlike a [music](Music%20playback.md) is made to be played using an AudioSource from the `sounds` array. There are 15 of them available on boot and any playback will by default pick the first one that is free. These AudioClip are meant to be played in short burst as needed while a music is meant to play on `music[0]` only and for a longer period. Check the music playback documentation for how music works.
 
-Sounds shouldn't be confusing with bleeps which have their own dedicated AudioSource called `bleep`. Check the bleep SetText command to learn more.
+Sounds shouldn't be confused with [bleeps](../SetText/bleep.md) which have their own dedicated AudioSource called `bleep`. Check the bleep documentation to learn more.
 
 All sounds AudioClip are located in the `Resources/audio/sounds` asset directory and they can be identified by their filename.
 
@@ -137,7 +137,7 @@ public static IEnumerator FadeSound(AudioSource sound, float speed)
 Decreases the volume of `sound` by TieFramerate(`speed`) every frame until it reaches 0.0 or `sound` doesn't play anymore. Stop is called on `sound` once this is over.
 
 ## Sound distance
-Sounds also have a concept of distance where closer sounds could sound louder than sounds playing further away. This is a concept present in EntityControl's `sound` AudioSource.
+Sounds also have a concept of distance where closer sounds could sound louder than sounds playing further away. This is a concept present in [EntityControl](../Entities/EntityControl/EntityControl.md)'s `sound` AudioSource.
 
 The volume scaling is done through a method called GetSoundDistance. There's 2 style: either using a position to determine the volume or the distance as a float.
 

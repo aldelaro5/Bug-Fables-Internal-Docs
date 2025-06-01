@@ -1,9 +1,9 @@
 # Followers
 While `playerdata[0].entity` has the PlayerControl and the party is setup with a follow system so they follow each other when the `player` moves, the player party aren't the only ones allowed to follow the `player`.
 
-As explained in the EntityControl's Follow documentation, there's a follow chain system where an entity's `follow` tells if the game will want them to follow another entity. This followee could in turn have a `follow` so it can form a chain which stops when an entity's `follow` is null. Likewise, it's possible to traverse the chain backwards using the entity's `followedby`.
+As explained in the EntityControl's [Follow](../Entities/EntityControl/Notable%20methods/Follow.md) documentation, there's a follow chain system where an entity's `follow` tells if the game will want them to follow another entity. This followee could in turn have a `follow` so it can form a chain which stops when an entity's `follow` is null. Likewise, it's possible to traverse the chain backwards using the entity's `followedby`.
 
-This implies that an entity could follow the last `playerdata` and that entity could in turn get followed, etc... What's interesting about this is that any other entity than the player party is managed into its own system called the follower system. They are stored in the `map`.`tempfollowers` with `chompy` being managed separately.
+This implies that an entity could follow the last `playerdata` and that entity could in turn get followed, etc... What's interesting about this is that any other entity than the player party is managed into its own system called the [follower system](../MapControl/Follower%20system.md). They are stored in the `map`.`tempfollowers` with `chompy` being managed separately.
 
 This is what this page is aimed to document. While it is mostly configured and controlled by MapControl which uses it in a specific way (such as the special `chompy` follower), the underlying system is globally accessible and it's frequently accessed for reasons such as quest events or requests from SetText. Because of this, the high level functionality is documented here, but the configuration and MapControl specific parts will be documented separated in the map followers part of the MapControl documentation.
 
@@ -37,7 +37,7 @@ Here's the procedure this method does to add the follower and store it into the 
 
 As for the return value, it's not used by the game, but the method returns the entity whose `followedby` was set to the new follower. It's possible the method returns null, but it's only under an erroneous condition and that is that the value of id (after it's overriden if applicable) is negative which means it's not a valid animid. This isn't supposed to happen because normally, either `caller` is specified and its `animid` isn't negative or `caller` is null, but id has a non negative value. It's still possible that neither case are true and in which case, null will be returned, but it indicates that an invalid follower was attempted to be added.
 
-MapControl has a specific way to use this method on each map load. Check the map followers documentation to learn more. NOTE: There are 2 known issues with the way AddFollower works with MapControl, but they are documented in the MapControl part of the followers documentation.
+MapControl has a specific way to use this method on each map load. Check the map [followers](../MapControl/Follower%20system.md) documentation to learn more. NOTE: There are 2 known issues with the way AddFollower works with MapControl, but they are documented in the MapControl part of the followers documentation.
 
 ## TeleportFollowers
 For various reasons, the game often wants to visually move the player party and their followers in a certain organised fashion. This functionality is done through various overloads with the same name: TeleportFollowers.

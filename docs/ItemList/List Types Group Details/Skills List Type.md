@@ -54,7 +54,7 @@ The overload without the `matchid` parameter has its value default to false.
 
 Here's the exact calculation procedure:
 
-- The skill id is obtained from `playerdata[player].skills[id]`
+- The [skill](../../Enums%20and%20IDs/Skills.md) id is obtained from `playerdata[player].skills[id]`
 - Obtains the cost from the [skillsdata](../../TextAsset%20Data/Skills%20data.md) and get its absolute value (it's the cost in HP or TP as a positive number)
 - If the `Beemerang2` [medal](../../Enums%20and%20IDs/Medal.md) is equipped and the skill id is one of the following, the cost increases by 1:
     - `NeedleToss`

@@ -1,5 +1,5 @@
 # Setup methods
-Before calling ShowItemList, several ItemList related fields needs to be set, but there's 2 methods that does all of that: SetUpList and ResetList.
+Before calling [ShowItemList](ShowItemList.md), several ItemList related fields needs to be set, but there's 2 methods that does all of that: SetUpList and ResetList.
 
 ## SetUpList
 

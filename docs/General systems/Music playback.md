@@ -3,7 +3,7 @@ This game offers many ways to configure how and what background music to play. A
 
 All music playback goes through a single audio source which is stored in MainManager.`music[0]`. This means only one music can play at a given time and it has to go through this AudioSource because the game manages the music system using it. It differ from a sound which is meant to be played once and there might be multiple of them.
 
-They are different than sounds because sounds have 15 pooled AudioSources available to them and they are meant to play short AudioClips in burst as needed. Check the sounds documentation to learn more.
+They are different than [sounds](Sounds%20playback.md) because sounds have 15 pooled AudioSources available to them and they are meant to play short AudioClips in burst as needed. Check the sounds documentation to learn more.
 
 This page talks about the music system in general, but a part of this system is managed by [MapControl's map music system](../MapControl/Map%20music.md). Check the documentation there to learn more about MapControl's influence on the music system.
 
@@ -154,7 +154,7 @@ It the data from `Data/LoopPoints` which is meant to be set to the value of `mus
 As for how LoopMusic accesses the `musicloop` element, it's done via `lastmusic` which is only set by ChangeMusic. This allows to address the data by the [Musics](../Enums%20and%20IDs/Musics.md) id that matches the one currently playing.
 
 ## Samira
-The game has a built in music player accessible in the form of an NPCControl called Samira. The way it works is any newly played music in the game gets added to the `samiramusics` list which is saved on the save file. Each element in that list contains the following:
+The game has a built in music player accessible in the form of an [NPCControl](../Entities/NPCControl/NPCControl.md) called Samira. The way it works is any newly played music in the game gets added to the `samiramusics` list which is saved on the save file. Each element in that list contains the following:
 
 - A Musics id
 - Its purchase state (-1 indicates not bought yet and 1 indicates bought)

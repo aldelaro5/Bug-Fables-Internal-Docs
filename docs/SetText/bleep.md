@@ -1,11 +1,11 @@
 # Bleep
-SetText has a feature exclusive to dialogue mode called bleep which are special dialogue SFX composed of a very short AudioClip with a defined pitch that plays for around half the letters rendered to simulate the character talking sound. The particular one played is dependant on the current `tailtarget` (the speaker) and it more specifically depends on their animid data. Check the animid entity data documentation to learn more.
+SetText has a feature exclusive to [dialogue mode](Dialogue%20mode.md) called bleep which are special dialogue SFX composed of a very short AudioClip with a defined pitch that plays for around half the letters rendered to simulate the character talking sound. The particular one played is dependant on the current `tailtarget` (the speaker) and it more specifically depends on their animid data. Check the animid entity data documentation to learn more.
 
 The way bleeps work is they have a dedicated AudioSource specifically to play them which is the `bleeps` field. Only bleeps are played there, nothing else.
 
 The bleeps themselves are located in the `Resources/audio/sounds/dialogue` asset directory. While there are only about a dozen there, most of their diversity comes from tuning a pitch value.
 
-While SetText has a command to play a bleep called bleep, it's possible to operate on the system manually using 2 methods: GetBleep and PlayBleep.
+While SetText has a command to play a bleep called [bleep](Individual%20commands/Bleep.md), it's possible to operate on the system manually using 2 methods: GetBleep and PlayBleep.
 
 ## GetBleep
 

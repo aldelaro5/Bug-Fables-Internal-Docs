@@ -1,5 +1,5 @@
 ## Player party
-The player party is a BattleData array field called `playerdata`. It's one of the most important field in the game because it contains overworld and battle party information that is used throughout the game in several ways. This includes stats, current battle states, and the dual entities backing it (`entity` for the overworld, `battleentity` for the battles).
+The player party is a [BattleData](../Battle%20system/Actors%20states/BattleData.md) array field called `playerdata`. It's one of the most important field in the game because it contains overworld and battle party information that is used throughout the game in several ways. This includes stats, current battle states, and the dual entities backing it (`entity` for the overworld, `battleentity` for the battles).
 
 ## `playerdata` addressing
 The most complex part about `playerdata` is how the game addresses it. There's multiple ways to do it, each have their unique properties and they completely change depending on if we want to address the party in the overworld or in battle. There are 3 distinct ordering of the party:
@@ -13,14 +13,14 @@ Since the addressing part is so complex, let's talk about it before going over t
 ### Universal `playerdata` addressing
 Here are all the ways to address `playerdata` that works regardless if we're addressing in the overworld or battles:
 
-- Regular array index: Doesn't guarantee anything except if all party member are in order and the first one has a `trueid` of 0 (`Bee`) where in such case, the array indexes will always be the same as the `trueid`
-- Finding the member with a specific BattleData's `trueid`: The animid associated with this party member at the time of the last ChangeParty which never changes until the next ChangeParty so it doesn't take into considerations overworld switching
+- Regular array index: Doesn't guarantee anything except if all party member are in `trueid` order and the first one has a `trueid` of 0 (`Bee`) where in such case, the array indexes will always be the same as the `trueid`
+- Finding the member with a specific BattleData's `trueid`: The [animid](../Enums%20and%20IDs/AnimIDs.md) associated with this party member at the time of the last ChangeParty which never changes until the next ChangeParty so it doesn't take into considerations overworld switching
 - Finding the member with a specific `entity` or `battleentity`'s `animid`: The rendered animid of the party member taking into account all overworld switches (`entity` for the overworld, `battleentity` for battles)
 
 The above remains true in all cases. While it's straight forward to understand why the entity's animid allows to address by rendered animid, what's less straight forward is why the array index doesn't guarantee anything and how the `trueid` works.
 
 #### Addressing by array indexes directly
-Essentially, the player party system supports to have any combination of members in any order. The formation can even change which is done by a method called ChangeParty (more details about it in a section below). It receives an int array parameter called ids that tells what animid should be in the party and in what order. It doesn't have to include the first 3 animids, it could have any combinations of them and any amount.
+Essentially, the player party system supports to have any combination of members in any order. The formation can even change which is done by a method called ChangeParty (more details about it in a section below). It receives an int array parameter called ids that tells what [animid](../Enums%20and%20IDs/AnimIDs.md) should be in the party and in what order. It doesn't have to include the first 3 animids, it could have any combinations of them and any amount, but the game is designed to only support animids from 0 to 2.
 
 While for most of the game, the party is composed of `Bee`, `Beetle` and `Moth` which happens to match with the array index (0, 1 and 2), the game allows for different party formations and to even excluse memebers. It is very well possible to have a party of `Moth` and `Beetle`, but exclude `Bee`. It's even possible to have a party of a single member that isn't `Bee`. All these cases would lead into a situation where `playerdata[0]` may not actually be the `Bee` member. It might be someone else entirely simply because `Bee` wasn't the first party member (or they weren't present in the party at all).
 
@@ -29,17 +29,17 @@ Because of this, addressing `playerdata` by a direct index is the least useful w
 #### `trueid` order
 Due to this problem, this is where the `trueid` comes in. When the party gets created by ChangeParty, all `playerdata` will have their `trueid` set to the matching one sent in the ids parameter and it will never change until another ChangeParty.
 
-Effectively, this allows to find out the animid each `playerdata` had at the moment of the last ChangeParty. This ordering is refered to as the `trueid` order and it is useful because it tells the canonical party order without considering any overworld switches. This order is also stored in `partyorder` which is also set by ChangeParty. However, since it doesn't consider any overworld switches, it means it's not as informative in the overworld because it doesn't tell who each `playerdata` is AT THE CURRENT MOMENT. It only tells who they were on the last ChangeParty. This method of addressing however becomes much more useful during battle which will be detailed in a section below.
+Effectively, this allows to find out the [animid](../Enums%20and%20IDs/AnimIDs.md) each `playerdata` had at the moment of the last ChangeParty. This ordering is refered to as the `trueid` order and it is useful because it tells the canonical party order without considering any overworld switches. This order is also stored in `partyorder` which is also set by ChangeParty. However, since it doesn't consider any overworld switches, it means it's not as informative in the overworld because it doesn't tell who each `playerdata` is AT THE CURRENT MOMENT. It only tells who they were on the last ChangeParty. This method of addressing however becomes much more useful during battle which will be detailed in a section below.
 
 ### Addressing `playerdata` in the overworld
-In the overworld, the party can be switched using SwitchParty(false). Doing this process renders the `trueid` less useful because the order of the party since the last ChangeParty is no longer the same then the current one. Moreover, addressing by `entity`.`animid` isn't sufficient because this only gets updated on the next RefreshEntities at the very end of a switch animation. It would be far more useful to have a way to know who's `playerdata` element is whom that follows the exact moment SwitchParty(false) is called.
+In the overworld, the party can be switched using SwitchParty(false). Doing this process renders the `trueid` less useful because the order of the party since the last ChangeParty is no longer the same then the current one. Moreover, addressing by `entity`.`animid` isn't sufficient because this only gets updated on the next [RefreshEntities](../MainManager/RefreshEntities.md) at the very end of a switch animation. It would be far more useful to have a way to know who's `playerdata` element is whom that follows the exact moment SwitchParty(false) is called.
 
 #### Overworld party order
-This is where the BattleData's `animid` comes in. Not to be confused with the `entity`.`animid` (which is the actual rendered animid), the BattleData's `animid` is a working value of `entity`.`animid`. It's basically the value `entity`.`animid` will be on the next RefreshEntities.
+This is where the [BattleData](../Battle%20system/Actors%20states/BattleData.md)'s `animid` comes in. Not to be confused with the `entity`.`animid` (which is the actual rendered animid), the BattleData's `animid` is a working value of `entity`.`animid`. It's basically the value `entity`.`animid` will be on the next RefreshEntities.
 
-The reason this is useful is because overworld switching cycles all BattleData's `animid`. Effectively, they visually cycle their animid, but they don't actually change anything else. Finding a `playerdata` that has an `animid` of a specific value is the most reliable to find a member by its animid because it's essentially the `trueid`, but it follows overworld switches. This is refered to as the overworld party order: it allows to enumerate the party by their order in the overworld from front to back. For example, `playerdata[0].animid` always gives the logical animid of the leader in the overworld.
+The reason this is useful is because overworld switching cycles all BattleData's `animid`. Effectively, they visually cycle their [animid](../Enums%20and%20IDs/AnimIDs.md), but they don't actually change anything else. Finding a `playerdata` that has an `animid` of a specific value is the most reliable to find a member by its animid because it's essentially the `trueid`, but it follows overworld switches. This is refered to as the overworld party order: it allows to enumerate the party by their order in the overworld from front to back. For example, `playerdata[0].animid` always gives the logical animid of the leader in the overworld.
 
-The only downside of the BattleData's `animid` is it doesn't reflect the ACTUALLY RENDERED animid. This is because like explained above, between the moment SwitchParty(false) is called and the moment the next RefreshEntities happen, there's a gap of time (15.0 frames) where the `entity`.`animid` won't be the same as the BattleData's `animid` and the `entity`.`animid` will lag behind.
+The only downside of the BattleData's `animid` is it doesn't reflect the ACTUALLY RENDERED animid. This is because like explained above, between the moment SwitchParty(false) is called and the moment the next [RefreshEntities](../MainManager/RefreshEntities.md) happen, there's a gap of time (15.0 frames) where the `entity`.`animid` won't be the same as the BattleData's `animid` and the `entity`.`animid` will lag behind.
 
 To address by rendered animid, finding the member with a specific `entity`.`animid` is required. This can be useful for performing specific animations, but it's oftentime more recommended to address by BattleData's `animid` because it will always be logically accurate in at most 15.0 frames while the `entity`.`animid` might become outdated in at most 15.0 frames.
 
@@ -47,15 +47,15 @@ To address by rendered animid, finding the member with a specific `entity`.`anim
 Battles changes a lot how `playerdata` is addressed because switching the party works very differently using SwitchParty(true) and the starting order of the party in `playerdata` always matches the `trueid` order. To understand why, let's talk about what SwitchParty(true) does differently.
 
 #### Battle formation order
-Unlike SwitchParty(false), SwitchParty(true) doesn't actually changes anything in any `playerdata`. What it does instead is cycle `battle.partypointer`'s elements which was first assigned during StartBattle. `battle.partypointer` is a mapper that maps logical formation position to `playerdata` indexes. A logical formation number is a number starting from 0 that identifies members from front to back (so 0 is frontmost, 1 is one position back and 2 is 2 positions back). On its own, this doesn't do anything, but the caller (in this case, BattleControl's SwitchPos or SwitchParty) will go further and physically move each `playerdata` to their party position using `battle.partypointer` as the mapper.
+Unlike SwitchParty(false), SwitchParty(true) doesn't actually changes anything in any `playerdata`. What it does instead is cycle `battle.partypointer`'s elements which was first assigned during StartBattle. `battle.partypointer` is a mapper that maps logical battle formation position to `playerdata` indexes. A logical formation number is a number starting from 0 that identifies members from front to back (so 0 is frontmost, 1 is one position back and 2 is 2 positions back). On its own, this doesn't do anything, but the caller (in this case, BattleControl's [SwitchPos](../Battle%20system/Battle%20flow/Action%20coroutines/SwitchPos.md) or [SwitchParty](../Battle%20system/Battle%20flow/Action%20coroutines/SwitchParty.md)) will go further and physically move each `playerdata` to their party position using `battle.partypointer` as the mapper.
 
 So for example, to move the front member to its position after calling SwitchParty(true), BattleControl will set `playerdata[partypointer[0]]`.position = `partypos[0]`. This will work regardless of how the switch was done and when this is done on all `playerdata` elements using matching `playerdata` indexes, it will move all party member to their respective spot because `battle.partypointer` is the mapper that dictates everything here. Additionally, it also updates the BattleData's `pointer` to the matching `partypointer`, but this always result in being the same as the `playerdata` index.
 
 What's important to mention here is that unlike overworld switching, the party members actually moves between each other, but the internal `playerdata` ordering will always remain in `trueid` order no matter what overworld order the party was in when StartBattle was called and no matter how many switches or swaps of positions happens during the battle.
 
-This property is enforced by StartBattle: it will arrange the party in `trueid` order initially, but then performs a series of SwitchParty(true) until the party is aligned with the overworld party order. This implies that `battle.partypointer` will map to the same overworld party order in battle when enumerating `playerdata[battle.partypointer[i]]` elements sequentially, but further switches will only cause changes to `battle.partypointer`.
+This property is enforced by [StartBattle](../Battle%20system/StartBattle.md): it will arrange the party in `trueid` order initially, but then performs a series of SwitchParty(true) until the party is aligned with the overworld party order. This implies that `battle.partypointer` will map to the same overworld party order in battle when enumerating `playerdata[battle.partypointer[i]]` elements sequentially, but further switches will only cause changes to `battle.partypointer`.
 
-This way of enumerating the party gives us the battle formation order: it allows to enumerate the party by their formation position from front to back (right to left). For example, `playerdata[partypointer[0]]` always refer to the party member in the front.
+This way of enumerating the party gives us the battle formation order: it allows to enumerate the party by their battle formation position from front to back (right to left). For example, `playerdata[partypointer[0]]` always refer to the party member in the front.
 
 This mechanism is also what allows SwitchPos to work: instead of cycling `battle.partypointer`, all that's needed to swap 2 members is to simply swap the 2 elements in `battle.partypointer` and refresh everyone's position in battle formation order.
 
@@ -91,10 +91,10 @@ Here's how the method process goes (`fromscratch` is assumed to be true since a 
         - If it's true, the entity is destroyed
         - If it's false and the map isn't null (nothing happens if it is null), then the entity gets childed to the `map` with a tag of `Untagged` and it's appended to the end of `map.entities` after reassigning it to a new arrays
 - If the older party wasn't empty and the new party isn't empty, but `playerdata[0].entity` doesn't have a PlayerControl, one will be added to it followed by a destruction of `player` (it will get automatically reasigned by PlayerControl's Start)
-- ApplyBadges is called
-- ApplyStatBonus is called
+- [ApplyBadges](../Battle%20system/ApplyBadges.md) is called
+- [ApplyStatBonus](../Battle%20system/ApplyStatBonus.md) is called
 - All `playerdata`'s `hp` is set to their `maxhp`
-- RebuildHUD is called
+- [RebuildHUD](HUD.md#destruction) is called
 
 ### Problem with party members removal
 As explained above, ChangeParty should normally determine which party members is getting removed compared to the older party so it can either destroy the entity or move it out of the way. The problem is the logic to determine this is bogus and can't be relied upon.
@@ -103,7 +103,7 @@ What should be happening is figuring out if the older party contains all element
 
 What is instead happening is only `playerdata[0].animid` is checked for this against the older entities's animids. It means that for any older party members whose `entity.animid` isn't `playerdata[0].animid`, it is incorrectly deemed as a removed party member even though they might appear in the party in a further `playerdata` element.
 
-Even more confusingly, because it's based on animid, this is checked in older overworld party order. This means that even overworld switches before the ChangeParty call can influence this behavior. As a general rule however, this issue only has a bad effect on a ChangeParty where `ids` has more than one element.
+Even more confusingly, because it's based on BattleData's animid, this is checked in older overworld party order. This means that even overworld switches before the ChangeParty call can influence this behavior. As a general rule however, this issue only has a bad effect on a ChangeParty where `ids` has more than one element.
 
 A workaround to this issue is to not rely on the proper member's entities composition and just call SetPlayers after the ChangeParty. This will recreate every `entity` of every BattleData with the proper animid derived from the BattleData one. It is considered undefined to not do this after a ChangeParty because it may lead to overworld entities being incorrectly destroyed and left to null.
 
@@ -200,11 +200,11 @@ This is UNUSED. Returns an array of a single element being `playerdata[0]`.`true
 public static void SetPlayers()
 public static void SetPlayers(Vector3[] newentitypos)
 ```
-A part of the map loading process. Recreate all `playerdata` elements. If `newentitypos` isn't null, the existing `playerdata` gets destroyed before the recreation and after, their position are set to matching `newentitypos` elements (indexed by `playerdata` index).
+A part of the [map loading](../MapControl/Map%20loading.md) process. Recreate all `playerdata` elements. If `newentitypos` isn't null, the existing `playerdata` gets destroyed before the recreation and after, their position are set to matching `newentitypos` elements (indexed by `playerdata` index).
 
 The parameterless overload acts as if `newentitypos` was null.
 
-The recreation process is documented in the map loading documentation, but the method is also used in certain events that needs to recreate the party.
+The recreation process is documented in the map loading documentation, but the method is also used in certain events that needs to recreate the party because as explained above, pairing a call with ChangeParty is the best way to guarantee the integrety of the overworld entities of the party.
 
 ```cs
 public static EntityControl[] GetPartyEntities()
@@ -328,7 +328,7 @@ Here's the exact procedure:
 
 - Set instance.`speedup` (an UNUSED field) to true
 - Set instance.`maxtp` to instance.`basetp`.
-- CallResetPlayerStats is called on player party member (more details below)
+- Call ResetPlayerStats is called on player party member (more details below)
 - All the `BadgeEffects` of every applicable medals are applied just as described in the medals data documentation.
 - instance.`tp` is clamped from 0 to instance.`maxtp`
 - All `playerdata`'s `hp` is clamped from 0 to their `maxhp`
