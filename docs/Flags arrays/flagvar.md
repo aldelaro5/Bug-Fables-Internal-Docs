@@ -58,7 +58,7 @@ A flagvar with the mention "TEMP" means its value in the save is only used for t
 |34|Prize medal: Enfeeble|
 |35|Number of crystal turned in to Doppel by completing a bounty|
 |36|Prize medal: Reverse Toxin|
-|37|TEMP? (used on DoClock and event 154)|
+|37|The cost in berries of Venus's healing (set to 8 by DoClock if it was 0, set to 5 by event 154 which is when giving Venus the `KingDinner`)|
 |38|Number of completed Cave of Trials run|
 |39|Current streak count of completed Cave of Trials run|
 |40|Number of battles fought|

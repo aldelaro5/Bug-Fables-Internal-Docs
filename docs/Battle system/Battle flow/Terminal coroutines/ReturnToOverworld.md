@@ -134,5 +134,5 @@ This implies that events are responsible for doing the fade in themselves as wel
 - `actiontext` is destroyed
 - ForceHitWall is invoked on the player.entity in 0.2 seconds which will set its `hitwall` to false
 - Every player party members with an `hp` of 0 has their `hp` set to 1
-- CheckAchievement is invoked on the instance in 0.5 seconds
+- [CheckAchievement](../../../General%20systems/Achievements.md#checkachievement) is invoked on the instance in 0.5 seconds
 - This BattleControl is destroyed, the battle is now completely over and it cease to exist

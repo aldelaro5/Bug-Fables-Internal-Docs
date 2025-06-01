@@ -91,7 +91,12 @@ To render each 12 options (the 10 digits, Confirm and Erase), the following is d
     * If we had just rendered option 10
         * Set x to 1.5
 
-After the initial setup, the first refresh of the number prompt is performed. This will destroy the text in `npromptholder` and rerender using the one in [flagstring](../../Flags%20arrays/flagstring.md) 0 which will get updated periodically as digits are added in removed during the prompt handling. This also sets [flagvar](../../Flags%20arrays/flagvar.md) 4 to 0. As for the rendering of the number text itself, it is done via a SetText call in non [Dialogue mode](../Dialogue%20mode.md) with the text padded to the right with `_` to fit into `maxlength` prepended with |[center](Center.md)\|:
+After the initial setup, the first refresh of the number prompt is performed. All refreshes are done by RefreshNumberPrompt:
+
+```cs
+private void RefreshNumberPrompt()
+```
+This needs to be called whenever a change in the output text needs to be reflected in the rendering. This will destroy the text in `npromptholder` and rerender using the one in [flagstring](../../Flags%20arrays/flagstring.md) 0 which will get updated periodically as digits are added in removed during the prompt handling. This also sets [flagvar](../../Flags%20arrays/flagvar.md) 4 to 0. As for the rendering of the number text itself, it is done via a SetText call in non [Dialogue mode](../Dialogue%20mode.md) with the text padded to the right with `_` to fit into `maxlength` prepended with |[center](Center.md)|:
 
 - [fonttype](../Notable%20states.md#fonttype) is `BubblegumSans`
 - no `linebreak`

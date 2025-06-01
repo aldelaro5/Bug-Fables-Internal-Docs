@@ -118,3 +118,20 @@ As syntax (1) of the inner call is done, this also changes the [Letter processin
 ### Additional remarks
 
 This is one of the command supported by [testdiag](Testdiag.md) and it has special behaviors in that mode where `entity` is ignored and the player's entity is used instead.
+
+Also, it's possible to obtain the position of a MiniBubble from an event using GetMiniBubblePos
+
+```cs
+public static Vector3 GetMinibubblePos(Transform target)
+public static Vector3 GetMinibubblePos(Transform target, float y)
+public static Vector3 GetMinibubblePos(float x, float y)
+```
+Returns a vector with the following components which allows to determine the local position a MiniBubble should use assuming it is childed to `GUICamera`:
+
+- x: `x` * 33.0 clamped from -5.0 to 5.0
+- y: `y`
+- z: 10.0
+
+The second overload has the `x` value be `MainCamera`.WorldToViewportPoint(`target`.position).x - 0.5. `target` is meant to be the entity to get its minibubble position.
+
+The first overload is UNUSED, but remains functional and it does the same as the second overload, but with a `y` value of 0.85.

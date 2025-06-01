@@ -77,7 +77,7 @@ This line contains global information about the party and the state of the game.
 
 ### Line 4 (Array line) [Medals](../Enums%20and%20IDs/Medal.md) available in medal shops
 
-This line corresponds the different medals available in each medal shops for purchase.
+This line corresponds the different medals available in each medal shops for purchase stored in `avaliablebadgepool`.
 
 |Element|Description|
 |-------:|-----------|
@@ -97,7 +97,7 @@ and for Shade's shop, it's the first 2. An empty slot means there will be no med
 
 ### Line 5 (Array line) [Medals](../Enums%20and%20IDs/Medal.md) shops pool
 
-This line corresponds to the pool of medals each shop currently offers.
+This line corresponds to the pool of medals each shop currently offers stored in `badgeshops`.
 
 |Element|Description|
 |-------:|-----------|

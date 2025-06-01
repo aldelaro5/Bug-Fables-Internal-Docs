@@ -3,8 +3,12 @@
 Display the list of the game settings which is platform specific.
 
 ## Options generation
+`listvar` contains the indexes of the settingsindex array field. The values are returned from a method called GetSettings:
 
-`listvar` contains the indexes of the settingsindex array field. Here's a table that shows which settings is which in the exact order of the list options and under what conditions they are available:
+```cs
+public static int[] GetSettings()
+```
+Here's a table that shows which settings is which in the exact order of the list options and under what conditions they are available:
 
 |listvar value|settingsindex value|Description|Restrictions|
 |-------------|-------------------|-----------|------------|

@@ -2,6 +2,7 @@
 This methods checks the presence of a [condition](../Conditions.md) and returns the amount of main turns left on it if it exist or -1 if it doesn't. It belongs to MainManager. This is the main way to check the presence of any conditions in the battle system.
 
 ```cs
+public static int HasCondition(BattleData entity)
 public static int HasCondition(BattleCondition condition, BattleData entity)
 ```
 
@@ -9,6 +10,8 @@ public static int HasCondition(BattleCondition condition, BattleData entity)
 
 - `condition`: The `BattleCondition` to check the presence of
 - `entity`: The actor to check the condition for
+
+The overload without an `entity` parameter is UNUSED, but remains functional. It returns true if `entity` has the [Freeze](../BattleCondition/Freeze.md), [Numb](../BattleCondition/Numb.md) or [Sleep](../BattleCondition/Sleep.md) condition.
 
 ### Procedure
 The method goes over all `condition` elements of entity and if one is found with the condition sent, true is returned, false otherwise.

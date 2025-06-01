@@ -33,6 +33,32 @@ The list prompt system has the ability to save the browsing information on an It
 
 This is only used in CardGame under normal gameplay.
 
+It involed 2 methods: SaveList and LoadList.
+
+```cs
+public static int[] SaveList()
+```
+Returns the array value meant to be set to `overridedlist` which is meant to save some of the state of the ItemList. The array returned is 5 elements with the following fields values in order:
+
+- instance.`option`
+- `listcursor`
+- `listlow`
+- `listmax`
+- `listoption`
+
+The values can be restored by passing the returned array to LoadList.
+
+```cs
+public static void LoadList(int[] v)
+```
+Restore some ItemList fields using the values in `v`. The format has to match the one specified in SaveList where `v` is 5 elements containing these values in order:
+
+- instance.`option`
+- `listcursor`
+- `listlow`
+- `listmax`
+- `listoption`
+
 ## Options management
 
 These are used to track a list prompt's options and selections:

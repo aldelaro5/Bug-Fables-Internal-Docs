@@ -15,6 +15,20 @@ A global flag on MainManager that acts as a lock to wait for a confirmation inpu
 
 The [entity](../Entities/Entity.md) pointed by the textbox. This is meant to show who is talking. This can be overridden by [tail](Individual%20commands/Tail.md).
 
+This is automatically managed by MainManager.[LateUpdate](../MainManager/LateUpdate.md) such that as long as a `texttail` exists (which only happens during [dialogue mode setup](Life%20Cycle.md#dialogue-setup)), the `tailtarget` is updated in the following manner on each LateUpdate after a completed boot:
+
+- If `tailtarget` isn't set, it is disabled
+- Otherwise, the following happens to `texttail`:
+    - It gets enabled
+    - Its position is set to the `tailtarget`'s position
+    - Its local x position is clamped from -3.0 to 3.0
+    - Its local y position is set to a value based on `texttail` z angle. If that angle is 180.0 or lower, the local y position of the `texttail` is set to -1.0 - the `texttail` z angle / 60.0 clamped from -1.7 to -1.1. Otherwise (angle is higher than 180.0), it's set to -1.0 - (the absolute value of `texttail` z angle - 360.0) / 60.0 clamped from -1.7 to -1.1
+    - Its local z position is set to 0.0
+    - Its z angle is set to a a value calculated with the following steps:
+        - Take a Vector2 where the x component `MainCamera`.WorldToViewportPoint of `tailtarget` position.x - `MainCamera`.WorldToViewportPoint of `texttail` position.x and the y component is `tailtarget` y position - `texttail` y position
+        - Take the vector.x / vector.y * (0.0 - `MainCamera`.WorldToViewportPoint of `taitarget` position.z * 100.0)
+        - Clamp the above from -50.0 to 50.0
+
 ## textbox
 
 The box that holds the text in Dialogue mode. This contains the textholder. It can be hidden with a shrink animation or revealed with a grow animation.

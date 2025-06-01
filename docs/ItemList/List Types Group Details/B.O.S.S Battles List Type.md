@@ -4,7 +4,12 @@ Display the list of available mini bosses or bosses to battle using the B.O.S.S 
 
 ## Options generation
 
-`listvar` is the return of the GetBosses method which expects `multilist` to be filled beforehand with enemy ids (-1 for Zasp and Mothiva fight, -2 for Team Snakemouth fight). How this works is for everything that isn't -1 or -2, it is added to `listvar` if it the corresponding enemy has been seen at least once. If it is -1, it will only add it if [flags](../../Flags%20arrays/flags.md) 118 is true (beaten Zasp & Mothiva at Golden Hills). If it is -2, it will only add it if [flags](../../Flags%20arrays/flags.md) 555 is true (in postgame).
+`listvar` is the return of the GetBosses method:
+
+```cs
+public static int[] GetBosses()
+```
+It expects `multilist` to be filled beforehand with enemy ids (-1 for Zasp and Mothiva fight, -2 for Team Snakemouth fight). How this works is for everything that isn't -1 or -2, it is added to `listvar` if it the corresponding enemy has been seen at least once. If it is -1, it will only add it if [flags](../../Flags%20arrays/flags.md) 118 is true (beaten Zasp & Mothiva at Golden Hills). If it is -2, it will only add it if [flags](../../Flags%20arrays/flags.md) 555 is true (in postgame).
 
 ## Option's [SetText](../../SetText/SetText.md) input string
 

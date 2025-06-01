@@ -46,10 +46,32 @@ There is a game setting for downsampling, but it isn't exposed. It's only used b
 ```cs
 public static void SetRenderTexture(int downsampleindex)
 ```
-
 Essentially, `RenderTexture` remains disabled until SetRenderTexture is called with a non zero value where it will get enabled and have its material's mainTexture set to a new 1080p RenderTexture. During this process, the `MainCamera` gets its rect set to a smaller area depending on how much downsampling is desired (Termacade games asks for 20% downsampling).
 
-To turn this off, SetRenderTexture needs to be called with 0 as downsampleindex which will cause `RenderTexture` to be disabled and the camera to revert to normal. The reason this is childed to the `GUICamera` is because that rendering is effectively a 2D image rendered on the camera so it shouldn't have depths rendered on it. It's effectively a way to apply post processing effectively and render it as if it was how the game was being rendered.
+The renderTexture is used for the following:
+
+- `MainCamera`.renderTexture
+- `RenderTexture`'s MeshRenderer's material.mainTexture
+- 3DGUI's renderTexture
+
+And here are the possible values of `downsampleindex`:
+
+- 0: Off
+- 1: 90%
+- 2: 80%
+- 3: 75%
+- 4: 60%
+- 5: 50%
+- 6: 40%
+
+When turning this on, it also causes a call to RefreshRenderTex:
+
+```cs
+public static void RefreshRenderTex()
+```
+It is part of SetRenderTexture that updates the camera's Renderer. This is only meaningfully called as part of SetRenderTexture, but PauseMenu technically calls is as part of the now unused settings that allowed to change the downsampling factor of the `MainCamera`.`targetTexture`. The main update being done is with the material.mainTextureScale being 1.0 if FXAA is enabled or `downsamples[downsample]` if it's not.
+
+To turn this off, SetRenderTexture needs to be called with 0 as `downsampleindex` which will cause `RenderTexture` to be disabled and the camera to revert to normal (the other 2 renderTexture are reset to null). The reason this is childed to the `GUICamera` is because that rendering is effectively a 2D image rendered on the camera so it shouldn't have depths rendered on it. It's effectively a way to apply post processing effectively and render it as if it was how the game was being rendered.
 
 ### 3DGUI
 This camera only renders elements on the `3DUI` layer. Unlike the other 2 cameras, it's not possible to access it directly, but there's not a need to do this. This is because this camera doesn't need to be rendered directly onto like the `GUICamera` and it isn't needed to address it for it to function.
@@ -86,7 +108,11 @@ The camera's logic is driven by a state machine in MainManager that uses the fol
 These fields however aren't the only ones that determines the camera angles and position. Part of it is handled by the [MapControl specific portion](../MapControl/Camera%20system.md). which contains fields to further configure this system.
 
 ## RefreshCamera
-This method is responsible for using all the fields mentioned above and the MapControl fields to position and angle the camera. It is only called by FixedUpdate continously after LoadEverything is done. Here is what the method does.
+This method is responsible for using all the fields mentioned above and the MapControl fields to position and angle the camera. It is only called by FixedUpdate continously after LoadEverything is done. Here is its signature:
+
+```cs
+private void RefreshCamera()
+```
 
 ### "MainCam" positioning
 The first thing RefreshCamera does is set the position of "MainCam".
@@ -101,8 +127,15 @@ This is the logic that happens for the first 2 cases:
 
 - If `map` is null, it means the map is currently being loaded so it can't influence the camera. The "MainCam" position is set to a lerp from the existing one to the destination with a factor of `camspeed`
 - Otherwise (`map` isn't null), it depends on `map`.`tetherdistance` and `insideid`:
-    - If `map`.`tetherdistance` is above 0.0 (it has a value defined) and we aren't in an [inside](../MapControl/Insides.md), the "MainCam" position is set to a lerp from the existing one with a factor of `camspeed`. The destination of this lerp is the destination clamped from `map`.`camlimitneg` to `map`.`camlimitpos` limited by a radius of `map`.`tetherdistance` from `map`.`actualcenter` as the center point. In summary, there's 2 limits: a position range limit (`map`'s `camlimitneg` / `camlimitpos`) and a radius limit (`map`'s `tetherdistance`). More information can be found in the [map camera system](../MapControl/Camera%20system.md)
-    - Otherwise, the "MainCam" position is set to a lerp from the existing one to the destination clamped from `map`.`camlimitneg` to `map`.`camlimitpos` with a factor of `camspeed` (so no radius limit)
+    - If `map`.`tetherdistance` is above 0.0 (it has a value defined) and we aren't in an [inside](../MapControl/Insides.md), the "MainCam" position is set to a lerp from the existing one with a factor of `camspeed`. The destination of this lerp is the LimitRadius of Camlimiter(destination) where the radius is `map`.`tetherdistance` and the origin is `map`.`actualcenter`. In summary, there's 2 limits: a position range limit (`map`'s `camlimitneg` / `camlimitpos` enforced by CamLimiter) and a radius limit (`map`'s `tetherdistance`). More information can be found in the [map camera system](../MapControl/Camera%20system.md)
+    - Otherwise, the "MainCam" position is set to a lerp from the existing one to Camlimiter(destination) with a factor of `camspeed` (so no radius limit)
+
+Here is CamLimiter's signature:
+
+```cs
+private static Vector3 CamLimiter(Vector3 pos)
+```
+it returns `pos` where each of its component was clamped with the matching components from `camlimitneg` to `camlimitpos`. Essentially, this is what applies the `map` camera limits.
 
 ### `MainCamera` local postion adjustements
 After, the "MainCamera" local position gets to a lerp from its existing one to `camoffset` + `camoffset2` with a factor of `camspeed`. However, if `screenshake` isn't Vector3.zero, a random vector is generated between 0.0 - `screenshake` and `screenshake` and it is added to the `MainCamera` local position (after the lerp is done).
@@ -193,13 +226,18 @@ Additionally, if the `map` isn't null (it's not being loaded), the `map`'s camer
 
 Finally, `camtarget` is set to null unless the `player` is present where it will be set to its transform instead.
 
-This overload does the same if the instant parameter is false, but if it's true, it will also set `camspeed` to 1.0 and invoke ResetCamSpeed in 0.1 seconds which will set `camspeed` to 0.1 and `camanglespeed` to 0.1. It's essentially a way to do the above, but it will be seen instantly on the next frame.
+This overload does the same if the instant parameter is false, but if it's true, it will also set `camspeed` to 1.0 and invoke ResetCamSpeed in 0.1 seconds:
+
+```cs
+private void ResetCamSpeed()
+```
+This will reset `camspeed` and `camanglespeed` are reset to 0.1. It's essentially a way to do the above, but it will be seen instantly on the next frame.
 
 ```cs
 public static void ResetCamera(bool instant)
 ```
 
-### SetCamera
+### SetCamera and SetCameraInstant
 The following method allows to set lots of camera fields at once:
 
 ```cs
@@ -243,22 +281,59 @@ This one calls (1) where target is null and offset is `defaultcamoffset`
 
 (3)
 ```cs
+public static void SetCamera(Vector3 pos)
+```
+
+This one calls (4) where speed is 0.035
+
+(4)
+```cs
 public static void SetCamera(Vector3 targetpos, float speed)
 ```
 
 This one calls the main overload where target is null
 
-(4)
+(5)
 ```cs
 public static void SetCamera(Vector3 targetpos, Vector3 angle, Vector3 offset, float speed)
 ```
 
 This one calls the main overload where target is null and offset is `defaultcamoffset`
 
-(5)
+(6)
 ```cs
 public static void SetCamera(Vector3 targetpos, Vector3 angle, float speed)
 ```
+
+There's also SetCameraInstant which calls SetCamera(`pos`, 1.0). This will instantly reposition the camera without doing it over a period of time:
+
+```cs
+public static void SetCameraInstant(Vector3 pos)
+```
+
+## Check if something is in range of the camera
+There's 2 methods to check if something is considered "in range" of the camera meaning it's visible enough in its viewport.
+
+```cs
+public static bool InCameraRange(Vector3 t)
+public static bool InCameraRange(Transform obj)
+```
+Returns true if `t` is a position that is considered inside the camera's range by considering `entityactive`, false otherwise. More precisely, the method only returns true if all of the following conditions are true:
+
+- `t`.x is between -`entityactive`.x and `entityactive`.x + 1.0
+- `t`.y is between -`entityactive`.y and `entityactive`.y + 1.0
+- `t`.z is greater than `entityactive`.z meaning that `t` is forward enough relative to the camera
+
+The overload that takes a Transform is UNUSED as no one calls it, but it remains functional where `t` becomes `MainCamera`.WorldToViewportPoint(`obj`'s position).
+
+```cs
+private static bool CheckIfCamera(Vector3 campos, float tolerance, Vector3 offset)
+```
+Performs a test to see if `campos` + `offset` is a point that's rendered enough from `MainCamera`'s WorldToViewportPoint. More precisely, the method only returns true if the following conditions are satisfied from the return vector of `MainCamera`.WorldToViewportPoint(`campos` + `offset`):
+
+- x component must be between -0.5 and 1.5 exclusive
+- y component must be between -0.5 and 1.5 exclusive
+- z component must be above `tolerance`
 
 ### ShakeScreen
 The following method causes a screenshake to happen:

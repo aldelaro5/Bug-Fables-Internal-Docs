@@ -4,7 +4,7 @@ Display the list of open, taken or completed [BoardQuests](../../Enums%20and%20I
 
 ## Options generation
 
-`listvar` is all the [BoardQuests](../../Enums%20and%20IDs/BoardQuests.md) id contained in the boardquests depending on the board type of the list (open, taken or completed) with some restrictions that apply if the current map is not TestRoom:
+`listvar` is the return of GetQuestsBoard(`listtype` - 14) which are all the [BoardQuests](../../Enums%20and%20IDs/BoardQuests.md) id contained in the `boardquests` depending on the board type of the list (open, taken or completed) with some restrictions that apply if the current map is not TestRoom:
 
 * Leif's Request and Vi's Request are excluded (NOTE: Kabbu's Request should have been excluded, but its exclusion was forgotten).
 * Any story request (id between 11 and 17) are excluded.
