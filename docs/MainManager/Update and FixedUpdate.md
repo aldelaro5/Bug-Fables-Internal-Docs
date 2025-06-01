@@ -47,8 +47,8 @@ Here is a summary of the tasks it handles in order:
 - Handles various [itemlist](../ItemList/ItemList.md) related naviguation (check the different [listtype](../ItemList/listtype.md) documentations for the details, this only summarises what happens):
     - If `listsell` is true, `showmoney` is set to 10.0 so the berry counter [HUD](../General%20systems/HUD.md) is shown
     - `cursor` gets locally positioned relative to `listcursor` so it visually points at the current item. There are slight variations for the [language listtype](../ItemList/List%20Types%20Group%20Details/Languages%20list%20Type.md) and any [quests listtype](../ItemList/List%20Types%20Group%20Details/Quest%20Board%20List%20Type.md)
-    - Up/down inputs gets processed with an UpdateList call (true for up, false for down) followed by a [ShowItemList](../ItemList/ShowItemList.md) with the current ItemList parameters to refresh `itemlist` if `option` changed as a result of the UpdateList call
-    - Left/Right inputs gets processed the same way than up/down, but the UpdateList calls are repeated for `listammount` times before the ShowItemList call. However, for a [quests listtype](../ItemList/List%20Types%20Group%20Details/Quest%20Board%20List%20Type.md), these inputs processing completely changes because it needs to cycle the current tab:
+    - Up/down inputs gets processed with an [UpdateList](../ItemList/Utility%20methods.md#updatelist) call (true for up, false for down, 1 skip and without nosound) followed by a [ShowItemList](../ItemList/ShowItemList.md) with the current ItemList parameters to refresh `itemlist` if `option` changed as a result of the UpdateList call. NOTE: This doesn't use the overloads that supports the wrap around feature
+    - Left/Right inputs gets processed the same way than up/down, but the UpdateList calls are repeated for `listammount` times before the ShowItemList call (it doesn't use the overloads that supports this already with the skip parameter). However, for a [quests listtype](../ItemList/List%20Types%20Group%20Details/Quest%20Board%20List%20Type.md), these inputs processing completely changes because it needs to cycle the current tab:
         - PlaySound(`PageFlip`) called
         - ResetList called
         - `listtype` is decremented for a left input (with wrap arround to 16 if it gets lower than 14) or incremented for a right input (with wrap aroundf to 14 if it gets higher than 16)
@@ -82,5 +82,5 @@ MainManager.FixedUpdate is much simpler in comparision.
 
 If `basicload` is true ([LoadEverything](Boot%20and%20reset%20process.md#loadeverything-part-12) ran to completion), the following happens:
 
-- RefreshCamera is called
-- LoopMusic is called
+- [RefreshCamera](../General%20systems/Camera%20system.md#refreshcamera) is called
+- [LoopMusic](../General%20systems/Music%20playback.md#music-looping) is called

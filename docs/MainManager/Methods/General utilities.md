@@ -21,8 +21,8 @@ public static int HowManyTrue(bool[] array)
 Returns the amount of elements in `array` that have a value of true.
 
 ```cs
-public static bool CheckAllBool(bool[] array, int[] values, bool state)
 public static bool CheckAllBool(bool[] array, bool state)
+public static bool CheckAllBool(bool[] array, int[] values, bool state)
 ```
 Returns true if all `values` elements contains an `array` index whose matching value is `state`, false otherwise. All `values` elements must contain valid `array` indexes or an exception will likely be thrown.
 
@@ -86,8 +86,8 @@ Returns the absolute value of a - b.
 These methods perform math operation on Vector2 or Vector3.
 
 ```cs
-public static Vector3 ClampVectorBox(Vector3 input, Vector3 limitspos, Vector3 limitsneg)
 public static Vector3 ClampVectorBox(Vector3 input, Vector3 limits)
+public static Vector3 ClampVectorBox(Vector3 input, Vector3 limitspos, Vector3 limitsneg)
 ```
 Returns a vector where each component of `input` got clamped from the matching component of `limitneg` to the matching component of `limitspos`.
 

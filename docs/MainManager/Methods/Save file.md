@@ -34,8 +34,8 @@ This method handles a lot of potential errors, here is a more detailed list of t
 
 Additionally, in non `lite` loading, the following additional steps are done in this loading process:
 
-- ChangeParty without fromscratch is called with the party composition in the save file once their information have been read sucessfully
-- ApplyBadges is called right before returning on a sucessful load.
+- [ChangeParty](../../General%20systems/Player%20party.md#changeparty) without fromscratch is called with the party composition in the save file once their information have been read sucessfully
+- [ApplyBadges](../../General%20systems/Player%20party.md#applybadges) is called right before returning on a sucessful load.
 
 ```cs
 public static int SaveProgressIcons()

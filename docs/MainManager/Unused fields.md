@@ -2,7 +2,7 @@
 This page only contains unused fields either because nobody references them or because the fields is technically used, but not in a semantically useful way in practice.
 
 ## Unreferenced fields
-All these fields are never referenced and are therefore completely unknown besides their types and names.
+All these fields are never referenced and are therefore completely unknown besides their declaration.
 
 |Name|type|Is static?|Is Private?|
 |---:|-----|----------|----------|

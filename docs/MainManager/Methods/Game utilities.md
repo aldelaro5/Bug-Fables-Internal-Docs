@@ -54,9 +54,9 @@ public static bool CheckIfCanExist(int[] requires, int[] limit, int regionalflag
 ```
 Returns false if all of the following conditions are satisfied  (true otherwise indicating the conditions are NOT satisifed):
 
-- Any flag slots that matches the absolute value of any `limit` elements of -2 or lower must be false
+- Any [flag](../../Flags%20arrays/flags.md) slots that matches the absolute value of any `limit` elements of -2 or lower must be false
 - If `requires` is considered not empty, all flags slots specified in `requires` must be true. The array is considered not empty if it is not null, not empty and its first element isn't negative
 - If `limit` is considered not empty, all flags slots specified in `limit` must be false. The array is considered not empty if it is not null, not empty and its first element isn't negative
-- If `regionalflag` applies, the regionalflag slot `regionalflag` must be false. The condition applies only if `regionalflag` isn't negative and `map` isn't null (meaning the map isn't being loaded)
+- If `regionalflag` applies, the [regionalflag](../../Flags%20arrays/Regionalflags.md) slot `regionalflag` must be false. The condition applies only if `regionalflag` isn't negative and `map` isn't null (meaning the map isn't being loaded)
 
 This method implements the backing logic of a ConditionChecker and NPCControl's existence logic. NOTE: The return value is inverted: false if conditions are satisifed, true if conditions are NOT satisfied.

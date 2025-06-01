@@ -8,21 +8,21 @@ public static void LoadMap(int id, bool recreateplayers)
 ```
 Decomission and destroy the current `map` before loading a new one with a Maps id of `id`. If `recreateplayers` is true, all `playerdata` gets destroyed followed by setting `player` to null before this process.
 
-This method is documented in detail in the map loading documentation.
+This method is documented in detail in the [map loading](../../MapControl/Map%20loading.md) documentation.
 
 ```cs
 public static IEnumerator TransferMap(int targetmap, Vector3 targetpos)
 public static IEnumerator TransferMap(int targetmap, Vector3 moveto, Vector3 tppos, Vector3 othermovepos)
 public static IEnumerator TransferMap(int targetmap, Vector3 moveto, Vector3 tppos, Vector3 othermovepos, NPCControl caller)
 ```
-Changes the current map with a loading transition. Check the map loading documentation to learn more.
+Changes the current map with a loading transition. Check the [TransferMap](../../MapControl/Map%20loading.md#transfermap) documentation to learn more.
 
 The first overload is UNUSED, but remains functional.
 
 ```cs
 public static void UpdateArea(int newarea)
 ```
-Performs the tasks needed to process an area change which happens if needed on a MapControl's Start. More precisely, the following is done:
+Performs the tasks needed to process an area change which happens if needed on a MapControl's [Start](../../MapControl/Init%20process.md#start). More precisely, the following is done:
 
 - If flag 596 is true (talked to the Roach Elder in the postgame) and `areaid` is 15 (meaning this is changing the area from the Giant's Lair), flag 597 is set to true (the `elder` entity on GiantLairSaplingPlains has a `limit` on it so this will cause his disappearence from that map).
 - All regional flags are reset

@@ -7,7 +7,7 @@ The main scene contains 2 important rooted GameObject:
 - `StartMenu` which has a disabled StartMenu component (it gets enabled during the boot process)
 - `MainCam` which contains the structure of the [Camere system](../General%20systems/Camera%20system.md), but more importantly, it has a child called `MainCamera` that has the only MainManager component in the game and it is enabled
 
-This effectively means that the earliest component that will kick in is MainManager which has a Start method. This is where the boot process starts.
+This effectively means that the earliest Unity component that will kick in is MainManager which has a Start method. This is where the boot process starts.
 
 ## MainManager.Start
 MainManager.Start can be considered the first declared method to run with the only methods running before it are runtime defined such as static constructors. It is the earlest part of the boot process.
@@ -83,7 +83,7 @@ Here is what happens in the coroutine:
     - `Main3D`: The Material from `Materials/3DMain`
     - `Fade3D`: The Material from `Materials/3DFade`
     - `grayscale`: The Material from `Materials/Grayscale`
-    - `letters`: The TextAsset from `Data/Letters`.ToString().ToCharArray()
+    - `letters`: The TextAsset from `Data/Letters`.ToString().ToCharArray() (it is UNUSED in practice)
 - The following fields are set to the return of a Resources.LoadAll call each followed by a frame yield done in order:
     - `grasssprite`: Sprite from `Sprites/Objects/grass`
     - `leafsprites`: Sprite from `Sprites/GUI/battleleaves`
@@ -172,7 +172,7 @@ Here's what happens here:
 - What happens here depends if `languageid` is defined (meaning not negative) if it's not defined, it means that no language was loaded from config.dat so the game will go to the language selection screen with by doing the following:
     - SetUpList is called to setup a [languages listtype](../ItemList/List%20Types%20Group%20Details/Languages%20list%20Type.md) without description and sell
     - [ShowItemList](../ItemList/ShowItemList.md) is called to setup the same listtype with a position of (-1.0, -0.35) without description and sell
-    - `sprites[3]` (???) gets disabled
+    - `sprites[3]` (the load icon) gets disabled
 - Otherwise (`languageid` is defined from config.dat):
     - MainManager.instance.SetVariables is called which is the last step of the boot process
     - The Intro coroutine starts which starts the actual title screen UI

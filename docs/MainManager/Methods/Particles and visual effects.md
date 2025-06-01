@@ -56,6 +56,8 @@ Set the following float shader properties of the material of `t`:
 - `_ShakeBending`: Random between `map`.`windintensity` / 2.0 and `map`.`windintensity`
 - `_ShakeDisplacement`: Random between 0.075 and 0.25
 
+For more information, consult the [MapControl graphics configuration](../../MapControl/Graphics%20configuration.md).
+
 ```cs
 public static IEnumerator ChapterName(int chapterid)
 ```
