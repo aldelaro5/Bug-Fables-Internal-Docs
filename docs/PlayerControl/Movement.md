@@ -21,7 +21,7 @@ This only happens when any movement inputs is held:
     - The `spd` value is determined and their x/z components will be set to the entity.`rigid` x/z velocity (the y velocity is unchanged). The first cases below that applies is selected and its matching `spd` value will be used:
         - The player is `flying`: `spd` is `lastdelta` * entity.`speed` / 2.0
         - The player is `digging` or is in a `shield`: `spd` is `lastdelta` * entity.`speed` / 1.5
-        - MainManager.`analog` is 0: `spd` is `lastdelta` * entity.`speed`
+        - MainManager.`analog` is 0 (OFF): `spd` is `lastdelta` * entity.`speed`
         - None of the above cases applies: `spd` is `walkdelta`
     - If the player isn't `flying`, entity.[animstate](../Entities/EntityControl/Animations/animstate.md) is set to 1 (`Walk`)
 - Otherwise:
