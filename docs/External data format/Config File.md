@@ -8,6 +8,20 @@ The layout of the file is similar to the save file where it contains different f
 
 The amount of lines / fields in the file and which line index corresponds to which field is platform dependant meaning the exact fields and their order depends on the platform the game is built for. This page ONLY documents the format of the file the Steam, GOG and Itch.io versions of the game on PC.
 
+The parsing of the file is done by MainManager.ReadSettings method:
+
+```cs
+public static void ReadSettings(string[] c)
+```
+It sets all fields backed by a setting value where `c` is the string array read by reading the `config.dat` file.
+
+To get the string to save to the file MainManager.SaveSettings is called:
+
+```cs
+public static string SaveSettings()
+```
+It returns a `config.dat` compliant text from the settings fields, the same ones that were read by ReadSettings, but it takes into account the changes that happened during the game.
+
 ## `Config.dat` fields table
 The following table shows the fields present in `config.dat` and their format ordered by their line index in the file:
 
@@ -58,22 +72,27 @@ The following table shows the fields present in `config.dat` and their format or
 |42|`True` or `False`|MainManager.`pauseonfocus`|Determines the value of Application.runInBackground. If the config file value is false, Application.runInBackground is set to true. If the config file value is true, Application.runInBackground is set to false|
 |43|`True` or `False`|MainManager.`snapTo8`|If true, it changes the logic of [DoActionTap](../PlayerControl/Actions/DoActionTap.md) when `Bee` is the party leader where the Beemerang's heading direction will be the player's heading direction snapped to a vector whose components will be snapped to -1.0, 0.0 or 1.0 depending on the closest one (so 8 cardinal directions)|
 
-> NOTE: Any fields index 29 and above are optional, but if any is omited, the field and any further field won't be read from the file. Also, field 26 (MainManager.`forcejoystick`) is optional if field 23 (MainManager.`usejoystick`) isn't 4 or 5, but if field 26 is present, field 27 and 28 become required with it.
+> NOTE: Any fields with an index of 29 and above are optional, but if any is omited, field 29 and any further field won't be read from the file. Also, field 26 (MainManager.`forcejoystick`) is optional if field 23 (MainManager.`usejoystick`) isn't 4 or 5 (TODO: ???), but if field 26 is present, field 27 and 28 become required.
 
-## Related methods
-TODO: document these when documenting InputIO.
-
-```cs
-public static void ReadSettings(string[] c)
-```
-Set all fields backed by a setting value where `c` is the string array read by reading the `config.dat` file. TODO: Document config.dat format!
-
-```cs
-public static string SaveSettings()
-```
-Returns a `config.dat` compliant text from the settings fields. TODO: Document config.dat format!
+## ApplySettings
+There is another method that applies all changes done to settings values during the game without necessarily saving them directly. That method is MainManager.ApplySettings:
 
 ```cs
 public static void ApplySettings()
 ```
-TODO: add the config.dat documentation that heavily involves this
+Most of the logic this method does is explained in the table above, but there's also some additional logic. Here are the additional steps the method does:
+
+- If `music[0]` is currently playing while instance.`inmusicrange` is -1 (no [MusicRange](../Entities/NPCControl/ObjectTypes/MusicRange.md) is active), `music[0]`.volume is set to the new `musicvolume` value
+- All `sounds`'s volume are set to the new `soundvolume` value
+- If `usejoystick` is 5 (TODO: ???), `joyid` is set to the new `forcejoystick` value
+- If `usejoystick` is 3 (TODO: ???) while `forcejoystick` isn't negative or if `usejoystick` is 0 (TODO: ???) while `joystick` is true TODO: ???:
+    - InputIO.GetJoyButtons called
+    - `forcecontrollerupdate` set to true
+- If AudioSettings.speakerMode indicates a different value than the new `monoaudio` value and `music[0]` is currently playing an AudioClip, it is replayed by doing the following:
+    - [ChangeMusic](../General%20systems/Music%20playback.md#changemusic) called with `music[0]`.clip.name
+    - `music[0]`.Play called
+    - `music[0]`.time is reset to the value it had before the above happened
+- If InputIO.`isConsole` is true (a console platform), Application.runInBackground is set to false
+- If Application.isMobilePlatform is false, the resolution settings are ignored and the Screen resolution is instead set to 1024 x 576 without fullscreen
+- If `map` exists (a map isn't being loaded), `map`.RefreshSoundVolume is called which sets all SoundControl's `source`.volume present in the scene to their `startvalue` * the new `soundvolume` value
+- If `analog` is higher than 2, it is set to 0. This can't happen under normal gameplay
