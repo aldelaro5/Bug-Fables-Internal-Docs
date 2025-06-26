@@ -50,7 +50,7 @@ The following table shows the fields present in `config.dat` and their format or
 |20|int between 0 and 2|MainManager.`enableoutline`|Determines which value to set the `GlobalOutline` global shader property on MainManager.UpdateOutlines:<ol start="0"><li>0.0</li><li>0.1</li><li>0.3 (Doesn't apply if the current [area](../Enums%20and%20IDs/librarystuff/Areas.md) is `MetalLake` where the value will be 0.1 instead)</li></ol> NOTE: The value is forced to 1 temporarily during event 204 (credits) regardless of the original value, but it is restored towards the end of the event|
 |21|int between 0 and 6|MainManager.`downsample`|Determines the factor at which to downsample the render texture of the camera. Here are the mappings of the values:<ol start="0"><li>1.0</li><li>0.9</li><li>0.8</li><li>0.75</li><li>0.6</li><li>0.5</li><li>0.4</li></ol>NOTE: This setting is not configurable under normal gameplay and the value from the config file is ignored|
 |22|int between 0 and 2|MainManager.`particlelevel`|Controls the rendering of different particles effects. Here are the behaviors of each values:<ol start="0"><li>All LilypadEffects gets disabled on their Start, all GameObject with a tag of `Particable` gets disabled on the first LateUpdate of MapControl and all GameObjects attached to a PrefabParticle gets disabled (done on the component's Start)</li><li>None of the effects described above applies, but every PrefabParticle component has their `maxammount` halved and floored on their Start</li><li>None of the effects described in the above values applies</li></ol>|
-|23|int between 0 and 5|MainManager.`usejoystick`|???|
+|23|int between 0 and 5|MainManager.`usejoystick`|Tells how the game should treat controllers, here are the values mapping:<ol start="0"><li>DISABLED</li><li>AUTO DETECT</li><li>FORCE XBOX</li><li>CHOOSE MANUALLY</li><li>PRE-CONFIGURED</li><li>CUSTOM BINDINGS</li></ol>|
 |24|float between 0.0 and 1.0|MainManager.`bleepvolume`|The base value to scale [bleeps](../SetText/bleep.md)'s volume|
 |25|int|MainManager.`vsync`|Determines the value of QualitySettings.vSyncCount that the game will use. If the config file value is 0, the vSyncCount used will be 0 (vsync is disabled). Otherwise (any other value than 0), vSyncCount will be set to Screen.currentResolution.refreshRate / 60.0 floored and clamped from 1 to 4 (vsync is enabled, but in a way to target the closest FPS number to 60.0 such that the FPS is still at least 60.0)|
 |26|int being -1 or a valid controller id TODO: detail|MainManager.`forcejoystick`|???|
@@ -72,7 +72,7 @@ The following table shows the fields present in `config.dat` and their format or
 |42|`True` or `False`|MainManager.`pauseonfocus`|Determines the value of Application.runInBackground. If the config file value is false, Application.runInBackground is set to true. If the config file value is true, Application.runInBackground is set to false|
 |43|`True` or `False`|MainManager.`snapTo8`|If true, it changes the logic of [DoActionTap](../PlayerControl/Actions/DoActionTap.md) when `Bee` is the party leader where the Beemerang's heading direction will be the player's heading direction snapped to a vector whose components will be snapped to -1.0, 0.0 or 1.0 depending on the closest one (so 8 cardinal directions)|
 
-> NOTE: Any fields with an index of 29 and above are optional, but if any is omited, field 29 and any further field won't be read from the file. Also, field 26 (MainManager.`forcejoystick`) is optional if field 23 (MainManager.`usejoystick`) isn't 4 or 5 (TODO: ???), but if field 26 is present, field 27 and 28 become required.
+> NOTE: Any fields with an index of 29 and above are optional, but if any is omited, field 29 and any further field won't be read from the file. Also, field 26 (MainManager.`forcejoystick`) is optional if field 23 (MainManager.`usejoystick`) isn't 4 or 5 (it's not PRE-CONFIGURED or CUSTOM BINDINGS), but if field 26 is present, field 27 and 28 become required.
 
 ## ApplySettings
 There is another method that applies all changes done to settings values during the game without necessarily saving them directly. That method is MainManager.ApplySettings:
@@ -84,8 +84,8 @@ Most of the logic this method does is explained in the table above, but there's 
 
 - If `music[0]` is currently playing while instance.`inmusicrange` is -1 (no [MusicRange](../Entities/NPCControl/ObjectTypes/MusicRange.md) is active), `music[0]`.volume is set to the new `musicvolume` value
 - All `sounds`'s volume are set to the new `soundvolume` value
-- If `usejoystick` is 5 (TODO: ???), `joyid` is set to the new `forcejoystick` value
-- If `usejoystick` is 3 (TODO: ???) while `forcejoystick` isn't negative or if `usejoystick` is 0 (TODO: ???) while `joystick` is true TODO: ???:
+- If `usejoystick` is 5 (CUSTOM BINDINGS), `joyid` is set to the new `forcejoystick` value
+- If `usejoystick` is 3 (CHOOSE MANUALLY) while `forcejoystick` isn't negative TODO: ??? or if `usejoystick` is 0 (DISABLED) while `joystick` is true TODO: ???:
     - InputIO.GetJoyButtons called
     - `forcecontrollerupdate` set to true
 - If AudioSettings.speakerMode indicates a different value than the new `monoaudio` value and `music[0]` is currently playing an AudioClip, it is replayed by doing the following:
