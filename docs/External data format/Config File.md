@@ -27,16 +27,16 @@ The following table shows the fields present in `config.dat` and their format or
 
 |Line|Format|Name|Description|
 |---:|------|----|----------|
-|0|A KeyCode enum value as string or int|InputIO.`keys[0]`|The keybaord input bound to the ??? game input|
-|1|A KeyCode enum value as string or int|InputIO.`keys[1]`|The keybaord input bound to the ??? game input|
-|2|A KeyCode enum value as string or int|InputIO.`keys[2]`|The keybaord input bound to the ??? game input|
-|3|A KeyCode enum value as string or int|InputIO.`keys[3]`|The keybaord input bound to the ??? game input|
-|4|A KeyCode enum value as string or int|InputIO.`keys[4]`|The keybaord input bound to the ??? game input|
-|5|A KeyCode enum value as string or int|InputIO.`keys[5]`|The keybaord input bound to the ??? game input|
-|6|A KeyCode enum value as string or int|InputIO.`keys[6]`|The keybaord input bound to the ??? game input|
-|7|A KeyCode enum value as string or int|InputIO.`keys[7]`|The keybaord input bound to the ??? game input|
-|8|A KeyCode enum value as string or int|InputIO.`keys[8]`|The keybaord input bound to the ??? game input|
-|9|A KeyCode enum value as string or int|InputIO.`keys[9]`|The keybaord input bound to the ??? game input|
+|0|A KeyCode enum value as string or int|InputIO.`keys[0]`|The keybaord input bound to the up game input|
+|1|A KeyCode enum value as string or int|InputIO.`keys[1]`|The keybaord input bound to the down game input|
+|2|A KeyCode enum value as string or int|InputIO.`keys[2]`|The keybaord input bound to the left game input|
+|3|A KeyCode enum value as string or int|InputIO.`keys[3]`|The keybaord input bound to the right game input|
+|4|A KeyCode enum value as string or int|InputIO.`keys[4]`|The keybaord input bound to the confirm game input|
+|5|A KeyCode enum value as string or int|InputIO.`keys[5]`|The keybaord input bound to the cancel game input|
+|6|A KeyCode enum value as string or int|InputIO.`keys[6]`|The keybaord input bound to the switch party game input|
+|7|A KeyCode enum value as string or int|InputIO.`keys[7]`|The keybaord input bound to the toggle HUD game input|
+|8|A KeyCode enum value as string or int|InputIO.`keys[8]`|The keybaord input bound to the pause game input|
+|9|A KeyCode enum value as string or int|InputIO.`keys[9]`|The keybaord input bound to the help game input|
 |10|int between 0 and 7|MainManager.`resolutionindex`|The game resolution to use among different presets. Here are the mapping of the values to their resolutions:<ol start="0"><li>1024 x 576</li><li>1152 x 648</li><li>1280 x 720</li><li>1366 x 768</li><li>1600 x 900</li><li>1920 x 1080</li><li>2560 x 1440</li><li>3840 x 2160</li></ol>|
 |11|`True` or `False`|MainManager.`fullscreen`|Tells whether or not the game should be rendered in fullscreen mode. If it isn't, it is rendered in windowed mode|
 |12|int between 0 and 2|MainManager.`fps`|Tells what value shouls be set to Application.targetFrameRate:<ol start="0"><li>30</li><li>60 (the default)</li><li>-1 (unlimited)</li></ol> NOTE: The value 2 is not selectable under normal gameplay, but will still cause the game to be rendered without an FPS limit if it is read from the file. Doing so is NOT recommended because most of the game's logic isn't designed to go beyond 60 FPS|
@@ -56,16 +56,16 @@ The following table shows the fields present in `config.dat` and their format or
 |26|int being -1 or a valid controller id TODO: detail|MainManager.`forcejoystick`|???|
 |27|`True` or `False`|MainManager.`keepmusicafterbattle`|Determines if the music timestamp should be saved when entering a battle and restored when leaving it. NOTE: Some maps override this logic and allows an [incorrect playback issue](../General%20systems/Music%20playback.md#issue-with-musicresume) to occur under specific conditions when this setting is enabled|
 |28|`True` or `False`|MainManager.`mashcommandalt`|If true, some [ActionCommands](../Battle%20system/ActionCommands.md) will have their command overriden to another|
-|29|int|MainManager.`joybinds[0]`|The controller input bound to the ??? game input|
-|30|int|MainManager.`joybinds[1]`|The controller input bound to the ??? game input|
-|31|int|MainManager.`joybinds[2]`|The controller input bound to the ??? game input|
-|32|int|MainManager.`joybinds[3]`|The controller input bound to the ??? game input|
-|33|int|MainManager.`joybinds[4]`|The controller input bound to the ??? game input|
-|34|int|MainManager.`joybinds[5]`|The controller input bound to the ??? game input|
-|35|int|MainManager.`joybinds[6]`|The controller input bound to the ??? game input|
-|36|int|MainManager.`joybinds[7]`|The controller input bound to the ??? game input|
-|37|int|MainManager.`joybinds[8]`|The controller input bound to the ??? game input|
-|38|int|MainManager.`joybinds[9]`|The controller input bound to the ??? game input|
+|29|int|MainManager.`joybinds[0]`|The controller input bound to the up game input|
+|30|int|MainManager.`joybinds[1]`|The controller input bound to the down game input|
+|31|int|MainManager.`joybinds[2]`|The controller input bound to the left party game input|
+|32|int|MainManager.`joybinds[3]`|The controller input bound to the right game input|
+|33|int|MainManager.`joybinds[4]`|The controller input bound to the confirm game input|
+|34|int|MainManager.`joybinds[5]`|The controller input bound to the cancel game input|
+|35|int|MainManager.`joybinds[6]`|The controller input bound to the switch party game input|
+|36|int|MainManager.`joybinds[7]`|The controller input bound to the toggle HUD game input|
+|37|int|MainManager.`joybinds[8]`|The controller input bound to the pause game input|
+|38|int|MainManager.`joybinds[9]`|The controller input bound to the help game input|
 |39|`True` or `False`|MainManager.`monoaudio`|Determines if AudioSettings.speakerMode should be set to `Mono`. If the value is false, it is set to `Stereo`|
 |40|A `,` seprated list of bool, each containing `True` or `False`|MainManager.`secretunlocks`|The list of secret codes allows to be toggled on the StartMenu's secret menu when creating a new file (it can be accessed by pressing the Help input when selecting an empty save slot). The list is normally 5 elements with the indexes mapping to the following codes:<ol start="0"><li>RUIGEE</li><li>HARDEST</li><li>FRAMEONE</li><li>MOREFARM</li><li>MYSTERY?</li></ol>NOTE: At least 2 elements in the list must be true for the secret menu to be accessible|
 |41|int between 0 and 2|MainManager.`analog`|Controls the sensitivity of analogue input when moving in the overworld. It determines the value of [walkdelta](../PlayerControl/Update.md#walkdelta-computation) on PlayerControl.Update and controls some [Movement](../Entities/EntityControl/Notable%20methods/Follow.md#movement-logic) on PlayerControl.Movement. 0 means OFF, 1 means LOW and 2 means HIGH|
