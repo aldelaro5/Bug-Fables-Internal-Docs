@@ -53,7 +53,7 @@ The following table shows the fields present in `config.dat` and their format or
 |23|int between 0 and 5|MainManager.`usejoystick`|Tells how the game should treat controllers, here are the values mapping:<ol start="0"><li>DISABLED</li><li>AUTO DETECT</li><li>FORCE XBOX</li><li>CHOOSE MANUALLY</li><li>PRE-CONFIGURED</li><li>CUSTOM BINDINGS</li></ol>|
 |24|float between 0.0 and 1.0|MainManager.`bleepvolume`|The base value to scale [bleeps](../SetText/bleep.md)'s volume|
 |25|int|MainManager.`vsync`|Determines the value of QualitySettings.vSyncCount that the game will use. If the config file value is 0, the vSyncCount used will be 0 (vsync is disabled). Otherwise (any other value than 0), vSyncCount will be set to Screen.currentResolution.refreshRate / 60.0 floored and clamped from 1 to 4 (vsync is enabled, but in a way to target the closest FPS number to 60.0 such that the FPS is still at least 60.0)|
-|26|int being -1 or a valid controller id TODO: detail|MainManager.`forcejoystick`|<ol start="0"><li>Xbox 360</li><li>Dualshock 4</li><li>Switch Pro Controller</li><li>Switch Joy-Con L</li><li>Switch Joy-Con R</li><li>Generic Controller 1</li><li>Generic Controller 2</li><li>Fight Pad Pro for Switch</li><li>Xbox Linux</li></ol>|
+|26|int being -1 or higher|MainManager.`forcejoystick`|The meaning depends on MainManager.`usejoystick` and if it's 4 (PRE-CONFIGURED), the mapping of the values goes as follows:<ol start="0"><li>Xbox 360</li><li>Dualshock 4</li><li>Switch Pro Controller</li><li>Switch Joy-Con L</li><li>Switch Joy-Con R</li><li>Generic Controller 1</li><li>Generic Controller 2</li><li>Fight Pad Pro for Switch</li><li>Xbox Linux</li></ol>Check the [controller input settings](../InputIO/Controllers.md#controler-input-settings) for more information|
 |27|`True` or `False`|MainManager.`keepmusicafterbattle`|Determines if the music timestamp should be saved when entering a battle and restored when leaving it. NOTE: Some maps override this logic and allows an [incorrect playback issue](../General%20systems/Music%20playback.md#issue-with-musicresume) to occur under specific conditions when this setting is enabled|
 |28|`True` or `False`|MainManager.`mashcommandalt`|If true, some [ActionCommands](../Battle%20system/ActionCommands.md) will have their command overriden to another|
 |29|int|MainManager.`joybinds[0]`|The controller input bound to the up game input|
@@ -85,7 +85,7 @@ Most of the logic this method does is explained in the table above, but there's 
 - If `music[0]` is currently playing while instance.`inmusicrange` is -1 (no [MusicRange](../Entities/NPCControl/ObjectTypes/MusicRange.md) is active), `music[0]`.volume is set to the new `musicvolume` value
 - All `sounds`'s volume are set to the new `soundvolume` value
 - If `usejoystick` is 5 (CUSTOM BINDINGS), `joyid` is set to the new `forcejoystick` value
-- If `usejoystick` is 3 (CHOOSE MANUALLY) while `forcejoystick` isn't negative TODO: ??? or if `usejoystick` is 0 (DISABLED) while `joystick` is true TODO: ???:
+- If `usejoystick` is 3 (CHOOSE MANUALLY) while `forcejoystick` isn't negative (it's not set to NONE) or if `usejoystick` is 0 (DISABLED) while `joystick` is true (a controller was used while controllers are supposed to be disabled):
     - InputIO.GetJoyButtons called
     - `forcecontrollerupdate` set to true
 - If AudioSettings.speakerMode indicates a different value than the new `monoaudio` value and `music[0]` is currently playing an AudioClip, it is replayed by doing the following:
