@@ -26,7 +26,7 @@ There are 2 key concept the Unity's Input API introduces:
 - Virtual axises
 
 ### Joystick KeyCode values
-The first concept is easy to explain: the KeyCode enum isn't limited to represent just keyboard related inputs, it also contains values that represents physical controller buttons. There are several values starting from 330 to 509, but all of them have their enum value name fit the following format:
+The first concept is easy to explain: the KeyCode enum isn't limited to represent just [keyboard](Keyboard.md) related inputs, it also contains values that represents physical controller buttons. There are several values starting from 330 to 509, but all of them have their enum value name fit the following format:
 
 `JoystickXButtonY` where:
 
@@ -85,7 +85,7 @@ Now that we have a basic understanding of the input pipeline, let's look into th
 ### Controller binding presets
 In most pipeline configuration, there is a concept of a controller preset. There are 9 in the game and they contain hardcoded bindings of a known controller configuration. The current preset used is stored in MainManager.`joyid`.
 
-MainManager.`joyid` selects the controller preset. It dictates the bindings to use by InputIO.GetJoyButtons / InputIO.JoyStick (assuming custom bindings aren't used) and it also controls the glyph rendering of the various controller inputs in the game.
+MainManager.`joyid` selects the controller preset. It dictates the bindings to use by InputIO.GetJoyButtons / InputIO.JoyStick (assuming custom bindings aren't used) and it also controls the glyph rendering of all ButtonSprite.
 
 Here are the possible values and their bindings where all bindings are expressed in [joystick input](Inputs.md#joystick-inputs) id where all axis inputs shows their virtual axis id and all button inputs shows their KeyCode button id (as explained above in the Unity Input section):
 

@@ -4,7 +4,7 @@ This game has 2 input scheme:
 - [Keyboard](Keyboard.md) (always enabled and available)
 - [Controllers](Controllers.md) (enabled by default, but it can be disabled and it is optional)
 
-The game has a total of 10 inputs that are identified by a number from 0 to 9. The association of an input id to the actual action is defined by convention that is respected throughout the game and it is the only way for the game to know if a specific input is pressed or not.
+These schemes can be used to address a total of 10 game inputs that are identified by a number from 0 to 9. The association of an input id to the actual action is defined by convention that is respected throughout the game and it is the only way for the game to know if a specific input is pressed or not.
 
 Here is the table of the inputs ids to their matching action:
 
@@ -37,7 +37,6 @@ Here are the new mapping for the first 4 input values under this id scheme:
 
 ## Input related methods in InputIO
 The following methods in InputIO concerns inputs of any kinds whether [Keyboard](Keyboard.md) or [controllers](Controllers.md) are used.
-
 
 ```cs
 public static bool anyKey()
