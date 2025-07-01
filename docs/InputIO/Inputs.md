@@ -21,6 +21,18 @@ Here is the table of the inputs ids to their matching action:
 |8|Pause|The input used to pause the game|
 |9|Help|A input used for many miscellaneous actions such as starting the `map`'s tattle or [NPC](../Entities/NPCControl/NPC.md)'s tattle [SetText](../SetText/SetText.md) dialogue, unequipping all medals in the PauseMenu's medals window, show the world map in the PauseMenu's main window or access the secret menu from the StartMenu|
 
+## Input aliases
+MainManager.GetKey also supports 4 inputs aliases which are negative input ids that refers to an aggregations of inputs. It is mentioned here because it is by far the most used method by the game to pull inputs.
+
+Here is a table with the supported aliases:
+
+|Id|Description|
+|-:|-----------|
+|-4|Any game inputs (id of 0 to 9)|
+|-3|Any button inputs (id of 4 to 9)|
+|-2|Any axis inputs (id of 0 to 3)|
+|-1|Any inputs detected by Unity's Input API (Input.anyKey / Input.anyKeyDown)|
+
 ## Joystick inputs
 There is a variation to the input id system where the first 4 inputs have a different meaning when talking about input bindings for joysticks. These are called joystick input ids and they specifically concerns bindings [controllers](Controllers.md).
 

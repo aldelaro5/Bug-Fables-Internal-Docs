@@ -75,7 +75,7 @@ Here is a summary of the tasks it handles in order:
         - If the above didn't apply and the game is in a `battle`, [CancelList](../Battle%20system/Player%20UI/CancelList.md) is called on the `battle`
         - If neither of the above cases applied, `listredirect` is set to `listcancel`
         - DestroyList called to tear down the current `itemlist`
-- Calls GetJoystick TODO: detail when InputIO is documented
+- Calls [GetJoystick](Methods/Inputs.md#getjoystick)
 
 ## FixedUpdate
 MainManager.FixedUpdate is much simpler in comparision.
