@@ -136,9 +136,9 @@ Here is what happens in the coroutine:
 - instance.`projectilepsrites` is set to Resource.LoadAll Sprite from `Sprites/Misc/projectiles`
 - A frame is yielded
 - Physics.gravity is set to -40.0 in y
-- InputIO.GetJoyButtons is called TODO: Document InputIO
+- InputIO.GetJoyButtons is called which updates the [controller bindings](../InputIO/Controllers.md#games-controller-input-pipeline) according to the current settings
 - A frame is yielded
-- InputIO.SetDefaultKeys is called TODO: Document InputIO
+- InputIO.SetDefaultKeys is called which sets the [default keyboard bindings](../InputIO/Keyboard.md#default-bindings)
 - A frame is yielded
 - `chaptername` is set to null to mark this coroutine as completed
 
@@ -146,7 +146,7 @@ Here is what happens in the coroutine:
 After LoadEssentials, the boot process continues in LoadEverything:
 
 - An frame is yielded after LoadEverything is done
-- If `languageid` isn't defined (it's negative meaning this is the first boot), InputIO.LoadSettings is called without overwrite TODO: Document InputIO and config.dat. Otherwise (`languageid` is defined after a reset), SetVariables is called, but this call isn't useful since it will get called later by StartMenu, check the SetVariables section below to learn more
+- If `languageid` isn't defined (it's negative meaning this is the first boot), InputIO.[LoadSettings](../External%20data%20format/Config%20File.md) is called without overwrite. Otherwise (`languageid` is defined after a reset), SetVariables is called, but this call isn't useful since it will get called later by StartMenu, check the SetVariables section below to learn more
 - A frame is yielded
 - [SetRenderTexture](../General%20systems/Camera%20system.md#rendertexture) 0 is called to turn the feature off
 - A frame is yielded
