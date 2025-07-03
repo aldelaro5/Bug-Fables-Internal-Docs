@@ -21,6 +21,8 @@ Here is the table of the inputs ids to their matching action:
 |8|Pause|The input used to pause the game|
 |9|Help|A input used for many miscellaneous actions such as starting the `map`'s tattle or [NPC](../Entities/NPCControl/NPC.md)'s tattle [SetText](../SetText/SetText.md) dialogue, unequipping all medals in the PauseMenu's medals window, show the world map in the PauseMenu's main window or access the secret menu from the StartMenu|
 
+MainManager has an enum called `Directions` that contains the same values as the table above, but in most of the game, the int form of the value is used.
+
 ## Input aliases
 MainManager.GetKey also supports 4 inputs aliases which are negative input ids that refers to an aggregations of inputs. It is mentioned here because it is by far the most used method by the game to pull inputs.
 

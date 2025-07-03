@@ -57,7 +57,7 @@ More specifically, the method processes all inputs and inputs aliases as describ
 - If [controllers](../../InputIO/Controllers.md) are enabled and `joystick` is true (a controller was in use by the end of the last Update), controllers inputs are always checked first and they have priority. In that case [Keyboard](../../InputIO/Keyboard.md) inputs are only checked when the input isn't detected on any controllers
 - Any button inputs is checked via InputIO.GetKeyDown if `hold` is false or InputIO.GetKey if `hold` is true. However if [controllers](../../InputIO/Controllers.md) are checked, the method receives the `id` - 4 because it is required to allow InputIO to index the bound InputIO`joykeys` element
 - Any axis inputs on [Keyboard](../../InputIO/Keyboard.md) are checked the same way than buttons ones (InputIO.GetKeyDown if `hold` is false or InputIO.GetKey if `hold` is true)
-- Any axis inputs on [controllers](../../InputIO/Controllers.md) is checked via InputIO.JoyStick using all axises that can provide the input (so up/down checks either vertical axises and left/right checks either horizontal axises). Specifically, it checks that the axis value is towards the input and not be 0.0 However, if `hold` is false, the value must be more than 0.5 towards the input instead and the matching stick hold value (`stickholdx` for horixontal, `stickholdy` for vertical) must be false. These stick hold values are update on the last MainManager.[LateUpdate](../LateUpdate.md) and they are set to true if either axis in the pair has an absolute value above 0.5
+- Any axis inputs on [controllers](../../InputIO/Controllers.md) is checked via InputIO.JoyStick using all axises that can provide the input (so up/down checks either vertical axises and left/right checks either horizontal axises). Specifically, it checks that the axis value is towards the input and not be 0.0 However, if `hold` is false, the value must be more than 0.5 towards the input instead and the matching stick hold value (`stickholdx` for horixontal, `stickholdy` for vertical) must be true. These stick hold values are update on the last MainManager.[LateUpdate](../LateUpdate.md) and they are set to true if either axis in the pair has an absolute value lower than 0.5 (indicating the axises are NOT being held already). NOTE: There is a known issue where `stickholdx` and `stickholdy` don't indicate correctly if inputs were held, check the section below for more details
 
 As for how the virtual axises inputs are implemented:
 
@@ -65,6 +65,13 @@ As for how the virtual axises inputs are implemented:
 - -3: Calls this method where the `id` is from 4 to 9 using the same `hold` value. The return is true if any of these calls returns true
 - -2: Essentially does the same checks described above for all axises inputs, but for [controllers](../../InputIO/Controllers.md), it only checks that the return of InputIO.JoyStick isn't 0.0 (the rest still applies like the stick hold value needing to be false)
 - -1: The return is true if InputIO.anyKeyDown is true (InputIO.anyKey instead if `hold` is true)
+
+### Issue with `stickholdx` and `stickholdy`
+The check to know if an horizontal or vertical input is being held is incorrect because it doesn't account that the first 4 game [inputs](../../InputIO/Inputs.md) are the 4 cardinal directions unlike [joystick inputs](../../InputIO/Inputs.md#joystick-inputs) where they are pairs of horizontal and vertical axises.
+
+This discrepancy means that if the player holds left on their joystick or d-pad, it will be seen as if they are holding the ENTIRE horizontal axis instead of specifically knowing that the "left" input is being held. This specific scenario causes problems with the [TappingKey](../../Battle%20system/Action%20commands/TappingKey.md) ActionCommand in the left/right mashing prompt mode. Specifically, if the player manages to flip flop their held direction from left to right or vice versa within a frame (which can be very doable depending on the controller), the game will not accept this as a non held input because no matter if it's right or left, the game combines both inputs as the axis being held. Since it can't distinguish which one is actually held, there's no way to know that the player is actually holding a DIFFERENT input than before.
+
+The same principle applies with up/down and the vertical axis.
 
 ## Checking multiple MainManager.GetKey calls
 The following methods calls MainManager.GetKey multiple times and aggregates the result.

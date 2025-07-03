@@ -89,7 +89,7 @@ MainManager.`joyid` selects the controller preset. It dictates the bindings to u
 
 Here are the possible values and their bindings where all bindings are expressed in [joystick input](Inputs.md#joystick-inputs) id where all axis inputs shows their virtual axis id and all button inputs shows their KeyCode button id (as explained above in the Unity Input section):
 
-|Preset|Name|0 (Analogue Vertical)|1 (Analogue Horizontal)|2 (D-Pad Vertical)|3 (D-Pad Horizontal)|4 (Confirm)|5 (Cancel)|6 (Switch Party)|7 (Toggle HUD)|8 (Pause)|9 (Help)|
+|Preset|English name|0 (Analogue Vertical)|1 (Analogue Horizontal)|2 (D-Pad Vertical)|3 (D-Pad Horizontal)|4 (Confirm)|5 (Cancel)|6 (Switch Party)|7 (Toggle HUD)|8 (Pause)|9 (Help)|
 |-----:|----|-|-|-|-|-|-|-|-|-|-|
 |0|Xbox 360|1|2|6|7|0|1|2|3|7|6|
 |1|Dualshock 4|1|2|7|8|1<sup>*</sup>|2<sup>*</sup>|0|3|9|8<sup>**</sup>|
@@ -107,7 +107,7 @@ Here are the possible values and their bindings where all bindings are expressed
 
 Additionally, if the pipeline is configured to do so, MainManager.GetJoystick will automatically determine the value of MainManager.`joyid` depending on a connected controller's name. Here is an ordered table that shows each preset's detection criteria (only the first one mentioned applies, any presets not present can't be auto detected by MainManager.GetJoystick):
 
-|Preset|Name|Controller name detection criteria|
+|Preset|English name|Controller name detection criteria|
 |-----:|----|--------------------------------|
 |7|Fight Pad Pro for Switch|Name contains `Fight Pad Pro`|
 |6|Generic Controller 2|Name is exactly `Bluetooth Gamepad   ` (including the spaces) or it contains `PC/PS3/Android`|
