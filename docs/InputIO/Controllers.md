@@ -63,7 +63,7 @@ There is a specific pipeline to determine which KeyCode / virtual axis correspon
 
 Regardless of the values of these fiels, the overall structure of the pipelines remains similar. Here's the general procedure of the pipeline:
 
-- At the end of every MainManager.Update calls once `basicload` is true (after [LoadEverythin](../MainManager/Boot%20and%20reset%20process.md#loadeverything-part-12)),  MainManager.GetJoystick is always called
+- At the end of every MainManager.Update calls once `basicload` is true (after [LoadEverythin](../MainManager/Boot%20and%20reset%20process.md#loadeverything-part-12)),  MainManager.[GetJoystick](../MainManager/Methods/Inputs.md#getjoystick) is always called
 - If controllers aren't disabled, when any controller is being used while the [keyboard](Keyboard.md) was used prior, MainManager.GetJoystick determines the value MainManager.`joyid` should have according to controller settings. After, InputIO.GetJoyButtons is called
 - InputIO.GetJoyButtons determines all the InputIO.`joykeys` KeyCode values acording to current settings and the new MainManager.`joyid` value. From now on, any button [input](Inputs.md) (id 4 to 9) are bound using the InputIO.`joykeys` array where each element corresponds to the KeyCode bound of an input where the ids are shifted by 4 (so input id 4 is index 0, input id 5 is index 1, etc...)
 - Any axis inputs are processed by InputIO.JoyStick which takes a [joystick input](Inputs.md#joystick-inputs) and handles it if it's an axis input id (0 to 3). The axis to read is determined acording to current settings and the new MainManager.`joyid` value
@@ -110,7 +110,7 @@ Additionally, if the pipeline is configured to do so, MainManager.GetJoystick wi
 |Preset|English name|Controller name detection criteria|
 |-----:|----|--------------------------------|
 |7|Fight Pad Pro for Switch|Name contains `Fight Pad Pro`|
-|6|Generic Controller 2|Name is exactly `Bluetooth Gamepad   ` (including the spaces) or it contains `PC/PS3/Android`|
+|6|Generic Controller 2|Name is exactly `Bluetooth Gamepad   ` (with 3 trailing spaces) or it contains `PC/PS3/Android`|
 |5|Generic Controller 1|Name contains `ðñò`|
 |2|Switch Pro Controller|Name is exactly `Wireless Gamepad`|
 |1|Dualshock 4|Name doesn't contain `Xbox` or `XBOX`, but it has to contain `Wireless`, `PS4`, `Sony`, `tation`, `PLAYSTATION` or `3 TURBO`|

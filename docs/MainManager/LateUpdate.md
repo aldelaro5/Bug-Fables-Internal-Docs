@@ -17,8 +17,8 @@ Here's what happens during LateUpdate:
 - If the game is `inevent`, but not `inbattle`, both `letterbox` elements has their color set to a lerp from the existing color to Color.black with a factor of TieFramerate(0.15)
 - `inputcooldown` is decreased by `framestep`
 - If the `switchicon` exists, its color is set to a lerp from the existing color to Color.clear with a factor of TieFramerate(0.01)
-- `stickholdx` is updates such that it is only true if the absolute value of InputIO.JoyStick(0) or InputIO.JoyStick(2) (the left/right inputs) is higher than 0.5
-- `stickholdy` is updates such that it is only true if the absolute value of InputIO.JoyStick(1) or InputIO.JoyStick(3) (the up/down inputs) is higher than 0.5
+- `stickholdx` is updated such that it is true if the absolute value of InputIO.JoyStick(0) and InputIO.JoyStick(2) (the horizontal axises inputs) are below 0.5 indicating that neither axises have a held input on this frame
+- `stickholdy` is updated such that it is true if the absolute value of InputIO.JoyStick(1) and InputIO.JoyStick(3) (the vertical axises inputs) are below 0.5 indicating that neither axises have a held input on this frame
 - Some constraints on max numbers are enforced on 2 [flagvar](../Flags%20arrays/flagvar.md):
     - 26 (berry bank balance): Set to 10000 if it is higher
     - 27 (game token count): Set to 9999 if it is higher
