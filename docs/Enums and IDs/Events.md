@@ -2,7 +2,7 @@
 
 An event is a coroutine the game can use to execute scripted code that applies specifically to this moment. They are typically used for cutscenes, but they may be used for any general purposes so long as the code is compatible at the moment it is being executed.
 
-Each event's code is located in the `EventControl` component and it must follow this convention for its signature:
+Each event's code is located in the [EventControl](../General%20systems/EventControl.md) component and it must follow this convention for its signature:
 
 ```cs
 IEnumerator EventX()

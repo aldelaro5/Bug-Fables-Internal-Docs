@@ -130,7 +130,7 @@ While a lot of these fields have shared meanings, a lot are dependant of the spe
 |38|Length of npcdata.requires|int|Maximum of 10|
 |39-48|npcdata.requires|int\[\]|lists of [flags](../Flags%20arrays/flags.md) slots that needs to be true for the entity to exist|
 |49|Length of npcdata.limit|int|Maximum of 10|
-|50-59|npcdata.limit|int\[\]|lists of [flags](../Flags%20arrays/flags.md) slots that needs to be false for the entity to exist|
+|50-59|npcdata.limit|int\[\]|lists of [flags](../Flags%20arrays/flags.md) slots where any needs to be false for the entity to exist|
 |60|Length of npcdata.data|int|Maximum of 10|
 |61-70|npcdata.data|int\[\]|General purpose int array|
 |71|Length of npcdata.vectordata|int|Maximum of 10|
