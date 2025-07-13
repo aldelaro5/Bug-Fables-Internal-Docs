@@ -9,14 +9,14 @@ While it's only used there, it has several configurations available. Here are th
 - `maxtime`: The maximum playback time of all the `notes` in a full spinning cycle before restarting from the first `notes` element
 - `spinlimit`: The spin value requited (the value increases in increments of `spinhit` each Horn Slash) before the item spawns if it wasn't obtained already
 - `maxspin`: The maximum spin value (the value increases in increments of `spinhit` each Horn Slash)
-- `spinstop`: An amount of frames that presents the value to decrease the spin value on each LateUpdate (the value increases in increments of `spinhit` each Horn Slash)
+- `spinstop`: An amount of frames that presents the value to decrease the spin value on each LateUpdate (the value increases in increments of `spinhit` each [Horn Slash](../../PlayerControl/Field%20abilities.md#horn-slash))
 - `spinhit`: The increment to increase the spin value of the `spinner` on each Horn Slash (done on OnTriggerEnter with any `BeetleHorn` tagged colliders)
 - `musiclower`: The volume multiplier to use as the destination of a lerp applied to `music[0]`.volume on each LateUpdate while the music is playing (the lerp is done from the existing volume with a factor of the spin / `maxspin` where spin is clamped from 0.0 to `maxspin` so it approaches the scaled volume more as the cylinder spins more). This is mostly used to fade the current music using a value between 0.0 and 1.0
-- `flag`: A flag slot indicating if the item was obtained already (also bound to the NPCControl's `activationflag` of the created item when launched if `itemtype` isn't 3 so not a Crystal Berry). If `itemtype` is 3 (Crystal Berry), this value is a crystalbflags instead
+- `flag`: A [flag](../../Flags%20arrays/flags.md) slot indicating if the item was obtained already (also bound to the [NPCControl](../../Entities/NPCControl/NPCControl.md)'s `activationflag` of the created item when launched if `itemtype` isn't 3 so not a Crystal Berry). If `itemtype` is 3 (Crystal Berry), this value is a [crystalbflags](../../Enums%20and%20IDs/crystalbfflags.md) instead
 - `itemtype`: The type of item launched from the cylinder:
-    - 0: Standard item
+    - 0: Standard [item](../../Enums%20and%20IDs/Items.md)
     - 1: Key item
-    - 2: Medal
+    - 2: [Medal](../../Enums%20and%20IDs/Medal.md)
     - 3: Crystal Berry (with the crystalbflags specified in `flag`)
 - `itemid`: The item, medal id or crystalbflags of the launched item. NOTE: If `itemtype` is 3 (Crystal Berry), this value MUST match the `flag` because they're both used differently, but represents the same thing
 - `itemtime`: The amount of time in frames to spawn the item before it disappears. If it's -1.0, the item won't disappear

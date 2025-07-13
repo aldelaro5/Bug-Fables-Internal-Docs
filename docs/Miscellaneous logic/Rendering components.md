@@ -21,7 +21,7 @@ A component meant to be attached on any GameObject via Unity.
 
 It will cause on LateUpdate whenever instance.`insideid` changes to another value to change the enablement of the `child` value which is a GameObject. If the new instance.`insideid` becomes this component's `insideid`, the `child` gets enabled and if not, it gets disabled. This enablement logic can be reversed if the `invert` field is true (so enabled when NOT the inside, disabled if it is). The `child`, `insideid` and `invert` fields are all configurable via the inspector.
 
-Intuitively, it allows to control the enablement of any other GameObject according to being in a specific inside or NOT being in that inside.
+Intuitively, it allows to control the enablement of any other GameObject according to being in a specific [inside](../MapControl/Insides.md) or NOT being in that inside.
 
 ## RenderQueue
 A component meant to be attached on any GameObject via Unity, but it requires a Renderer component on the GameObject to function.
@@ -38,7 +38,7 @@ The `shadowsize` field gets set to the `size` parameter and the `shadowammount` 
 
 This component manages the SpriteRenderer of a newly created GameObject called `shadow` childed to the GameObject of the component using the MainManager.`shadowsprite` sprite with a pure white color (using `shadowammount` as the opacity).
 
-it essentially acts as a minimal version of the EntityControl's `shadow` functionality. As long as the SpriteRender is visible, its position, scale and angles changes every LateUpdate accoriding to a Raycast test from the GameObject position + 1.0 in y heading down. The `shadow` will look at the normal, be position at the point of the raycast hit and be scaled according to the y of the point (the scale is multiplied by `shadowsize`).
+it essentially acts as a minimal version of the [EntityControl](../Entities/EntityControl/EntityControl.md)'s `shadow` functionality. As long as the SpriteRender is visible, its position, scale and angles changes every LateUpdate accoriding to a Raycast test from the GameObject position + 1.0 in y heading down. The `shadow` will look at the normal, be position at the point of the raycast hit and be scaled according to the y of the point (the scale is multiplied by `shadowsize`).
 
 ## CheckOutline
 A component meant to be attached anywhere since it operates on all MeshRenderer components in the scene.
@@ -58,10 +58,10 @@ A component meant to be attached on any GameObject via Unity or attached program
 On FixedUpdate, the angles of the GameObject will change using the following logic on every FixedUpdate to make it face the game camera:
 
 - If `angle` is false, the change depends on the value of `billboard`:
-    - If it's true, the GameObject will LookAt the MainManager.MainCamera
+    - If it's true, the GameObject will LookAt the MainManager.[MainCamera](../General%20systems/Camera%20system.md#main-camera)
     - If it's false, the GameObject's y angles is set to the MainCam's y angles + `offset`
 - If `angle` is true, it leverages a GameObject that was created on Start childed to the attached GameObject reffered to as the `rotater`:
-    - `rotater` will LookAt the MainManager.MainCamera (this will implicitly change the GameObject's angles)
+    - `rotater` will LookAt the MainManager.[MainCamera](../General%20systems/Camera%20system.md#main-camera) (this will implicitly change the GameObject's angles)
     - The GameObject's local xz scales of the GameObject gets inverted compared to the values it had on Start (causes the GameObject to face the opposite direction so away from the camera)
     - The GameObject's y angles is set to the MainCam's y angles + `offset`
 
@@ -118,9 +118,9 @@ Informations about the LineRenderer is collected on Start and the visual effect 
 ## CamChange
 A component meant to be attached on any GameObject via Unity as long as the GameObject has a BoxCollider component (it is enforced by a RequireComponent attribute).
 
-It will change the instance.`camoffset`, instance.`camangleoffset` and instance.`camspeed` to this component's `offset`, `angle` and `speed` fields respectively when OnTriggerEnter happens with the MainManager.`player`. The camera fields are restored to their original value when OnTriggerExit happens with the MainManager.`player`.
+It will change the instance.`camoffset`, instance.`camangleoffset` and instance.`camspeed` to this component's `offset`, `angle` and `speed` fields respectively when OnTriggerEnter happens with the MainManager.`player`. The camera fields are restored to their original value when OnTriggerExit happens with the MainManager.`player`. For more information on the camera fields, check the [camera system](../General%20systems/Camera%20system.md) documentation.
 
-The `offset`, `angle` and `speed` fields are all configurable via the inspector. It is essentially a simpler and external version of the CameraChange Object that doesn't require a map entity to operate.
+The `offset`, `angle` and `speed` fields are all configurable via the inspector. It is essentially a simpler and external version of the [CameraChange](../Entities/NPCControl/ObjectTypes/CameraChange.md) Object that doesn't require a map entity to operate.
 
 ## LightFlicker
 A component meant to be attached on any GameObject via Unity as long as the GameObject has a Light component (it is collected on its Start).
@@ -141,7 +141,7 @@ public void SetUp(EntityControl parent, EntityControl targetentity)
 ```
 It's a component that implements specific battle related logic where 2 entities needs to have their animation synchronised. All the logic happens in LateUpdate as long as `parent` and `targetentity` aren't null and `targetentity`.`overrideanim` is false.
 
-It only has logic for the following `targetentity`.animid which won't be detailed for the sake of brevity:
+It only has logic for the following `targetentity`.[animid](../Enums%20and%20IDs/AnimIDs.md) which won't be detailed for the sake of brevity:
 
 - Venus
 - SandWyrmTail
@@ -176,7 +176,7 @@ Here's what the component does on FixedUpdate:
 ## SpriteParticleCaller
 A component meant to be attached on any GameObject via Unity.
 
-All the logic are contained in LateUpdate where as soon as a specific map entity's sprite (or a specific Renderer) becomes a specific sprite, some particle effects will be played (instantiated if they don't exist) close to the GameObject. This is all configurable via fields in the inspector:
+All the logic are contained in LateUpdate where as soon as a specific [map entity](../Entities/NPCControl/NPCControl.md)'s sprite (or a specific Renderer) becomes a specific sprite, some particle effects will be played (instantiated if they don't exist) close to the GameObject. This is all configurable via fields in the inspector:
 
 - `position`: The position (or local position if `relativeposition` is true) of the particles that will play when the watched Renderer's sprite becomes `targetsprite`
 - `renderer`: The specific Renderer to watch for its sprite becoming `targetsprite`. If it's null, it will use MainManager.`map`.`entities[mapentityid]`.`sprite` instead
@@ -199,9 +199,9 @@ Since the logic is complex, it won't be documented here, but the inspector confi
 
 - `isslep`: This should always be false because this component manages it itself (it has no good reason to be public)
 - `facingright`: Whether the sprite's logical facing direction is to the right, it's assumed to be the left if it's false
-- `insideid`: The map's inside id where the snail's sprite will remain enabled and disabled elsewhere. A value of -1 means being in any inside will disable it while not being in any will enable it
+- `insideid`: The map's [inside](../MapControl/Insides.md) id where the snail's sprite will remain enabled and disabled elsewhere. A value of -1 means being in any inside will disable it while not being in any will enable it
 
-On MoveInside, the first Caravan's Refresh method will be called which will update the AnimationClip to play according to the `isslep` value. It is assumed that there will only be one Caravan component in the scene at the time.
+On [MoveInside](../MapControl/Insides.md#moveinside), the first Caravan's Refresh method will be called which will update the AnimationClip to play according to the `isslep` value. It is assumed that there will only be one Caravan component in the scene at the time.
 
 ## ParticleRange
 A component meant to be attached on any GameObject via Unity or attached programmatically, but it needs a ParticleSystem in any children of the GameObject to function.
@@ -224,7 +224,7 @@ The range check and the playback of particles only happens every 3 LateUpdate.
 ## RandomColor
 A component meant to be attached on any GameObject via Unity anywhere as it doesn't manage its own GameObject, but it manages other MeshRenderer.
 
-This component periodically changes other MeshRenderer's material.color to specific ones with multiple mods available and optional randomness in timings or colors. All the logic is contained in LateUpdate, but since it's complex, only the public fields will be detailed:
+This component periodically changes other MeshRenderer's material.color to specific ones with multiple configuration available and optional randomness in timings or colors. All the logic is contained in LateUpdate, but since it's complex, only the public fields will be detailed:
 
 - `type`: An enum value that tells how to decide the colors to use for the `renders`:
     - `RandomFromList`: Randomly selects a color from the `colors` array whenever the color needs to be changed
@@ -233,7 +233,7 @@ This component periodically changes other MeshRenderer's material.color to speci
 - `colors`: The list of colors to cycle the `renders` when `type` isn't `Rainbow`
 - `offcolor`: When the `flag` condition isn't fufilled, this is the color all `renders` will be set to (up to once if `setoffonce` is true)
 - `renders`: The MeshRenderer whose material.color will get cycled by this component periodically
-- `flag`: If this is -1, the color cycling logic always happen on LateUpdate. If it's 0 or above, it only happens when flags slot `flag` is true as otherwise, the color cycling is disabled and all `renders`'s material.color gets set to `offcolor` instead. NOTE: Any value of -2 or below are invalid and will cause an exception to be thrown
+- `flag`: If this is -1, the color cycling logic always happen on LateUpdate. If it's 0 or above, it only happens when [flags](../Flags%20arrays/flags.md) slot `flag` is true as otherwise, the color cycling is disabled and all `renders`'s material.color gets set to `offcolor` instead. NOTE: Any value of -2 or below are invalid and will cause an exception to be thrown
 - `speed`: This field is UNUSED and does nothing
 - `frametime`: The minimum amount of frames between color cycling
 - `variant`: This serves both as the maximum amount of frames to add to `frametime` each cycle to calculate the cooldown in frames to wait before the next color cycling. It also serves as the parameter to MainManager.RainbowColor when `type` is `Rainbow`
@@ -243,7 +243,7 @@ This component periodically changes other MeshRenderer's material.color to speci
 ## PrefabParticle
 A component meant to be attached on any GameObject via Unity.
 
-This component instantiates a bunch of instances of a particles prefab and manages them all together with various configuration. This component honors the particle levels settings set from the config file. The component has a Start where the instances are created and a LateUpdate where most of their management happens. The logic is complex so only the public fields will be detailed:
+This component instantiates a bunch of instances of a particles prefab and manages them all together with various configuration. This component honors the particle levels settings set from the [config file](../External%20data%20format/Config%20File.md). The component has a Start where the instances are created and a LateUpdate where most of their management happens. The logic is complex so only the public fields will be detailed:
 
 - `prefabpart`: The prefab particle to instantiate up to `maxammount` amount of times
 - `maxammount`: The amount of instances of particles to created, but if the particle settings in the config file is set to LOW, this amount is halved (floored) on Start
@@ -255,7 +255,7 @@ This component instantiates a bunch of instances of a particles prefab and manag
 - `maxsize`: The maximum size each particles will have during the `liveframes` period
 - `childspin`: The rotation vector to use to rotate each particles on each LateUpdate. If this is Vector3.zero, no rotation happens
 
-If the particle level in the config file is set to OFF, this component gets disabled on Start.
+If the particle level in the [config file](../External%20data%20format/Config%20File.md) is set to OFF, this component gets disabled on Start.
 
 ## SpinAround
 A component meant to be added programmatically or via Unity to a GameObject. If done programmatically, the StartUp method needs to be called:
@@ -280,7 +280,7 @@ It's a general purpose component to have any kinds of GameObject rotate in vario
 - `itself`: If this isn't Vector3.zero, it will be the axis of rotation used to rotate the attached GameObject around and the `target` gets ignored unless `itselfandtarget` is true where both the rotation and movement around happens
 - `gettarget`: If true, the `target` field gets overriden to the attached GameObject's parent on Start
 - `local`: If true, the GameObject will rotate by increased its local angles by `itself` * MainManager.`framestep` instead of calling Rotate(`itself` * MainManager.`framestep`)
-- `requiresflag`: If it's not -1, flags slot `requiresflag` needs to be true for the component to do anything on Update. Any value of -2 and below are invalid and will cause an exception to be thrown
+- `requiresflag`: If it's not -1, [flags](../Flags%20arrays/flags.md) slot `requiresflag` needs to be true for the component to do anything on Update. Any value of -2 and below are invalid and will cause an exception to be thrown
 - `sf`: See below for the rotation formula, only applicable when moving around `target`
 - `ss`: See below for the rotation formula, only applicable when moving around `target`
 - `yf`: See below for the rotation formula, only applicable when moving around `target`
@@ -305,7 +305,7 @@ public void SetUp(int selectid, bool underlines)
 ```
 The `selectid` is the `option` refered to by the text and `underlines` is whether or not to render a red `_` under the option if selected.
 
-This component is specific to the choicewave command, check its documentation to learn more. The component has a Start that setups everything and most of the animation is done on FixedUpdate. It is what implements the visuals of the prompt choice highlight.
+This component is specific to the [choicewave](../SetText/Individual%20commands/Choicewave.md) SetText command, check its documentation to learn more. The component has a Start that setups everything and most of the animation is done on FixedUpdate. It is what implements the visuals of the prompt choice highlight.
 
 ## SpriteBounce
 A component meant to be added programmatically or via Unity to a GameObject. If done programmatically, the SetUp method needs to be called:
@@ -326,8 +326,8 @@ This component is a general purpose bouncing scaling animation that simulates so
 - `spritecolor`: If the GameObject has a SpriteRenderer, its sprite's color will be set to this value on Start
 - `facecamera`: If true, a FaceCamera component is added to the GameObject on Start
 - `startscale`: If true, the value of `basescale` is overriden to the GameObject's local scale on Start
-- `requiresflag`: If it's not negative, a flag slot that must be true for the GameObject's local scale to change in FixedUpdate
-- `requiresentity`: If it's not negative, a map entity id whose matching `entity`.`npcdata`.`hit` needs to be true for the GameObject's local scale to change in FixedUpdate
+- `requiresflag`: If it's not negative, a [flag](../Flags%20arrays/flags.md) slot that must be true for the GameObject's local scale to change in FixedUpdate
+- `requiresentity`: If it's not negative, a [map entity](../Entities/NPCControl/NPCControl.md) id whose matching `entity`.`npcdata`.`hit` needs to be true for the GameObject's local scale to change in FixedUpdate
 
 Each FixedUpdate that the `requiresflag` and `requiresentity` checks passes, the GameObject's local scale is set to a value using the following formula:
 
@@ -366,7 +366,7 @@ It has a Start and a LateUpdate where most of the logic happens. Here are all th
 ## FaderRange
 A component meant to be attached on any GameObject via Unity, but it requires to have Renderers children to function (collected on Start).
 
-This component will fade / unfade all of the child Renderer depending on if the MainManager.`player` position or the MainManager.`MainCamera`.WorldToViewportPoint's z falls within a range or not of the GameObject position . It also manages the renderQueue and shader of the Renderer throughout this process.
+This component will fade / unfade all of the child Renderer depending on if the MainManager.`player` position or the MainManager.[MainCamera](../General%20systems/Camera%20system.md#main-camera).WorldToViewportPoint's z falls within a range or not of the GameObject position . It also manages the renderQueue and shader of the Renderer throughout this process.
 
 Here's all the public fields:
 
@@ -448,7 +448,7 @@ A component meant to be attached on any GameObject via Unity.
 
 This is a component made to hold many animation related methods meaning it doesn't really have logic on its own, but rather provides logic meant to be called by Unity's Animator using an animation event. It's meant to be attached to the GameObject where animations happens so that the methods can be called by the Animator.
 
-The component does have a Start though that will collect the EntityControl component if `getentity` and `model` are true which is assumed to be at the grand grant parent of the GameObject. This enables some methods that requires to operate on the entity for a model entity. The `getentity` and `model` fields are configurable via the inspector.
+The component does have a Start though that will collect the [EntityControl](../Entities/EntityControl/EntityControl.md) component if `getentity` and `model` are true which is assumed to be at the grand grant parent of the GameObject. This enables some methods that requires to operate on the entity for a [model entity](../Entities/EntityControl/Notable%20methods/AddModel.md#addmodel). The `getentity` and `model` fields are configurable via the inspector.
 
 ## GlowTrigger
 A component meant to be added programmatically or via Unity to a GameObject.
@@ -458,4 +458,4 @@ TODO: This is complex, document later
 ## Fader
 A component meant to be added programmatically or via Unity to a GameObject.
 
-This is a general purpose component meant to fade the GameObject attached when it is obstructing the camera view. The logic is too complex to detail, but the map can configure them and this is documented in the fader control section of the graphics documentation.
+This is a general purpose component meant to fade the GameObject attached when it is obstructing the camera view. The logic is too complex to detail, but the map can configure them and this is documented in the [fader control](../MapControl/Graphics%20configuration.md#fader-control) section of the graphics documentation.

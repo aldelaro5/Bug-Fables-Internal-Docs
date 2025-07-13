@@ -4,7 +4,7 @@ PauseMenu is the component that implements the pause menu of the game, but it ca
 This component is very complex because most of its logic is extremely verbose UI rendering. Because of this, not much will be documented about its internals, but the parts that will be documented are useful for the rest of the game's logic.
 
 ## Pausing
-Pausing in the overworld is entirely managed by PlayerControl's [GetInput](../PlayerControl/GetInput.md) when the pause input is pressed and the game is pausable. When that happens, a new GameObject is created named `PauseMenu` with the PauseMenu component on it.
+Pausing in the overworld is entirely managed by PlayerControl's [GetInput](../../PlayerControl/GetInput.md) when the pause input is pressed and the game is pausable. When that happens, a new GameObject is created named `PauseMenu` with the PauseMenu component on it.
 
 This leads to its start which renders windows 0 (the main pause screen). More importantly, Start sets MainManager.`pausemenu` to the GameObject and instance.`pause` to true. This is the strongest pausing kind in the game, even stronger than a `minipause` and it will prevent a lot of logic to happen in the rest of the game.
 
@@ -15,7 +15,7 @@ Finally, for the battle pausing, it goes the same as the overworld pausing, but 
 ## Unity events
 The section above brought up Start, but the component also uses other Unity events:
 
-- OnGUI: Monitor [keyboards](../InputIO/Keyboard.md) inputs when rebinding it
+- OnGUI: Monitor [keyboards](../../InputIO/Keyboard.md) inputs when rebinding it
 - FixedUpdate: Changes the color of the `dimmer` (a child GameObject that controls how faded the game looks). The only thing it really does is to lerp its color to Color.clear when unpausing
 - Update: The main event used for most of the UI handling logic of the menu
 
@@ -25,8 +25,8 @@ Exiting the pause menu first involves the DestroyPause method which does some ta
 At the end, DestroyPause is called in 0.25 seconds which is what will do the actual unpausing. Here's what it does:
 
 - Set instance.`pause` to false
-- Destroys the current [ItemList](../ItemList/ItemList.md) if one is present
-- [CheckAchievement](Achievements.md#checkachievement) is invoked in 0.5 seconds
+- Destroys the current [ItemList](../../ItemList/ItemList.md) if one is present
+- [CheckAchievement](../../General%20systems/Achievements.md#checkachievement) is invoked in 0.5 seconds
 - MainManager.`player`.`pausecooldown` is set to 7.0 frames
 - The GameObject with the PauseMenu gets destroyed
 
@@ -36,10 +36,10 @@ The pause menu is divided into multiple GUI windows and they have ids associated
 |Id|Description|
 |-:|-----------|
 |0|The main pause menu screen|
-|1|Items inventory|
-|2|Medals and skills|
-|3|Library|
-|4|Settings|
-|5|Keyboard bindings|
-|6|World map|
+|1|[Items](../../Enums%20and%20IDs/Items.md) inventory|
+|2|[Medals](../../Enums%20and%20IDs/Medal.md) and [skills](../../Enums%20and%20IDs/Skills.md)|
+|3|[Library](../../MainManager/Methods/Library.md#library)|
+|4|Settings (changes the fields in the [config file](../../External%20data%20format/Config%20File.md))|
+|5|[Keyboard](../../InputIO/Keyboard.md) bindings|
+|6|World map (presents the seen [areas](../../Enums%20and%20IDs/librarystuff/Areas.md))|
 |7|An UNUSED controller bindings window, this was replaced with the CUSTOM BINDING wizard from the settings|

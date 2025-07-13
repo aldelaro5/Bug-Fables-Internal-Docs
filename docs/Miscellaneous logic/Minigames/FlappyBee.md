@@ -1,8 +1,8 @@
 # FlappyBee
-This is a minigame at the Termacade. It is a side scrolling game made using 2 components: FlappyBee and FlappyBeePlayer.
+This is a minigame at the Termacade. It is a 2D side scrolling game made using 2 components: FlappyBee and FlappyBeePlayer.
 
 ## FlappyBee
-The game has a FlappyBeePlayer that can flutter when pressing the confirm input where the game perpetually moves walls, enemies, combo pickup and honey items from right to left. The goal of the game is to survive as long as possible without hitting a wall or enemy without invulnerability which can be given when picking up a honey item. The collision detection part is done by FlappyBeePlayer which is explained below. The game can go on infinetely until the game over condition is hit.
+The game has a FlappyBeePlayer that can flutter when pressing the confirm input where the game perpetually moves walls, enemies, combo pickup and honey items from right to left. The goal of the game is to survive as long as possible without hitting a wall or enemy without invulnerability which can be given when picking up a honey item. The collision detection part is done by FlappyBeePlayer which is explained in a section below. The game can go on infinetely until the game over condition is hit.
 
 Score is given in various ways, but in general, being alive longer yields better score. Here's the exact ways to get points:
 
@@ -22,7 +22,7 @@ The `combo` system also affects some spawning behaviors:
 - At a `combo` above 3 after passing at least 8 walls, enemy starts to be able to be spawned. They can only spawn each 10 walls passed total (15 instead if the amount is above 100 or each 5 if invulnerable and there's more than 30.0 frames left of it) and the rate is 75% (100% instead if invulnerable and there's more than 30.0 frames left of it). An enemy can only spawn when one isn't present
 - At a `combo` above 7, each 7 items (5 instead if an enemy is present), there is a 40% chance (60% instead if an enemy is present) that the item is a honey. NOTE: Because the "each X item" part is done using a modulo, it's possible that an enemy appearing interferes both of these checks such that no honey can spawn even if 7 items are passed so for example, if 6 items passes, but an enemy spawns, the 7th won't have the chance to be a honey because it isn't divisible by 5 and an enemy appeared
 
-It is possible to pause the game with the pause input which allows to quit with the cancel input or to resume with the confirm input.
+It is possible to pause the game with the pause [input](../../InputIO/Inputs.md) which allows to quit with the cancel input or to resume with the confirm input.
 
 ## FlappyBeePlayer
 This is a simple component that holds a reference to the FlappyBee.

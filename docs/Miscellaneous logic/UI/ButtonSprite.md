@@ -1,5 +1,5 @@
 # ButtonSprite
-This component controls a input glyph rendering. The component renders a glyph that matches the physical input acording to current input bindings and input scheme. It is constantly monitoring changes in either to render the one matching the current input state. It can even be rendered using a button SetText command, but it's available to be used outside of it as well. A glyph is composed of a sprite and optionally, some text inside rendered by SetText in non dialogue mode.
+This component controls an [input](../../InputIO/Inputs.md) glyph rendering. The component renders a glyph that matches the physical input acording to current input bindings and input scheme. It is constantly monitoring changes in either to render the one matching the current input state. It can even be rendered using a [button](../../SetText/Individual%20commands/Button.md) SetText command, but it's available to be used outside of it as well. A glyph is composed of a sprite and optionally, some text inside rendered by [SetText](../../SetText/SetText.md) in [non dialogue mode](../../SetText/Dialogue%20mode.md#non-dialogue-mode).
 
 It it meant to be programmatically attached to a component with a SpriteRenderer and have the SetUp method called upon adding it:
 
@@ -19,9 +19,9 @@ The first overload doesn't use any unsent parameters so their associated fields 
 
 Here's the parameters to fields mapping (all of these are private fields):
 
-- `buttonid`: `id`, the input id of the glyph to render
-- `onlytype`: `onlyone`, if this is 1 or higher, controller glyphs are always used even if MainManager.`joystick` is true. If this is -1, controller glyphs are only used if MainManager.`joystick` is true. Any other number will cause keyboard glyphs to always be used even if MainManager.`joystick` is true
-- `descriptions`: `labeltext`, The test to render near the glyph via SetText on Start in non dialogue mode childed to the GameObject. If this is null or empty, no text will be rendered on Start
+- `buttonid`: `id`, the [input id](../../InputIO/Inputs.md) of the glyph to render
+- `onlytype`: `onlyone`, if this is 1 or higher, [controller](../../InputIO/Controllers.md) glyphs are always used even if MainManager.`joystick` is true. If this is -1, controller glyphs are only used if MainManager.`joystick` is true. Any other number will cause keyboard glyphs to always be used even if MainManager.`joystick` is true
+- `descriptions`: `labeltext`, The test to render near the glyph via [SetText](../../SetText/SetText.md) on Start in [non dialogue mode](../../SetText/Dialogue%20mode.md#non-dialogue-mode) childed to the GameObject. If this is null or empty, no text will be rendered on Start
 - `position`: `tposition`, The local position of the GameObject to set on Start. If this is null, it won't be changed
 - `iconsize`: `size`, The scale of the GameObject to use in the component. If this is null, it defaults to Vector3.one
 - `sortorder`: `overridesortorder`, The base sortingOrder of the glyph. Arrows and text inside the glyph are rendered with this value + 1 as the sortingOrder

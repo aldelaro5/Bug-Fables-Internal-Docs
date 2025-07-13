@@ -25,9 +25,9 @@ It will create a GameObject named `DynFont - X` where `X` is `displaytext` with 
 - `sort`: `sortorder`
 - `smallersize`: `small`
 
-This component is important because it serve as a secondary way to render text that doesn't features any of the versatility then SetText, but it does have one huge advantage over it: it is made for text that constantly changes. SetText has to manage a lot of ressources (and it's very inefficient at it) and it has a letter slot limit on top of having a lot of overhead to just render the text or process the commands, but DynamicFont doesn't have such limits.
+This component is important because it serve as a secondary way to render text that doesn't features any of the versatility that [SetText](../../SetText/SetText.md) offers, but it does have one huge advantage over it: it is made for text that constantly changes. SetText has to manage a lot of ressources (and it's very inefficient at it) and it has a [letter slot](../../SetText/Letter%20slots.md) limit on top of having a lot of overhead to just render the text or process the commands, but DynamicFont doesn't have such limits.
 
-This is because all DynamicFont does on Update is simply to change the text field of all the TextMeshes. There's no materials being created, no effects, just the text changes. Since Unity is particularily efficient at handling this, it makes DynamicFont really performant for dynamically rendering text that reacts to the game. A prime example of in game usage is rendering HP numbers in the HUD: since they are expected to change a lot, it's much more efficient to use DynamicFont. The rendering only happens once on Start where one GameObject is created per TextMesh and they aren't rendered again. Only changes to the text are monitored on Update, but it also has a configurable throttle to reflect those changes.
+This is because all DynamicFont does on Update is simply to change the text field of all the TextMeshes. There's no materials being created, no effects, just the text changes. Since Unity is particularily efficient at handling this, it makes DynamicFont really performant for dynamically rendering text that reacts to the game. A prime example of in game usage is rendering HP numbers in the [HUD](../../General%20systems/HUD.md): since they are expected to change a lot, it's much more efficient to use DynamicFont. The rendering only happens once on Start where one GameObject is created per TextMesh and they aren't rendered again. Only changes to the text are monitored on Update, but it also has a configurable throttle to reflect those changes.
 
 Here are the public fields:
 
@@ -48,7 +48,7 @@ Here are the public fields:
 
 Some additional notes about Start:
 
-- `fontindex` on Start is set to MainManager.FontID(`fontindex`) so it represents the actually resolved font id after
+- `fontindex` on Start is set to MainManager.FontID(`fontindex`) so it represents the actually resolved [font id](../../SetText/Notable%20states.md#font-id-table) after
 - If the parent of the GameObject is still null by then, it is set to MainManager.`GUICamera`.transform
 - The local angles are set to Vector3.zero
 

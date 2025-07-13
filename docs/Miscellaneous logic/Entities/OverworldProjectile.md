@@ -6,4 +6,4 @@ public static OverworldProjectile NewProjectile(NPCControl parent, int spriteind
 ```
 It will create the GameObject with the component on it.
 
-This component is specific to the ShootProjectile ActionBehavior or related behavioirs, check the documentation to learn more.
+This component is specific to the [ShootProjectile](../../Entities/NPCControl/ActionBehaviors/ShootProjectile.md) ActionBehavior or related behavioirs, check the documentation to learn more.

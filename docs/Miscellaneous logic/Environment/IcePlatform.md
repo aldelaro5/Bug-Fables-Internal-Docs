@@ -4,7 +4,7 @@ A component meant to be attached on any GameObject via Unity, but it requires th
 - Any collider in any children of the GameObject
 - Any ParticleSystem in any children of the GameObject
 
-This component is specific to involve a platform that only has its collider enabled under the effects of a StencilSwitch and scales smoothly accordingly when this changes. It has a Start and LateUpdate (where most of the logic happens). Since the logic is complex, only the public fields will be detailed:
+This component is specific to involve a platform that only has its collider enabled under the effects of a [StencilSwitch](../../Entities/NPCControl/ObjectTypes/StencilSwitch.md) and scales smoothly accordingly when this changes. It has a Start and LateUpdate (where most of the logic happens). Since the logic is complex, only the public fields will be detailed:
 
 - `center`: The local position offset that when added to the attached GameObject's position, it is considered as the center point whose distance to the StencilSwitch will be checked against
 - `growspeedstep`: The maximum amount of frames that the platform will grow from Vector3.zero when in range of the StencilSwitch that's activated or shrink to Vector3.zero when not in range or deactivated

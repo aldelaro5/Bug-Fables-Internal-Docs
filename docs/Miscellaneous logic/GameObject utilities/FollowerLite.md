@@ -14,4 +14,4 @@ Every 3 LateUpdate including the first one where `following` isn't null, the fol
 
 At the end of every LateUpdate, if the GameObject is in range of the `following`, the GameObject position is set to a lerp between its position and `following` position with a factor of TieFramerate(`speed`).
 
-This component is essentially a lighter version of the EntityControl's follow system, but can be attached to any GameObject. It is only used during the UpdateAnimSpecific of a `Ruffian` animid for its ball and chain to follow them.
+This component is essentially a lighter version of the EntityControl's [follow system](../../Entities/EntityControl/Notable%20methods/Follow.md), but can be attached to any GameObject. It is only used during the UpdateAnimSpecific of a `Ruffian` animid for its ball and chain to follow them.

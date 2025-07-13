@@ -1,7 +1,7 @@
 # ConditionChecker
 A component meant to be attached on any GameObject via Unity.
 
-This is a general purpose component to essentially disable or move offscreen a GameObject that doesn't fufill certain conditions regarding flags slots and regionals flags. It implements this using MainManager.CheckIfCanExist which is used throughout the game and it is the system NPCControl also uses for disabling themselves when their flags requirements aren't met. The purpose of using this component is it allows to have the same logic, but done completely standalone from any GameObject in Unity. It has a Start where most of the logic happen and a LateUpdate that may move the GameObject offscreen after the fact.
+This is a general purpose component to essentially disable or move offscreen a GameObject that doesn't fufill certain conditions regarding [flags](../../Flags%20arrays/flags.md) slots and [regionalsflags](../../Flags%20arrays/Regionalflags.md). It implements this using MainManager.[CheckIfCanExist](../../MainManager/Methods/Game%20utilities.md#condition-checking) which is used throughout the game and it is the system [NPCControl](../../Entities/NPCControl/NPCControl.md) also uses for disabling themselves when their flags requirements aren't met. The purpose of using this component is it allows to have the same logic, but done completely standalone from any GameObject in Unity. It has a Start where most of the logic happen and a LateUpdate that may move the GameObject offscreen after the fact.
 
 It has several public fields to configure its behavior:
 

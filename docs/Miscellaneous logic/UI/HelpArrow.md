@@ -16,8 +16,8 @@ The last 3 parameters of NewArrow configure the component's private fields:
 
 There is also an exposed `lockarrow` field that when set to true will force the `distance` check to fail so the SpriteRenderer is always disabled.
 
-Most of the logic happens on Update, but it won't be detailed here for the sake of brevity. Essentially, it is a compoennt specific to when MainManager.`player` is `Beetle` when near enough to a GameObject with this component to indicate the angle at which the object will go when using `Beetle`'s Horn Slash ability on it. Specifically, it's used for:
+Most of the logic happens on Update, but it won't be detailed here for the sake of brevity. Essentially, it is a compoennt specific to when MainManager.`player` is `Beetle` when near enough to a GameObject with this component to indicate the angle at which the object will go when using `Beetle`'s [Horn Slash](../../PlayerControl/Field%20abilities.md#horn-slash) ability on it. Specifically, it's used for:
 
-- Hornable of type `IceCube`
-- NPCControl of type Enemy (`lockarrow` is set to true unless they are frozen)
-- Any PushRock with a `data[2]` that doesn't exist or is 0
+- Hornable of type `IceCube` (used for [Dropplet](../../Entities/NPCControl/ObjectTypes/Dropplet.md))
+- NPCControl of type [Enemy](../../Entities/NPCControl/Enemy.md) (`lockarrow` is set to true unless they are frozen)
+- Any [PushRock](../../Entities/NPCControl/ObjectTypes/PushRock.md) with a `data[2]` that doesn't exist or is 0
