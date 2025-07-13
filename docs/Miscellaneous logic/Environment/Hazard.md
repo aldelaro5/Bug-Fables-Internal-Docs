@@ -1,7 +1,7 @@
 # Hazards
 This component can be attached to a GameObject via Unity or added programmatically, but it requires a BoxCollider component that this component will force to be trigger.
 
-A Hazards is considered a dangerous zone in a [map](../../Enums%20and%20IDs/Maps.md) and any contact with it will be handled depending on the hazard type and the specifics of what is trigger colliding with it. The vast majority of them are defined in Unity in maps, but a [GlowTrigger](../Rendering%20components.md#glowtrigger) can add its own if their `electime` isn't 0.0. All collision handling is done on OnTriggerEnter with some logic on LateUpdate, Update and Start.
+A Hazards is considered a dangerous zone in a [map](../../Enums%20and%20IDs/Maps.md) and any contact with it will be handled depending on the hazard type and the specifics of what is trigger colliding with it. The vast majority of them are defined in Unity in maps, but a [GlowTrigger](GlowTrigger.md) can add its own if their `electime` isn't 0.0. All collision handling is done on OnTriggerEnter with some logic on LateUpdate, Update and Start.
 
 ## Configuration fields
 There are various configurations available for hazards, here are all the public fields:
