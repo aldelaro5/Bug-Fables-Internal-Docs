@@ -450,11 +450,6 @@ This is a component made to hold many animation related methods meaning it doesn
 
 The component does have a Start though that will collect the [EntityControl](../Entities/EntityControl/EntityControl.md) component if `getentity` and `model` are true which is assumed to be at the grand grant parent of the GameObject. This enables some methods that requires to operate on the entity for a [model entity](../Entities/EntityControl/Notable%20methods/AddModel.md#addmodel). The `getentity` and `model` fields are configurable via the inspector.
 
-## GlowTrigger
-A component meant to be added programmatically or via Unity to a GameObject.
-
-TODO: This is complex, document later
-
 ## Fader
 A component meant to be added programmatically or via Unity to a GameObject.
 
