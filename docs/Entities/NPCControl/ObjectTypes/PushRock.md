@@ -16,7 +16,7 @@ A rock or a pushable ice cube that can be moved using Kabbu's Horn Slash with co
 - `vectordata[1]`: UNUSED (was used to specify the local position of the special collider mentioned in `data[0]`)
 
 ## Additional data
-- `boxcol`: Required to be present with valid data as a non trigger collider.
+- `boxcol`: Required to be present with valid data as a non trigger collider. The size is only used as the local scale of the `model`'s first child if `data[2]` is above 0 (it's an ice cube) and the half of size.y is used as the local y position. This will be enforced on SetUp.
 
 ## A simplified explanation of how this object functions
 This object is very complex and even includes unused logic under normal gameplay. The underlying system is simpler to explain in its own section which is what this section will attempt to do. If more details are needed, check the other sections.
