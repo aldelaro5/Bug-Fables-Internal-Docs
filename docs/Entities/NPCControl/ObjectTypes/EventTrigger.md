@@ -3,7 +3,7 @@ An [event](../../../Enums%20and%20IDs/Events.md) trigger zone. It can either unc
 
 ## Data Arrays
 - `data[0]`: The [event](../../../Enums%20and%20IDs/Events.md) id this will start when triggered
-- `data[1]`: If not 0 or doesn't exist, the object is destroyed after triggering it, only applicable if `data[2]` doesn't exist or isn't 1
+- `data[1]`: If 0 or doesn't exist, the object is destroyed after triggering it, only applicable if `data[2]` doesn't exist or isn't 1
 - `data[2]`: If 1, the event is unconditionally started on the first Update cycle before destroying this NPCControl making it a one shot event. This is optional, if it doesn't exist, this feature is disabled.
 
 ## Additional data
