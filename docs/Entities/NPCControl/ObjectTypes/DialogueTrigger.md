@@ -3,7 +3,7 @@ A zone where a [SetText](../../../SetText/SetText.md) call starts in [dialogue m
 
 ## Data Arrays
 - `data[0]`: The map dialogue line id to call [SetText](../../../SetText/SetText.md) in [dialogue mode](../../../SetText/Dialogue%20mode.md) when triggered
-- `data[1]`: If not 0 or doesn't exist, the object is destroyed after triggering it, only applicable if `data[2]` doesn't exist or isn't 1
+- `data[1]`: If 0 or doesn't exist, the object is destroyed after triggering it, only applicable if `data[2]` doesn't exist or isn't 1
 - `data[2]`: If 1, the SetText call is unconditionally started on the first Update cycle before destroying this NPCControl making it a one shot call. This is optional, if it doesn't exist, this feature is disabled.
 
 ## Additional data
