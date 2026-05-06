@@ -5,7 +5,7 @@ A save crystal that can be hit using field abilities. It can be blue which only 
 - `data[0]`: If 1, a `Prefabs/Objects/PolySphere` will be rendered as illumination, it won't otherwise
 - `data[1]`: If it's 10 or above, this is a red save crystal that will force a DeadLanderOmega to look somewhere whose `thisid` is this value -10.
 - `data[2]`: If 0, this is a yellow save crystal (unless `data[1]` is 10 or above making it render red) which will also heal the party, this a blue save crystal otherwise unless.
-- `vectordata[0]`: if `data[1]` is 10 or above, this is the position the DeadLanderOmega will be forced to look at
+- `vectordata[0]`: if `data[1]` is 10 or above, this is the position the DeadLanderOmega will be forced to look at. Otherwise, this is the starting position that will be saved on the save file if the player saves using this SavePoint.
 
 ## Additional data
 - `interacttype`: OVERRIDEN (to [SavePoint](../Interaction/SavePoint.md))
