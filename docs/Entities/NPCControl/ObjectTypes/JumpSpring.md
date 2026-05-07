@@ -7,7 +7,7 @@ A spring that makes an entity jump up high via [Jump](../../EntityControl/Entity
 - `data[2]`: If not negative and `data[0]` is 1, this is a map entity id corresponding to a [DoorSameMap](DoorSameMap.md) that will be triggered when the spring jump occurs
 - `vectordata[0].x`: The height of the jump. If `data[0]` is 0, this must be above 1.0 or it will be overriden to the default `jumpheight` of the entity that collides with this object
 - `vectordata[1]`: The position to jump to when touched if `data[0]` is 1
-- `vectordata[2].x`: If `data[0]` is 1, the jump multiplier clamped from 1.0 to 99.0. This is optional, if it doesn't exist, the default is 1.0.
+- `vectordata[2].x`: If `data[0]` is 1, it is the jump duration divisor clamped from 1.0 to 99.0. This is optional, if it doesn't exist, the default is 1.0.
 
 ## Additional data
 - `boxcol`: Required to be present with valid data
