@@ -20,20 +20,20 @@ The meaning of `data[0]` and `data[1]` these 2 data elements have very complex s
 
 To note, `data[4]` acts completely independently of `data[0]` and `data[1]`. It only permits actuation from Kabbu's horn and makes the switch `Hornable` which allows PlayerControl to get a green ! emoticon when getting 2.5 or lower distance from the switch for 5 frames.
 
+The starting `hit` value after SetUp is always false unless `activationflag` isn't negative where it tells the starting value of `hit` by its flag slot with the 0 value allowed.
+
 Unless stated otheriwse, `activationflag` and `regionalflag` only applies when the former is above 0 and when the latter is positive. Here is a breakdown of all actuation flow:
 
-|`data[0]`|`data[1]`|Starting `hit` value|Actuation flow|Effects on actuation|
-|---------|---------|-------------------|--------------|---------------|
-|0|0|If the `activationflag` flag slot (with the 0 value being allowed) is true, the switch will continuously set its `hit` to true during Update if `data[2]` exists and isn't negative.|This switch can only be toggled on. If `data[2]` exists and is positive, the switch automatically turns itself off after the amount of frames contained in `data[2]` passed. Otherwise, the switch cannot be turned off|When `hit` turns true, both `activationflag` and `regionalflag` respective slots are set to true|
-|0|1|`activationflag` (with the 0 value allowed) tells the starting value of `hit` by its flag slot.|The switch can be toggled on and off. Once toggled, there is a 30 frames cooldown before being able to toggle it again, but `data[2]` can override the cooldown time if it exist and isn't negative|When actuated, the `activationflag` flag slot is set to the new `hit` value. Additionally, all other switch NPCControl present with the same `data[0]`, `data[1]` and `activationflag` values will have their `hit` values set to the new one after the toggle|
-|1|Negative<sup>1</sup>|false|The switch can only be turned on once unless the `TOG` [modifier](../../EntityControl/Modifiers.md) is active which allows the switch to be toggled on and off.|When the switch is actuated, both `activationflag` and `regionalflag` respective slots are set to true. Additionally, if entity.`originalid` has an undefined (-1) [animid](../../../Enums%20and%20IDs/AnimIDs.md), entity.`iskill` is set to true|
-|1|0 or above|false<sup>2</sup>|The same actuation flow than if `data[1]` was negative<sup>3</sup>|That same effects occurs than if `data[1]` was negative with the addition that `data[1]` is an [event](../../../Enums%20and%20IDs/Events.md) id that will trigger with this switch as the caller each time the switch is actuated|
+|`data[0]`|`data[1]`|Actuation flow|Effects on actuation|
+|---------|---------|--------------|---------------|
+|0|0|This switch can only be toggled on. If `data[2]` exists and is positive (which is always the case under normal gameplay), what happens depends on the `activationflag` value:<ul><li>0 or above and the matching flag slot is true: `hit` is always set to true in Update</li><li>The above doesn't apply: `hit` is automatically set back to false after the amount of frames contained in `data[2]` passed</li></ul>|When `hit` turns true, both `activationflag` and `regionalflag` respective slots are set to true|
+|0|1|The switch can be toggled on and off. Once toggled, there is a 30 frames cooldown before being able to toggle it again, but `data[2]` can override the cooldown time if it exist and isn't negative|When actuated, the `activationflag` flag slot is set to the new `hit` value. Additionally if the `activationflag` isn't negative, all other switch NPCControl present with the same `data[0]`, `data[1]` and `activationflag` values will have their `hit` values set to the new one after the toggle|
+|1|Negative<sup>1</sup>|The switch can only be turned on once unless the `TOG` [modifier](../../EntityControl/Modifiers.md) is active which allows the switch to be toggled on and off.|When the switch is actuated, both `activationflag` and `regionalflag` respective slots are set to true. Additionally, if entity.`originalid` has an undefined (-1) [animid](../../../Enums%20and%20IDs/AnimIDs.md), entity.`iskill` is set to true|
+|1|0 or above|The same actuation flow than if `data[1]` was negative<sup>2</sup>|That same effects occurs than if `data[1]` was negative with the addition that `data[1]` is an [event](../../../Enums%20and%20IDs/Events.md) id that will trigger with this switch as the caller each time the switch is actuated|
 
 1: Under normal gameplay, `data[1]` is never negative whenever `data[0]` is 1 for any switches that exists. This makes this combination unused in general.
 
-2: If `data[1]` is 1, the starting value of `hit` is the value of the `activationflag` (0 included) flag slot. It should be noted that such a combination is never used under normal gameplay.
-
-3: If `data[1]` is 0, it allows `data[2]` if it exists and isn't negative to make the switch automatically turns itself off after the amount of frames contained in `data[2]` passed after each actuation. It also sets the `hit` value to true continuously during Update if `activationflag` (0 included) flag slot is true. It should be noted that this combination is never used under normal gameplay.
+2: If `data[1]` is 0, it allows `data[2]` if it exists and isn't negative to make the switch automatically turns itself off after the amount of frames contained in `data[2]` passed after each actuation. It also sets the `hit` value to true continuously during Update if `activationflag` (0 included) flag slot is true. It should be noted that this combination is never used under normal gameplay.
 
 ## Setup
 - entity.`rigid` gets effectively fixed by placing it in kinematic mode without gravity and all constraints frozen 
